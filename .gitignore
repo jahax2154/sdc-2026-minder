@@ -1,0 +1,30 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# ML generated data and artifacts
+ml/data/raw/
+ml/data/processed/
+ml/artifacts/
+ml/runs/
+*.pt
+*.pth
+*.ckpt
+*.joblib
+
+# Local files
+.DS_Store
+*.log
