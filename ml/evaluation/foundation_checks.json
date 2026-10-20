@@ -1,0 +1,369 @@
+{
+  "recorded_at_utc": "2026-10-20T15:59:09.813559+00:00",
+  "actual_execution_location": "local macOS arm64; no RunPod fitting",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "python": "3.9.6",
+  "gates": {
+    "A": {
+      "status": "passed",
+      "evidence": "checks command exit 0, mathematical and executable result contracts tested"
+    },
+    "B": {
+      "status": "pending",
+      "evidence": "No verified RunPod runner, credit applicability or budget. Smoke refused before fitting. Ridge construction passed; local XGBoost import failed: missing libomp.dylib."
+    },
+    "C": {
+      "status": "not_evaluated",
+      "evidence": "0 supplied/new annotation data rows, 0 independent reviewed labels, 0 profile groups; reviewed milestone catalogue missing"
+    },
+    "D": {
+      "status": "passed",
+      "evidence": "Callable baseline scoring returns 67; schema validation, unavailable learners, missing inputs and disabled LLM tests pass. No HTTP route skeleton exists."
+    }
+  },
+  "tests_run": 35,
+  "test_failures": 0,
+  "fitting_runs": [],
+  "reviewed_dataset": {
+    "rows": 0,
+    "profile_groups": 0,
+    "development_rows": 0,
+    "holdout_rows": 0,
+    "real_split_created": false
+  },
+  "synthetic_math_fixture": {
+    "rows": 32,
+    "purpose": "unexecuted fit/predict smoke fixture only, not reviewed annotations"
+  },
+  "per_candidate": {
+    "ridge": {
+      "fit_wall_seconds": null,
+      "fit_process_cpu_seconds": null,
+      "inference_timing": null,
+      "reload_max_difference": null,
+      "empirical_ndcg_at_3": null,
+      "empirical_mae": null
+    },
+    "xgboost": {
+      "fit_wall_seconds": null,
+      "fit_process_cpu_seconds": null,
+      "inference_timing": null,
+      "reload_max_difference": null,
+      "empirical_ndcg_at_3": null,
+      "empirical_mae": null
+    }
+  },
+  "default_scorer": "baseline",
+  "preservation": {
+    "all_preexisting_files_present": true,
+    "modified_existing_files": [
+      "ML_DESIGN.md",
+      "contracts/README.md",
+      "docs/ARCHITECTURE.md",
+      "ml/README.md"
+    ],
+    "source_pack_unchanged": true,
+    "new_task_files": [
+      "contracts/personal-fit-annotation.v1.schema.json",
+      "contracts/recommendation-result.v1.schema.json",
+      "docs/ml-foundation.md",
+      "ml/data/annotations/personal_fit_annotations.csv",
+      "ml/data/reference/README.md",
+      "ml/evaluation/foundation_checks.json",
+      "ml/requirements-foundation.txt",
+      "ml/src/minder_ml/__init__.py",
+      "ml/src/minder_ml/intelligence/__init__.py",
+      "ml/src/minder_ml/intelligence/__main__.py",
+      "ml/src/minder_ml/intelligence/artifacts.py",
+      "ml/src/minder_ml/intelligence/estimators.py",
+      "ml/src/minder_ml/intelligence/evaluation.py",
+      "ml/src/minder_ml/intelligence/features.py",
+      "ml/src/minder_ml/intelligence/inference.py",
+      "ml/src/minder_ml/intelligence/llm.py",
+      "ml/src/minder_ml/intelligence/schemas.py",
+      "ml/src/minder_ml/intelligence/scoring.py",
+      "ml/src/minder_ml/intelligence/training.py",
+      "ml/tests/fixtures/example_request.json",
+      "ml/tests/fixtures/synthetic_math.json",
+      "ml/tests/test_foundation.py"
+    ]
+  },
+  "commands": [
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence checks",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_artifact_traversal_and_synthetic_selection_rejected (test_foundation.ApplicationTests) ... ok\ntest_default_versioned_result_and_stable_ties (test_foundation.ApplicationTests) ... ok\ntest_disabled_llm_cannot_alter_numeric_result (test_foundation.ApplicationTests) ... ok\ntest_duplicate_roles_rejected (test_foundation.ApplicationTests) ... ok\ntest_empty_comparison_set (test_foundation.ApplicationTests) ... ok\ntest_horizon_mismatch_requires_rebuilding_features (test_foundation.ApplicationTests) ... ok\ntest_incompatible_horizon_prevents_loading (test_foundation.ApplicationTests) ... ok\ntest_missing_artifact_is_explicit (test_foundation.ApplicationTests) ... ok\ntest_missing_information_visible (test_foundation.ApplicationTests) ... ok\ntest_missing_market_policy_entire_set (test_foundation.ApplicationTests) ... ok\ntest_results_match_executable_contract (test_foundation.ApplicationTests) ... ok\ntest_unavailable_trained_selection_never_falls_back (test_foundation.ApplicationTests) ... ok\ntest_unfitted_or_tampered_pipeline_is_not_ready (test_foundation.ApplicationTests) ... ok\ntest_all_weak_profiles_are_undefined_not_success (test_foundation.EvaluationTests) ... ok\ntest_bounded_baseline_counterfactuals (test_foundation.EvaluationTests) ... ok\ntest_duplicate_and_incompatible_rows_rejected (test_foundation.EvaluationTests) ... ok\ntest_empty_template_is_not_evaluated (test_foundation.EvaluationTests) ... ok\ntest_frozen_selection_and_once_only_holdout_orchestration_without_fitting (test_foundation.EvaluationTests) ... ok\ntest_group_split_reproducible_and_no_leakage (test_foundation.EvaluationTests) ... ok\ntest_linear_ndcg_with_stable_ties_and_clipped_mae (test_foundation.EvaluationTests) ... ok\ntest_pending_grades_remain_blank (test_foundation.EvaluationTests) ... ok\ntest_review_provenance_and_complete_features_required (test_foundation.EvaluationTests) ... ok\ntest_small_groups_are_exploratory (test_foundation.EvaluationTests) ... ok\ntest_training_requires_verified_runner (test_foundation.EvaluationTests) ... ok\ntest_bad_weights_are_rejected_without_normalizing (test_foundation.MathTests) ... ok\ntest_baseline_golden_extremes_and_absolute_low_scores (test_foundation.MathTests) ... ok\ntest_baseline_monotonicity (test_foundation.MathTests) ... ok\ntest_complete_evidence_policy (test_foundation.MathTests) ... ok\ntest_effort_range_and_selected_estimate_are_preserved (test_foundation.MathTests) ... ok\ntest_feature_allowlist_and_version (test_foundation.MathTests) ... ok\ntest_invalid_catalogue_is_not_user_inability (test_foundation.MathTests) ... ok\ntest_invalid_feature_values (test_foundation.MathTests) ... ok\ntest_learned_mapping_and_combination (test_foundation.MathTests) ... ok\ntest_time_zero_unknown_and_range (test_foundation.MathTests) ... ok\ntest_unknown_skill_is_not_zero (test_foundation.MathTests) ... ok\n\n----------------------------------------------------------------------\nRan 35 tests in 0.585s\n\nOK\n"
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence preflight",
+      "exit_code": 1,
+      "output": {
+        "platform": "macOS-26.2-arm64-arm-64bit",
+        "package_versions": {
+          "python": "3.9.6",
+          "numpy": "2.0.2",
+          "scipy": "1.13.1",
+          "scikit-learn": "1.6.1",
+          "xgboost": "2.1.4",
+          "joblib": "1.5.3",
+          "threadpoolctl": "3.7.0"
+        },
+        "thread_limit": 2,
+        "fitting_performed": false,
+        "estimators": {
+          "ridge": {
+            "construction": "passed",
+            "pipeline_steps": [
+              "scaler",
+              "estimator"
+            ]
+          },
+          "xgboost": {
+            "construction": "failed",
+            "error": "\nXGBoost Library (libxgboost.dylib) could not be loaded.\nLikely causes:\n  * OpenMP runtime is not installed\n    - vcomp140.dll or libgomp-1.dll for Windows\n    - libomp.dylib for Mac OSX\n    - libgomp.so for Linux and other UNIX-like OSes\n    Mac OSX users: Run `brew install libomp` to install OpenMP runtime.\n\n  * You are running 32-bit Python on a 64-bit OS\n\nError message(s): [\"dlopen(/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/xgboost/lib/libxgboost.dylib, 0x0006): Library not loaded: @rpath/libomp.dylib\\n  Referenced from: <89AD948E-E564-3266-867D-7AF89D6488F0> /Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/xgboost/lib/libxgboost.dylib\\n  Reason: tried: '/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/opt/homebrew/opt/libomp/lib/libomp.dylib' (no such file)\"]\n"
+          }
+        },
+        "errors": [
+          "xgboost"
+        ]
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence validate --data ml/data/annotations/personal_fit_annotations.csv",
+      "exit_code": 0,
+      "output": {
+        "rows": 0,
+        "profile_count": 0,
+        "profile_group_count": 0,
+        "pending_rows": 0,
+        "eligible_reviewed_rows": 0,
+        "eligible_reviewed_groups": 0,
+        "missing_columns": [],
+        "errors": [],
+        "empirical_status": "not_evaluated",
+        "candidate_coverage_by_profile": {}
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence validate --data ml/minder_ml_starter/templates/personal_fit_annotations.csv",
+      "exit_code": 0,
+      "output": {
+        "rows": 0,
+        "profile_count": 0,
+        "profile_group_count": 0,
+        "pending_rows": 0,
+        "eligible_reviewed_rows": 0,
+        "eligible_reviewed_groups": 0,
+        "missing_columns": [
+          "feature_schema_version",
+          "reviewer_independent",
+          "rubric_version"
+        ],
+        "errors": [],
+        "empirical_status": "not_evaluated",
+        "candidate_coverage_by_profile": {}
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence score",
+      "exit_code": 0,
+      "output": {
+        "result_schema_version": "minder-recommendation-v1",
+        "profile_version": "synthetic-profile-v1",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "scorer_kind": "baseline",
+        "model_version": "fixed-baseline-v1",
+        "score_mapping_version": "grade-to-index-v1",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "evidence_snapshot_id": "synthetic-fixture-v1",
+        "role_catalogue_version": "synthetic-catalogue-v1",
+        "ranking_mode": "personal_fit_only",
+        "fit_weight": 0.7,
+        "preparation_horizon_weeks": 12,
+        "result_kind": "completed",
+        "options": [
+          {
+            "role_id": "synthetic-role-A",
+            "personal_fit_index": 67.0,
+            "market_assessment_index": null,
+            "overall_match_index": null,
+            "evidence_coverage": 1,
+            "feature_components": {
+              "skill_coverage": 0.6,
+              "interest_alignment": 0.8,
+              "time_feasibility": 0.5,
+              "resource_feasibility": 1,
+              "work_style_alignment": 0.7
+            },
+            "evidence_ids": [
+              "synthetic-criterion-A"
+            ],
+            "raw_grade_prediction": 1.34,
+            "preparation_evidence": null,
+            "reason": null
+          }
+        ],
+        "unscored_roles": [],
+        "warnings": [
+          "Only 1 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence score --scorer ridge",
+      "exit_code": 0,
+      "output": {
+        "result_schema_version": "minder-recommendation-v1",
+        "profile_version": "synthetic-profile-v1",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "scorer_kind": "ridge",
+        "model_version": null,
+        "score_mapping_version": "grade-to-index-v1",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "evidence_snapshot_id": "synthetic-fixture-v1",
+        "role_catalogue_version": "synthetic-catalogue-v1",
+        "ranking_mode": "personal_fit_only",
+        "fit_weight": 0.7,
+        "preparation_horizon_weeks": 12,
+        "result_kind": "model_not_ready",
+        "options": [],
+        "unscored_roles": [
+          {
+            "role_id": "synthetic-role-A",
+            "personal_fit_index": null,
+            "market_assessment_index": null,
+            "overall_match_index": null,
+            "evidence_coverage": 1,
+            "feature_components": {
+              "skill_coverage": 0.6,
+              "interest_alignment": 0.8,
+              "time_feasibility": 0.5,
+              "resource_feasibility": 1,
+              "work_style_alignment": 0.7
+            },
+            "evidence_ids": [
+              "synthetic-criterion-A"
+            ],
+            "raw_grade_prediction": null,
+            "preparation_evidence": null,
+            "reason": "model_not_ready"
+          }
+        ],
+        "warnings": [
+          "Requested scorer has no compatible evaluated artifact.",
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence score --scorer xgboost",
+      "exit_code": 0,
+      "output": {
+        "result_schema_version": "minder-recommendation-v1",
+        "profile_version": "synthetic-profile-v1",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "scorer_kind": "xgboost",
+        "model_version": null,
+        "score_mapping_version": "grade-to-index-v1",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "evidence_snapshot_id": "synthetic-fixture-v1",
+        "role_catalogue_version": "synthetic-catalogue-v1",
+        "ranking_mode": "personal_fit_only",
+        "fit_weight": 0.7,
+        "preparation_horizon_weeks": 12,
+        "result_kind": "model_not_ready",
+        "options": [],
+        "unscored_roles": [
+          {
+            "role_id": "synthetic-role-A",
+            "personal_fit_index": null,
+            "market_assessment_index": null,
+            "overall_match_index": null,
+            "evidence_coverage": 1,
+            "feature_components": {
+              "skill_coverage": 0.6,
+              "interest_alignment": 0.8,
+              "time_feasibility": 0.5,
+              "resource_feasibility": 1,
+              "work_style_alignment": 0.7
+            },
+            "evidence_ids": [
+              "synthetic-criterion-A"
+            ],
+            "raw_grade_prediction": null,
+            "preparation_evidence": null,
+            "reason": "model_not_ready"
+          }
+        ],
+        "warnings": [
+          "Requested scorer has no compatible evaluated artifact.",
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence compare --data ml/data/annotations/personal_fit_annotations.csv --run-id reviewed-pilot-check",
+      "exit_code": 0,
+      "output": {
+        "status": "not_evaluated",
+        "reason": "no independent reviewed labels",
+        "dataset": {
+          "rows": 0,
+          "profile_count": 0,
+          "profile_group_count": 0,
+          "pending_rows": 0,
+          "eligible_reviewed_rows": 0,
+          "eligible_reviewed_groups": 0,
+          "missing_columns": [],
+          "errors": [],
+          "empirical_status": "not_evaluated",
+          "candidate_coverage_by_profile": {}
+        }
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence smoke --run-id foundation-smoke-check",
+      "exit_code": 2,
+      "output": null,
+      "stderr": "{\"status\": \"failed\", \"error\": \"runner_unavailable: RunPod CPU/budget/credit verification required before fitting\"}\n"
+    },
+    {
+      "command": "ml/.venv/bin/python -m pip check",
+      "exit_code": 0,
+      "stdout": "No broken requirements found.\n",
+      "stderr": "WARNING: The directory '/Users/phuahjunhong/Library/Caches/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.\n"
+    },
+    {
+      "command": "ml/.venv/bin/python -m compileall -q ml/src/minder_ml/intelligence ml/tests/test_foundation.py",
+      "exit_code": 1,
+      "stdout": "*** Error compiling 'ml/src/minder_ml/intelligence/__init__.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/__main__.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/artifacts.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/estimators.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/evaluation.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/features.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/inference.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/llm.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/schemas.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/scoring.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/src/minder_ml/intelligence/training.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/src'\n*** Error compiling 'ml/tests/test_foundation.py'...\nPermissionError: [Errno 1] Operation not permitted: '/Users/phuahjunhong/Library/Caches/com.apple.python/Users/phuahjunhong/sdc-2026-minder/ml/tests'\n",
+      "stderr": ""
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "ml/.venv/bin/python -m compileall -q ml/src/minder_ml/intelligence ml/tests/test_foundation.py",
+      "execution": "approved outside sandbox for macOS Python bytecode cache",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "final_hygiene": {
+    "new_files_text_only": true,
+    "no_common_credential_patterns": true,
+    "new_file_whitespace_check": "passed",
+    "foundation_document_links": "passed",
+    "preexisting_source_pack_hashes": "unchanged",
+    "both_json_schemas_valid": true,
+    "git_diff_check": "passed"
+  }
+}

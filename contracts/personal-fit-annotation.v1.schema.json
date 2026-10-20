@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Minder annotation JSON equivalent; CSV uses true/false and blank for null",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "profile_group_id",
+    "role_id",
+    "profile_version",
+    "role_catalogue_version",
+    "feature_schema_version",
+    "rubric_version",
+    "reviewer_id",
+    "review_reason",
+    "profile_is_synthetic",
+    "reviewer_independent",
+    "preparation_horizon_weeks",
+    "annotation_status",
+    "relevance_grade",
+    "skill_coverage",
+    "interest_alignment",
+    "time_feasibility",
+    "resource_feasibility",
+    "work_style_alignment",
+    "assessed_requirement_fraction"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_group_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role_catalogue_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "feature_schema_version": {
+      "const": "personal-preparation-features-v1"
+    },
+    "rubric_version": {
+      "const": "personal-preparation-grades-v1"
+    },
+    "reviewer_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "review_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "skill_coverage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "interest_alignment": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "time_feasibility": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "resource_feasibility": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "work_style_alignment": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "profile_is_synthetic": {
+      "const": true
+    },
+    "reviewer_independent": {
+      "type": "boolean"
+    },
+    "preparation_horizon_weeks": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "annotation_status": {
+      "enum": [
+        "pending",
+        "reviewed"
+      ]
+    },
+    "relevance_grade": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 2
+    },
+    "assessed_requirement_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "const": "reviewed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reviewer_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "review_reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reviewer_independent": {
+            "const": true
+          },
+          "relevance_grade": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "assessed_requirement_fraction": {
+            "minimum": 0.999999999
+          },
+          "skill_coverage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "interest_alignment": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "time_feasibility": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "resource_feasibility": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "work_style_alignment": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "relevance_grade": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}

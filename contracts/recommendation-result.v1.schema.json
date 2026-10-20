@@ -1,0 +1,451 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:minder:recommendation-result:v1",
+  "title": "Minder foundation personal preparation result; indices are not probabilities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_schema_version",
+    "profile_version",
+    "feature_schema_version",
+    "scorer_kind",
+    "model_version",
+    "score_mapping_version",
+    "ranking_policy_version",
+    "evidence_snapshot_id",
+    "role_catalogue_version",
+    "ranking_mode",
+    "fit_weight",
+    "preparation_horizon_weeks",
+    "result_kind",
+    "options",
+    "unscored_roles",
+    "warnings"
+  ],
+  "properties": {
+    "result_schema_version": {
+      "const": "minder-recommendation-v1"
+    },
+    "profile_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "feature_schema_version": {
+      "const": "personal-preparation-features-v1"
+    },
+    "scorer_kind": {
+      "enum": [
+        "baseline",
+        "ridge",
+        "xgboost"
+      ]
+    },
+    "model_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "score_mapping_version": {
+      "const": "grade-to-index-v1"
+    },
+    "ranking_policy_version": {
+      "const": "personal-fit-role-id-v1"
+    },
+    "evidence_snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "role_catalogue_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ranking_mode": {
+      "const": "personal_fit_only"
+    },
+    "fit_weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "preparation_horizon_weeks": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "result_kind": {
+      "enum": [
+        "completed",
+        "insufficient_information",
+        "model_not_ready"
+      ]
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role_id",
+              "personal_fit_index",
+              "market_assessment_index",
+              "overall_match_index",
+              "evidence_coverage",
+              "feature_components",
+              "evidence_ids",
+              "raw_grade_prediction",
+              "reason",
+              "preparation_evidence"
+            ],
+            "properties": {
+              "role_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "personal_fit_index": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              },
+              "market_assessment_index": {
+                "type": "null"
+              },
+              "overall_match_index": {
+                "type": "null"
+              },
+              "evidence_coverage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "feature_components": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "skill_coverage",
+                  "interest_alignment",
+                  "time_feasibility",
+                  "resource_feasibility",
+                  "work_style_alignment"
+                ],
+                "properties": {
+                  "skill_coverage": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "interest_alignment": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "time_feasibility": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "resource_feasibility": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "work_style_alignment": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                }
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "raw_grade_prediction": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  null,
+                  "insufficient_information",
+                  "model_not_ready"
+                ]
+              },
+              "preparation_evidence": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "required": [
+                  "hours_per_week",
+                  "effort_hours_used",
+                  "effort_low_hours",
+                  "effort_high_hours"
+                ],
+                "properties": {
+                  "hours_per_week": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_hours_used": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_low_hours": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_high_hours": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "personal_fit_index": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "raw_grade_prediction": {
+                "type": "number"
+              },
+              "reason": {
+                "type": "null"
+              },
+              "evidence_coverage": {
+                "minimum": 0.999999999
+              }
+            }
+          }
+        ]
+      }
+    },
+    "unscored_roles": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role_id",
+              "personal_fit_index",
+              "market_assessment_index",
+              "overall_match_index",
+              "evidence_coverage",
+              "feature_components",
+              "evidence_ids",
+              "raw_grade_prediction",
+              "reason",
+              "preparation_evidence"
+            ],
+            "properties": {
+              "role_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "personal_fit_index": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 100
+              },
+              "market_assessment_index": {
+                "type": "null"
+              },
+              "overall_match_index": {
+                "type": "null"
+              },
+              "evidence_coverage": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "feature_components": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "skill_coverage",
+                  "interest_alignment",
+                  "time_feasibility",
+                  "resource_feasibility",
+                  "work_style_alignment"
+                ],
+                "properties": {
+                  "skill_coverage": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "interest_alignment": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "time_feasibility": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "resource_feasibility": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "work_style_alignment": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 1
+                  }
+                }
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "raw_grade_prediction": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "reason": {
+                "enum": [
+                  null,
+                  "insufficient_information",
+                  "model_not_ready"
+                ]
+              },
+              "preparation_evidence": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "required": [
+                  "hours_per_week",
+                  "effort_hours_used",
+                  "effort_low_hours",
+                  "effort_high_hours"
+                ],
+                "properties": {
+                  "hours_per_week": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_hours_used": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_low_hours": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "effort_high_hours": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          },
+          {
+            "properties": {
+              "personal_fit_index": {
+                "type": "null"
+              },
+              "raw_grade_prediction": {
+                "type": "null"
+              },
+              "reason": {
+                "enum": [
+                  "insufficient_information",
+                  "model_not_ready"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
