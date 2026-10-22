@@ -111,6 +111,10 @@ class PersonalMatchingService:
 
     def assess(self, profile, roles, *, scorer_kind='baseline', policy_version=POLICY_VERSION,
                market_period_policy_key=MARKET_POLICY):
+        # C1.3's committed adapter uses this pending-decision token. It is an
+        # explicit transition alias only; output always names the actual config.
+        if policy_version == 'N01-pending':
+            policy_version = POLICY_VERSION
         config = json.loads((ROOT / 'ml/configs/intelligence/role-fit.v2.proposed.json').read_text())
         if (policy_version != POLICY_VERSION or config['policy_id'] != policy_version
                 or config['status'] != 'pending' or config['active'] is not False):

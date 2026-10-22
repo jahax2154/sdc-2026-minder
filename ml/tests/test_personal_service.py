@@ -94,6 +94,15 @@ class PersonalServiceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'explicit approved implementation'):
                 service.assess(profile, self.roles)
 
+    def test_committed_c_pending_token_maps_to_canonical_inactive_policy(self):
+        from minder_ml.intelligence.app_context import CareerServices
+        profile = synthetic_profile()
+        result = CareerServices(PersonalMatchingService(), roles=self.roles,
+                                mode='local_source_services').career_context(
+                                    profile, expected_profile_version=profile['version'])
+        self.assertEqual(result['recommendation']['public']['policy_version'], 'personal-role-fit-v2-proposal')
+        self.assertEqual(result['recommendation']['public']['status'], 'policy_pending')
+
     def test_feedback_is_scoped_idempotent_resettable_and_versioned(self):
         profile = synthetic_profile('career_switcher')
         original = copy.deepcopy(profile)
