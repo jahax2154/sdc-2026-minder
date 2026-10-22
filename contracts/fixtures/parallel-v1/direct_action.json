@@ -1,0 +1,30 @@
+{
+  "fixture_id": "direct_action",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "Action",
+  "payload": {
+    "action_id": "synthetic-action",
+    "kind": "reschedule_task",
+    "origin": "direct_request",
+    "expected_state_version": "v1",
+    "idempotency_key": "synthetic-key",
+    "authorizing_request_id": "synthetic-request",
+    "proposal_id": null,
+    "approval_state": "not_required_direct",
+    "approved_proposal_id": null,
+    "diff": [
+      {
+        "path": "tasks/synthetic-task/scheduled_at",
+        "before": "2026-10-24T11:00:00Z",
+        "after": "2026-10-25T11:00:00Z"
+      }
+    ],
+    "reason": "Synthetic specific direct instruction",
+    "evidence_ids": [],
+    "execution_status": "not_executed",
+    "resulting_state_version": null,
+    "failure_reason": null
+  }
+}

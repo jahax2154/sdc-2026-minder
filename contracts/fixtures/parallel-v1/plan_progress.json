@@ -1,0 +1,32 @@
+{
+  "fixture_id": "plan_progress",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "PlanProgress",
+  "payload": {
+    "plan_id": "synthetic-plan",
+    "profile_id": "synthetic-person",
+    "selected_role_id": "synthetic-role",
+    "state_version": "v1",
+    "previous_version": null,
+    "task_ids": [
+      "synthetic-task"
+    ],
+    "tasks": [
+      {
+        "task_id": "synthetic-task",
+        "state": "scheduled",
+        "activity_completion": false,
+        "mastery_verified": false,
+        "prerequisite_task_ids": [],
+        "locked": false,
+        "scheduled_at": "2026-10-24T11:00:00Z",
+        "estimated_hours": null,
+        "evidence_ids": []
+      }
+    ],
+    "progress_event_ids": [],
+    "constraints": []
+  }
+}

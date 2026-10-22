@@ -1,0 +1,165 @@
+{
+  "manifest_version": "minder-parallel-ownership-v1",
+  "contract_version": "minder-parallel-v1",
+  "canonical_context": "docs/MINDER_AI_ML_DECISION_CONTEXT.md",
+  "integration_owner": "A",
+  "integration_branch": "session/a-personal-integration",
+  "bootstrap_branch": "bootstrap/g0-parallel-20261023",
+  "lanes": {
+    "A": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-a",
+      "branch": "session/a-personal-integration",
+      "prompt": "docs/Minder_ML_AI_Layer_Execution_Pack/02_SESSION_A_PERSONAL_MATCHING.md",
+      "report_dir": "docs/execution/parallel/A",
+      "artifact_dir": "ml/artifacts/session-a",
+      "api_port": 8101,
+      "ui_port": 9101,
+      "dev_database": "ml/artifacts/session-a/runtime/dev.sqlite3",
+      "database_scope": "isolated local development SQLite file reservation only; production database/runtime not selected"
+    },
+    "B": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b",
+      "branch": "session/b-market",
+      "prompt": "docs/Minder_ML_AI_Layer_Execution_Pack/03_SESSION_B_MARKET_FORECASTING.md",
+      "report_dir": "docs/execution/parallel/B",
+      "artifact_dir": "ml/artifacts/session-b",
+      "api_port": 8102,
+      "ui_port": 9102,
+      "dev_database": "ml/artifacts/session-b/runtime/dev.sqlite3",
+      "database_scope": "isolated local development SQLite file reservation only; production database/runtime not selected"
+    },
+    "C": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-c",
+      "branch": "session/c-app-agents",
+      "prompt": "docs/Minder_ML_AI_Layer_Execution_Pack/04_SESSION_C_LLM_APP_AND_AGENTS.md",
+      "report_dir": "docs/execution/parallel/C",
+      "artifact_dir": "ml/artifacts/session-c",
+      "api_port": 8103,
+      "ui_port": 9103,
+      "dev_database": "ml/artifacts/session-c/runtime/dev.sqlite3",
+      "database_scope": "isolated local development SQLite file reservation only; production database/runtime not selected"
+    }
+  },
+  "ownership": {
+    "A": {
+      "exact_ml_files": [
+        "ml/src/minder_ml/intelligence/policy_sources.py",
+        "ml/src/minder_ml/intelligence/scoring.py",
+        "ml/src/minder_ml/intelligence/evaluation.py",
+        "ml/src/minder_ml/intelligence/policy.py",
+        "ml/src/minder_ml/intelligence/__init__.py",
+        "ml/src/minder_ml/intelligence/features.py",
+        "ml/src/minder_ml/intelligence/service_contracts.py",
+        "ml/src/minder_ml/intelligence/review.py",
+        "ml/src/minder_ml/intelligence/policy_features.py",
+        "ml/src/minder_ml/intelligence/schemas.py",
+        "ml/src/minder_ml/intelligence/catalogue_repair_cli.py",
+        "ml/src/minder_ml/intelligence/g1a_cli.py",
+        "ml/src/minder_ml/intelligence/annotation_io.py",
+        "ml/src/minder_ml/intelligence/catalogue_repair.py",
+        "ml/src/minder_ml/intelligence/inference.py",
+        "ml/src/minder_ml/intelligence/data_schemas.py",
+        "ml/src/minder_ml/intelligence/artifacts.py",
+        "ml/src/minder_ml/intelligence/g3.py",
+        "ml/src/minder_ml/intelligence/estimators.py",
+        "ml/src/minder_ml/intelligence/__main__.py",
+        "ml/src/minder_ml/intelligence/training.py"
+      ],
+      "prefixes": [
+        "contracts/",
+        "ml/configs/",
+        "ml/data/reference/",
+        "ml/data/review/",
+        "ml/data/annotations/",
+        "docs/execution/parallel/A/"
+      ],
+      "other_owned": [
+        "AGENTS.md",
+        ".env.example",
+        ".gitignore",
+        ".editorconfig",
+        "ml/requirements-foundation.txt",
+        "ml/src/minder_ml/algorithm.py",
+        "ml/src/minder_ml/ridge-regression.py",
+        "ml/src/minder_ml/gradient-boosting.py"
+      ],
+      "shared_coordinator": [
+        "root dependency/lockfiles and ml dependency manifests",
+        "all JSON schemas including data_schemas.py",
+        "canonical context, bootstrap manifest and shared fixture updates",
+        "g3.py orchestration; requests to B for market-internal changes"
+      ],
+      "tests": [
+        "ml/tests/test_foundation.py",
+        "ml/tests/test_g1a.py",
+        "ml/tests/test_catalogue_repair.py",
+        "ml/tests/test_review.py",
+        "ml/tests/test_service_contracts.py",
+        "ml/tests/fixtures/"
+      ]
+    },
+    "B": {
+      "exact_ml_files": [
+        "ml/src/minder_ml/intelligence/data_adapters.py",
+        "ml/src/minder_ml/intelligence/data_pipeline.py",
+        "ml/src/minder_ml/intelligence/data_cli.py",
+        "ml/src/minder_ml/intelligence/market.py",
+        "ml/src/minder_ml/intelligence/market_indexes.py"
+      ],
+      "reserved_new_ml_files": [
+        "ml/src/minder_ml/intelligence/market_service.py",
+        "ml/src/minder_ml/intelligence/forecasting.py",
+        "ml/src/minder_ml/intelligence/market_training.py",
+        "ml/src/minder_ml/intelligence/news.py"
+      ],
+      "prefixes": [
+        "ml/data/market/",
+        "docs/execution/parallel/B/"
+      ],
+      "tests": [
+        "ml/tests/test_phase2.py",
+        "ml/tests/test_g3.py",
+        "ml/tests/test_market_service.py",
+        "ml/tests/test_forecasting.py"
+      ],
+      "budget_ledger": "docs/execution/parallel/B/runpod_budget.json",
+      "paid_execution": "B only, including immutable A job manifests; no spend authorized by bootstrap"
+    },
+    "C": {
+      "exact_ml_files": [
+        "ml/src/minder_ml/intelligence/llm.py"
+      ],
+      "reserved_new_ml_files": [
+        "ml/src/minder_ml/intelligence/groq_adapter.py",
+        "ml/src/minder_ml/intelligence/app_context.py"
+      ],
+      "prefixes": [
+        "apps/backend-api/",
+        "apps/frontend-web/",
+        "docs/execution/parallel/C/"
+      ],
+      "tests": [
+        "ml/tests/test_llm.py",
+        "ml/tests/test_app_context.py"
+      ],
+      "exclusive": "All backend migrations, routes/router registration, persistence, provider/action executor, UI and scheduler; root dependencies/schemas requested from A"
+    }
+  },
+  "coordination": {
+    "unassigned_paths": "A coordinates assignment before mutation; no overlapping writes",
+    "lane_requests": "docs/execution/parallel/<LANE>/requests/; owner commits then A integrates",
+    "shared_changes": "A publishes contract/dependency commits; B/C cherry-pick clean reviewed commits, never absolute imports from sibling worktree",
+    "integration": "A integrates meaningful local lane commits after owner handoff; no concurrent edits to owner modules",
+    "optional_D": "not assigned/launched; requires later ownership transfer"
+  },
+  "runtime": {
+    "credentials": "Inherited environment or private local config only; none committed or copied",
+    "environment": "Existing local ml/.venv interpreter may be reused read-only; no installs during bootstrap. Set PYTHONPATH to current worktree ml/src. Source code resolves within current worktree.",
+    "database": "One file per lane at its reserved ignored artifact path; C chooses actual backend driver and may request namespace revision before use. Never share production DB.",
+    "source_sharing": "Only 13 manifest-pinned raw/derived files copied to one read-only source snapshot under worktree parent; local untracked raw/derived symlinks point there. No code imports from original checkout.",
+    "generated_outputs": "Only lane artifact_dir; immutable handoff artifacts by hash. Never overwrite another lane outputs.",
+    "launch_processes": "No B/C sessions or services auto-started; user launches prompts in assigned worktrees."
+  },
+  "history": "R0 code 8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f and evidence cd252e449048f6ffbab6e09663fcd02481682e28 reused. No fabricated historical checkpoints.",
+  "push_policy": "No push until later explicit instruction"
+}

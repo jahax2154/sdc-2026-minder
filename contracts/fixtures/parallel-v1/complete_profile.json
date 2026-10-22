@@ -1,0 +1,50 @@
+{
+  "fixture_id": "complete_profile",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "Profile",
+  "payload": {
+    "profile_id": "synthetic-person",
+    "profile_group_id": "synthetic-family",
+    "version": "fixture-v1",
+    "synthetic": true,
+    "evidence": [
+      {
+        "evidence_id": "synthetic-skill-evidence",
+        "subject_id": "synthetic-skill",
+        "value": 1,
+        "unit": "fraction_0_1",
+        "state": "known",
+        "provenance": {
+          "source_id": "synthetic-source",
+          "version": "fixture-v1",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "uri": "urn:minder:synthetic-only",
+          "geography": "MY",
+          "available_at": "2026-10-23T00:00:00Z",
+          "evidence_type": "synthetic-fixture"
+        },
+        "method_id": "synthetic-contract-fixture-only"
+      }
+    ],
+    "preferences": [
+      {
+        "entity_type": "role",
+        "entity_id": "synthetic-role",
+        "state": "not_interested",
+        "authorizing_request_id": "synthetic-request"
+      }
+    ],
+    "current_fields": [
+      {
+        "field_id": "none",
+        "field_type": "industry",
+        "state": "none_yet",
+        "evidence_ids": []
+      }
+    ],
+    "constraints": [],
+    "timezone": "Asia/Kuala_Lumpur"
+  }
+}

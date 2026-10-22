@@ -1,0 +1,45 @@
+{
+  "fixture_id": "forecast_unavailable",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "MarketResult",
+  "payload": {
+    "entity_type": "role",
+    "entity_id": "synthetic-role",
+    "kind": "forecast",
+    "status": "unavailable",
+    "geography": "MY",
+    "source_universe_id": "synthetic-universe",
+    "cohort_version": "fixture-v1",
+    "measurement": "advertised_postings",
+    "unit": "advertisements",
+    "denominator": null,
+    "observation_period": {
+      "start": "2026-04-01",
+      "end": "2026-06-30"
+    },
+    "published_at": null,
+    "available_at": null,
+    "ingested_at": null,
+    "issued_at": "2026-10-23T00:00:00Z",
+    "target_period": {
+      "start": "2027-01-01",
+      "end": "2027-03-31"
+    },
+    "horizon": "next_full_calendar_quarter",
+    "value": null,
+    "internal_index": null,
+    "uncertainty": {
+      "lower": null,
+      "upper": null,
+      "method": null
+    },
+    "missing_reasons": [
+      "insufficient_comparable_role_history"
+    ],
+    "source_ids": [],
+    "model_version": null,
+    "explanation": "Synthetic unavailable-state fixture; no observed or predicted values."
+  }
+}

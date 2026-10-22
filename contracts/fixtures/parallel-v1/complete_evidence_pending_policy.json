@@ -1,0 +1,55 @@
+{
+  "fixture_id": "complete_evidence_pending_policy",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "PersonalAssessment",
+  "payload": {
+    "profile_id": "synthetic-person",
+    "profile_version": "fixture-v1",
+    "role_id": "synthetic-role",
+    "role_version": "v1",
+    "policy_version": "role-fit-proposal-v2",
+    "policy_status": "pending",
+    "model_version": null,
+    "scorer_kind": "baseline",
+    "score_status": "policy_pending",
+    "score": null,
+    "measurement": "personal_role_fit",
+    "components": [
+      {
+        "component_id": "capability",
+        "value": 1,
+        "unit": "fraction_0_1",
+        "weight": null,
+        "rule_id": "proposal-N01",
+        "evidence_ids": [
+          "synthetic-skill-evidence"
+        ],
+        "missing_reasons": []
+      }
+    ],
+    "industry_contributions": [],
+    "gaps": [
+      {
+        "criterion_id": "synthetic-skill",
+        "state": "met",
+        "evidence_ids": [
+          "synthetic-skill-evidence"
+        ],
+        "reason": "Contract fixture, no real qualification claim"
+      }
+    ],
+    "prerequisites": [],
+    "evidence_ids": [
+      "synthetic-skill-evidence"
+    ],
+    "unknowns": [
+      "numerical_policy_pending"
+    ],
+    "targeted_questions": [],
+    "trace_rule_ids": [
+      "proposal-N01"
+    ]
+  }
+}

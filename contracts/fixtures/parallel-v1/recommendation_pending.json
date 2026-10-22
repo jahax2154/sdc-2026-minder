@@ -1,0 +1,134 @@
+{
+  "fixture_id": "recommendation_pending",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "Recommendation",
+  "payload": {
+    "public": {
+      "contract_version": "minder-parallel-v1",
+      "profile_id": "synthetic-person",
+      "profile_version": "fixture-v1",
+      "policy_version": "role-fit-proposal-v2",
+      "model_version": null,
+      "candidate_ids": [
+        "synthetic-role"
+      ],
+      "market_period_policy_key": "personal_only_pending_market_policy",
+      "status": "policy_pending",
+      "options": [
+        {
+          "role_id": "synthetic-role",
+          "rank": null,
+          "personal_score": null,
+          "score_status": "policy_pending",
+          "explanation": "Evidence retained; new numerical meaning is pending.",
+          "source_ids": [
+            "synthetic-source"
+          ],
+          "unknowns": [
+            "numerical_policy_pending"
+          ]
+        }
+      ],
+      "limitations": [
+        "Not a live recommendation; contract fixture only"
+      ]
+    },
+    "internal": {
+      "personal_assessments": [
+        {
+          "profile_id": "synthetic-person",
+          "profile_version": "fixture-v1",
+          "role_id": "synthetic-role",
+          "role_version": "v1",
+          "policy_version": "role-fit-proposal-v2",
+          "policy_status": "pending",
+          "model_version": null,
+          "scorer_kind": "baseline",
+          "score_status": "policy_pending",
+          "score": null,
+          "measurement": "personal_role_fit",
+          "components": [
+            {
+              "component_id": "capability",
+              "value": 1,
+              "unit": "fraction_0_1",
+              "weight": null,
+              "rule_id": "proposal-N01",
+              "evidence_ids": [
+                "synthetic-skill-evidence"
+              ],
+              "missing_reasons": []
+            }
+          ],
+          "industry_contributions": [],
+          "gaps": [
+            {
+              "criterion_id": "synthetic-skill",
+              "state": "met",
+              "evidence_ids": [
+                "synthetic-skill-evidence"
+              ],
+              "reason": "Contract fixture, no real qualification claim"
+            }
+          ],
+          "prerequisites": [],
+          "evidence_ids": [
+            "synthetic-skill-evidence"
+          ],
+          "unknowns": [
+            "numerical_policy_pending"
+          ],
+          "targeted_questions": [],
+          "trace_rule_ids": [
+            "proposal-N01"
+          ]
+        }
+      ],
+      "current_market": [],
+      "forecast_market": [
+        {
+          "entity_type": "role",
+          "entity_id": "synthetic-role",
+          "kind": "forecast",
+          "status": "unavailable",
+          "geography": "MY",
+          "source_universe_id": "synthetic-universe",
+          "cohort_version": "fixture-v1",
+          "measurement": "advertised_postings",
+          "unit": "advertisements",
+          "denominator": null,
+          "observation_period": {
+            "start": "2026-04-01",
+            "end": "2026-06-30"
+          },
+          "published_at": null,
+          "available_at": null,
+          "ingested_at": null,
+          "issued_at": "2026-10-23T00:00:00Z",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          },
+          "horizon": "next_full_calendar_quarter",
+          "value": null,
+          "internal_index": null,
+          "uncertainty": {
+            "lower": null,
+            "upper": null,
+            "method": null
+          },
+          "missing_reasons": [
+            "insufficient_comparable_role_history"
+          ],
+          "source_ids": [],
+          "model_version": null,
+          "explanation": "Synthetic unavailable-state fixture; no observed or predicted values."
+        }
+      ],
+      "combined_score_policy_version": null,
+      "combined_scores": []
+    }
+  }
+}
