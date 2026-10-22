@@ -28,13 +28,23 @@ def application(database, *, role_ids=None):
     from minder_app.api import Application
     from minder_app.store import Store
     from .app_context import CareerServices
+    from .market_service import MarketEvidenceService
     database = Path(database).resolve()
     if not database.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
         raise ValueError('integration DB must be isolated under Session A artifacts')
     catalogue = OccupationalCatalogue()
     roles = catalogue.roles() if role_ids is None else [catalogue.role(rid) for rid in role_ids]
-    services = CareerServices(PersonalMatchingService(), roles=roles,
-                              sources=catalogue.coverage['sources'], mode='local_source_services')
+    market = MarketEvidenceService(aliases={'role': role_aliases(catalogue), 'skill': {}})
+    snapshot_path = ROOT / 'ml/data/market/snapshot.v1.json'
+    market_source = dict(source_id='bosch-smartrecruiters-my',
+                         version='derived-snapshot-v1:' + market.version,
+                         sha256=hashlib.sha256(snapshot_path.read_bytes()).hexdigest(),
+                         uri='https://www.bosch.com.my/careers/', geography='MY',
+                         available_at=market.snapshot['collected_at'], evidence_type='source-derived')
+    services = CareerServices(PersonalMatchingService(), market, roles=roles,
+                              sources=catalogue.coverage['sources'] + [market_source],
+                              skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
+                              mode='local_source_services')
     return Application(Store(database), services), catalogue
 
 
@@ -72,12 +82,18 @@ def smoke(output):
     token = session['token']  # local capability; deliberately excluded from evidence
     profile = request('PUT', '/api/profile', dict(profile=synthetic_profile('fresh_graduate'),
                                                  expected_version=None), token)
-    context = request('GET', '/api/career-context', token=token)
+    selection = dict(selected_role_ids=selected, selected_skill_ids=['source-term:sql'])
+    context = request('POST', '/api/career-context', selection, token)
     assert context['recommendation']['candidate_ids'] == selected
     assert all(o['personal_score'] is None for o in context['recommendation']['options'])
     assert 'internal_index' not in json.dumps(context)
     evidence['checks']['saved_profile_to_real_source_candidates'] = 'passed'
     evidence['checks']['public_market_matrix_exclusion'] = 'passed'
+    current = [s for s in context['statements'] if s.get('kind') == 'current']
+    forecast = [s for s in context['statements'] if s.get('kind') == 'forecast']
+    assert any(s['status'] == 'available' and s['sources'] for s in current)
+    assert len(forecast) == 3 and all(s['status'] == 'unavailable' for s in forecast)
+    evidence['checks']['actual_B_current_evidence_and_unavailable_next_quarter'] = 'passed'
     evidence['context'] = context
     feedback = update_preference(profile, entity_type='role', entity_id=selected[0],
                                  state='not_interested', authorizing_request_id='synthetic-explicit-api-edit',
@@ -87,15 +103,15 @@ def smoke(output):
     assert request('GET', '/api/profile', token=token)['preferences'] == marked['preferences']
     assert wsgi_request(restarted, 'GET', '/api/profile', token=token)[1]['preferences'] == marked['preferences']
     evidence['checks']['explicit_preference_persisted_across_restart'] = 'passed'
-    after = request('GET', '/api/career-context', token=token)
+    after = request('POST', '/api/career-context', selection, token)
     assert after['recommendation']['candidate_ids'] == selected
     evidence['checks']['negative_feedback_preserves_candidates'] = 'passed'
     chat = request('POST', '/api/chat', dict(message='Explain these roles and the next-quarter evidence.',
-                                           expected_profile_version=marked['version']), token)
+                                           expected_profile_version=marked['version'], **selection), token)
     evidence['chat'] = chat
     evidence['checks']['actual_chat_boundary_with_provider_availability'] = chat['provider']['status']
     evidence['limitations'] = ['No live-provider success implied by bounded unavailable response.',
-                               'B market service not yet connected.',
+                               'B current evidence is a 39-ad inspected employer sample, not national demand.',
                                'N01 pending: zero numeric role-fit scores.',
                                'Local WSGI evidence is not a deployed or TCP HTTP check.']
     (output / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')

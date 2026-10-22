@@ -1,0 +1,61 @@
+{
+  "phase_id": "I1.1-R01",
+  "original_phase": "I1.1",
+  "original_checkpoint": "0cf746027188600447b3580d3cd6013415661590",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Connect B current/forecast service and C bounded selected context",
+  "defect_evidence": "Initial I1.1 checkpoint lacked callable B service; later B1.2 and C1.3-R01 provide committed dependencies.",
+  "changes": [
+    "Exact canonical-to-native role aliases injected; no skill-category equivalence fabricated",
+    "Market source registry binds source ID to committed derived snapshot bytes/version/time and official careers URL",
+    "Explicit two-role/SQL view calls actual B current/forecast; 39-ad sample explanation, current unavailable cases and next-quarter forecast absence retained",
+    "Merged C through C2.2-R01 including versioned plans/actions/worker and bounded chat refinement"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.integration_cli smoke --output ml/artifacts/session-a/i1.1-b-connected-v2",
+      "result": {
+        "saved_profile_to_real_source_candidates": "passed",
+        "public_market_matrix_exclusion": "passed",
+        "actual_B_current_evidence_and_unavailable_next_quarter": "passed",
+        "explicit_preference_persisted_across_restart": "passed",
+        "negative_feedback_preserves_candidates": "passed",
+        "actual_chat_boundary_with_provider_availability": "unavailable"
+      }
+    },
+    {
+      "command": "source .env.local; PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m unittest discover -s apps/backend-api/tests -v",
+      "result": "17 distinct tests passed"
+    }
+  ],
+  "coverage": {
+    "catalogue_roles": 1016,
+    "source_supported_roles": 910,
+    "explicit_selected_roles": 2,
+    "selected_source_terms": [
+      "source-term:sql"
+    ],
+    "forecast_target": "2027-01-01..2027-03-31",
+    "forecasts_available": 0,
+    "numeric_personal_scores": 0
+  },
+  "artifact": {
+    "path": "ml/artifacts/session-a/i1.1-b-connected-v2/evidence.json",
+    "sha256": "17befe91339da73ae8acad28bf886a589bf76472d32970fbb9cc89e6adff2510"
+  },
+  "limitations": [
+    "No live-provider success implied by bounded unavailable response.",
+    "B current evidence is a 39-ad inspected employer sample, not national demand.",
+    "N01 pending: zero numeric role-fit scores.",
+    "Local WSGI evidence is not a deployed or TCP HTTP check."
+  ],
+  "dependencies": [
+    "Groq credentials/model",
+    "N01",
+    "B2/C4 final handoffs"
+  ],
+  "checkpoint": "commit containing this refinement",
+  "next_eligible_work": "A3.1/I2.1 remaining committed owner outputs"
+}
