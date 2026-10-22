@@ -95,7 +95,14 @@
         "ml/tests/test_catalogue_repair.py",
         "ml/tests/test_review.py",
         "ml/tests/test_service_contracts.py",
-        "ml/tests/fixtures/"
+        "ml/tests/fixtures/",
+        "ml/tests/test_personal_service.py"
+      ],
+      "reserved_new_ml_files": [
+        "ml/src/minder_ml/intelligence/catalogue_service.py",
+        "ml/src/minder_ml/intelligence/personal_service.py",
+        "ml/src/minder_ml/intelligence/personal_cli.py",
+        "ml/src/minder_ml/intelligence/personal_training.py"
       ]
     },
     "B": {
