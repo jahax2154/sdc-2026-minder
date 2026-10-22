@@ -16,7 +16,20 @@ def save_profile(store, owner, body, expected):
     for evidence in body["evidence"]:
         if evidence["provenance"]["evidence_type"] not in ("explicit-user", "document-claim", "synthetic-fixture"):
             raise AppError("intake_cannot_certify_evidence")
-    return store.put(owner, "profile", owner, body, expected)
+    with store.transaction() as db:
+        # This entry is only reached by a structured direct UI edit, never chat.
+        import json
+        request_id = uid()
+        previous = store.get(owner, "profile", owner, db=db) if expected else None
+        db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, request_id,
+            json.dumps(dict(kind="explicit_profile_save", expected=expected, profile=body), sort_keys=True), now()))
+        result = store.put(owner, "profile", owner, body, expected, db=db)
+        from .agents import emit
+        if previous:
+            for field, trigger in [("constraints", "constraints_changed"), ("preferences", "preferences_changed")]:
+                if previous[field] != result[field]:
+                    emit(db, owner, request_id + ":" + field, trigger, dict(profile_version=result["version"]))
+        return result
 
 
 def intake_draft(store, owner, *, text, filename=None, content_type="text/plain", channel="chat"):

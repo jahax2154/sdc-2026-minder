@@ -17,6 +17,10 @@ from .store import Store, AppError
 class Application:
     def __init__(self, store, services=None, provider=None):
         self.store, self.services, self.provider = store, services or CareerServices(), provider
+        from .actions import ActionExecutor
+        self.actions = ActionExecutor(store)
+        from .agents import migrate
+        migrate(store)
 
     def dispatch(self, method, path, body, token):
         if path == "/api/health" and method == "GET":
@@ -24,6 +28,28 @@ class Application:
         if path == "/api/session" and method == "POST":
             return self.store.session()
         owner = self.store.authenticate(token)
+        if path == "/api/direct-action" and method == "POST":
+            return self.actions.direct(owner, body["request"], body["idempotency_key"])
+        if path == "/api/proposals":
+            if method == "GET":
+                return {"proposals": self.actions.proposals(owner)}
+            if method == "POST":
+                return self.actions.propose(owner, body["request"])
+        if path == "/api/proposal-decision" and method == "POST":
+            return self.actions.decide(owner, **body)
+        if path == "/api/action-history" and method == "GET":
+            return {"history": self.actions.history(owner)}
+        if path == "/api/undo" and method == "POST":
+            return self.actions.undo(owner, body["action_id"], body["expected_state_version"], body["idempotency_key"])
+        if path == "/api/agent-settings":
+            from .agents import configure
+            if method == "PUT":
+                return configure(self.store, owner, body["settings"], body.get("expected_version"))
+            if method == "GET":
+                return self.store.get(owner, "agent_settings", owner)
+        if path == "/api/agents" and method == "GET":
+            from .agents import state
+            return state(self.store, owner)
         if path == "/api/profile":
             if method == "GET":
                 return self.store.get(owner, "profile", owner)
@@ -34,11 +60,28 @@ class Application:
         if path == "/api/chat" and method == "POST":
             from .chat import chat
             return chat(self.store, self.services, self.provider, owner,
-                        body["message"], body["expected_profile_version"])
-        if path == "/api/career-context" and method == "GET":
+                        body["message"], body["expected_profile_version"],
+                        body.get("selected_role_ids"), body.get("selected_skill_ids"))
+        if path == "/api/plans":
+            from .plans import create_plan
+            if method == "GET":
+                return {"plans": self.store.list(owner, "plan")}
+            if method == "POST":
+                return create_plan(self.store, owner, body["plan"], body["idempotency_key"], body.get("design"))
+        if path == "/api/pathway-preview" and method == "POST":
+            from .pathways import preview
+            return preview(self.services, self.store.get(owner, "profile", owner), body["role_id"])
+        if path == "/api/plan-designs" and method == "GET":
+            return {"designs": self.store.list(owner, "plan_design")}
+        if path == "/api/company-explorer" and method == "POST":
+            from .companies import CompanyExplorer
+            profile = self.store.get(owner, "profile", owner)
+            return CompanyExplorer(self.services).explore(profile, body["employer_id"], body.get("role_id"))
+        if path == "/api/career-context" and method in ("GET", "POST"):
             profile = self.store.get(owner, "profile", owner)
             return self.services.public_context(self.services.career_context(
-                profile, expected_profile_version=profile["version"]))
+                profile, expected_profile_version=profile["version"],
+                selected_role_ids=body.get("selected_role_ids"), selected_skill_ids=body.get("selected_skill_ids")))
         raise AppError("not_found", 404)
 
     def __call__(self, environ, start_response):
