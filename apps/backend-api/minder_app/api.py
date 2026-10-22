@@ -31,6 +31,10 @@ class Application:
                 return save_profile(self.store, owner, body["profile"], body.get("expected_version"))
         if path == "/api/intake" and method == "POST":
             return intake_draft(self.store, owner, **body)
+        if path == "/api/chat" and method == "POST":
+            from .chat import chat
+            return chat(self.store, self.services, self.provider, owner,
+                        body["message"], body["expected_profile_version"])
         if path == "/api/career-context" and method == "GET":
             profile = self.store.get(owner, "profile", owner)
             return self.services.public_context(self.services.career_context(
