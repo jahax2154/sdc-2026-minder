@@ -28,10 +28,18 @@ class MarketEvidenceService:
             raise ValueError('service requires explicitly real evidence')
         self.version = hashlib.sha256(json.dumps(self.snapshot, sort_keys=True).encode()).hexdigest()
         self.mapping = json.loads((MARKET_DATA / 'mapping.v1.json').read_text())
-        if self.snapshot['mapping_version'] != self.mapping['version']:
+        if (self.snapshot['mapping_version'] != self.mapping['version']
+                or self.snapshot['mapping_sha256'] != hashlib.sha256((MARKET_DATA / 'mapping.v1.json').read_bytes()).hexdigest()):
             raise ValueError('snapshot mapping version mismatch')
         self.aliases = copy.deepcopy(aliases or {})
         self.forecast_registry = forecast_registry
+        registry_path = MARKET_DATA / 'serving-registry.v1.json'
+        if snapshot is None and forecast_registry is None and registry_path.is_file():
+            from .forecasting import ForecastRegistry
+            self.forecast_registry = ForecastRegistry(registry_path)
+            expected = self.forecast_registry.manifest['current_snapshot_sha256']
+            if hashlib.sha256((MARKET_DATA / 'snapshot.v1.json').read_bytes()).hexdigest() != expected:
+                raise ValueError('current_snapshot_checksum_mismatch')
 
     def _source_id(self, entity_type, entity_id):
         return self.aliases.get(entity_type, {}).get(entity_id, entity_id)

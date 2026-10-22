@@ -1,84 +1,83 @@
 {
   "role": {
     "current": {
-      "entity_type": "role",
-      "entity_id": "15-1252.00",
-      "kind": "current",
-      "status": "available",
-      "geography": "MY",
-      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
-      "cohort_version": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
-      "measurement": "unique_valid_inspected_advertisements",
-      "unit": "advertisements",
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
       "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "1 unique inspected advertisements mapped to this occupation in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v1",
       "observation_period": {
-        "start": "2026-10-22",
-        "end": "2026-10-22"
+        "end": "2026-10-22",
+        "start": "2026-10-22"
       },
       "published_at": "2026-10-22T17:39:23.585614+00:00",
-      "available_at": "2026-10-22T17:39:23.585614+00:00",
-      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
-      "issued_at": "2026-10-22T17:39:23.585614+00:00",
-      "target_period": null,
-      "horizon": "observed",
-      "value": 1,
-      "internal_index": null,
-      "uncertainty": {
-        "lower": null,
-        "upper": null,
-        "method": null
-      },
-      "missing_reasons": [],
       "source_ids": [
         "bosch-smartrecruiters-my"
       ],
-      "model_version": "observed-ad-count-v1",
-      "explanation": "1 unique inspected advertisements mapped to this occupation in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial."
-    },
-    "forecast": {
-      "entity_type": "role",
-      "entity_id": "15-1252.00",
-      "kind": "forecast",
-      "status": "unavailable",
-      "geography": "MY",
       "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
-      "cohort_version": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
-      "measurement": "unique_valid_inspected_advertisements",
-      "unit": "advertisements",
-      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
-      "observation_period": {
-        "start": "2026-10-22",
-        "end": "2026-10-22"
-      },
-      "published_at": null,
-      "available_at": "2026-10-22T17:39:23.585614+00:00",
-      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
-      "issued_at": "2026-10-22T17:39:23.585614+00:00",
-      "target_period": {
-        "start": "2027-01-01",
-        "end": "2027-03-31"
-      },
-      "horizon": "next_full_calendar_quarter",
-      "value": null,
-      "internal_index": null,
+      "status": "available",
+      "target_period": null,
       "uncertainty": {
         "lower": null,
-        "upper": null,
-        "method": null
+        "method": null,
+        "upper": null
       },
+      "unit": "advertisements",
+      "value": 1
+    },
+    "forecast": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical role advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
       "missing_reasons": [
         "no_comparable_quarterly_unique_ad_history_for_role",
         "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
         "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
       ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": null,
       "source_ids": [
         "bosch-smartrecruiters-my"
       ],
-      "model_version": null,
-      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical role advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed."
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
     },
     "source_facts": {
-      "snapshot_sha256": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
       "collected_at": "2026-10-22T17:39:23.585614+00:00",
       "coverage": {
         "accepted_ads": 39,
@@ -95,6 +94,15 @@
         "reported_feed_total": 155,
         "window_kind": "observed_active_snapshot_not_quarterly_inflow"
       },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established."
+      ],
+      "snapshot_sha256": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
       "sources": [
         {
           "source_id": "bosch-smartrecruiters-my",
@@ -138,97 +146,88 @@
           "url": "https://jobs.smartrecruiters.com/BoschGroup/744000154949620",
           "validity": "listed_in_employer_feed_at_collection"
         }
-      ],
-      "limitations": [
-        "Employer sample is not the Malaysian labour market.",
-        "No historical employer snapshots or quarterly skill targets.",
-        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
-        "Source-native role mappings require A canonical-ID translation.",
-        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
-        "Raw job descriptions retained locally; redistribution licence not established."
       ]
     }
   },
   "skill": {
     "current": {
-      "entity_type": "skill",
-      "entity_id": "source-term:sql",
-      "kind": "current",
-      "status": "available",
-      "geography": "MY",
-      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
-      "cohort_version": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
-      "measurement": "unique_valid_inspected_advertisements",
-      "unit": "advertisements",
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
       "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "4 unique inspected advertisements requesting this technology in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v1",
       "observation_period": {
-        "start": "2026-10-22",
-        "end": "2026-10-22"
+        "end": "2026-10-22",
+        "start": "2026-10-22"
       },
       "published_at": "2026-10-22T17:39:23.585614+00:00",
-      "available_at": "2026-10-22T17:39:23.585614+00:00",
-      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
-      "issued_at": "2026-10-22T17:39:23.585614+00:00",
-      "target_period": null,
-      "horizon": "observed",
-      "value": 4,
-      "internal_index": null,
-      "uncertainty": {
-        "lower": null,
-        "upper": null,
-        "method": null
-      },
-      "missing_reasons": [],
       "source_ids": [
         "bosch-smartrecruiters-my"
       ],
-      "model_version": "observed-ad-count-v1",
-      "explanation": "4 unique inspected advertisements requesting this technology in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial."
-    },
-    "forecast": {
-      "entity_type": "skill",
-      "entity_id": "source-term:sql",
-      "kind": "forecast",
-      "status": "unavailable",
-      "geography": "MY",
       "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
-      "cohort_version": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
-      "measurement": "unique_valid_inspected_advertisements",
-      "unit": "advertisements",
-      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
-      "observation_period": {
-        "start": "2026-10-22",
-        "end": "2026-10-22"
-      },
-      "published_at": null,
-      "available_at": "2026-10-22T17:39:23.585614+00:00",
-      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
-      "issued_at": "2026-10-22T17:39:23.585614+00:00",
-      "target_period": {
-        "start": "2027-01-01",
-        "end": "2027-03-31"
-      },
-      "horizon": "next_full_calendar_quarter",
-      "value": null,
-      "internal_index": null,
+      "status": "available",
+      "target_period": null,
       "uncertainty": {
         "lower": null,
-        "upper": null,
-        "method": null
+        "method": null,
+        "upper": null
       },
+      "unit": "advertisements",
+      "value": 4
+    },
+    "forecast": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical skill advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
       "missing_reasons": [
         "no_comparable_quarterly_unique_ad_history_for_skill",
         "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
         "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
       ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": null,
       "source_ids": [
         "bosch-smartrecruiters-my"
       ],
-      "model_version": null,
-      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical skill advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed."
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
     },
     "source_facts": {
-      "snapshot_sha256": "f4265a6fad39afcacb9cdf8b4e1f1dccc5c1c9ab0dbe3af0e50ef089847c550e",
       "collected_at": "2026-10-22T17:39:23.585614+00:00",
       "coverage": {
         "accepted_ads": 39,
@@ -245,6 +244,15 @@
         "reported_feed_total": 155,
         "window_kind": "observed_active_snapshot_not_quarterly_inflow"
       },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established."
+      ],
+      "snapshot_sha256": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
       "sources": [
         {
           "source_id": "bosch-smartrecruiters-my",
@@ -352,14 +360,6 @@
           "url": "https://jobs.smartrecruiters.com/BoschGroup/744000152596879",
           "validity": "listed_in_employer_feed_at_collection"
         }
-      ],
-      "limitations": [
-        "Employer sample is not the Malaysian labour market.",
-        "No historical employer snapshots or quarterly skill targets.",
-        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
-        "Source-native role mappings require A canonical-ID translation.",
-        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
-        "Raw job descriptions retained locally; redistribution licence not established."
       ]
     }
   }

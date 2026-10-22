@@ -1,0 +1,57 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Default packaged registry pins current snapshot, target specification, features and real dataset checksums",
+    "Trusted artifact loader checks target/feature/selection/data/environment identity and byte hashes before deserialization",
+    "As-of model availability and actual lead-quarter compatibility required; wrong horizon produces unavailable",
+    "Both output families exposed; selected-model list intentionally empty",
+    "Canonical onet:<code> IDs accepted via explicit aliases; technology terms remain separate",
+    "Updated actual service examples use canonical software-developer ID"
+  ],
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting test_market_service.CurrentTests test_market_service.NewsTests",
+      "result": "19 passed; artifact happy-path test uses a temporary fictional baseline, never real promotion evidence"
+    },
+    {
+      "command": "python -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "MarketEvidenceService canonical role + source-term service examples",
+      "result": "actual current counts 1 software-developer ad and 4 SQL-requesting ads; both forecast outputs unavailable with correct next-quarter dates"
+    }
+  ],
+  "coverage": {
+    "current_role_mapping_ids": 4,
+    "current_skill_source_terms": 5,
+    "forecast_role_status": "unavailable",
+    "forecast_skill_status": "unavailable",
+    "loaded_real_model_artifacts": 0,
+    "packaged_snapshot_sha256": "c7bcd4bccaedacc6d2fb9a7806ff5c33746b21255921c8becf9e3be9704c3fa2",
+    "selected_real_models": 0
+  },
+  "dependency_ids": [
+    "COMPARABLE_ROLE_AND_SKILL_QUARTERLY_HISTORY",
+    "RUNPOD_ACCESS"
+  ],
+  "inputs": [
+    "B1.1-R01",
+    "B1.2",
+    "B2.1",
+    "B2.2",
+    "minder-parallel-v1",
+    "A-001 canonical alias contract"
+  ],
+  "limitations": [
+    "No actual model selected or loaded; serving capability verified separately from empirical result",
+    "Missing quarterly targets and RunPod access remain",
+    "No new current/future index or recommendation blend activated"
+  ],
+  "next_eligible": "B3.2 final handoff and coherent full verification",
+  "objective": "Checksummed serving/provenance for both role/skill forecast families",
+  "owner": "B",
+  "phase_id": "B3.1",
+  "status": "limited"
+}
