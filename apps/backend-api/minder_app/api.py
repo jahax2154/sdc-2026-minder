@@ -67,7 +67,12 @@ class Application:
             if method == "GET":
                 return {"plans": self.store.list(owner, "plan")}
             if method == "POST":
-                return create_plan(self.store, owner, body["plan"], body["idempotency_key"])
+                return create_plan(self.store, owner, body["plan"], body["idempotency_key"], body.get("design"))
+        if path == "/api/pathway-preview" and method == "POST":
+            from .pathways import preview
+            return preview(self.services, self.store.get(owner, "profile", owner), body["role_id"])
+        if path == "/api/plan-designs" and method == "GET":
+            return {"designs": self.store.list(owner, "plan_design")}
         if path == "/api/company-explorer" and method == "POST":
             from .companies import CompanyExplorer
             profile = self.store.get(owner, "profile", owner)
