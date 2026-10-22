@@ -1,0 +1,56 @@
+{
+  "phase_id": "I2.1-R01",
+  "original_phase": "I2.1",
+  "original_checkpoint": "dc1a4e42ba36b24225b27a5b2e3ada1fe4138edf",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Complete available B3 serving integration after initial compatibility checkpoint",
+  "inputs": [
+    "B3.1 ba5d9a234cac334e7ba7b4a650b07e922fcaaccf",
+    "I2.1"
+  ],
+  "change": "Reviewed/merged checksummed registry/forecast loader and reverified actual integrated service calls; no model or missing history fabricated.",
+  "checks": [
+    {
+      "command": "source .env.local; PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests \"$MINDER_PYTHON\" -m unittest test_forecasting test_market_service.CurrentTests test_market_service.NewsTests",
+      "result": "19 passed in 0.168s; synthetic learner/artifact tests are software evidence"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.integration_cli smoke --output ml/artifacts/session-a/i2.1-b3-registry-v1",
+      "result": {
+        "saved_profile_to_real_source_candidates": "passed",
+        "public_market_matrix_exclusion": "passed",
+        "actual_B_current_evidence_and_unavailable_next_quarter": "passed",
+        "explicit_preference_persisted_across_restart": "passed",
+        "negative_feedback_preserves_candidates": "passed",
+        "actual_chat_boundary_with_provider_availability": "unavailable"
+      }
+    }
+  ],
+  "coverage": {
+    "real_models_selected": 0,
+    "real_model_artifacts_loaded": 0,
+    "source_sample_advertisements": 39,
+    "software_role_ads": 1,
+    "sql_request_ads": 4,
+    "role_and_skill_forecasts": "unavailable"
+  },
+  "artifact": {
+    "path": "ml/artifacts/session-a/i2.1-b3-registry-v1/evidence.json",
+    "sha256": "57b1424424b0a2e24cd74fa80f7efb1ba8f830700bfa7dd05a394943f89ccb9b"
+  },
+  "limitations": [
+    "C4.1 UI/runtime final handoff still absent",
+    "B3.2 culmination record not yet committed",
+    "N01/Groq/history/RunPod blockers unchanged; no deployment"
+  ],
+  "dependencies": [
+    "C4.1",
+    "B3.2",
+    "N01",
+    "GROQ_API_KEY/GROQ_MODEL"
+  ],
+  "checkpoint": "commit containing this refinement",
+  "next_eligible_work": "I2.4 bounded truthful integration freeze"
+}
