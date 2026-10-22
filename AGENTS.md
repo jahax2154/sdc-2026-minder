@@ -15,3 +15,9 @@ Read [scope](docs/FEATURE_SCOPE.md), [architecture](docs/ARCHITECTURE.md), [tech
 - No history rewriting, force-push, repository visibility changes, unapproved spend or app publishing/deployment. Do not change scoring, train models or repair unrelated defects during R0.
 
 The initial Task 001 scaffolding-only limits and old gate no-commit prompts describe those historical executions; they are not the active commit workflow. Other numerical, data-provenance, label-independence, runtime-budget and scope policies remain in force. Do not treat generated judgments as independently reviewed labels.
+
+## Active parallel execution — G0, 23 October 2026
+
+Read [canonical D01–D09 revision 5](docs/MINDER_AI_ML_DECISION_CONTEXT.md), [execution handbook](docs/Minder_ML_AI_Layer_Execution_Pack/00_EXECUTION_HANDBOOK.md), and [phase checkpoints](docs/Minder_ML_AI_Layer_Execution_Pack/07_PHASE_CHECKPOINT_RULES.md). These supersede conflicting product meaning and old push authorizations; retain compatible technical policies and historical reports. Local coherent phase commits are mandatory. **Do not push to any remote without a later explicit instruction.**
+
+G0 ownership/contracts and lane launch records live under `docs/execution/parallel/`. Follow its path ownership before editing shared files. Initial role fit is distinct from legacy milestone preparation; pending numerical replacements are not approved policy. Session A owns integration/shared schemas and dependencies, B market internals and paid RunPod execution, C backend/UI/provider/persistence. No duplicate paid jobs or shared live database writes.

@@ -1,0 +1,42 @@
+{
+  "phase_id": "G0.1",
+  "owner": "A",
+  "branch": "bootstrap/g0-parallel-20261023",
+  "status": "passed",
+  "recovery_requirement": "already_satisfied",
+  "reused_code_sha": "8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f",
+  "reused_evidence_sha": "cd252e449048f6ffbab6e09663fcd02481682e28",
+  "objective": "Reuse genuine R0 recovery; integrate supplied pack and one canonical revision-5 context",
+  "pack_actual_path": "docs/Minder_ML_AI_Layer_Execution_Pack",
+  "requested_pack_name_absent": "Minder_Parallel_Execution_Pack",
+  "original_payload_hashes": "all nine payloads matched PACK_MANIFEST.json before pointer normalization",
+  "private_snapshot": "/var/folders/80/th07thsj76bggcbmnzl4cq380000gn/T/minder-g0-private-qa_63sf0",
+  "snapshot_stability": "before/after source hashes matched on first attempt; staged diff empty",
+  "canonical_context": "docs/MINDER_AI_ML_DECISION_CONTEXT.md",
+  "canonical_context_sha256": "11f492d4f68bacd9ca4305fe4ef9ec37952a393d87e57b83b671ce76fa5b48f4",
+  "preservation": "Original revision4 and full supplied pack privately preserved; original package manifest retained as delivery history. Reset-v2 pack, raw data, submission and G3 large artifact left untouched/untracked. No new recovery reconstruction.",
+  "runtime_inspection": {
+    "personal": "inference.recommend/recommend_profile callable; legacy milestone semantics",
+    "market": "market_indexes.build_indexes observed broad source cohorts; not forecasts",
+    "learners": "estimators/training/artifacts exist; no new training",
+    "groq": "llm.py disabled adapter only",
+    "backend_frontend": "README and .gitkeep placeholders only; no HTTP/router/db/UI implementation",
+    "live_activation": "not_verified",
+    "credential_environment": "GROQ_API_KEY/RUNPOD_API_KEY/REPLIT_DEPLOYMENT/DATABASE_URL not present; no values read or logged"
+  },
+  "checks": [
+    "git status/log/worktree/refs/remote inspected locally",
+    "recovery commits preserved as ancestors",
+    "pack hashes verified",
+    "bounded snapshot stable"
+  ],
+  "limitations": [
+    "No real provider or RunPod access verified",
+    "No G2 completion report present",
+    "No substantive new role-fit formula approved"
+  ],
+  "dependencies": [],
+  "next_eligible": "G0.2",
+  "checkpoint": "commit containing this phase record",
+  "push_status": "not pushed \u2014 awaiting explicit instruction"
+}
