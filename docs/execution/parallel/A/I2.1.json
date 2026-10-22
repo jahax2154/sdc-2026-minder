@@ -1,0 +1,55 @@
+{
+  "phase_id": "I2.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Merge available committed modules and verify cross-lane compatibility",
+  "inputs": [
+    "A3.1 b6b3665",
+    "B through B2.2 9dd5f5f",
+    "C through C2.2-R01 8cb2acb"
+  ],
+  "changes": [
+    "Merged real owner commits preserving meaningful history and focused refinements",
+    "C isolated migrations 1/2/3, profile/plan/actions/agents/company/pathway services integrated",
+    "B current evidence, publication-aware forecasting machinery, taxonomy refinement, data/RunPod blockers integrated",
+    "No dependencies installed; existing interpreter resolves current-worktree source",
+    "Mathematical artifacts remain isolated and incompatible with personal role-fit target"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -v > ml/artifacts/session-a/i2-ml-tests.log 2>&1",
+      "result": "147 passed in 135.732s on integrated B2.1/C-through-8cb2acb code before metadata-only B2.2/taxonomy merge"
+    },
+    {
+      "command": "source .env.local; PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m unittest discover -s apps/backend-api/tests -v",
+      "result": "17 distinct backend tests passed"
+    },
+    {
+      "command": "SHA-256 and readonly-mode verification against source_snapshot.v1.json",
+      "result": "all 13 preserved untracked inputs unchanged/read-only"
+    }
+  ],
+  "versions": {
+    "contract": "minder-parallel-v1",
+    "personal_policy": "personal-role-fit-v2-proposal, pending/inactive",
+    "catalogue": "onet31-initial-reference-v1",
+    "market": "observed-ad-count-v1",
+    "forecast": "my-quarterly-unique-ads-v1, no real selected model",
+    "provider": "unconfigured",
+    "database": "isolated A synthetic SQLite; C migrations 1,2,3"
+  },
+  "remaining": [
+    "B3.1 final serving/handoff not yet committed at checkpoint",
+    "C4.1 UI/runtime/handoff not yet committed at checkpoint",
+    "Live Groq/provider and deployment acceptance absent"
+  ],
+  "dependencies": [
+    "B3.1",
+    "C4.1",
+    "GROQ_API_KEY/GROQ_MODEL",
+    "N01"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "I2.2 HTTP acceptance; I2.3 local release preparation"
+}
