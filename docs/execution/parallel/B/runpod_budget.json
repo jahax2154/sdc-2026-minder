@@ -1,0 +1,43 @@
+{
+  "version": "single-operator-runpod-ledger-v1",
+  "checked_at": "2026-10-22T17:57:48.814752+00:00",
+  "operator": "Session B only",
+  "reported_account_allowance_usd": 25,
+  "additional_budget_authorised": false,
+  "global_paid_cap_usd": 25,
+  "balance_verified": false,
+  "remaining_credits_usd": null,
+  "prior_account_jobs_verified": false,
+  "account_current_spend_per_hour": null,
+  "access_status": "blocked_external_no_credentials",
+  "credential_checks": {
+    "RUNPOD_API_KEY": "not_configured",
+    "RUNPOD_TOKEN": "not_configured",
+    "private_config_files": "absent at .runpod/config.toml and .config/runpod/config.toml; no repo .env or ml/.env"
+  },
+  "jobs": [],
+  "actual_session_paid_jobs": 0,
+  "actual_session_cost_usd": 0,
+  "prior_account_consumption_usd": null,
+  "proposed_operator_limits": {
+    "maximum_concurrent_paid_jobs": 1,
+    "maximum_single_job_usd": 2,
+    "maximum_job_seconds": 900,
+    "automatic_retries": 0,
+    "top_up": false,
+    "status": "not_exercised; must verify account rate, balance, external stop and immutable runnable request before launch"
+  },
+  "A_handoff": {
+    "request": "docs/execution/parallel/A/requests/A-002-training-requirements.md",
+    "observed_A_commit": "dd5a1d182f0ea823cfd59109987fd0c21e687c97",
+    "maximum_spend_usd": 0,
+    "launch_requested": false,
+    "status": "acknowledged_no_paid_job_queued",
+    "reason": "N01 and compatible personal targets/rubrics missing; A owns bounded local synthetic mathematical smoke"
+  },
+  "B_jobs": {
+    "status": "deferred_dependency",
+    "reason": "zero eligible real quarterly role/skill target series"
+  },
+  "safety": "No account API requests or resource changes possible without credentials; no claim that all reported USD25 remains."
+}
