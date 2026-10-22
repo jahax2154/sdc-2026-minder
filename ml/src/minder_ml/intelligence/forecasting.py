@@ -238,3 +238,118 @@ def rolling_predictions(method, train, held_out, *, parameter=None, news=False):
 def serve_forecast(registry, entity_type, entity_id, issued_at):
     """B3 loads only independently checked selected registry entries."""
     return registry.forecast(entity_type, entity_id, issued_at=issued_at)
+
+
+class ForecastRegistry:
+    """Load explicitly selected, trusted lane artifacts after compatibility gates.
+
+    Joblib is a trusted-operator format, never an upload accepted from end users.
+    The checksummed registry/dataset must come from reviewed release contents.
+    No models are selected in the delivered empty-data registry.
+    """
+    def __init__(self, path=None, *, artifact_root=None):
+        import importlib.metadata
+        from .data_pipeline import MARKET_DATA, MARKET_ARTIFACTS, sha
+        self.path = Path(path) if path is not None else MARKET_DATA / 'serving-registry.v1.json'
+        self.manifest = json.loads(self.path.read_text())
+        m = self.manifest
+        if (m.get('version') != 'market-serving-registry-v1' or m.get('forecast_spec') != VERSION
+                or m.get('synthetic') is not False or m.get('features') != list(FEATURES)
+                or m.get('promotion_rule_version') != 'quarter-count-promotion-v1'):
+            raise ValueError('incompatible_or_synthetic_forecast_registry')
+        self.artifact_root = Path(artifact_root or MARKET_ARTIFACTS / 'forecast-run').resolve()
+        dataset_path = (self.path.parent / m['dataset']['file']).resolve()
+        if not dataset_path.is_relative_to(self.path.parent.resolve()) or sha(dataset_path) != m['dataset']['sha256']:
+            raise ValueError('forecast_dataset_checksum_or_path_mismatch')
+        self.dataset = json.loads(dataset_path.read_text())
+        if self.dataset.get('synthetic') is not False:
+            raise ValueError('synthetic_dataset_not_served')
+        for row in self.dataset['rows']:
+            validate_count_row(row)
+        if len({(series_key(r), r['period']['start'], r['available_at']) for r in self.dataset['rows']}) != len(self.dataset['rows']):
+            raise ValueError('duplicate_forecast_dataset_rows')
+        identities = set()
+        for entry in m['models']:
+            identity = (entry['entity_type'], entry['entity_id'])
+            if identity in identities:
+                raise ValueError('multiple_selected_models_for_same_entity')
+            identities.add(identity)
+            if (entry.get('synthetic') is not False
+                    or entry.get('evaluation_status') != 'publication_aware_holdout_passed'
+                    or entry.get('method') not in METHODS
+                    or not isinstance(entry.get('lead_quarters'), int) or entry['lead_quarters'] < 1
+                    or entry.get('uncertainty_method') != 'validation_absolute_residual_range_not_calibrated'
+                    or not math.isfinite(entry['uncertainty_radius']) or entry['uncertainty_radius'] < 0):
+                raise ValueError('non_promotable_model')
+            if entry['series_key'][:2] != list(identity):
+                raise ValueError('model_entity_identity_mismatch')
+            if not any(list(series_key(r)) == entry['series_key'] for r in self.dataset['rows']):
+                raise ValueError('selected_model_has_no_compatible_observations')
+            if set(m['environment']) != {'numpy', 'scikit-learn', 'xgboost', 'joblib'}:
+                raise ValueError('forecast_environment_manifest_incomplete')
+            for package, version in m['environment'].items():
+                if importlib.metadata.version(package) != version:
+                    raise ValueError('forecast_environment_version_mismatch')
+            self._artifact_path(entry)  # Verify every checksum before deserializing any model.
+        self.loaded = {}
+
+    def _artifact_path(self, entry):
+        from .data_pipeline import sha
+        artifact = (self.artifact_root / entry['artifact']).resolve()
+        if not artifact.is_relative_to(self.artifact_root) or sha(artifact) != entry['artifact_sha256']:
+            raise ValueError('forecast_artifact_checksum_or_path_mismatch')
+        return artifact
+
+    def forecast(self, entity_type, entity_id, *, issued_at):
+        entry = next((e for e in self.manifest['models']
+                      if e['entity_type'] == entity_type and e['entity_id'] == entity_id), None)
+        if entry is None:
+            return None
+        def unavailable(reason):
+            return {'status': 'unavailable', 'value': None, 'internal_index': None,
+                    'uncertainty': {'lower': None, 'upper': None, 'method': None},
+                    'missing_reasons': [reason],
+                    'explanation': 'Next-quarter forecast unavailable: ' + reason.replace('_', ' ') + '.'}
+        if timestamp(entry['trained_at']) > timestamp(issued_at):
+            return unavailable('selected_model_not_available_at_issue')
+        if timestamp(self.manifest['created_at']) > timestamp(issued_at):
+            return unavailable('forecast_registry_not_available_at_issue')
+        rows = [r for r in self.dataset['rows'] if list(series_key(r)) == entry['series_key']]
+        history = history_as_of(rows, issued_at)
+        target = next_calendar_quarter(issued_at)
+        try:
+            x = feature_vector(history, target)
+        except ValueError as exc:
+            return unavailable(str(exc))
+        if x[-1] != entry['lead_quarters']:
+            return unavailable('selected_model_not_evaluated_for_actual_lead_quarters')
+        if not history:
+            return unavailable('no_observations_available_at_issue')
+        seasonal = next((r['value'] for r in history
+                         if quarter_number(r['period']['start']) == quarter_number(target['start']) - 4), None)
+        example = {'x': x, 'no_change': history[-1]['value'], 'seasonal': seasonal}
+        identity = (entity_type, entity_id)
+        if identity not in self.loaded:
+            import joblib
+            self.loaded[identity] = joblib.load(self._artifact_path(entry))
+        try:
+            value = float(predict(entry['method'], self.loaded[identity], [example])[0])
+        except ValueError as exc:
+            return unavailable(str(exc))
+        radius = entry['uncertainty_radius']
+        return {'status': 'available', 'value': value, 'internal_index': None,
+                'source_universe_id': entry['series_key'][3],
+                'cohort_version': self.manifest['dataset']['sha256'],
+                'measurement': 'forecast_unique_valid_advertisements_in_target_quarter',
+                'unit': 'advertisements', 'denominator': 'declared source universe; not all Malaysian jobs',
+                'observation_period': history[-1]['period'],
+                'published_at': entry['trained_at'], 'available_at': entry['trained_at'],
+                'ingested_at': self.manifest['created_at'],
+                'source_ids': sorted({r['source_id'] for r in history}),
+                'model_version': entry['model_version'], 'missing_reasons': [],
+                'uncertainty': {'lower': max(0., value - radius), 'upper': value + radius,
+                                'method': entry['uncertainty_method']},
+                'explanation': f'Estimated advertisements in {target["start"]} to {target["end"]} '
+                    f'within the declared source universe. Last observed quarter ended {history[-1]["period"]["end"]}; '
+                    f'lead {int(x[-1])} quarters from that observation. Validation residual range is descriptive, '
+                    'not a calibrated confidence interval or hiring guarantee.'}

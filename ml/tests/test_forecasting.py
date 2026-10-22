@@ -5,11 +5,15 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+import importlib.metadata
+import joblib
 
 from minder_ml.intelligence.forecasting import (build_examples, temporal_split, feature_vector,
     fit_candidate, predict, count_metrics, rolling_predictions, validate_count_row, history_as_of)
+from minder_ml.intelligence.forecasting import ForecastRegistry, VERSION, FEATURES, series_key
 from minder_ml.intelligence.market_training import audit_sources, experiment
-from minder_ml.intelligence.data_pipeline import MARKET_DATA
+from minder_ml.intelligence.data_pipeline import MARKET_DATA, sha, encoded
 
 
 def synthetic_rows(family='role', count=40):
@@ -111,6 +115,82 @@ class ForecastTests(unittest.TestCase):
                    'attention_rate': .2}
         result = build_examples(synthetic_rows(), evaluation_as_of='2025-01-01T00:00:00Z', news_contexts=[context])
         self.assertTrue(all(e['x_news'] is None for e in result['examples']))
+
+
+class RegistryTests(unittest.TestCase):
+    """Temporary fake acceptance metadata exercises loader branches only.
+
+    These are fictional software fixtures, never a real promotion/evaluation.
+    No fixture artifact or predictions are exported as application evidence.
+    """
+    def fixture(self, folder):
+        rows = synthetic_rows()
+        dataset = folder/'dataset.json'
+        dataset.write_text(encoded({'synthetic': False, 'fixture_only': True, 'rows': rows}))
+        artifact = folder/'baseline.joblib'
+        joblib.dump(None, artifact)
+        entry = {'entity_type': 'role', 'entity_id': 'synthetic-test-only',
+                 'series_key': list(series_key(rows[0])), 'method': 'no_change', 'lead_quarters': 2,
+                 'artifact': artifact.name, 'artifact_sha256': sha(artifact),
+                 'synthetic': False, 'evaluation_status': 'publication_aware_holdout_passed',
+                 'trained_at': '2020-01-20T00:00:00Z', 'model_version': 'test-only',
+                 'uncertainty_radius': 5., 'uncertainty_method': 'validation_absolute_residual_range_not_calibrated'}
+        manifest = {'version': 'market-serving-registry-v1', 'forecast_spec': VERSION,
+                    'synthetic': False, 'features': list(FEATURES), 'promotion_rule_version': 'quarter-count-promotion-v1',
+                    'created_at': '2020-01-20T00:00:00Z', 'dataset': {'file': dataset.name, 'sha256': sha(dataset)},
+                    'models': [entry], 'environment': {k: importlib.metadata.version(k)
+                                                      for k in ('numpy','scikit-learn','xgboost','joblib')}}
+        registry = folder/'registry.json';registry.write_text(encoded(manifest))
+        return registry, manifest, artifact
+
+    def test_packaged_registry_has_no_selected_models(self):
+        registry = ForecastRegistry()
+        self.assertEqual(registry.manifest['models'], [])
+        self.assertIsNone(registry.forecast('skill','source-term:sql',issued_at='2026-10-23T00:00:00Z'))
+        self.assertEqual(registry.loaded, {})
+
+    def test_load_trusted_fixture_baseline_and_reject_wrong_lead(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);path,manifest,artifact=self.fixture(folder)
+            registry=ForecastRegistry(path,artifact_root=folder)
+            self.assertEqual(registry.loaded,{})
+            result=registry.forecast('role','synthetic-test-only',issued_at='2020-01-21T00:00:00Z')
+            self.assertEqual(result['value'],synthetic_rows()[-1]['value'])
+            self.assertEqual(result['observation_period']['end'],'2019-12-31')
+            self.assertEqual(result['uncertainty']['upper']-result['value'],5)
+            wrong=registry.forecast('role','synthetic-test-only',issued_at='2020-07-01T00:00:00Z')
+            self.assertIsNone(wrong['value'])
+            self.assertIn('actual_lead_quarters',wrong['missing_reasons'][0])
+            prior=registry.forecast('role','synthetic-test-only',issued_at='2019-01-01T00:00:00Z')
+            self.assertIsNone(prior['value'])
+
+    def test_compatibility_and_hashes_reject_before_deserializing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);path,manifest,artifact=self.fixture(folder)
+            with patch('joblib.load') as load:
+                artifact.write_bytes(b'corrupted')
+                with self.assertRaisesRegex(ValueError,'checksum'):
+                    ForecastRegistry(path,artifact_root=folder)
+                manifest['models'][0]['artifact_sha256']=sha(artifact)
+                manifest['models'][0]['synthetic']=True;path.write_text(encoded(manifest))
+                with self.assertRaisesRegex(ValueError,'non_promotable'):
+                    ForecastRegistry(path,artifact_root=folder)
+                manifest['models'][0]['synthetic']=False
+                manifest['environment']['scikit-learn']='incompatible-test-version';path.write_text(encoded(manifest))
+                with self.assertRaisesRegex(ValueError,'environment'):
+                    ForecastRegistry(path,artifact_root=folder)
+                load.assert_not_called()
+
+    def test_dataset_and_artifact_path_containment(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);path,manifest,artifact=self.fixture(folder)
+            manifest['dataset']['file']='../escape.json';path.write_text(encoded(manifest))
+            with self.assertRaisesRegex(ValueError,'path_mismatch'):
+                ForecastRegistry(path,artifact_root=folder)
+            path,manifest,artifact=self.fixture(folder)
+            manifest['models'][0]['artifact']='../escape.joblib';path.write_text(encoded(manifest))
+            with self.assertRaisesRegex(ValueError,'path_mismatch'):
+                ForecastRegistry(path,artifact_root=folder)
 
 
 if __name__ == '__main__':
