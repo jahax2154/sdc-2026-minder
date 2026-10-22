@@ -1,0 +1,92 @@
+{
+  "phase_id": "B1.1",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "objective": "Acquire/normalise supported Malaysian observations",
+  "inputs": [
+    "70dc99e96c51e2da3cacc0b84cdc729b2be33fd9",
+    "minder-parallel-v1",
+    "13 pinned read-only source inputs"
+  ],
+  "changes": [
+    "Bounded public employer collector, Malaysia/active/date validation, deduplication and conservative source-native title/qualification mappings",
+    "Reused DOSM cell round-trip parser; raw descriptions retained only in ignored artifacts",
+    "Compact source-linked factual snapshot, no copyrighted description exports"
+  ],
+  "checks": [
+    {
+      "command": "unittest test_market_service.py",
+      "result": "3 passed including all 952 actual DOSM source-cell round trips"
+    },
+    {
+      "command": "public SmartRecruiters collection",
+      "result": {
+        "accepted_ads": 39,
+        "complete_feed": false,
+        "detail_cap": 40,
+        "detail_responses": 40,
+        "listing_rows": 40,
+        "rejections": [
+          {
+            "ad_id": "744000154953713",
+            "reason": "duplicate_ad_or_repost"
+          }
+        ],
+        "reported_feed_total": 155,
+        "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+      }
+    },
+    {
+      "command": "unittest discover -s ml/tests -p test_phase2.py",
+      "result": "16 passed in 91.527 seconds"
+    }
+  ],
+  "coverage": {
+    "dosm_rows": 952,
+    "dosm_numeric": 921,
+    "dosm_missing": 31,
+    "quarter_range": [
+      "2019-Q3",
+      "2026-Q2"
+    ],
+    "vintage_available_at": "2026-08-18",
+    "employer_sample": {
+      "accepted_ads": 39,
+      "complete_feed": false,
+      "detail_cap": 40,
+      "detail_responses": 40,
+      "listing_rows": 40,
+      "rejections": [
+        {
+          "ad_id": "744000154953713",
+          "reason": "duplicate_ad_or_repost"
+        }
+      ],
+      "reported_feed_total": 155,
+      "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+    },
+    "positive_request_counts": {
+      "source-term:python": 1,
+      "source-term:sql": 4,
+      "source-term:excel": 5,
+      "source-term:java": 1,
+      "source-term:cpp": 2
+    }
+  },
+  "limitations": [
+    "Employer sample is not the Malaysian labour market.",
+    "No historical employer snapshots or quarterly skill targets.",
+    "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+    "Source-native role mappings require A canonical-ID translation.",
+    "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+    "Raw job descriptions retained locally; redistribution licence not established.",
+    "39 unique ads from 40 inspected out of reported 155; one possible repost excluded. No national unique-ad validation.",
+    "Bosch terms-of-use URL unavailable; API documentation and official careers page retrieved, broad redistribution permission not asserted.",
+    "Three other existing DOSM labour/wage files audited by headers: whole labour force or wages are not advertisement targets.",
+    "Current snapshot cannot establish quarterly historical flows."
+  ],
+  "dependency_ids": [],
+  "next_eligible": "B1.2",
+  "checkpoint": "commit containing this record"
+}
