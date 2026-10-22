@@ -1,0 +1,114 @@
+"""SQLite persistence with atomic expected-version writes and per-user ownership."""
+from contextlib import contextmanager
+import copy
+import hashlib
+import json
+from pathlib import Path
+import secrets
+import sqlite3
+from datetime import datetime, timezone
+import uuid
+
+
+def now():
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def uid():
+    return str(uuid.uuid4())
+
+
+class AppError(Exception):
+    def __init__(self, code, status=422):
+        super().__init__(code)
+        self.code, self.status = code, status
+
+
+class Store:
+    def __init__(self, path):
+        self.path = str(path)
+        Path(path).parent.mkdir(parents=True, exist_ok=True)
+        with self.connect() as db:
+            db.executescript('''
+            PRAGMA journal_mode=WAL;
+            CREATE TABLE IF NOT EXISTS migrations(version INTEGER PRIMARY KEY);
+            INSERT OR IGNORE INTO migrations VALUES(1);
+            CREATE TABLE IF NOT EXISTS sessions(token_hash TEXT PRIMARY KEY, owner TEXT NOT NULL,
+              created_at TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS documents(owner TEXT, kind TEXT, id TEXT, version TEXT,
+              body TEXT NOT NULL, PRIMARY KEY(owner,kind,id));
+            CREATE TABLE IF NOT EXISTS history(owner TEXT, kind TEXT, id TEXT, version TEXT,
+              body TEXT NOT NULL, created_at TEXT, PRIMARY KEY(owner,kind,id,version));
+            CREATE TABLE IF NOT EXISTS drafts(owner TEXT, id TEXT, body TEXT, status TEXT,
+              PRIMARY KEY(owner,id));
+            ''')
+
+    def connect(self):
+        db = sqlite3.connect(self.path, timeout=5)
+        db.row_factory = sqlite3.Row
+        return db
+
+    @contextmanager
+    def transaction(self):
+        db = self.connect()
+        try:
+            db.execute("BEGIN IMMEDIATE")
+            yield db
+            db.commit()
+        except Exception:
+            db.rollback()
+            raise
+        finally:
+            db.close()
+
+    def session(self):
+        token, owner = secrets.token_urlsafe(32), uid()
+        with self.transaction() as db:
+            db.execute("INSERT INTO sessions VALUES(?,?,?)", (
+                hashlib.sha256(token.encode()).hexdigest(), owner, now()))
+        return {"token": token, "profile_id": owner}
+
+    def authenticate(self, token):
+        if not token:
+            raise AppError("authentication_required", 401)
+        with self.connect() as db:
+            row = db.execute("SELECT owner FROM sessions WHERE token_hash=?", (
+                hashlib.sha256(token.encode()).hexdigest(),)).fetchone()
+        if row is None:
+            raise AppError("authentication_required", 401)
+        return row["owner"]
+
+    def get(self, owner, kind, doc_id, *, db=None):
+        if db is None:
+            with self.connect() as conn:
+                return self.get(owner, kind, doc_id, db=conn)
+        row = db.execute("SELECT body FROM documents WHERE owner=? AND kind=? AND id=?",
+                         (owner, kind, doc_id)).fetchone()
+        if row is None:
+            raise AppError("not_found", 404)
+        return json.loads(row["body"])
+
+    def list(self, owner, kind):
+        with self.connect() as db:
+            return [json.loads(r[0]) for r in db.execute(
+                "SELECT body FROM documents WHERE owner=? AND kind=? ORDER BY id", (owner, kind))]
+
+    def put(self, owner, kind, doc_id, body, expected, *, db=None):
+        if db is None:
+            with self.transaction() as conn:
+                return self.put(owner, kind, doc_id, body, expected, db=conn)
+        row = db.execute("SELECT version FROM documents WHERE owner=? AND kind=? AND id=?",
+                         (owner, kind, doc_id)).fetchone()
+        if (row[0] if row else None) != expected:
+            raise AppError("stale_state_version", 409)
+        value = copy.deepcopy(body)
+        version = uid()
+        value["state_version" if kind == "plan" else "version"] = version
+        if kind == "plan":
+            value["previous_version"] = expected
+        encoded = json.dumps(value, sort_keys=True, allow_nan=False)
+        db.execute("INSERT OR REPLACE INTO documents VALUES(?,?,?,?,?)",
+                   (owner, kind, doc_id, version, encoded))
+        db.execute("INSERT INTO history VALUES(?,?,?,?,?,?)",
+                   (owner, kind, doc_id, version, encoded, now()))
+        return value
