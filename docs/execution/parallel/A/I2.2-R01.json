@@ -1,0 +1,160 @@
+{
+  "phase_id": "I2.2-R01",
+  "original_phase": "I2.2",
+  "original_checkpoint": "b9c4178dd08a0f4b7b137955737638952bb94767",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Verify requested combined application through A-isolated actual HTTP and Chromium, reusing C completed UI/tests",
+  "inputs": [
+    "I2.1-R02 56b306e5afd6d9bc749dbc17a48687123512903b",
+    "B 63b45ab4ce572b2cf750ed9f527f33b1f7b94a21",
+    "C c5de33bcd2f27a537ca57b30e1e4cba859098e80"
+  ],
+  "changes": [
+    "A integration_cli serve-web reuses C committed web_app with A actual source-service binding and strict A DB ownership",
+    "verify-web replays owner HTTP/browser tests; only test ports, output paths and report port labels adapted into ignored A artifacts, retaining original test source hashes",
+    "No B/C owned module edits, app rebuild, source regeneration, dependency installation or sibling worktree access",
+    "Own test servers started on 8101/9101 and shut down after checks; C namespace guard remains intact"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.integration_cli verify-web --output ml/artifacts/session-a/resume-i2.2-r01-v1 --playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright --browsers-path /private/tmp/minder-c-browser",
+      "result": {
+        "implementation": "unchanged committed C application/UI/tests with A binding",
+        "database": "ml/artifacts/session-a/resume-i2.2-r01-v1/runtime.sqlite3",
+        "api_port": 8101,
+        "ui_port": 9101,
+        "owner_script_sha256": {
+          "http": "4aeb5c500e41ea881fcfcfafb17400efa04fd2f1f5241c520d1e345f9856b7ce",
+          "browser": "79af0ed217aab87ce8e275cf85e5b0267a507579f07a563970465c1608677c1d"
+        },
+        "test_namespace_replacements": {
+          "http": {
+            "8103": 2,
+            "9103": 5
+          },
+          "browser": {
+            "8103": 0,
+            "9103": 2
+          }
+        },
+        "checks": {
+          "http": {
+            "exit_code": 0,
+            "evidence": {
+              "transport": "real TCP HTTP on reserved localhost 8101/9101",
+              "synthetic_user": true,
+              "provider": {
+                "status": "unavailable",
+                "code": "provider_model_not_configured",
+                "request_id": "93b16855-dba1-44c8-94b2-09a620a33627"
+              },
+              "integration_mode": "local_source_services",
+              "catalogue_references": 1016,
+              "unranked_candidates": 910,
+              "numeric_personal_scores": 0,
+              "checks": {
+                "reserved_api_ui_http_assets": "passed",
+                "saved_intake_auth_isolation_stale": "passed",
+                "full_actual_catalogue_unranked_pending_N01": "passed",
+                "real_A_B_role_skill_current_forecast_separation_sources": "passed",
+                "actual_chat_provider_availability": "unavailable",
+                "ambiguous_intake_staged_without_profile_mutation": "passed",
+                "pathway_persisted_direct_completion_exactly_once_no_mastery": "passed",
+                "actual_worker_pending_reject_approve_exact_once_cross_user": "passed",
+                "reversible_schedule_undo_retains_history": "passed",
+                "real_company_snapshot_explicit_missing_criteria_separate_main_matches": "passed"
+              },
+              "browser_interaction": "separate Chromium evidence in c4.1-browser-evidence.json",
+              "deployment_scheduler_verified": false,
+              "recorded_at": "2026-10-22T18:55:08.126832+00:00"
+            }
+          },
+          "browser": {
+            "exit_code": 0,
+            "evidence": {
+              "browser": "156.0.8078.4",
+              "transport": "real Chromium UI to localhost 9101 API, actual A/B services",
+              "synthetic_user": true,
+              "mocked_network": false,
+              "live_provider": "unavailable",
+              "checks": {
+                "profile_and_statement_handlers_persist": "passed",
+                "cv_draft_without_mutation": "passed",
+                "real_catalogue_selection_preference_and_reset": "passed",
+                "roadmap_task_progress_actual_persistence": "passed",
+                "future_current_separation_and_unavailable": "passed",
+                "actual_chat_with_honest_provider_unavailable": "passed",
+                "worker_preview_and_browser_exact_approval": "passed",
+                "mobile_layout_no_horizontal_overflow": "passed"
+              },
+              "page_errors": [],
+              "deployment_scheduler_verified": false,
+              "recorded_at": "2026-10-22T18:55:12.011Z"
+            }
+          }
+        },
+        "catalogue_references": 1016,
+        "numeric_policy": "N01 pending/inactive; no numeric role ranking"
+      }
+    },
+    {
+      "command": "view_image of A synthetic c4.1-browser.png",
+      "result": "Visually inspected actual Minder Mindbots page with applied exact proposal, completion history and explicit scheduling/provider limitations; no layout defect found"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/browser.log",
+      "sha256": "549bf1f79ac97cd8a2bd0d68bb0368fb746d81a492fef9b55b245d5d341a794a",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/c4.1-browser-evidence.json",
+      "sha256": "549bf1f79ac97cd8a2bd0d68bb0368fb746d81a492fef9b55b245d5d341a794a",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/c4.1-browser.png",
+      "sha256": "26c2c00f1eeb929f88315d99054eb6990ccea12a3b9bb930f07aa04565d0032f",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/c4.1-http-evidence.json",
+      "sha256": "53b94bb631878a415c621cc09e7837dd7ef7cf3cfb3f1eaac7920fa7acc7d9a5",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/compatibility-evidence.json",
+      "sha256": "af42955d32a663f47b0dfde446226fdd83ab4c5761448c4149e46567604eaab6",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/http.log",
+      "sha256": "53b94bb631878a415c621cc09e7837dd7ef7cf3cfb3f1eaac7920fa7acc7d9a5",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/integration-evidence.json",
+      "sha256": "7e45f99d782f27374b48aa0318c009d3f0dfa068111cbd1cc9d61c686451b0b7",
+      "committed": false
+    }
+  ],
+  "limitations": [
+    "152 ML and 20 backend tests are software checks; forecast learner controls/provider transport mocks remain separate from empirical/live success",
+    "No successful real provider response: actual HTTP provider_model_not_configured; actual probe provider_credentials_missing",
+    "Both role and skill forecasts unavailable; no selected real models or real-data backtest",
+    "No numeric ranking: N01 pending/inactive. Source-grounded unranked matching is verified",
+    "Local actual worker subprocess proposal/approval verified; deployed unattended scheduler remains unverified",
+    "No deployment, push or application rebuild"
+  ],
+  "dependencies": [
+    "N01",
+    "GROQ_API_KEY/GROQ_MODEL",
+    "compatible quarterly advertisement history",
+    "occupational evidence rubric/targets"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "I2.3-R01 update A runtime instructions; I2.4-R01 current handoff"
+}

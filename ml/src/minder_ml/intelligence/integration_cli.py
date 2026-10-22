@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import sys
 from contextlib import contextmanager
+import subprocess
 
 from .catalogue_service import OccupationalCatalogue
 from .personal_service import PersonalMatchingService
@@ -286,6 +287,94 @@ def acceptance(output):
     return evidence
 
 
+@contextmanager
+def reserved_web_servers(app):
+    """Reuse C's committed web wrapper with A's application/DB/port ownership."""
+    from threading import Thread
+    from wsgiref.simple_server import make_server
+    from minder_app.dev import web_app, QuietHandler
+    from contextlib import ExitStack
+    with ExitStack() as stack:
+        api = stack.enter_context(make_server('127.0.0.1', int(os.environ.get('MINDER_API_PORT', '8101')),
+                                              app, handler_class=QuietHandler))
+        web = stack.enter_context(make_server('127.0.0.1', int(os.environ.get('MINDER_UI_PORT', '9101')),
+                                              web_app(app), handler_class=QuietHandler))
+        if api.server_port != 8101 or web.server_port != 9101:
+            raise ValueError('Session A integration uses reserved ports 8101/9101')
+        threads = [Thread(target=s.serve_forever, daemon=True) for s in (api, web)]
+        for thread in threads:
+            thread.start()
+        try:
+            yield
+        finally:
+            for server in (api, web):
+                server.shutdown()
+            for thread in threads:
+                thread.join(timeout=5)
+
+
+def verify_web(output, playwright_module, browsers_path):
+    """Replay committed C acceptance against A, without editing owner modules.
+
+    Only test ports, output paths and report port labels are adapted. Generated
+    replay scripts/logs/screenshots stay in A artifacts; application code and
+    test operations stay unchanged. No browser/network/provider mocking.
+    """
+    output = Path(output).resolve()
+    if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('web evidence must stay under Session A artifacts')
+    output.mkdir(parents=True, exist_ok=False)
+    database = output / 'runtime.sqlite3'
+    app, catalogue = application(database)
+    originals = dict(http=ROOT / 'apps/backend-api/tests/http_acceptance.py',
+                     browser=ROOT / 'apps/frontend-web/tests/browser_acceptance.cjs')
+    source = {kind: path.read_text() for kind, path in originals.items()}
+    replacement_counts = {}
+    for kind in source:
+        replacement_counts[kind] = {p: source[kind].count(p) for p in ('8103', '9103')}
+        source[kind] = source[kind].replace('8103', '8101').replace('9103', '9101')
+    old_http = 'ROOT / "ml/artifacts/session-c/c4.1-http-evidence.json"'
+    old_browser = "path.resolve('ml/artifacts/session-c')"
+    if source['http'].count(old_http) != 1 or source['browser'].count(old_browser) != 1:
+        raise ValueError('owner acceptance paths changed; review namespace adapter')
+    source['http'] = source['http'].replace(old_http, 'Path(' + repr(str(output / 'c4.1-http-evidence.json')) + ')')
+    # The original __file__ keeps the test's repository ROOT/cwd calculation.
+    http_script = output / 'replay_http.py'
+    http_script.write_text('exec(compile(' + repr(source['http']) + ', ' + repr(str(originals['http']))
+                           + ', "exec"), {"__file__": ' + repr(str(originals['http']))
+                           + ', "__name__": "__main__"})\n')
+    browser_script = output / 'replay_browser.cjs'
+    browser_script.write_text(source['browser'].replace(old_browser, 'path.resolve(' + json.dumps(str(output)) + ')'))
+    env = dict(os.environ, MINDER_DB_PATH=str(database), MINDER_API_PORT='8101', MINDER_UI_PORT='9101',
+               PYTHONPATH=str(ROOT / 'ml/src') + os.pathsep + str(ROOT / 'apps/backend-api'),
+               MINDER_PYTHON=sys.executable, MINDER_PLAYWRIGHT_MODULE=str(Path(playwright_module).resolve()),
+               PLAYWRIGHT_BROWSERS_PATH=str(Path(browsers_path).resolve()))
+    report = dict(implementation='unchanged committed C application/UI/tests with A binding',
+                  database=str(database.relative_to(ROOT)), api_port=8101, ui_port=9101,
+                  owner_script_sha256={kind: hashlib.sha256(path.read_bytes()).hexdigest()
+                                       for kind, path in originals.items()},
+                  test_namespace_replacements=replacement_counts, checks={},
+                  catalogue_references=catalogue.coverage['runtime_roles'],
+                  numeric_policy='N01 pending/inactive; no numeric role ranking')
+    try:
+        with reserved_web_servers(app):
+            for name, command in [('http', [sys.executable, str(http_script)]),
+                                  ('browser', ['node', str(browser_script)])]:
+                with (output / (name + '.log')).open('w') as log:
+                    run = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
+                                         stderr=subprocess.STDOUT, timeout=180)
+                report['checks'][name] = dict(exit_code=run.returncode)
+                if run.returncode != 0:
+                    raise ValueError(name + ' acceptance failed; inspect isolated A log')
+            for name in ('http', 'browser'):
+                report['checks'][name]['evidence'] = json.loads(
+                    (output / ('c4.1-' + name + '-evidence.json')).read_text())
+    finally:
+        (output / 'integration-evidence.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps(report, indent=2))
+    return report
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
@@ -293,12 +382,26 @@ def main():
     check.add_argument('--output', type=Path, required=True)
     accept = sub.add_parser('acceptance')
     accept.add_argument('--output', type=Path, required=True)
+    web = sub.add_parser('verify-web')
+    web.add_argument('--output', type=Path, required=True)
+    web.add_argument('--playwright-module', type=Path, required=True)
+    web.add_argument('--browsers-path', type=Path, required=True)
     sub.add_parser('serve')
+    sub.add_parser('serve-web')
     args = parser.parse_args()
     if args.command == 'smoke':
         smoke(args.output)
     elif args.command == 'acceptance':
         acceptance(args.output)
+    elif args.command == 'verify-web':
+        verify_web(args.output, args.playwright_module, args.browsers_path)
+    elif args.command == 'serve-web':
+        import threading
+        path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))
+        app, _ = application(path)
+        with reserved_web_servers(app):
+            print('Minder Session A: API 8101, UI 9101; local source services, N01 pending.', flush=True)
+            threading.Event().wait()
     else:
         from wsgiref.simple_server import make_server
         path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))
