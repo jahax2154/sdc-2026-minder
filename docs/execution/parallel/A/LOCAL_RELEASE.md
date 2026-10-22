@@ -1,8 +1,8 @@
 # Local integration release handoff
 
-This is a verified local API/service release candidate, with explicit numerical,
-data, provider and UI limits. No deployment or Git push is authorised/performed.
-Use the checkpoint containing this document and the later I2.4 manifest together.
+This is a verified local API/UI/service release candidate, with explicit numerical,
+data and provider limits. The current task authorises no deployment or Git push.
+Use I2.4-R01 for current readiness; historical I2.4 predates the final B/C handoffs.
 
 ## Reproduce in Session A
 
@@ -15,14 +15,18 @@ Do not assume those untracked bytes are included in a Git clone.
 
 ```sh
 source .env.local
-"$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli serve
+"$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli serve-web
 ```
 
-This serves the real A/B/C application on loopback port 8101. It verifies actual
+This serves the real A/B/C application on loopback API 8101 and UI 9101, reusing
+C's committed static/API web wrapper with A's source-service binding. It verifies
 source bytes, opens the reserved A SQLite file, applies C migrations 1–3 and
-loads 1,016 occupational references / 910 supported candidates. It uses the
+creates migration 4's provider budget table on the first budgeted chat/worker call.
+It loads 1,016 occupational references / 910 supported candidates and uses the
 committed B snapshot and source registry; there is no fixture-provider fallback.
-Health: `GET /api/health`, integration mode `local_source_services`.
+Health: `GET /api/health`, integration mode `local_source_services`. API-only
+`integration_cli serve` remains available. C's runtime database guard is unchanged;
+do not use its C-only launcher to open A's database.
 
 Create a local session with `POST /api/session`, then use its bearer capability
 for the documented C routes. Capabilities and database files stay local/ignored.
@@ -42,6 +46,24 @@ For a fresh, synthetic real-HTTP acceptance run:
 It starts and shuts down its own loopback server, creates an isolated A database
 and exercises real source-backed services/persistence/actions. It never writes
 production state. The previous passing run is `i2.2-http-v4/evidence.json`.
+
+To reproduce the latest actual HTTP and Chromium UI acceptance, reuse an
+available Playwright library/browser and run when A's reserved ports are free:
+
+```sh
+"$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-web \
+  --output ml/artifacts/session-a/<new-ui-evidence-directory> \
+  --playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright \
+  --browsers-path /private/tmp/minder-c-browser
+```
+
+Those temporary dependency paths were available for this run; no installation or
+application build occurred. On another machine supply available equivalents.
+The adapter replays C's committed tests with only ports, evidence destinations
+and report port labels adjusted into A. Original test hashes are recorded.
+All app/UI source and actual requests remain unchanged; no network mocks.
+Passing evidence is `resume-i2.2-r01-v1/integration-evidence.json`, with a visually
+inspected synthetic screenshot. Its own servers shut down after verification.
 
 For the bounded worker check, retain A's `MINDER_DB_PATH` and run:
 
@@ -77,9 +99,10 @@ Groq probe returns `provider_credentials_missing`; `GROQ_API_KEY` and
 `GROQ_MODEL` are absent. Chat returns bounded unavailability and factual service
 statements. Configure credentials privately and verify model entitlement and a
 grounded call before claiming provider readiness. No secret value was inspected
-or recorded. C4.1's UI/runtime handoff and B3.1's final serving handoff were not
-committed when this document was prepared; their later commits must be reviewed
-and integrated before a complete application claim.
+or recorded. B's final `63b45ab4ce572b2cf750ed9f527f33b1f7b94a21` and C's final
+`c5de33bcd2f27a537ca57b30e1e4cba859098e80` handoffs are now reviewed and integrated.
+The current application/UI works locally with these explicit provider, scoring,
+forecast, company-criteria and pathway-resource limitations.
 
 No Replit configuration/deployment was found or verified. The current user's
 explicit no-deploy/no-push instruction controls release actions. Before any
@@ -91,9 +114,11 @@ claimed by local tests.
 
 ## Evidence
 
-`I2.1.json` records 147 passing ML tests, 17 distinct backend tests, compatible
-versions and preserved source hashes. `I2.2.json` maps actual HTTP checks to the
-required flows. `A3.1.json` records personal-service coverage, phase SHAs,
-mathematical learner status and blockers. Exact local package versions and the
-provider/health probe are in `I2.3.json`. No unrelated data, model weights,
+`I2.1-R02.json` records 152 passing ML tests, 20 distinct backend tests, preserved
+source hashes, both exact owner revisions and migrations 1–4. `I2.2-R01.json`
+records actual HTTP/Chromium checks, provider unavailability and no network mocks.
+`N01_REVIEW.md` identifies the unchanged pending proposal and decision scope.
+`A3.1.json` retains personal-service coverage, mathematical learner status and
+blockers. Exact local package versions remain in `I2.3.json`; current compatibility
+and provider probes are in I2.1-R02. No unrelated data, model weights,
 credentials or SQLite files are committed or newly backed up externally.

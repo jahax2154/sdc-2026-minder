@@ -1,0 +1,31 @@
+{
+  "phase_id": "I2.3-R01",
+  "original_phase": "I2.3",
+  "original_checkpoint": "991619d7a95a380a8db240fe559f1102a3719bad",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "passed",
+  "objective": "Update local run instructions for the verified combined UI and final owner handoffs",
+  "changes": [
+    "LOCAL_RELEASE.md now starts A's existing source-service binding with C's committed UI wrapper on 8101/9101",
+    "Documents lazy migration 4, guarded A/C database namespaces and reproducible existing-dependency browser checks",
+    "Replaces outdated missing-B/C-handoff statements with exact integrated revisions and current evidence pointers"
+  ],
+  "checks": [
+    {
+      "command": "I2.2-R01 verify-web actual A HTTP/Chromium run",
+      "result": "passed using the documented existing dependency paths and reserved ports; servers stopped after checks"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "limitations": [
+    "Pass covers the bounded run-instruction update, not deployment or full product readiness",
+    "N01, live Groq, forecast history, company criteria and pathway-resource limitations remain",
+    "No application rebuild, dependency installation, deployment or remote push"
+  ],
+  "checkpoint": "commit containing this refinement record",
+  "next_eligible_work": "I2.4-R01 current integration handoff"
+}
