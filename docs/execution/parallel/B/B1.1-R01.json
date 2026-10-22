@@ -1,0 +1,13 @@
+{
+  "phase_id": "B1.1-R01",
+  "refines": "B1.1",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "defect": "Mapping metadata conflated O*NET-SOC taxonomy edition with database release",
+  "evidence": "A-001 committed request on A branch dd5a1d182f0ea823cfd59109987fd0c21e687c97",
+  "root_cause": "31.0 was attached to source taxonomy text instead of database release",
+  "change": "Distinguish O*NET-SOC 2019 and database 31.0; version mapping metadata v1.1 and update snapshot mapping checksum. Source codes, mapped ads, counts and acquisition bytes unchanged.",
+  "check": "CurrentTests and ForecastTests pass with corrected metadata; legacy service examples retain their original historical cohort digest.",
+  "checkpoint": "commit containing this record"
+}

@@ -1,20 +1,60 @@
 {
-  "version": "market-source-mappings-v1",
+  "version": "market-source-mappings-v1.1",
   "status": "engineering_source_mapping_not_human_label",
-  "role_taxonomy": "O*NET-SOC 31.0 native codes; A owns canonical catalogue IDs",
+  "role_taxonomy": "O*NET-SOC 2019 native codes; database release 31.0; A owns canonical onet:<code> IDs",
   "roles": [
-    {"source_role_id": "15-1252.00", "label": "Software Developers", "title_pattern": "\\bsoftware (engineer|developer)\\b"},
-    {"source_role_id": "15-2051.00", "label": "Data Scientists", "title_pattern": "\\bdata scientist\\b"},
-    {"source_role_id": "17-2112.00", "label": "Industrial Engineers", "title_pattern": "\\bindustrial engineer\\b"},
-    {"source_role_id": "13-2011.00", "label": "Accountants and Auditors", "title_pattern": "\\b(accountant|auditor)\\b"}
+    {
+      "source_role_id": "15-1252.00",
+      "label": "Software Developers",
+      "title_pattern": "\\bsoftware (engineer|developer)\\b"
+    },
+    {
+      "source_role_id": "15-2051.00",
+      "label": "Data Scientists",
+      "title_pattern": "\\bdata scientist\\b"
+    },
+    {
+      "source_role_id": "17-2112.00",
+      "label": "Industrial Engineers",
+      "title_pattern": "\\bindustrial engineer\\b"
+    },
+    {
+      "source_role_id": "13-2011.00",
+      "label": "Accountants and Auditors",
+      "title_pattern": "\\b(accountant|auditor)\\b"
+    }
   ],
   "skill_scope": "Literal technology requests in qualifications; source terms, not proficiency or a competing skill taxonomy",
   "skills": [
-    {"source_skill_id": "source-term:python", "label": "Python", "pattern": "\\bpython\\b"},
-    {"source_skill_id": "source-term:sql", "label": "SQL", "pattern": "\\bsql\\b"},
-    {"source_skill_id": "source-term:excel", "label": "Microsoft Excel", "pattern": "\\bexcel\\b"},
-    {"source_skill_id": "source-term:java", "label": "Java", "pattern": "\\bjava\\b"},
-    {"source_skill_id": "source-term:cpp", "label": "C++", "pattern": "(?<!\\w)c\\+\\+(?!\\w)"}
+    {
+      "source_skill_id": "source-term:python",
+      "label": "Python",
+      "pattern": "\\bpython\\b"
+    },
+    {
+      "source_skill_id": "source-term:sql",
+      "label": "SQL",
+      "pattern": "\\bsql\\b"
+    },
+    {
+      "source_skill_id": "source-term:excel",
+      "label": "Microsoft Excel",
+      "pattern": "\\bexcel\\b"
+    },
+    {
+      "source_skill_id": "source-term:java",
+      "label": "Java",
+      "pattern": "\\bjava\\b"
+    },
+    {
+      "source_skill_id": "source-term:cpp",
+      "label": "C++",
+      "pattern": "(?<!\\w)c\\+\\+(?!\\w)"
+    }
   ],
-  "limitations": ["Conservative title mappings are partial; unmatched ads stay unmapped.", "Internships excluded from occupation mapping, retained in source counts.", "Source terms require A canonical skill-ID translation; no automatic broad-skill substitution."]
+  "limitations": [
+    "Conservative title mappings are partial; unmatched ads stay unmapped.",
+    "Internships excluded from occupation mapping, retained in source counts.",
+    "Source terms require A canonical skill-ID translation; no automatic broad-skill substitution."
+  ]
 }

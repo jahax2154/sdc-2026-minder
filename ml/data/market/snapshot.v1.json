@@ -22300,8 +22300,8 @@
     "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
     "Raw job descriptions retained locally; redistribution licence not established."
   ],
-  "mapping_sha256": "c2a7162eaf7429862a564450fb9c078ad299a22c49dbbc39d608bcd9a217c7a9",
-  "mapping_version": "market-source-mappings-v1",
+  "mapping_sha256": "700bfaa69745f16eb366d4cd2d9545681a8ae4767def86288558e38a7845ea2c",
+  "mapping_version": "market-source-mappings-v1.1",
   "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
   "synthetic": false,
   "version": "market-snapshot-v1"
