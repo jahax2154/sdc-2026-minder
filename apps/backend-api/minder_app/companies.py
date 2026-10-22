@@ -14,7 +14,9 @@ from .store import AppError, now
 
 REGISTRY = {
     "intel": {"name": "Intel", "geography": "MY", "multinational": True,
-              "url": "https://www.intel.com/content/www/us/en/jobs/locations/malaysia.html"},
+              "url": "https://jobs.intel.com/"},
+    "bosch": {"name": "Bosch Group", "geography": "MY", "multinational": True,
+              "url": "https://www.bosch.com.my/careers/"},
 }
 
 
@@ -45,20 +47,42 @@ class CompanyExplorer:
                         "this employer has not been added to the checked official-source registry.",
                         other_supported_roles=[], assessment=None)
         checked, evidence, access = now(), [], "not_retrieved"
+        cached_postings = []
+        market = self.services.market
+        if employer_id == "bosch" and market is not None and hasattr(market, "snapshot"):
+            # B's committed bounded collector verified the employer/ATS linkage.
+            # Reuse summaries, never pretend cached descriptions are current vacancies.
+            collected = market.snapshot["collected_at"]
+            evidence = [dict(source_id="bosch-smartrecruiters-my", version=market.version,
+                sha256=market.version, uri=employer["url"], geography="MY", available_at=collected,
+                evidence_type="source-derived")]
+            inverse = {native: canonical for canonical, native in market.aliases.get("role", {}).items()}
+            for ad in market.snapshot["ads"]:
+                for native in ad["role_ids"]:
+                    if native in inverse:
+                        cached_postings.append(dict(employer_id="bosch", geography="MY", role_id=inverse[native],
+                            official_link_verified=True, title=ad["title"], location=ad["city"] + ", Malaysia",
+                            required=[], preferred=[], published_at=ad["published_at"], retrieved_at=ad["ingested_at"],
+                            vacancy_status="listed_at_collection_only; current_status_unknown", sources=[dict(
+                                source_id=ad["source_id"] + ":" + ad["ad_id"], version=ad["ingested_at"],
+                                sha256=ad["content_sha256"], uri=ad["url"], geography="MY",
+                                available_at=ad["available_at"], evidence_type="source-derived")]))
+            access = "B_committed_bounded_snapshot_at_" + collected + "; role_criteria_not_preserved_in_summary"
         try:
-            raw = self.fetch(employer["url"])
+            raw = self.fetch(employer["url"]) if not evidence else None
             # A country page establishes checked scope only, never role requirements.
-            evidence = [dict(source_id="company:" + employer_id, version=checked,
-                sha256=hashlib.sha256(raw).hexdigest(), uri=employer["url"], geography="MY",
-                available_at=checked, evidence_type="source-derived")]
-            access = "retrieved_country_page_no_verified_role_requirements"
+            if raw is not None:
+                evidence = [dict(source_id="company:" + employer_id, version=checked,
+                    sha256=hashlib.sha256(raw).hexdigest(), uri=employer["url"], geography="MY",
+                    available_at=checked, evidence_type="source-derived")]
+                access = "retrieved_country_page_no_verified_role_requirements"
         except (URLError, TimeoutError, OSError, ValueError):
             access = "official_page_unavailable"
         # Postings are server-side reviewed records, not user/LLM assertions. Only
         # mappings to A's catalogue can be assessed; same personal service, no new score.
         supported = []
         known_roles = {r["role_id"]: r for r in self.services.roles}
-        for posting in self.postings:
+        for posting in self.postings + cached_postings:
             if (posting["employer_id"] != employer_id or posting["geography"] != "MY"
                     or not posting.get("official_link_verified") or posting["role_id"] not in known_roles):
                 continue
@@ -86,7 +110,7 @@ class CompanyExplorer:
             unknown_requirements=["No verified role-specific requirements in checked sources"],
             preparation_suggestions=[], explanation="Company-specific requirements unavailable in the "
             "sources checked. This does not establish that the company has no matching role.")
-        if selected:
+        if selected and (selected["required"] or selected["preferred"]):
             result.update(status="found", official_evidence=selected["sources"],
                           unknown_requirements=["Company criteria assessment unavailable"],
                           explanation="A source-supported role description was found. Current vacancy "
