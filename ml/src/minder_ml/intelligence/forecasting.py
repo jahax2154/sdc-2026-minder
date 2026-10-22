@@ -9,6 +9,7 @@ from datetime import datetime, date
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 
 import numpy as np
@@ -91,6 +92,34 @@ def history_as_of(rows, issue):
     return [latest[k] for k in sorted(latest)]
 
 
+def eligible_news_context(context, key, issue, approved_sources):
+    """The optional feature boundary enforces the approved source pipeline too.
+
+    A flag/score by itself is insufficient. Require archived underlying-document
+    hashes, approved source identity and complete matching-window denominators.
+    """
+    try:
+        coverage = context['coverage']
+        source_ids = set(context['source_ids'])
+        rate = context['attention_rate']
+        return (context['entity_type'] == key[0] and context['entity_id'] == key[1]
+                and context['source_universe_id'] == key[3]
+                and context['pipeline_version'] == 'credible-events-v1'
+                and source_ids and source_ids <= approved_sources
+                and context['complete_coverage'] and math.isfinite(rate) and 0 <= rate <= 1
+                and context['window_start'] <= context['window_end'] < issue[:10]
+                and timestamp(context['available_at']) <= timestamp(issue)
+                and context['underlying_document_sha256']
+                and all(re.fullmatch(r'[0-9a-f]{64}', h) for h in context['underlying_document_sha256'])
+                and {c['source_id'] for c in coverage} == source_ids
+                and len(coverage) == len(source_ids)
+                and all(c['complete'] and c['documents'] > 0
+                        and c['start'] == context['window_start'] and c['end'] == context['window_end']
+                        and timestamp(c['available_at']) <= timestamp(issue) for c in coverage))
+    except (KeyError, ValueError, TypeError):
+        return False
+
+
 def build_examples(rows, *, evaluation_as_of, news_contexts=()):
     """Labels may arrive after issue; training folds enforce label availability.
 
@@ -98,6 +127,9 @@ def build_examples(rows, *, evaluation_as_of, news_contexts=()):
     Quarter target is derived from issue date, with variable lead since last row.
     """
     groups, rejected, examples = defaultdict(list), [], []
+    from .data_pipeline import MARKET_DATA
+    approved_sources = {s['source_id'] for s in json.loads((MARKET_DATA / 'sources.v1.json').read_text())['sources']
+                        if any(t != 'hiring_advertisement' for t in s['claim_types'])}
     identities = set()
     for index, row in enumerate(rows):
         try:
@@ -122,9 +154,7 @@ def build_examples(rows, *, evaluation_as_of, news_contexts=()):
                 x = feature_vector(history, target)
             except ValueError:
                 continue
-            contexts = [c for c in news_contexts if c['entity_type'] == key[0] and c['entity_id'] == key[1]
-                        and c['source_universe_id'] == key[3] and c['complete_coverage']
-                        and c['window_end'] < issue[:10] and timestamp(c['available_at']) <= timestamp(issue)]
+            contexts = [c for c in news_contexts if eligible_news_context(c, key, issue, approved_sources)]
             context = max(contexts, key=lambda c: timestamp(c['available_at']), default=None)
             x_news = x + [context['attention_rate']] if context and math.isfinite(context['attention_rate']) else None
             seasonal = next((r['value'] for r in history

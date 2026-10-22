@@ -116,6 +116,23 @@ class ForecastTests(unittest.TestCase):
         result = build_examples(synthetic_rows(), evaluation_as_of='2025-01-01T00:00:00Z', news_contexts=[context])
         self.assertTrue(all(e['x_news'] is None for e in result['examples']))
 
+    def test_news_feature_boundary_excludes_personal_posts_and_missing_coverage(self):
+        context = {'entity_type': 'role', 'entity_id': 'synthetic-test-only',
+                   'source_universe_id': 'synthetic-test-universe', 'complete_coverage': True,
+                   'pipeline_version': 'credible-events-v1', 'source_ids': ['mida-official'],
+                   'underlying_document_sha256': ['a'*64], 'window_start': '2010-01-01',
+                   'window_end': '2010-12-31', 'available_at': '2011-01-01T00:00:00Z',
+                   'attention_rate': .2, 'coverage': [{'source_id': 'mida-official', 'documents': 5,
+                     'complete': True, 'start': '2010-01-01', 'end': '2010-12-31',
+                     'available_at': '2011-01-01T00:00:00Z'}]}
+        def result(c):
+            return build_examples(synthetic_rows(),evaluation_as_of='2025-01-01T00:00:00Z',news_contexts=[c])['examples']
+        self.assertTrue(any(e['x_news'] is not None for e in result(context)))
+        anonymous = dict(context,source_ids=['personal-post'])
+        no_coverage = dict(context,coverage=[])
+        for bad in (anonymous, no_coverage, dict(context, underlying_document_sha256=[])):
+            self.assertTrue(all(e['x_news'] is None for e in result(bad)))
+
 
 class RegistryTests(unittest.TestCase):
     """Temporary fake acceptance metadata exercises loader branches only.
