@@ -35,6 +35,12 @@ class Application:
             from .chat import chat
             return chat(self.store, self.services, self.provider, owner,
                         body["message"], body["expected_profile_version"])
+        if path == "/api/plans":
+            from .plans import create_plan
+            if method == "GET":
+                return {"plans": self.store.list(owner, "plan")}
+            if method == "POST":
+                return create_plan(self.store, owner, body["plan"], body["idempotency_key"])
         if path == "/api/career-context" and method == "GET":
             profile = self.store.get(owner, "profile", owner)
             return self.services.public_context(self.services.career_context(
