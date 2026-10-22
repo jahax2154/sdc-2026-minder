@@ -5,17 +5,26 @@ from .service_contracts import public_recommendation, validate
 
 
 class CareerServices:
-    def __init__(self, personal=None, market=None, roles=(), sources=(), *, mode="unavailable"):
+    def __init__(self, personal=None, market=None, roles=(), sources=(), *, mode="unavailable", skill_entity_ids=()):
         self.personal, self.market = personal, market
         self.roles, self.sources, self.mode = list(roles), list(sources), mode
+        self.skill_entity_ids = set(skill_entity_ids)
 
-    def career_context(self, profile, *, expected_profile_version):
+    def career_context(self, profile, *, expected_profile_version, selected_role_ids=None, selected_skill_ids=None):
         validate("Profile", profile)
         if profile["version"] != expected_profile_version:
             raise ValueError("stale profile context")
+        if selected_role_ids is not None and (not isinstance(selected_role_ids, list) or
+                len(selected_role_ids) > 3 or len(set(selected_role_ids)) != len(selected_role_ids) or
+                not set(selected_role_ids).issubset({r["role_id"] for r in self.roles})):
+            raise ValueError("explicit selected view requires at most three known roles")
+        if selected_skill_ids is not None and (not isinstance(selected_skill_ids, list) or
+                len(selected_skill_ids) > 3 or not set(selected_skill_ids).issubset(self.skill_entity_ids)):
+            raise ValueError("skill market query requires typed registered skill IDs")
+        view = self.roles if selected_role_ids is None else [r for r in self.roles if r["role_id"] in selected_role_ids]
         result = None
         if self.personal is not None:
-            result = self.personal.assess(profile, self.roles, scorer_kind="baseline",
+            result = self.personal.assess(profile, view, scorer_kind="baseline",
                 policy_version="N01-pending", market_period_policy_key="personal_only_pending_market_policy")
             validate("Recommendation", result)
             if (result["public"]["profile_id"] != profile["profile_id"] or
@@ -24,8 +33,8 @@ class CareerServices:
         market = []
         if self.market is not None:
             stamp = datetime.now(timezone.utc).isoformat()
-            entities = [("role", r["role_id"]) for r in self.roles]
-            entities += [("skill", e["subject_id"]) for e in profile["evidence"]]
+            entities = [("role", r["role_id"]) for r in view] if selected_role_ids is not None else []
+            entities += [("skill", sid) for sid in selected_skill_ids or []]
             for entity_type, entity_id in list(dict.fromkeys(entities))[:10]:
                 for kind in ("current", "forecast"):
                     item = (self.market.current(entity_type, entity_id, as_of=stamp)
@@ -38,6 +47,7 @@ class CareerServices:
         elif result:
             market = result["internal"]["current_market"] + result["internal"]["forecast_market"]
         return {"integration_mode": self.mode, "recommendation": result, "market": market,
+                "selected_role_ids": selected_role_ids, "selected_skill_ids": selected_skill_ids,
                 "limitations": [] if result else ["Personal service not connected; N01 remains pending."],
                 "sources": self.sources}
 
@@ -66,7 +76,11 @@ def grounded_statements(context):
     result = context["recommendation"]
     if result:
         public = public_recommendation(result)
-        for option in public["options"]:
+        selected = context.get("selected_role_ids")
+        if selected is None:
+            add(str(len(public["candidate_ids"])) + " supported candidates are available for exploration. "
+                "Select up to three roles for grounded chat; catalogue order is not a recommendation rank.")
+        for option in public["options"] if selected is not None else []:
             add(option["role_id"] + ": " + option["explanation"], option["source_ids"],
                 kind="personal_assessment", score_status=option["score_status"],
                 personal_score=option["personal_score"], unknowns=option["unknowns"])
@@ -89,7 +103,7 @@ def grounded_statements(context):
                 issued_at=item["issued_at"], source_universe_id=item["source_universe_id"],
                 model_version=item["model_version"], uncertainty=item["uncertainty"])
     if not context.get("market"):
-        add("Current market evidence unavailable: market service not connected.", kind="current", status="unavailable")
-        add("Next-quarter role and skill forecasts unavailable: market service not connected.",
+        add("Current market evidence not loaded for this view; select supported roles or typed skills.", kind="current", status="unavailable")
+        add("Next-quarter role and skill forecasts not loaded for this view; no forecast is inferred.",
             kind="forecast", status="unavailable")
     return statements

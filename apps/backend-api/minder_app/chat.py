@@ -5,13 +5,15 @@ from minder_ml.intelligence.groq_adapter import GroqAdapter, ProviderError
 from .store import AppError, uid
 
 
-def chat(store, services, provider, owner, message, expected_profile_version):
+def chat(store, services, provider, owner, message, expected_profile_version,
+         selected_role_ids=None, selected_skill_ids=None):
     if not isinstance(message, str) or not message.strip() or len(message) > 4000:
         raise AppError("chat_message_required_or_too_large")
     profile = store.get(owner, "profile", owner)
     if profile["version"] != expected_profile_version:
         raise AppError("stale_state_version", 409)
-    context = services.career_context(profile, expected_profile_version=expected_profile_version)
+    context = services.career_context(profile, expected_profile_version=expected_profile_version,
+        selected_role_ids=selected_role_ids, selected_skill_ids=selected_skill_ids)
     facts = grounded_statements(context)
     plans = store.list(owner, "plan")
     if plans:
@@ -19,7 +21,7 @@ def chat(store, services, provider, owner, message, expected_profile_version):
                           "it does not certify skill mastery.", sources=[],
                           plans=[dict(plan_id=p["plan_id"], state_version=p["state_version"],
                                       completed=sum(t["activity_completion"] for t in p["tasks"]),
-                                      tasks=len(p["tasks"])) for p in plans]))
+                                      tasks=len(p["tasks"])) for p in plans[:5]]))
     # Snapshot before generation preserves exact profile, service and state versions.
     snapshot = store.put(owner, "context", uid(), dict(profile_id=owner,
         profile_version=profile["version"], context=context, plans=plans), None)

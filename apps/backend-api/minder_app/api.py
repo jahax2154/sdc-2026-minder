@@ -60,7 +60,8 @@ class Application:
         if path == "/api/chat" and method == "POST":
             from .chat import chat
             return chat(self.store, self.services, self.provider, owner,
-                        body["message"], body["expected_profile_version"])
+                        body["message"], body["expected_profile_version"],
+                        body.get("selected_role_ids"), body.get("selected_skill_ids"))
         if path == "/api/plans":
             from .plans import create_plan
             if method == "GET":
@@ -71,10 +72,11 @@ class Application:
             from .companies import CompanyExplorer
             profile = self.store.get(owner, "profile", owner)
             return CompanyExplorer(self.services).explore(profile, body["employer_id"], body.get("role_id"))
-        if path == "/api/career-context" and method == "GET":
+        if path == "/api/career-context" and method in ("GET", "POST"):
             profile = self.store.get(owner, "profile", owner)
             return self.services.public_context(self.services.career_context(
-                profile, expected_profile_version=profile["version"]))
+                profile, expected_profile_version=profile["version"],
+                selected_role_ids=body.get("selected_role_ids"), selected_skill_ids=body.get("selected_skill_ids")))
         raise AppError("not_found", 404)
 
     def __call__(self, environ, start_response):
