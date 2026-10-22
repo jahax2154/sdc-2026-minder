@@ -1,5 +1,5 @@
 import json
-from test_profiles import ProfileTests, fixture
+from support import AppCase, fixture
 from minder_ml.intelligence.app_context import CareerServices
 
 
@@ -19,7 +19,7 @@ class MockProvider:
         return dict(status="available", text=self.text, request_id="mock-only", model="mock-only")
 
 
-class ChatTests(ProfileTests):
+class ChatTests(AppCase):
     def test_contract_fixture_round_trip_and_no_raw_scores(self):
         p = self.save()
         self.app.services = CareerServices(FixturePersonal(), mode="contract_fixture")

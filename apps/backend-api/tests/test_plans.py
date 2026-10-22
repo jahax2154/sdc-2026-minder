@@ -1,16 +1,10 @@
 import copy
-from test_profiles import ProfileTests, fixture
+from support import AppCase, fixture
 from minder_app.plans import check_plan, complete_task, save_plan
 from minder_app.store import AppError
 
 
-class PlanTests(ProfileTests):
-    def make_plan(self):
-        self.profile = self.save()
-        plan = fixture("plan_progress")
-        plan["profile_id"] = self.profile["profile_id"]
-        return self.app.dispatch("POST", "/api/plans", dict(plan=plan, idempotency_key="create-1"), self.token)
-
+class PlanTests(AppCase):
     def test_unknown_effort_and_persistent_completion(self):
         result = self.make_plan()
         self.assertEqual(result["feasibility"]["status"], "unknown")

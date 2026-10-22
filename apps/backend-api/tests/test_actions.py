@@ -1,16 +1,9 @@
 import copy
-from test_plans import PlanTests
+from support import AppCase
 from minder_app.store import AppError
 
 
-class ActionTests(PlanTests):
-    def setup_request(self):
-        plan = self.make_plan()["plan"]
-        req = dict(kind="complete_task", target_id=plan["plan_id"], expected=plan["state_version"],
-                   diff=[dict(path="/tasks/synthetic-task/state", before="scheduled", after="completed")],
-                   reason="User clicked Complete", evidence_ids=[])
-        return plan, req
-
+class ActionTests(AppCase):
     def test_direct_scoped_once_and_cross_user_blocked(self):
         plan, req = self.setup_request()
         body = dict(request=req, idempotency_key="one")

@@ -49,6 +49,8 @@ class ActionExecutor:
     def __init__(self, store):
         self.store = store
         migrate(store)
+        from .agents import migrate as migrate_agents
+        migrate_agents(store)
 
     def direct(self, owner, request, idempotency_key):
         """Called ONLY from an authenticated structured user-command route."""
@@ -222,6 +224,11 @@ class ActionExecutor:
         audit = dict(result=result, before=before, target_id=req["target_id"], created_at=now())
         db.execute("INSERT INTO action_audit VALUES(?,?,?)", (owner, aid, encode(audit)))
         db.execute("INSERT INTO executions VALUES(?,?,?,?)", (owner, key, encode(req), encode(result)))
+        from .agents import emit
+        trigger = "task_completion" if req["kind"] == "complete_task" else (
+            "constraints_changed" if any("/constraints/" in c["path"] for c in req["diff"]) else "preferences_changed")
+        if kind == "profile" or req["kind"] == "complete_task":
+            emit(db, owner, "action:" + aid, trigger, dict(action_id=aid, resulting_version=version))
         return result
 
     def undo(self, owner, action_id, expected, key):

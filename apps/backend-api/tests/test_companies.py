@@ -1,9 +1,9 @@
 from urllib.error import URLError
-from test_profiles import ProfileTests
+from support import AppCase, fixture
 from minder_app.companies import CompanyExplorer
 
 
-class CompanyTests(ProfileTests):
+class CompanyTests(AppCase):
     def test_missing_source_never_infers_universal_absence(self):
         p = self.save()
         def unavailable(url):

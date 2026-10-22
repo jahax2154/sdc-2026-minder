@@ -19,6 +19,8 @@ class Application:
         self.store, self.services, self.provider = store, services or CareerServices(), provider
         from .actions import ActionExecutor
         self.actions = ActionExecutor(store)
+        from .agents import migrate
+        migrate(store)
 
     def dispatch(self, method, path, body, token):
         if path == "/api/health" and method == "GET":
@@ -39,6 +41,15 @@ class Application:
             return {"history": self.actions.history(owner)}
         if path == "/api/undo" and method == "POST":
             return self.actions.undo(owner, body["action_id"], body["expected_state_version"], body["idempotency_key"])
+        if path == "/api/agent-settings":
+            from .agents import configure
+            if method == "PUT":
+                return configure(self.store, owner, body["settings"], body.get("expected_version"))
+            if method == "GET":
+                return self.store.get(owner, "agent_settings", owner)
+        if path == "/api/agents" and method == "GET":
+            from .agents import state
+            return state(self.store, owner)
         if path == "/api/profile":
             if method == "GET":
                 return self.store.get(owner, "profile", owner)
