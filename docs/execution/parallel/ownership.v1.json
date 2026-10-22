@@ -102,7 +102,8 @@
         "ml/src/minder_ml/intelligence/catalogue_service.py",
         "ml/src/minder_ml/intelligence/personal_service.py",
         "ml/src/minder_ml/intelligence/personal_cli.py",
-        "ml/src/minder_ml/intelligence/personal_training.py"
+        "ml/src/minder_ml/intelligence/personal_training.py",
+        "ml/src/minder_ml/intelligence/integration_cli.py"
       ]
     },
     "B": {
