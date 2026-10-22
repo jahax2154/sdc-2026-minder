@@ -1,0 +1,70 @@
+{
+  "phase_id": "A2.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Runnable baseline/Ridge/boosting learner machinery, immutable split/target manifests",
+  "inputs": [
+    "Existing estimators/training/evaluation/artifacts reviewed and reused",
+    "A1.2 pending target",
+    "synthetic_math.json pinned SHA-256"
+  ],
+  "changes": [
+    "Reused bounded actual Ridge+StandardScaler and CPU XGBoost constructors; train-only mean baseline for mathematical control",
+    "Deterministic disjoint profile-family split before preprocessing; duplicate-vector/group leakage guards",
+    "All methods fit/save/reload/predict against same mathematical holdout; no live promotion",
+    "Semantic, source hash, implementation, package and feature-schema compatibility checks before deserialization",
+    "Label inventory observes empty annotation CSV and three pending intake slots; no target conversion"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "11 passed; includes split/leakage guards and rejection before unsafe deserialization"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.personal_training plan --output ml/artifacts/session-a/a2.1-machinery-plan.json",
+      "result": "executable smoke plan frozen; no fit performed in this phase"
+    }
+  ],
+  "coverage": {
+    "rows": 32,
+    "development_groups": 12,
+    "holdout_groups": 4,
+    "label_inventory": {
+      "legacy_annotation_path": "ml/data/annotations/personal_fit_annotations.csv",
+      "sha256": "fff69cfbc26ef8b14d7a79bea883503a603b89f2acd52e381c5afc57b75c9f88",
+      "legacy_annotation_report": {
+        "rows": 0,
+        "profile_count": 0,
+        "profile_group_count": 0,
+        "pending_rows": 0,
+        "eligible_reviewed_rows": 0,
+        "eligible_reviewed_groups": 0,
+        "missing_columns": [],
+        "errors": [],
+        "empirical_status": "not_evaluated",
+        "candidate_coverage_by_profile": {}
+      },
+      "intake_rows": 3,
+      "compatible_initial_role_fit_labels": 0,
+      "target_migration": "No accepted role-fit target/rubric; legacy milestone grades are incompatible.",
+      "status": "blocked_decision",
+      "blockers": [
+        "N01",
+        "compatible_target_and_evidence_rubric"
+      ],
+      "human_review_notice": "Independent review is not a launch prerequisite; generated labels remain provisional."
+    }
+  },
+  "limits": [
+    "No new personal-fit baseline formula, features or targets activated",
+    "Existing legacy trainer guards unchanged; this separately labelled local math smoke is authorised by A pack",
+    "Actual empirical model/target pipeline cannot be finalised before N01/rubric/labels; A2 not fully passed"
+  ],
+  "dependencies": [
+    "N01",
+    "compatible_target_and_evidence_rubric"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "A2.2 execute bounded local mathematical smoke; no paid launch"
+}

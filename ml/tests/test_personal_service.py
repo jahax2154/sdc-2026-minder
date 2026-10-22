@@ -9,6 +9,7 @@ from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
 from minder_ml.intelligence.service_contracts import validate
 from minder_ml.intelligence.personal_service import PersonalMatchingService, update_preference, filter_roles
 from minder_ml.intelligence.personal_cli import synthetic_profile
+from minder_ml.intelligence.personal_training import machinery_plan, grouped_split, load_machinery_candidate, ARTIFACT_ROOT
 
 
 class CatalogueTests(unittest.TestCase):
@@ -173,6 +174,34 @@ class PersonalServiceTests(unittest.TestCase):
             self.assertTrue(all(r['value'] is None for r in after['internal'][key]))
         from minder_ml.intelligence.service_contracts import public_recommendation
         self.assertNotIn('internal_index', json.dumps(public_recommendation(after)))
+
+
+class LearnerPreparationTests(unittest.TestCase):
+    def test_split_freezes_family_groups_and_rejects_duplicate_leakage(self):
+        plan = machinery_plan()
+        split = plan['split']
+        self.assertFalse(set(split['development']) & set(split['holdout']))
+        self.assertEqual(split, grouped_split(plan['rows']))
+        rows = copy.deepcopy(plan['rows'])
+        rows[-1]['x'] = rows[0]['x']
+        with self.assertRaisesRegex(ValueError, 'duplicate feature vector crosses groups'):
+            grouped_split(rows)
+        self.assertEqual(plan['target'], 'synthetic_math_only')
+        self.assertFalse(plan['promotable'])
+        self.assertEqual(plan['empirical_personal_fit']['compatible_initial_role_fit_labels'], 0)
+
+    def test_math_artifact_rejected_for_personal_fit_before_deserialization(self):
+        import tempfile
+        from pathlib import Path
+        ARTIFACT_ROOT.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ARTIFACT_ROOT) as folder:
+            p = Path(folder)
+            (p / 'metadata.json').write_text(json.dumps(dict(target='synthetic_math_only', promotable=False)))
+            with patch('joblib.load') as loader:
+                with self.assertRaisesRegex(ValueError, 'target incompatible'):
+                    load_machinery_candidate(p, 'ridge', expected_target='personal_role_fit',
+                                              expected_feature_schema={})
+                loader.assert_not_called()
 
 
 if __name__ == '__main__':
