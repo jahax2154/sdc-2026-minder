@@ -1,0 +1,18 @@
+{
+  "phase_id": "B2.1-R01",
+  "refines": "B2.1",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "defect": "Optional forecast-news context ingestion checked dates but did not independently require approved-source/document/coverage provenance",
+  "root_cause": "News pipeline exclusions were enforced upstream, with insufficient validation at the direct feature-input boundary",
+  "change": "Require credible-events-v1, approved source IDs, underlying document hashes and full matching-window collection denominators before optional news features can enter historical examples. Unavailable evidence remains absent, not zero-filled.",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting test_market_service.NewsTests",
+      "result": "16 passed; excludes direct personal-post, missing-hash and missing-coverage contexts"
+    }
+  ],
+  "coverage": "No new real news corpus, training run, ablation or selection; synthetic test branches only",
+  "checkpoint": "commit containing this record"
+}
