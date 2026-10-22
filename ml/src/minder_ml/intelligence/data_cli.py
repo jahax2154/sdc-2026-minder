@@ -7,7 +7,7 @@ import sys
 
 from .annotation_io import export_annotations, import_annotations
 from .data_adapters import derive_profile
-from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha
+from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha, acquire_market
 from .data_schemas import validate_entity
 from .market import build_market_views
 
@@ -45,6 +45,9 @@ def validate_snapshot(path):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
+    acquire = sub.add_parser('market-acquire')
+    acquire.add_argument('--max-details', type=int, default=40)
+    acquire.add_argument('--output', type=Path, default=ROOT / 'ml/data/market/snapshot.v1.json')
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--pack", type=Path, default=PACK)
     prepare = sub.add_parser("prepare")
@@ -71,7 +74,9 @@ def main(argv=None):
     report.add_argument("--review-results", type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command == "inspect":
+        if args.command == 'market-acquire':
+            output = acquire_market(output=args.output, max_details=args.max_details)
+        elif args.command == "inspect":
             output = inspect_pack(args.pack)
         elif args.command == "prepare":
             output = prepare_snapshot(args.pack, args.output_root)
