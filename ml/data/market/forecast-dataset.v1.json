@@ -1,0 +1,43 @@
+{
+  "coverage": {
+    "role": {
+      "eligible_quarterly_series": 0,
+      "reason": "No comparable quarterly unique-ad history; employer active-ad snapshot is not inflow."
+    },
+    "skill": {
+      "eligible_quarterly_series": 0,
+      "reason": "No comparable quarterly unique-ad history; employer active-ad snapshot is not inflow."
+    }
+  },
+  "excluded_source_targets": [
+    {
+      "reason": "Broad published offerings are not dedup-verified narrow-role/skill counts; no defensible allocation. All cells available in August 2026 vintage; no historical release archive acquired.",
+      "rows": 952,
+      "source": "DOSM JMI"
+    },
+    {
+      "reason": "One incomplete active-ad snapshot, not historical quarterly advertisement inflows.",
+      "rows": 39,
+      "source": "Bosch MY"
+    },
+    {
+      "reason": "Different quantities, not advertisement targets.",
+      "source": "DOSM labour force/wages"
+    }
+  ],
+  "news_comparison": "unavailable_no_archived_publication_aware_news_features",
+  "provenance": {
+    "collected_at": "2026-10-22T17:39:23.585614+00:00",
+    "dosm_actual_vintage_dates": [
+      "2026-08-18"
+    ],
+    "dosm_observation_rows": 952,
+    "dosm_quarters": 28,
+    "employer_observed_ads": 39,
+    "snapshot_version": "market-snapshot-v1"
+  },
+  "rows": [],
+  "source_snapshot_sha256": "8e477b9f2a4e60b7ffdcb4402415348ef8960eb39eab1ca4d2317a0d589b38f5",
+  "synthetic": false,
+  "version": "my-quarterly-unique-ads-v1"
+}

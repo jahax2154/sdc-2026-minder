@@ -1,0 +1,53 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Source-native count validation and actual-release forecast origins",
+    "Next full calendar quarter target, last observation and lead time separated",
+    "No-change/seasonal baselines, train-only StandardScaler/Ridge SVD, bounded CPU XGBoost",
+    "Expanding rolling predictions, label-availability embargo, final untouched temporal holdout; tuning on validation only",
+    "Matched news/no-news validation ablation only with archived as-of contexts",
+    "Promotion rule fixed before real runs; MAE/RMSE/WAPE with zero handling; no internal ranking used"
+  ],
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting test_market_service.CurrentTests test_market_service.NewsTests",
+      "result": "15 passed; Ridge/XGBoost fits here are synthetic software smoke tests only"
+    },
+    {
+      "command": "python -m minder_ml.intelligence.market_training audit --output-dir ml/artifacts/session-b/forecast-inputs",
+      "result": "0 eligible real quarterly series for both families; no targets fabricated"
+    }
+  ],
+  "coverage": {
+    "eligible_real_series": 0,
+    "implemented_methods": [
+      "no_change",
+      "seasonal",
+      "ridge",
+      "gradient_boosting"
+    ],
+    "real_evaluations": 0,
+    "real_training_runs": 0,
+    "selected_models": 0
+  },
+  "dependency_ids": [
+    "B1.1",
+    "B1.2"
+  ],
+  "inputs": [
+    "B1.1",
+    "B1.2",
+    "minder-parallel-v1"
+  ],
+  "limitations": [
+    "No real-data backtest or accuracy claim; publication-vintage and target-grain restrictions remain",
+    "No archived news features or news-ablation empirical result",
+    "RunPod unavailable pending privately configured credentials; no balance verified"
+  ],
+  "next_eligible": "B2.2 access/results checkpoint; B3 serving can continue",
+  "objective": "Runnable direct next-quarter baselines/Ridge/XGBoost and publication-aware chronological evaluation",
+  "owner": "B",
+  "phase_id": "B2.1",
+  "status": "limited"
+}
