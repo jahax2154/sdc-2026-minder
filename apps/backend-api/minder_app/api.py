@@ -41,6 +41,10 @@ class Application:
                 return {"plans": self.store.list(owner, "plan")}
             if method == "POST":
                 return create_plan(self.store, owner, body["plan"], body["idempotency_key"])
+        if path == "/api/company-explorer" and method == "POST":
+            from .companies import CompanyExplorer
+            profile = self.store.get(owner, "profile", owner)
+            return CompanyExplorer(self.services).explore(profile, body["employer_id"], body.get("role_id"))
         if path == "/api/career-context" and method == "GET":
             profile = self.store.get(owner, "profile", owner)
             return self.services.public_context(self.services.career_context(
