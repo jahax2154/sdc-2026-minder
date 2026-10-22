@@ -1,11 +1,13 @@
 """Initial occupational matching regressions; no empirical validity claims."""
 import unittest
 import copy
+import json
 from unittest.mock import patch
+from minder_ml.intelligence.policy import ROOT
 
 from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
 from minder_ml.intelligence.service_contracts import validate
-from minder_ml.intelligence.personal_service import PersonalMatchingService
+from minder_ml.intelligence.personal_service import PersonalMatchingService, update_preference, filter_roles
 from minder_ml.intelligence.personal_cli import synthetic_profile
 
 
@@ -91,6 +93,77 @@ class PersonalServiceTests(unittest.TestCase):
                 'policy_id':'personal-role-fit-v2-proposal','status':'accepted','active':True}):
             with self.assertRaisesRegex(ValueError, 'explicit approved implementation'):
                 service.assess(profile, self.roles)
+
+    def test_feedback_is_scoped_idempotent_resettable_and_versioned(self):
+        profile = synthetic_profile('career_switcher')
+        original = copy.deepcopy(profile)
+        def change(p, kind='role', target='onet:15-1252.00', state='not_interested'):
+            return update_preference(p, entity_type=kind, entity_id=target, state=state,
+                                     authorizing_request_id='synthetic-explicit-feedback',
+                                     expected_profile_version=p['version'])
+        marked = change(profile)
+        self.assertEqual(marked, change(marked))
+        self.assertEqual(profile, original)
+        self.assertNotEqual(marked['version'], profile['version'])
+        self.assertEqual(marked['evidence'], original['evidence'])
+        self.assertEqual(marked['current_fields'], original['current_fields'])
+        both = change(marked, 'industry', 'synthetic:prior-industry')
+        reset = change(both, state='unknown')
+        self.assertEqual(len(reset['preferences']), 1)
+        self.assertEqual(reset['preferences'][0]['entity_type'], 'industry')
+        self.assertEqual(reset, change(reset, state='unknown'))
+        with self.assertRaisesRegex(ValueError, 'stale_profile_version'):
+            update_preference(marked, entity_type='role', entity_id='onet:15-1252.00',
+                              state='interested', authorizing_request_id='request',
+                              expected_profile_version=profile['version'])
+        # Negative preferences do not filter candidates, alter evidence or create scores.
+        result = PersonalMatchingService().assess(both, self.roles)
+        self.assertEqual(result['public']['candidate_ids'], [r['role_id'] for r in self.roles])
+        self.assertEqual(result['internal']['personal_assessments'][0]['role_preference']['state'], 'not_interested')
+        self.assertIn('retained for exploration', result['public']['options'][0]['explanation'])
+
+    def test_explicit_filters_are_visible_reversible_and_use_only_accepted_mappings(self):
+        roles = copy.deepcopy(self.roles)
+        roles[0]['industry_mappings'] = [dict(target_id='i1', source=roles[0]['source'],
+                                              relation='synthetic-test', status='pending')]
+        restriction = dict(role_ids=None, industry_ids=['i1'], query=None, authorizing_request_id='filter-request')
+        pending = filter_roles(roles, restriction)
+        self.assertEqual(pending['roles'], [])
+        self.assertEqual(len(pending['unresolved_industry_role_ids']), 2)
+        roles[0]['industry_mappings'][0]['status'] = 'source_accepted'
+        accepted = filter_roles(roles, restriction)
+        self.assertEqual(len(accepted['roles']), 1)
+        self.assertEqual(accepted['applied_filter'], restriction)
+        self.assertEqual(filter_roles(roles)['roles'], roles)
+        self.assertEqual(len(roles), 2)
+        restriction.update(industry_ids=None, role_ids=[], query=None)
+        self.assertEqual(filter_roles(roles, restriction)['roles'], [])
+        restriction.update(role_ids=None, query='SOFTWARE')
+        self.assertEqual([r['role_id'] for r in filter_roles(roles, restriction)['roles']], ['onet:15-1252.00'])
+
+    def test_market_periods_and_values_survive_feedback_unchanged(self):
+        fixture = json.loads((ROOT / 'contracts/fixtures/parallel-v1/forecast_unavailable.json').read_text())['payload']
+        class UnavailableMarket:
+            def forecast(self, entity_type, entity_id, *, issued_at):
+                result = copy.deepcopy(fixture)
+                result.update(entity_type=entity_type, entity_id=entity_id, issued_at=issued_at)
+                return result
+            def current(self, entity_type, entity_id, *, as_of):
+                result = self.forecast(entity_type, entity_id, issued_at=as_of)
+                result.update(kind='current', target_period=None, horizon='observed')
+                return result
+        profile = synthetic_profile()
+        service = PersonalMatchingService(UnavailableMarket(), as_of='2026-10-23T00:00:00Z')
+        before = service.assess(profile, self.roles)
+        marked = update_preference(profile, entity_type='role', entity_id=self.roles[0]['role_id'],
+                                   state='not_interested', authorizing_request_id='synthetic-request',
+                                   expected_profile_version=profile['version'])
+        after = service.assess(marked, self.roles)
+        for key in ('current_market', 'forecast_market'):
+            self.assertEqual(before['internal'][key], after['internal'][key])
+            self.assertTrue(all(r['value'] is None for r in after['internal'][key]))
+        from minder_ml.intelligence.service_contracts import public_recommendation
+        self.assertNotIn('internal_index', json.dumps(public_recommendation(after)))
 
 
 if __name__ == '__main__':

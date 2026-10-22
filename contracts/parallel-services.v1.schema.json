@@ -1531,6 +1531,50 @@
         "resulting_state_version",
         "failure_reason"
       ]
+    },
+    "SearchFilter": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role_ids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "industry_ids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorizing_request_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "role_ids",
+        "industry_ids",
+        "query",
+        "authorizing_request_id"
+      ]
     }
   },
   "oneOf": [

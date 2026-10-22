@@ -53,3 +53,19 @@ ml/artifacts/session-a/<new-evidence-directory>`. The five original synthetic
 profiles each produce 0 legacy scores and 910 new unranked candidates with 0
 numeric scores. Five D02 synthetic audience demonstrations have the same
 candidate/score counts. These runs demonstrate software/coverage, not validity.
+
+A1.3 adds `update_preference(profile, entity_type=..., entity_id=...,
+state=..., authorizing_request_id=..., expected_profile_version=...)`.
+It returns a validated Profile for C to persist under its own atomic version
+check. It performs no database write. `unknown` resets only that scoped state;
+repeated same-state requests preserve the existing version. No numeric penalty
+is active. C must persist the returned version and preserve evidence/history.
+
+`filter_roles(roles, view_filter=None)` returns `roles`, `applied_filter`,
+`excluded_role_ids`, `unresolved_industry_role_ids`, and `unmatched_role_ids`.
+The new SearchFilter DTO requires nullable `role_ids`, `industry_ids`, `query`,
+and an explicit `authorizing_request_id`. Null ID lists impose no restriction;
+empty ID lists match nothing. Clear with `None` to restore all supplied roles.
+Industry filters require source/policy-accepted links; missing links are
+disclosed, not guessed. Show `applied_filter` and a clear control in the UI.
+Preferences alone never invoke a view filter or remove catalogue records.

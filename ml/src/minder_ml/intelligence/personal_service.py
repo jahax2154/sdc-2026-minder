@@ -7,11 +7,70 @@ No legacy preparation model or preparation feature is used for this target.
 import copy
 import json
 
-from .policy import ROOT
+from .policy import ROOT, fingerprint
 from .service_contracts import CONTRACT_VERSION, validate
 
 POLICY_VERSION = 'personal-role-fit-v2-proposal'
 MARKET_POLICY = 'personal_only_pending_market_policy'
+
+
+def update_preference(profile, *, entity_type, entity_id, state,
+                      authorizing_request_id, expected_profile_version):
+    """Return a new Profile for C to persist atomically; no database mutation.
+
+    Reset (`unknown`) removes only this scoped preference. Repeated same-state
+    feedback is a no-op, including the version; request retries add no penalty.
+    C still owns request deduplication and transactional version checks.
+    """
+    validate('Profile', profile)
+    if expected_profile_version != profile['version']:
+        raise ValueError('stale_profile_version')
+    preference = dict(entity_type=entity_type, entity_id=entity_id, state=state,
+                      authorizing_request_id=authorizing_request_id)
+    validate('Preference', preference)
+    key = (entity_type, entity_id)
+    old = next((p for p in profile['preferences']
+                if (p['entity_type'], p['entity_id']) == key), None)
+    if (old is None and state == 'unknown') or (old is not None and old['state'] == state):
+        return copy.deepcopy(profile)
+    updated = copy.deepcopy(profile)
+    updated['preferences'] = [p for p in updated['preferences']
+                              if (p['entity_type'], p['entity_id']) != key]
+    if state != 'unknown':
+        updated['preferences'].append(preference)
+    updated['preferences'].sort(key=lambda p: (p['entity_type'], p['entity_id']))
+    updated['version'] = 'profile-feedback-v1:' + fingerprint(updated)
+    return validate('Profile', updated)
+
+
+def filter_roles(roles, view_filter=None):
+    """Explicit view restriction, independent of preferences and saved catalogue.
+
+    None clears the restriction. Empty allowed-ID lists intentionally match no
+    records. Industry filters use accepted links only; disclose unknown mappings.
+    This returns an inspectable filter report for C's visible/reversible view.
+    """
+    if view_filter is None:
+        return dict(roles=copy.deepcopy(roles), applied_filter=None,
+                    excluded_role_ids=[], unresolved_industry_role_ids=[], unmatched_role_ids=[])
+    validate('SearchFilter', view_filter)
+    selected, excluded, unresolved = [], [], []
+    for role in roles:
+        validate('Role', role)
+        accepted = {m['target_id'] for m in role['industry_mappings']
+                    if m['status'] in ('source_accepted', 'policy_accepted')}
+        allowed_roles, allowed_industries = view_filter['role_ids'], view_filter['industry_ids']
+        match = allowed_roles is None or role['role_id'] in allowed_roles
+        if allowed_industries is not None:
+            if not accepted:
+                unresolved.append(role['role_id'])
+            match = match and bool(accepted & set(allowed_industries))
+        if view_filter['query'] is not None:
+            match = match and view_filter['query'].casefold() in role['label'].casefold()
+        (selected if match else excluded).append(role if match else role['role_id'])
+    return dict(roles=copy.deepcopy(selected), applied_filter=copy.deepcopy(view_filter),
+                excluded_role_ids=excluded, unresolved_industry_role_ids=unresolved,
+                unmatched_role_ids=sorted(set(view_filter['role_ids'] or []) - {r['role_id'] for r in roles}))
 
 
 def industry_context(profile, role):
