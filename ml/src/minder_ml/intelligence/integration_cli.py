@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import sys
+from contextlib import contextmanager
 
 from .catalogue_service import OccupationalCatalogue
 from .personal_service import PersonalMatchingService
@@ -120,15 +121,184 @@ def smoke(output):
     return evidence
 
 
+@contextmanager
+def http_boundary(app):
+    """Own one short-lived loopback server; no deployment or external writes."""
+    from threading import Thread
+    from urllib.request import Request, urlopen
+    from urllib.error import HTTPError
+    from wsgiref.simple_server import make_server, WSGIRequestHandler
+    class Quiet(WSGIRequestHandler):
+        def log_message(self, *args):
+            pass
+    server = make_server('127.0.0.1', 0, app, handler_class=Quiet)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    def request(method, path, body=None, token=''):
+        raw = json.dumps(body).encode() if body is not None else None
+        req = Request(f'http://127.0.0.1:{server.server_port}' + path, data=raw, method=method,
+                      headers={'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token})
+        try:
+            with urlopen(req, timeout=30) as response:
+                return response.status, json.load(response)
+        except HTTPError as response:
+            with response:
+                return response.code, json.load(response)
+    try:
+        yield request
+    finally:
+        server.shutdown()
+        thread.join(timeout=5)
+        server.server_close()
+
+
+def acceptance(output):
+    """Exercise persisted real-source user flows through actual local HTTP."""
+    output = Path(output).resolve()
+    if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('evidence must stay in Session A artifacts')
+    output.mkdir(parents=True, exist_ok=False)
+    app, catalogue = application(output / 'runtime.sqlite3')
+    from .personal_cli import synthetic_profile
+    evidence = dict(transport='real loopback HTTP to actual application', synthetic_profiles=True,
+                    checks={}, limitations=[], examples={})
+    selected = ['onet:15-1252.00', 'onet:11-1011.00']
+    selection = dict(selected_role_ids=selected, selected_skill_ids=['source-term:sql'])
+    with http_boundary(app) as http:
+        def request(method, path, body=None, token='', expected=200):
+            code, value = http(method, path, body, token)
+            if code != expected:
+                raise ValueError(f'{method} {path}: expected {expected}, got {code}: {value}')
+            return value
+        session = request('POST', '/api/session')
+        token = session['token']
+        profile = request('PUT', '/api/profile', dict(profile=synthetic_profile(), expected_version=None), token)
+        broad = request('GET', '/api/career-context', token=token)
+        assert len(broad['recommendation']['candidate_ids']) == catalogue.coverage['eligible_roles']
+        assert all(o['personal_score'] is None and o['rank'] is None for o in broad['recommendation']['options'])
+        evidence['checks']['student_no_industry_broad_source_candidates'] = len(broad['recommendation']['candidate_ids'])
+        switcher = synthetic_profile('career_switcher')
+        profile = request('PUT', '/api/profile', dict(profile=switcher, expected_version=profile['version']), token)
+        current = request('POST', '/api/career-context', selection, token)
+        assert set(current['recommendation']['candidate_ids']) == set(selected)
+        evidence['checks']['career_switcher_cross_industry_candidates_retained'] = 'passed'
+        before_evidence = profile['evidence']
+        def preference(state, key):
+            nonlocal profile
+            prior = next((p['state'] for p in profile['preferences'] if p['entity_type'] == 'role'
+                          and p['entity_id'] == selected[0]), None)
+            body = dict(request=dict(kind='update_profile', target_id=profile['profile_id'],
+                expected=profile['version'], diff=[dict(path='/preferences/role/' + selected[0],
+                    before=prior, after=state)], reason='Explicit synthetic acceptance feedback'), idempotency_key=key)
+            result = request('POST', '/api/direct-action', body, token)
+            assert result == request('POST', '/api/direct-action', body, token)
+            profile = result['target']
+        preference('not_interested', 'acceptance-feedback')
+        marked = request('POST', '/api/career-context', selection, token)
+        assert set(marked['recommendation']['candidate_ids']) == set(selected)
+        marked_option = next(o for o in marked['recommendation']['options'] if o['role_id'] == selected[0])
+        assert 'Not interested' in marked_option['explanation']
+        # Compare measured public values/dates, excluding fresh issue timestamps.
+        def facts(context):
+            return [(s.get('kind'), s['text'], s.get('period'), s.get('published_at'))
+                    for s in context['statements'] if s.get('kind') in ('current', 'forecast')]
+        assert facts(current) == facts(marked)
+        preference(None, 'acceptance-feedback-reset')
+        assert profile['evidence'] == before_evidence
+        assert not profile['preferences']
+        evidence['checks']['feedback_persisted_retry_reset_market_and_evidence_unchanged'] = 'passed'
+        assert any(s.get('kind') == 'current' and s.get('status') == 'available' for s in current['statements'])
+        assert all(s.get('status') == 'unavailable' for s in current['statements'] if s.get('kind') == 'forecast')
+        assert 'internal_index' not in json.dumps(current)
+        evidence['checks']['current_sources_and_next_quarter_unavailable_without_raw_matrix'] = 'passed'
+        company = request('POST', '/api/company-explorer', dict(employer_id='bosch', role_id=selected[0]), token)
+        assert company['main_recommendations_changed'] is False
+        assert company['result']['status'] == 'requirements_unavailable'
+        assert company['other_supported_roles']
+        evidence['checks']['company_source_scope_and_generic_assessment_without_vacancy_claim'] = 'passed'
+        draft = request('POST', '/api/intake', dict(text='I may know SQL; please help me clarify.', channel='chat'), token)
+        assert draft['status'] == 'pending_clarification'
+        assert request('GET', '/api/profile', token=token) == profile
+        updated = json.loads(json.dumps(profile))
+        claim = json.loads(json.dumps(updated['evidence'][0]))
+        claim.update(evidence_id='acceptance-sql-claim', subject_id='source-term:sql', value='self-report, not assessed',
+                     unit='claim', method_id='explicit-self-report')
+        updated['evidence'].append(claim)
+        profile = request('PUT', '/api/profile', dict(profile=updated, expected_version=profile['version']), token)
+        assert any(e['evidence_id'] == 'acceptance-sql-claim' for e in request('GET', '/api/profile', token=token)['evidence'])
+        evidence['checks']['ambiguous_chat_draft_then_explicit_profile_evidence_update'] = 'passed'
+        preview = request('POST', '/api/pathway-preview', dict(role_id=selected[0]), token)
+        assert preview['saved'] is False and preview['design']['activities']
+        evidence['checks']['real_role_requirements_feed_unknown_effort_pathway_preview'] = 'passed'
+        plan = json.loads((ROOT / 'contracts/fixtures/parallel-v1/plan_progress.json').read_text())['payload']
+        plan['selected_role_id'] = selected[0]
+        plan['tasks'][0]['estimated_hours'] = 1
+        plan['constraints'] = [dict(constraint_id='capacity', scope='weekly_hours', hard=True,
+                                    value=10, unit='hours_per_week', evidence_id='synthetic-capacity')]
+        plan = request('POST', '/api/plans', dict(plan=plan, idempotency_key='acceptance-plan'), token)['plan']
+        def move_request(p, after):
+            return dict(kind='reschedule_task', target_id=p['plan_id'], expected=p['state_version'],
+                diff=[dict(path='/tasks/synthetic-task/scheduled_at', before=p['tasks'][0]['scheduled_at'], after=after)],
+                reason='Explicit synthetic user command')
+        body = dict(request=move_request(plan, '2026-10-25T11:00:00Z'), idempotency_key='acceptance-move')
+        moved = request('POST', '/api/direct-action', body, token)
+        assert moved == request('POST', '/api/direct-action', body, token)
+        assert moved['action']['approval_state'] == 'not_required_direct'
+        evidence['checks']['direct_task_move_persists_once_without_approval'] = 'passed'
+        plan = moved['target']
+        proposed = request('POST', '/api/proposals', dict(request=move_request(plan, '2026-10-26T11:00:00Z')), token)
+        assert request('GET', '/api/plans', token=token)['plans'][0] == plan
+        decision = dict(proposal_id=proposed['preview']['proposal_id'], decision='reject',
+                        preview_hash=proposed['preview_hash'], expected_state_version=plan['state_version'])
+        request('POST', '/api/proposal-decision', decision, token)
+        assert request('GET', '/api/plans', token=token)['plans'][0] == plan
+        first = request('POST', '/api/proposals', dict(request=move_request(plan, '2026-10-26T11:00:00Z')), token)
+        stale = request('POST', '/api/proposals', dict(request=move_request(plan, '2026-10-27T11:00:00Z')), token)
+        decision.update(proposal_id=first['preview']['proposal_id'], decision='approve', preview_hash=first['preview_hash'])
+        approved = request('POST', '/api/proposal-decision', decision, token)
+        decision.update(proposal_id=stale['preview']['proposal_id'], preview_hash=stale['preview_hash'])
+        request('POST', '/api/proposal-decision', decision, token, expected=409)
+        evidence['checks']['proposal_no_mutation_reject_exact_approve_and_stale_conflict'] = 'passed'
+        plan = approved['target']
+        complete = dict(kind='complete_task', target_id=plan['plan_id'], expected=plan['state_version'],
+            diff=[dict(path='/tasks/synthetic-task/state', before='scheduled', after='completed')],
+            reason='Explicit synthetic Complete action')
+        finished = request('POST', '/api/direct-action', dict(request=complete, idempotency_key='acceptance-complete'), token)
+        assert finished['target']['tasks'][0]['activity_completion']
+        assert not finished['target']['tasks'][0]['mastery_verified']
+        request('POST', '/api/direct-action', dict(request=move_request(finished['target'], '2026-10-28T11:00:00Z'),
+                                                 idempotency_key='cannot-move-completed'), token, expected=409)
+        evidence['checks']['completion_preserves_mastery_distinction_and_history'] = 'passed'
+        stale_profile = request('PUT', '/api/profile', dict(profile=profile, expected_version='wrong'), token, expected=409)
+        chat = request('POST', '/api/chat', dict(message='Explain the source-backed outlook.',
+                                                expected_profile_version=profile['version'], **selection), token)
+        evidence['checks']['failed_write_is_conflict'] = stale_profile['code']
+        evidence['checks']['actual_provider_state'] = chat['provider']
+        evidence['examples'] = dict(context=current, company=company, chat=chat,
+                                    pathway_design=preview['design'])
+    evidence['limitations'] = ['N01 pending: complete synthetic evidence does not yield numeric scores.',
+        'No empirical personal-fit/forecast accuracy, live Groq success or deployed scheduler claimed.',
+        'Company-specific requirements unavailable; generic occupational assessment remains separate.',
+        'Agent temporal/event simulations covered in C tests; this HTTP run exercises persisted proposal/actions.',
+        'Model incompatibility guarded in A2 tests; no production model load is attempted here.']
+    (output / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
+    print(json.dumps(evidence['checks'], indent=2))
+    return evidence
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     check = sub.add_parser('smoke')
     check.add_argument('--output', type=Path, required=True)
+    accept = sub.add_parser('acceptance')
+    accept.add_argument('--output', type=Path, required=True)
     sub.add_parser('serve')
     args = parser.parse_args()
     if args.command == 'smoke':
         smoke(args.output)
+    elif args.command == 'acceptance':
+        acceptance(args.output)
     else:
         from wsgiref.simple_server import make_server
         path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))
