@@ -1,0 +1,124 @@
+{
+  "packet_status": "pending_inputs_do_not_grade_yet",
+  "missing_prerequisites": [
+    "supplied synthetic raw profile",
+    "reviewed milestone criteria and effort estimates",
+    "reviewed role-specific rubrics and source mappings"
+  ],
+  "instructions": "Provide this packet to an independent grader only after resolving the prerequisites. Do not include baseline scores, model outputs, rankings or derived normalized features. Review grades 0 weak / 1 plausible / 2 strong preparation relevance under the stated horizon, excluding market attractiveness. Leave unknown grades blank.",
+  "profile": {
+    "input_status": "pending: no raw synthetic profile supplied",
+    "profile_id": null,
+    "profile_group_id": null,
+    "profile_version": null,
+    "profile_is_synthetic": true,
+    "preparation_horizon_weeks": 12,
+    "horizon_status": "foundation default; confirm with supplied profile",
+    "hours_per_week": null,
+    "explicit_interests": null,
+    "explicit_work_preferences": null,
+    "available_resources": null,
+    "experience_education": null,
+    "criterion_assessments": [],
+    "role_assessments": [],
+    "existing_input_note": "ml/tests/fixtures/example_request.json supplies one fictional normalized feature vector only; it does not supply raw criterion evidence or a profile for these real roles."
+  },
+  "role_cards": [
+    {
+      "role_id": "15-1252.00",
+      "title": "Software Developers",
+      "role_review_status": "pending",
+      "initial_criteria": [
+        {
+          "criterion_id": "sw-requirements",
+          "description": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+          "review_status": "pending"
+        },
+        {
+          "criterion_id": "sw-debugging",
+          "description": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+          "review_status": "pending"
+        }
+      ],
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      },
+      "annotation_status": "pending",
+      "relevance_grade": null,
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewer_independent": null
+    },
+    {
+      "role_id": "15-2051.00",
+      "title": "Data Scientists",
+      "role_review_status": "pending",
+      "initial_criteria": [
+        {
+          "criterion_id": "ds-statistics",
+          "description": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+          "review_status": "pending"
+        },
+        {
+          "criterion_id": "ds-evaluation",
+          "description": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+          "review_status": "pending"
+        }
+      ],
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      },
+      "annotation_status": "pending",
+      "relevance_grade": null,
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewer_independent": null
+    },
+    {
+      "role_id": "15-1212.00",
+      "title": "Information Security Analysts",
+      "role_review_status": "pending",
+      "initial_criteria": [
+        {
+          "criterion_id": "sec-policy",
+          "description": "Given a fictional access policy, explain who may access each example resource and why.",
+          "review_status": "pending"
+        },
+        {
+          "criterion_id": "sec-risk",
+          "description": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+          "review_status": "pending"
+        }
+      ],
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      },
+      "annotation_status": "pending",
+      "relevance_grade": null,
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewer_independent": null
+    }
+  ]
+}

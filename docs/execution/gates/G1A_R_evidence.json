@@ -1,0 +1,889 @@
+{
+  "activation": {
+    "actual_registry_preserved": true,
+    "actual_repository_activation_performed": false,
+    "future_round_trip_test": "Passed only in temporary directories with explicit synthetic approval/estimate fixtures; not real readiness or historical human review.",
+    "pending_rejection": "batch decision is not approved; proposals remain inactive"
+  },
+  "authorization": "docs/execution/gates/G1A_R_authorization.json",
+  "batch": {
+    "active": false,
+    "batch_id": "g1ar-three-role-initial-v1",
+    "decision_path": "ml/data/review/g1a-r-v1/batch_decision.pending.json",
+    "path": "ml/data/review/g1a-r-v1/milestone_batch.proposed.json",
+    "status": "pending",
+    "synthetic_assessment_instances": 6,
+    "templates": 3,
+    "unknown_task_effort_ranges": 6
+  },
+  "before_after": {
+    "accepted_actual_role_milestones_after": 0,
+    "accepted_actual_role_milestones_before": 0,
+    "after_catalogue_fingerprint": "1879351f38da58288356cce8996d362c81b30aebd79287c3d18e97d554814f9a",
+    "after_scored": 0,
+    "after_unscored": 18,
+    "before_catalogue_fingerprint": "d370401a96c5551022cb61173c3b7d7e799446b9b9a9df1b3ff9ebf800dd57f8",
+    "before_scored": 0,
+    "native_identities": 3,
+    "new_complete_profiles_created": 0,
+    "reason": "No accepted actual-role milestone; existing unknown profile answers preserved."
+  },
+  "catalogue_completeness": "partial",
+  "checks": [
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -v",
+      "exit_code": 0,
+      "log": "docs/execution/gates/G1A_R_checks.txt",
+      "status": "pass",
+      "tests": 89,
+      "unittest_seconds": 120.625,
+      "wall_seconds": 120.731
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.catalogue_repair_cli",
+      "elapsed_seconds": 0.123551,
+      "output": "docs/execution/gates/G1A_R_service_demo.json",
+      "status": "pass"
+    },
+    {
+      "command": "Repeat inspect_repair() semantic equality excluding measured runtime",
+      "status": "pass"
+    },
+    {
+      "before_after_envelopes": 12,
+      "command": "Draft202012Validator(schema).validate(response)",
+      "shared_contract_modified": false,
+      "status": "pass"
+    },
+    {
+      "actual_F0": 67.0,
+      "command": "baseline(FeatureSnapshot(.6,.8,.5,1,.7,1))",
+      "status": "pass"
+    },
+    {
+      "command": "load_batch() and pending activation rejection",
+      "status": "pass"
+    },
+    {
+      "command": "Source/profile/policy/contract before-after SHA-256 comparison",
+      "existing_files_modified": [],
+      "existing_files_removed": [],
+      "status": "pass"
+    },
+    {
+      "command": "AST / task-file trailing whitespace / NUL / credential-pattern checks",
+      "limitation": "Scoped patterns do not guarantee comprehensive secret detection",
+      "status": "pass"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 2,
+      "output": "ml/src/minder_ml/intelligence/training.py:17: trailing whitespace.\n+def checked_rows(path): \n",
+      "preexisting_training_file_unchanged": true,
+      "status": "preexisting_failure"
+    },
+    {
+      "command": "git status --short",
+      "output": "docs/execution/gates/G1A_R_git_status.txt",
+      "status": "recorded"
+    }
+  ],
+  "concurrent_additions_not_owned": [],
+  "counting_rule": "Primary role rows partition all 18 pairs; downstream profile evidence overlaps them. Crosswalks/labels block zero baseline pairs.",
+  "deterministic_repairs": {
+    "adopted_optional_mappings": 0,
+    "criterion_weights": [
+      {
+        "criterion_id": "sw-requirements",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      },
+      {
+        "criterion_id": "sw-debugging",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      },
+      {
+        "criterion_id": "ds-statistics",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      },
+      {
+        "criterion_id": "ds-evaluation",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      },
+      {
+        "criterion_id": "sec-policy",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      },
+      {
+        "criterion_id": "sec-risk",
+        "provenance_class": "policy-derived",
+        "rule_id": "FIT-04",
+        "scope": "Default weight only; criterion/milestone inclusion and anchors still pending.",
+        "status": "policy_accepted",
+        "weight": 1.0
+      }
+    ],
+    "database_version": "31.0",
+    "taxonomy_edition": "2019"
+  },
+  "environment": {
+    "executable": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/bin/python",
+    "execution_location": "local CPU, existing ml/.venv",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "remote_execution": false
+  },
+  "execution_timestamp_utc": "2026-10-21T17:31:08.803029+00:00",
+  "execution_version": "g1ar-catalogue-adapter-v1",
+  "existing_code_changed_by_this_gate": [],
+  "gate": "G1A-R",
+  "implementation_correctness": "pass",
+  "independent_evaluation": "not_evaluated",
+  "input_hashes_before_after": {
+    "contracts/.gitkeep": {
+      "after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "contracts/README.md": {
+      "after": "79268fbd40e3a1fb7ecbb123c5e8d5a089e33d34613d308fdf545a7714fe54fd",
+      "before": "79268fbd40e3a1fb7ecbb123c5e8d5a089e33d34613d308fdf545a7714fe54fd"
+    },
+    "contracts/data-entities.v1.schema.json": {
+      "after": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d",
+      "before": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d"
+    },
+    "contracts/personal-fit-annotation.v1.schema.json": {
+      "after": "ad3aeb01abc077470614f8156ba74c7a19ae9699bc7b152ee5a11d75031608d9",
+      "before": "ad3aeb01abc077470614f8156ba74c7a19ae9699bc7b152ee5a11d75031608d9"
+    },
+    "contracts/policy-recommendation.g1a.v1.schema.json": {
+      "after": "e8b72f7f635d572582d612af65aa83c47274ca821a6f4ef3d38471674f84427f",
+      "before": "e8b72f7f635d572582d612af65aa83c47274ca821a6f4ef3d38471674f84427f"
+    },
+    "contracts/recommendation-result.v1.schema.json": {
+      "after": "67f236384b1874ad72896db378c3ebb5b6d1cc046ed9f9bc603799ae7d0934a7",
+      "before": "67f236384b1874ad72896db378c3ebb5b6d1cc046ed9f9bc603799ae7d0934a7"
+    },
+    "ml/configs/intelligence/measurement_sources.v1.json": {
+      "after": "5cde5c6748a53841df7f6ece027a79f0d148c8dddaf829983a75673328468098",
+      "before": "5cde5c6748a53841df7f6ece027a79f0d148c8dddaf829983a75673328468098"
+    },
+    "ml/configs/intelligence/policy.v1.json": {
+      "after": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+      "before": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3"
+    },
+    "ml/data/annotations/personal_fit_annotations.csv": {
+      "after": "fff69cfbc26ef8b14d7a79bea883503a603b89f2acd52e381c5afc57b75c9f88",
+      "before": "fff69cfbc26ef8b14d7a79bea883503a603b89f2acd52e381c5afc57b75c9f88"
+    },
+    "ml/data/review/GRADER_INSTRUCTIONS.md": {
+      "after": "cdde1fcc79c13e69ffd8e5633740b3f53b7194b7714419575d709cd595405765",
+      "before": "cdde1fcc79c13e69ffd8e5633740b3f53b7194b7714419575d709cd595405765"
+    },
+    "ml/data/review/README.md": {
+      "after": "3f805950f43bc33783f004e1f0b651dac93d770812957f195a92796b0a5ce608",
+      "before": "3f805950f43bc33783f004e1f0b651dac93d770812957f195a92796b0a5ce608"
+    },
+    "ml/data/review/annotation_intake.pending.csv": {
+      "after": "38eb7afa6531fa28b7b649c430195bd9bf2eb0aeb1ea81aece78c86fccd8b938",
+      "before": "38eb7afa6531fa28b7b649c430195bd9bf2eb0aeb1ea81aece78c86fccd8b938"
+    },
+    "ml/data/review/blind_grading_packet.pending.json": {
+      "after": "fbb61c461a0574e1086e6ebde6977b8182bc9fadc3683215528d73356074fee9",
+      "before": "fbb61c461a0574e1086e6ebde6977b8182bc9fadc3683215528d73356074fee9"
+    },
+    "ml/data/review/g1a-v1.1/catalogue.policy-accepted.json": {
+      "after": "7e7dfec105128f87c9a607aeeae5a86eac938afd01728397b88e528486114306",
+      "before": "7e7dfec105128f87c9a607aeeae5a86eac938afd01728397b88e528486114306"
+    },
+    "ml/data/review/g1a-v1/catalogue.policy-accepted.json": {
+      "after": "c1ced3a1dbf9d4778c67c5aeea9f548ecf1e4fa5f83c300e16a5ee84432b4292",
+      "before": "c1ced3a1dbf9d4778c67c5aeea9f548ecf1e4fa5f83c300e16a5ee84432b4292"
+    },
+    "ml/data/review/phase2/calibration-v1/approval_report.md": {
+      "after": "32a9923359c28b0b9ebe0d7a349ff3e7304bfd60e35e9dcfd6a43a9d2435ab15",
+      "before": "32a9923359c28b0b9ebe0d7a349ff3e7304bfd60e35e9dcfd6a43a9d2435ab15"
+    },
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.csv": {
+      "after": "503526962ecff65cc24fe593a13fbfe38cccbb60b5bc3a5c1bc964828aac7d2e",
+      "before": "503526962ecff65cc24fe593a13fbfe38cccbb60b5bc3a5c1bc964828aac7d2e"
+    },
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.md": {
+      "after": "b0484c07cdef5f7036c7d43849e3f250d3c668c4a3c18531c18df620cdcd7ba8",
+      "before": "b0484c07cdef5f7036c7d43849e3f250d3c668c4a3c18531c18df620cdcd7ba8"
+    },
+    "ml/data/review/phase2/calibration-v1/blind_packet.json": {
+      "after": "7a3cff0a6ecf613f1c15c148adc4c8e1c43f99cf6f1a052186743aa5b63fb878",
+      "before": "7a3cff0a6ecf613f1c15c148adc4c8e1c43f99cf6f1a052186743aa5b63fb878"
+    },
+    "ml/data/review/phase2/calibration-v1/profiles.synthetic.json": {
+      "after": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+      "before": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435"
+    },
+    "ml/data/review/phase2/calibration-v1/responses.pending.json": {
+      "after": "01f3badd2dfd1f66202ad674bb9929239dc8841668b89945379226e1f32c5975",
+      "before": "01f3badd2dfd1f66202ad674bb9929239dc8841668b89945379226e1f32c5975"
+    },
+    "ml/data/review/phase2/profile_generation_template.json": {
+      "after": "8a83f556defbbbb21ce52c4980015874e5e53349882485707e95e9072a8fa124",
+      "before": "8a83f556defbbbb21ce52c4980015874e5e53349882485707e95e9072a8fa124"
+    },
+    "ml/data/review/phase2/role_market_crosswalks.pending.json": {
+      "after": "aff554cadd7ddff0af1e82eb8f7ce89e7201c3ec30498cf8b6510f96b2f226f2",
+      "before": "aff554cadd7ddff0af1e82eb8f7ce89e7201c3ec30498cf8b6510f96b2f226f2"
+    },
+    "ml/data/review/phase2/roles.pending.json": {
+      "after": "50fe14ce7a0e6138d948666fb8ee32f8825a3f8836a791394d4783bfd282fb8a",
+      "before": "50fe14ce7a0e6138d948666fb8ee32f8825a3f8836a791394d4783bfd282fb8a"
+    },
+    "ml/data/review/phase2/skill_taxonomy_crosswalks.pending.json": {
+      "after": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "before": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    "ml/data/review/profile_intake.pending.json": {
+      "after": "97cf3978f7bb84d31731b8540718b27f930ebe59fb2ae7c436ae1bfe38f27570",
+      "before": "97cf3978f7bb84d31731b8540718b27f930ebe59fb2ae7c436ae1bfe38f27570"
+    },
+    "ml/data/review/role_requirements_worksheet.csv": {
+      "after": "73c90773de40f1c58f366566f1327d5e4d896448026760c6141b3643d41910b2",
+      "before": "73c90773de40f1c58f366566f1327d5e4d896448026760c6141b3643d41910b2"
+    },
+    "ml/data/review/source_mappings.pending.json": {
+      "after": "fc83b0ac475efba7c9921d8e5dd537cfb857cbb652b479ee2566033d203a37cc",
+      "before": "fc83b0ac475efba7c9921d8e5dd537cfb857cbb652b479ee2566033d203a37cc"
+    },
+    "ml/data/review/source_references.json": {
+      "after": "81275122e3b799e1b66dccbda64c49dfb16897a80265c1327afc1c748cdccc1c",
+      "before": "81275122e3b799e1b66dccbda64c49dfb16897a80265c1327afc1c748cdccc1c"
+    },
+    "ml/data/review/three_roles.pending.json": {
+      "after": "dc8f1233d0659834b36e675d51da57766ca3d380c1ad0f87773990c74d4fab4f",
+      "before": "dc8f1233d0659834b36e675d51da57766ca3d380c1ad0f87773990c74d4fab4f"
+    },
+    "ml/docs/MINDER_POLICY_REVIEW_v1.md": {
+      "after": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+      "before": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc"
+    },
+    "ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx": {
+      "after": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+      "before": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+    },
+    "ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv": {
+      "after": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1",
+      "before": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1"
+    },
+    "ml/minder_ml_starter/raw/dosm_wages_occupation.csv": {
+      "after": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17",
+      "before": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17"
+    },
+    "ml/minder_ml_starter/raw/dosm_wages_state.csv": {
+      "after": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea",
+      "before": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea"
+    },
+    "ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv": {
+      "after": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+      "before": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620"
+    },
+    "ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx": {
+      "after": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a",
+      "before": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a"
+    },
+    "ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md": {
+      "after": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c",
+      "before": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c"
+    },
+    "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv": {
+      "after": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+      "before": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7"
+    },
+    "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv": {
+      "after": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+      "before": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02"
+    },
+    "ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv": {
+      "after": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+      "before": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9"
+    },
+    "ml/minder_ml_starter/raw/onet_31_0_software_skills.csv": {
+      "after": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016",
+      "before": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016"
+    },
+    "ml/tests/fixtures/phase2_profile.synthetic.json": {
+      "after": "a15fd2042491ab878291cbb629948ee30b859b994ba10be0b5e209c68896e6f1",
+      "before": "a15fd2042491ab878291cbb629948ee30b859b994ba10be0b5e209c68896e6f1"
+    }
+  },
+  "integration_exercised": {
+    "frontend": false,
+    "http_endpoint": false,
+    "python_callable": true
+  },
+  "labels": {
+    "empirical_status": "not_evaluated",
+    "generated_labels": 0,
+    "independent_annotation_rows": 0,
+    "labels_required_for_baseline_inference": false
+  },
+  "new_files_created_by_this_gate": [
+    "docs/execution/gates/G1A_R_authorization.json",
+    "docs/execution/gates/G1A_R_checks.txt",
+    "docs/execution/gates/G1A_R_evidence.json",
+    "docs/execution/gates/G1A_R_git_status.txt",
+    "docs/execution/gates/G1A_R_report.md",
+    "docs/execution/gates/G1A_R_service_demo.json",
+    "ml/data/review/g1a-r-v1/BATCH_REVIEW.md",
+    "ml/data/review/g1a-r-v1/batch_decision.pending.json",
+    "ml/data/review/g1a-r-v1/catalogue.reference-repaired.json",
+    "ml/data/review/g1a-r-v1/milestone_batch.proposed.json",
+    "ml/data/review/g1a-r-v1/source_facts.json",
+    "ml/src/minder_ml/intelligence/catalogue_repair.py",
+    "ml/src/minder_ml/intelligence/catalogue_repair_cli.py",
+    "ml/tests/test_catalogue_repair.py"
+  ],
+  "next_interface": {
+    "current": "catalogue_repair.load_catalogue() -> native references with explicit missing milestones, usable by existing inference.recommend_profile",
+    "future_after_real_decision": "catalogue_repair.activation_plan/activate_batch, then load_catalogue(source_id=<exact approved release ID>)",
+    "pending_validation": "catalogue_repair.load_batch()",
+    "reproduce": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.catalogue_repair_cli"
+  },
+  "output_sha256": {
+    "docs/execution/gates/G1A_R_authorization.json": "a6128b3e36461f611e2d04510a6ceae9597afea940d29402d3dc12cc9e32db6a",
+    "docs/execution/gates/G1A_R_checks.txt": "7c59b4ad6a144cb52029c5e33a716a1ee9794c8caecbd79b54a9fe48a98838b0",
+    "docs/execution/gates/G1A_R_git_status.txt": "caa9c7793079cf29efc59991d1be0bd559c13378b1f707629d489cf5ce23f82a",
+    "docs/execution/gates/G1A_R_report.md": "961af93e002fa2c70d680a6438b26ce502a4869eb62abc541975a7c937c738fd",
+    "docs/execution/gates/G1A_R_service_demo.json": "372e506f074965161250bd031ad20e3eda231e0f0dd2230c97657ada3f252265",
+    "ml/data/review/g1a-r-v1/BATCH_REVIEW.md": "9524a9bffe7e8d026dc963289dea536e7c01e6201eb29de723a5c8399bf8050e",
+    "ml/data/review/g1a-r-v1/batch_decision.pending.json": "907d95adb1c277d4d6702de4cc7d4df5f8b8e2cabaa121a7af169914a1f657fe",
+    "ml/data/review/g1a-r-v1/catalogue.reference-repaired.json": "de36e10285f145e18240e5306ddeca267294ffa68cc82a37048db01beb69286e",
+    "ml/data/review/g1a-r-v1/milestone_batch.proposed.json": "a7d41f3799a0010df0d5aa17954183f92fa0affc6f66791b58488577621783b3",
+    "ml/data/review/g1a-r-v1/source_facts.json": "5a2c54c7cd9cfe1ce8041e2ef1accd14b429958ed42718ce995ca42be9a64faa",
+    "ml/src/minder_ml/intelligence/catalogue_repair.py": "df8f716d38545a5ff2808a0b9ea92616de8d88c5a1fc4a0473d9262daedf0b4b",
+    "ml/src/minder_ml/intelligence/catalogue_repair_cli.py": "c455c0fa50e2014dcb6a859775da692286f27200d6a19efbc3632c6b0ef56a05",
+    "ml/tests/test_catalogue_repair.py": "de729cdb229e9179f76c9826a47ec287ec590e5a69d1940c685cde2e25f54ff6"
+  },
+  "outputs": {
+    "reference_projection": "ml/data/review/g1a-r-v1/catalogue.reference-repaired.json",
+    "report": "docs/execution/gates/G1A_R_report.md",
+    "service_demo": "docs/execution/gates/G1A_R_service_demo.json"
+  },
+  "overlapping_dependencies": [
+    {
+      "affected_pair_count": 18,
+      "category": "missing_profile_measurements",
+      "missing": [
+        "Version-bound anchored criterion answers",
+        "Explicit interest/work-style utilities",
+        "Confirmed resource access and hard-constraint checks"
+      ],
+      "overlaps_primary_counts": true,
+      "repair": "Keep six existing profiles incomplete. Supply explicit new answers only against an accepted template; no free-text imputation."
+    },
+    {
+      "blocked_baseline_pairs": 0,
+      "candidate_count": 24,
+      "category": "optional_crosswalk_unresolved",
+      "remaining": [
+        "Mapping relation applicability",
+        "ESCO version/scope and target-geography applicability",
+        "Specific crosswalk reuse terms"
+      ],
+      "repair": "Use the native identifiers; no mapping was adopted.",
+      "source_side_taxonomy_edition": "2019"
+    },
+    {
+      "annotation_csv_rows": 0,
+      "blocked_baseline_pairs": 0,
+      "category": "independent_labels_absent",
+      "repair": "Only empirical agreement evaluation/learner comparison need independent labels; no labels are generated by this gate."
+    }
+  ],
+  "pair_inventory": [
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "software-smoke-family-001",
+      "profile_id": "software-smoke-profile-001",
+      "profile_version": "synthetic-smoke-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "software-smoke-family-001",
+      "profile_id": "software-smoke-profile-001",
+      "profile_version": "synthetic-smoke-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "software-smoke-family-001",
+      "profile_id": "software-smoke-profile-001",
+      "profile_version": "synthetic-smoke-v1",
+      "role_id": "15-1212.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-01",
+      "profile_id": "calibration-profile-01",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-01",
+      "profile_id": "calibration-profile-01",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-01",
+      "profile_id": "calibration-profile-01",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1212.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-02",
+      "profile_id": "calibration-profile-02",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-02",
+      "profile_id": "calibration-profile-02",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-02",
+      "profile_id": "calibration-profile-02",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1212.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-03",
+      "profile_id": "calibration-profile-03",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-03",
+      "profile_id": "calibration-profile-03",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-03",
+      "profile_id": "calibration-profile-03",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1212.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-04",
+      "profile_id": "calibration-profile-04",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-04",
+      "profile_id": "calibration-profile-04",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-04",
+      "profile_id": "calibration-profile-04",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1212.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-05",
+      "profile_id": "calibration-profile-05",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1252.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-05",
+      "profile_id": "calibration-profile-05",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-2051.00"
+    },
+    {
+      "after_eligible": false,
+      "after_reasons": [
+        "milestone_definition_missing"
+      ],
+      "before_eligible": false,
+      "milestone_id": null,
+      "profile_family_id": "calibration-family-05",
+      "profile_id": "calibration-profile-05",
+      "profile_version": "calibration-synthetic-v1",
+      "role_id": "15-1212.00"
+    }
+  ],
+  "preservation": {
+    "G1A_code_and_reports_preserved": true,
+    "Groq_chat_frontend_contracts_locks_not_edited": true,
+    "actual_source_registry_unchanged": true,
+    "all_preexisting_files_unchanged": true,
+    "no_training_install_commit_push_publish_or_spend": true,
+    "pending_data_preserved": true
+  },
+  "profiles": [
+    {
+      "data_class": "synthetic",
+      "family_id": "software-smoke-family-001",
+      "profile_id": "software-smoke-profile-001",
+      "version": "synthetic-smoke-v1"
+    },
+    {
+      "data_class": "synthetic",
+      "family_id": "calibration-family-01",
+      "profile_id": "calibration-profile-01",
+      "version": "calibration-synthetic-v1"
+    },
+    {
+      "data_class": "synthetic",
+      "family_id": "calibration-family-02",
+      "profile_id": "calibration-profile-02",
+      "version": "calibration-synthetic-v1"
+    },
+    {
+      "data_class": "synthetic",
+      "family_id": "calibration-family-03",
+      "profile_id": "calibration-profile-03",
+      "version": "calibration-synthetic-v1"
+    },
+    {
+      "data_class": "synthetic",
+      "family_id": "calibration-family-04",
+      "profile_id": "calibration-profile-04",
+      "version": "calibration-synthetic-v1"
+    },
+    {
+      "data_class": "synthetic",
+      "family_id": "calibration-family-05",
+      "profile_id": "calibration-profile-05",
+      "version": "calibration-synthetic-v1"
+    }
+  ],
+  "remaining_decision": {
+    "all_reviewer_fields_null": true,
+    "batch_path": "ml/data/review/g1a-r-v1/milestone_batch.proposed.json",
+    "decision_path": "ml/data/review/g1a-r-v1/batch_decision.pending.json",
+    "human_readable_path": "ml/data/review/g1a-r-v1/BATCH_REVIEW.md",
+    "scope": "One three-role prototype milestone batch, including anchors/scenarios/task maps/resource and hard-requirement assumptions; six defensible task-effort ranges and named accepted method/basis. Then explicit version-bound profile measurements.",
+    "status": "pending"
+  },
+  "root_cause_table": [
+    {
+      "affected_pair_count": 6,
+      "category": "missing_role_milestone_definition",
+      "counting_scope": "unique primary failures for this role",
+      "milestone_id": null,
+      "missing_fields": {
+        "criteria": [
+          {
+            "criterion_id": "sw-requirements",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          },
+          {
+            "criterion_id": "sw-debugging",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          }
+        ],
+        "milestone": [
+          "target_artifact",
+          "task_prerequisite_graph",
+          "sourced_effort_hours",
+          "explicit_interest_tags",
+          "resource_alternative_groups",
+          "sourced_work_style_tags",
+          "explicit_hard_requirements_or_confirmed_empty_list"
+        ],
+        "profile_measurements": [
+          "version_bound_criterion_answers",
+          "interest_tag_answers",
+          "resource_access_and_compatible_budget",
+          "work_style_utilities"
+        ]
+      },
+      "provenance": "Original criteria are Codex-assisted proposals; native occupation identity is source-derived.",
+      "repair": "One inactive proposed batch supplies concrete scope, anchors, scenarios, tags and resources; real batch decision and six task-effort ranges still required.",
+      "role_id": "15-1252.00",
+      "source_availability": "Pinned O*NET skill rows and public learning context exist; no compatible accepted bounded template or defensible effort estimate exists."
+    },
+    {
+      "affected_pair_count": 6,
+      "category": "missing_role_milestone_definition",
+      "counting_scope": "unique primary failures for this role",
+      "milestone_id": null,
+      "missing_fields": {
+        "criteria": [
+          {
+            "criterion_id": "ds-statistics",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          },
+          {
+            "criterion_id": "ds-evaluation",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          }
+        ],
+        "milestone": [
+          "target_artifact",
+          "task_prerequisite_graph",
+          "sourced_effort_hours",
+          "explicit_interest_tags",
+          "resource_alternative_groups",
+          "sourced_work_style_tags",
+          "explicit_hard_requirements_or_confirmed_empty_list"
+        ],
+        "profile_measurements": [
+          "version_bound_criterion_answers",
+          "interest_tag_answers",
+          "resource_access_and_compatible_budget",
+          "work_style_utilities"
+        ]
+      },
+      "provenance": "Original criteria are Codex-assisted proposals; native occupation identity is source-derived.",
+      "repair": "One inactive proposed batch supplies concrete scope, anchors, scenarios, tags and resources; real batch decision and six task-effort ranges still required.",
+      "role_id": "15-2051.00",
+      "source_availability": "Pinned O*NET skill rows and public learning context exist; no compatible accepted bounded template or defensible effort estimate exists."
+    },
+    {
+      "affected_pair_count": 6,
+      "category": "missing_role_milestone_definition",
+      "counting_scope": "unique primary failures for this role",
+      "milestone_id": null,
+      "missing_fields": {
+        "criteria": [
+          {
+            "criterion_id": "sec-policy",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          },
+          {
+            "criterion_id": "sec-risk",
+            "missing": [
+              "content_anchors_0_0.5_1",
+              "anchor_version",
+              "accepted_task_template"
+            ]
+          }
+        ],
+        "milestone": [
+          "target_artifact",
+          "task_prerequisite_graph",
+          "sourced_effort_hours",
+          "explicit_interest_tags",
+          "resource_alternative_groups",
+          "sourced_work_style_tags",
+          "explicit_hard_requirements_or_confirmed_empty_list"
+        ],
+        "profile_measurements": [
+          "version_bound_criterion_answers",
+          "interest_tag_answers",
+          "resource_access_and_compatible_budget",
+          "work_style_utilities"
+        ]
+      },
+      "provenance": "Original criteria are Codex-assisted proposals; native occupation identity is source-derived.",
+      "repair": "One inactive proposed batch supplies concrete scope, anchors, scenarios, tags and resources; real batch decision and six task-effort ranges still required.",
+      "role_id": "15-1212.00",
+      "source_availability": "Pinned O*NET skill rows and public learning context exist; no compatible accepted bounded template or defensible effort estimate exists."
+    }
+  ],
+  "source_traceability": {
+    "captured_hash_scope": "UTF-8 saved limited excerpt or paraphrased evidence text, not raw upstream HTML",
+    "path": "ml/data/review/g1a-r-v1/source_facts.json",
+    "sources": [
+      {
+        "captured_evidence_sha256": "e0a605667ca4f456c9e2106ef6dc6853cd00f2ddd12e0229307263fc6cc1c055",
+        "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+        "source_id": "onet-version-relationship",
+        "source_version": "API reference 1.9, about example for database 31.0",
+        "url": "https://services.onetcenter.org/v1.9/reference/"
+      },
+      {
+        "captured_evidence_sha256": "95b807b42c3b761e8fab17e1ab8a887cc9df2e3824409295b29f83bcec29e7bc",
+        "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+        "source_id": "python-errors-reference",
+        "source_version": "Python 3.9.25 tutorial as rendered at lookup",
+        "url": "https://docs.python.org/3.9/tutorial/errors.html"
+      },
+      {
+        "captured_evidence_sha256": "604066742e1b2987c823240bf57a6afaab030a0ab5da76c55be65a20335dfb15",
+        "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+        "source_id": "learn-data-reference",
+        "source_version": null,
+        "url": "https://learn.microsoft.com/en-us/training/modules/explore-analyze-data-with-python/"
+      },
+      {
+        "captured_evidence_sha256": "4c8f0638ed36ccbb8e99e6db0cb9a04e9e19c6e255f7c6a83b01fac0b11d11e7",
+        "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+        "source_id": "learn-security-reference",
+        "source_version": null,
+        "url": "https://learn.microsoft.com/en-us/training/modules/describe-basic-cybersecurity-threats-attacks-mitigations/"
+      },
+      {
+        "captured_evidence_sha256": "ef7658c619679c39eff25c8ee85b8127f6c80f826f1711c6cb3863c7226079ba",
+        "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+        "source_id": "govuk-requirements-reference",
+        "source_version": null,
+        "url": "https://www.gov.uk/service-manual/agile-delivery/writing-user-stories"
+      },
+      {
+        "captured_evidence_sha256": "933280a0e52f4b94a68e029ad58412312152c3c18e7115b8221ae4a1c4b58a8f",
+        "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+        "source_id": "sklearn-leakage-reference",
+        "source_version": "scikit-learn 1.6.1 documentation",
+        "url": "https://scikit-learn.org/1.6/common_pitfalls.html#data-leakage"
+      },
+      {
+        "captured_evidence_sha256": "0267c5c4d67faf15a88acb3626a3c686210e3290b1ae0381b11057a811dd99cd",
+        "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+        "source_id": "owasp-authorization-reference",
+        "source_version": null,
+        "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html"
+      }
+    ],
+    "unknown_effort_hours_filled": false
+  },
+  "usable_actual_score_coverage": {
+    "actual_pairs": 18,
+    "after": 0,
+    "before": 0
+  }
+}

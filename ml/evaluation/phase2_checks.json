@@ -1,0 +1,1087 @@
+{
+  "baseline_readiness": [
+    {
+      "blocked_roles": [
+        {
+          "reasons": [
+            "role_milestone_review_pending",
+            "criterion_review_pending",
+            "source_mapping_review_pending",
+            "feature_rubric_review_pending",
+            "effort_estimate_review_pending"
+          ],
+          "role_id": "15-1252.00"
+        },
+        {
+          "reasons": [
+            "role_milestone_review_pending",
+            "criterion_review_pending",
+            "source_mapping_review_pending",
+            "feature_rubric_review_pending",
+            "effort_estimate_review_pending"
+          ],
+          "role_id": "15-2051.00"
+        },
+        {
+          "reasons": [
+            "role_milestone_review_pending",
+            "criterion_review_pending",
+            "source_mapping_review_pending",
+            "feature_rubric_review_pending",
+            "effort_estimate_review_pending"
+          ],
+          "role_id": "15-1212.00"
+        }
+      ],
+      "derivation_schema_version": "profile-feature-review-v1",
+      "recommendation": {
+        "evidence_snapshot_id": "canonical-review-v1",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12.0,
+        "profile_version": "synthetic-smoke-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "three-role-proposal-v1",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "roles": [
+        {
+          "criterion_gaps": [
+            {
+              "criterion_id": "sw-requirements",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.1.a",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            },
+            {
+              "criterion_id": "sw-debugging",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.2.a",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            }
+          ],
+          "evidence_coverage": null,
+          "feature_components": null,
+          "readiness": "pending_review",
+          "role_id": "15-1252.00"
+        },
+        {
+          "criterion_gaps": [
+            {
+              "criterion_id": "ds-statistics",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.1.e",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            },
+            {
+              "criterion_id": "ds-evaluation",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.2.a",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            }
+          ],
+          "evidence_coverage": null,
+          "feature_components": null,
+          "readiness": "pending_review",
+          "role_id": "15-2051.00"
+        },
+        {
+          "criterion_gaps": [
+            {
+              "criterion_id": "sec-policy",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.1.a",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            },
+            {
+              "criterion_id": "sec-risk",
+              "reason": "unreviewed_catalogue",
+              "remaining_fraction": null,
+              "skill_id": "onet:2.A.2.a",
+              "source_ids": [
+                "onet_occupation_data"
+              ]
+            }
+          ],
+          "evidence_coverage": null,
+          "feature_components": null,
+          "readiness": "pending_review",
+          "role_id": "15-1212.00"
+        }
+      ],
+      "scope": "Only reviewed catalogue inputs enter the existing service; blocked roles are listed separately."
+    }
+  ],
+  "boundaries": {
+    "frontend": "not exercised; no implemented frontend",
+    "http_endpoint": "not exercised; no implemented endpoint",
+    "learner_training": "not_run",
+    "meaningful_baseline_role_comparison": "BLOCKED until occupational content approved",
+    "python_interface": "exercised; existing scoring schema validated",
+    "runpod_training_gate": "pending; outside this phase 2 data task",
+    "scalar_market_score_policy": null,
+    "weak_auto_label_generation": "not_run"
+  },
+  "canonical_entity_validation": {
+    "profiles": {
+      "rejected_rows": 0,
+      "rejections": [],
+      "validated_rows": 1
+    },
+    "roles": {
+      "rejected_rows": 0,
+      "rejections": [],
+      "validated_rows": 3
+    }
+  },
+  "commands": [
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli inspect",
+      "exit_code": 0,
+      "output": {
+        "checksums": [
+          {
+            "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+            "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+          },
+          {
+            "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+            "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b"
+          }
+        ],
+        "derived": {
+          "caveats": [
+            "Two broad national dimensions, not a joint industry-by-occupation table.",
+            "Exclude overall aggregates from category sums and avoid counting both dimensions as independent populations.",
+            "Suitable for currentobservations and carefullyqualified historical analysis; doesnot itselfvalidate2/5yearroleforecasts."
+          ],
+          "columns": [
+            "dimension",
+            "group_label",
+            "group_kind",
+            "geography",
+            "period",
+            "period_start",
+            "online_job_offerings",
+            "value_status",
+            "source_raw_value",
+            "unit",
+            "source_id",
+            "source_sheet",
+            "source_cell",
+            "file_release_date",
+            "snapshot_as_of"
+          ],
+          "derivation": "Read the two documented tables, forward-fill merged yearheaders across quarterlycolumns, emit2019-Q3through2026-Q2 only, preserve rawlabels and sourcecell, preserve0and distinguishdash/blankmissingvalues. No interpolation,forecasting orrole-levelcrosswalk.",
+          "id": "dosm_jmi_quarterly_long",
+          "missing_rows": 31,
+          "observed_numeric_rows": 921,
+          "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+          "rows": 952,
+          "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b",
+          "source_id": "dosm_jmi_q2_2026_data"
+        },
+        "manifest_sha256": "fb7475afa540fffad3515034decf5f377d7bed9f69018b032ff29fd46c76109d",
+        "references": [
+          "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+          "https://www.oecd.org/en/publications/how-well-do-online-job-postings-match-national-sources-in-large-english-speaking-countries_c17cae09-en.html",
+          "https://esco.ec.europa.eu/en/use-esco/download"
+        ],
+        "schema_sha256": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d",
+        "source": {
+          "bytes": 349834,
+          "caveats": [
+            "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+            "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+            "No detailedoccupation or state-by-role table is present in this attachment.",
+            "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+            "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+            "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+            "Online job offering counts are not all vacancies or realizedhires."
+          ],
+          "checked_at_utc": "2026-10-20T10:09:55.962156+00:00",
+          "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "documented_as_of": "2026-Q2",
+          "documented_publication_date": "2026-08-18",
+          "filename": "dosm_jmi_q2_2026_data.xlsx",
+          "frequency": "annual, quarterly and monthly wide tables; derived file selects only quarterly",
+          "id": "dosm_jmi_q2_2026_data",
+          "landing_page": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+          "license": "Not independently verified for this specific attachment; consult source terms",
+          "nonempty_rows": 42,
+          "publisher": "Department of Statistics Malaysia",
+          "purpose": "Official online job offerings data attachment; inspect table coverage before forecasts",
+          "quarterly_observation_range": {
+            "max": "2026-Q2",
+            "min": "2019-Q3"
+          },
+          "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+          "resolved_url": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+          "scope": "Malaysia national: economic activities and occupation major groups; separate marginal tables",
+          "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "sheets": [
+            {
+              "columns_max": 131,
+              "name": "e2-Summary Table BI",
+              "rows": 974
+            }
+          ],
+          "status": "downloaded",
+          "url": "https://www.dosm.gov.my/portal-main/release-document-log?release_document_id=20742"
+        }
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli prepare",
+      "exit_code": 0,
+      "output": {
+        "output_sha256": {
+          "observations.jsonl": "f210817d5bb8e8ee20acea2048063557a853ea5fb3362352618a4d5e2b7a1941",
+          "quality.json": "dda22fe08dcdf84993cc132d4b8dd64608c8fa1fe894356bde2cc5c202b59a36",
+          "source_manifest.json": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+          "views.json": "767c45c5831707978fe2671c5a5a7bebe913c5448bda5345c503e6981dfcba79"
+        },
+        "path": "/Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637",
+        "quality": {
+          "classification_coverage_diagnostic": {
+            "interpretation": "Observed classification share shift; cause/methodological continuity not established. Industry YoY involving flagged quarter is withheld.",
+            "observations": [
+              {
+                "period_start": "2026-01-01",
+                "published_total": 626861,
+                "unclassified_observed_count": 49549,
+                "unclassified_share": 0.07904304143980882
+              },
+              {
+                "period_start": "2026-04-01",
+                "published_total": 555509,
+                "unclassified_observed_count": 273024,
+                "unclassified_share": 0.4914843863915796
+              }
+            ],
+            "status": "requires_review"
+          },
+          "exceptions": [
+            "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+            "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+            "No detailedoccupation or state-by-role table is present in this attachment.",
+            "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+            "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+            "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+            "Online job offering counts are not all vacancies or realizedhires.",
+            "Taxonomy and methodology versions are not supplied: comparability is restricted to the same release and published labels.",
+            "Missing source dates/quarters are not interpolated; skill and employer dimensions remain null."
+          ],
+          "flagged_classification_rows": 23,
+          "input_rows": 952,
+          "missing_rows": 31,
+          "observed_numeric_rows": 921,
+          "period_max": "2026-06-30",
+          "period_min": "2019-07-01",
+          "rejected_rows": 0,
+          "rejections": [],
+          "source_cell_round_trip_rows": 952,
+          "validated_rows": 952
+        },
+        "reused_identical_snapshot": true,
+        "snapshot_id": "b98b3798cd3034e4c5f41637"
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli prepare",
+      "exit_code": 0,
+      "output": {
+        "output_sha256": {
+          "observations.jsonl": "f210817d5bb8e8ee20acea2048063557a853ea5fb3362352618a4d5e2b7a1941",
+          "quality.json": "dda22fe08dcdf84993cc132d4b8dd64608c8fa1fe894356bde2cc5c202b59a36",
+          "source_manifest.json": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+          "views.json": "767c45c5831707978fe2671c5a5a7bebe913c5448bda5345c503e6981dfcba79"
+        },
+        "path": "/Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637",
+        "quality": {
+          "classification_coverage_diagnostic": {
+            "interpretation": "Observed classification share shift; cause/methodological continuity not established. Industry YoY involving flagged quarter is withheld.",
+            "observations": [
+              {
+                "period_start": "2026-01-01",
+                "published_total": 626861,
+                "unclassified_observed_count": 49549,
+                "unclassified_share": 0.07904304143980882
+              },
+              {
+                "period_start": "2026-04-01",
+                "published_total": 555509,
+                "unclassified_observed_count": 273024,
+                "unclassified_share": 0.4914843863915796
+              }
+            ],
+            "status": "requires_review"
+          },
+          "exceptions": [
+            "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+            "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+            "No detailedoccupation or state-by-role table is present in this attachment.",
+            "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+            "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+            "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+            "Online job offering counts are not all vacancies or realizedhires.",
+            "Taxonomy and methodology versions are not supplied: comparability is restricted to the same release and published labels.",
+            "Missing source dates/quarters are not interpolated; skill and employer dimensions remain null."
+          ],
+          "flagged_classification_rows": 23,
+          "input_rows": 952,
+          "missing_rows": 31,
+          "observed_numeric_rows": 921,
+          "period_max": "2026-06-30",
+          "period_min": "2019-07-01",
+          "rejected_rows": 0,
+          "rejections": [],
+          "source_cell_round_trip_rows": 952,
+          "validated_rows": 952
+        },
+        "reused_identical_snapshot": true,
+        "snapshot_id": "b98b3798cd3034e4c5f41637"
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli validate --snapshot /Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637",
+      "exit_code": 0,
+      "output": {
+        "rejected_rows": 0,
+        "rejections": [],
+        "snapshot_id": "b98b3798cd3034e4c5f41637",
+        "validated_rows": 952
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli validate --input ml/data/review/phase2/roles.pending.json",
+      "exit_code": 0,
+      "output": {
+        "rejected_rows": 0,
+        "rejections": [],
+        "validated_rows": 3
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli validate --input ml/tests/fixtures/phase2_profile.synthetic.json",
+      "exit_code": 0,
+      "output": {
+        "rejected_rows": 0,
+        "rejections": [],
+        "validated_rows": 1
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli market-build --snapshot /Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637",
+      "exit_code": 0,
+      "output": {
+        "employer_market_view": {
+          "reason": "No authorized employer-level posting source acquired; posting activity would not establish company hiring volume.",
+          "rows": [],
+          "status": "not_supported_by_sources"
+        },
+        "market_score_policy": null,
+        "rejected_rows": 0,
+        "role_market_scope": "supported_at_published_occupation_major_group_level",
+        "role_market_view_rows": 308,
+        "skill_market_view": {
+          "reason": "No verified skill-tagged posting source acquired; taxonomy associations are not measured skill demand.",
+          "rows": [],
+          "status": "not_supported_by_sources"
+        },
+        "snapshot_id": "b98b3798cd3034e4c5f41637",
+        "validated_rows": 952
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli annotation-export --output ml/artifacts/phase2/review-v1",
+      "exit_code": 0,
+      "output": {
+        "approved_profile_families": 0,
+        "approved_roles": 0,
+        "baseline_scores_exposed": false,
+        "gold_labels": 0,
+        "output": "ml/artifacts/phase2/review-v1",
+        "packet_id": "2de141fd3b02b419648831da77f452fcfdd4f056cc9f7fb93a4b58ef01c7061d",
+        "pairs": 3,
+        "profile_families": 1
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli annotation-import --packet ml/artifacts/phase2/review-v1 --responses ml/artifacts/phase2/review-v1/responses.template.json --output ml/artifacts/phase2/review-import-v1",
+      "exit_code": 0,
+      "output": {
+        "approved_profile_families": 0,
+        "approved_roles": 0,
+        "disagreements": [],
+        "empirical_status": "not_evaluated",
+        "gold_labels": 0,
+        "independent_human_approved_rows": 0,
+        "note": "Structural provenance validation is not proof that human review occurred. No scores or automatic labels generated.",
+        "packet_id": "2de141fd3b02b419648831da77f452fcfdd4f056cc9f7fb93a4b58ef01c7061d",
+        "pending_rows": 3,
+        "profile_families": 1,
+        "rejected_rows": 0,
+        "response_rows": 3,
+        "response_sha256": "d0642e80a6c013543eeecd11adc77e8f3351e8c80025562169780e7ea90b1c26",
+        "unresolved_cases": [
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "447025f6ede4f9ebc99b6635",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "d4d9fa791c214e5020482552",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "fe48e9f5ec9366196a4d0805",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          }
+        ],
+        "validated_rows": 3,
+        "weak_proposals": 0
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli report --snapshot /Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637 --review-results ml/artifacts/phase2/review-import-v1/readiness.json",
+      "exit_code": 0,
+      "output": {
+        "approved_profile_families": 0,
+        "approved_roles": 0,
+        "baseline_derivations": [
+          {
+            "blocked_roles": [
+              {
+                "reasons": [
+                  "role_milestone_review_pending",
+                  "criterion_review_pending",
+                  "source_mapping_review_pending",
+                  "feature_rubric_review_pending",
+                  "effort_estimate_review_pending"
+                ],
+                "role_id": "15-1252.00"
+              },
+              {
+                "reasons": [
+                  "role_milestone_review_pending",
+                  "criterion_review_pending",
+                  "source_mapping_review_pending",
+                  "feature_rubric_review_pending",
+                  "effort_estimate_review_pending"
+                ],
+                "role_id": "15-2051.00"
+              },
+              {
+                "reasons": [
+                  "role_milestone_review_pending",
+                  "criterion_review_pending",
+                  "source_mapping_review_pending",
+                  "feature_rubric_review_pending",
+                  "effort_estimate_review_pending"
+                ],
+                "role_id": "15-1212.00"
+              }
+            ],
+            "derivation_schema_version": "profile-feature-review-v1",
+            "recommendation": {
+              "evidence_snapshot_id": "canonical-review-v1",
+              "feature_schema_version": "personal-preparation-features-v1",
+              "fit_weight": 0.7,
+              "model_version": "fixed-baseline-v1",
+              "options": [],
+              "preparation_horizon_weeks": 12.0,
+              "profile_version": "synthetic-smoke-v1",
+              "ranking_mode": "personal_fit_only",
+              "ranking_policy_version": "personal-fit-role-id-v1",
+              "result_kind": "insufficient_information",
+              "result_schema_version": "minder-recommendation-v1",
+              "role_catalogue_version": "three-role-proposal-v1",
+              "score_mapping_version": "grade-to-index-v1",
+              "scorer_kind": "baseline",
+              "unscored_roles": [],
+              "warnings": [
+                "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+                "No comparable market index supplied; D and S are null for the entire set."
+              ]
+            },
+            "roles": [
+              {
+                "criterion_gaps": [
+                  {
+                    "criterion_id": "sw-requirements",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.1.a",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  },
+                  {
+                    "criterion_id": "sw-debugging",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.2.a",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  }
+                ],
+                "evidence_coverage": null,
+                "feature_components": null,
+                "readiness": "pending_review",
+                "role_id": "15-1252.00"
+              },
+              {
+                "criterion_gaps": [
+                  {
+                    "criterion_id": "ds-statistics",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.1.e",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  },
+                  {
+                    "criterion_id": "ds-evaluation",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.2.a",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  }
+                ],
+                "evidence_coverage": null,
+                "feature_components": null,
+                "readiness": "pending_review",
+                "role_id": "15-2051.00"
+              },
+              {
+                "criterion_gaps": [
+                  {
+                    "criterion_id": "sec-policy",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.1.a",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  },
+                  {
+                    "criterion_id": "sec-risk",
+                    "reason": "unreviewed_catalogue",
+                    "remaining_fraction": null,
+                    "skill_id": "onet:2.A.2.a",
+                    "source_ids": [
+                      "onet_occupation_data"
+                    ]
+                  }
+                ],
+                "evidence_coverage": null,
+                "feature_components": null,
+                "readiness": "pending_review",
+                "role_id": "15-1212.00"
+              }
+            ],
+            "scope": "Only reviewed catalogue inputs enter the existing service; blocked roles are listed separately."
+          }
+        ],
+        "learner_training": "not_run",
+        "profile_families": 1,
+        "quality": {
+          "classification_coverage_diagnostic": {
+            "interpretation": "Observed classification share shift; cause/methodological continuity not established. Industry YoY involving flagged quarter is withheld.",
+            "observations": [
+              {
+                "period_start": "2026-01-01",
+                "published_total": 626861,
+                "unclassified_observed_count": 49549,
+                "unclassified_share": 0.07904304143980882
+              },
+              {
+                "period_start": "2026-04-01",
+                "published_total": 555509,
+                "unclassified_observed_count": 273024,
+                "unclassified_share": 0.4914843863915796
+              }
+            ],
+            "status": "requires_review"
+          },
+          "exceptions": [
+            "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+            "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+            "No detailedoccupation or state-by-role table is present in this attachment.",
+            "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+            "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+            "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+            "Online job offering counts are not all vacancies or realizedhires.",
+            "Taxonomy and methodology versions are not supplied: comparability is restricted to the same release and published labels.",
+            "Missing source dates/quarters are not interpolated; skill and employer dimensions remain null."
+          ],
+          "flagged_classification_rows": 23,
+          "input_rows": 952,
+          "missing_rows": 31,
+          "observed_numeric_rows": 921,
+          "period_max": "2026-06-30",
+          "period_min": "2019-07-01",
+          "rejected_rows": 0,
+          "rejections": [],
+          "source_cell_round_trip_rows": 952,
+          "validated_rows": 952
+        },
+        "review_readiness": {
+          "approved_profile_families": 0,
+          "approved_roles": 0,
+          "disagreements": [],
+          "empirical_status": "not_evaluated",
+          "gold_labels": 0,
+          "independent_human_approved_rows": 0,
+          "note": "Structural provenance validation is not proof that human review occurred. No scores or automatic labels generated.",
+          "packet_id": "2de141fd3b02b419648831da77f452fcfdd4f056cc9f7fb93a4b58ef01c7061d",
+          "pending_rows": 3,
+          "profile_families": 1,
+          "rejected_rows": 0,
+          "response_rows": 3,
+          "response_sha256": "d0642e80a6c013543eeecd11adc77e8f3351e8c80025562169780e7ea90b1c26",
+          "unresolved_cases": [
+            {
+              "disagreement": false,
+              "features_ready": false,
+              "no_independent_human_grade": true,
+              "pair_id": "447025f6ede4f9ebc99b6635",
+              "role_approved": false,
+              "rubric_ambiguity": false
+            },
+            {
+              "disagreement": false,
+              "features_ready": false,
+              "no_independent_human_grade": true,
+              "pair_id": "d4d9fa791c214e5020482552",
+              "role_approved": false,
+              "rubric_ambiguity": false
+            },
+            {
+              "disagreement": false,
+              "features_ready": false,
+              "no_independent_human_grade": true,
+              "pair_id": "fe48e9f5ec9366196a4d0805",
+              "role_approved": false,
+              "rubric_ambiguity": false
+            }
+          ],
+          "validated_rows": 3,
+          "weak_proposals": 0
+        },
+        "snapshot": {
+          "rejected_rows": 0,
+          "rejections": [],
+          "snapshot_id": "b98b3798cd3034e4c5f41637",
+          "validated_rows": 952
+        },
+        "weak_auto_labelling": "skipped; no provider or credentials introduced"
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence checks",
+      "exit_code": 0,
+      "stderr": "test_artifact_traversal_and_synthetic_selection_rejected (test_foundation.ApplicationTests) ... ok\ntest_default_versioned_result_and_stable_ties (test_foundation.ApplicationTests) ... ok\ntest_disabled_llm_cannot_alter_numeric_result (test_foundation.ApplicationTests) ... ok\ntest_duplicate_roles_rejected (test_foundation.ApplicationTests) ... ok\ntest_empty_comparison_set (test_foundation.ApplicationTests) ... ok\ntest_horizon_mismatch_requires_rebuilding_features (test_foundation.ApplicationTests) ... ok\ntest_incompatible_horizon_prevents_loading (test_foundation.ApplicationTests) ... ok\ntest_missing_artifact_is_explicit (test_foundation.ApplicationTests) ... ok\ntest_missing_information_visible (test_foundation.ApplicationTests) ... ok\ntest_missing_market_policy_entire_set (test_foundation.ApplicationTests) ... ok\ntest_results_match_executable_contract (test_foundation.ApplicationTests) ... ok\ntest_unavailable_trained_selection_never_falls_back (test_foundation.ApplicationTests) ... ok\ntest_unfitted_or_tampered_pipeline_is_not_ready (test_foundation.ApplicationTests) ... ok\ntest_all_weak_profiles_are_undefined_not_success (test_foundation.EvaluationTests) ... ok\ntest_bounded_baseline_counterfactuals (test_foundation.EvaluationTests) ... ok\ntest_duplicate_and_incompatible_rows_rejected (test_foundation.EvaluationTests) ... ok\ntest_empty_template_is_not_evaluated (test_foundation.EvaluationTests) ... ok\ntest_frozen_selection_and_once_only_holdout_orchestration_without_fitting (test_foundation.EvaluationTests) ... ok\ntest_group_split_reproducible_and_no_leakage (test_foundation.EvaluationTests) ... ok\ntest_linear_ndcg_with_stable_ties_and_clipped_mae (test_foundation.EvaluationTests) ... ok\ntest_pending_grades_remain_blank (test_foundation.EvaluationTests) ... ok\ntest_review_provenance_and_complete_features_required (test_foundation.EvaluationTests) ... ok\ntest_small_groups_are_exploratory (test_foundation.EvaluationTests) ... ok\ntest_training_requires_verified_runner (test_foundation.EvaluationTests) ... ok\ntest_bad_weights_are_rejected_without_normalizing (test_foundation.MathTests) ... ok\ntest_baseline_golden_extremes_and_absolute_low_scores (test_foundation.MathTests) ... ok\ntest_baseline_monotonicity (test_foundation.MathTests) ... ok\ntest_complete_evidence_policy (test_foundation.MathTests) ... ok\ntest_effort_range_and_selected_estimate_are_preserved (test_foundation.MathTests) ... ok\ntest_feature_allowlist_and_version (test_foundation.MathTests) ... ok\ntest_invalid_catalogue_is_not_user_inability (test_foundation.MathTests) ... ok\ntest_invalid_feature_values (test_foundation.MathTests) ... ok\ntest_learned_mapping_and_combination (test_foundation.MathTests) ... ok\ntest_time_zero_unknown_and_range (test_foundation.MathTests) ... ok\ntest_unknown_skill_is_not_zero (test_foundation.MathTests) ... ok\ntest_canonical_adapter_keeps_service_contract_and_unknown_assessments (test_phase2.BlindReviewTests) ... ok\ntest_independent_agreement_disagreement_and_context_rejection (test_phase2.BlindReviewTests) ... ok\ntest_pending_round_trip_is_blind_and_preserves_missing_grades (test_phase2.BlindReviewTests) ... ok\ntest_public_packet_edits_require_a_new_export (test_phase2.BlindReviewTests) ... ok\ntest_all_six_entity_enums_and_crosswalks (test_phase2.CanonicalContractTests) ... ok\ntest_approval_cannot_be_asserted_without_reviewed_content (test_phase2.CanonicalContractTests) ... ok\ntest_pending_roles_and_unknown_profile_fields_are_valid_not_approved (test_phase2.CanonicalContractTests) ... ok\ntest_private_profile_refused_before_writing_artifacts (test_phase2.CanonicalContractTests) ... ok\ntest_weak_proposal_and_role_acceptance_are_not_gold (test_phase2.CanonicalContractTests) ... ok\ntest_annual_country_provider_and_marginal_mismatch_rejected (test_phase2.SourceAndComparabilityTests) ... ok\ntest_frozen_snapshot_repeats_without_mutating_source_or_holdout (test_phase2.SourceAndComparabilityTests) ... ok\ntest_missing_zero_taxonomy_and_methodology_preserved (test_phase2.SourceAndComparabilityTests) ... ok\ntest_permitted_yoy_and_source_share (test_phase2.SourceAndComparabilityTests) ... ok\ntest_real_source_counts_and_round_trip (test_phase2.SourceAndComparabilityTests) ... ok\ntest_separate_source_country_cohorts_never_share_rankings (test_phase2.SourceAndComparabilityTests) ... ok\ntest_unsupported_views_are_not_zero_or_forecasts (test_phase2.SourceAndComparabilityTests) ... ok\ntest_baseline_evaluation_needs_no_runner_and_keeps_holdout_closed (test_review.ReviewTests) ... ok\ntest_gap_math_and_duplicate_validation (test_review.ReviewTests) ... ok\ntest_missing_raw_profile_is_explicit (test_review.ReviewTests) ... ok\ntest_pending_catalogue_never_reaches_feature_builder (test_review.ReviewTests) ... ok\ntest_raw_builder_service_ordering_and_unknown_gaps (test_review.ReviewTests) ... ok\ntest_real_review_materials_have_no_generated_grades_or_approvals (test_review.ReviewTests) ... ok\ntest_source_rows_match_each_proposed_role_and_skill (test_review.ReviewTests) ... ok\ntest_unknown_assessment_does_not_turn_into_zero (test_review.ReviewTests) ... ok\n\n----------------------------------------------------------------------\nRan 59 tests in 88.522s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "classification": "pre-existing training.py whitespace, unchanged by Phase 2",
+      "command": "git diff --check",
+      "exit_code": 2,
+      "stderr": "",
+      "stdout": "ml/src/minder_ml/intelligence/training.py:17: trailing whitespace.\n+def checked_rows(path): \n"
+    }
+  ],
+  "comparability_demonstrations": {
+    "permitted_real_source_share": {
+      "comparable": true,
+      "denominator_observation_id": "6703b8287979af0e5222ecda289f05b37c23b58abc88afbb12bdf3ae27022a1d",
+      "denominator_value": 555509,
+      "meaning": "share of published observed source total",
+      "mode": "share",
+      "reasons": [],
+      "value": 0.15832326748981565
+    },
+    "permitted_real_within_series_yoy": {
+      "current_count": 87950,
+      "current_observation_id": "6ac32108fd26b47db778ecbed5bb0161bcb5e31aa3b86f21509268fef38c1986",
+      "previous_count": 48864,
+      "previous_observation_id": "6c9b0cec128af9a91f90741fabd7b408b323e404a5bf111e28f6a90996bbb992",
+      "result": {
+        "comparable": true,
+        "mode": "yoy",
+        "reasons": [],
+        "reference_observation_id": "6c9b0cec128af9a91f90741fabd7b408b323e404a5bf111e28f6a90996bbb992",
+        "unit": "percent_change",
+        "value": 79.98935821872955
+      }
+    },
+    "rejected_annual_quarter_rejection_fixture": {
+      "comparable": false,
+      "mode": "yoy",
+      "reasons": [
+        "frequency_mismatch",
+        "not_exactly_four_quarters_apart",
+        "yoy_requires_quarterly_observations"
+      ]
+    },
+    "rejected_country_coverage_rejection_fixture": {
+      "comparable": false,
+      "mode": "cohort",
+      "reasons": [
+        "cross_country_or_geography_normalization_not_approved",
+        "different_provider_counts_are_not_national_market_sizes",
+        "geography_code_mismatch",
+        "source_coverage_mismatch",
+        "source_id_mismatch"
+      ]
+    },
+    "rejected_separate_actual_source_marginals": {
+      "comparable": false,
+      "mode": "share",
+      "reasons": [
+        "dimension_scope_mismatch",
+        "part_exceeds_published_total",
+        "share_denominator_must_be_published_total",
+        "taxonomy_system_mismatch"
+      ]
+    }
+  },
+  "environment": {
+    "execution_location": "local macOS CPU",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "virtual_environment": "ml/.venv"
+  },
+  "final_hygiene": {
+    "documentation_links": "PASS",
+    "generated_snapshots_and_review_runs_ignored": true,
+    "git_diff_check": "pre-existing trailing whitespace at training.py:17; unchanged and not fixed outside scope",
+    "new_phase2_files": [
+      "contracts/data-entities.v1.schema.json",
+      "ml/data/review/phase2/profile_generation_template.json",
+      "ml/data/review/phase2/role_market_crosswalks.pending.json",
+      "ml/data/review/phase2/roles.pending.json",
+      "ml/data/review/phase2/skill_taxonomy_crosswalks.pending.json",
+      "ml/docs/phase2-engineering-report.md",
+      "ml/evaluation/phase2_checks.json",
+      "ml/src/minder_ml/intelligence/annotation_io.py",
+      "ml/src/minder_ml/intelligence/data_adapters.py",
+      "ml/src/minder_ml/intelligence/data_cli.py",
+      "ml/src/minder_ml/intelligence/data_pipeline.py",
+      "ml/src/minder_ml/intelligence/data_schemas.py",
+      "ml/src/minder_ml/intelligence/market.py",
+      "ml/tests/fixtures/phase2_profile.synthetic.json",
+      "ml/tests/test_phase2.py"
+    ],
+    "new_source_files_text_only": true,
+    "no_commit_or_push": true,
+    "no_common_credential_patterns": true,
+    "no_model_artifacts_added": true,
+    "phase2_files_whitespace": "PASS",
+    "unrelated_preexisting_work_preserved": true
+  },
+  "gates": {
+    "P2-0": {
+      "evidence": "Versioned schema covers six entities with enum/null and semantic validation; contract tests pass.",
+      "status": "PASS"
+    },
+    "P2-1": {
+      "evidence": "952 source rows/cells validated, 921 numeric and 31 missing; zero rejected. Workbook/derived hashes verified; exceptions retained.",
+      "status": "PASS"
+    },
+    "P2-2": {
+      "evidence": "Real within-series YoY/share permitted; annual/quarter, hypothetical cross-country coverage and actual separate marginals rejected. See comparisons.",
+      "status": "PASS"
+    },
+    "P2-3": {
+      "evidence": "Three pending role cards, blind export/import round-trip, one explicitly synthetic draft family, zero approved roles/families/gold labels; three unresolved pairs.",
+      "status": "PASS"
+    },
+    "P2-4": {
+      "evidence": "One software-only synthetic profile supplied by this task, but zero approved role cards. No meaningful role ordering computed; pending criteria/gaps/source IDs visible.",
+      "status": "BLOCKED"
+    },
+    "P2-5": {
+      "evidence": "Identical source/config snapshot ID/output hashes reused. Frozen output tampering rejected in tests; sources/old evidence unchanged. Recommendation-v1 compatibility tests pass; HTTP/frontend not exercised.",
+      "status": "PASS"
+    }
+  },
+  "preservation": {
+    "continuation_checks_unchanged": true,
+    "foundation_checks_unchanged": true,
+    "missing_preexisting_files": [],
+    "modified_preexisting_files": [
+      "ml/src/minder_ml/intelligence/review.py",
+      ".gitignore"
+    ],
+    "preexisting_trained_or_holdout_artifacts": [],
+    "source_pack_unchanged": true,
+    "training_not_triggered": true
+  },
+  "recorded_at_utc": "2026-10-20T19:32:30.631406+00:00",
+  "review_export": {
+    "approved_profile_families": 0,
+    "approved_roles": 0,
+    "baseline_scores_exposed": false,
+    "gold_labels": 0,
+    "output": "ml/artifacts/phase2/review-v1",
+    "packet_id": "2de141fd3b02b419648831da77f452fcfdd4f056cc9f7fb93a4b58ef01c7061d",
+    "pairs": 3,
+    "profile_families": 1
+  },
+  "review_import": {
+    "approved_profile_families": 0,
+    "approved_roles": 0,
+    "disagreements": [],
+    "empirical_status": "not_evaluated",
+    "gold_labels": 0,
+    "independent_human_approved_rows": 0,
+    "note": "Structural provenance validation is not proof that human review occurred. No scores or automatic labels generated.",
+    "packet_id": "2de141fd3b02b419648831da77f452fcfdd4f056cc9f7fb93a4b58ef01c7061d",
+    "pending_rows": 3,
+    "profile_families": 1,
+    "rejected_rows": 0,
+    "response_rows": 3,
+    "response_sha256": "d0642e80a6c013543eeecd11adc77e8f3351e8c80025562169780e7ea90b1c26",
+    "unresolved_cases": [
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "447025f6ede4f9ebc99b6635",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "d4d9fa791c214e5020482552",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "fe48e9f5ec9366196a4d0805",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      }
+    ],
+    "validated_rows": 3,
+    "weak_proposals": 0
+  },
+  "snapshot": {
+    "id": "b98b3798cd3034e4c5f41637",
+    "output_sha256": {
+      "observations.jsonl": "f210817d5bb8e8ee20acea2048063557a853ea5fb3362352618a4d5e2b7a1941",
+      "quality.json": "dda22fe08dcdf84993cc132d4b8dd64608c8fa1fe894356bde2cc5c202b59a36",
+      "source_manifest.json": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+      "views.json": "767c45c5831707978fe2671c5a5a7bebe913c5448bda5345c503e6981dfcba79"
+    },
+    "path": "/Users/phuahjunhong/sdc-2026-minder/ml/data/snapshots/b98b3798cd3034e4c5f41637",
+    "repeat_identical": true
+  },
+  "source": {
+    "checksums": [
+      {
+        "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+        "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+      },
+      {
+        "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+        "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b"
+      }
+    ],
+    "derived": {
+      "caveats": [
+        "Two broad national dimensions, not a joint industry-by-occupation table.",
+        "Exclude overall aggregates from category sums and avoid counting both dimensions as independent populations.",
+        "Suitable for currentobservations and carefullyqualified historical analysis; doesnot itselfvalidate2/5yearroleforecasts."
+      ],
+      "columns": [
+        "dimension",
+        "group_label",
+        "group_kind",
+        "geography",
+        "period",
+        "period_start",
+        "online_job_offerings",
+        "value_status",
+        "source_raw_value",
+        "unit",
+        "source_id",
+        "source_sheet",
+        "source_cell",
+        "file_release_date",
+        "snapshot_as_of"
+      ],
+      "derivation": "Read the two documented tables, forward-fill merged yearheaders across quarterlycolumns, emit2019-Q3through2026-Q2 only, preserve rawlabels and sourcecell, preserve0and distinguishdash/blankmissingvalues. No interpolation,forecasting orrole-levelcrosswalk.",
+      "id": "dosm_jmi_quarterly_long",
+      "missing_rows": 31,
+      "observed_numeric_rows": 921,
+      "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+      "rows": 952,
+      "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b",
+      "source_id": "dosm_jmi_q2_2026_data"
+    },
+    "manifest_sha256": "fb7475afa540fffad3515034decf5f377d7bed9f69018b032ff29fd46c76109d",
+    "references": [
+      "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "https://www.oecd.org/en/publications/how-well-do-online-job-postings-match-national-sources-in-large-english-speaking-countries_c17cae09-en.html",
+      "https://esco.ec.europa.eu/en/use-esco/download"
+    ],
+    "schema_sha256": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d",
+    "source": {
+      "bytes": 349834,
+      "caveats": [
+        "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+        "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+        "No detailedoccupation or state-by-role table is present in this attachment.",
+        "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+        "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+        "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+        "Online job offering counts are not all vacancies or realizedhires."
+      ],
+      "checked_at_utc": "2026-10-20T10:09:55.962156+00:00",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "documented_as_of": "2026-Q2",
+      "documented_publication_date": "2026-08-18",
+      "filename": "dosm_jmi_q2_2026_data.xlsx",
+      "frequency": "annual, quarterly and monthly wide tables; derived file selects only quarterly",
+      "id": "dosm_jmi_q2_2026_data",
+      "landing_page": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "license": "Not independently verified for this specific attachment; consult source terms",
+      "nonempty_rows": 42,
+      "publisher": "Department of Statistics Malaysia",
+      "purpose": "Official online job offerings data attachment; inspect table coverage before forecasts",
+      "quarterly_observation_range": {
+        "max": "2026-Q2",
+        "min": "2019-Q3"
+      },
+      "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+      "resolved_url": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+      "scope": "Malaysia national: economic activities and occupation major groups; separate marginal tables",
+      "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+      "sheets": [
+        {
+          "columns_max": 131,
+          "name": "e2-Summary Table BI",
+          "rows": 974
+        }
+      ],
+      "status": "downloaded",
+      "url": "https://www.dosm.gov.my/portal-main/release-document-log?release_document_id=20742"
+    }
+  },
+  "source_quality": {
+    "classification_coverage_diagnostic": {
+      "interpretation": "Observed classification share shift; cause/methodological continuity not established. Industry YoY involving flagged quarter is withheld.",
+      "observations": [
+        {
+          "period_start": "2026-01-01",
+          "published_total": 626861,
+          "unclassified_observed_count": 49549,
+          "unclassified_share": 0.07904304143980882
+        },
+        {
+          "period_start": "2026-04-01",
+          "published_total": 555509,
+          "unclassified_observed_count": 273024,
+          "unclassified_share": 0.4914843863915796
+        }
+      ],
+      "status": "requires_review"
+    },
+    "exceptions": [
+      "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+      "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+      "No detailedoccupation or state-by-role table is present in this attachment.",
+      "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+      "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+      "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+      "Online job offering counts are not all vacancies or realizedhires.",
+      "Taxonomy and methodology versions are not supplied: comparability is restricted to the same release and published labels.",
+      "Missing source dates/quarters are not interpolated; skill and employer dimensions remain null."
+    ],
+    "flagged_classification_rows": 23,
+    "input_rows": 952,
+    "missing_rows": 31,
+    "observed_numeric_rows": 921,
+    "period_max": "2026-06-30",
+    "period_min": "2019-07-01",
+    "rejected_rows": 0,
+    "rejections": [],
+    "source_cell_round_trip_rows": 952,
+    "validated_rows": 952
+  },
+  "task": "ml/docs/phase2-engineering-gate.md",
+  "tests": {
+    "failures": 0,
+    "run": 59,
+    "skips": 0,
+    "static_syntax": "PASS"
+  },
+  "views": {
+    "employer_market_view": {
+      "reason": "No authorized employer-level posting source acquired; posting activity would not establish company hiring volume.",
+      "rows": [],
+      "status": "not_supported_by_sources"
+    },
+    "market_score_policy": null,
+    "rejected_rows": 0,
+    "role_market_scope": "supported_at_published_occupation_major_group_level",
+    "role_market_view_rows": 308,
+    "skill_market_view": {
+      "reason": "No verified skill-tagged posting source acquired; taxonomy associations are not measured skill demand.",
+      "rows": [],
+      "status": "not_supported_by_sources"
+    },
+    "snapshot_id": "b98b3798cd3034e4c5f41637",
+    "validated_rows": 952
+  }
+}

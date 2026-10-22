@@ -1,0 +1,582 @@
+{
+  "created_at_utc": "2026-10-20T10:04:12.601802+00:00",
+  "purpose": "Source-verified reference pack for Minder model design; no personal outcome labels and no trained model",
+  "sources": [
+    {
+      "id": "dosm_lfs_qtr_state",
+      "filename": "dosm_lfs_qtr_state.csv",
+      "url": "https://storage.dosm.gov.my/labour/lfs_qtr_state.csv",
+      "landing_page": "https://open.dosm.gov.my/data-catalogue/lfs_qtr_state",
+      "publisher": "Department of Statistics Malaysia",
+      "license": "CC BY 4.0",
+      "frequency": "quarterly",
+      "scope": "Malaysia states; whole labour force",
+      "documented_as_of": "2026-Q2",
+      "documented_updated_at": "2026-08-11T12:00:00+08:00",
+      "purpose": "Local labour context; not occupation-specific hiring demand",
+      "checked_at_utc": "2026-10-20T10:04:09.377415+00:00",
+      "resolved_url": "https://storage.dosm.gov.my/labour/lfs_qtr_state.csv",
+      "http_status": 200,
+      "content_type": "binary/octet-stream",
+      "http_last_modified": "Wed, 07 Oct 2026 16:51:27 GMT",
+      "rows": 608,
+      "columns": [
+        "date",
+        "state",
+        "lf",
+        "lf_employed",
+        "lf_unemployed",
+        "lf_outside",
+        "p_rate",
+        "u_rate"
+      ],
+      "delimiter": ",",
+      "data_min_date": "2017-01-01",
+      "data_max_date": "2026-04-01",
+      "status": "downloaded",
+      "bytes": 32248,
+      "sha256": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1",
+      "relative_path": "raw/dosm_lfs_qtr_state.csv",
+      "units": {
+        "lf": "thousand persons",
+        "lf_employed": "thousand persons",
+        "lf_unemployed": "thousand persons",
+        "lf_outside": "thousand persons",
+        "p_rate": "percent",
+        "u_rate": "percent"
+      },
+      "caveats": [
+        "Whole-state labour force statistics; no role or occupation key.",
+        "Counts are independently rounded.",
+        "Quarter date is quarter start, not release date."
+      ]
+    },
+    {
+      "id": "dosm_wages_occupation",
+      "filename": "dosm_wages_occupation.csv",
+      "url": "https://storage.dosm.gov.my/labour/wages_occupation.csv",
+      "landing_page": "https://open.dosm.gov.my/data-catalogue/wages_occupation",
+      "publisher": "Department of Statistics Malaysia",
+      "license": "CC BY 4.0",
+      "frequency": "annual",
+      "scope": "Malaysia; occupation major group by sex",
+      "documented_as_of": "2025",
+      "documented_updated_at": "2026-09-21T12:00:00+08:00",
+      "purpose": "Broad occupation wage context; not detailed role salary or vacancies",
+      "checked_at_utc": "2026-10-20T10:04:09.375352+00:00",
+      "resolved_url": "https://storage.dosm.gov.my/labour/wages_occupation.csv",
+      "http_status": 200,
+      "content_type": "binary/octet-stream",
+      "http_last_modified": "Sat, 17 Oct 2026 09:43:49 GMT",
+      "rows": 480,
+      "columns": [
+        "date",
+        "sex",
+        "occupation",
+        "recipients",
+        "wages_median",
+        "wages_mean"
+      ],
+      "delimiter": ",",
+      "data_min_date": "2010-01-01",
+      "data_max_date": "2025-01-01",
+      "status": "downloaded",
+      "bytes": 20786,
+      "sha256": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17",
+      "relative_path": "raw/dosm_wages_occupation.csv",
+      "units": {
+        "recipients": "thousand employees",
+        "wages_median": "RM per month, nominal",
+        "wages_mean": "RM per month, nominal"
+      },
+      "population": "Malaysian citizen employees aged 15-64; excludes employers, own-account/unpaid-family/domestic/casual workers per metadata",
+      "history_release_caveat": "This is the current revised file, not a vintage database showing every past release date.",
+      "caveats": [
+        "Nine MASCO major groups plus overall; cannot distinguish several specific technology roles within the same major group.",
+        "Not an occupation-by-state joint distribution.",
+        "Do not use sex differences as automatic recommendation penalties."
+      ]
+    },
+    {
+      "id": "dosm_wages_state",
+      "filename": "dosm_wages_state.csv",
+      "url": "https://storage.dosm.gov.my/labour/wages_state.csv",
+      "landing_page": "https://open.dosm.gov.my/data-catalogue/wages_state",
+      "publisher": "Department of Statistics Malaysia",
+      "license": "CC BY 4.0",
+      "frequency": "annual",
+      "scope": "Malaysia and states; all occupations by sex",
+      "documented_as_of": "2025",
+      "documented_updated_at": "2026-09-21T12:00:00+08:00",
+      "purpose": "State wage context; not an occupation-by-state joint table",
+      "checked_at_utc": "2026-10-20T10:04:09.376756+00:00",
+      "resolved_url": "https://storage.dosm.gov.my/labour/wages_state.csv",
+      "http_status": 200,
+      "content_type": "binary/octet-stream",
+      "http_last_modified": "Sat, 17 Oct 2026 09:43:48 GMT",
+      "rows": 816,
+      "columns": [
+        "state",
+        "date",
+        "sex",
+        "recipients",
+        "wages_median",
+        "wages_mean"
+      ],
+      "delimiter": ",",
+      "data_min_date": "2010-01-01",
+      "data_max_date": "2025-01-01",
+      "status": "downloaded",
+      "bytes": 34565,
+      "sha256": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea",
+      "relative_path": "raw/dosm_wages_state.csv",
+      "units": {
+        "recipients": "thousand employees",
+        "wages_median": "RM per month, nominal",
+        "wages_mean": "RM per month, nominal"
+      },
+      "population": "Malaysian citizen employees aged 15-64; excludes employers, own-account/unpaid-family/domestic/casual workers per metadata",
+      "history_release_caveat": "This is the current revised file, not a vintage database showing every past release date.",
+      "caveats": [
+        "State and occupation wage tables are separate marginals; joining does not establish specific occupation wages in a state."
+      ]
+    },
+    {
+      "id": "esco_onet_crosswalk",
+      "filename": "esco_onet_occupations_crosswalk.csv",
+      "url": "https://esco.ec.europa.eu/system/files/2023-08/ONET_%28Occupations%29_0_updated.csv",
+      "landing_page": "https://esco.ec.europa.eu/en/use-esco/other-crosswalks",
+      "publisher": "European Commission / ESCO",
+      "license": "Not independently verified for this specific file; consult source legal notice",
+      "frequency": "crosswalk release",
+      "scope": "ESCO to O*NET occupation mappings",
+      "purpose": "Mapping aid only; inspect relation types and version alignment before joining",
+      "checked_at_utc": "2026-10-20T10:04:11.089159+00:00",
+      "resolved_url": "https://esco.ec.europa.eu/system/files/2023-08/ONET_%28Occupations%29_0_updated.csv",
+      "http_status": 200,
+      "content_type": "text/csv; charset=UTF-8",
+      "http_last_modified": "Wed, 30 Aug 2023 14:39:59 GMT",
+      "rows": 4253,
+      "columns": [
+        "O*NET Id",
+        "O*NET Title",
+        "O*NET Description",
+        "ESCO or ISCO URI",
+        "ESCO or ISCO Title",
+        "ESCO or ISCO Description",
+        "Type of Match"
+      ],
+      "delimiter": ",",
+      "status": "downloaded",
+      "bytes": 2986823,
+      "sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+      "relative_path": "raw/esco_onet_occupations_crosswalk.csv",
+      "header_row_1_based": 17,
+      "metadata_rows": 16,
+      "classification_versions": {
+        "onet": "O*NET-SOC 2019",
+        "esco": "v1.1.0"
+      },
+      "mapping_version_date": "2022-09",
+      "mapping_type_counts": {
+        "broadMatch": 2053,
+        "closeMatch": 1432,
+        "exactMatch": 498,
+        "narrowMatch": 227,
+        "exactISCO": 43
+      },
+      "caveats": [
+        "Original CSV begins with 16 metadata/blank rows before its header.",
+        "Crosswalk release versions differ from current ESCO v1.2.1; verify each candidate mapping.",
+        "Mappings have exactMatch, closeMatch and broadMatch semantics; do not assume one-to-one equivalence.",
+        "Some original description text contains encoding artifacts; preserve original bytes and review display text."
+      ]
+    },
+    {
+      "id": "ilo_genai_2025_task_scores",
+      "filename": "ilo_genai_2025_task_scores.xlsx",
+      "url": "https://github.com/pgmyrek/2025_GenAI_scores_ISCO08/raw/refs/heads/main/Final_Scores_ISCO08_Gmyrek_et_al_2025.xlsx",
+      "landing_page": "https://github.com/pgmyrek/2025_GenAI_scores_ISCO08",
+      "research_page": "https://www.ilo.org/publications/generative-ai-and-jobs-refined-global-index-occupational-exposure",
+      "publisher": "Pawel Gmyrek et al.; author repository for ILO Working Paper 140",
+      "license": "CC BY 4.0",
+      "frequency": "research snapshot",
+      "scope": "Global ISCO-08 task and occupation exposure",
+      "documented_as_of": "2025",
+      "documented_publication_date": "2025-05-20",
+      "purpose": "Technical GenAI exposure potential, NOT future job loss or hiring probability",
+      "checked_at_utc": "2026-10-20T10:04:10.885158+00:00",
+      "resolved_url": "https://raw.githubusercontent.com/pgmyrek/2025_GenAI_scores_ISCO08/refs/heads/main/Final_Scores_ISCO08_Gmyrek_et_al_2025.xlsx",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "http_last_modified": null,
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "rows_excluding_header": 3265,
+          "columns": [
+            "label4d",
+            "label1d",
+            "ISCO_08",
+            "Title",
+            "taskID",
+            "Task_ISCO",
+            "score_2023",
+            "Weaviate Status",
+            "predicted_score_2025_gpt4o",
+            "prediction_justification_gpt4o",
+            "weaviate_status_gemini",
+            "predicted_score_2025_gemini",
+            "prediction_justification_gemini",
+            "score_2025",
+            "source",
+            "mean_score_2023",
+            "mean_score_2025",
+            "SD_2023",
+            "SD_2025",
+            "potential25",
+            "potential23"
+          ]
+        }
+      ],
+      "status": "downloaded",
+      "bytes": 2598951,
+      "sha256": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a",
+      "relative_path": "raw/ilo_genai_2025_task_scores.xlsx"
+    },
+    {
+      "id": "ilo_genai_dictionary",
+      "filename": "ilo_genai_data_dictionary.md",
+      "url": "https://raw.githubusercontent.com/pgmyrek/2025_GenAI_scores_ISCO08/main/DATA_DICTIONARY.md",
+      "landing_page": "https://github.com/pgmyrek/2025_GenAI_scores_ISCO08/blob/main/DATA_DICTIONARY.md",
+      "publisher": "Pawel Gmyrek et al.",
+      "license": "CC BY 4.0",
+      "frequency": "reference documentation",
+      "scope": "ILO GenAI workbook variables",
+      "purpose": "Explains task/occupation units, score meanings, and category definitions",
+      "checked_at_utc": "2026-10-20T10:04:11.078589+00:00",
+      "resolved_url": "https://raw.githubusercontent.com/pgmyrek/2025_GenAI_scores_ISCO08/main/DATA_DICTIONARY.md",
+      "http_status": 200,
+      "content_type": "text/plain; charset=utf-8",
+      "http_last_modified": null,
+      "status": "downloaded",
+      "bytes": 4819,
+      "sha256": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c",
+      "relative_path": "raw/ilo_genai_data_dictionary.md"
+    },
+    {
+      "id": "onet_essential_skills",
+      "filename": "onet_31_0_essential_skills.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+      "landing_page": "https://www.onetcenter.org/database.html",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "frequency": "database release",
+      "scope": "U.S. occupations by essential skill and measurement scale",
+      "documented_version": "31.0",
+      "purpose": "Role skill reference; preserve distinct measurement scales and quality flags",
+      "checked_at_utc": "2026-10-20T10:04:09.904185+00:00",
+      "resolved_url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "http_last_modified": "Tue, 25 Aug 2026 03:51:10 GMT",
+      "rows": 18200,
+      "columns": [
+        "O*NET-SOC Code",
+        "Title",
+        "Element ID",
+        "Element Name",
+        "Scale ID",
+        "Scale Name",
+        "Data Value",
+        "N",
+        "Standard Error",
+        "Lower CI Bound",
+        "Upper CI Bound",
+        "Recommend Suppress",
+        "Not Relevant",
+        "Date",
+        "Domain Source"
+      ],
+      "delimiter": ",",
+      "status": "downloaded",
+      "bytes": 2328135,
+      "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+      "relative_path": "raw/onet_31_0_essential_skills.csv",
+      "scale_definitions": [
+        {
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Minimum": 1,
+          "Maximum": 5
+        },
+        {
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Minimum": 0,
+          "Maximum": 7
+        }
+      ],
+      "oldest_measurement_month": "2010-06-01",
+      "newest_measurement_month": "2026-08-01",
+      "caveats": [
+        "Importance and Level are separate scales; preserve Scale ID.",
+        "A newer database release does not mean all occupation measures were collected recently.",
+        "Role-level occupational survey ratings are not user proficiency assessments.",
+        "Standard error, confidence bounds, suppression and relevance flags must be preserved."
+      ]
+    },
+    {
+      "id": "onet_occupation_data",
+      "filename": "onet_31_0_occupation_data.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+      "landing_page": "https://www.onetcenter.org/database.html",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "frequency": "database release",
+      "scope": "U.S. O*NET-SOC occupations",
+      "documented_version": "31.0",
+      "purpose": "Occupation identifiers and descriptions; not Malaysian labour demand",
+      "checked_at_utc": "2026-10-20T10:04:09.377847+00:00",
+      "resolved_url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "http_last_modified": "Tue, 25 Aug 2026 03:51:10 GMT",
+      "rows": 1016,
+      "columns": [
+        "O*NET-SOC Code",
+        "Title",
+        "Description"
+      ],
+      "delimiter": ",",
+      "status": "downloaded",
+      "bytes": 268030,
+      "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+      "relative_path": "raw/onet_31_0_occupation_data.csv"
+    },
+    {
+      "id": "onet_scales_reference",
+      "filename": "onet_31_0_scales_reference.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+      "landing_page": "https://www.onetcenter.org/database.html",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "frequency": "database release",
+      "scope": "O*NET measurement scale definitions",
+      "documented_version": "31.0",
+      "purpose": "Interpret scale minima, maxima and meaning before normalization",
+      "checked_at_utc": "2026-10-20T10:04:10.865829+00:00",
+      "resolved_url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "http_last_modified": "Tue, 25 Aug 2026 03:51:10 GMT",
+      "rows": 33,
+      "columns": [
+        "Scale ID",
+        "Scale Name",
+        "Minimum",
+        "Maximum"
+      ],
+      "delimiter": ",",
+      "status": "downloaded",
+      "bytes": 1006,
+      "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+      "relative_path": "raw/onet_31_0_scales_reference.csv"
+    },
+    {
+      "id": "onet_software_skills",
+      "filename": "onet_31_0_software_skills.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/software_skills.csv",
+      "landing_page": "https://www.onetcenter.org/database.html",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "frequency": "database release",
+      "scope": "U.S. occupations by software example",
+      "documented_version": "31.0",
+      "purpose": "Role software examples and flags; not measured user proficiency",
+      "checked_at_utc": "2026-10-20T10:04:10.207871+00:00",
+      "resolved_url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/software_skills.csv",
+      "http_status": 200,
+      "content_type": "application/octet-stream",
+      "http_last_modified": "Tue, 25 Aug 2026 03:51:10 GMT",
+      "rows": 31821,
+      "columns": [
+        "O*NET-SOC Code",
+        "Title",
+        "Workplace Example",
+        "Element ID",
+        "Element Name",
+        "Hot Technology",
+        "In Demand"
+      ],
+      "delimiter": ",",
+      "status": "downloaded",
+      "bytes": 3557545,
+      "sha256": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016",
+      "relative_path": "raw/onet_31_0_software_skills.csv",
+      "caveats": [
+        "Software examples and U.S. hot/in-demand flags are not Malaysian vacancy counts or individual skill requirements with proficiency levels."
+      ]
+    },
+    {
+      "id": "dosm_jmi_q2_2026_data",
+      "filename": "dosm_jmi_q2_2026_data.xlsx",
+      "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+      "url": "https://www.dosm.gov.my/portal-main/release-document-log?release_document_id=20742",
+      "resolved_url": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+      "landing_page": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "publisher": "Department of Statistics Malaysia",
+      "documented_as_of": "2026-Q2",
+      "documented_publication_date": "2026-08-18",
+      "license": "Not independently verified for this specific attachment; consult source terms",
+      "status": "downloaded",
+      "bytes": 349834,
+      "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "checked_at_utc": "2026-10-20T10:09:55.962156+00:00",
+      "purpose": "Official online job offerings data attachment; inspect table coverage before forecasts",
+      "sheets": [
+        {
+          "name": "e2-Summary Table BI",
+          "rows": 974,
+          "columns_max": 131
+        }
+      ],
+      "frequency": "annual, quarterly and monthly wide tables; derived file selects only quarterly",
+      "scope": "Malaysia national: economic activities and occupation major groups; separate marginal tables",
+      "nonempty_rows": 42,
+      "quarterly_observation_range": {
+        "min": "2019-Q3",
+        "max": "2026-Q2"
+      },
+      "caveats": [
+        "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+        "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+        "No detailedoccupation or state-by-role table is present in this attachment.",
+        "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+        "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+        "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+        "Online job offering counts are not all vacancies or realizedhires."
+      ]
+    }
+  ],
+  "derived_files": [
+    {
+      "id": "ilo_genai_occupation_2025",
+      "relative_path": "derived/ilo_genai_occupation_2025.csv",
+      "source_id": "ilo_genai_2025_task_scores",
+      "rows": 427,
+      "columns": [
+        "ISCO_08",
+        "occupation_title",
+        "exposure_mean_2023",
+        "exposure_mean_2025",
+        "task_exposure_sd_2025",
+        "exposure_category_2025",
+        "task_count",
+        "reference_year",
+        "source_id"
+      ],
+      "sha256": "b331fa8bf4452f6df0737d7201cc529a892c1a12dbdf013f60cee6cef8e7250e",
+      "derivation": "Verified each occupation has one unique published mean, task SD and exposure category across all task rows; retain these published values once per ISCO-08 code and count task rows. No mean recomputation and no new modelling.",
+      "caveats": [
+        "Exposure is technical GenAI potential, not a job loss probability, demand score or hiring forecast.",
+        "Task-exposure SD is variation between tasks, not uncertainty in a forecast.",
+        "2023 and 2025 scores are reference snapshots, not a sufficient comparable time series for two- or five-year demand prediction.",
+        "ISCO-08 codes must be read as strings."
+      ]
+    },
+    {
+      "id": "dosm_jmi_quarterly_long",
+      "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+      "source_id": "dosm_jmi_q2_2026_data",
+      "rows": 952,
+      "observed_numeric_rows": 921,
+      "missing_rows": 31,
+      "columns": [
+        "dimension",
+        "group_label",
+        "group_kind",
+        "geography",
+        "period",
+        "period_start",
+        "online_job_offerings",
+        "value_status",
+        "source_raw_value",
+        "unit",
+        "source_id",
+        "source_sheet",
+        "source_cell",
+        "file_release_date",
+        "snapshot_as_of"
+      ],
+      "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b",
+      "derivation": "Read the two documented tables, forward-fill merged yearheaders across quarterlycolumns, emit2019-Q3through2026-Q2 only, preserve rawlabels and sourcecell, preserve0and distinguishdash/blankmissingvalues. No interpolation,forecasting orrole-levelcrosswalk.",
+      "caveats": [
+        "Two broad national dimensions, not a joint industry-by-occupation table.",
+        "Exclude overall aggregates from category sums and avoid counting both dimensions as independent populations.",
+        "Suitable for currentobservations and carefullyqualified historical analysis; doesnot itselfvalidate2/5yearroleforecasts."
+      ]
+    }
+  ],
+  "references_not_downloaded": [
+    {
+      "id": "mycol_2024_2025",
+      "landing_page": "https://www.talentcorp.com.my/mycol",
+      "document_url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+      "status": "source_link_verified; report not downloaded or extracted in this pack",
+      "purpose": "Malaysian employer shortage evidence; manual extraction and reviewed occupation mapping needed",
+      "caveats": [
+        "Missing from list is not proof of zero demand.",
+        "Critical shortage does not guarantee entry-level accessibility."
+      ]
+    },
+    {
+      "id": "dosm_jmi_q2_2026_press_statement",
+      "landing_page": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "press_statement_url": "https://www.dosm.gov.my/portal-main/release-document-log?release_document_id=20743",
+      "documented_publication_date": "2026-08-18",
+      "observation_period": "2026-Q2",
+      "status": "press statement link verified; press statement not included as a file; numerical data attachment downloaded separately as dosm_jmi_q2_2026_data",
+      "purpose": "Companion press statement for the downloaded numerical online job offerings workbook",
+      "caveats": [
+        "Online offerings are not all vacancies or realized hires.",
+        "Changes in source coverage or methods can alter apparent growth."
+      ]
+    }
+  ],
+  "validation": {
+    "checked_at_utc": "2026-10-20T10:06:16.208966+00:00",
+    "all_downloads_succeeded": true,
+    "dosm_latest_dates_match_published_periods": true,
+    "ilo_task_rows": 3265,
+    "ilo_unique_occupations": 427,
+    "ilo_repeated_occupation_values_consistent": true,
+    "personal_fit_training_labels_included": false,
+    "future_demand_outcome_labels_included": false,
+    "key_and_date_checks": {
+      "dosm_wages_occupation": {
+        "duplicate_keys": 0,
+        "future_date_rows": 0,
+        "rows": 480
+      },
+      "dosm_wages_state": {
+        "duplicate_keys": 0,
+        "future_date_rows": 0,
+        "rows": 816
+      },
+      "dosm_lfs_qtr_state": {
+        "duplicate_keys": 0,
+        "future_date_rows": 0,
+        "rows": 608
+      },
+      "lfs_rate_formula_max_absolute_difference_percentage_points": 0.17808219178082196
+    },
+    "jmi_quarterly_unique_keys": true,
+    "jmi_future_placeholder_columns_excluded": true,
+    "pack_verified_at_utc": "2026-10-20T10:15:12.619237+00:00",
+    "all_raw_and_derived_hashes_match": true,
+    "raw_download_count": 11,
+    "derived_file_count": 2
+  }
+}

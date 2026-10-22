@@ -1,0 +1,16 @@
+{
+  "version": "measurement-sources-g1a-v1",
+  "notice": "Structured source allowlist; this initial entry is test-only and does not authorize real role milestones. Native occupations use the existing source manifest.",
+  "sources": [
+    {
+      "source_id": "synthetic-contract-test",
+      "source_version": "test-v1",
+      "source_path": "ml/tests/fixtures/g1a_contract.synthetic.json",
+      "sha256": "1e1bc30af52685d4ba2babd1baf89e4d6b4506f1cb9b626bb0e7823bfcc06911",
+      "provenance_class": "policy-derived",
+      "role_ids": [
+        "synthetic-role"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "extraction_notice": "Small source-linked review extract; task criteria are newly proposed, not statements made by O*NET. Original files remain unchanged. No personal labels derived.",
+  "sources": [
+    {
+      "id": "onet_occupation_data",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "relative_path": "raw/onet_31_0_occupation_data.csv",
+      "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+      "scope": "U.S. O*NET-SOC occupations"
+    },
+    {
+      "id": "onet_essential_skills",
+      "publisher": "U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "relative_path": "raw/onet_31_0_essential_skills.csv",
+      "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+      "scope": "U.S. occupations by essential skill and measurement scale"
+    },
+    {
+      "id": "esco_onet_crosswalk",
+      "publisher": "European Commission / ESCO",
+      "url": "https://esco.ec.europa.eu/system/files/2023-08/ONET_%28Occupations%29_0_updated.csv",
+      "license": "Not independently verified for this specific file; consult source legal notice",
+      "relative_path": "raw/esco_onet_occupations_crosswalk.csv",
+      "sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+      "scope": "ESCO to O*NET occupation mappings"
+    }
+  ]
+}

@@ -31,6 +31,13 @@ def main(argv=None):
     final = sub.add_parser("final")
     final.add_argument("--run-id", required=True)
     final.add_argument("--data", type=Path, required=True)
+    baseline_eval = sub.add_parser("baseline-evaluate")
+    baseline_eval.add_argument("--data", type=Path, required=True)
+    baseline_eval.add_argument("--run-id", required=True)
+    baseline_eval.add_argument("--split", type=Path)
+    prepare = sub.add_parser("prepare-profile")
+    prepare.add_argument("--profile", type=Path, required=True)
+    prepare.add_argument("--catalogue", type=Path, required=True)
     score = sub.add_parser("score")
     score.add_argument("--input", type=Path, default=ROOT / "ml/tests/fixtures/example_request.json")
     score.add_argument("--scorer", choices=["baseline", "ridge", "xgboost"], default="baseline")
@@ -38,7 +45,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.mode == "checks":
-            suite = unittest.defaultTestLoader.discover(str(ROOT / "ml/tests"), pattern="test_foundation.py")
+            suite = unittest.defaultTestLoader.discover(str(ROOT / "ml/tests"), pattern="test_*.py")
             return 0 if unittest.TextTestRunner(verbosity=2).run(suite).wasSuccessful() else 1
         if args.mode == "preflight":
             from .artifacts import versions
@@ -56,6 +63,12 @@ def main(argv=None):
         elif args.mode == "validate":
             from .evaluation import read_annotations
             _, output = read_annotations(args.data)
+        elif args.mode == "prepare-profile":
+            from .review import prepare_profile
+            output = prepare_profile(json.loads(args.profile.read_text()), json.loads(args.catalogue.read_text()))
+        elif args.mode == "baseline-evaluate":
+            from .training import evaluate_baseline
+            output = evaluate_baseline(args.data, args.run_id, args.split)
         elif args.mode in ("smoke", "compare", "final"):
             from .training import smoke, compare, final_evaluate
             if args.mode == "smoke":

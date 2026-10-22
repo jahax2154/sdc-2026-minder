@@ -28,3 +28,47 @@ ml/runs/
 # Local files
 .DS_Store
 *.log
+
+# Additional credentials and local configuration
+*.pem
+*.key
+.aws/
+credentials.json
+service-account*.json
+
+# Additional dependency, cache and build outputs
+venv/
+env/
+.tox/
+.mypy_cache/
+*.pyo
+*.egg-info/
+.next/
+.nuxt/
+build/
+out/
+.cache/
+
+# Private data and training outputs
+ml/data/private/
+ml/data/interim/
+ml/checkpoints/
+ml/outputs/
+ml/wandb/
+*.safetensors
+*.onnx
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.bin
+
+# Operating system and editor temporary files
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+*.swo
+
+# Phase 2 immutable generated data snapshots
+ml/data/snapshots/

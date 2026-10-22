@@ -1,0 +1,143 @@
+{
+  "status": "proposed_for_team_review",
+  "version": "minder-scoring-proposal-2026-10-20",
+  "atomic_candidate": "career role; industry is context; specific job vacancy requires a separate listing record",
+  "target": "Personal preparation relevance for a user-role pair within a documented preparation horizon, excluding market attractiveness.",
+  "quantities": {
+    "F": {
+      "meaning": "personal_fit_index",
+      "range": [
+        0,
+        100
+      ],
+      "implementation": "Ridge grade prediction mapped with 100*clip(y_hat/2,0,1). Equal spacing of grades0,1,2 is a prototype assumption. Evaluate served clipping/ties.",
+      "probability": false
+    },
+    "D": {
+      "meaning": "market_assessment_index",
+      "range": [
+        0,
+        100
+      ],
+      "implementation": "Only compute when comparable role/geography/time metrics and a documented aggregation policy exist; otherwise null.",
+      "probability": false
+    },
+    "S": {
+      "meaning": "overall_match_index",
+      "range": [
+        0,
+        100
+      ],
+      "implementation": "fit_weight*F+(1-fit_weight)*D for eligible options with comparable evidence; fixed scale across candidate roles.",
+      "probability": false
+    },
+    "Q": {
+      "meaning": "assessed_requirement_fraction",
+      "range": [
+        0,
+        1
+      ],
+      "implementation": "sum(weights for assessed required skills)/sum(weights for all required skills)",
+      "probability": false
+    }
+  },
+  "fit_weight": {
+    "default_proposal": 0.7,
+    "status": "illustrative decision preference; not an empirically optimized value",
+    "range": [
+      0,
+      1
+    ],
+    "sensitivity_values": [
+      0.5,
+      0.7,
+      0.9
+    ]
+  },
+  "ridge_l2": {
+    "proposed_candidates": [
+      0.1,
+      1,
+      10
+    ],
+    "note": "Passed as Ridge(alpha=...) in scikit-learn; unrelated to fit_weight."
+  },
+  "baseline": {
+    "formula": "F0=100*(.40*C+.20*interest+.20*time+.10*resources+.10*work_style)",
+    "weights_are": "explicit illustrative baseline policy",
+    "missing_behavior": "No silent per-role renormalization. If required baseline components unknown, record needs_more_information or a clearly named alternative mode.",
+    "evaluation_labels": "Must not be generated from this formula."
+  },
+  "skill_coverage": {
+    "formula": "sum_assessed(w_k*c_k)/sum_assessed(w_k), where c_k is assessed fraction of reviewed requirement criteria demonstrated, in [0,1]",
+    "constraints": "Weights nonnegative with positive denominator; no assessed requirements -> null.",
+    "rubric": "Use reviewed task criteria and their documented weights. A ratio min(p_k/q_k,1) is allowed only when p_k and q_k have a meaningful common ratio scale; ordinal proficiency labels alone do not establish that.",
+    "source_scale_caveat": "O*NET importance and occupational level are not automatically equivalent to user proficiency."
+  },
+  "market_schema": {
+    "dimensions": [
+      "role_id",
+      "actual_geographic_scope",
+      "observation_period",
+      "available_at",
+      "retrieved_at",
+      "unit",
+      "measurement_definition",
+      "source_id",
+      "is_projection",
+      "scenario_id",
+      "forecast_horizon_years"
+    ],
+    "formula": "D=100*sum(beta_j*z_j), z_j in [0,1], beta_j nonnegative and sum1, only if measured comparable indicators support it.",
+    "excluded_claims": [
+      "ILO AI exposure is not job-loss probability",
+      "State unemployment is not role demand",
+      "Separate occupation and state wage tables do not provide joint role-state wages",
+      "Current revised historical files are not an as-of vintage database"
+    ],
+    "available_history": "DOSM online job offerings: 28 quarters, 2019Q3–2026Q2, at national economic-activity and occupation-major-group levels; evaluate classification coverage and publication vintages."
+  },
+  "missing_market_policy": {
+    "D": null,
+    "S": null,
+    "ranking_mode": "personal_fit_only_for_the_comparison_set",
+    "explanation": "Use F consistently and show market context separately; do not compare one candidate's F-only score against another candidate's combined S."
+  },
+  "hard_constraints": "Filter only actual user requirements and eligibility rules. Low current skills do not by themselves prohibit an aspirational learning pathway.",
+  "horizons": {
+    "preparation_horizon_weeks": 12,
+    "market_observation": "latest available dated source",
+    "future_two_or_five_years": "scenario only until suitable time-aligned historical outcome labels exist",
+    "independent_of_fit_weight": true
+  },
+  "evaluation": {
+    "groups": "profile_group_id, not independent rows",
+    "proposed_split": "25 genuinely varied profiles: 20 grouped development and 5 untouched holdout; all related templates share a group.",
+    "primary_model_metric": "NDCG@3 averaged across profiles using served F indices against reviewed personal-fit grades",
+    "all_zero_grade_groups": "Report separately as no-suitable-option cases; a relative rank alone cannot reject all candidates.",
+    "supporting_checks": [
+      "MAE on 0..2 relevance grades",
+      "constraint violations",
+      "missing-information behavior",
+      "clipping/tie behavior",
+      "all-low input cases",
+      "stability across reasonable fit_weight values"
+    ],
+    "final_S_evaluation": "Separate policy/scenario tests or separate market-aware preference labels. Pure personal-fit grades do not establish overall market-aware utility.",
+    "preprocessing": "Imputation and scaling fitted only inside development training folds; never on holdout.",
+    "challenger": "One shallow LightGBM or XGBoost regressor only after the Ridge pipeline works; no automatic ensemble.",
+    "claims": "Small team-reviewed synthetic dataset evaluates agreement with that rubric, not employment outcomes."
+  },
+  "serving_artifacts": [
+    "model",
+    "preprocessor",
+    "feature_order",
+    "role_catalogue_version",
+    "score_mapping_version",
+    "ranking_policy_version",
+    "training_data_manifest",
+    "evaluation_report",
+    "package_versions"
+  ],
+  "llm": "Downstream explanation/context interface. Does not generate scores or source URLs, and is not required for numerical correctness. No fine-tuning in first prototype."
+}

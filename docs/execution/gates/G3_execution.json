@@ -1,0 +1,149 @@
+{
+  "G2": {
+    "completion_report_found": false,
+    "existing_interface_preserved": true,
+    "live_chat_exercised": false,
+    "reason": "Only a task document and application scaffolding were found."
+  },
+  "cpu_fit_predict_save_reload": {
+    "actual_execution_location": "local preflight only",
+    "fitting_performed": false,
+    "reason": "runner_unavailable: RunPod CPU/budget/credit verification required before fitting",
+    "reload_parity": "not_measured",
+    "status": "blocked"
+  },
+  "cpu_preflight": {
+    "estimators": {
+      "ridge": {
+        "construction": "passed",
+        "estimator_settings": {
+          "estimator__alpha": "1.0",
+          "estimator__copy_X": "True",
+          "estimator__fit_intercept": "True",
+          "estimator__max_iter": "None",
+          "estimator__positive": "False",
+          "estimator__random_state": "None",
+          "estimator__solver": "svd",
+          "estimator__tol": "0.0001"
+        },
+        "steps": [
+          "scaler",
+          "estimator"
+        ]
+      },
+      "xgboost": {
+        "construction": "passed",
+        "estimator_settings": {
+          "estimator__base_score": "None",
+          "estimator__booster": "None",
+          "estimator__callbacks": "None",
+          "estimator__colsample_bylevel": "None",
+          "estimator__colsample_bynode": "None",
+          "estimator__colsample_bytree": "1.0",
+          "estimator__device": "cpu",
+          "estimator__early_stopping_rounds": "None",
+          "estimator__enable_categorical": "False",
+          "estimator__eval_metric": "None",
+          "estimator__feature_types": "None",
+          "estimator__gamma": "None",
+          "estimator__grow_policy": "None",
+          "estimator__importance_type": "None",
+          "estimator__interaction_constraints": "None",
+          "estimator__learning_rate": "0.05",
+          "estimator__max_bin": "None",
+          "estimator__max_cat_threshold": "None",
+          "estimator__max_cat_to_onehot": "None",
+          "estimator__max_delta_step": "None",
+          "estimator__max_depth": "2",
+          "estimator__max_leaves": "None",
+          "estimator__min_child_weight": "5",
+          "estimator__missing": "nan",
+          "estimator__monotone_constraints": "None",
+          "estimator__multi_strategy": "None",
+          "estimator__n_estimators": "100",
+          "estimator__n_jobs": "2",
+          "estimator__num_parallel_tree": "None",
+          "estimator__objective": "reg:squarederror",
+          "estimator__random_state": "42",
+          "estimator__reg_alpha": "None",
+          "estimator__reg_lambda": "10",
+          "estimator__sampling_method": "None",
+          "estimator__scale_pos_weight": "None",
+          "estimator__subsample": "1.0",
+          "estimator__tree_method": "hist",
+          "estimator__validate_parameters": "None",
+          "estimator__verbosity": "None"
+        },
+        "steps": [
+          "estimator"
+        ]
+      }
+    },
+    "fitting_performed": false,
+    "thread_limit": 2,
+    "versions": {
+      "joblib": "1.5.3",
+      "numpy": "2.0.2",
+      "python": "3.9.6",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.13.1",
+      "threadpoolctl": "3.7.0",
+      "xgboost": "2.1.4"
+    }
+  },
+  "gate": "G3",
+  "independent_baseline_evaluation": {
+    "dataset": {
+      "candidate_coverage_by_profile": {},
+      "eligible_reviewed_groups": 0,
+      "eligible_reviewed_rows": 0,
+      "empirical_status": "not_evaluated",
+      "errors": [],
+      "missing_columns": [],
+      "pending_rows": 0,
+      "profile_count": 0,
+      "profile_group_count": 0,
+      "rows": 0
+    },
+    "reason": "no independent reviewed labels",
+    "status": "not_evaluated"
+  },
+  "independent_comparison": {
+    "dataset": {
+      "candidate_coverage_by_profile": {},
+      "eligible_reviewed_groups": 0,
+      "eligible_reviewed_rows": 0,
+      "empirical_status": "not_evaluated",
+      "errors": [],
+      "missing_columns": [],
+      "pending_rows": 0,
+      "profile_count": 0,
+      "profile_group_count": 0,
+      "rows": 0
+    },
+    "reason": "no independent reviewed labels",
+    "status": "not_evaluated"
+  },
+  "policy_distillation": {
+    "reason": "No compatible G1B proposals found; optional experiment not synthesized from independent labels.",
+    "status": "not_run"
+  },
+  "runpod": {
+    "agreed_budget": null,
+    "available_balance": null,
+    "credit_applicability": null,
+    "env_files_present": [],
+    "pod_target": null,
+    "reason": "No verified funded CPU runner attestation supplied; presence alone would not establish credit or spending authorization.",
+    "runpod_cli_present": false,
+    "runpod_config_present": false,
+    "runpod_variable_names_only": [],
+    "ssh_config_present": false,
+    "status": "not_verified"
+  },
+  "selection": {
+    "active": "baseline",
+    "reason": "No independent comparison evidence justifies a learner; no model switched.",
+    "recommended": "baseline"
+  }
+}

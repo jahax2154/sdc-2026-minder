@@ -1,0 +1,125 @@
+{
+  "schema_version": "g1ar-source-facts-v1",
+  "hash_scope": "SHA-256 of the UTF-8 evidence_text only; not an upstream HTML checksum",
+  "lookup_failures": [
+    {
+      "url": "https://www.onetcenter.org/database.html",
+      "result": "web fetch timed out; official API reference used instead"
+    }
+  ],
+  "captures": [
+    {
+      "source_id": "onet-version-relationship",
+      "url": "https://services.onetcenter.org/v1.9/reference/",
+      "source_version": "API reference 1.9, about example for database 31.0",
+      "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+      "capture_kind": "limited documentation excerpt, not an authenticated live API response or raw HTML download",
+      "evidence_text": "\"taxonomy\": {\"name\": \"O*NET-SOC 2019\"}, \"database\": {\"name\": \"O*NET 31.0\"}",
+      "facts": {
+        "database_version": "31.0",
+        "taxonomy_system": "O*NET-SOC",
+        "taxonomy_edition": "2019"
+      },
+      "limitations": [
+        "This establishes the documented database/taxonomy relationship; it does not validate ESCO mappings, geography or licensing."
+      ],
+      "captured_evidence_sha256": "e0a605667ca4f456c9e2106ef6dc6853cd00f2ddd12e0229307263fc6cc1c055"
+    },
+    {
+      "source_id": "python-errors-reference",
+      "url": "https://docs.python.org/3.9/tutorial/errors.html",
+      "source_version": "Python 3.9.25 tutorial as rendered at lookup",
+      "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The tutorial distinguishes syntax errors from runtime exceptions and explains traceback interpretation and exception handling.",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "No reviewed preparation-effort estimate or milestone rubric is published here."
+      ],
+      "captured_evidence_sha256": "95b807b42c3b761e8fab17e1ab8a887cc9df2e3824409295b29f83bcec29e7bc"
+    },
+    {
+      "source_id": "learn-data-reference",
+      "url": "https://learn.microsoft.com/en-us/training/modules/explore-analyze-data-with-python/",
+      "source_version": null,
+      "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The module covers Python data analysis, lists mathematics, Python and Jupyter prerequisites, and has nine units. Numeric unit durations were absent from the inspected rendering.",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "No source revision was exposed. Do not invent it, assume beginner readiness, require an Azure account for the proposed local written exercise, or equate course work with mastery."
+      ],
+      "captured_evidence_sha256": "604066742e1b2987c823240bf57a6afaab030a0ab5da76c55be65a20335dfb15"
+    },
+    {
+      "source_id": "learn-security-reference",
+      "url": "https://learn.microsoft.com/en-us/training/modules/describe-basic-cybersecurity-threats-attacks-mitigations/",
+      "source_version": null,
+      "checked_at_utc": "2026-10-21T15:07:16.163297+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The module introduces cyber threats and mitigations in seven units. Numeric unit durations were absent from the inspected rendering.",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "No source revision or usable effort duration was exposed. Public reachability does not prove a particular user has access."
+      ],
+      "captured_evidence_sha256": "4c8f0638ed36ccbb8e99e6db0cb9a04e9e19c6e255f7c6a83b01fac0b11d11e7"
+    },
+    {
+      "source_id": "govuk-requirements-reference",
+      "url": "https://www.gov.uk/service-manual/agile-delivery/writing-user-stories",
+      "source_version": null,
+      "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The service guidance describes acceptance criteria as outcome checklists for deciding whether a user need has been met.",
+      "captured_evidence_sha256": "ef7658c619679c39eff25c8ee85b8127f6c80f826f1711c6cb3863c7226079ba",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "Context only; not independent validation of the proposed rubric, effort or user competence."
+      ]
+    },
+    {
+      "source_id": "sklearn-leakage-reference",
+      "url": "https://scikit-learn.org/1.6/common_pitfalls.html#data-leakage",
+      "source_version": "scikit-learn 1.6.1 documentation",
+      "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The guide explains that using information unavailable at prediction time can bias evaluation, and that learned preprocessing must exclude test data.",
+      "captured_evidence_sha256": "933280a0e52f4b94a68e029ad58412312152c3c18e7115b8221ae4a1c4b58a8f",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "Context only; not independent validation of the proposed rubric, effort or user competence."
+      ]
+    },
+    {
+      "source_id": "owasp-authorization-reference",
+      "url": "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+      "source_version": null,
+      "checked_at_utc": "2026-10-21T15:29:29.488499+00:00",
+      "capture_kind": "paraphrased inspected page facts",
+      "evidence_text": "The guidance distinguishes authorization from authentication and recommends explicit permission rules and a default-deny approach.",
+      "captured_evidence_sha256": "0267c5c4d67faf15a88acb3626a3c686210e3290b1ae0381b11057a811dd99cd",
+      "facts": {
+        "duration_minutes": null,
+        "public_reference_reachable": true
+      },
+      "limitations": [
+        "Context only; not independent validation of the proposed rubric, effort or user competence."
+      ]
+    }
+  ]
+}

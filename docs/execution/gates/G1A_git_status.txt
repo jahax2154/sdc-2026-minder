@@ -1,0 +1,68 @@
+ M .gitignore
+ M README.md
+ D apps/api/.gitkeep
+ D apps/web/.gitkeep
+ M docs/ml-foundation.md
+ M ml/src/minder_ml/intelligence/__main__.py
+ M ml/src/minder_ml/intelligence/features.py
+ M ml/src/minder_ml/intelligence/inference.py
+ M ml/src/minder_ml/intelligence/training.py
+?? .editorconfig
+?? .env.example
+?? .github/PULL_REQUEST_TEMPLATE.md
+?? "AGENTS copy.md"
+?? AGENTS.md
+?? ML_DESIGN.md
+?? PRD.md
+?? "README copy.md"
+?? apps/backend-api/
+?? apps/frontend-web/
+?? contracts/data-entities.v1.schema.json
+?? contracts/policy-recommendation.g1a.v1.schema.json
+?? docs/API_CONTRACT_DRAFT.md
+?? docs/ARCHITECTURE.md
+?? docs/DECISION_LOG.md
+?? docs/DEVELOPMENT_WORKFLOW.md
+?? docs/FEATURE_SCOPE.md
+?? docs/ML_SPEC_DRAFT.md
+?? docs/MOCKUP_REVIEW.md
+?? docs/README.md
+?? docs/TECH_STACK_DECISIONS.md
+?? docs/execution/
+?? ml/configs/intelligence/
+?? ml/data/.gitkeep
+?? ml/data/README.md
+?? ml/data/review/
+?? ml/docs/01_G1A_POLICY_AND_FEATURES.md
+?? ml/docs/MINDER_APPROVAL_SUMMARY_v1.md
+?? ml/docs/MINDER_POLICY_REVIEW_v1.md
+?? ml/docs/phase2-engineering-gate.md
+?? ml/docs/phase2-engineering-report.md
+?? ml/evaluation/.gitkeep
+?? ml/evaluation/calibration_v1_checks.json
+?? ml/evaluation/continuation_checks.json
+?? ml/evaluation/phase2_checks.json
+?? ml/minder_ml_starter/
+?? ml/src/minder_ml/algorithm.py
+?? ml/src/minder_ml/gradient-boosting.py
+?? ml/src/minder_ml/intelligence/annotation_io.py
+?? ml/src/minder_ml/intelligence/data_adapters.py
+?? ml/src/minder_ml/intelligence/data_cli.py
+?? ml/src/minder_ml/intelligence/data_pipeline.py
+?? ml/src/minder_ml/intelligence/data_schemas.py
+?? ml/src/minder_ml/intelligence/g1a_cli.py
+?? ml/src/minder_ml/intelligence/market.py
+?? ml/src/minder_ml/intelligence/policy.py
+?? ml/src/minder_ml/intelligence/policy_features.py
+?? ml/src/minder_ml/intelligence/policy_sources.py
+?? ml/src/minder_ml/intelligence/review.py
+?? ml/src/minder_ml/ridge-regression.py
+?? ml/tests/fixtures/g1a_contract.synthetic.json
+?? ml/tests/fixtures/phase2_profile.synthetic.json
+?? ml/tests/test_g1a.py
+?? ml/tests/test_phase2.py
+?? ml/tests/test_review.py
+?? packages/
+?? scripts/README.md
+?? submission/
+?? tests/README.md

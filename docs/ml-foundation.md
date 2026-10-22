@@ -2,6 +2,20 @@
 
 Implementation authorized by [the supplied execution task](../ml/docs/MINDER_ML_FOUNDATION_CODEX_TASK.txt), 20 October 2026. This authorization supersedes Task 001's scaffolding-only limits for this bounded module. Broader runtime and application decisions remain open.
 
+## Continuation — 21 October 2026
+
+The historical checks below and `foundation_checks.json` describe the initial execution and are retained unchanged. Current evidence is recorded separately in [continuation_checks.json](../ml/evaluation/continuation_checks.json). The requested local checkpoint is `24dc298`, covering 25 foundation implementation/contract/test/documentation/evidence files. It excludes unrelated working-tree changes and the supplied source datasets. No push occurred.
+
+The user-installed OpenMP runtime is now present at `/opt/homebrew/opt/libomp/lib/libomp.dylib`. In the existing `ml/.venv`, both Ridge and XGBoost imports/construction now succeed with the original estimator choices and installed package versions. No additional installation or algorithm change was needed. Construction is not a fit/predict/save/reload run.
+
+The inspected repository/configuration/environment contains no RunPod CLI, RunPod connector, runner target/Pod ID, account API credential, verified credit applicability or current agreed execution budget. No RunPod config or SSH target was found in the standard inspected paths. The existing PDF proof and earlier credit planning are not evidence of a presently executable, funded CPU target. RunPod execution and actual fitting timings remain pending; no synthetic runner attestation or local training substitute was created.
+
+[Concrete review materials](../ml/data/review/README.md) contain three proposed source-backed role cards, six proposed milestone criteria, 24 pending crosswalk mapping candidates, blank profile intake, a blinded packet and three pending annotation intake slots. No approval or grade is generated. All source attribution/version/scale limitations are retained. There is still no supplied raw profile or reviewed three-role milestone catalogue, so meaningful inference across those roles remains pending. The existing feature-vector fixture still exercises the numerical service only.
+
+`prepare-profile --profile ... --catalogue ...` now accepts reviewed raw inputs and calls the shared feature builder/service, returning a separate versioned derivation sidecar with per-criterion gaps and missing information. Pending catalogues are blocked, not treated as user inability. The original recommendation-v1 contract is preserved. `baseline-evaluate --data ... --run-id ...` can freeze groups and evaluate the baseline on development without fitting or requiring RunPod; the holdout stays closed until final candidate evaluation. Both commands are documented in the worksheet. With today's missing inputs they explicitly refuse/return not_evaluated rather than fabricate results.
+
+The Python callable/CLI and focused tests are exercised locally. The backend and frontend directories still contain only placeholders; neither a real HTTP endpoint nor frontend interaction has been exercised. No second backend or framework was introduced. The new tests use fictional review stubs solely in unit tests; they do not supply empirical labels or clear the meaningful-inference/evaluation gates.
+
 The baseline is the configured default. Ridge and XGBoost are executable offline paths, not validated career models. See [actual local check evidence](../ml/evaluation/foundation_checks.json) for command exit codes, outputs, dependency versions and gate status. No model fitting was performed locally or on RunPod in this task. No paid resource was created.
 
 ## Actual layout and application boundary

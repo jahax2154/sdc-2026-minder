@@ -1,0 +1,20 @@
+{
+  "version": "G1A-current-user-reexecution-v2",
+  "authority": "Current explicit user instruction to execute G1A again; no historical reviewer claim",
+  "instruction_source_path": "docs/execution/gates/G1A_v2_instruction.txt",
+  "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+  "hash_scope": "UTF-8 supplied gate body with one terminal newline; G1A title omitted because the current message begins Execute only.",
+  "authorized_scope": "G1A deterministic feature/policy implementation and local verification only",
+  "persisted_policy_location_instruction": "Use existing ml/docs/MINDER_POLICY_REVIEW_v1.md and MINDER_APPROVAL_SUMMARY_v1.md; preserve one canonical policy authority.",
+  "previous_execution_record": "docs/execution/gates/G1A_authorization.json",
+  "not_authorized": [
+    "historical human approval",
+    "gold labels",
+    "training",
+    "G1A-R or G1B/G2 implementation",
+    "commit",
+    "push",
+    "publishing",
+    "spend"
+  ]
+}

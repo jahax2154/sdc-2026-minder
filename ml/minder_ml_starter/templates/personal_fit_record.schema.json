@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Minder personal preparation relevance annotation row",
+  "description": "Design proposal, not a trained model or observed employment dataset. Market attractiveness is excluded from relevance_grade.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "profile_group_id",
+    "role_id",
+    "profile_is_synthetic",
+    "preparation_horizon_weeks",
+    "annotation_status",
+    "relevance_grade",
+    "skill_coverage",
+    "interest_alignment",
+    "project_relevance",
+    "work_style_alignment",
+    "time_feasibility",
+    "resource_feasibility",
+    "critical_prerequisite_coverage",
+    "assessed_requirement_fraction"
+  ],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_group_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Keep related profiles and synthetic template variants in one split group."
+    },
+    "role_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profile_is_synthetic": {
+      "type": "boolean"
+    },
+    "preparation_horizon_weeks": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "annotation_status": {
+      "enum": [
+        "pending",
+        "reviewed"
+      ]
+    },
+    "relevance_grade": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 2,
+      "description": "0 weak,1 plausible with preparation,2 strong preparation relevance for defined horizon. Team reviewed, excludes market attractiveness."
+    },
+    "reviewer_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "review_reason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "profile_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "role_catalogue_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "skill_coverage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Weighted coverage among assessed required skills; null when none assessed."
+    },
+    "interest_alignment": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Reviewed alignment of explicit interests with the role; use a fixed rubric."
+    },
+    "project_relevance": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Relevance of supplied project evidence; absent evidence is unknown, not proven inability."
+    },
+    "work_style_alignment": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Alignment of stated work preferences with reviewed role characteristics."
+    },
+    "time_feasibility": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "min(1, available preparation hours / required effort); known zero required effort gives 1."
+    },
+    "resource_feasibility": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Reviewed feasibility of the initial tasks given available resources; not intrinsic ability."
+    },
+    "critical_prerequisite_coverage": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Assessed coverage of reviewed prerequisites for the first milestone."
+    },
+    "assessed_requirement_fraction": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Weighted share of role requirements assessed; report separately as evidence coverage."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "annotation_status": {
+            "const": "reviewed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "relevance_grade": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2
+          },
+          "reviewer_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "review_reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "reviewer_id",
+          "review_reason"
+        ]
+      }
+    }
+  ]
+}
+

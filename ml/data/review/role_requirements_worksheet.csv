@@ -1,0 +1,7 @@
+role_id,title,criterion_id,proposed_initial_criterion,source_skill,source_row_numbers,proposed_weight,approved_weight,review_status,reviewer_id,review_reason,reviewed_at
+15-1252.00,Software Developers,sw-requirements,"Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",Reading Comprehension,2282;2283,1,,pending,,,
+15-1252.00,Software Developers,sw-debugging,"Given a small fictional failing program and test output, explain a plausible cause and a verification step.",Critical Thinking,2294;2295,1,,pending,,,
+15-2051.00,Data Scientists,ds-statistics,"Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",Mathematics,2670;2671,1,,pending,,,
+15-2051.00,Data Scientists,ds-evaluation,"Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",Critical Thinking,2674;2675,1,,pending,,,
+15-1212.00,Information Security Analysts,sec-policy,"Given a fictional access policy, explain who may access each example resource and why.",Reading Comprehension,2062;2063,1,,pending,,,
+15-1212.00,Information Security Analysts,sec-risk,"Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",Critical Thinking,2074;2075,1,,pending,,,

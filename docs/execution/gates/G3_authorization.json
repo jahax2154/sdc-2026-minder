@@ -1,0 +1,14 @@
+{
+  "gate": "G3",
+  "version": "g3-execution-v1",
+  "authority": "Current explicit user request to execute G3 only",
+  "instruction_path": "docs/execution/gates/G3_instruction.txt",
+  "instruction_sha256": "fbccf57075bcf68cc38911ee1c56b3339f04c8ee5a671db85f8949344147c9a7",
+  "hash_scope": "UTF-8 supplied instruction with one terminal newline",
+  "canonical_policy": "ml/docs/MINDER_POLICY_REVIEW_v1.md",
+  "machine_policy_projection": "ml/configs/intelligence/policy.v1.json",
+  "scope": "Coverage, eligible observed indexes, bounded learner code and authorized verification",
+  "historical_approval_or_human_review_inferred": false,
+  "spend_authorized": false,
+  "baseline_switch_authorized": false
+}

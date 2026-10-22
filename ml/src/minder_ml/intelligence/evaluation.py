@@ -161,6 +161,7 @@ def diagnostics(rows, raw_predictions):
     return {"rows": len(rows), "profile_count": len(by_profile),
             "mean_ndcg_at_3": sum(ndcgs) / len(ndcgs) if ndcgs else None,
             "mae_served_grade": sum(absolute_errors) / len(rows),
+            "mae_served_index": 50 * sum(absolute_errors) / len(rows),
             "clipping_rate": clipped / len(rows), "score_tie_pairs": tied_pairs,
             "idcg_zero_profiles": all_weak, "per_profile": records,
             "candidate_set": "same complete eligible reviewed rows for all scorers"}

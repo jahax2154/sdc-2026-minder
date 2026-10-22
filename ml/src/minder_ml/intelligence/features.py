@@ -1,7 +1,7 @@
 """One feature interpretation for reviewed snapshots, training and inference."""
 
 import math
-from .schemas import FeatureSnapshot, PreparationEvidence, number
+from .schemas import FeatureSnapshot, PreparationEvidence, number, nonempty
 
 
 def skill_coverage(requirements):
@@ -51,3 +51,26 @@ def build_features(requirements, interest_alignment, resource_feasibility,
 
 def feature_matrix(snapshots):
     return [snapshot.vector() for snapshot in snapshots]
+
+
+def criterion_gaps(requirements):
+    """Gaps in reviewed criterion content; unknown evidence never becomes a deficit.
+
+    Input rows: criterion_id, requirement_weight, demonstrated_fraction (or None).
+    The catalogue must be reviewed by the caller; this function validates its math.
+    """
+    pairs = [(r["requirement_weight"], r.get("demonstrated_fraction")) for r in requirements]
+    skill_coverage(pairs)  # Reuse catalogue/fraction validation, including zero-weight rules.
+    total = sum(weight for weight, _ in pairs)
+    result, seen = [], set()
+    for row, (weight, fraction) in zip(requirements, pairs):
+        identifier = nonempty(row["criterion_id"], "criterion_id")
+        if identifier in seen:
+            raise ValueError("duplicate criterion_id")
+        seen.add(identifier)
+        result.append({"criterion_id": identifier, "requirement_weight": weight,
+                       "demonstrated_fraction": fraction,
+                       "remaining_fraction": None if fraction is None else 1 - fraction,
+                       "weighted_remaining_fraction": None if fraction is None else weight * (1 - fraction) / total,
+                       "assessment_state": "not_required" if weight == 0 else "unknown" if fraction is None else "assessed"})
+    return result

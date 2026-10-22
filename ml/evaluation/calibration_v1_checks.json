@@ -1,0 +1,363 @@
+{
+  "commands": [
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli validate --input ml/data/review/phase2/calibration-v1/profiles.synthetic.json",
+      "exit_code": 0,
+      "output": {
+        "rejected_rows": 0,
+        "rejections": [],
+        "validated_rows": 5
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli validate --input ml/data/review/phase2/calibration-v1/responses.pending.json",
+      "exit_code": 0,
+      "output": {
+        "rejected_rows": 0,
+        "rejections": [],
+        "validated_rows": 15
+      }
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.data_cli annotation-import --packet ml/artifacts/phase2/calibration-v1/export --responses ml/data/review/phase2/calibration-v1/responses.pending.json --output ml/artifacts/phase2/calibration-v1/pending-import",
+      "exit_code": 0,
+      "output": {
+        "approved_profile_families": 0,
+        "approved_roles": 0,
+        "disagreements": [],
+        "empirical_status": "not_evaluated",
+        "gold_labels": 0,
+        "independent_human_approved_rows": 0,
+        "note": "Structural provenance validation is not proof that human review occurred. No scores or automatic labels generated.",
+        "packet_id": "58e83db3f73eb0fb1e848e4d97cb1e9fe10898dc9c03fed878207acd7307b721",
+        "pending_rows": 15,
+        "profile_families": 5,
+        "rejected_rows": 0,
+        "response_rows": 15,
+        "response_sha256": "01f3badd2dfd1f66202ad674bb9929239dc8841668b89945379226e1f32c5975",
+        "unresolved_cases": [
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "0160b0d0617fe872a51258a9",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "14712cf9af7e026bc3607b5b",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "4287626b8a1c05e71d532f5e",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "4b15dfcc1edfd036d097bdc2",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "8012bf44629f3fbc916671fd",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "81e08a7d35e1e8461af224a4",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "854807020ebd5a98b2c9f721",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "86b2d8bf4ccf3dcacbe2ac9c",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "87a01d0b65f3125871704265",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "91c415be0940ef01afae07ee",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "ab292466a34e9d871a247f0d",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "ac355cdf872fa73154fc0767",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "c7fdd57f52a068f547fdadf8",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "ca7c5ac0d170e9c2bcd789ac",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          },
+          {
+            "disagreement": false,
+            "features_ready": false,
+            "no_independent_human_grade": true,
+            "pair_id": "d523008123f847ffbeccdb9a",
+            "role_approved": false,
+            "rubric_ambiguity": false
+          }
+        ],
+        "validated_rows": 15,
+        "weak_proposals": 0
+      }
+    }
+  ],
+  "engineering_export": "ml/artifacts/phase2/calibration-v1/export",
+  "environment": {
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "virtual_environment": "ml/.venv"
+  },
+  "files": {
+    "ml/data/review/phase2/calibration-v1/approval_report.md": "32a9923359c28b0b9ebe0d7a349ff3e7304bfd60e35e9dcfd6a43a9d2435ab15",
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.csv": "503526962ecff65cc24fe593a13fbfe38cccbb60b5bc3a5c1bc964828aac7d2e",
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.md": "b0484c07cdef5f7036c7d43849e3f250d3c668c4a3c18531c18df620cdcd7ba8",
+    "ml/data/review/phase2/calibration-v1/blind_packet.json": "7a3cff0a6ecf613f1c15c148adc4c8e1c43f99cf6f1a052186743aa5b63fb878",
+    "ml/data/review/phase2/calibration-v1/profiles.synthetic.json": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+    "ml/data/review/phase2/calibration-v1/responses.pending.json": "01f3badd2dfd1f66202ad674bb9929239dc8841668b89945379226e1f32c5975"
+  },
+  "packet_id": "58e83db3f73eb0fb1e848e4d97cb1e9fe10898dc9c03fed878207acd7307b721",
+  "pending_import_readiness": {
+    "approved_profile_families": 0,
+    "approved_roles": 0,
+    "disagreements": [],
+    "empirical_status": "not_evaluated",
+    "gold_labels": 0,
+    "independent_human_approved_rows": 0,
+    "note": "Structural provenance validation is not proof that human review occurred. No scores or automatic labels generated.",
+    "packet_id": "58e83db3f73eb0fb1e848e4d97cb1e9fe10898dc9c03fed878207acd7307b721",
+    "pending_rows": 15,
+    "profile_families": 5,
+    "rejected_rows": 0,
+    "response_rows": 15,
+    "response_sha256": "01f3badd2dfd1f66202ad674bb9929239dc8841668b89945379226e1f32c5975",
+    "unresolved_cases": [
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "0160b0d0617fe872a51258a9",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "14712cf9af7e026bc3607b5b",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "4287626b8a1c05e71d532f5e",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "4b15dfcc1edfd036d097bdc2",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "8012bf44629f3fbc916671fd",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "81e08a7d35e1e8461af224a4",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "854807020ebd5a98b2c9f721",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "86b2d8bf4ccf3dcacbe2ac9c",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "87a01d0b65f3125871704265",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "91c415be0940ef01afae07ee",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "ab292466a34e9d871a247f0d",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "ac355cdf872fa73154fc0767",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "c7fdd57f52a068f547fdadf8",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "ca7c5ac0d170e9c2bcd789ac",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      },
+      {
+        "disagreement": false,
+        "features_ready": false,
+        "no_independent_human_grade": true,
+        "pair_id": "d523008123f847ffbeccdb9a",
+        "role_approved": false,
+        "rubric_ambiguity": false
+      }
+    ],
+    "validated_rows": 15,
+    "weak_proposals": 0
+  },
+  "preservation": {
+    "all_preexisting_files_unchanged": true,
+    "code_and_contracts_unchanged": true,
+    "new_artifact_whitespace_and_links": "PASS",
+    "no_approvals_applied": true,
+    "no_commit_or_push": true,
+    "original_role_criteria_mapping_records_unchanged": true,
+    "repo_wide_diff_check": {
+      "exit_code": 2,
+      "note": "Existing unrelated trailing whitespace is preserved; new review artifacts pass separate whitespace checks.",
+      "stdout": "ml/src/minder_ml/intelligence/training.py:17: trailing whitespace.\n+def checked_rows(path): \n"
+    }
+  },
+  "recorded_at_utc": "2026-10-21T04:44:02.646221+00:00",
+  "remaining_decisions": [
+    "Human approve/revise/reject the three role scopes/milestones, six criteria and weights/evidence rules",
+    "Review effort ranges and selected estimates, all nine role-specific alignment/resource/work-style rubrics",
+    "Review three source-identity mappings, 24 external mapping candidates, taxonomy-version/local-scope applicability and source terms",
+    "Review the five fictional scenario origins and evidence/family grouping",
+    "Apply genuine approved content to authoritative cards through a reviewed change and export a fresh frozen approved-version packet",
+    "Independent human grading and ambiguity/disagreement resolution before any empirical evaluation or training"
+  ],
+  "task": "Consolidated approval report and five-family blind calibration preparation",
+  "validation": {
+    "all_15_profile_role_combinations_present": true,
+    "annotations_validated": 15,
+    "criteria_covered": 6,
+    "empirical_evaluation": "not_evaluated",
+    "external_mapping_candidates_covered": 24,
+    "gold_labels": 0,
+    "human_reviewer_fields_blank": true,
+    "model_score_fields_absent": true,
+    "profile_reviews_pending": 5,
+    "profiles_validated": 5,
+    "rejected_records": 0,
+    "relevance_grades_empty": 15,
+    "role_cards_covered": 3,
+    "role_reviews_pending": 3,
+    "scoring_function_not_called_during_export": true,
+    "source_identity_mappings_covered": 3,
+    "training": "not_run",
+    "unique_synthetic_families": 5,
+    "unselected_approval_decision_rows": 61
+  }
+}

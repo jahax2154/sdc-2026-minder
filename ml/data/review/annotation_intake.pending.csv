@@ -1,0 +1,4 @@
+profile_id,profile_group_id,role_id,profile_version,role_catalogue_version,feature_schema_version,rubric_version,reviewer_id,review_reason,profile_is_synthetic,reviewer_independent,preparation_horizon_weeks,annotation_status,relevance_grade,skill_coverage,interest_alignment,time_feasibility,resource_feasibility,work_style_alignment,assessed_requirement_fraction
+,,15-1252.00,,three-role-proposal-v1,personal-preparation-features-v1,personal-preparation-grades-v1,,,,,12,pending,,,,,,,
+,,15-2051.00,,three-role-proposal-v1,personal-preparation-features-v1,personal-preparation-grades-v1,,,,,12,pending,,,,,,,
+,,15-1212.00,,three-role-proposal-v1,personal-preparation-features-v1,personal-preparation-grades-v1,,,,,12,pending,,,,,,,

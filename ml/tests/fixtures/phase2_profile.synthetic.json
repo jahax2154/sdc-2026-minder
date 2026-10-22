@@ -1,0 +1,54 @@
+{
+  "schema_version": "minder-data-v1",
+  "entity_type": "UserProfile",
+  "profile_id": "software-smoke-profile-001",
+  "version": "synthetic-smoke-v1",
+  "data_class": "synthetic",
+  "profile_family_id": "software-smoke-family-001",
+  "career_goal": "Explore an initial career-preparation milestone in a software smoke test only",
+  "country_region_preference": {
+    "country_code": "MYS",
+    "region_code": null
+  },
+  "planning_horizon": {
+    "weeks": 12
+  },
+  "hours_per_week": 4,
+  "skill_observations": [],
+  "interests": [
+    "Structured problem solving; fictional test input"
+  ],
+  "projects_achievements": [
+    {
+      "description": "Fictional introductory exercise; not assessed competence",
+      "evidence_ids": [
+        "synthetic-smoke-only"
+      ]
+    }
+  ],
+  "education_experience": {
+    "education": null,
+    "experience": null
+  },
+  "work_preferences": [
+    "Structured tasks; fictional test input"
+  ],
+  "access_budget_constraints": {
+    "resources": [
+      "Computer",
+      "Internet access"
+    ],
+    "budget_amount": 0,
+    "currency": "MYR",
+    "constraints": [
+      "Software test only; not a real person"
+    ]
+  },
+  "role_alignments": [],
+  "review": {
+    "status": "pending",
+    "reviewer_id": null,
+    "rationale": null,
+    "reviewed_at": null
+  }
+}

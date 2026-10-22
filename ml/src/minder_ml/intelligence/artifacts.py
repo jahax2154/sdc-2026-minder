@@ -107,7 +107,13 @@ def inference_timing(model, x, repeats=10):
 
 
 def metadata_base(runner, compatibility, dataset_hashes, split):
+    from .policy import load_policy
+    _, policy = load_policy()
     return {"created_at": datetime.now(timezone.utc).isoformat(),
+            "artifact_schema_version": "minder-learner-artifact-g3-v1",
+            "provenance_mode": "unclassified", "promotable": False,
+            "policy_id": policy["policy_id"], "policy_version": policy["policy_version"],
+            "policy_sha256": policy["policy_sha256"],
             "feature_names": list(FEATURE_NAMES), "feature_schema_version": FEATURE_VERSION,
             "rubric_version": RUBRIC_VERSION, "score_mapping_version": SCORE_VERSION,
             "ranking_policy_version": RANKING_VERSION, "compatibility": compatibility,
@@ -136,6 +142,10 @@ def load_candidate(run_id, kind, compatibility):
         raise ValueError("not a learned scorer")
     run = run_path(run_id)
     meta = json.loads((run / "metadata.json").read_text())
+    if (meta.get("provenance_mode") != "independent_reviewed"
+            or meta.get("promotable") is False
+            or meta.get("compatibility", {}).get("data_kind") in ("synthetic_math_only", "policy_distillation")):
+        raise ValueError("experimental artifacts cannot enter independent serving")
     if meta["evaluation_status"] != "holdout_evaluated" or meta.get("selected_candidate") != kind:
         raise ValueError("artifact not selected and independently holdout-evaluated")
     expected = {"feature_names": list(FEATURE_NAMES), "feature_schema_version": FEATURE_VERSION,
@@ -144,6 +154,36 @@ def load_candidate(run_id, kind, compatibility):
     for key, value in expected.items():
         if meta.get(key) != value:
             raise ValueError(f"incompatible artifact {key}")
+    from .policy import load_policy
+    if meta.get("policy_sha256") != load_policy()[1]["policy_sha256"]:
+        raise ValueError("artifact policy mismatch")
+    return load_pipeline(run, kind, meta)
+
+
+def load_experiment_candidate(run_id, kind, compatibility, provenance_mode):
+    """Explicit research-only path; production load_candidate always rejects it."""
+    if kind not in ("ridge", "xgboost"):
+        raise ValueError("not a learned scorer")
+    if provenance_mode not in ("synthetic_math_only", "policy_distillation"):
+        raise ValueError("explicit experiment provenance required")
+    run = run_path(run_id)
+    meta = json.loads((run / "metadata.json").read_text())
+    if meta.get("provenance_mode") != provenance_mode or meta.get("promotable") is not False:
+        raise ValueError("experiment provenance mismatch")
+    if meta.get("evaluation_status") not in ("synthetic_smoke_only", "policy_distillation_only"):
+        raise ValueError("incomplete experiment")
+    if ((provenance_mode == "synthetic_math_only") != (meta["evaluation_status"] == "synthetic_smoke_only")):
+        raise ValueError("experiment evaluation mode mismatch")
+    expected = {"feature_names": list(FEATURE_NAMES), "feature_schema_version": FEATURE_VERSION,
+                "rubric_version": RUBRIC_VERSION, "score_mapping_version": SCORE_VERSION,
+                "ranking_policy_version": RANKING_VERSION, "compatibility": compatibility}
+    for key, value in expected.items():
+        if meta.get(key) != value:
+            raise ValueError("incompatible experiment " + key)
+    from .policy import load_policy
+    _, policy = load_policy()
+    if meta.get("policy_sha256") != policy['policy_sha256']:
+        raise ValueError("experiment policy mismatch")
     return load_pipeline(run, kind, meta)
 
 

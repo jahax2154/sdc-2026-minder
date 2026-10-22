@@ -1,0 +1,234 @@
+{
+  "active_policy": {
+    "authorization": {
+      "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+      "path": "docs/execution/gates/G1A_authorization.json",
+      "scope": "G1A deterministic feature/policy implementation and local verification only",
+      "version": "G1A-current-user-2026-10-21-v1"
+    },
+    "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+    "historical_approval": {
+      "approval_message_ref": null,
+      "approved_at": null,
+      "approved_manifest_sha256": null,
+      "reviewer_id": null,
+      "status": "proposed_for_batch_review"
+    },
+    "policy_id": "minder-intelligence-v1",
+    "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+    "policy_version": "1.0.0"
+  },
+  "actual_data": {
+    "actual_profile_role_pairs": 18,
+    "annotation_csv_rows": 0,
+    "crosswalk_candidates_quarantined": 24,
+    "eligible_pairs": 0,
+    "gold_labels": 0,
+    "native_occupations_accepted": 3,
+    "real_role_milestones_accepted": 0,
+    "synthetic_profiles": 6
+  },
+  "artifacts": {
+    "native_projection": "ml/data/review/g1a-v1/catalogue.policy-accepted.json",
+    "service_demo": "docs/execution/gates/G1A_service_demo.json",
+    "test_log": "docs/execution/gates/G1A_checks.txt"
+  },
+  "authorization_path": "docs/execution/gates/G1A_authorization.json",
+  "catalogue_readiness": "partial",
+  "checks": [
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -v",
+      "scope": "Full suite before final source-fingerprint/boundary and catalogue-context edits; final affected G1A code rechecked below.",
+      "seconds": 89.889,
+      "status": "pass",
+      "tests": 73
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -p test_g1a.py -v",
+      "scope": "Final G1A implementation, source integrity, constraints, canonical contract and cache-key invalidation",
+      "seconds": 0.096,
+      "status": "pass",
+      "tests": 16
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.g1a_cli",
+      "output": "docs/execution/gates/G1A_service_demo.json",
+      "status": "pass"
+    },
+    {
+      "command": "jsonschema.Draft202012Validator(schema).validate(response)",
+      "service_envelopes": 7,
+      "status": "pass"
+    },
+    {
+      "command": "ast.parse on new/modified Python files",
+      "status": "pass"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 2,
+      "output": "ml/src/minder_ml/intelligence/training.py:17: trailing whitespace.\n+def checked_rows(path): \n",
+      "status": "failed_preexisting_issue"
+    },
+    {
+      "command": "task-file trailing-whitespace scan",
+      "findings": [],
+      "status": "pass"
+    },
+    {
+      "command": "git status --short",
+      "output": "docs/execution/gates/G1A_git_status.txt",
+      "status": "recorded"
+    },
+    {
+      "binary_added": [],
+      "command": "new-file NUL-byte and credential-pattern scan",
+      "credential_hits": [],
+      "limitation": "Pattern scan, not a complete secret detection guarantee",
+      "status": "pass"
+    },
+    {
+      "command": "demonstrate() == saved G1A_service_demo.json",
+      "scope": "All six actual profiles, three native roles, fixture, policy versions and fingerprints reproduce exactly",
+      "status": "pass"
+    },
+    {
+      "command": "Final evidence/schema/preservation/AST/credential-pattern/NUL/trailing-whitespace validation",
+      "modified_existing_files": [
+        "AGENTS.md",
+        "ml/src/minder_ml/intelligence/inference.py"
+      ],
+      "new_files": 16,
+      "status": "pass"
+    }
+  ],
+  "empirical_readiness": "not_evaluated",
+  "environment": {
+    "executable": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/bin/python",
+    "location": "local workspace CPU; no remote service or training",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.9.6"
+  },
+  "exceptions": [
+    {
+      "affected_profile_ids": [
+        "calibration-profile-01",
+        "calibration-profile-02",
+        "calibration-profile-03",
+        "calibration-profile-04",
+        "calibration-profile-05",
+        "software-smoke-profile-001"
+      ],
+      "affected_role_ids": [
+        "15-1212.00",
+        "15-1252.00",
+        "15-2051.00"
+      ],
+      "effect": "No score for affected pair; catalogue incompleteness is not user inability.",
+      "next_action": "Supply a source-backed bounded template and explicit version-bound profile measurements.",
+      "reason": "milestone_definition_missing"
+    },
+    {
+      "affected_records": 24,
+      "effect": "Does not block native O*NET identity; cannot support ESCO or Malaysian narrow-role demand.",
+      "next_action": "Resolve 2019 taxonomy versus database-release scope and crosswalk reuse terms before using the bridge.",
+      "reason": "optional_crosswalk_scope_unresolved"
+    },
+    {
+      "effect": "No empirical metrics or learner comparison; policy acceptance is not gold.",
+      "next_action": "Independent blind grading after usable milestone/profile inputs exist; outside G1A.",
+      "reason": "independent_labels_absent"
+    }
+  ],
+  "execution_date": "2026-10-21T13:50:13.618272+00:00",
+  "files_sha256": {
+    "AGENTS.md": "fd4f0b79325abf969b8daea043f756a22ef0d16759bead12d474238fd932308a",
+    "contracts/policy-recommendation.g1a.v1.schema.json": "b1e49c7bfea407d67f25180f4914bd8a176861702a50dded179328a3c696bf4d",
+    "docs/execution/gates/G1A_authorization.json": "9762c667778d53516be16c88f433b6c3bdafe248836b522e59e5488ba39e8100",
+    "docs/execution/gates/G1A_checks.txt": "a9b5aa3f1d052e76d43a1ad38133c2c0078a828b7be2cdfc383d3d7716dd60c7",
+    "docs/execution/gates/G1A_report.md": "03ae5651c4bd2ee15377b8d66428ddad6eb39dbb65af26103ea81c2eca48e01b",
+    "docs/execution/gates/G1A_service_demo.json": "36f09e043cd50b820f8aa12d10425e1ac7320f4b80aa0ab0c7270ad70c9e7b59",
+    "ml/configs/intelligence/measurement_sources.v1.json": "5cde5c6748a53841df7f6ece027a79f0d148c8dddaf829983a75673328468098",
+    "ml/configs/intelligence/policy.v1.json": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+    "ml/data/review/g1a-v1/catalogue.policy-accepted.json": "c1ced3a1dbf9d4778c67c5aeea9f548ecf1e4fa5f83c300e16a5ee84432b4292",
+    "ml/src/minder_ml/intelligence/g1a_cli.py": "be211c2f6f670ad662b4048940ba0bc47285f52e3a20ef9ad9a2b29a228c26de",
+    "ml/src/minder_ml/intelligence/inference.py": "26e9cf80f732317d0a8773beb2c1990363638fd9757d9dfa18b8a0e8a48fbd06",
+    "ml/src/minder_ml/intelligence/policy.py": "5337b0d0592d817c129ba94dd403055698281b754aba61aa474b1a71f901efff",
+    "ml/src/minder_ml/intelligence/policy_features.py": "66d6e0d4fd652a674192e12bb3f8dd64e727d23b2d404815f9426f8f9ace9c11",
+    "ml/src/minder_ml/intelligence/policy_sources.py": "e5c0eab04cd3be7b1541c4ffab2503f89aefcda0fd01468cc4135b03c906e5a0",
+    "ml/tests/fixtures/g1a_contract.synthetic.json": "1e1bc30af52685d4ba2babd1baf89e4d6b4506f1cb9b626bb0e7823bfcc06911",
+    "ml/tests/test_g1a.py": "b9a8ee9ea0cc0efcad28942fdda7a4a8682b3929915df2a95330fc3dccbf1a08"
+  },
+  "gate": "G1A",
+  "golden_vector": {
+    "baseline_F0": 67.0,
+    "features": [
+      0.6,
+      0.8,
+      0.5,
+      1,
+      0.7
+    ]
+  },
+  "implementation_status": "pass",
+  "live_service_readiness": {
+    "frontend": "not_implemented",
+    "http_endpoint": "not_implemented",
+    "python_callable": "exercised"
+  },
+  "meaningful_baseline_data_gate": "blocked",
+  "next_interfaces": {
+    "contract": "contracts/policy-recommendation.g1a.v1.schema.json",
+    "measurements": "minder_ml.intelligence.policy_features.derive_features(profile, role, answers)",
+    "service": "minder_ml.intelligence.inference.recommend_profile(profile, roles, answers_by_role=..., scorer_kind=\"baseline\")",
+    "source_projection": "minder_ml.intelligence.policy_sources.accept_milestone(...)"
+  },
+  "policy_config_projection": "ml/configs/intelligence/policy.v1.json",
+  "preservation": {
+    "dependencies_installed": false,
+    "existing_files_changed_by_G1A": [
+      "AGENTS.md",
+      "ml/src/minder_ml/intelligence/inference.py"
+    ],
+    "existing_files_removed": [],
+    "new_files": [
+      "contracts/policy-recommendation.g1a.v1.schema.json",
+      "docs/execution/gates/G1A_authorization.json",
+      "docs/execution/gates/G1A_checks.txt",
+      "docs/execution/gates/G1A_evidence.json",
+      "docs/execution/gates/G1A_git_status.txt",
+      "docs/execution/gates/G1A_report.md",
+      "docs/execution/gates/G1A_service_demo.json",
+      "ml/configs/intelligence/measurement_sources.v1.json",
+      "ml/configs/intelligence/policy.v1.json",
+      "ml/data/review/g1a-v1/catalogue.policy-accepted.json",
+      "ml/src/minder_ml/intelligence/g1a_cli.py",
+      "ml/src/minder_ml/intelligence/policy.py",
+      "ml/src/minder_ml/intelligence/policy_features.py",
+      "ml/src/minder_ml/intelligence/policy_sources.py",
+      "ml/tests/fixtures/g1a_contract.synthetic.json",
+      "ml/tests/test_g1a.py"
+    ],
+    "no_commit_push_publish_spend_or_training": true,
+    "policy_documents_and_pending_reviews_preserved": true,
+    "unrelated_existing_files_preserved": true
+  },
+  "readiness_rule": {
+    "current": "P2-4-policy-acceptance-g1a-v2",
+    "meaning": "Pinned native identities and valid bounded templates may be policy_accepted without human-reviewed status. Native identity alone does not establish a milestone. Independent-label readiness remains separate.",
+    "previous": "P2-4 historical human-review gate (unchanged)"
+  },
+  "synthetic_contract_only": {
+    "features": {
+      "interest_alignment": 1.0,
+      "resource_feasibility": 1.0,
+      "skill_coverage": 0.0,
+      "time_feasibility": 0.5,
+      "work_style_alignment": 0.5
+    },
+    "not_a_real_role_milestone": true,
+    "not_gold": true,
+    "path": "ml/tests/fixtures/g1a_contract.synthetic.json",
+    "score": 45
+  }
+}
