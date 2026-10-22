@@ -49,7 +49,8 @@ def check_plan(plan, profile, previous=None):
     for constraint in profile["constraints"] + plan["constraints"]:
         if constraint["scope"] == "weekly_hours":
             value = constraint["value"]
-            if not isinstance(value, (int, float)) or isinstance(value, bool) or value < 0:
+            if (not isinstance(value, (int, float)) or isinstance(value, bool) or not 0 <= value <= 168
+                    or constraint["unit"] != "hours_per_week"):
                 raise AppError("invalid_weekly_capacity")
             capacity = min(capacity, value) if capacity is not None else value
         elif constraint["scope"].startswith("deadline:"):
@@ -110,6 +111,24 @@ def save_plan(store, owner, plan, expected=None, *, db=None):
     profile = store.get(owner, "profile", owner, db=db)
     previous = store.get(owner, "plan", plan["plan_id"], db=db) if expected else None
     feasibility = check_plan(plan, profile, previous)
+    others = [json.loads(row[0]) for row in db.execute(
+        "SELECT body FROM documents WHERE owner=? AND kind='plan' AND id<>?", (owner, plan["plan_id"]))]
+    scheduled_others = [p for p in others if any(t["state"] == "scheduled" for t in p["tasks"])]
+    if scheduled_others and any(t["state"] == "scheduled" for t in plan["tasks"]):
+        # Availability is per person. Alternative plans explicitly saved by the
+        # user cannot quietly double-book one another.
+        aggregate = copy.deepcopy(plan)
+        aggregate.update(tasks=[], task_ids=[], constraints=[])
+        for item in scheduled_others + [plan]:
+            for task in item["tasks"]:
+                task = copy.deepcopy(task)
+                task["task_id"] = item["plan_id"] + ":" + task["task_id"]
+                task["prerequisite_task_ids"] = [item["plan_id"] + ":" + p for p in task["prerequisite_task_ids"]]
+                aggregate["tasks"].append(task)
+                aggregate["task_ids"].append(task["task_id"])
+        combined = check_plan(aggregate, profile)
+        if combined["status"] == "unknown":
+            raise AppError("combined_plan_availability_unknown", 409)
     saved = store.put(owner, "plan", plan["plan_id"], plan, expected, db=db)
     return {"plan": saved, "feasibility": feasibility}
 

@@ -50,6 +50,20 @@ class Application:
         if path == "/api/agents" and method == "GET":
             from .agents import state
             return state(self.store, owner)
+        if path == "/api/roles" and method == "POST":
+            query = str(body.get("query", "")).casefold()
+            offset = max(0, int(body.get("offset", 0)))
+            limit = max(1, min(50, int(body.get("limit", 20))))
+            selected = [r for r in self.services.roles if query in (r["label"] + " " + r["role_id"]).casefold()]
+            return dict(total=len(selected), offset=offset, catalogue_order_not_rank=True,
+                roles=[{k: r[k] for k in ("role_id", "label", "eligibility", "missing_reasons")}
+                       for r in selected[offset:offset + limit]],
+                applied_query=query, can_clear_filter=True)
+        if path == "/api/role-requirements" and method == "POST":
+            role = next((r for r in self.services.roles if r["role_id"] == body["role_id"]), None)
+            if role is None:
+                raise AppError("role_not_found", 404)
+            return dict(role=role, limitation="Occupational ratings are not personal competence thresholds.")
         if path == "/api/profile":
             if method == "GET":
                 return self.store.get(owner, "profile", owner)
@@ -112,10 +126,9 @@ class Application:
 
 
 def main():
-    root = Path(__file__).resolve().parents[3]
-    path = os.environ.get("MINDER_DB_PATH", str(root / "ml/artifacts/session-c/runtime/dev.sqlite3"))
+    from .runtime import application
     with make_server("127.0.0.1", int(os.environ.get("MINDER_API_PORT", "8103")),
-                     Application(Store(path))) as server:
+                     application()) as server:
         server.serve_forever()
 
 

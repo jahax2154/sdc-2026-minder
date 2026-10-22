@@ -1,0 +1,118 @@
+{
+  "phase_id": "C4.1",
+  "owner": "C",
+  "branch": "session/c-app-agents",
+  "status": "limited",
+  "objective": "Existing-path UI, actual A/B source services, persistent actions/worker and culminating local acceptance",
+  "inputs": [
+    "bootstrap 70dc99e96c51e2da3cacc0b84cdc729b2be33fd9",
+    "A service/schema handoff through A2.1 745f6af via local merge 3fc9cbd",
+    "B1.2 0b61ede1cb596cff6a0110d80c2a8769e385bd7e via local merge d2b8dd8",
+    "C1.1\u2013C3.1 and linked refinements"
+  ],
+  "implementation": [
+    "Python stdlib WSGI/SQLite runtime bound to committed OccupationalCatalogue, PersonalMatchingService, MarketEvidenceService in current worktree",
+    "Exact navigation and browser actions wired to actual API; no fixture runtime fallback",
+    "Role browsing 1016 references, 910 unranked supported candidates; explicit bounded selected views, role/skill current and forecast separation",
+    "Source-gap pathway preview/create, activity completion, proposal approval/reject/undo and daily settings",
+    "UI safe escaping/CSP, preserved event handlers, meaningful labels instead of raw mutation paths/state IDs"
+  ],
+  "verification": {
+    "backend_unique_tests": 20,
+    "shared_contract_tests": 12,
+    "provider_mock_tests": 5,
+    "app_context_tests": 1,
+    "personal_owner_tests": 11,
+    "market_owner_tests": 10,
+    "commands": [
+      "PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m unittest discover -s apps/backend-api/tests -v",
+      "\"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "\"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_llm.py",
+      "\"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_app_context.py",
+      "PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" apps/backend-api/tests/http_acceptance.py",
+      "PYTHONPATH=ml/src:apps/backend-api PLAYWRIGHT_BROWSERS_PATH=<temporary-browser-dir> MINDER_PLAYWRIGHT_MODULE=<temporary-playwright-module> node apps/frontend-web/tests/browser_acceptance.cjs",
+      "node --check apps/frontend-web/app.js",
+      "git diff --check"
+    ],
+    "actual_evidence": {
+      "c4.1-http-evidence.json": {
+        "transport": "real TCP HTTP on reserved localhost 8103/9103",
+        "synthetic_user": true,
+        "provider": {
+          "status": "unavailable",
+          "code": "provider_model_not_configured",
+          "request_id": "1e87e3fc-f719-42ef-87c2-b6ab616b2cc0"
+        },
+        "integration_mode": "local_source_services",
+        "catalogue_references": 1016,
+        "unranked_candidates": 910,
+        "numeric_personal_scores": 0,
+        "checks": {
+          "reserved_api_ui_http_assets": "passed",
+          "saved_intake_auth_isolation_stale": "passed",
+          "full_actual_catalogue_unranked_pending_N01": "passed",
+          "real_A_B_role_skill_current_forecast_separation_sources": "passed",
+          "actual_chat_provider_availability": "unavailable",
+          "ambiguous_intake_staged_without_profile_mutation": "passed",
+          "pathway_persisted_direct_completion_exactly_once_no_mastery": "passed",
+          "actual_worker_pending_reject_approve_exact_once_cross_user": "passed",
+          "reversible_schedule_undo_retains_history": "passed",
+          "real_company_snapshot_explicit_missing_criteria_separate_main_matches": "passed"
+        },
+        "browser_interaction": "separate Chromium evidence in c4.1-browser-evidence.json",
+        "deployment_scheduler_verified": false,
+        "recorded_at": "2026-10-22T18:09:20.992912+00:00"
+      },
+      "c4.1-browser-evidence.json": {
+        "browser": "156.0.8078.4",
+        "transport": "real Chromium UI to localhost 9103 API, actual A/B services",
+        "synthetic_user": true,
+        "mocked_network": false,
+        "live_provider": "unavailable",
+        "checks": {
+          "profile_and_statement_handlers_persist": "passed",
+          "cv_draft_without_mutation": "passed",
+          "real_catalogue_selection_preference_and_reset": "passed",
+          "roadmap_task_progress_actual_persistence": "passed",
+          "future_current_separation_and_unavailable": "passed",
+          "actual_chat_with_honest_provider_unavailable": "passed",
+          "worker_preview_and_browser_exact_approval": "passed",
+          "mobile_layout_no_horizontal_overflow": "passed"
+        },
+        "page_errors": [],
+        "deployment_scheduler_verified": false,
+        "recorded_at": "2026-10-22T18:09:24.531Z"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "ml/artifacts/session-c/c4.1-http-evidence.json",
+      "sha256": "1349967d27bb4ff49575d94ec56d02be237e238c298a2c982e6646257a3e009b",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-c/c4.1-browser-evidence.json",
+      "sha256": "d3a50931c24935f157f16f1e53dcf69c6c67f94b8bc3e3d70a5303615de173af",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-c/c4.1-browser.png",
+      "sha256": "4a459abc7d6c1979bc6b5a5483f9c982512504a79acc5264f7ec4d232b3c032a",
+      "committed": false
+    }
+  ],
+  "limitations": [
+    "GROQ_API_KEY and GROQ_MODEL absent: real probe credentials missing; chat actual provider unavailable. No successful live provider/model entitlement/limits claim. Mock tests are separate.",
+    "No trained personal model/fit weights or ranking activated; N01 remains pending. Actual A/B source service integration is local, not deployment.",
+    "B active-ad snapshot is bounded Bosch Malaysia evidence, not national employment or quarterly inflow. Role and skill forecast history unavailable; no forecast model success claimed.",
+    "Company summaries retain posting URLs/dates/hashes but not full required/preferred criteria; company-specific assessment unavailable, generic A assessment labelled separately.",
+    "TXT intake stages text claims; PDF/DOCX/NLP extraction unavailable; effort/resources unknown, at most six designed review activities, no mastery inference.",
+    "Minimal bounded schedule candidate planner, no general optimizer; arbitrary plan graph replacement unsupported by scalar tools.",
+    "No production authentication/session recovery/expiry/durable hosting validation; anonymous local capability only.",
+    "Deployed unattended scheduler not verified; local worker subprocess/ticks and real browser approval verified."
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "A consumes committed C handoff for integration; configure provider privately and run live grounding; coordinate deployment checks separately",
+  "push_status": "not pushed \u2014 awaiting explicit instruction"
+}

@@ -24,6 +24,14 @@ class AppError(Exception):
         self.code, self.status = code, status
 
 
+class ClosingConnection(sqlite3.Connection):
+    def __exit__(self, *args):
+        try:
+            return super().__exit__(*args)
+        finally:
+            self.close()
+
+
 class Store:
     def __init__(self, path):
         self.path = str(path)
@@ -44,7 +52,7 @@ class Store:
             ''')
 
     def connect(self):
-        db = sqlite3.connect(self.path, timeout=5)
+        db = sqlite3.connect(self.path, timeout=5, factory=ClosingConnection)
         db.row_factory = sqlite3.Row
         return db
 

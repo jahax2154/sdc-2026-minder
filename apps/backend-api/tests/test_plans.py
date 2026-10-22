@@ -5,6 +5,20 @@ from minder_app.store import AppError
 
 
 class PlanTests(AppCase):
+    def test_other_saved_plan_cannot_double_book_availability(self):
+        profile = self.save()
+        profile["constraints"] = [dict(constraint_id="h", scope="weekly_hours", hard=True,
+            value=5, unit="hours_per_week", evidence_id="explicit-user-hours")]
+        profile = self.app.dispatch("PUT", "/api/profile", dict(profile=profile,
+            expected_version=profile["version"]), self.token)
+        plan = fixture("plan_progress")
+        plan["tasks"][0]["estimated_hours"] = 1
+        self.app.dispatch("POST", "/api/plans", dict(plan=plan, idempotency_key="p1"), self.token)
+        with self.assertRaises(AppError) as ctx:
+            self.app.dispatch("POST", "/api/plans", dict(plan=plan, idempotency_key="p2"), self.token)
+        self.assertEqual(ctx.exception.code, "schedule_overlap")
+        self.assertEqual(len(self.store.list(profile["profile_id"], "plan")), 1)
+
     def test_unknown_effort_and_persistent_completion(self):
         result = self.make_plan()
         self.assertEqual(result["feasibility"]["status"], "unknown")
