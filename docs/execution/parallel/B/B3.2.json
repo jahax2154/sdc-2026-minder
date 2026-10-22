@@ -1,0 +1,59 @@
+{
+  "phase_id": "B3.2",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "objective": "Publish market-service, phase/refinement evidence, resource state and committed handoff to A",
+  "inputs": [
+    "All B phase records",
+    "A-001/A-002 committed requests"
+  ],
+  "changes": [
+    "HANDOFF.md with constructors, integration sequence, refresh/artifact procedures and precise remaining dependencies",
+    "Single paid ledger retained; immutable source/model/selection distinctions preserved",
+    "Full final verification and excluded-state inventory recorded"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service test_forecasting test_service_contracts",
+      "result": "35 passed in 22.126 seconds",
+      "log_sha256": "4824e59a0821a9848e7cc507826fb8de80be19758febb8d3085beccb4e6a0d3a"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "13 bootstrap source input SHA-256 and read-only mode verification",
+      "result": "13 matched; no input changed"
+    },
+    {
+      "command": "ownership.v1.json B path check over bootstrap..HEAD",
+      "result": "27 changed paths all B-owned before final documentation checkpoint"
+    }
+  ],
+  "coverage": {
+    "current_role_source_ids": 4,
+    "current_skill_terms": 5,
+    "unique_inspected_ads": 39,
+    "dosm_numeric_rows": 921,
+    "dosm_missing_rows": 31,
+    "forecast_role_series": 0,
+    "forecast_skill_series": 0,
+    "selected_models": 0,
+    "session_paid_cost_usd": 0
+  },
+  "limitations": [
+    "This handoff phase passed; overall B workstream remains limited, not a successful forecast-training gate",
+    "RunPod inaccessible, account balance unknown",
+    "Comparable historical quarterly role/skill targets absent; no real trained/evaluated forecast",
+    "Actual refresh scheduling is an integration/runtime responsibility, not proven by collector code",
+    "N01 remains pending in A; B introduces no new fit or current/future blend"
+  ],
+  "dependency_ids": [
+    "RUNPOD_ACCESS",
+    "COMPARABLE_ROLE_AND_SKILL_QUARTERLY_HISTORY"
+  ],
+  "next_eligible": "A integrate final B commits; C consume canonical aliases and source-linked explanations. Reopen only dependent training when real history/access exists.",
+  "checkpoint": "commit containing this record and HANDOFF.md"
+}
