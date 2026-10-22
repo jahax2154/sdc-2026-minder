@@ -17,6 +17,8 @@ from .store import Store, AppError
 class Application:
     def __init__(self, store, services=None, provider=None):
         self.store, self.services, self.provider = store, services or CareerServices(), provider
+        from .actions import ActionExecutor
+        self.actions = ActionExecutor(store)
 
     def dispatch(self, method, path, body, token):
         if path == "/api/health" and method == "GET":
@@ -24,6 +26,19 @@ class Application:
         if path == "/api/session" and method == "POST":
             return self.store.session()
         owner = self.store.authenticate(token)
+        if path == "/api/direct-action" and method == "POST":
+            return self.actions.direct(owner, body["request"], body["idempotency_key"])
+        if path == "/api/proposals":
+            if method == "GET":
+                return {"proposals": self.actions.proposals(owner)}
+            if method == "POST":
+                return self.actions.propose(owner, body["request"])
+        if path == "/api/proposal-decision" and method == "POST":
+            return self.actions.decide(owner, **body)
+        if path == "/api/action-history" and method == "GET":
+            return {"history": self.actions.history(owner)}
+        if path == "/api/undo" and method == "POST":
+            return self.actions.undo(owner, body["action_id"], body["expected_state_version"], body["idempotency_key"])
         if path == "/api/profile":
             if method == "GET":
                 return self.store.get(owner, "profile", owner)

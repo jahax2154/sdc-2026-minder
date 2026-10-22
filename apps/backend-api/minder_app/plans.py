@@ -145,6 +145,8 @@ def create_plan(store, owner, plan, idempotency_key):
             return json.loads(old["result"])
         plan = copy.deepcopy(plan)
         plan.update(plan_id=uid(), profile_id=owner, state_version=uid(), previous_version=None)
+        db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, uid(),
+            json.dumps(dict(kind="explicit_plan_create", idempotency_key=idempotency_key, plan=plan), sort_keys=True), now()))
         result = save_plan(store, owner, plan, db=db)
         db.execute("INSERT INTO plan_creations VALUES(?,?,?,?)", (
             owner, idempotency_key, encoded, json.dumps(result)))
