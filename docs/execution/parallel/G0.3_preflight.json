@@ -1,0 +1,119 @@
+{
+  "phase": "G0.3",
+  "kind": "pre-final-commit-worktree-verification",
+  "lanes": {
+    "A": {
+      "head_at_preflight": "d26bd704ee798c0ab4c9522ae66ce2378d2680d9",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-a",
+      "contract_tests": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.045s\n\nOK",
+      "legacy_service": {
+        "roles": 3,
+        "scored": 0,
+        "exceptions": [
+          {
+            "reason": "milestone_definition_missing",
+            "affected_roles": [
+              "15-1252.00",
+              "15-2051.00",
+              "15-1212.00"
+            ]
+          }
+        ]
+      },
+      "status": [
+        "?? ml/minder_ml_starter/derived/dosm_jmi_quarterly_long.csv",
+        "?? ml/minder_ml_starter/derived/ilo_genai_occupation_2025.csv",
+        "?? ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx",
+        "?? ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_occupation.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_state.csv",
+        "?? ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv",
+        "?? ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx",
+        "?? ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md",
+        "?? ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_software_skills.csv"
+      ],
+      "contract_sha256": "49df26ca3ad1c0214ec730f4baf045f0cc823223271e4101b6a4672102e0b54b",
+      "canonical_context_present": true,
+      "prompt_present": true
+    },
+    "B": {
+      "head_at_preflight": "d26bd704ee798c0ab4c9522ae66ce2378d2680d9",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b",
+      "contract_tests": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.043s\n\nOK",
+      "legacy_service": {
+        "roles": 3,
+        "scored": 0,
+        "exceptions": [
+          {
+            "reason": "milestone_definition_missing",
+            "affected_roles": [
+              "15-1252.00",
+              "15-2051.00",
+              "15-1212.00"
+            ]
+          }
+        ]
+      },
+      "status": [
+        "?? ml/minder_ml_starter/derived/dosm_jmi_quarterly_long.csv",
+        "?? ml/minder_ml_starter/derived/ilo_genai_occupation_2025.csv",
+        "?? ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx",
+        "?? ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_occupation.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_state.csv",
+        "?? ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv",
+        "?? ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx",
+        "?? ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md",
+        "?? ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_software_skills.csv"
+      ],
+      "contract_sha256": "49df26ca3ad1c0214ec730f4baf045f0cc823223271e4101b6a4672102e0b54b",
+      "canonical_context_present": true,
+      "prompt_present": true
+    },
+    "C": {
+      "head_at_preflight": "d26bd704ee798c0ab4c9522ae66ce2378d2680d9",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-c",
+      "contract_tests": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.043s\n\nOK",
+      "legacy_service": {
+        "roles": 3,
+        "scored": 0,
+        "exceptions": [
+          {
+            "reason": "milestone_definition_missing",
+            "affected_roles": [
+              "15-1252.00",
+              "15-2051.00",
+              "15-1212.00"
+            ]
+          }
+        ]
+      },
+      "status": [
+        "?? ml/minder_ml_starter/derived/dosm_jmi_quarterly_long.csv",
+        "?? ml/minder_ml_starter/derived/ilo_genai_occupation_2025.csv",
+        "?? ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx",
+        "?? ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_occupation.csv",
+        "?? ml/minder_ml_starter/raw/dosm_wages_state.csv",
+        "?? ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv",
+        "?? ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx",
+        "?? ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md",
+        "?? ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv",
+        "?? ml/minder_ml_starter/raw/onet_31_0_software_skills.csv"
+      ],
+      "contract_sha256": "49df26ca3ad1c0214ec730f4baf045f0cc823223271e4101b6a4672102e0b54b",
+      "canonical_context_present": true,
+      "prompt_present": true
+    }
+  },
+  "isolation": "distinct branch/directory/port/database/output; exact existing ML file ownership disjoint; 13 shared source hashes match read-only snapshot",
+  "final_launch_commit": "after this evidence is committed, fast-forward all three clean tracked states and verify identical HEAD and launch manifest; final completion carries observed SHA"
+}

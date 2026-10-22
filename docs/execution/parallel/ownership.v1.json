@@ -156,7 +156,7 @@
     "credentials": "Inherited environment or private local config only; none committed or copied",
     "environment": "Existing local ml/.venv interpreter may be reused read-only; no installs during bootstrap. Set PYTHONPATH to current worktree ml/src. Source code resolves within current worktree.",
     "database": "One file per lane at its reserved ignored artifact path; C chooses actual backend driver and may request namespace revision before use. Never share production DB.",
-    "source_sharing": "Only 13 manifest-pinned raw/derived files copied to one read-only source snapshot under worktree parent; local untracked raw/derived symlinks point there. No code imports from original checkout.",
+    "source_sharing": "Only 13 manifest-pinned raw/derived files copied to one read-only source snapshot under worktree parent; local untracked raw/derived files are read-only hardlinks to that snapshot (local paths preserve the existing source-containment guard). No code imports from original checkout.",
     "generated_outputs": "Only lane artifact_dir; immutable handoff artifacts by hash. Never overwrite another lane outputs.",
     "launch_processes": "No B/C sessions or services auto-started; user launches prompts in assigned worktrees."
   },
