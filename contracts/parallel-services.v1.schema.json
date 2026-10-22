@@ -497,6 +497,25 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "preference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Preference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "background_fields": {
+          "$ref": "#/$defs/Profile/properties/current_fields"
+        },
+        "role_mapping_status": {
+          "enum": [
+            "supported",
+            "unknown"
+          ]
         }
       },
       "required": [
@@ -670,6 +689,22 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "role_preference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Preference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profile_fields": {
+          "$ref": "#/$defs/Profile/properties/current_fields"
+        },
+        "unresolved_constraints": {
+          "$ref": "#/$defs/Profile/properties/constraints"
         }
       },
       "required": [

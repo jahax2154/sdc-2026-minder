@@ -1,0 +1,197 @@
+{
+  "phase_id": "A1.2",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Callable initial personal assessment and industry context without preparation dependencies",
+  "inputs": [
+    "A1.1",
+    "minder-parallel-v1",
+    "N01 pending"
+  ],
+  "changes": [
+    "PersonalMatchingService implements PersonalService.assess",
+    "Source-grounded requirements and unknown competence gaps; interests and self-report do not certify mastery",
+    "Industry history/intent/preference and many-to-many mapping traces; all numerical values and weights null",
+    "Optional B protocol injection preserves current/forecast; no unapproved blend",
+    "Additive optional trace fields in existing v1 schema; old DTO fixtures remain valid"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "5 passed (corrected test mock scope before checkpoint)"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.personal_cli --output ml/artifacts/session-a/a1.2-service-v1",
+      "result": "completed; five unchanged original synthetic profiles plus five D02 demonstrations, 910 candidates each, zero scores"
+    }
+  ],
+  "coverage": {
+    "original_profiles": [
+      {
+        "profile_id": "calibration-profile-01",
+        "original_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+        "legacy_runtime_roles": 3,
+        "legacy_scored": 0,
+        "new_runtime_roles": 1016,
+        "new_candidates": 910,
+        "new_scored": 0,
+        "status": "policy_pending"
+      },
+      {
+        "profile_id": "calibration-profile-02",
+        "original_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+        "legacy_runtime_roles": 3,
+        "legacy_scored": 0,
+        "new_runtime_roles": 1016,
+        "new_candidates": 910,
+        "new_scored": 0,
+        "status": "policy_pending"
+      },
+      {
+        "profile_id": "calibration-profile-03",
+        "original_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+        "legacy_runtime_roles": 3,
+        "legacy_scored": 0,
+        "new_runtime_roles": 1016,
+        "new_candidates": 910,
+        "new_scored": 0,
+        "status": "policy_pending"
+      },
+      {
+        "profile_id": "calibration-profile-04",
+        "original_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+        "legacy_runtime_roles": 3,
+        "legacy_scored": 0,
+        "new_runtime_roles": 1016,
+        "new_candidates": 910,
+        "new_scored": 0,
+        "status": "policy_pending"
+      },
+      {
+        "profile_id": "calibration-profile-05",
+        "original_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+        "legacy_runtime_roles": 3,
+        "legacy_scored": 0,
+        "new_runtime_roles": 1016,
+        "new_candidates": 910,
+        "new_scored": 0,
+        "status": "policy_pending"
+      }
+    ],
+    "synthetic_demonstrations": [
+      {
+        "audience": "student",
+        "profile_id": "demo-student",
+        "supplied_evidence": "known synthetic skill fraction, no accepted comparison rubric",
+        "candidates": 910,
+        "scores": 0,
+        "status": "policy_pending"
+      },
+      {
+        "audience": "fresh_graduate",
+        "profile_id": "demo-fresh_graduate",
+        "supplied_evidence": "known synthetic skill fraction, no accepted comparison rubric",
+        "candidates": 910,
+        "scores": 0,
+        "status": "policy_pending"
+      },
+      {
+        "audience": "career_switcher",
+        "profile_id": "demo-career_switcher",
+        "supplied_evidence": "known synthetic skill fraction, no accepted comparison rubric",
+        "candidates": 910,
+        "scores": 0,
+        "status": "policy_pending"
+      },
+      {
+        "audience": "uncertain_worker",
+        "profile_id": "demo-uncertain_worker",
+        "supplied_evidence": "known synthetic skill fraction, no accepted comparison rubric",
+        "candidates": 910,
+        "scores": 0,
+        "status": "policy_pending"
+      },
+      {
+        "audience": "displaced_worker",
+        "profile_id": "demo-displaced_worker",
+        "supplied_evidence": "known synthetic skill fraction, no accepted comparison rubric",
+        "candidates": 910,
+        "scores": 0,
+        "status": "policy_pending"
+      }
+    ],
+    "notice": "All profiles synthetic; unknowns preserved. No empirical validity or numeric N01 score."
+  },
+  "artifacts": [
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/calibration-profile-01.json",
+      "sha256": "63c6e840f8d3c2d32b44ff29112a0d9516f6838cecca368053cf784aff191e36"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/calibration-profile-02.json",
+      "sha256": "ad9f0446549ccd9c6bc337beddd2a54ea424aee6dd30ef956f4a7936d8a85441"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/calibration-profile-03.json",
+      "sha256": "6795fca70f254fc098fc353a852f7cca57c646b3a7a2b47c555151de87727c79"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/calibration-profile-04.json",
+      "sha256": "e2586e95709ab9fa7f1bd2f9c5e4639454f3e304ba63feb3898df2eea215a01c"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/calibration-profile-05.json",
+      "sha256": "f56d2c727afa9462f10ea11853ac41bec0392b06c65489b7119119813ee15ef7"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/coverage.json",
+      "sha256": "7d50e862e43c1b8baa8d404433ff5b0d657c9ee13e9724c8f1ecef69e7e42142"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/demo-career_switcher.json",
+      "sha256": "f35a0f53d21f7704657c9e86141fca60287d64c6379b7c60fa076fd401bda668"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/demo-displaced_worker.json",
+      "sha256": "a55c20f9cd6d84e73e00569a1c7d8992f4a5a96d3eda6f979f506145cdb0f3f2"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/demo-fresh_graduate.json",
+      "sha256": "8f0165b9aaa379c87763e866bce700fed2429ee53bbdd1b03c8f46a26133c75c"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/demo-student.json",
+      "sha256": "7f1b9594a77248698ab06b0980e78e13c392567aa4a170e5cfbec66ae0ecd27f"
+    },
+    {
+      "path": "ml/artifacts/session-a/a1.2-service-v1/demo-uncertain_worker.json",
+      "sha256": "63e8a8b61a7777cd632fa9a199e875d722c7f89e7a1b2968625977d1542ed25c"
+    }
+  ],
+  "limitations": [
+    "Numeric industry assessment/personal fit/ranking blocked by N01; no learner active",
+    "All gaps unknown until occupational-to-person rubric exists; synthetic known fraction is not validated competence",
+    "No source-grounded industry crosswalk; no title-based inference",
+    "Original-profile adapter is coverage-only, retains unmapped claims; not C persistent intake",
+    "No B/C API, live provider or persistence integration claimed"
+  ],
+  "dependencies": [
+    "N01",
+    "source measurement rubric",
+    "B1/C1 committed service handoffs"
+  ],
+  "decision_request": {
+    "id": "N01",
+    "question": "Approve or revise the existing versioned replacement measurement/missingness contract in NUMERICAL_POLICY_MAP.md.",
+    "recommendation": "Review conservative missingness against measured coverage; keep inactive until resolved.",
+    "evidence": "910 source-supported roles; zero accepted personal rubrics or native industry mappings. Approval alone cannot manufacture them.",
+    "independent_work": "A1.3 typed feedback and explicit view filters; A2 machinery/target audit; integration of owner handoffs"
+  },
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "A1.3"
+}
