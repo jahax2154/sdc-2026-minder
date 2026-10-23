@@ -32,6 +32,11 @@ class MarketEvidenceService:
                 or self.snapshot['mapping_sha256'] != hashlib.sha256((MARKET_DATA / 'mapping.v1.json').read_bytes()).hexdigest()):
             raise ValueError('snapshot mapping version mismatch')
         self.aliases = copy.deepcopy(aliases or {})
+        published_path = MARKET_DATA / 'published-role-observations.v1.json'
+        self.published_roles = json.loads(published_path.read_text()) if published_path.is_file() else {'observations': [], 'limitations': []}
+        self.published_version = hashlib.sha256(published_path.read_bytes()).hexdigest() if published_path.is_file() else None
+        if self.published_roles.get('synthetic', False):
+            raise ValueError('synthetic_published_role_evidence')
         self.forecast_registry = forecast_registry
         registry_path = MARKET_DATA / 'serving-registry.v1.json'
         if snapshot is None and forecast_registry is None and registry_path.is_file():
@@ -40,6 +45,8 @@ class MarketEvidenceService:
             expected = self.forecast_registry.manifest['current_snapshot_sha256']
             if hashlib.sha256((MARKET_DATA / 'snapshot.v1.json').read_bytes()).hexdigest() != expected:
                 raise ValueError('current_snapshot_checksum_mismatch')
+            if self.published_version != self.forecast_registry.manifest.get('published_role_snapshot_sha256'):
+                raise ValueError('published_role_snapshot_checksum_mismatch')
 
     def _source_id(self, entity_type, entity_id):
         return self.aliases.get(entity_type, {}).get(entity_id, entity_id)
@@ -65,6 +72,29 @@ class MarketEvidenceService:
     def current(self, entity_type, entity_id, *, as_of):
         result = self._empty(entity_type, entity_id, as_of, 'current')
         source_id = self._source_id(entity_type, entity_id)
+        if entity_type == 'role' and source_id.startswith('dosm:jmi:published-role-label:'):
+            known = [r for r in self.published_roles['observations'] if r['entity_id'] == source_id]
+            eligible = [r for r in known if timestamp(r['available_at']) <= timestamp(as_of)]
+            result.update(source_universe_id='dosm-jmi-published-top-occupation-labels',
+                          cohort_version=self.published_version or self.version,
+                          measurement='published_online_job_offerings_for_source_role_label',
+                          unit='published job offerings',
+                          denominator='DOSM-covered online recruitment platforms; not all Malaysian employment or vacancies')
+            if not eligible:
+                reason = 'published_role_record_not_available_at_requested_time' if known else 'no_explicit_published_role_count'
+                result.update(missing_reasons=[reason],explanation='Published role evidence unavailable: '+reason.replace('_',' ')+'.')
+            else:
+                latest = max(eligible, key=lambda r: (r['period']['end'], timestamp(r['published_at'])))
+                result.update(status='available', value=latest['value'], observation_period=latest['period'],
+                    published_at=latest['published_at'], available_at=latest['available_at'],
+                    ingested_at=latest['available_at'], source_ids=[latest['source_id']],
+                    model_version='dosm-explicit-published-role-count-v1', missing_reasons=[],
+                    explanation=(f'DOSM reported {latest["value"]:,} online job offerings for its '
+                        f'{latest["label"]} category during {latest["period"]["start"]} to {latest["period"]["end"]}, '
+                        f'published on {latest["published_at"][:10]}. This source quantity is separate from '
+                        'the inspected employer-ad sample. Unique-ad deduplication, positions per advertisement '
+                        'and a canonical occupation crosswalk are unverified; this is not all Malaysian employment.'))
+            return validate('MarketResult',result)
         collected = self.snapshot['collected_at']
         available = self.snapshot.get('available_at',collected)
         if timestamp(available) > timestamp(as_of):
@@ -110,6 +140,14 @@ class MarketEvidenceService:
     def forecast(self, entity_type, entity_id, *, issued_at):
         result = self._empty(entity_type, entity_id, issued_at, 'forecast')
         source_id = self._source_id(entity_type, entity_id)
+        if entity_type == 'role' and source_id.startswith('dosm:jmi:published-role-label:'):
+            result.update(source_universe_id='dosm-jmi-published-top-occupation-labels',
+                cohort_version=self.published_version or self.version,
+                missing_reasons=['published_offerings_not_verified_unique_advertisements',
+                    'top_list_censoring_is_missing_not_zero','insufficient_comparable_publication_aware_history'],
+                explanation='Next-quarter forecast unavailable: the acquired published role-label offerings '
+                    'do not establish the approved unique-ad target, complete comparable history or archived availability.')
+            return validate('MarketResult',result)
         if self.forecast_registry is not None:
             from .forecasting import serve_forecast
             selected = serve_forecast(self.forecast_registry, entity_type, source_id, issued_at)
@@ -134,6 +172,13 @@ class MarketEvidenceService:
     def source_facts(self, entity_type, entity_id):
         """Internal provenance/explanation facts; consumer presents source links."""
         source_id = self._source_id(entity_type, entity_id)
+        if entity_type == 'role' and source_id.startswith('dosm:jmi:published-role-label:'):
+            observations=[copy.deepcopy(r) for r in self.published_roles['observations'] if r['entity_id']==source_id]
+            return {'snapshot_sha256':self.published_version,'sources':[
+                {'source_id':r['source_id'],'url':r['source_url'],'published_at':r['published_at'],
+                 'available_at':r['available_at'],'sha256':r['source_document_sha256']} for r in observations],
+                'supporting_ads':[],'published_observations':observations,
+                'limitations':copy.deepcopy(self.published_roles['limitations'])}
         field = {'role': 'role_ids', 'skill': 'skill_ids'}.get(entity_type)
         return {'snapshot_sha256': self.version, 'collected_at': self.snapshot['collected_at'],
                 'coverage': copy.deepcopy(self.snapshot['collection']),
@@ -147,3 +192,8 @@ class MarketEvidenceService:
         """Source-native broad measurements, never allocated to canonical roles."""
         return [copy.deepcopy(r) for r in self.snapshot['dosm_observations']
                 if timestamp(r['available_at'] + 'T00:00:00+00:00') <= timestamp(as_of)]
+
+    def published_role_observations(self, *, as_of):
+        """Explicit source-label facts, separate from canonical employer counts."""
+        return [copy.deepcopy(r) for r in self.published_roles['observations']
+                if timestamp(r['available_at']) <= timestamp(as_of)]

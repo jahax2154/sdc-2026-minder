@@ -29,6 +29,7 @@
   ],
   "models": [],
   "promotion_rule_version": "quarter-count-promotion-v1",
+  "published_role_snapshot_sha256": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
   "selection_status": "unavailable_data",
   "synthetic": false,
   "version": "market-serving-registry-v1"

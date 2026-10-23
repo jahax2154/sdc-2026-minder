@@ -1,0 +1,204 @@
+{
+  "employer_current": {
+    "available_at": "2026-10-23T06:13:31.947075+00:00",
+    "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+    "denominator": "155 inspected advertisements; not all Malaysian jobs",
+    "entity_id": "onet:15-1252.00",
+    "entity_type": "role",
+    "explanation": "5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.",
+    "geography": "MY",
+    "horizon": "observed",
+    "ingested_at": "2026-10-23T06:13:31.947075+00:00",
+    "internal_index": null,
+    "issued_at": "2026-10-23T06:24:30.025316+00:00",
+    "kind": "current",
+    "measurement": "unique_valid_inspected_advertisements",
+    "missing_reasons": [],
+    "model_version": "observed-ad-count-v2",
+    "observation_period": {
+      "end": "2026-10-23",
+      "start": "2026-10-23"
+    },
+    "published_at": "2026-10-23T06:13:31.947075+00:00",
+    "source_ids": [
+      "bosch-smartrecruiters-my"
+    ],
+    "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+    "status": "available",
+    "target_period": null,
+    "uncertainty": {
+      "lower": null,
+      "method": null,
+      "upper": null
+    },
+    "unit": "advertisements",
+    "value": 5
+  },
+  "issued_at": "2026-10-23T06:24:30.025316+00:00",
+  "latest_official_records": 35,
+  "official_source_label_current": {
+    "available_at": "2026-10-23T06:24:22.876178+00:00",
+    "cohort_version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+    "denominator": "DOSM-covered online recruitment platforms; not all Malaysian employment or vacancies",
+    "entity_id": "dosm:jmi:published-role-label:software-developers",
+    "entity_type": "role",
+    "explanation": "DOSM reported 19,899 online job offerings for its Software Developers category during 2026-04-01 to 2026-06-30, published on 2026-08-18. This source quantity is separate from the inspected employer-ad sample. Unique-ad deduplication, positions per advertisement and a canonical occupation crosswalk are unverified; this is not all Malaysian employment.",
+    "geography": "MY",
+    "horizon": "observed",
+    "ingested_at": "2026-10-23T06:24:22.876178+00:00",
+    "internal_index": null,
+    "issued_at": "2026-10-23T06:24:30.025316+00:00",
+    "kind": "current",
+    "measurement": "published_online_job_offerings_for_source_role_label",
+    "missing_reasons": [],
+    "model_version": "dosm-explicit-published-role-count-v1",
+    "observation_period": {
+      "end": "2026-06-30",
+      "start": "2026-04-01"
+    },
+    "published_at": "2026-08-18T23:59:59+08:00",
+    "source_ids": [
+      "dosm-release-2026-q2"
+    ],
+    "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+    "status": "available",
+    "target_period": null,
+    "uncertainty": {
+      "lower": null,
+      "method": null,
+      "upper": null
+    },
+    "unit": "published job offerings",
+    "value": 19899
+  },
+  "official_source_label_forecast": {
+    "available_at": null,
+    "cohort_version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+    "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+    "entity_id": "dosm:jmi:published-role-label:software-developers",
+    "entity_type": "role",
+    "explanation": "Next-quarter forecast unavailable: the acquired published role-label offerings do not establish the approved unique-ad target, complete comparable history or archived availability.",
+    "geography": "MY",
+    "horizon": "next_full_calendar_quarter",
+    "ingested_at": null,
+    "internal_index": null,
+    "issued_at": "2026-10-23T06:24:30.025316+00:00",
+    "kind": "forecast",
+    "measurement": "unique_valid_inspected_advertisements",
+    "missing_reasons": [
+      "published_offerings_not_verified_unique_advertisements",
+      "top_list_censoring_is_missing_not_zero",
+      "insufficient_comparable_publication_aware_history"
+    ],
+    "model_version": null,
+    "observation_period": {
+      "end": "2026-10-23",
+      "start": "2026-10-23"
+    },
+    "published_at": null,
+    "source_ids": [],
+    "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+    "status": "unavailable",
+    "target_period": {
+      "end": "2027-03-31",
+      "start": "2027-01-01"
+    },
+    "uncertainty": {
+      "lower": null,
+      "method": null,
+      "upper": null
+    },
+    "unit": "advertisements",
+    "value": null
+  },
+  "official_sources": {
+    "limitations": [
+      "Role-label offering counts are separately reported; they are not allocated from broad-industry totals.",
+      "Only explicit numbers are extracted. Absence from a top list is unobserved, not zero.",
+      "No skill-request counts occur in these extracted role-label records.",
+      "Neither unique-ad deduplication nor positions-per-advertisement equivalence verified from these releases.",
+      "Published dates are retained; original historical byte vintages were not independently archived.",
+      "No automatic MASCO/O*NET crosswalk or forecast promotion applied."
+    ],
+    "published_observations": [
+      {
+        "availability_basis": "retrieved_release_bytes; original historical byte vintage not independently archived",
+        "available_at": "2026-10-23T06:12:45.108267+00:00",
+        "classification": {
+          "canonical_role_mapping": "not_applied",
+          "edition": "not_verified_for_each_release",
+          "native_code": null,
+          "system": "DOSM JMI published occupation labels"
+        },
+        "dedup_verified": false,
+        "eligible_for_approved_unique_ad_forecasting": false,
+        "entity_id": "dosm:jmi:published-role-label:software-developers",
+        "entity_type": "role",
+        "geography": "MY",
+        "label": "Software Developers",
+        "measurement": "published_online_job_offerings_for_source_role_label",
+        "period": {
+          "end": "2026-03-31",
+          "start": "2026-01-01"
+        },
+        "positions_per_advertisement_verified": false,
+        "publication_precision": "date_only_conservative_end_of_day",
+        "published_at": "2026-06-25T23:59:59+08:00",
+        "source_document_sha256": "ffac7821dc58c20130d4861408005a02b4489cae506b01433241a0af7dd0ff46",
+        "source_id": "dosm-jmi-2026q1-page",
+        "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+        "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+        "unit": "published job offerings",
+        "value": 20089
+      },
+      {
+        "availability_basis": "retrieved_release_bytes; original historical byte vintage not independently archived",
+        "available_at": "2026-10-23T06:24:22.876178+00:00",
+        "classification": {
+          "canonical_role_mapping": "not_applied",
+          "edition": "not_verified_for_each_release",
+          "native_code": null,
+          "system": "DOSM JMI published occupation labels"
+        },
+        "dedup_verified": false,
+        "eligible_for_approved_unique_ad_forecasting": false,
+        "entity_id": "dosm:jmi:published-role-label:software-developers",
+        "entity_type": "role",
+        "geography": "MY",
+        "label": "Software Developers",
+        "measurement": "published_online_job_offerings_for_source_role_label",
+        "period": {
+          "end": "2026-06-30",
+          "start": "2026-04-01"
+        },
+        "positions_per_advertisement_verified": false,
+        "publication_precision": "date_only_conservative_end_of_day",
+        "published_at": "2026-08-18T23:59:59+08:00",
+        "source_document_sha256": "a82b04f6357e10d9520dee5e0a912213c1cec1844ee84d8c5092908eb60868db",
+        "source_id": "dosm-release-2026-q2",
+        "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+        "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+        "unit": "published job offerings",
+        "value": 19899
+      }
+    ],
+    "snapshot_sha256": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+    "sources": [
+      {
+        "available_at": "2026-10-23T06:12:45.108267+00:00",
+        "published_at": "2026-06-25T23:59:59+08:00",
+        "sha256": "ffac7821dc58c20130d4861408005a02b4489cae506b01433241a0af7dd0ff46",
+        "source_id": "dosm-jmi-2026q1-page",
+        "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026"
+      },
+      {
+        "available_at": "2026-10-23T06:24:22.876178+00:00",
+        "published_at": "2026-08-18T23:59:59+08:00",
+        "sha256": "a82b04f6357e10d9520dee5e0a912213c1cec1844ee84d8c5092908eb60868db",
+        "source_id": "dosm-release-2026-q2",
+        "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026"
+      }
+    ],
+    "supporting_ads": []
+  }
+}
