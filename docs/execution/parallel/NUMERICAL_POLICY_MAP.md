@@ -1,5 +1,35 @@
 # G0 numerical mapping and migration boundary
 
+## Current implementation supersession — N01-R1, 23 October 2026
+
+The current user delegates provisional numerical implementation within seven
+confirmed requirements. This supersedes the wait on the original proposal for
+those choices. **It does not approve the original N01 proposal historically.**
+The G0 text/proposal below is preserved as that earlier boundary.
+
+Current executable policy: `personal-role-fit-v3-provisional`, configuration
+`ml/configs/intelligence/personal-role-fit.v3.json` (active/delegated provisional),
+reference `role-reference-v3.2`. Full definitions, effects and missingness:
+[A policy](A/RECOMMENDATION_POLICY_V3.md). Original v2 config stays pending/inactive.
+
+- Minimum three explicit source-anchored native skill observations and 30% of
+  usable role criteria; missing competence stays unknown and requests focused input.
+- `F=clip(80*C + industry_path_points + role_points + work_style_points,0,100)`.
+  Skill evidence, background, role/industry interests and work style retain
+  separate traces. Optional absence has no adjustment; no per-role ratings needed.
+- Explicit 85% personal / 15% normalized current-MY combination **only within
+  comparable observed employer-feed cohorts**, independently of unavailable
+  forecasts. Unmapped market roles retain a separately ranked personal-only group;
+  no fabricated global rank or full-completion label across coverage groups.
+- Baseline serves. Ridge/XGBoost ran compatible provisional policy-distillation
+  controls in N2.1; teacher agreement is not independent personal-fit validity.
+  Legacy F0=67, labels/models, source counts and next-quarter targets stay separate.
+
+Evidence: N1.2 `5f8fb31`, N1.3 `664b826`, N1.1-R01 `8011c34`, N2.1 `a583509`.
+
+## Preserved G0 boundary and original proposal
+
+
 Canonical product update: `docs/MINDER_AI_ML_DECISION_CONTEXT.md`, revision 5. Technical historical authority: `ml/docs/MINDER_POLICY_REVIEW_v1.md`, exact projection `ml/configs/intelligence/policy.v1.json`. This index supersedes conflicting product meaning without editing old policies or claims of historical approval. G0 freezes interfaces; N01 below remains pending. No new scorer is activated.
 
 | Existing definition | Unit / missingness / source | Treatment |
