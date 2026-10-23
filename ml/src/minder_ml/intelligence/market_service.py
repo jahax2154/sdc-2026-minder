@@ -66,7 +66,8 @@ class MarketEvidenceService:
         result = self._empty(entity_type, entity_id, as_of, 'current')
         source_id = self._source_id(entity_type, entity_id)
         collected = self.snapshot['collected_at']
-        if timestamp(collected) > timestamp(as_of):
+        available = self.snapshot.get('available_at',collected)
+        if timestamp(available) > timestamp(as_of):
             reason = 'snapshot_not_available_at_requested_time'
         elif not self.snapshot['ads']:
             reason = 'no_valid_ads_collected_not_observed_zero'
@@ -81,18 +82,26 @@ class MarketEvidenceService:
             else:
                 field = 'role_ids' if entity_type == 'role' else 'skill_ids'
                 ads = [a for a in self.snapshot['ads'] if source_id in a[field]]
+                denominator = len(self.snapshot['ads']) if entity_type == 'role' else sum(
+                    a.get('qualifications_status','observed') == 'observed' for a in self.snapshot['ads'])
+                if not denominator:
+                    result['missing_reasons']=['no_observed_qualification_sections_not_zero_skill_requests']
+                    result['explanation']='Skill advertisement evidence unavailable: no qualification sections were observed.'
+                    return validate('MarketResult',result)
                 # The collector release is our derived measurement publication.
                 # Individual employer publication dates remain in source_facts().
-                result.update(status='available', value=len(ads), published_at=collected,
-                              available_at=collected, ingested_at=collected,
+                result.update(status='available', value=len(ads), published_at=available,
+                              available_at=available, ingested_at=available,
                               observation_period={'start': collected[:10], 'end': collected[:10]},
                               source_ids=['bosch-smartrecruiters-my'],
-                              model_version='observed-ad-count-v1', missing_reasons=[],
+                              model_version='observed-ad-count-v2', missing_reasons=[],
+                              denominator=f'{denominator} inspected '+('advertisements with observed qualification sections' if entity_type=='skill' else 'advertisements')+'; not all Malaysian jobs',
                               explanation=(f'{len(ads)} unique inspected advertisements '
                                   f'{"mapped to this occupation" if entity_type == "role" else "requesting this technology"} '
-                                  f'in a {len(self.snapshot["ads"])}-ad Bosch Malaysia sample observed '
+                                  f'in a {denominator}-ad Bosch Malaysia inspected population observed '
                                   f'on {collected[:10]}. This is an active-ad snapshot, not a quarter inflow '
-                                  'or a national employment count. Dictionary/title coverage is partial.'))
+                                  'or a national employment count. Dictionary/title coverage is partial; '
+                                  'old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.'))
                 return validate('MarketResult', result)
         result['missing_reasons'] = [reason]
         result['explanation'] = 'Current market evidence unavailable: ' + reason.replace('_', ' ') + '.'
@@ -108,9 +117,10 @@ class MarketEvidenceService:
                 result.update(selected)
                 return validate('MarketResult', result)
         collected = self.snapshot['collected_at']
-        if timestamp(collected) <= timestamp(issued_at):
+        available=self.snapshot.get('available_at',collected)
+        if timestamp(available) <= timestamp(issued_at):
             result.update(observation_period={'start': collected[:10], 'end': collected[:10]},
-                          available_at=collected, ingested_at=collected,
+                          available_at=available, ingested_at=available,
                           source_ids=['bosch-smartrecruiters-my'])
         result['missing_reasons'] = [
             'no_comparable_quarterly_unique_ad_history_for_' + entity_type,

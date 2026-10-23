@@ -1,0 +1,805 @@
+{
+  "role": {
+    "current": {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "denominator": "155 inspected advertisements; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-23T06:13:31.947075+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-23T06:13:31.947075+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v2",
+      "observation_period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "published_at": "2026-10-23T06:13:31.947075+00:00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+      "status": "available",
+      "target_period": null,
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": 5
+    },
+    "forecast": {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical role advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-23T06:13:31.947075+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-23T06:13:31.947075+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [
+        "no_comparable_quarterly_unique_ad_history_for_role",
+        "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
+        "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
+      ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "published_at": null,
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
+    },
+    "source_facts": {
+      "collected_at": "2026-10-23T06:08:42.362418+00:00",
+      "coverage": {
+        "accepted_ads": 155,
+        "complete_detail_collection": true,
+        "complete_feed": true,
+        "complete_listing": true,
+        "detail_cap": 160,
+        "detail_responses": 155,
+        "limit_explanation": "40 was a collector-selected initial request cap, not an API/access limit; expansion cap is explicit.",
+        "listing_ids": 155,
+        "listing_rows": 155,
+        "new_detail_requests": 115,
+        "qualification_missing_ads": 1,
+        "qualification_observed_ads": 154,
+        "rejections": [],
+        "release_date_range": {
+          "max": "2026-10-22T07:38:23.655Z",
+          "min": "2020-02-10T07:45:24.000Z"
+        },
+        "release_year_counts": {
+          "2020": 1,
+          "2021": 6,
+          "2022": 4,
+          "2023": 8,
+          "2024": 8,
+          "2025": 5,
+          "2026": 123
+        },
+        "reported_feed_total": 155,
+        "request_failures": [],
+        "reused_verified_details": 40,
+        "same_template_distinct_requisitions": 5,
+        "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+      },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established.",
+        "155 listed source-native requisitions were inspected; current feed membership was rechecked. Old release dates are not newly observed posting flows.",
+        "Same text across distinct native requisitions is flagged, not proof of a repost; only repeated native requisition identity is deduplicated.",
+        "Missing qualification sections remain unknown and are excluded from skill-count denominator, not dropped from role evidence."
+      ],
+      "snapshot_sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "sources": [
+        {
+          "source_id": "bosch-smartrecruiters-my",
+          "url": "https://www.bosch.com.my/careers/"
+        }
+      ],
+      "supporting_ads": [
+        {
+          "ad_id": "744000154949620",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "e71123c095e593d09f5f05e141243e181e331ab65c8aa1c960b270542fbac768",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-10-12T08:33:42.848Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF298250J",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [
+            "source-term:cpp",
+            "source-term:java",
+            "source-term:python"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Senior / Staff Embedded Software Engineer - Hardware Solution Product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000154949620-senior-staff-embedded-software-engineer-hardware-solution-product",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000154953713",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "e71123c095e593d09f5f05e141243e181e331ab65c8aa1c960b270542fbac768",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-10-12T08:32:48.686Z",
+          "qualifications_status": "observed",
+          "quality_flags": [
+            "same_template_distinct_native_requisition"
+          ],
+          "requisition_id": "REF298248O",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [
+            "source-term:cpp",
+            "source-term:java",
+            "source-term:python"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": "REF298250J",
+          "title": "Senior / Staff Embedded Software Engineer - Hardware Solution Product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000154953713-senior-staff-embedded-software-engineer-hardware-solution-product",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000127346459",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "8bf47b1c8a23e98554029cd5eb0fe7083e958a3289e53d1b6512f43aab7ece1a",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-05-20T02:33:19.906Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF286657E",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [
+            "source-term:cpp",
+            "source-term:java",
+            "source-term:python"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Senior Embedded Software Engineer - Hardware Solution Product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000127346459-senior-embedded-software-engineer-hardware-solution-product-",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000025430664",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "996523d10e2ce9f89d3e75eb7d9af99f0083124deea2b722d84b8a3644344425",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2024-11-08T09:32:05.541Z",
+          "qualifications_status": "observed",
+          "quality_flags": [
+            "release_date_older_than_one_year"
+          ],
+          "requisition_id": "REF244118Z",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [],
+          "skill_mentions": [
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Embedded Software Engineer - Hardware solution product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000025430664-embedded-software-engineer-hardware-solution-product",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000009799617",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "996523d10e2ce9f89d3e75eb7d9af99f0083124deea2b722d84b8a3644344425",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2024-08-28T08:29:34.572Z",
+          "qualifications_status": "observed",
+          "quality_flags": [
+            "same_template_distinct_native_requisition",
+            "release_date_older_than_one_year"
+          ],
+          "requisition_id": "REF238772E",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [],
+          "skill_mentions": [
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": "REF244118Z",
+          "title": "Embedded Software Engineer - Hardware solution product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000009799617-embedded-software-engineer-hardware-solution-product",
+          "validity": "listed_in_employer_feed_at_collection"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "current": {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "denominator": "154 inspected advertisements with observed qualification sections; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "11 unique inspected advertisements requesting this technology in a 154-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-23T06:13:31.947075+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-23T06:13:31.947075+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v2",
+      "observation_period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "published_at": "2026-10-23T06:13:31.947075+00:00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+      "status": "available",
+      "target_period": null,
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": 11
+    },
+    "forecast": {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical skill advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-23T06:13:31.947075+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-23T06:13:31.947075+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [
+        "no_comparable_quarterly_unique_ad_history_for_skill",
+        "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
+        "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
+      ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "published_at": null,
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
+    },
+    "source_facts": {
+      "collected_at": "2026-10-23T06:08:42.362418+00:00",
+      "coverage": {
+        "accepted_ads": 155,
+        "complete_detail_collection": true,
+        "complete_feed": true,
+        "complete_listing": true,
+        "detail_cap": 160,
+        "detail_responses": 155,
+        "limit_explanation": "40 was a collector-selected initial request cap, not an API/access limit; expansion cap is explicit.",
+        "listing_ids": 155,
+        "listing_rows": 155,
+        "new_detail_requests": 115,
+        "qualification_missing_ads": 1,
+        "qualification_observed_ads": 154,
+        "rejections": [],
+        "release_date_range": {
+          "max": "2026-10-22T07:38:23.655Z",
+          "min": "2020-02-10T07:45:24.000Z"
+        },
+        "release_year_counts": {
+          "2020": 1,
+          "2021": 6,
+          "2022": 4,
+          "2023": 8,
+          "2024": 8,
+          "2025": 5,
+          "2026": 123
+        },
+        "reported_feed_total": 155,
+        "request_failures": [],
+        "reused_verified_details": 40,
+        "same_template_distinct_requisitions": 5,
+        "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+      },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established.",
+        "155 listed source-native requisitions were inspected; current feed membership was rechecked. Old release dates are not newly observed posting flows.",
+        "Same text across distinct native requisitions is flagged, not proof of a repost; only repeated native requisition identity is deduplicated.",
+        "Missing qualification sections remain unknown and are excluded from skill-count denominator, not dropped from role evidence."
+      ],
+      "snapshot_sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+      "sources": [
+        {
+          "source_id": "bosch-smartrecruiters-my",
+          "url": "https://www.bosch.com.my/careers/"
+        }
+      ],
+      "supporting_ads": [
+        {
+          "ad_id": "744000156772019",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "74d6f67fcf8acd2448d4702952ba371ea0e7d5eb9ed53f23aa40cdfeffa4bf16",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-10-21T10:59:01.609Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF295430V",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Senior Data Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000156772019-senior-data-engineer",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000153438592",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "ddbac66d4f059453fe295393a3986d77912b57e73f69e5f12355d696a425ef42",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-10-05T08:58:04.495Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF278102F",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "IT Solution Developer (Semiconductor)",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000153438592-it-solution-developer-semiconductor-",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000153092139",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "f0bd6c3c71cb1ac66c3a6fd882d86f367646c740419fb0bf1a9e87f38750b6f3",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-10-02T04:25:27.156Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF297601G",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "MES Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000153092139-mes-engineer",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000152596879",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "abee42d9686b997d18d8751d4770d6cdb40c81de489b1bb3722e0d66761c0432",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-09-30T06:14:28.126Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF297386Y",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "MES/IAS Lead Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000152596879-mes-ias-lead-engineer",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000150296530",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "975b777c325417efec3ee6132b5c7f96888378294c6769722dfb93ee91d116f2",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-09-18T07:43:05.619Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF282728Q",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:python",
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "SMT Digitalization & Automation Project Lead",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000150296530-smt-digitalization-automation-project-lead",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000148364924",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "04961d716066c00717213f9ee94c4acc088e268014c02ec839674bbd7f292a5c",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-09-09T00:35:41.243Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF292071I",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "preferred",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Internship in IT Solution Developer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000148364924-internship-in-it-solution-developer",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000131800129",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "2f22bfb301c711b86a21d6d300ed15f0f79f3b91755080959ca0dc2e12951eea",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-06-12T01:40:12.678Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF287596Y",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:excel",
+            "source-term:python",
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:excel"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "IT Business Partner - Controlling (Global IT Cost & Portfolio Management)",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000131800129-it-business-partner-controlling-global-it-cost-portfolio-management-",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000131638937",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "65637c85e69148c5d818de85bf16da25b782eef93dc6edb6b5f6396d215496ac",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-06-11T10:31:38.758Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF287594I",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:excel",
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:excel"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Senior Data Specialist",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000131638937-senior-data-specialist",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000103170935",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "BAYAN LEPAS",
+          "content_sha256": "ce7a486b6bd981555a4154cb37450fa08e084fa31f89e1139894ce3a8bf99f69",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2026-01-13T00:48:16.396Z",
+          "qualifications_status": "observed",
+          "quality_flags": [],
+          "requisition_id": "REF249398U",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Internship in Equipment Engineering Department - Software Development",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000103170935-internship-in-equipment-engineering-department-software-development",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "743999863202281",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "e7c242717a4c7d8b2e53fbfa830b27fe927b58170e6bcf16ceb4e342790bbd8b",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2022-11-07T03:46:49.030Z",
+          "qualifications_status": "observed",
+          "quality_flags": [
+            "release_date_older_than_one_year"
+          ],
+          "requisition_id": "REF174647H",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:cpp",
+            "source-term:python",
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Internship for Computer/IT/Software/Data Science",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/743999863202281-internship-for-computer-it-software-data-science",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "743999856502961",
+          "available_at": "2026-10-23T06:08:42.362418+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "60165ba997f998938870ff2a2c5eb7ce398a8573e7426dc830404af8f2f1d2d8",
+          "country": "MY",
+          "ingested_at": "2026-10-23T06:08:42.362418+00:00",
+          "published_at": "2022-10-11T00:18:42.114Z",
+          "qualifications_status": "observed",
+          "quality_flags": [
+            "release_date_older_than_one_year"
+          ],
+          "requisition_id": "REF171268N",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "template_peer_requisition": null,
+          "title": "Internship in Software Application Development",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/743999856502961-internship-in-software-application-development",
+          "validity": "listed_in_employer_feed_at_collection"
+        }
+      ]
+    }
+  }
+}
