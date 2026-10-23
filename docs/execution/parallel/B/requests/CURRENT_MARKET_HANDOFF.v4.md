@@ -1,5 +1,7 @@
 # B1.1-R04 — early MyCOL/DOSM coverage expansion
 
+Subsequent scope refinement: [CURRENT_MARKET_HANDOFF.v5.md](CURRENT_MARKET_HANDOFF.v5.md) adds verified positive six-digit membership for four source groups. This early checkpoint's prior unknown-scope examples remain historical evidence.
+
 Integrate the commit containing this handoff. All code/data/reports are B-owned. No root dependency, shared JSON schema, A/C source, score formula or forecast change is included. The additive B context envelope is documented by examples; A coordinates any formal shared-schema/consumer integration.
 
 **New usable native context:** 66 distinct MASCO 2020 four-digit national shortage groups from MyCOL 2024/2025; 21 distinct latest DOSM sector labels; 9 latest major occupation groups. These are different grains and are not summed into one occupation total. The MyCOL landing declares 18 study sectors; this is not an invented 18-sector mapping for every listed occupation. Identified current employers remain **1**, the existing Bosch source: no respondent names or unique employer population is inferred from institutional aggregates.

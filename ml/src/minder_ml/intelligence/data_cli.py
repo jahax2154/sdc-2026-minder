@@ -68,6 +68,7 @@ def main(argv=None):
     current.add_argument('--ocr',type=Path,required=True)
     current.add_argument('--acquisition-report',type=Path,required=True)
     current.add_argument('--output',type=Path,required=True)
+    current.add_argument('--scope-ocr',type=Path)
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--pack", type=Path, default=PACK)
     prepare = sub.add_parser("prepare")
@@ -95,7 +96,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'market-current-evidence':
-            output=build_public_current_evidence(args.ocr,args.acquisition_report,args.output)
+            output=build_public_current_evidence(args.ocr,args.acquisition_report,args.output,args.scope_ocr)
         elif args.command == 'market-published-roles':
             output=extract_published_role_history(args.report,args.output)
         elif args.command == 'market-corpus-audit':

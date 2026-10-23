@@ -570,13 +570,38 @@ def parse_mycol_national_table(ocr_pages):
     return sorted(result,key=lambda r:r['code'])
 
 
-def build_public_current_evidence(ocr_path, acquisition_report, output):
+def parse_mycol_six_digit_scope(ocr_pages):
+    """Only explicitly enumerated profile codes, not a title-based child join."""
+    result={}
+    for page in ocr_pages:
+        lines=sorted([r for r in page['lines'] if r['x']>.5 and r['y']>.69],key=lambda r:-r['y'])
+        combined=' '.join(r['text'] for r in lines)
+        parent=re.search(r'MASCO\s*\(4-DIGIT CODE\):\s*(\d{4})',combined,re.I)
+        marker=next((r for r in lines if re.search(r'MASCO\s*\(6-DIGIT CODE\)',r['text'],re.I)),None)
+        boundary=next((r for r in lines if 'Only the following job titles' in r['text']),None)
+        if not parent or not marker or not boundary:
+            raise ValueError('explicit_profile_parent_child_scope_and_title_limit_required')
+        text=' '.join(r['text'] for r in lines if boundary['y']<r['y']<=marker['y']+.002)
+        text=re.sub(r'(\d{4})-\s+(\d{2})',r'\1-\2',text)
+        codes=sorted(set(re.findall(r'\b\d{4}-\d{2}\b',text)))
+        if not codes or any(not c.startswith(parent.group(1)+'-') for c in codes):
+            raise ValueError('profile_child_code_prefix_mismatch')
+        if parent.group(1) in result:raise ValueError('duplicate_profile_scope')
+        result[parent.group(1)]={'codes':codes,'pdf_page':page['pdf_page'],
+            'scope':'Only nominated job titles and explicitly enumerated six-digit codes; no unlisted-child inference',
+            'completeness':'positive enumerated codes only; non-matching queries remain unknown'}
+    return result
+
+
+def build_public_current_evidence(ocr_path, acquisition_report, output, scope_ocr_path=None):
     """Code-preserving current context: shortages != offering counts != ads."""
     report=json.loads(Path(acquisition_report).read_text())
     source=next(r for r in report['source_results'] if r['source_id']=='talentcorp-mycol-2024-2025')
     if source.get('status')!='inspected_actual_response' or sha(Path(source['raw_file']))!=source['access']['sha256']:
         raise ValueError('MyCOL_acquired_publication_hash_required')
     groups=parse_mycol_national_table(json.loads(Path(ocr_path).read_text()))
+    scopes=parse_mycol_six_digit_scope(json.loads(Path(scope_ocr_path).read_text())) if scope_ocr_path else {}
+    if not set(scopes)<={g['code'] for g in groups}:raise ValueError('scope_parent_not_in_national_list')
     available=utc_now();records=[]
     for group in groups:
         records.append({'record_version':'current-public-market-evidence-v1',
@@ -652,6 +677,20 @@ def build_public_current_evidence(ocr_path, acquisition_report, output):
             'source_observed_six_digit_occupations':3041,'source_observed_four_digit_groups':428,
             'records_distributed_to_application':0,'permission_status':'not_granted_or_assumed'}}
     if len(records)!=96:raise ValueError('expected_66_shortage_21_sector_9_major_records')
+    for record in records:
+        code=record.get('occupation',{}).get('code')
+        if code in scopes:
+            record['coverage']['explicit_six_digit_codes']=scopes[code]['codes']
+            record['coverage']['six_digit_scope_limit']=scopes[code]['scope']
+            record['coverage']['six_digit_completeness']=scopes[code]['completeness']
+            record['source']['six_digit_scope_pdf_page']=scopes[code]['pdf_page']
+    result['coverage']['mycol_profile_groups_with_verified_six_digit_scope']=len(scopes)
+    result['coverage']['mycol_explicit_six_digit_memberships']=sum(len(s['codes']) for s in scopes.values())
+    result['extraction']={'source_pdf_sha256':source['access']['sha256'],'ocr_sha256':sha(Path(ocr_path)),
+        'scope_ocr_sha256':sha(Path(scope_ocr_path)) if scope_ocr_path else None,
+        'table_parser':'strict Table7 spread geometry and 66 unique explicit codes',
+        'scope_parser':'explicit MASCO parent/six-digit enumeration and nominated-title scope boundary',
+        'tool':'Apple Vision local OCR; source extraction, not human-label approval'}
     Path(output).write_text(encoded(result))
     return {'output':str(output),'coverage':result['coverage'],'evidence_records':len(records)}
 

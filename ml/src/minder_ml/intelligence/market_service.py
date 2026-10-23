@@ -226,8 +226,17 @@ class MarketEvidenceService:
                 occupation=r.get('occupation',{})
                 match=(occupation_code is not None and occupation.get('system')==occupation_system
                        and occupation.get('version')==occupation_version and occupation.get('code')==occupation_code)
-                if (match or (evidence_ids and r['evidence_id'] in evidence_ids)) and timestamp(r['available_at'])<=timestamp(as_of):
-                    records.append(copy.deepcopy(r))
+                explicit_child=(occupation_code is not None and occupation.get('system')==occupation_system
+                        and occupation.get('version')==occupation_version
+                        and occupation_code in r.get('coverage',{}).get('explicit_six_digit_codes',[]))
+                if (match or explicit_child or (evidence_ids and r['evidence_id'] in evidence_ids)) and timestamp(r['available_at'])<=timestamp(as_of):
+                    selected=copy.deepcopy(r)
+                    if explicit_child:
+                        selected['query_scope']={'occupation_code':occupation_code,
+                            'relationship':'explicitly_enumerated_six_digit_member',
+                            'title_limit':'Publication nominated-job-title restriction retained; individual code-to-title pairing not invented',
+                            'source_pdf_page':r['source']['six_digit_scope_pdf_page']}
+                    records.append(selected)
         reason=None if records else ('six_digit_membership_not_verified' if occupation_code and '-' in occupation_code
                                     else 'no_matching_available_source_fact; non_listing_is_unknown_not_low_demand')
         return {'version':'current-public-market-evidence-v1','status':'available' if records else 'unknown',

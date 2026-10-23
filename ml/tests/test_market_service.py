@@ -10,7 +10,7 @@ import csv
 
 from minder_ml.intelligence.data_pipeline import (normalize_postings, parse_dosm, MARKET_DATA,
     inspect_csv_bytes, inspect_source_file, audit_jobstreet_corpus, parse_published_role_counts, sha)
-from minder_ml.intelligence.data_pipeline import parse_mycol_national_table, clean_aggregate_label
+from minder_ml.intelligence.data_pipeline import parse_mycol_national_table, parse_mycol_six_digit_scope, clean_aggregate_label
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.news import normalize_events, attention
 from minder_ml.intelligence.service_contracts import validate
@@ -211,7 +211,7 @@ class CurrentContextTests(unittest.TestCase):
         self.assertFalse(result['numeric_comparison_eligible'])
 
     def test_nonlisting_six_digit_and_early_asof_remain_unknown(self):
-        for code in ('9999','2512-01'):
+        for code in ('9999','2512-99'):
             result=self.service.current_context(as_of=self.as_of,occupation_system='MASCO',occupation_version='2020',occupation_code=code)
             self.assertEqual(result['status'],'unknown')
             self.assertEqual(result['records'],[])
@@ -249,6 +249,27 @@ class CurrentContextTests(unittest.TestCase):
             self.service.current_context(as_of=self.as_of)
         with self.assertRaisesRegex(ValueError,'not_inferred'):
             self.service.current_context(as_of=self.as_of,occupation_system='ONET',occupation_version='2019',occupation_code='15-1252.00')
+
+    def test_verified_child_requires_explicit_published_code(self):
+        for code,page in [('2512-01',125),('2141-03',79),('2411-25',113),('2524-01',137)]:
+            result=self.service.current_context(as_of=self.as_of,occupation_system='MASCO',occupation_version='2020',occupation_code=code)
+            self.assertEqual(result['status'],'available')
+            record=result['records'][0]
+            self.assertEqual(record['occupation']['level'],4)
+            self.assertEqual(record['query_scope']['occupation_code'],code)
+            self.assertEqual(record['query_scope']['source_pdf_page'],page)
+            self.assertFalse(record['coverage']['applies_to_all_six_digit_children'])
+            self.assertEqual(record['canonical_role_mappings'],[])
+
+    def test_scope_parser_handles_source_line_wrap_without_title_inference(self):
+        def line(text,y):return {'text':text,'x':.54,'y':y}
+        rows=[line('MASCO (4-DIGIT CODE): 2141',.87),line('MASCO (6-DIGIT CODE): 2141-',.84),
+              line('03, 2141-04',.82),line('Only the following job titles within this occupation are included in the MyCOL:',.79)]
+        result=parse_mycol_six_digit_scope([{'pdf_page':79,'lines':rows}])
+        self.assertEqual(result['2141']['codes'],['2141-03','2141-04'])
+        rows[2]=line('03, 9999-01',.82)
+        with self.assertRaisesRegex(ValueError,'prefix_mismatch'):
+            parse_mycol_six_digit_scope([{'pdf_page':79,'lines':rows}])
 
     def test_missing_ocr_codes_and_incidental_contacts_are_rejected(self):
         with self.assertRaisesRegex(ValueError,'66_unique'):
