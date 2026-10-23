@@ -87,6 +87,9 @@ class Application:
             return preview(self.services, self.store.get(owner, "profile", owner), body["role_id"])
         if path == "/api/plan-designs" and method == "GET":
             return {"designs": self.store.list(owner, "plan_design")}
+        if path == "/api/learning-resources" and method in ("GET", "POST"):
+            from .resources import learning_options
+            return learning_options(body.get("topic_ids"))
         if path == "/api/company-explorer" and method == "POST":
             from .companies import CompanyExplorer
             profile = self.store.get(owner, "profile", owner)

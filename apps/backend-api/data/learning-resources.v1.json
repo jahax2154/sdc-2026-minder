@@ -1,0 +1,52 @@
+{
+  "version": "official-learning-options-v1",
+  "synthetic": false,
+  "resources": [
+    {
+      "resource_id": "python-tutorial",
+      "title": "The Python Tutorial",
+      "publisher": "Python Software Foundation",
+      "topic_ids": [
+        "source-term:python"
+      ],
+      "description": "A language tutorial for readers who already know basic programming.",
+      "prerequisites": "Basic programming knowledge; this is not a first introduction to programming.",
+      "estimated_hours": null,
+      "total_cost": null,
+      "access_status": "public_content_retrieved; enrolment_or_future_access_not_guaranteed",
+      "role_requirement_mapping": "unassigned; user-selected learning option, not an employer requirement",
+      "source": {
+        "source_id": "learning:python-tutorial",
+        "version": "2026-10-23T06:12:17.346259+00:00",
+        "sha256": "f73e67a8a61e1f225788cc04bcb1ff01754a8f2456eccfae12bde69baa3b907d",
+        "uri": "https://docs.python.org/3/tutorial/",
+        "geography": "global",
+        "available_at": "2026-10-23T06:12:17.346259+00:00",
+        "evidence_type": "source-derived"
+      }
+    },
+    {
+      "resource_id": "microsoft-tsql",
+      "title": "Query and modify data with Transact-SQL",
+      "publisher": "Microsoft Learn",
+      "topic_ids": [
+        "source-term:sql"
+      ],
+      "description": "A learning path covering relational querying and modifying data with T-SQL.",
+      "prerequisites": "Familiarity with tabular data; SQL dialect and database product context matter.",
+      "estimated_hours": null,
+      "total_cost": null,
+      "access_status": "public_content_retrieved; enrolment_or_future_access_not_guaranteed",
+      "role_requirement_mapping": "unassigned; user-selected learning option, not an employer requirement",
+      "source": {
+        "source_id": "learning:microsoft-tsql",
+        "version": "2026-10-23T06:12:17.908748+00:00",
+        "sha256": "d71e200aec159fb5d821387962de32954ed92ecb889b2059b8f5e2893f5b9b60",
+        "uri": "https://learn.microsoft.com/en-us/training/paths/get-started-querying-with-transact-sql/",
+        "geography": "global",
+        "available_at": "2026-10-23T06:12:17.908748+00:00",
+        "evidence_type": "source-derived"
+      }
+    }
+  ]
+}
