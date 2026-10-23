@@ -101,7 +101,7 @@ class GroqAdapter:
         except (KeyError, IndexError, TypeError, ValueError):
             raise ProviderError("provider_invalid_response", rid) from None
 
-    def complete_tool(self, messages, tool, *, max_tokens=512):
+    def complete_tool(self, messages, tool, *, max_tokens=1024):
         """One forced local function request; returns validated args, never executes.
 
         Application-supplied schema is the only tool exposed. No external tools,
