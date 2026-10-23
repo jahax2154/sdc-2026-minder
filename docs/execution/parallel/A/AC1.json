@@ -1,0 +1,95 @@
+{
+  "phase_id": "AC1",
+  "status": "passed",
+  "remote": "https://github.com/jahax2154/sdc-2026-minder.git",
+  "authority": "Current user and closure file06: named snapshots first, tested task-scoped followups only",
+  "branches": [
+    {
+      "branch": "session/a-personal-integration",
+      "captured_sha": "5e24f831141a417d7d7986cbffcb0cda55341d6b",
+      "previous_remote_sha": "a0349bcccf5923c65919727279c3a137dcda519f",
+      "outgoing_commit_count": 29,
+      "remote_verified_sha": "5e24f831141a417d7d7986cbffcb0cda55341d6b",
+      "result": "normal_fast_forward_pushed_verified"
+    },
+    {
+      "branch": "session/b-market",
+      "captured_sha": "020bbcf8511aa89064b7f232723afa01cf99a427",
+      "previous_remote_sha": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+      "outgoing_commit_count": 3,
+      "remote_verified_sha": "020bbcf8511aa89064b7f232723afa01cf99a427",
+      "result": "normal_fast_forward_pushed_verified"
+    },
+    {
+      "branch": "session/c-app-agents",
+      "captured_sha": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+      "previous_remote_sha": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+      "outgoing_commit_count": 1,
+      "remote_verified_sha": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+      "result": "normal_fast_forward_pushed_verified"
+    }
+  ],
+  "new_delta_objects_inspected": 424,
+  "credential_artifact_findings": [],
+  "important_checkpoints": {
+    "A": [
+      "I4.6",
+      "I4.4-R01",
+      "I4.7"
+    ],
+    "B": [
+      "B1.1-R04/R05",
+      "B3.2-R02 final handoff"
+    ],
+    "C": [
+      "C4.1-R04 grounding/privacy"
+    ]
+  },
+  "provided_pack": {
+    "source": "Read-only original checkout task pack; text preserved with trailing blank EOF lines normalized for repository whitespace checks. Original hashes retained.",
+    "files": [
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/01_MINDER_MINDBOT_FRONTEND_CONTEXT.md",
+        "sha256": "abe26c6ea3005290dad4c31c31166389fdde08fd004a930e06ff1e87aa5a0910",
+        "provided_source_sha256": "0473e17b1b1815fb87d3cd0de0b1e8e22ff5190e5f64714416d14788e655e938"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/02_SESSION_A_CLOSE_AND_PUSH.md",
+        "sha256": "6e5950f6197a35b5c1403b9b3faa7b8f197587f95ab8f76caa49817e215591f0",
+        "provided_source_sha256": "52fe558dafadf07a1559831cce51a0f8ffaed76ead8e024559ee16b80a86ec6d"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/03_SESSION_C_EVIDENCE_AND_CONTRACT.md",
+        "sha256": "b5e825f44a4f5bcec70a55f4b7a94b11631802018f7d476c59ae30312beee836",
+        "provided_source_sha256": "874f47f8d0fe61958e5395bc9be68fe8e1f5730245fa8a665424dc01ca67165a"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/04_SESSION_B_SYNTHETIC_EXPERIMENT.md",
+        "sha256": "614cfc01c1608588992f14acf084b90a49b14cad5c7dbfc109b7cebab3cd6b8b",
+        "provided_source_sha256": "61a8d9386ba47c5a1d7d72260f406542956f085aaf8e8bd4d3c23d69542ae48c"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/05_SYNTHETIC_DATA_POLICY.md",
+        "sha256": "66ba6f1b6afd4ccb068126c48c1331c7bf44eacb25841db16422d584ea1e0061",
+        "provided_source_sha256": "b6aac611ec2a2ebff460df64b169eb162935b3faaa8e317da18259b8a10104d7"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/06_CHECKPOINT_PUSH_AND_ACCEPTANCE.md",
+        "sha256": "eba79b57beaef7bf97293c777cf5441cdc1d7aa72bb406805c70bb2f21b31088",
+        "provided_source_sha256": "027b4a6cccfad68a5f7b3c165dbc5d7111fc4371d80b9f6eb71d8bf28f502b3a"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/07_LAUNCH_PROMPTS.md",
+        "sha256": "792d3e9c43367c751e8e0e0bbf4c991e88dfc382f0bdd8a971dd7ad294b5ff97",
+        "provided_source_sha256": "8ad0d184b063aa1741abb1280b502838f3d3abb0128422fcf1897966682d202f"
+      },
+      {
+        "path": "docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1/README.md",
+        "sha256": "945403269e25029a24a0cfd4936cf5de894cd53f317c95009300380682718b79",
+        "provided_source_sha256": "28aee0c47b40e215a4261b0c10ab31cdafd957e6b7d40feaaf931ffd771b1442"
+      }
+    ]
+  },
+  "preservation": "No staged files during initial push; all13 raw/derived inputs untracked/read-only. No force, main, squash, amend, tags, PR, deployment or private config staging.",
+  "next": "AC2 authorised provider-only credential binding; C CL1 contract / CL2-CL3 bridge and B synthetic deliveries must arrive as committed owner handoffs; no sibling writes"
+}
