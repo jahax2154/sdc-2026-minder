@@ -9,9 +9,10 @@ scenario integration; its full published SHA is reported by A. Runtime scoring
 and endpoint implementations remain those tested at AC2.
 
 This is an available Git starting point and local API contract boundary. There is
-no published/hosted API URL or deployment. C owns the authoritative endpoint/schema
-export at docs/execution/product/llm/FRONTEND_CONTRACT.md; CL1 is pending at this
-checkpoint. F can prepare the shared client now, then bind C's actual examples.
+no published/hosted API URL or deployment. C owns the authoritative endpoint/schema export at
+docs/execution/product/llm/FRONTEND_CONTRACT.md. CL1ef4196b9856b9504eb1d719c955a67cc62d2d843
+is now integrated and accepted by A. F can bind its actual examples now; A validated
+the envelope/shared schemas and recomputed all six source passages from pinned inputs.
 No backend duplication or new provider client is needed.
 
 ## Start the existing backend in a permitted development checkout
