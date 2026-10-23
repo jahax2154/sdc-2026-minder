@@ -6,12 +6,49 @@ import json
 import mimetypes
 from pathlib import Path
 import threading
-from wsgiref.simple_server import make_server, WSGIRequestHandler
+from socketserver import ThreadingMixIn
+from wsgiref.simple_server import make_server, WSGIRequestHandler, WSGIServer
 from .policy import ROOT
 from .integration_cli import application, wsgi_request
 from .groq_adapter import GroqAdapter
 
 MODEL = 'qwen/qwen3.8-27b'
+
+
+class ProductServer(ThreadingMixIn, WSGIServer):
+    """Bound local request workers; SQLite/action/provider limits remain authority."""
+    daemon_threads = True
+    block_on_close = False
+
+    def __init__(self, *args, **kwargs):
+        self.request_slots = threading.BoundedSemaphore(16)
+        super().__init__(*args, **kwargs)
+
+    def get_request(self):
+        request, address = super().get_request()
+        request.settimeout(45)
+        return request, address
+
+    def get_app(self):
+        application = super().get_app()
+        def serve(environ, start_response):
+            environ['wsgi.multithread'] = True
+            return application(environ, start_response)
+        return serve
+
+    def process_request(self, request, client_address):
+        self.request_slots.acquire()
+        try:
+            super().process_request(request, client_address)
+        except BaseException:
+            self.request_slots.release()
+            raise
+
+    def process_request_thread(self, request, client_address):
+        try:
+            super().process_request_thread(request, client_address)
+        finally:
+            self.request_slots.release()
 
 
 def build(lane, *, database=None, role_ids=None):
@@ -85,8 +122,8 @@ def main():
             namespace=reservation['namespace'], deployment=False)))
         return
     with ExitStack() as stack:
-        api = stack.enter_context(make_server('127.0.0.1', reservation['api_port'], app, handler_class=QuietHandler))
-        ui = stack.enter_context(make_server('127.0.0.1', reservation['ui_port'], web_app(app), handler_class=QuietHandler))
+        api = stack.enter_context(make_server('127.0.0.1', reservation['api_port'], app, handler_class=QuietHandler, server_class=ProductServer))
+        ui = stack.enter_context(make_server('127.0.0.1', reservation['ui_port'], web_app(app), handler_class=QuietHandler, server_class=ProductServer))
         thread = threading.Thread(target=api.serve_forever, daemon=True);thread.start()
         print(json.dumps(dict(lane=args.lane, api_port=api.server_port, ui_port=ui.server_port,
             model=MODEL, loopback_only=True, scheduler_autostarted=False, deployment=False)), flush=True)
