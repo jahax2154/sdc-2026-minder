@@ -1,0 +1,60 @@
+{
+  "phase_id": "AC4.0",
+  "status": "passed_early_working_base_and_input_provisioning",
+  "owner": "A",
+  "base_sha": "80592a61181a35cfe7c5f16849f2d82868430d0f",
+  "real_provider_tested_revision": "87c80cf69b9da27d9bffbcf2049fc4c2b54d1493",
+  "contract_owner": "C CL1 pending; A exports working-base/run/ownership boundary without inventing public schemas",
+  "capabilities": "Existing same-origin API, capability/version/idempotency action boundaries and actual A provider checks available. New typed C grounder not yet integrated.",
+  "provisioning": {
+    "script": "docs/execution/parallel/A/checks/provision_dev_inputs.py",
+    "tests": "2 passed in 0.040s; temporary A copies only",
+    "actual_A": {
+      "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+      "input_count": 13,
+      "copied": 0,
+      "preserved_existing": 13,
+      "all_hashes_verified": true,
+      "all_destinations_read_only": true,
+      "public_download_or_upload": false,
+      "git_staging": false
+    },
+    "data_access": "Authorised local pack required; clone alone insufficient. No public archive/download, license grant or data publication asserted.",
+    "checks": [
+      "exact13 copies read-only into disposable A folder; retry preserves file inodes",
+      "mismatched existing input refused with no overwrite; original13 hashes/modes unchanged",
+      "missing pack refused before destination creation; sibling destination refused before write"
+    ]
+  },
+  "environment": {
+    "python": "3.9.6",
+    "dependencies": {
+      "numpy": "2.0.2",
+      "scipy": "1.13.1",
+      "scikit-learn": "1.6.1",
+      "xgboost": "2.1.4",
+      "joblib": "1.5.3",
+      "threadpoolctl": "3.7.0",
+      "jsonschema": "4.25.1"
+    },
+    "fresh_machine": "ml/requirements-foundation.txt is ranged; installed versions from existing tested interpreter recorded here"
+  },
+  "files": [
+    "docs/execution/parallel/A/BACKEND_WORKING_BASE.md",
+    "docs/execution/parallel/A/checks/provision_dev_inputs.py",
+    "docs/execution/parallel/A/checks/test_dev_provision.py"
+  ],
+  "evidence": {
+    "ml/artifacts/session-a/ac4-provision-tests.log": "d3cb31c0dd90ec3a1d21bb5dfe377f481960b528a9a09cc1385c3e7ab6bcb53c",
+    "ml/artifacts/session-a/ac4-input-verification.json": "0cd72782938ef8ed4e89bb98ffc35e187c70efc7d3e4d21a8ec909bcaf659eee"
+  },
+  "implementation": "Prepared reproducible permitted development inputs and stable local API working base",
+  "empirical": "Input boundaries and AC2 actual runtime verified; no independent model-quality claim",
+  "deployment": {
+    "performed": false,
+    "verified": false,
+    "intended_product_frontend_verified": false
+  },
+  "preservation": "No new A setup/recovery; check-only verified existing13 with copied0. Temporary copies removed after tests; private config remains ignored600.",
+  "next": "Publish tested base now; consume only C/B committed handoffs as available, then finite combined acceptance"
+}
