@@ -152,7 +152,6 @@
         "apps/backend-api/minder_app/agents.py",
         "apps/backend-api/minder_app/worker.py",
         "apps/backend-api/minder_app/grounding.py",
-        "apps/backend-api/minder_app/chat.py",
         "apps/backend-api/minder_app/config.py",
         "apps/backend-api/minder_app/provider_access.py",
         "apps/backend-api/minder_app/provider_budget.py",
@@ -162,7 +161,8 @@
       "forbidden": [
         "D transferred profile/plans/new product migrations",
         "F frontend-product",
-        "A central registration"
+        "A central registration",
+        "chat.py temporarily delegated to A by current targeted repair brief; no concurrent writer"
       ]
     },
     "G": {
@@ -210,6 +210,7 @@
       "apps/backend-api/tests/test_conversation.py",
       "apps/backend-api/tests/test_product_concurrency.py"
     ],
-    "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer"
+    "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer",
+    "status": "Active A bounded chat repair ownership; C original allowlist entry removed to enforce one writer"
   }
 }

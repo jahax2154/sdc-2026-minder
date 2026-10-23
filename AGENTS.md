@@ -34,3 +34,13 @@ Use only assigned lane DB/ports/outputs. Integrate committed handoffs continuous
 reserve the final50minutes for acceptance/repairs/handoff. Current user authorises
 normal tested task-scoped commits/pushes to assigned branches, never main/force/
 deployment. D/E/F publish their own branches; A publishes integrated A snapshots.
+
+## Targeted chat/Mindbots repair — 24 October 2026
+
+The current user assigns A-R1/A-R2/A-R3 backend chat routing, verified conversation
+policy, public contract and product HTTP concurrency to A. See product-v2/OWNERSHIP.json
+and CHAT_REPAIR_CONTRACT.md. The legacy C chat.py entry is transferred to A for
+this bounded repair; C retains factual grounder/provider adapter/actions/worker,
+D migrations and F every frontend file. Integrate only committed F handoffs.
+Keep qwen/qwen3.8-27b, source/scoring/action/privacy boundaries, isolated databases
+and read-only inputs; no main merge, history rewrite, deployment or paid job.
