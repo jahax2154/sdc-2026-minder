@@ -93,7 +93,7 @@ def main():
     scheduled = request("POST", "/api/plans", dict(plan=scheduled,idempotency_key=str(uuid.uuid4())), token)["plan"]
     request("PUT", "/api/agent-settings", dict(settings=dict(enabled=True,check_time="00:00"),expected_version=None),token)
     for _ in range(6):
-        subprocess.run([sys.executable,"-m","minder_app.worker","--once"], cwd=ROOT, check=True, capture_output=True)
+        subprocess.run([sys.executable,"-m","minder_app.worker","--once","--owner",owner], cwd=ROOT, check=True, capture_output=True)
         state = request("GET", "/api/agents", token=token)
         proposals = request("GET", "/api/proposals", token=token)["proposals"]
         pending = [p for p in proposals if p["status"] == "pending"]
@@ -121,11 +121,15 @@ def main():
     assert undo["target"]["tasks"][0]["scheduled_at"] == scheduled["tasks"][0]["scheduled_at"]
     checks["reversible_schedule_undo_retains_history"] = "passed"
     company = request("POST", "/api/company-explorer",dict(employer_id="bosch",role_id="onet:15-1252.00"),token)
-    assert company["result"]["status"] == "requirements_unavailable" and len(company["other_supported_roles"]) >= 1
+    assert company["result"]["status"] == "found" and len(company["other_supported_roles"]) >= 1
+    assert company["selected_posting"]["preferred"] and not company["selected_posting"]["required"]
+    assert company["result"]["unknown_requirements"]
     assert not company["main_recommendations_changed"]
     checks["real_company_snapshot_explicit_missing_criteria_separate_main_matches"] = "passed"
     evidence = dict(transport="real TCP HTTP on reserved localhost 8103/9103", synthetic_user=True,
-        provider=chat["provider"], integration_mode=context["integration_mode"],
+        provider=dict(request_success=chat["provider"]["status"] == "available",
+                      native_tool_success=chat["provider"].get("tool_call",{}).get("arguments_validated") is True),
+        integration_mode=context["integration_mode"],
         catalogue_references=catalogue["total"], unranked_candidates=910, numeric_personal_scores=0,
         checks=checks, browser_interaction="separate Chromium evidence in c4.1-browser-evidence.json",
         deployment_scheduler_verified=False, recorded_at=datetime.now(timezone.utc).isoformat())

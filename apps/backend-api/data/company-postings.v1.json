@@ -1,0 +1,43 @@
+{
+  "version": "company-source-details-v1",
+  "synthetic": false,
+  "postings": [
+    {
+      "employer_id": "bosch",
+      "geography": "MY",
+      "role_id": "onet:15-1252.00",
+      "official_link_verified": true,
+      "official_link_evidence": "https://www.bosch.com/careers/faq/",
+      "title": "Senior / Staff Embedded Software Engineer - Hardware Solution Product",
+      "location": "Bayan Lepas, Pulau Pinang, Malaysia",
+      "required": [],
+      "preferred": [
+        "Additional language experience across C++, C#, Python or Java.",
+        "ARM platform and toolchain knowledge."
+      ],
+      "qualifications_requirement_level_unspecified": [
+        "C programming proficiency.",
+        "A computing or electronics-related degree.",
+        "Embedded development and RTOS experience.",
+        "Microcontroller or system-on-chip familiarity and hardware-document interpretation.",
+        "Peripheral interfaces and independent technical problem solving."
+      ],
+      "requirement_interpretation": "The qualifications section lists core topics without explicit mandatory wording; only the added-advantages section is labelled preferred. No universal company rule inferred.",
+      "published_at": "2026-10-12T08:33:42.848Z",
+      "retrieved_at": "2026-10-23T06:11:33.482228+00:00",
+      "vacancy_status": "retrievable_at_check; current_application_status_not_verified",
+      "canonical_mapping_basis": "Exact same posting ID/native occupation mapping as committed B1.1/B1.2; no new title/taxonomy join.",
+      "sources": [
+        {
+          "source_id": "bosch:744000154949620:detail",
+          "version": "2026-10-23T06:11:33.482228+00:00",
+          "sha256": "3ce3f1c1ad0f65552b19d10771da36dc7b043ad127371309717515b168c0aa5d",
+          "uri": "https://jobs.smartrecruiters.com/BoschGroup/744000154949620",
+          "geography": "MY",
+          "available_at": "2026-10-23T06:11:33.482228+00:00",
+          "evidence_type": "source-derived"
+        }
+      ]
+    }
+  ]
+}

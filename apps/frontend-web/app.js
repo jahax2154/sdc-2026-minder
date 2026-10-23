@@ -137,8 +137,8 @@ async function explore() {
     append(card('A preparation path', `<p>Selected: ${esc(selectedLabel())}</p><button id="preview-plan" ${!selectedRole?'disabled':''}>Preview a preparation path</button><div id="plan-preview"></div>`));
     bind('preview-plan',async()=>{
       const preview=await api('pathway-preview',{role_id:selectedRole});
-      document.querySelector('#plan-preview').innerHTML=`<p>${esc(preview.design.limitation)}</p>`+preview.design.activities.map(a=>`<p>${esc(a.description)}<small>${esc(a.authorship)} · effort unknown · resources unverified</small></p>`).join('')+'<button id="accept-plan">Create this roadmap</button>';
-      const creationKey=key();bind('accept-plan',async()=>{await api('plans',{plan:preview.plan,design:preview.design,idempotency_key:creationKey});await render();});
+      document.querySelector('#plan-preview').innerHTML=`<p>${esc(preview.design.limitation)}</p>`+preview.design.activities.map(a=>`<p>${esc(a.description)}<small>${esc(a.authorship)} · effort unknown · resources unverified</small></p>`).join('')+'<p>Optional learning choices below are not automatically mapped to your gaps. Select any you want to keep with this roadmap; duration and total cost remain unknown.</p>'+(preview.design.resource_options || []).map(r=>`<label><input class="resource-choice" type="checkbox" value="${esc(r.resource_id)}"> ${esc(r.title)} · ${esc(r.publisher)}</label><p>${esc(r.prerequisites)} <a href="${esc(r.source.uri)}" target="_blank" rel="noreferrer">Read official source</a></p>`).join('')+'<button id="accept-plan">Create this roadmap</button>';
+      const creationKey=key();bind('accept-plan',async()=>{preview.design.selected_resources=Array.from(document.querySelectorAll('.resource-choice:checked')).map(el=>el.value);await api('plans',{plan:preview.plan,design:preview.design,idempotency_key:creationKey});await render();});
     });
   }
   const designs=(await api('plan-designs')).designs;
@@ -146,6 +146,7 @@ async function explore() {
     const complete=plan.tasks.filter(t=>t.activity_completion).length;
     const design=designs.find(d=>d.plan_id===plan.plan_id)?.design;
     append(card('Your preparation path',`<p>${complete}/${plan.tasks.length} activities complete</p><progress value="${complete}" max="${plan.tasks.length||1}"></progress><small>Activity progress, not certified mastery.</small>`));
+    if(design?.selected_resources?.length) append(card('Your selected learning choices',(design.resource_options || []).filter(r=>design.selected_resources.includes(r.resource_id)).map(r=>`<p><a href="${esc(r.source.uri)}" target="_blank" rel="noreferrer">${esc(r.title)}</a><small>${esc(r.publisher)} · effort and total cost unknown · no mastery inferred</small></p>`).join('')));
     if(exploreTab==='Progress') continue;
     for(const t of plan.tasks) {
       const label=design?.activities.find(a=>a.task_id===t.task_id)?.description || t.task_id;
@@ -179,7 +180,7 @@ async function careerMatch() {
   bind('company',async()=>{
     const response=await api('company-explorer',{employer_id:document.querySelector('#employer').value,role_id:selectedRole});
     const result=response.result || response;
-    document.querySelector('#company-result').innerHTML=`<p>${esc(result.explanation)}</p><small>Checked ${esc(readableTime(result.checked_at))} · ${result.status==='requirements_unavailable'?'Company requirements unavailable':'Source-supported role information'}</small>`+(result.official_evidence||[]).map(s=>`<p><a href="${esc(s.uri)}" target="_blank" rel="noreferrer">Official employer source</a> · observed ${esc(readableTime(s.available_at))}</p>`).join('')+(response.other_supported_roles||[]).map(r=>`<p>${esc(r.title)} · ${esc(r.location)}<small>Listed at collection; current vacancy status unknown · retrieved ${esc(readableTime(r.retrieved_at))}</small></p>`).join('');
+    document.querySelector('#company-result').innerHTML=`<p>${esc(result.explanation)}</p><small>Checked ${esc(readableTime(result.checked_at))} · ${result.status==='requirements_unavailable'?'Company requirements unavailable':'Source-supported role information'}</small>`+(result.official_evidence||[]).map(s=>`<p><a href="${esc(s.uri)}" target="_blank" rel="noreferrer">Official employer source</a> · observed ${esc(readableTime(s.available_at))}</p>`).join('')+(response.other_supported_roles||[]).map(r=>`<p>${esc(r.title)} · ${esc(r.location)}<small>Current vacancy status not verified · retrieved ${esc(readableTime(r.retrieved_at))}</small></p><p>${esc(r.requirement_interpretation)}</p><p>Required: ${esc(r.required.join('; ') || 'Mandatory status not explicit in the source.')}</p><p>Preferred: ${esc(r.preferred.join('; ') || 'Not specified in checked evidence.')}</p><p>Requirement level unspecified: ${esc((r.qualifications_requirement_level_unspecified || []).join('; ') || 'No detailed criteria available.')}</p><small>User competence against these criteria remains unknown; generic occupation context is separate.</small>`).join('');
   });
 }
 

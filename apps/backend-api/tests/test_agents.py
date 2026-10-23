@@ -5,6 +5,16 @@ from minder_app.plans import save_plan
 
 
 class AgentTests(AppCase):
+    def test_scoped_worker_leaves_other_user_events_untouched(self):
+        owner = self.save()["profile_id"]
+        other = self.store.session()["profile_id"]
+        with self.store.transaction() as db:
+            emit(db, other, "other-event", "daily_check", {})
+            emit(db, owner, "own-event", "task_completion", {})
+        worker = Worker(self.store, self.app.actions)
+        self.assertEqual(worker.tick(owner=owner)["status"], "processed")
+        self.assertEqual(state(self.store, other)["events"][0]["status"], "pending")
+
     def test_market_relevance_dedupe_and_explicit_profile_triggers(self):
         profile = self.save()
         source = profile["evidence"][0]["provenance"].copy()

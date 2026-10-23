@@ -28,8 +28,10 @@ def preview(services, profile, role_id):
     plan = dict(plan_id=uid(), profile_id=profile["profile_id"], selected_role_id=role_id,
         state_version=uid(), previous_version=None, task_ids=[t["task_id"] for t in tasks],
         tasks=tasks, progress_event_ids=[], constraints=profile["constraints"])
+    from .resources import learning_options
     return dict(plan=plan, design=dict(profile_version=profile["version"], role_version=role["version"],
         policy_version=assessment["policy_version"], activities=annotations, source=role["source"],
+        resource_options=learning_options()["resources"], selected_resources=[],
         truncated_requirements=len(relevant) > 6, total_unresolved_requirements=len(relevant),
         limitation="At most six evidence-review activities; effort/resources and capability remain unknown. "
                    "This is a preparation design, not a scored fit or feasibility claim."),
