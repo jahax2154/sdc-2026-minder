@@ -1,0 +1,51 @@
+{
+  "phase_id": "B1.1-R03",
+  "refines": "B1.1",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "objective": "Own remaining source investigation, inspect actual historical records, produce executable count audits without relabelling targets",
+  "inputs": [
+    "B1.1-R02 b8478a3",
+    "33 actual bounded endpoint attempts, recorded in HISTORICAL_SOURCE_AUDIT.v1.json"
+  ],
+  "changes": [
+    "Finite source probes with bounded record/file/date inspection and access errors",
+    "Original 69024-ad JobStreet corpus downloaded/checked and compiled into eight observed dated-corpus quarters, with literal vs explicit-request clause counts and country/classification gaps",
+    "11 official dated release pages parsed into 35 explicit occupation-label observations and 42 missing cells",
+    "Prior DOSM workbook inspected: only broad sector/major-occupation marginals, no per-skill request history",
+    "Inspection output excludes inline image payloads and ephemeral signed redirect parameters",
+    "No original source hardlinks rewritten, no synthetic targets or claimed past publication vintages"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service.HistoricalSourceTests test_market_service.AcquisitionTests test_forecasting test_service_contracts",
+      "result": ".................................\n----------------------------------------------------------------------\nRan 33 tests in 22.633s\n\nOK",
+      "log_sha256": "04948367b53b6894599e8b1a7ae3ad2b814f8e3ea89a7b5b53929b7f80e04585"
+    },
+    {
+      "command": "market-corpus-audit with exact archive checksum",
+      "result": "69024 distinct actual job IDs; eight dated populated quarters; approved_target_rows=0"
+    },
+    {
+      "command": "market-published-roles from 11 actual pinned release pages",
+      "result": "35 explicit numeric observations, 42 missing cells; no top-list zero filling"
+    }
+  ],
+  "coverage": {
+    "current_feed_ads_already_delivered": 155,
+    "raw_corpus_ads": 69024,
+    "populated_corpus_quarters": 8,
+    "official_numeric_role_observations": 35,
+    "official_role_missing_cells": 42,
+    "approved_comparable_unique_ad_series": 0,
+    "actual_training_fits": 0
+  },
+  "limitations": [
+    "Frozen surviving ads do not recover complete historical flows or historical availability",
+    "Published role offerings have unverified unique-ad/positions-per-ad equivalence, top-list censoring and short numeric coverage",
+    "No per-skill quarterly universe/completeness/vintage data acquired; source access errors fully recorded"
+  ],
+  "next_eligible": "B1.2-R01 serve explicit source-native official observations and handoff to A; updated eligibility/results checkpoint follows",
+  "checkpoint": "commit containing this record"
+}

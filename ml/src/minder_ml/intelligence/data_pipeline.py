@@ -16,7 +16,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit, urlunsplit
 
 from .data_schemas import ROOT, VERSION, SCHEMA_PATH, validate_entity
 from .market import build_market_views
@@ -44,7 +44,11 @@ def fetch_public(url, destination, *, max_bytes=5_000_000):
         body = response.read(max_bytes + 1)
         if len(body) > max_bytes:
             raise ValueError('source exceeds acquisition byte limit')
-        record = {'url': url, 'resolved_url': response.url, 'http_status': response.status,
+        resolved=response.url
+        if any(token in urlsplit(resolved).query.lower() for token in ('signature=','credential=','token=')):
+            parsed=urlsplit(resolved)
+            resolved=urlunsplit((parsed.scheme,parsed.netloc,parsed.path,'',''))
+        record = {'url': url, 'resolved_url': resolved, 'http_status': response.status,
                   'retrieved_at': utc_now(), 'sha256': hashlib.sha256(body).hexdigest(),
                   'bytes': len(body), 'content_type': response.headers.get('Content-Type')}
     destination = Path(destination)
@@ -323,12 +327,13 @@ def inspect_source_file(path, kind):
     if kind == 'zip':
         with zipfile.ZipFile(io.BytesIO(body)) as archive:
             members = [n for n in archive.namelist() if n.lower().endswith('.csv')]
-            if sum(archive.getinfo(n).file_size for n in members) > 100_000_000:
+            if sum(archive.getinfo(n).file_size for n in members) > 250_000_000:
                 raise ValueError('uncompressed_CSV_inspection_limit')
             return {'format': 'zip', 'members': {n: inspect_csv_bytes(archive.read(n)) for n in members}}
     if kind == 'xlsx':
         sheets = read_workbook(path)
-        return {'format': 'xlsx', 'sheets': {name: {'nonempty_cells': len(cells),
+        return {'format': 'xlsx', 'sheets': {name: {'xml_cell_slots':len(cells),
+                 'nonempty_cells':sum(v not in (None,'') for v in cells.values()),
                  'label_cells': {k: v for k, v in cells.items() if re.fullmatch(r'[AB]\d+', k) and v}}
                  for name,cells in sheets.items()}}
     if kind == 'json':
@@ -340,7 +345,8 @@ def inspect_source_file(path, kind):
         return {'format': 'json', 'keys': list(data), 'metadata': {k:v for k,v in data.items()
                 if k in ('title','subtitle','licenseName','licenses','lastUpdated','totalBytes','resources','datasetFiles','files')}}
     text = body.decode('utf-8', errors='replace')
-    links = re.findall(r'''(?:href|src)=["']([^"']+)["']''', text)
+    links = [html.unescape(u) for u in re.findall(r'''(?:href|src)=["']([^"']+)["']''', text)
+             if len(u)<1500 and u.startswith(('https://','http://','/')) and not u.startswith('data:')]
     return {'format': 'html', 'title': re.findall(r'<title[^>]*>(.*?)</title>',text,re.S)[:1],
             'data_links': [u for u in links if any(t in u.lower() for t in
                 ('csv','xlsx','json','.js','download','release-document','api/','skill','job-profile'))][:100],
@@ -357,7 +363,10 @@ def probe_market_sources(plan, output):
         result = dict(entry)
         file = batch / (entry['source_id'] + '.' + entry['kind'])
         try:
-            _, record = fetch_public(entry['url'], file, max_bytes=30_000_000)
+            byte_limit=entry.get('max_download_bytes',30_000_000)
+            if not 0 < byte_limit <= 100_000_000:
+                raise ValueError('source_probe_download_limit')
+            _, record = fetch_public(entry['url'], file, max_bytes=byte_limit)
             result.update(access=record, inspection=inspect_source_file(file,entry['kind']),
                           raw_file=str(file.relative_to(ROOT)), status='inspected_actual_response')
         except (OSError,ValueError,KeyError,zipfile.BadZipFile) as exc:
@@ -370,6 +379,151 @@ def probe_market_sources(plan, output):
               'automatic_retries':0,'source_results':records}
     output=Path(output);output.parent.mkdir(parents=True,exist_ok=True);output.write_text(encoded(result))
     return result
+
+
+def audit_jobstreet_corpus(path, expected_sha256, output):
+    """Real frozen-corpus counts, explicitly not complete historical flows.
+
+    No gap filling, inferred collection dates, language-model labels or fitting.
+    Literal mention counts are distinct from conservative request-clause counts.
+    """
+    path=Path(path)
+    if sha(path)!=expected_sha256:
+        raise ValueError('corpus_checksum_mismatch')
+    mapping=json.loads((MARKET_DATA/'mapping.v1.json').read_text())
+    role_patterns=[(r['source_role_id'],re.compile(r['title_pattern'],re.I)) for r in mapping['roles']]
+    skill_patterns=[(r['source_skill_id'],re.compile(r['pattern'],re.I)) for r in mapping['skills']]
+    counts,locations,missing= {},Counter(),Counter()
+    seen=set(); duplicates=0;invalid_dates=0;rows=0;fields=[]
+    request=re.compile(r'\b(experience|proficien\w*|knowledge|familiar\w*|skills?|required|must|competenc\w*)\b',re.I)
+    optional=re.compile(r'\b(preferred|advantage|plus|optional|desirable)\b|\b(?:no|not)\b.{0,30}\b(?:required|necessary|needed)\b',re.I)
+    with zipfile.ZipFile(path) as archive:
+        members=[n for n in archive.namelist() if n.endswith('.csv')]
+        if len(members)!=1 or archive.getinfo(members[0]).file_size>250_000_000:
+            raise ValueError('expected_one_bounded_CSV')
+        with archive.open(members[0]) as stream:
+            reader=csv.DictReader(io.TextIOWrapper(stream,encoding='utf-8-sig'))
+            fields=reader.fieldnames
+            for row in reader:
+                rows+=1
+                if rows>200_000: raise ValueError('corpus_row_cap')
+                for field in fields:
+                    if not (row.get(field) or '').strip(): missing[field]+=1
+                identifier=row['job_id']
+                if identifier in seen: duplicates+=1;continue
+                seen.add(identifier);locations[row['location']]+=1
+                try: day=datetime.strptime(row['listingDate'][:10],'%Y-%m-%d').date()
+                except ValueError: invalid_dates+=1;continue
+                quarter=f'{day.year}-Q{(day.month-1)//3+1}'
+                bucket=counts.setdefault(quarter,{'unique_corpus_ads':0,'role_title_matches':Counter(),
+                    'technology_literal_mentions':Counter(),'technology_explicit_request_clauses':Counter()})
+                bucket['unique_corpus_ads']+=1
+                if not re.search(r'\bintern(ship)?\b',row['job_title'],re.I):
+                    bucket['role_title_matches'].update(k for k,p in role_patterns if p.search(row['job_title']))
+                text=row['descriptions']
+                clauses=re.split(r'[.;\n\r]+',text)
+                for skill,pattern in skill_patterns:
+                    if pattern.search(text): bucket['technology_literal_mentions'][skill]+=1
+                    qualifying=[c for c in clauses if pattern.search(c) and request.search(c) and not optional.search(c)]
+                    if skill=='source-term:excel':
+                        qualifying=[c for c in qualifying if not re.search(r'\bexcel\s+(in|at|as|within)\b',c,re.I)]
+                    if qualifying: bucket['technology_explicit_request_clauses'][skill]+=1
+    result={'version':'jobstreet-frozen-corpus-audit-v1','synthetic':False,
+        'source_url':'https://www.kaggle.com/datasets/azraimohamad/jobstreet-all-job-dataset',
+        'raw_archive_sha256':expected_sha256,'raw_csv':members[0],'rows':rows,'unique_job_ids':len(seen),
+        'duplicate_job_ids':duplicates,'invalid_listing_dates':invalid_dates,'fields':fields,'missing_fields':dict(missing),
+        'geography':{'source_claim':'Malaysia JobStreet website','country_field_present':False,
+                     'distinct_literal_locations':len(locations),'top_locations':locations.most_common(20),
+                     'per_record_country_validation':'not_independently_verified; no ISO country field'},
+        'classification':{'roles':'conservative source-native title patterns, not broad category allocation',
+                          'skills':'five literal technologies; explicit request-clause subset separated from mentions',
+                          'mapping_sha256':sha(MARKET_DATA/'mapping.v1.json')},
+        'dated_corpus_counts':dict(sorted(counts.items())),
+        'measurement':'unique observed frozen-corpus ads grouped by original listing quarter; not complete quarterly source inflows',
+        'collection_windows':None,'historical_available_at_by_record':None,
+        'eligible_for_approved_forecasting':False,'approved_target_rows':[],
+        'limitations':['Uploader describes a current weekly scrape, not a complete historical advertisement archive.',
+            'Quarters absent from the acquired corpus remain uncollected/unknown, never zero demand.',
+            'Old surviving listings do not identify all ads originally published in their quarter.',
+            'No archived source vintages or consistent collection/exposure windows supplied.',
+            'Request-clause extraction is conservative partial deterministic evidence, not independently reviewed labels.',
+            'Corpus may support descriptive research; no live Malaysian forecast, temporal backtest accuracy or full skill demand claimed.']}
+    Path(output).parent.mkdir(parents=True,exist_ok=True);Path(output).write_text(encoded(result))
+    return {'output':str(output),'unique_job_ids':len(seen),'dated_quarters':len(counts),
+            'eligible_for_approved_forecasting':False,'approved_target_rows':0}
+
+
+PUBLISHED_ROLE_LABELS = ('Software Developers','Accountants and Auditors',
+    'Advertising and Marketing Professionals','Managing Directors and Chief Executives',
+    'Administrative Associate Professionals','Administrative Professionals','Public Relations Professionals')
+
+
+def parse_published_role_counts(body, *, period, source_url, source_id, retrieved_at, document_sha256):
+    """Extract only explicit numeric role counts, never top-list absence as zero."""
+    text=re.sub(r'\s+',' ',plain_text(body))
+    release=re.search(r'Latest Release\s*:\s*(\d{1,2}\s+\w+\s+\d{4})',text)
+    if not release: raise ValueError('release_date_not_found')
+    published=datetime.strptime(release.group(1),'%d %B %Y').date()
+    quarter_words=('First','Second','Third','Fourth')
+    expected=f'{quarter_words[int(period[-1])-1]} Quarter of {period[:4]}'
+    if expected.casefold() not in text[:release.start()].casefold():
+        raise ValueError('release_heading_period_mismatch')
+    year,q=int(period[:4]),int(period[-1]);month=3*q-2
+    target={'start':date(year,month,1).isoformat(),
+            'end':date(year,month+2,monthrange(year,month+2)[1]).isoformat()}
+    observed,missing=[],[]
+    for label in PUBLISHED_ROLE_LABELS:
+        pattern=re.escape(label).replace(r'\ and\ ',r'\s*(?:and|&)\s*')
+        matches=re.findall(pattern+r'\s*\(([0-9,]+)\s+job\s+offerings?\)',text,re.I)
+        values={int(v.replace(',','')) for v in matches}
+        if len(values)>1: raise ValueError('conflicting_explicit_role_counts:'+label)
+        identifier='dosm:jmi:published-role-label:'+re.sub('[^a-z0-9]+','-',label.lower()).strip('-')
+        if not values:
+            missing.append({'entity_id':identifier,'period':target,'reason':'no_explicit_numeric_count_in_release_not_zero'})
+            continue
+        observed.append({'entity_type':'role','entity_id':identifier,'label':label,'geography':'MY',
+            'value':next(iter(values)),'unit':'published job offerings',
+            'measurement':'published_online_job_offerings_for_source_role_label',
+            'period':target,'published_at':published.isoformat()+'T23:59:59+08:00',
+            'publication_precision':'date_only_conservative_end_of_day',
+            'available_at':retrieved_at,'availability_basis':'retrieved_release_bytes; original historical byte vintage not independently archived',
+            'source_id':source_id,'source_url':source_url,'source_document_sha256':document_sha256,
+            'classification':{'system':'DOSM JMI published occupation labels','native_code':None,
+                'edition':'not_verified_for_each_release','canonical_role_mapping':'not_applied'},
+            'source_universe_id':'dosm-jmi-published-top-occupation-labels',
+            'dedup_verified':False,'positions_per_advertisement_verified':False,
+            'eligible_for_approved_unique_ad_forecasting':False})
+    return observed,missing
+
+
+def extract_published_role_history(reports, output):
+    records,missing,sources=[],[],[]
+    for report in reports:
+        for source in json.loads(Path(report).read_text())['source_results']:
+            if source.get('status')!='inspected_actual_response' or source['kind']!='html': continue
+            if source['source_id']=='dosm-jmi-2026q1-page': period='2026-Q1'
+            elif source['source_id'].startswith('dosm-release-'): period=source['period']
+            else: continue
+            body=Path(source['raw_file']).read_bytes()
+            if hashlib.sha256(body).hexdigest()!=source['access']['sha256']:
+                raise ValueError('release_raw_checksum_mismatch')
+            found,absent=parse_published_role_counts(body.decode('utf-8'),period=period,
+                source_url=source['url'],source_id=source['source_id'],
+                retrieved_at=source['access']['retrieved_at'],document_sha256=source['access']['sha256'])
+            records.extend(found);missing.extend(absent)
+            sources.append({'source_id':source['source_id'],'url':source['url'],'period':period,
+                'sha256':source['access']['sha256'],'retrieved_at':source['access']['retrieved_at'],
+                'explicit_numeric_role_counts':len(found),'role_labels_without_numeric_counts':len(absent)})
+    result={'version':'dosm-published-role-observations-v1','synthetic':False,'observations':records,
+        'missing':missing,'sources':sources,'limitations':[
+            'Role-label offering counts are separately reported; they are not allocated from broad-industry totals.',
+            'Only explicit numbers are extracted. Absence from a top list is unobserved, not zero.',
+            'No skill-request counts occur in these extracted role-label records.',
+            'Neither unique-ad deduplication nor positions-per-advertisement equivalence verified from these releases.',
+            'Published dates are retained; original historical byte vintages were not independently archived.',
+            'No automatic MASCO/O*NET crosswalk or forecast promotion applied.']}
+    Path(output).write_text(encoded(result))
+    return {'output':str(output),'observations':len(records),'missing':len(missing),'releases':len(sources)}
 
 
 def sha(path):
