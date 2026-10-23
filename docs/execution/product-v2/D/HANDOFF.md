@@ -1,3 +1,6 @@
+Later extension: [D4 private document library](D4_DOCUMENT_HANDOFF.md) supersedes
+this historical D3 snapshot only for document storage/intake capabilities.
+
 # D3.1 — bounded state delivery and integration handoff
 
 Status: limited overall. The implemented journey is verified; unsupported lifecycle,
