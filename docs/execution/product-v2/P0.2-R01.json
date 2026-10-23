@@ -1,0 +1,22 @@
+{
+  "refinement_id": "P0.2-R01",
+  "dependency": "fbddeb80763442a8f1a4c8f8c2c80e4d6c4697a7",
+  "policy": "private-documents-v1",
+  "scope": "A registry/transport/strict request schema; D owns storage/migration6",
+  "verification": {
+    "transport": "3 tests passed, intentionally stubbed D module, no storage acceptance claimed",
+    "backend": "47 tests passed",
+    "schemas": "Draft202012 valid; upload/read/delete fictional requests validated",
+    "provider_requests": 0
+  },
+  "evidence": {
+    "document-transport.log": "349624defd9671a42e6a6795c11e796f209e5ebb583069650f65d73f0023e139",
+    "document-backend-regression.log": "1918f3e6b1bf8a2fc419cf9efeffbd503d1d5a08ec3fa0ec2cdc22064f1366af"
+  },
+  "remaining": [
+    "D committed documents implementation, privacy/quota/retention tests",
+    "D focused E-news assertion repair",
+    "A combined product integration and actual frontend acceptance"
+  ],
+  "deployment": false
+}

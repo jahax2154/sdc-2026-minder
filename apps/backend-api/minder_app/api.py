@@ -146,7 +146,9 @@ class Application:
         rid, status = str(uuid.uuid4()), 200
         try:
             length = int(environ.get("CONTENT_LENGTH") or 0)
-            if length < 0 or length > 131072:
+            from .product_routes import request_body_limit
+            limit = request_body_limit(environ['REQUEST_METHOD'], environ['PATH_INFO'])
+            if length < 0 or length > limit:
                 raise AppError("request_too_large", 413)
             raw = environ["wsgi.input"].read(length)
             body = json.loads(raw) if raw else {}

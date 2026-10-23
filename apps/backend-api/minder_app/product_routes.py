@@ -19,6 +19,33 @@ for name in ('overview', 'career-match', 'roadmap', 'tasks', 'progress', 'news')
         ROUTES[(method, '/api/product/views/' + name)] = 'product_views'
 for method, path in (('POST', 'resources'), ('POST', 'resource-detail')):
     ROUTES[(method, '/api/product/' + path)] = 'product_content'
+for method, path in (('GET', 'documents'), ('POST', 'document-upload'),
+                     ('POST', 'document-download'), ('POST', 'document-delete'),
+                     ('POST', 'document-extract')):
+    ROUTES[(method, '/api/product/' + path)] = 'documents'
+
+DEFAULT_BODY_LIMIT = 131072
+MAX_DOCUMENT_BYTES = 1048576
+MAX_UPLOAD_BODY_LIMIT = 4 * ((MAX_DOCUMENT_BYTES + 2) // 3) + 4096
+
+
+def request_body_limit(method, path):
+    """Only document upload may opt into a larger bounded JSON body.
+
+    D owns decoded-byte/quota configuration and exports upload_request_limit().
+    Missing implementation retains the existing transport limit and unavailable
+    dispatch. No request value may select the transport limit.
+    """
+    if (method, path) != ('POST', '/api/product/document-upload'):
+        return DEFAULT_BODY_LIMIT
+    module = module_for('documents')
+    getter = getattr(module, 'upload_request_limit', None)
+    if getter is None:
+        return DEFAULT_BODY_LIMIT
+    limit = getter()
+    if type(limit) is not int or not DEFAULT_BODY_LIMIT <= limit <= MAX_UPLOAD_BODY_LIMIT:
+        raise AppError('document_transport_configuration_invalid', 500)
+    return limit
 
 
 def module_for(name):
@@ -37,7 +64,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='D' if name == 'product_state' else 'E',
+            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))
