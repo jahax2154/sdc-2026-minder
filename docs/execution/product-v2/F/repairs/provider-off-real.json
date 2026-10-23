@@ -1,0 +1,170 @@
+{
+  "mode": "actual_HTTP_configured_provider_absent_disposable_F_database",
+  "synthetic": true,
+  "provider": {
+    "status": "unavailable",
+    "code": "provider_credentials_missing",
+    "invoked": false
+  },
+  "diagnostics": {
+    "request_id": "99d93e9d-5a08-4d69-b26e-1dd3681cf6bc",
+    "intent": "grounded_evidence",
+    "reason_codes": [
+      "provider_credentials_missing"
+    ],
+    "evidence_count": 10,
+    "provider_invoked": false,
+    "model": "qwen/qwen3.8-27b",
+    "total_ms": 153.09,
+    "context_ms": 25.228,
+    "ledger_ms": 121.528,
+    "provider_ms": 4.535
+  },
+  "fallback_recovery_prefills_without_resend": true,
+  "mindbots_added_chat_requests": 0,
+  "samples": [
+    {
+      "kind": "initial_navigation",
+      "frame_ms": 1,
+      "saved_ready_ms": 31
+    },
+    {
+      "kind": "repeat_navigation",
+      "frame_ms": 1,
+      "saved_ready_ms": 74
+    },
+    {
+      "kind": "repeat_navigation",
+      "frame_ms": 1,
+      "saved_ready_ms": 23
+    }
+  ],
+  "reads": [
+    {
+      "path": "/api/profile",
+      "status": 404,
+      "ms": 9
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/proposals",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agent-settings",
+      "status": 404,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 0
+    },
+    {
+      "path": "/api/agent-settings",
+      "status": 404,
+      "ms": 6
+    },
+    {
+      "path": "/api/action-history",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/agents",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/proposals",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 1
+    },
+    {
+      "path": "/api/agents",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agent-settings",
+      "status": 404,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 1
+    },
+    {
+      "path": "/api/agent-settings",
+      "status": 404,
+      "ms": 3
+    },
+    {
+      "path": "/api/profile",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/action-history",
+      "status": 200,
+      "ms": 5
+    }
+  ],
+  "page_errors": []
+}

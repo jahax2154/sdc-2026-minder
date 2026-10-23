@@ -1,0 +1,629 @@
+{
+  "synthetic": true,
+  "base": "http://127.0.0.1:9106",
+  "checks": {
+    "unsaved_useful_answer": true,
+    "no_implicit_profile_save": true,
+    "paraphrase": true,
+    "owner_scoped_followup": true,
+    "incomplete_profile_capabilities": true,
+    "temporary_conversation": true,
+    "pinned_role_source_scope": true,
+    "focused_personal_clarification": true,
+    "real_chat_workspace_overlap": {
+      "workspace_ms": 100,
+      "saved_ready_before_chat_finished": true,
+      "chat_provider": "available",
+      "provider_invoked": true,
+      "diagnostics": {
+        "request_id": "0e5a3d0f-1812-41bd-98f6-9143ddfb3c34",
+        "intent": "grounded_evidence",
+        "reason_codes": [
+          "grounded_selection"
+        ],
+        "evidence_count": 4,
+        "provider_invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 801.945,
+        "context_ms": 32.528,
+        "ledger_ms": 130.606,
+        "provider_ms": 635.434
+      }
+    },
+    "unavailable_forecast_preserved": true,
+    "real_proposal_reject_approve_repeat_stale": true,
+    "explicit_direct_action": true,
+    "foreign_followup_context_rejected": true
+  },
+  "samples": [
+    {
+      "question": "How can u help me minder?",
+      "request": {
+        "message": "How can u help me minder?",
+        "expected_profile_version": null
+      },
+      "ms": 32,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "36d9506c-a673-4c79-b0c4-af000a7157dc",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 6.905,
+        "context_ms": 3.73,
+        "ledger_ms": 3.168,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "What could you do for someone who is unsure where to begin?",
+      "request": {
+        "message": "What could you do for someone who is unsure where to begin?",
+        "expected_profile_version": null,
+        "previous_context_id": "e1bc5af7-2bad-47b4-8875-3cf23bb2356e"
+      },
+      "ms": 12,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "c3d8af10-77d9-4f39-ab36-1cf7d12d69e9",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.098,
+        "context_ms": 2.081,
+        "ledger_ms": 2.012,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "I am a fresh graduate. Where should I start?",
+      "request": {
+        "message": "I am a fresh graduate. Where should I start?",
+        "expected_profile_version": null,
+        "previous_context_id": "5ea0b4a4-8244-49d5-bd47-1a9afce64fc3"
+      },
+      "ms": 10,
+      "answer": "You can begin with coursework, a personal project, volunteering or work experience. We can use that as your self-reported context without inventing skill mastery. Tell me about one thing you worked on and what you did yourself.",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "0453cffa-a399-4122-bdf2-b18aa7358a4b",
+        "intent": "onboarding",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.444,
+        "context_ms": 1.985,
+        "ledger_ms": 2.453,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "I built a class project. What detail should I describe?",
+      "request": {
+        "message": "I built a class project. What detail should I describe?",
+        "expected_profile_version": null,
+        "previous_context_id": "e4707f12-a92f-4ca4-a807-f76cb64b212b"
+      },
+      "ms": 10,
+      "answer": "Describe the goal, what you personally did, and a result you can explain. Leave uncertain skills unknown; a project title alone is not a competence assessment. What did you personally contribute?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "1041fe24-5517-489b-8627-79036e23797c",
+        "intent": "followup",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.115,
+        "context_ms": 2.091,
+        "ledger_ms": 2.016,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "How can you help me with an incomplete profile?",
+      "request": {
+        "message": "How can you help me with an incomplete profile?",
+        "expected_profile_version": "0554baf3-2efd-4b41-94c3-fdf6fdcb2aa7"
+      },
+      "ms": 14,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "a8ce8f1a-86a4-4039-b8ba-2444c1440bc2",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.38,
+        "context_ms": 1.507,
+        "ledger_ms": 2.866,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "Explain what Software Developers do.",
+      "request": {
+        "message": "Explain what Software Developers do.",
+        "expected_profile_version": "0554baf3-2efd-4b41-94c3-fdf6fdcb2aa7",
+        "selected_role_ids": [
+          "onet:15-1252.00"
+        ]
+      },
+      "ms": 19,
+      "answer": "Here is the published role description.",
+      "mode": "grounded_evidence",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_verified_reference",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "f35e5e0e-3161-4c56-825d-ceb171ef005c",
+        "intent": "role_reference",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 1,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 7.274,
+        "context_ms": 3.034,
+        "ledger_ms": 4.233,
+        "provider_ms": 0
+      },
+      "source_count": 1
+    },
+    {
+      "question": "Recommend a career for me from my available evidence.",
+      "request": {
+        "message": "Recommend a career for me from my available evidence.",
+        "expected_profile_version": "0554baf3-2efd-4b41-94c3-fdf6fdcb2aa7",
+        "previous_context_id": "81f42fc1-2ec2-4d92-af79-d8e2f85f4200",
+        "selected_role_ids": [
+          "onet:15-1252.00"
+        ]
+      },
+      "ms": 1278,
+      "answer": "A personal assessment needs more specific evidence. Provide an anchored activity level and evidence description for Reading Comprehension.",
+      "mode": "grounded_evidence",
+      "provider": {
+        "status": "available",
+        "invoked": true
+      },
+      "diagnostics": {
+        "request_id": "9ac62532-86f8-48af-b284-78aaf60195ff",
+        "intent": "grounded_evidence",
+        "reason_codes": [
+          "grounded_selection"
+        ],
+        "evidence_count": 10,
+        "provider_invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 1258.987,
+        "context_ms": 25.347,
+        "ledger_ms": 133.884,
+        "provider_ms": 1097.699
+      },
+      "source_count": 5
+    }
+  ],
+  "waterfall": [
+    {
+      "path": "/api/session",
+      "method": "POST",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 13
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 2
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 11
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 10
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "PUT",
+      "status": 200,
+      "ms": 71
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 10
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 1262
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 32
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 36
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "ms": 36
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 37
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 37
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 805
+    },
+    {
+      "path": "/api/proposals",
+      "method": "POST",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "ms": 5
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/proposal-decision",
+      "method": "POST",
+      "status": 200,
+      "ms": 15
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "path": "/api/proposals",
+      "method": "POST",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "path": "/api/proposal-decision",
+      "method": "POST",
+      "status": 200,
+      "ms": 16
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "path": "/api/proposal-decision",
+      "method": "POST",
+      "status": 200,
+      "ms": 1
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 1
+    },
+    {
+      "path": "/api/proposals",
+      "method": "POST",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "PUT",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "ms": 4
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/proposal-decision",
+      "method": "POST",
+      "status": 409,
+      "ms": 14
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "path": "/api/direct-action",
+      "method": "POST",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    }
+  ],
+  "page_errors": [],
+  "provider_evidence": "application guidance skips provider; empirical responses record actual status separately"
+}
