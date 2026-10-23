@@ -1,0 +1,513 @@
+{
+  "phase_id": "I4.7",
+  "status": "local_integration_verified_with_explicit_provider_and_source_support_limits",
+  "checkpoint": "Commit containing this report; report actual SHA in final handover",
+  "parent_revision": "42a996e17144e48a0fcb47679fa56b1da63d5ea6",
+  "branch": "session/a-personal-integration",
+  "push": {
+    "authority": "Captured starting snapshot only; all later commits remain local",
+    "remote": "https://github.com/jahax2154/sdc-2026-minder.git",
+    "scan": {
+      "scope": "All new reachable blob versions across outgoing history; no secret values printed.",
+      "unique_objects_inspected": 778,
+      "credentials_or_artifacts_found": 0,
+      "manual_path_review": "Only source/tests/versioned source-derived data/contracts and sanitized execution reports; no private profile/CV/credential/generated binary path found"
+    },
+    "branches": [
+      {
+        "branch": "session/a-personal-integration",
+        "sha": "a0349bcccf5923c65919727279c3a137dcda519f",
+        "remote_verified_sha": "a0349bcccf5923c65919727279c3a137dcda519f",
+        "result": "pushed_fast_forward_and_verified",
+        "outgoing_commits": 33
+      },
+      {
+        "branch": "session/b-market",
+        "sha": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+        "remote_verified_sha": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+        "result": "pushed_fast_forward_and_verified",
+        "outgoing_commits": 6
+      },
+      {
+        "branch": "session/c-app-agents",
+        "sha": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+        "remote_verified_sha": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+        "result": "pushed_fast_forward_and_verified",
+        "outgoing_commits": 50
+      }
+    ],
+    "included_checkpoints": {
+      "A": [
+        "N1.1/N1.2/N1.3",
+        "N1.1-R01",
+        "N2.1",
+        "N3.1",
+        "I3 integrations/refinements"
+      ],
+      "B": [
+        "B1.1-R02/R03",
+        "B1.2-R01",
+        "B2.1-R02",
+        "B2.2-R01",
+        "B3.2-R01 final handoff"
+      ],
+      "C": [
+        "A a0349bc consumed preserving history",
+        "C2.2-R03 caller cleanup",
+        "C1.1-R05 real provider",
+        "C3.1-R02 real scheduled event",
+        "C4.1-R03 HTTP/Chromium",
+        "C-005 handoff"
+      ]
+    },
+    "final_remote_read": "GitHub ls-remote rechecked; all three still equal captured SHAs"
+  },
+  "phases": [
+    {
+      "phase_id": "P1.1",
+      "checkpoint_sha": "5f93dea76936e80971c73705466a70cd409cde0f",
+      "status": "passed: captured snapshot pushed and verified"
+    },
+    {
+      "phase_id": "I4.1",
+      "checkpoint_sha": "a0f4066c334c1b58b1dc63741c1a4708d168a556",
+      "status": "passed local compatibility after B/C starting handoffs"
+    },
+    {
+      "phase_id": "I4.2.0",
+      "checkpoint_sha": "3fe49487b3dc76eee58f8667ae6d992790615782",
+      "status": "prepared: A-only provider/worker guards; real access unavailable"
+    },
+    {
+      "phase_id": "I4.3.0",
+      "checkpoint_sha": "5e82dc2bf83d15e8f9af6a0fff965237fffad633",
+      "status": "passed: four-role cause classification and interface coordination"
+    },
+    {
+      "phase_id": "I4.1-R01",
+      "checkpoint_sha": "7796b1dda15fea11263b8f0d84999b792da6543a",
+      "status": "passed: actual canonical source registry reconciled with C grounder"
+    },
+    {
+      "phase_id": "I4.3",
+      "checkpoint_sha": "edaa01de0c4a0ca550357fba22fcc87010b173ef",
+      "status": "passed: typed v2 source comparison/trace with separate missingness"
+    },
+    {
+      "phase_id": "I4.4.0",
+      "checkpoint_sha": "dd27b30538885139f51a32fcacd288b663382579",
+      "status": "passed: owner/version-bound evidence trace API"
+    },
+    {
+      "phase_id": "I4.4",
+      "checkpoint_sha": "f8decbbe7e15505488f13dedc983870cedd2a492",
+      "status": "passed local prototype UI/HTTP with typed evidence"
+    },
+    {
+      "phase_id": "I4.6",
+      "checkpoint_sha": "3b62a9a705d3a0a46cbc7d7b340702a312ee1a99",
+      "status": "passed: B latest scope, v2.1 context, source-native query and EvidencePassage"
+    },
+    {
+      "phase_id": "I4.4-R01",
+      "checkpoint_sha": "42a996e17144e48a0fcb47679fa56b1da63d5ea6",
+      "status": "passed local current-policy acceptance and complete trace export"
+    }
+  ],
+  "merges": [
+    {
+      "handoff": "C-005",
+      "owner_revision": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+      "merge_sha": "f0690e860e3f4646c041b23a9df11692a3467968",
+      "history": "normal merge; already-present ancestry retained"
+    },
+    {
+      "handoff": "B final starting checkpoint",
+      "owner_revision": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+      "merge_sha": "518821d58e80b790715e0cb0d6b9553b1611959e",
+      "history": "normal merge; already-present ancestry retained"
+    },
+    {
+      "handoff": "C-007 grounding/privacy",
+      "owner_revision": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+      "merge_sha": "f0e5ad0c89c78983d0dc379798e0a106d77953da",
+      "history": "normal merge; already-present ancestry retained"
+    },
+    {
+      "handoff": "B coded context/scope",
+      "owner_revision": "ba469e426284b1def8a95474e64c90b8aeb95f9a",
+      "merge_sha": "4fb64aaee048408c6ee7141da9325dd06e3044aa",
+      "history": "normal merge; already-present ancestry retained"
+    },
+    {
+      "handoff": "B final v3 handoff",
+      "owner_revision": "020bbcf8511aa89064b7f232723afa01cf99a427",
+      "merge_sha": "7c1c41840ec2c4d83d8ad7aef0ecf9d7bb708524",
+      "history": "normal merge; already-present ancestry retained"
+    }
+  ],
+  "implementation": {
+    "personal_policy": "personal-role-fit-v3-provisional",
+    "reference": "role-reference-v3.2",
+    "market_policy": "personal-current-evidence-v2.1",
+    "shared_contract": "minder-parallel-v1 additive EvidencePassage v1 and trace",
+    "grounding_policy": "minder-grounding-privacy-v1",
+    "personal_model": "declared deterministic baseline",
+    "market_comparison": "independent employer and published category groups, .85F+.15M; bounded at-most +1 related shortage context; sector zero",
+    "migration": "Existing C idempotent migrations exercised against fresh isolated A synthetic databases; no shared/live DB",
+    "artifact_access": "Pinned source inputs/committed B JSON/current A imports; existing interpreter read-only; no installs/builds"
+  },
+  "four_role_reconciliation": [
+    {
+      "cause": "mapping",
+      "finding": "Only four exact native role aliases in employer dictionary; five mapped ads within 155 inspected requisitions. Other missing aliases are not measured zeros."
+    },
+    {
+      "cause": "missing integration",
+      "finding": "35 published label facts/96 institutional native facts were separately callable but not wired into A ranking/source UI before I4.3/I4.6. Now typed APIs/selection/UI consume supported scopes."
+    },
+    {
+      "cause": "incompatible measurement",
+      "finding": "DOSM offerings, MyCOL designations, sector marginals and inspected employer ad counts are distinct populations/units. Old historical/top-list/frozen-corpus quantities cannot be pooled or relabelled."
+    },
+    {
+      "cause": "policy eligibility",
+      "finding": "Versioned v2.1 permits valid category comparisons and bounded related-group context. Broad/stale mappings stay context-only; min two compatible assessed candidates per activity group; no global rank."
+    },
+    {
+      "cause": "forecasts",
+      "finding": "Unavailable future targets never gate current-market comparison; no substitution or invented forecasts."
+    }
+  ],
+  "coverage_before_after": [
+    {
+      "policy": "personal-current-cohort-v1",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 4,
+        "personal_only_ranked": 906,
+        "insufficient_evidence": 0
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 6.132104458000001
+    },
+    {
+      "policy": "personal-current-evidence-v2",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 5,
+        "personal_only_ranked": 905,
+        "insufficient_evidence": 0,
+        "employer_comparable_ranked": 2,
+        "published_offering_comparable_ranked": 3,
+        "published_offering_supported": 7,
+        "shortage_supported": 0,
+        "shortage_adjusted_ranked": 0,
+        "shortage_context_supported": 0,
+        "shortage_exact_role_supported": 0,
+        "sector_context_supported": 907
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 11.006492584
+    },
+    {
+      "policy": "personal-current-evidence-v2.1",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 5,
+        "personal_only_ranked": 900,
+        "insufficient_evidence": 0,
+        "employer_comparable_ranked": 2,
+        "published_offering_comparable_ranked": 3,
+        "published_offering_supported": 7,
+        "shortage_supported": 7,
+        "shortage_adjusted_ranked": 7,
+        "shortage_context_supported": 7,
+        "shortage_exact_role_supported": 0,
+        "sector_context_supported": 907
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 11.062112291999998
+    }
+  ],
+  "native_coverage": {
+    "shortage_four_digit_groups": 66,
+    "explicit_six_digit_memberships": 43,
+    "membership_profiles": 4,
+    "sector_labels": 21,
+    "major_occupation_groups": 9,
+    "identified_employer_feeds": 1,
+    "galaxy_bulk_records_distributed": 0
+  },
+  "current_profile_coverage": [
+    {
+      "kind": "original-synthetic-calibration",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "original-synthetic-calibration",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "original-synthetic-calibration",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "original-synthetic-calibration",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "original-synthetic-calibration",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "new-anchored-fresh-graduate",
+      "assessed": 910,
+      "ranked_current": 5,
+      "personal_only": 900,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    },
+    {
+      "kind": "incomplete-one-anchored-skill",
+      "assessed": 0,
+      "ranked_current": 0,
+      "personal_only": 0,
+      "shortage_context": 7,
+      "exact_whole_role_shortage": 0,
+      "sector_context": 907
+    }
+  ],
+  "coverage_limits": "Counts overlap. Five activity comparisons include three category proxies/two employer primary. Seven related shortage contexts include two comparison roles and five exploration roles. Exact whole-role shortage designation zero; sector context is not role demand. Whole result partial.",
+  "verification": {
+    "ML": "200 passed in 142.097s; full application source at I4.6 plus initial acceptance instrumentation",
+    "backend": "42 passed in 1.362s; privacy/grounding/action unit checks, not external provider acceptance",
+    "A_runtime_binding": "3 passed in 0.005s",
+    "real_HTTP_Chromium": {
+      "http": 0,
+      "browser": 0,
+      "recommendation": 0
+    },
+    "recommendation_browser": {
+      "incomplete_profile_requests_focused_input": "passed",
+      "fresh_graduate_all_supported_roles_scoped_ranks_no_prior_job_or_ratings": "passed",
+      "native_source_context_and_unknown_child_preserve_profile": "passed",
+      "typed_source_units_and_owner_scoped_trace_visible": "passed",
+      "not_interested_lowers_preference_only_idempotent_and_reset_restores": "passed",
+      "career_switcher_context_trace_and_other_industries_retained": "passed",
+      "mobile_no_overflow_and_no_page_errors": "passed"
+    },
+    "actual_HTTP_recommendation": {
+      "actual_HTTP_intake_assessment_feedback_reset_market_and_provider_boundary": "passed",
+      "compatible_current_evidence_reverses_order_without_forecasts": "passed"
+    },
+    "syntax": "app.js and recommendation_browser.cjs Node checks; git diff --check passed",
+    "followup_export_check": "second recommendation run passed with nonempty current-policy calculations; no unnecessary full-suite repeat"
+  },
+  "feedback": {
+    "before": 65.88235294,
+    "not_interested": 60.88235294,
+    "reset": 65.88235294,
+    "repeated_request_idempotent": true,
+    "skill_and_market_unchanged": true
+  },
+  "sensitivity": {
+    "fictional_counterfactual": true,
+    "factual_snapshot_unchanged": true,
+    "forecasts_unavailable": true,
+    "ordered": [
+      [
+        "onet:15-1252.00",
+        "onet:15-2051.00"
+      ],
+      [
+        "onet:15-2051.00",
+        "onet:15-1252.00"
+      ]
+    ],
+    "calculations_retained": true
+  },
+  "provider": {
+    "A_key_present": false,
+    "A_model_configured": false,
+    "actual_A_request_success": false,
+    "actual_A_native_tool_success": false,
+    "real_wall_clock_agent_acceptance": "not run; A access unavailable",
+    "privacy_live_browser": "not run; requires actual A provider",
+    "C_real_results": "owner-reported in committed C handoff; not A success"
+  },
+  "forecasts": {
+    "role_forecasts_available": 0,
+    "skill_forecasts_available": 0,
+    "actual_approved_target_fit_count": 0,
+    "selected_model_count": 0,
+    "reason": "B eligible real target examples zero; compatible history unavailable"
+  },
+  "learners": {
+    "preserved": "Existing baseline/Ridge/XGBoost implementation and actual N2.1 control artifacts; no overwrite",
+    "personal_runs": "48 fictional families/569 rows, group-isolated32/8/8 split; Ridge .0021 and XGBoost3.6832 teacher MAE; independent labels0, baseline active",
+    "market_runs": "B real eligibility runner found zero approved-target examples; synthetic machinery tests are not empirical market evaluation",
+    "paid_jobs": 0,
+    "new_training": false
+  },
+  "privacy": {
+    "secrets": "Only presence booleans checked; A blank owner-only ignored template preserved; C config/DB/model selection not copied",
+    "prompt": "C closed minimal question/evidence IDs/canonical supported passages, no full profiles/CVs/ranking matrices",
+    "scope": "Closed structured verifier; unsupported new model source claims fail closed. No general entailment, anonymisation, provider-account settings or production-security attestation.",
+    "data_retention": "Existing owner ledger/history preserved; no purge or production-data change"
+  },
+  "remaining": [
+    {
+      "kind": "unavailable_access",
+      "item": "A authorised Groq key absent; model can be discovered/verified automatically. Real A chat/native tool/upcoming-minute scheduled agent/privacy browser remain unrun.",
+      "next": "Privately configure A key then run documented verify-live/verify-web --require-live-provider; current user already authorises bounded calls."
+    },
+    {
+      "kind": "owner_handoff",
+      "item": "C Bosch source verifier is integrated; new EvidencePassage contract is not yet consumed by C closed model claim adapter.",
+      "next": "C committed consumer requested in A/requests/I4.7-C-TYPED-PASSAGE-CONSUMER.md; integrate its committed result only. Backend/UI facts work now."
+    },
+    {
+      "kind": "data_dependency",
+      "item": "Comparable forecast history/independent personal-fit labels absent; broad/context sources do not supply these targets.",
+      "next": "B source/mapping/history work via committed handoffs; no paid training queued."
+    },
+    {
+      "kind": "external_frontend",
+      "item": "Only repository local prototype was available/tested; intended external product/Replit frontend unspecified.",
+      "next": "Need actual frontend source/boundary for separate integration; no deployment requested."
+    },
+    {
+      "kind": "push_scope",
+      "item": "Every integration/refinement after captured P1.1 snapshot remains local.",
+      "next": "New explicit instruction needed for any later push."
+    }
+  ],
+  "preservation": {
+    "count": 13,
+    "all_preserved": true,
+    "files": [
+      {
+        "path": "raw/dosm_lfs_qtr_state.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_wages_occupation.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_wages_state.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/esco_onet_occupations_crosswalk.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/ilo_genai_2025_task_scores.xlsx",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/ilo_genai_data_dictionary.md",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_essential_skills.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_occupation_data.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_scales_reference.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_software_skills.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_jmi_q2_2026_data.xlsx",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "derived/ilo_genai_occupation_2025.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "derived/dosm_jmi_quarterly_long.csv",
+        "hash_matches": true,
+        "read_only": true
+      }
+    ],
+    "backup": "Existing G0 read-only shared snapshot; no new external backup or input staging."
+  },
+  "original_N01": "byte-identical to bootstrap; historically unapproved/inactive",
+  "remaining_changes": "After this documentation checkpoint, only original untracked read-only raw/derived inputs and ignored local artifacts/template; no intended tracked edits remain",
+  "excluded": "A logs/synthetic DBs/screenshots/models/source downloads/private config/tooling remain local ignored, not newly externally backed up; no credentials/real profiles/CVs/bulk input/model weights staged",
+  "evidence": {
+    "ml/artifacts/session-a/i4.7-ml-full.log": "4c4bb2319e0d03ba69b963fa4afee20bcd00feb12b8af8fd4a122429fb20bbb9",
+    "ml/artifacts/session-a/i4.7-backend-full.log": "37b7f43e102d3f623629a5f6b59f63a4fa3e5b9fc797c9b8e6a9e14213d5b401",
+    "ml/artifacts/session-a/i4.7-binding.log": "5279d1fc9a1ced44f9c96da1414ef59e4676f963fbad52e7a1a2903538819b0d",
+    "ml/artifacts/session-a/i4.7-web-final-v1/integration-evidence.json": "2d6445c0b2712842f77863ccf41b6d93eb51b0d59f7be408f274d65e57aa5e31",
+    "ml/artifacts/session-a/i4.7-web-final-v1/recommendation-browser.json": "f4e4b1dfc7428775b5e5dfaaabc4b106533060e969c64a2d39bde77e8fb9287f",
+    "ml/artifacts/session-a/i4.7-web-final-v1/recommendation-ui.png": "5983becd40d6d2b0f93993739d5e169afc3808fa581a69490c57a96f5a8368c2",
+    "ml/artifacts/session-a/i4.7-recommendations-final-v2/evidence.json": "fa759e75595fad593483b2c21ade13cd298345ea07cfa2224d6b82959964f047",
+    "ml/artifacts/session-a/i4.7-coverage-final-v1/coverage.json": "ec82fb43d29f3c730aa4806a440dc836fbfcd4d8337db1ce5562b5e3eb233497",
+    "ml/artifacts/session-a/i4.7-preservation.json": "3e28e92a85fdc60cfca4b18f9684117f6a77daedc411b4a27bd53037a9be222e"
+  }
+}

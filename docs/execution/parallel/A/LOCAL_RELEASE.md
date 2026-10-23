@@ -1,155 +1,152 @@
-# Session A — current provisional recommendation prototype
+# Session A — typed current-evidence integration
 
-Current handover: N3.1. This replaces the operational description of the earlier
-I2.4 local release; historical phase reports and checkpoints remain unchanged.
-The recommendation mechanism is implemented and locally verified. Data coverage
-is explicitly partial; no general claim of full market/provider/forecast completion.
-No push, deployment, production-data change or application build occurred.
+Current handover: I4.7. This replaces the operational N3.1 description; historical
+phase reports and original policy proposals remain unchanged. The provisional
+recommendation baseline works in the local prototype. Market coverage is partial.
+A-specific real Groq access is missing; no full live-provider completion is claimed.
 
-## Run in A
+## Revision and operation
 
-Use the assigned directory and branch. Reuse the existing interpreter, pinned
-read-only source inputs and available browser tooling; no setup recovery needed.
+P1.1 pushed exactly the captured starting checkpoints to verified team origin:
+A a0349bcccf5923c65919727279c3a137dcda519f,
+B 90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7,
+C 144a10d54f5b632388c7a64a78e9faa08c4d70e5.
+All subsequent integration/refinement commits remain local. See [push report](P1.1.json).
+Latest consumed owner handoffs are B 020bbcf8511aa89064b7f232723afa01cf99a427
+and C fe78c8429374d4d9748837ee9f2c94ab573c56e9, with ordinary merges retaining
+checkpoint history. No main change, force, tag, PR, deployment or application build.
 
-```sh
-source .env.local
-PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli serve-web
-```
+Run from A: source .env.local, then use MINDER_PYTHON with
+PYTHONPATH=ml/src:apps/backend-api and module
+minder_ml.intelligence.integration_cli serve-web.
 
-API 8101, UI 9101, loopback only. Database stays under A's reserved
-`ml/artifacts/session-a/runtime/dev.sqlite3`; C migrations/actions/persistence are
-reused. No B/C runtime database is opened. No dependency install or build required.
-The existing 13 untracked inputs must be restored by their G0 snapshot hashes on
-a new machine; a Git clone alone does not contain those bytes.
+A API 8101/UI 9101 on loopback; same-origin /api/*. Entry /#profile,
+Career Match at /#explore, Minder chat at /#minder, agents at /#mindbots.
+C migrations/actions/persistence are reused with A's isolated
+ml/artifacts/session-a/runtime/dev.sqlite3. No sibling DB/private config is used.
+A clone alone lacks the 13 pinned read-only inputs; reuse the existing G0 snapshot.
+Reuse the existing interpreter/tooling; no install or build is required.
 
-Save a User Profile, then supply three anchored essential-skill observations and
-activity/evidence descriptions. Source examples are available directly in the
-form; an explicit zero differs from unanswered. Prior employment, a chosen role,
-role-by-role ratings and a preparation plan are unnecessary. Industry background,
-industry/role interests and work-style preferences are separate optional inputs.
-Unstructured CV/chat claims remain reviewable input, never automatically scored
-competence. Clear/reset removes only the specified effect. Profile history remains.
+Supply three explicit anchored skill observations with activity descriptions.
+Industry background/interests, role interests and work-style inputs are separate
+optional evidence. No prior job or role-by-role ratings are needed. CV/chat claims
+remain reviewable; no automatic mastery inference. Incomplete profiles receive
+focused questions and no invented personal assessment.
 
-Career Match assesses every supported eligible role. Its groups have independent
-ranks: current comparable Malaysian evidence, and personal-only exploration where
-market comparison is unsupported. Eight cards per group are shown initially;
-other roles remain searchable. Selected-role context displays separate personal
-components and industry paths. Current observations have source dates/links;
-next-quarter forecasts remain separately unavailable. Personal-only fallback is
-never full recommendation completion. Preparation time/resources stay in pathways.
+## Policies and measurement treatment
 
-## Policy and evidence
+Personal policy personal-role-fit-v3-provisional, references role-reference-v3.2
+and baseline remain active. Minimum: three compatible native observations and
+30% assessed role criteria. C is the mean of min(person LV / role LV,1) over usable
+assessed positive-LV criteria. F is clipped 80*C + industry path + role interest +
+work-style alignment; unknown optional values have no adjustment and retain null
+raw values. Background/industry interest use the strongest supported path once.
+Preparation time/resources stay in pathways.
+See [personal policy](RECOMMENDATION_POLICY_V3.md). Original N01 remains historically
+unapproved/inactive. Legacy F0/67 and learner artifacts are preserved.
 
-The user delegated bounded provisional choices in N01-R1. New policy
-`personal-role-fit-v3-provisional`, source projection `role-reference-v3.2`,
-market combination `personal-current-cohort-v1`. Original N01 v2 remains
-historically unapproved, pending and inactive. Legacy preparation F0 and its 67
-reference result, labels and learner artifacts are preserved.
+Current market policy personal-current-evidence-v2.1 retains separate employer
+observations, published occupation-category offering activity, related shortage-
+group context and sector context. Comparable activity uses .85*F+.15*M within valid
+independent source groups; employer M normalises log count against 155 inspected
+ads, published M against the observed maximum for that same source period.
+No pooled denominators or global rank across unlike groups. A related shortage-
+group prior contributes at most +1 once without changing F. Sector totals have
+zero rank weight. Missing evidence is unknown. Forecasts contribute zero and
+remain separately unavailable. See [v2.1 policy and scope](MARKET_EVIDENCE_POLICY_V2_1.md).
 
-Minimum: three usable explicit native assessments and 30% of role criteria.
-C is the equal mean of `min(person LV / occupational LV, 1)` over assessed usable
-positive-LV criteria. Unknown criteria are disclosed, not invented as competence.
-F is `clip(80*C + industry_path_points + role_points + style_points,0,100)`.
-Optional background contributes up to 5, industry interest -5..5, role interest
--5..5, style -5..5. The strongest supported industry path contributes once;
-other industries remain considered. Missing optional answers have no adjustment
-and retain null raw values. These are partial essential-skill evidence-fit indices,
-not independently validated qualification, hiring or career-success probabilities.
+Seven code-backed related-group links preserve pinned crosswalk rows and MyCOL
+native scope. They do not certify whole-role equivalence or that every child is
+critical. MyCOL publication/continuous fieldwork dates remain null; edition and
+actual availability remain explicit. All 96 B native facts are queryable without
+inventing canonical links or mutating profile/preferences. Galaxy bulk data
+remains undistributed under B's reuse hold.
 
-Within one compatible current MY cohort of at least two assessed roles,
-`M=100*log1p(role ads)/log1p(inspected ads)` and `S=.85*F+.15*M`.
-This new blend is explicit and independent of forecasts; it does not inherit
-legacy 70/30. No global rank crosses incompatible/unsupported market groups.
-Backend calculates; the LLM explains allowlisted backend facts.
+## Actual coverage and interfaces
 
-Full choices, effects and source limits: [policy](RECOMMENDATION_POLICY_V3.md).
-Reproducible evidence: [application](N1.3.json), [learners](N2.1.json),
-[final coverage/status](N3.1.json). Current shared interface and numerical indexes
-point to v3 while preserving original G0 text and fixtures.
+| Same anchored synthetic profile | Original v1 | Current v2.1 |
+| --- | ---: | ---: |
+| Personally assessed eligible roles | 910 | 910 |
+| Comparable activity ranking, including category proxies | 4 | 5 |
+| Exact native employer observations available | 4 | 4 |
+| Published-category primary / employer primary | 0 / 4 | 3 / 2 |
+| Related shortage-group context | 0 | 7 |
+| Exact whole-role shortage designation | 0 | 0 |
+| Related sector context integrated | 0 | 907 |
+| Personal-only ranks without contextual adjustment | 906 | 900 |
 
-## Measured coverage and actual verification
+Counts overlap: two shortage-linked roles have activity comparisons; five others
+receive contextual exploration treatment. No sum implies 907 narrow role-demand
+series or a catalogue-wide comparable rank. Catalogue: 1,016 references, 910
+supported, 106 partial/explorable. The five unchanged original calibration profiles
+and one-observation incomplete profile lack the new assessment minimum.
+Independent personal-fit labels: zero.
 
-| Case | Personally assessed | Current-comparable ranked | Personal-only ranked |
-| --- | ---: | ---: | ---: |
-| New anchored fresh graduate | 910 | 4 | 906 |
-| New anchored career switcher | 910 | 4 | 906 |
-| Incomplete, one anchored skill | 0 | 0 | 0 |
-| Each of five unchanged original synthetic profiles | 0 | 0 | 0 |
+POST /api/role-evidence returns typed source records and canonical verifiable
+passages. Optional trace retrieval requires owner/current profile-version-bound
+trace identity; normalized market values and final internal scores are excluded.
+GET /api/source-market-catalogue and POST /api/source-market-context expose bounded
+native facts. Unlisted children stay unknown. Source cards show quantity/type/
+unit/source/scope/date. Ordinary numeric ranks/scores/points remain hidden in C's
+presentation while backend ordering is preserved.
 
-Catalogue: 1,016 references, 910 supported, 106 partial/explorable. Among supported
-roles, 907 have sourced industry relationships and 878 have sourced positive-style
-links; absent mappings remain unknown. Twelve source industry aggregates lack
-native codes and were deliberately not joined. US reference context is separate
-from Malaysian observations.
+[EvidencePassage v1](requests/I4-VERIFIED-PASSAGE-CONTRACT.md) verifies actual source
+artifact/row integrity and recomputes the complete record/passage/references.
+Wrong values/scope/dates/citations/role/future issue time fail even with a
+valid-looking ID/hash. This is closed structured-source verification, not source
+truth, mapping validity or general natural-language entailment.
 
-Actual B current evidence: all 155 inspected Bosch Malaysia native requisitions,
-154 observed qualification sections, four mapped role identities. Counts are
-software developers 5, other three mapped roles 0 **within this inspected feed**;
-SQL 11, Excel 27, C++ 8, Python 6, Java 4. Not national demand, current hiring,
-positions or quarterly inflow; old release dates remain visible. New B historical
-research preserves broad/censored/frozen-corpus measurements as their actual
-quantities. It supplies no compatible selected forecast model or personal labels.
+C's integrated minder-grounding-privacy-v1 uses owner-scoped support ledgers,
+closed claim selection, exact Bosch count reconciliation, minimized prompts and
+0600 DB files. It does not yet consume the new typed passage adapter. Published,
+shortage and sector facts work in backend/UI; their new LLM claims remain
+unsupported until C returns a focused committed consumer handoff. No broad C
+grounding rewrite or source-ID-only citation fallback was made by A.
 
-Checks: full ML suite 165 passed at N1.3; backend 28 passed; real HTTP and Chromium
-application/recommendation cases passed with no fetch mocks or page errors and no
-mobile overflow. Latest handoff/source refinement checks: 49 passed. Negative role
-feedback changed personal fit 65.8824 → 60.8824; repeated feedback was idempotent;
-reset restored 65.8824 without changing skills or market evidence. Explicit
-counterfactual comparable counts reversed ranking with unchanged personal evidence
-and unavailable forecasts; factual snapshot was not altered. A whole-catalogue
-service timing probe took 6.52s, excluding additional boundary validation; this is
-local prototype evidence, not a production latency guarantee.
+## Checks, models and access
 
-Ridge and CPU XGBoost actually ran: 48 fictional profile families, 569 retained
-examples, 32/8/8 family split, 378/95/96 rows. Exact cross-family feature duplicates
-were removed; train-only scaling and validation-only Ridge choice. Holdout teacher
-MAE: Ridge .0021, XGBoost 3.6832, baseline about 2.4e-9 rounding difference.
-Reload differences 0. These provisional policy-distillation labels are not
-independent evaluation; baseline remains active. No paid launch; models stay ignored.
+Current checks/hashes are consolidated in [I4.7](I4.7.json); source/contract/API
+evidence is in [I4.6](I4.6.json) and earlier I4 reports. Real HTTP/Chromium uses
+synthetic profiles with actual local services/sources, no fetch/provider mocks.
+Scenarios distinguish incomplete intake, fresh graduate, career switcher,
+not-interested/idempotent retry/reset, source queries, persisted actions/approval
+and unavailable forecasts. Controlled counterfactual counts test ranking
+sensitivity without altering factual snapshots. Mocked transport unit checks
+are separate from real provider success.
 
-## Reproduce checks
+Baseline serves. Existing Ridge/XGBoost policy-distillation runs are preserved:
+48 fictional families, 569 rows, 32/8/8 family split; holdout teacher MAE Ridge
+.0021, XGBoost 3.6832. Independent evaluation labels remain zero; neither learner
+was promoted. B's actual approved-target forecast eligibility run found zero
+compatible examples. Baseline/Ridge/XGBoost machinery exists, but no real market
+fit/evaluation/selected forecast model is claimed. No new training target/spend.
 
-Choose new ignored output directories; existing evidence is not overwritten.
+A's ignored owner-only .env.groq.local template has empty key/model fields.
+Enter the authorised A key privately; never paste secrets into reports or copy C
+config. Model selection is optional: the existing verifier discovers accessible
+models and validates chat/native tool support before selecting one. Presence checks currently false/false. Current authority permits bounded
+calls once available. With the same interpreter/PYTHONPATH run integration_cli
+verify-live --output ml/artifacts/session-a/<new-live-run>, then verify-web
+--require-live-provider --output ml/artifacts/session-a/<new-browser-run>
+--playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright
+--browsers-path /private/tmp/minder-c-browser.
 
-```sh
-"$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-recommendations --output ml/artifacts/session-a/<new-http-run>
-"$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-web --output ml/artifacts/session-a/<new-browser-run> --playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright --browsers-path /private/tmp/minder-c-browser
-"$MINDER_PYTHON" -m minder_ml.intelligence.role_fit_experiments --output ml/artifacts/session-a/<new-control-run>
-"$MINDER_PYTHON" docs/execution/parallel/A/checks/coverage_audit.py --output ml/artifacts/session-a/<new-coverage-run>
-```
+These verify actual A discovery/chat/native tool and upcoming-minute owner-scoped
+worker plus C privacy browser. Injected-clock checks do not prove unattended
+scheduling. C reported real provider success in its environment; it does not prove
+A access. Intended external product/Replit frontend was not supplied; only the
+repository local prototype was tested. No hosted/deployed verification.
 
-Temporary browser paths were available during verification; use available
-equivalents on another machine. Browser verification starts/stops its own A
-servers and runs C's committed HTTP/UI checks plus A's numerical UI cases. Only
-ports, output paths, stale policy-report wording and worker namespace are adapted.
-A's guarded `integration_cli worker-once --owner <synthetic-owner>` reuses C's
-worker code without weakening C's DB guard. Manual one-shot checks are not proof
-of a deployed unattended schedule.
+## Exclusions and next work
 
-## Remaining external and owner work
+Original 13 read-only untracked inputs remain in the G0 shared snapshot; no new
+external backup. A ignored logs, synthetic DBs/screenshots, downloaded sources,
+model artifacts and browser tooling remain local. Empty provider template remains
+ignored; no credentials/private CVs/profiles/databases/weights/raw bulk inputs are
+staged. No B/C working directory or production data was changed.
 
-A's Groq key/model presence are both false. Secure loading and native-function
-software tests are integrated, but no real-provider success is claimed. Configure
-A's own owner-controlled private provider settings, verify actual access, then run
-real grounding/native-tool and scheduled wall-clock checks. Never copy C secrets
-or print values. Local anonymous bearer identity remains a prototype, with no
-production auth/session-hardening, HTTPS or deployment claim.
-
-Comparable next-quarter role/skill target history and independent personal-fit
-labels remain absent. B's audit explains why broad tables, top-list missingness,
-and surviving-corpus dates do not provide the approved forecast target. Continue
-source work in B and use committed handoffs; no invented forecast or retraining
-against a different quantity. Paid training remains B-only; no paid A job is queued.
-
-C's company explorer explicitly retains its old generic pending-policy call;
-company-specific competence remains unknown. The main recommendation uses v3.
-A's [committed consumer handoff](requests/N01-R1-CONSUMER-HANDOFF.md) requests a
-later C-owned cleanup, preserving company qualification distinctions. No C-owned
-company/worker/migration module or sibling directory was rewritten by A.
-
-Excluded local state: original 13 read-only inputs preserved in the G0 shared
-snapshot; A's ignored source downloads, logs, synthetic SQLite databases, model
-artifacts, screenshots and temporary browser binaries remain local and not newly
-externally backed up. No credentials, real CVs/profiles, raw bulk downloads,
-weights, database files or unrelated inputs are staged. Later checkpoints remain
-local until a separate explicit push instruction.
+Next runnable work: C consumes the versioned passage contract through a committed
+handoff; A integrates and verifies it. Once A private access exists, run the bounded
+real-provider/worker/privacy cases above. B may expand supported mappings and
+compatible role/skill forecast history through committed handoffs. No paid job
+is queued. Later checkpoint pushes require a new explicit instruction.
