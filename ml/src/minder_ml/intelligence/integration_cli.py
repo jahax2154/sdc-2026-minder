@@ -569,16 +569,14 @@ def worker_run(owner, *, once=True, poll_seconds=1, max_seconds=180):
     """A DB guard plus C's actual owner-scoped worker; no injected clock/event."""
     import time
     sys.path.insert(0, str(ROOT / 'apps/backend-api'))
-    from minder_app.store import Store
-    from minder_app.actions import ActionExecutor
     from minder_app.agents import Worker
     path = Path(os.environ['MINDER_DB_PATH']).resolve()
     if not path.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
         raise ValueError('A worker adapter database must stay under A artifacts')
     if not owner:
         raise ValueError('explicit single-owner worker scope required')
-    store = Store(path)
-    worker = Worker(store, ActionExecutor(store), provider=a_provider())
+    app, _ = application(path)
+    worker = Worker(app.store, app.actions, provider=app.provider, services=app.services)
     deadline = time.monotonic() + min(300, max(1, max_seconds))
     while True:
         result = worker.tick(owner=owner)
@@ -588,7 +586,71 @@ def worker_run(owner, *, once=True, poll_seconds=1, max_seconds=180):
         time.sleep(max(1, min(30, poll_seconds)))
 
 
-def verify_live(output):
+def verify_typed_live(app):
+    """One real provider call plus persisted actual-clock notice source checks.
+
+    WSGI exercises the same real app/provider; the reused C acceptance separately
+    verifies TCP transport and an actual upcoming-minute worker event. Never
+    export the synthetic session token, raw prompt, response or ledger.
+    """
+    from .market_evidence import KINDS
+    role = next(r for r in app.services.roles if r['role_id'] == 'onet:15-1252.00')
+    expected = app.services.personal.evidence_for(role)['passages']
+    for payload in expected:
+        app.services.personal.verify_evidence_passage(role, payload)
+
+    def reconcile(statements):
+        covered = set()
+        for claim in statements:
+            if claim.get('kind') != 'market_evidence' or claim.get('status') != 'available':
+                continue
+            matching = [p for p in expected if p['canonical_passage'] == claim['text']
+                        and p['record']['measurement_type'] == claim['measurement_type']]
+            if not matching:
+                raise ValueError('typed_live_canonical_source_mismatch')
+            row = matching[0]['record']
+            if claim['sources'] != [row['source']]:
+                raise ValueError('typed_live_citation_mismatch')
+            for field, actual in (('period', row['observation_period']), ('published_at', row['published_at']),
+                                  ('mapping', row['mapping']), ('unit', row['unit']), ('geography', row['geography'])):
+                if claim[field] != actual:
+                    raise ValueError('typed_live_scope_mismatch')
+            covered.add(claim['measurement_type'])
+        return sorted(covered)
+
+    token = wsgi_request(app, 'POST', '/api/session', {})[1]['token']
+    code, profile = wsgi_request(app, 'PUT', '/api/profile',
+        dict(profile=provisional_demo_profile(), expected_version=None), token)
+    if code != 200:
+        raise ValueError('typed_live_profile_failed')
+    code, reply = wsgi_request(app, 'POST', '/api/chat', dict(
+        message='Explain published occupation-category offerings, related MyCOL shortage-group context and broader sector context for Software Developers. Preserve scope and dates; keep employer observations and unavailable next-quarter forecasts separate.',
+        expected_profile_version=profile['version'], selected_role_ids=[role['role_id']]), token)
+    if (code != 200 or reply['provider']['status'] != 'available'
+            or not reply['provider'].get('tool_call', {}).get('arguments_validated')
+            or reply['action_status'] != 'no_mutation_requested_or_executed'):
+        raise ValueError('typed_live_provider_or_authority_failed')
+    chat_types = reconcile(reply['statements'])
+    if not set(chat_types) - {'employer_observation'}:
+        raise ValueError('typed_live_non_Bosch_fact_missing')
+    if wsgi_request(app, 'GET', '/api/profile', token=token)[1] != profile:
+        raise ValueError('typed_live_profile_changed')
+    forecasts = [c for c in reply['statements'] if c.get('kind') == 'forecast']
+    if not forecasts or any(c['status'] != 'unavailable' for c in forecasts):
+        raise ValueError('typed_live_forecast_not_unavailable')
+    with app.store.connect() as db:
+        notices = [json.loads(r[0]) for r in db.execute('SELECT body FROM notices')]
+    daily = [n for n in notices if n['event_id'].startswith('daily:')
+             and n['provider_status'] == 'available_candidate_selection']
+    if not daily or not any(set(reconcile(n.get('statements', []))) == set(KINDS) for n in daily):
+        raise ValueError('typed_live_scheduled_source_families_missing')
+    return dict(app_new_types_grounded=True, scheduled_all_four_types_grounded=True,
+                app_measurement_types=chat_types, scheduled_measurement_types=list(KINDS),
+                citations_periods_units_scopes_recomputed=True, profile_unchanged=True,
+                forecast_unavailable=True, raw_payload_exported=False)
+
+
+def verify_live(output, *, require_typed_evidence=False):
     """Real A provider/app/scheduled-event acceptance; public flags only.
 
     Current user authorizes these bounded calls. A's own private access is a
@@ -603,6 +665,7 @@ def verify_live(output):
     report = dict(phase_id='I4.2', status='access_unavailable', checks={},
                   scope='A own private configuration, reserved ports and isolated synthetic SQLite',
                   real_provider_success=False, deployment_verified=False)
+    report['typed_evidence_required'] = require_typed_evidence
     try:
         config = a_provider_config()
         report['configuration_presence'] = config.presence()
@@ -627,6 +690,14 @@ def verify_live(output):
         if source.count(target) != 1:
             raise ValueError('C live acceptance changed; review A namespace adapter')
         source = source.replace(target, 'Path(' + repr(str(output / 'live-checks.json')) + ')')
+        checkpoint = 'checks["app_chat_request_success"] = reply["provider"]["status"] == "available"'
+        if source.count(checkpoint) != 1:
+            raise ValueError('C live chat checkpoint changed; review safe diagnostic adapter')
+        source = source.replace(checkpoint, checkpoint + '\n        Path(' +
+            repr(str(output / 'provider-public-diagnostic.json')) +
+            ').write_text(json.dumps(dict(status=reply["provider"]["status"], '
+            'code=reply["provider"].get("code"), arguments_validated='
+            'reply["provider"].get("tool_call",{}).get("arguments_validated") is True)))')
         script = output / 'replay_live.py'
         script.write_text('exec(compile(' + repr(source) + ', ' + repr(str(original))
             + ', "exec"), {"__file__": ' + repr(str(original)) + ', "__name__": "__main__"})\n')
@@ -638,6 +709,20 @@ def verify_live(output):
             process = subprocess.run([sys.executable, str(script), '--configuration-confirmed'],
                 cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, timeout=240)
         report['checks'] = json.loads((output / 'live-checks.json').read_text())
+        diagnostic = output / 'provider-public-diagnostic.json'
+        if diagnostic.exists():
+            report['provider_public_diagnostic'] = json.loads(diagnostic.read_text())
+        if require_typed_evidence:
+            try:
+                if process.returncode != 0:
+                    raise ValueError('original_live_prerequisite_failed')
+                report['typed_evidence'] = verify_typed_live(app)
+                report['checks'].update(app_new_types_grounded=True, scheduled_all_four_types_grounded=True)
+            except (ValueError, KeyError, TypeError, AssertionError) as error:
+                code = str(error)
+                report['typed_evidence'] = dict(status='failed_no_payload_logged',
+                    code=code if code.startswith('typed_live_') else 'typed_live_check_failed')
+                report['checks'].update(app_new_types_grounded=False, scheduled_all_four_types_grounded=False)
         report['real_provider_success'] = process.returncode == 0 and all(report['checks'].values())
         report['status'] = 'passed_local_real_provider_and_scheduled_event' if report['real_provider_success'] else 'failed_check'
         return report
@@ -670,6 +755,7 @@ def main():
     continuous.add_argument('--max-seconds', type=int, default=180)
     live = sub.add_parser('verify-live')
     live.add_argument('--output', type=Path, required=True)
+    live.add_argument('--require-typed-evidence', action='store_true')
     sub.add_parser('serve-web')
     args = parser.parse_args()
     if args.command == 'verify-recommendations':
@@ -682,7 +768,7 @@ def main():
         worker_run(args.owner, once=False, poll_seconds=args.poll_seconds, max_seconds=args.max_seconds)
         return
     if args.command == 'verify-live':
-        report = verify_live(args.output)
+        report = verify_live(args.output, require_typed_evidence=args.require_typed_evidence)
         if not report['real_provider_success']:
             raise SystemExit(1)
         return
