@@ -1137,13 +1137,27 @@
           "enum": [
             "unassessed",
             "personal_and_comparable_current",
-            "personal_only_market_unsupported"
+            "personal_only_market_unsupported",
+            "personal_and_published_offerings",
+            "personal_with_shortage_context"
           ]
         },
         "evidence_coverage": {
           "type": "number",
           "minimum": 0,
           "maximum": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -1194,7 +1208,8 @@
             "personal_only_pending_market_policy",
             "current_only",
             "next_calendar_quarter",
-            "personal-current-cohort-v1"
+            "personal-current-cohort-v1",
+            "personal-current-evidence-v2"
           ]
         },
         "status": {
@@ -1233,7 +1248,9 @@
               "basis": {
                 "enum": [
                   "personal_and_comparable_current",
-                  "personal_only_market_unsupported"
+                  "personal_only_market_unsupported",
+                  "personal_and_published_offerings",
+                  "personal_with_shortage_context"
                 ]
               },
               "role_ids": {
@@ -1245,6 +1262,10 @@
                 "uniqueItems": true
               },
               "limitation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
                 "type": "string",
                 "minLength": 1
               }
@@ -1290,6 +1311,30 @@
               "minimum": 0
             },
             "insufficient_evidence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "employer_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "published_offering_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "published_offering_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_adjusted_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sector_context_supported": {
               "type": "integer",
               "minimum": 0
             }
@@ -1448,6 +1493,18 @@
                   "final_score",
                   "policy_id"
                 ]
+              }
+            },
+            "evidence_records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/MarketEvidence"
+              }
+            },
+            "recommendation_traces": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/RecommendationTrace"
               }
             }
           },
@@ -1885,6 +1942,298 @@
         "industry_ids",
         "query",
         "authorizing_request_id"
+      ]
+    },
+    "MarketEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_type": {
+          "enum": [
+            "employer_observation",
+            "published_offering_activity",
+            "occupation_shortage",
+            "sector_context"
+          ]
+        },
+        "source_entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geography": {
+          "const": "MY"
+        },
+        "source_universe_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cohort_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation_period": {
+          "$ref": "#/$defs/Period"
+        },
+        "published_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "available_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Source"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mapping_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "relation": {
+              "enum": [
+                "native_identity",
+                "source_label_equivalence",
+                "source_label_proxy",
+                "broader_category_context",
+                "industry_related_context",
+                "unmapped"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "mapping_id",
+            "version",
+            "relation",
+            "scope"
+          ]
+        },
+        "ranking_eligibility": {
+          "enum": [
+            "employer_comparable",
+            "published_comparable",
+            "shortage_adjustment",
+            "context_only",
+            "unsupported"
+          ]
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "role_id",
+        "measurement_type",
+        "source_entity_id",
+        "status",
+        "value",
+        "unit",
+        "geography",
+        "source_universe_id",
+        "cohort_version",
+        "observation_period",
+        "published_at",
+        "available_at",
+        "source",
+        "mapping",
+        "ranking_eligibility",
+        "missing_reasons",
+        "limitations",
+        "as_of"
+      ]
+    },
+    "RecommendationTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "const": "personal-current-evidence-v2"
+        },
+        "personal_score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "score_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "personal_evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "rank": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "ranking_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ranking_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_measurement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization_denominator": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "current_index": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "current_points": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shortage_points": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "final_internal_score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "trace_id",
+        "role_id",
+        "policy_version",
+        "personal_score",
+        "score_status",
+        "personal_evidence_coverage",
+        "evidence_ids",
+        "rank",
+        "ranking_group",
+        "ranking_basis",
+        "current_measurement",
+        "normalization",
+        "normalization_denominator",
+        "current_index",
+        "current_points",
+        "shortage_points",
+        "final_internal_score",
+        "unknowns"
       ]
     }
   },

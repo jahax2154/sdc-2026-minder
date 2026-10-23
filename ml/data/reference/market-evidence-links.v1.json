@@ -1,0 +1,125 @@
+{
+  "version": "my-market-applicability-v1",
+  "authority": "A engineering applicability links under current typed-evidence integration instruction; not a full national occupation crosswalk",
+  "published_roles": [
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+      "role_id": "onet:15-1252.00",
+      "relation": "source_label_equivalence",
+      "ranking": true,
+      "scope": "Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "role_id": "onet:13-2011.00",
+      "relation": "source_label_equivalence",
+      "ranking": true,
+      "scope": "Same named Accountants and Auditors category; not a certified whole-taxonomy MASCO/O*NET crosswalk."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "role_id": "onet:11-1011.00",
+      "relation": "source_label_proxy",
+      "ranking": true,
+      "scope": "Top executive direction/policy scope overlaps the O*NET Chief Executives definition. Published count retains combined Managing Directors and Chief Executives scope; limited engineering proxy, not an exact native-code measurement."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:public-relations-professionals",
+      "role_id": "onet:27-3031.00",
+      "relation": "source_label_proxy",
+      "ranking": true,
+      "scope": "Public-relations professional/specialist function link. Older source periods remain dated context, not latest-period ranking."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:11-2011.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:11-2021.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:13-1161.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    }
+  ],
+  "unresolved_published_labels": [
+    "Administrative Professionals",
+    "Administrative Associate Professionals"
+  ],
+  "shortage_roles": [],
+  "shortage_status": "No acquired shortage rows in B 90ebdf1; accept only a later committed source handoff, never infer from a manifest URL.",
+  "industry_to_sector": {
+    "industry:accommodation-and-food-services": [
+      "Accommodation and food service activities"
+    ],
+    "industry:administrative-and-support-services": [
+      "Administrative and support service activities"
+    ],
+    "industry:agriculture-forestry-fishing-and-hunting": [
+      "Agriculture, forestry and fishing"
+    ],
+    "industry:arts-entertainment-and-recreation": [
+      "Arts, entertainment and recreation"
+    ],
+    "industry:construction": [
+      "Construction"
+    ],
+    "industry:educational-services": [
+      "Education"
+    ],
+    "industry:finance-and-insurance": [
+      "Financial and insurance/ takaful activities"
+    ],
+    "industry:government": [
+      "Public administration and defence; compulsory social security"
+    ],
+    "industry:health-care-and-social-assistance": [
+      "Human health and social work activities"
+    ],
+    "industry:information": [
+      "Information and communication"
+    ],
+    "industry:manufacturing": [
+      "Manufacturing"
+    ],
+    "industry:mining-quarrying-and-oil-and-gas-extraction": [
+      "Mining and quarrying"
+    ],
+    "industry:other-services-except-public-administration": [
+      "Other service activities"
+    ],
+    "industry:professional-scientific-and-technical-services": [
+      "Professional, scientific and technical activities"
+    ],
+    "industry:real-estate-and-rental-and-leasing": [
+      "Real estate activities"
+    ],
+    "industry:retail-trade": [
+      "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+    ],
+    "industry:transportation-and-warehousing": [
+      "Transportation and storage"
+    ],
+    "industry:utilities": [
+      "Electricity, gas, steam and air conditioning supply",
+      "Water supply, sewerage, waste management and remediation activities"
+    ],
+    "industry:wholesale-trade": [
+      "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+    ]
+  },
+  "industry_scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate.",
+  "unmapped_industries": [
+    "industry:management-of-companies-and-enterprises"
+  ]
+}

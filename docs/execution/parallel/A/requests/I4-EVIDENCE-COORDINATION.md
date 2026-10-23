@@ -54,3 +54,23 @@ A will avoid app_context.py changes until that committed boundary is inspected.
 
 Current secure A access: owner-only ignored template created, key/model absent;
 user asked to enter A-authorised values privately. No C private config is copied.
+
+## I4.3 implemented interface
+
+A's new default market policy is `personal-current-evidence-v2`; personal v3 is
+unchanged. Explicit v1 market-policy calls retain historical ordering. New public
+option fields: `trace_id`, `evidence_refs`. Groups include an optional user-facing
+`label` and new basis `personal_and_published_offerings`; never label that group
+personal-only. Coverage adds employer/published comparison counts, published fact
+support, shortage support/adjusted counts and sector context. These overlap and
+must not be summed into unique comparable-role coverage.
+
+`market_evidence.evidence_statements(result, selected_role_ids)` is a bounded
+source-only grounding helper (at most one record per role/type; no personal
+statement/document text). Its IDs are stable backend evidence references;
+`public_trace(trace)` explicitly excludes normalized current indices, current
+points and internal final calculations. Source counts/units, dates, source URLs,
+applicability scope and measurement type remain explanatory facts. C can consume
+these interfaces in its committed privacy refinement, or A can wire them after
+that boundary. A is not editing C's active frontend/chat/agents/store/grounding
+files; status was read with optional Git locks disabled only to avoid overlap.

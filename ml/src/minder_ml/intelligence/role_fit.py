@@ -14,7 +14,8 @@ from .policy_sources import role_reference_v3
 from .service_contracts import CONTRACT_VERSION, validate, next_calendar_quarter
 
 POLICY_ID = 'personal-role-fit-v3-provisional'
-MARKET_POLICY = 'personal-current-cohort-v1'
+LEGACY_MARKET_POLICY = 'personal-current-cohort-v1'
+MARKET_POLICY = 'personal-current-evidence-v2'
 CONFIG = ROOT / 'ml/configs/intelligence/personal-role-fit.v3.json'
 
 
@@ -222,7 +223,7 @@ class RoleFitService:
     def assess(self, profile, roles, *, scorer_kind='baseline', policy_version=POLICY_ID,
                market_period_policy_key=MARKET_POLICY):
         p = policy()
-        if policy_version != POLICY_ID or market_period_policy_key != MARKET_POLICY:
+        if policy_version != POLICY_ID or market_period_policy_key not in (MARKET_POLICY, LEGACY_MARKET_POLICY):
             raise ValueError('explicit v3 personal/current policy required')
         if scorer_kind not in ('baseline', 'ridge', 'xgboost'):
             raise ValueError('unknown scorer_kind')
@@ -277,7 +278,7 @@ class RoleFitService:
                 scores[rid] = s
                 compared.append(dict(role_id=rid, score=s))
                 traces.append(dict(role_id=rid, group_id=gid, personal_score=f, current_support_index=m,
-                    sample_size=size, observed_count=r['value'], final_score=s, policy_id=MARKET_POLICY))
+                    sample_size=size, observed_count=r['value'], final_score=s, policy_id=LEGACY_MARKET_POLICY))
                 by_id[rid].update(ranking_group=gid, ranking_basis='personal_and_comparable_current')
             ordered = sorted(scores, key=lambda rid: (-scores[rid], -by_id[rid]['personal_score'], rid))
             for rank, rid in enumerate(ordered, 1):
@@ -302,7 +303,7 @@ class RoleFitService:
             insufficient_evidence=sum(a['score_status'] == 'insufficient_information' for a in assessments))
         result = dict(public=dict(contract_version=CONTRACT_VERSION, profile_id=profile['profile_id'],
             profile_version=profile['version'], policy_version=POLICY_ID, model_version=None,
-            candidate_ids=candidates, market_period_policy_key=MARKET_POLICY, status='available' if complete else 'partial',
+            candidate_ids=candidates, market_period_policy_key=LEGACY_MARKET_POLICY, status='available' if complete else 'partial',
             options=[by_id[rid] for rid in ordered_ids], ranking_groups=groups, coverage=coverage,
             ordering_scope='within_groups_only', overall_ranking_complete=complete,
             targeted_questions=next((a['targeted_questions'] for a in assessments if a['targeted_questions']), []),
@@ -311,6 +312,18 @@ class RoleFitService:
                 'Current Malaysian evidence is a bounded employer sample; forecasts are separate and may be unavailable.']
                 + ([] if complete else ['Partial market/evidence coverage: personal-only fallback is not full completion.'])),
             internal=dict(personal_assessments=assessments, current_market=current, forecast_market=forecast,
-                combined_score_policy_version=MARKET_POLICY, combined_scores=compared, market_comparison=traces))
+                combined_score_policy_version=LEGACY_MARKET_POLICY, combined_scores=compared, market_comparison=traces))
         validate('Recommendation', result)
+        if market_period_policy_key == MARKET_POLICY:
+            from .market_evidence import EvidenceContext
+            result = EvidenceContext(self.market_service).apply(result, roles, stamp)
         return result
+
+    def evidence_for(self, role):
+        """Per-role public source facts and applicability; no internal market matrix."""
+        from .market_evidence import EvidenceContext
+        stamp = self.as_of or datetime.now(timezone.utc).isoformat()
+        current = self._market(role['role_id'], 'current', stamp)
+        return dict(policy_version=MARKET_POLICY,
+                    records=EvidenceContext(self.market_service).records(role, stamp, current),
+                    limitation='Source facts retain their measurement and mapping scope. Context is not a narrow-role quantity.')

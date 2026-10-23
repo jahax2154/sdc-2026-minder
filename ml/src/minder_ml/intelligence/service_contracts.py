@@ -8,6 +8,7 @@ import copy
 from datetime import date, datetime
 from functools import lru_cache
 import json
+import math
 from pathlib import Path
 from typing import Dict, List, Protocol
 
@@ -82,6 +83,24 @@ def validate(kind, payload):
                        or any(c['value'] is None or c['weight'] is None
                               for c in payload['components'])):
             raise ValueError('scoring requires accepted policy and complete components')
+    elif kind == 'MarketEvidence':
+        if payload['observation_period']['start'] > payload['observation_period']['end']:
+            raise ValueError('reversed evidence period')
+        if payload['status'] == 'available':
+            if (payload['value'] is None or not math.isfinite(payload['value']) or not payload['source']
+                    or not payload['published_at'] or not payload['available_at']):
+                raise ValueError('available typed evidence requires actual value/source/dates')
+            issue = datetime.fromisoformat(payload['as_of'].replace('Z', '+00:00'))
+            for key in ('published_at', 'available_at'):
+                stamp = datetime.fromisoformat(payload[key].replace('Z', '+00:00'))
+                if stamp.tzinfo is None or stamp > issue:
+                    raise ValueError('typed evidence not yet available')
+        elif payload['value'] is not None or not payload['missing_reasons']:
+            raise ValueError('unavailable typed evidence stays unknown')
+        if payload['measurement_type'] == 'sector_context' and payload['ranking_eligibility'] not in ('context_only', 'unsupported'):
+            raise ValueError('sector totals cannot become narrow-role ranking quantities')
+        if payload['measurement_type'] == 'occupation_shortage' and payload['value'] not in (1, None):
+            raise ValueError('shortage positive designation only; unlisted is unknown')
     elif kind == 'MarketResult':
         if payload['observation_period']['start'] > payload['observation_period']['end']:
             raise ValueError('reversed observation period')
@@ -115,7 +134,7 @@ def validate(kind, payload):
         if public['market_period_policy_key'] == 'personal_only_pending_market_policy':
             if payload['internal']['combined_scores']:
                 raise ValueError('pending market policy cannot produce blended scores')
-        if public['market_period_policy_key'] == 'personal-current-cohort-v1':
+        if public['market_period_policy_key'] in ('personal-current-cohort-v1', 'personal-current-evidence-v2'):
             options = {o['role_id']: o for o in public['options']}
             grouped = []
             for group in public['ranking_groups']:
@@ -125,10 +144,17 @@ def validate(kind, payload):
                     grouped.append(rid)
             if len(grouped) != len(set(grouped)) or any(o['rank'] is not None and o['role_id'] not in grouped for o in options.values()):
                 raise ValueError('ranked option must belong to exactly one group')
-            complete = (bool(candidates) and len(payload['internal']['combined_scores']) == len(candidates)
-                        and len(public['ranking_groups']) == 1)
+            comparable = [g for g in public['ranking_groups'] if g['basis'] in
+                          ('personal_and_comparable_current', 'personal_and_published_offerings')]
+            complete = (bool(candidates) and sum(len(g['role_ids']) for g in comparable) == len(candidates)
+                        and len(public['ranking_groups']) == len(comparable) == 1)
             if public['overall_ranking_complete'] != complete or (public['status'] == 'available') != complete:
                 raise ValueError('personal-only/partial coverage cannot claim full completion')
+        if public['market_period_policy_key'] == 'personal-current-evidence-v2':
+            for row in payload['internal']['evidence_records']:
+                validate('MarketEvidence', row)
+            for row in payload['internal']['recommendation_traces']:
+                validate('RecommendationTrace', row)
     elif kind == 'CompanyRoleResult':
         if payload['status'] == 'found' and (not payload['role_id'] or not payload['official_evidence']):
             raise ValueError('found company role requires official evidence')

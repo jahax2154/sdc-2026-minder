@@ -5,7 +5,7 @@ import unittest
 from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
 from minder_ml.intelligence.personal_cli import synthetic_profile
 from minder_ml.intelligence.personal_service import update_preference
-from minder_ml.intelligence.role_fit import RoleFitService, reference, POLICY_ID
+from minder_ml.intelligence.role_fit import RoleFitService, reference, POLICY_ID, LEGACY_MARKET_POLICY
 from minder_ml.intelligence.integration_cli import role_aliases
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.service_contracts import validate, public_recommendation
@@ -47,6 +47,7 @@ class RoleFitTests(unittest.TestCase):
         cls.market=MarketEvidenceService(aliases={'role':role_aliases(cls.cat)})
 
     def result(self,p=None,market=None,**kwargs):
+        kwargs.setdefault('market_period_policy_key',LEGACY_MARKET_POLICY)  # frozen v1 combination regressions
         return RoleFitService(market,as_of=STAMP).assess(p or anchored_profile(),self.roles,**kwargs)
 
     def test_minimum_fresh_graduate_optional_missing(self):
