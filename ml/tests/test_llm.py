@@ -23,6 +23,8 @@ class GroqTests(unittest.TestCase):
         result = GroqAdapter(key="test-only", model="mock-model", opener=opener).probe()
         self.assertEqual(result["status"], "available")
         self.assertEqual(len(requests), 2)
+        self.assertEqual(requests[0].get_header("User-agent"), "MinderPrototype/1.0")
+        self.assertEqual(requests[0].get_header("Accept"), "application/json")
         self.assertEqual(json.loads(requests[1].data)["max_completion_tokens"], 8)
 
     def test_bounded_retry_and_redacted_error(self):

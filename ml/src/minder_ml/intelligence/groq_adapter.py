@@ -49,6 +49,7 @@ class GroqAdapter:
         body = json.dumps(payload).encode() if payload is not None else None
         request = Request(BASE + path, data=body, headers={
             "Authorization": "Bearer " + self.key, "Content-Type": "application/json",
+            "Accept": "application/json", "User-Agent": "MinderPrototype/1.0",
             "X-Request-ID": rid})
         for attempt in range(self.retries + 1):
             try:
