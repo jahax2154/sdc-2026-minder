@@ -1,0 +1,126 @@
+{
+  "phase_id": "SY3",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "scope": "reproducibility, isolation, disclosure and RunPod preparation; not paid execution",
+  "base_sha": "f62770b67eb3bd241e0a3947578064be72f609d7",
+  "checkpoint": "commit containing this record and SYNTHETIC_HANDOFF.v1.md",
+  "checkpoint_shas": {
+    "SY1": "3dcc8e08fcfafc0c358aaf140063e929c2a752f7",
+    "SY2": "e2561ff2430eb317ae8cbe547c6c913246c0cd32",
+    "SY2-R01": "f62770b67eb3bd241e0a3947578064be72f609d7"
+  },
+  "changes": [
+    "Exact clean-checkout dataset, predictions and metrics replay without copying real raw inputs",
+    "Bounded hash/dependency/ancestry-verifying worker launcher tested end to end locally",
+    "CPU-only RunPod job, explicit timeout/termination/spend controls, requirements and cleanup/evidence contract",
+    "Factual labelled data/model card, submission paragraph and A publication handoff"
+  ],
+  "checks": [
+    {
+      "command": "Clean local clone of committed B code; generate and run with exact dataset/runner checksums",
+      "result": {
+        "clean_checkout": true,
+        "real_inputs_uploaded": 0,
+        "absent_raw_inputs": 13,
+        "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+        "runner_sha256": "d20ea421410e453cee1a444dc530e86ef3d94f2caf3635b2b6e3a87ade6a5b0b",
+        "code_commit": "f62770b67eb3bd241e0a3947578064be72f609d7",
+        "predictions_sha256": "95c226fe4bd8d0ed4eaa795c240497e4ad593e57ad20dbb6d6e47ca3ccc8af09",
+        "all_per_family_metrics_identical": true,
+        "all_predictions_identical": true,
+        "fits": 12,
+        "elapsed_seconds": 0.13203029200000005,
+        "isolation": {
+          "observed_training_runner": "synthetic_or_unspecified_data_cannot_be_real_experiment_evidence",
+          "normal_market_service": "service requires explicitly real evidence",
+          "normal_registry": "incompatible_or_synthetic_forecast_registry"
+        },
+        "paid_cost_usd": 0
+      }
+    },
+    {
+      "command": "run_synthetic_job.py --preflight-only",
+      "result": "passed; zero fits; no provisioning"
+    },
+    {
+      "command": "run_synthetic_job.py in clean clone (local CPU)",
+      "result": "passed; 12 fits; all metrics and prediction hash match; eight artifact checksums verified; not RunPod execution"
+    },
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service test_forecasting test_service_contracts",
+      "result": ".......................................................\n----------------------------------------------------------------------\nRan 55 tests in 22.279s\n\nOK",
+      "log_sha256": "84d7e8ad58fdf24590f65eb46a9f022e2b5bd11ee951b550074e2759983ace64"
+    },
+    {
+      "command": "13 bootstrap input SHA-256/read-only checks; unchanged observed hashes/serving registry; B path ownership over closure delta",
+      "result": "passed; normal selected model list still empty"
+    },
+    {
+      "command": "Inspect final owned paths and git diff --check before explicit staging",
+      "result": "passed"
+    },
+    {
+      "command": "Launcher rejects RunPod execution mode without actual operator-supplied job/resource ID before any subprocess",
+      "result": "argparse exit2; no fits or paid job created"
+    },
+    {
+      "check": "Final worker execution-location/billing metadata refinement after pipeline replay",
+      "result": "Local and RunPod modes separated; RunPod requires actual resource ID and leaves cost unknown until measured. Current preflight and missing-ID guard passed; the unchanged generation/training/comparison subprocess path is covered by the preceding local E2E replay."
+    }
+  ],
+  "job_spec_sha256": "b2553fc08dad11fe8974dcfbca63900d9d7e42fbb7bc22fd9fa610e3897dcef1",
+  "runtime": {
+    "market_registry_version": "market-serving-registry-v1",
+    "observed_current_evidence": "unchanged from 020bbcf",
+    "synthetic_only_normal_serving_models": 0,
+    "real_selected_forecast_models": 0,
+    "real_role_and_skill_forecasts": "unavailable",
+    "personal_policy": "A-owned; not modified",
+    "shared_contract": "unchanged"
+  },
+  "coverage": {
+    "observed_increase": 0,
+    "synthetic_records": 864,
+    "synthetic_groups": 9,
+    "synthetic_series": 18,
+    "synthetic_generated_zeros": 72,
+    "synthetic_missing_cells": 8
+  },
+  "execution": {
+    "local_runs": 3,
+    "fits_per_run": 12,
+    "real_target_fits": 0,
+    "RunPod_jobs": 0,
+    "actual_session_paid_cost_usd": 0,
+    "balance_usd": null,
+    "synthetic_experiment_fits": 36,
+    "unit_test_smoke_fits_excluded_from_experiment_total": true
+  },
+  "paid_execution": {
+    "status": "blocked_external",
+    "exact_blockers": [
+      "No configured RunPod credential/private config; authenticated access, balance and prior jobs unknown",
+      "Provider image/digest/rate and rounded storage/billing quote not verified",
+      "External resource termination must be configured before provision and separate paid authority checked; prepared script does not provision or bill"
+    ],
+    "budget_reference": "runpod_budget.json; reported totalUSD25 is not verified remaining credit; existing A-002 requests no paid run, maximumUSD0"
+  },
+  "limitations": [
+    "Simulation performance, not independent Malaysian accuracy or augmentation evidence",
+    "Linux/RunPod numerical equivalence not tested; pinned worker compares metrics within1e-5",
+    "Initial level/denominator transitions precede final-test dates; card states this scope",
+    "Final-test results did not change validation-selected seasonal methods",
+    "No deployed scenario UI/API and no synthetic evidence in normal recommendations"
+  ],
+  "excluded_state": [
+    "13 pinned read-only raw/derived inputs remain untracked",
+    "Synthetic datasets/examples/predictions/weights and raw per-run logs remain ignored local artifacts",
+    "Disposable clean clone under /private/tmp; local-only, no external backup",
+    "No credentials, personal records, environments, database files or model weights staged"
+  ],
+  "A_publication": "Authorised coordinated push under closure pack file06; A captures named full snapshot SHA from final report. B did not push; remote state not verified.",
+  "deployment": "not performed",
+  "next_eligible": "A coordinates publication/submission integration. Paid launch remains separately blocked. Stop bounded synthetic scope; no further generated rows or source-search restart."
+}

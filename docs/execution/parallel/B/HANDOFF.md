@@ -1,5 +1,7 @@
 # Session B market-service and RunPod handoff
 
+Synthetic closure: [SYNTHETIC_HANDOFF.v1.md](SYNTHETIC_HANDOFF.v1.md) records SY1–SY3, measured isolated simulations and RunPod preparation. It does not replace or increase observed market evidence. A coordinates its explicitly authorised publication under closure-pack file 06.
+
 Latest current-coverage handoff: [HANDOFF.v3.md](HANDOFF.v3.md), B3.2-R02, records coded MyCOL/DOSM expansion, precise six-digit scope, reconciliation with A and reuse limits. Earlier checkpoint text below remains historical.
 
 Latest continuation: [HANDOFF.v2.md](HANDOFF.v2.md) records B3.2-R01, the complete accessible employer feed and actual historical-source investigation. The original B3.2 checkpoint report below is preserved as history.

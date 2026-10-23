@@ -1,5 +1,7 @@
 Session B contract handoff — B1.1
 
+Latest synthetic closure: `SYNTHETIC_HANDOFF.v1.md`. SY1 `3dcc8e08fcfafc0c358aaf140063e929c2a752f7`, SY2 `e2561ff2430eb317ae8cbe547c6c913246c0cd32`, SY2-R01 `f62770b67eb3bd241e0a3947578064be72f609d7`, followed by the commit containing SY3. A coordinates the specifically captured full snapshot SHA under closure-pack file 06. No shared contract or scoring change is requested. Keep all fictional scenarios/models outside normal evidence/forecasts; counts and real forecast availability are unchanged. Measured outcomes, labelled submission paragraph, exact replay, dependency pins and runnable bounded RunPod specification are committed. Paid execution remains separate; no job or spend occurred.
+
 No shared-file mutation requested yet. B preserves minder-parallel-v1.
 
 A should supply/confirm source-native O*NET code to canonical role ID translation (e.g. 15-1252.00) and technology source-term to canonical skill ID mappings. B will accept explicit canonical-to-source aliases at the adapter boundary; no title-based conversion inside A/C. B does not create an alternate occupation catalogue. Literal skill terms are not automatically equivalent to broad O*NET categories.
