@@ -49,5 +49,20 @@
   "remaining_credits_usd": null,
   "reported_account_allowance_usd": 25,
   "safety": "No account API requests or resource changes possible without credentials; no claim that all reported USD25 remains.",
+  "synthetic_closure_recheck": {
+    "RUNPOD_API_KEY": "not_configured",
+    "RUNPOD_TOKEN": "not_configured",
+    "actual_session_cost_usd": 0,
+    "balance_verified": false,
+    "checked_at": "2026-10-23T13:55:22.632073+00:00",
+    "job_spec": "synthetic-runpod-job.v1.json",
+    "launch_status": "not_launched; separately gated",
+    "new_paid_jobs": 0,
+    "prepared_limits": "existing proposed USD2/one worker/no retries; process600s/external termination900s; no new paid authorisation inferred",
+    "prior_jobs_verified": false,
+    "private_config": "absent",
+    "remaining_credits_usd": null,
+    "synthetic_training_location": "local_cpu"
+  },
   "version": "single-operator-runpod-ledger-v1"
 }
