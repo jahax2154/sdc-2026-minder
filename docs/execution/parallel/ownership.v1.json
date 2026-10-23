@@ -97,7 +97,8 @@
         "ml/tests/test_service_contracts.py",
         "ml/tests/fixtures/",
         "ml/tests/test_personal_service.py",
-        "ml/tests/test_role_fit_v3.py"
+        "ml/tests/test_role_fit_v3.py",
+        "ml/tests/test_market_evidence.py"
       ],
       "reserved_new_ml_files": [
         "ml/src/minder_ml/intelligence/catalogue_service.py",
@@ -106,7 +107,8 @@
         "ml/src/minder_ml/intelligence/personal_training.py",
         "ml/src/minder_ml/intelligence/integration_cli.py",
         "ml/src/minder_ml/intelligence/role_fit.py",
-        "ml/src/minder_ml/intelligence/role_fit_experiments.py"
+        "ml/src/minder_ml/intelligence/role_fit_experiments.py",
+        "ml/src/minder_ml/intelligence/market_evidence.py"
       ]
     },
     "B": {
@@ -161,7 +163,8 @@
     "lane_requests": "docs/execution/parallel/<LANE>/requests/; owner commits then A integrates",
     "shared_changes": "A publishes contract/dependency commits; B/C cherry-pick clean reviewed commits, never absolute imports from sibling worktree",
     "integration": "A integrates meaningful local lane commits after owner handoff; no concurrent edits to owner modules",
-    "optional_D": "not assigned/launched; requires later ownership transfer"
+    "optional_D": "not assigned/launched; requires later ownership transfer",
+    "I4": "A publishes typed evidence/trace schemas and adapter; B source/market internals remain B-owned; consume C bounded grounding/privacy committed handoff before overlapping app_context edits."
   },
   "runtime": {
     "credentials": "Inherited environment or private local config only; none committed or copied",

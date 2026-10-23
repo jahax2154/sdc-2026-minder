@@ -1,0 +1,89 @@
+{
+  "phase_id": "I4.3.0",
+  "status": "audited_contract_preparation",
+  "as_of": "2026-10-23T08:41:41.230798+00:00",
+  "roles": 910,
+  "employer_supported": 4,
+  "employer_unavailable_reasons": {
+    "no_supported_source_to_canonical_entity_mapping": 906
+  },
+  "mapped_ads": 5,
+  "inspected_ads": 155,
+  "published_numeric_observations": 35,
+  "published_labels": 7,
+  "latest_published": [
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+      "label": "Software Developers",
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "value": 19899
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "label": "Accountants and Auditors",
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "value": 22067
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "label": "Advertising and Marketing Professionals",
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "value": 40640
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "label": "Managing Directors and Chief Executives",
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "value": 26649
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "label": "Administrative Associate Professionals",
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "value": 23984
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-professionals",
+      "label": "Administrative Professionals",
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "value": 22093
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:public-relations-professionals",
+      "label": "Public Relations Professionals",
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "value": 8372
+    }
+  ],
+  "sector_source_rows": 952,
+  "distinctions": {
+    "missing_integration": "New B published-role methods/registry not yet wired to A canonical evidence context",
+    "mappings": "4 exact native employer identities; no declared A source-label/sector applicability registry yet",
+    "incompatible_measurements": "Published offerings/broad totals/shortage membership must not be added to native ads or used as old forecast targets",
+    "policy_eligibility": "v1 accepts only MY unique inspected advertisements with known sample denominator; min two scored comparable roles; does not wait on forecasts",
+    "shortage": "No acquired shortage rows in consumed B handoff; manifest URL alone is not evidence"
+  },
+  "planned": "Version typed evidence/trace interfaces and market treatment separately from unchanged personal v3 policy; share owner contract through committed A request",
+  "push_status": "local only"
+}
