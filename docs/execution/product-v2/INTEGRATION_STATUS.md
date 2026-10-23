@@ -46,6 +46,11 @@ This is current product evidence, not a replacement for historical P0 reports.
   commit check FAILS F-DOC-REVIEW-R01: an editable new text silently replays the
   first request. Backend does not duplicate the mutation. Owner F repair remains
   required; full frontend closure is not claimed from the passing happy paths.
+- P1.6-R01 final A workspace rerun passes all persisted profile/career/task/resource
+  checks and9 phone routes on the final F client. Actual smoke passes20 desktop/
+  phone route-width combinations, keyboard navigation, zero unexpected console
+  errors and zero failed assets. Only the reproduced F-DOC-REVIEW-R01 case remains
+  open in A acceptance; do not turn the other passing checks into full closure.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m
