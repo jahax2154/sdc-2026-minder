@@ -1,0 +1,8 @@
+{
+  "phase_id":"CL2-R01","status":"passed","refines":"CL2","owner":"C",
+  "reason":"Expanded evidence selection exposed Groq native tool generation failures at 512 output tokens. One controlled diagnostic with the existing 1024 hard cap succeeded and selected all four families; this is not a guarantee of provider reliability.",
+  "changes":["Native tool default allowance uses the existing 1024-token absolute cap; explicit smaller caller budgets preserved, text-only calls unchanged","Legacy browser assertion identifies Bosch derivation by support_kind, rather than assuming first external fact; failure logs use fixed stage names only"],
+  "verification":{"backend_tests_passed":47,"mocked_transport_tests_passed":7,"hard_cap_and_explicit_smaller_budget_checked":true,"actual_chromium_local_acceptance_passed":true,"chromium_provider_real":true,"chromium_synthetic_user":true,"page_errors":0,"intended_product_frontend_verified":false},
+  "limits":["CL3 final HTTP multi-family provider acceptance not yet all green; retain exact failure evidence there","No semantic retries added; invalid output remains withheld; no provider/account settings inferred"],
+  "publication":"A coordinated publisher; not pushed/deployed"
+}

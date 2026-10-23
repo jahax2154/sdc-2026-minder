@@ -68,6 +68,13 @@ class GroqTests(unittest.TestCase):
         result = provider.complete_tool([], tool)
         self.assertEqual(json.loads(result["text"]), {"id": "known"})
         self.assertFalse(payloads[0]["parallel_tool_calls"])
+        # Expanded v2.1 passages need room for the native tool envelope. Keep
+        # the existing absolute cap and explicit smaller caller budgets intact.
+        self.assertEqual(payloads[0]["max_completion_tokens"], 1024)
+        provider.complete_tool([], tool, max_tokens=4096)
+        self.assertEqual(payloads[-1]["max_completion_tokens"], 1024)
+        provider.complete_tool([], tool, max_tokens=128)
+        self.assertEqual(payloads[-1]["max_completion_tokens"], 128)
         arguments.update(id="invented", approval_state="approved")
         with self.assertRaises(ProviderError) as ctx:
             provider.complete_tool([], tool)
