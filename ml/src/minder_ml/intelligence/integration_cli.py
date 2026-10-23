@@ -60,10 +60,9 @@ def application(database, *, role_ids=None):
     catalogue = OccupationalCatalogue()
     roles = catalogue.roles() if role_ids is None else [catalogue.role(rid) for rid in role_ids]
     market = MarketEvidenceService(aliases={'role': role_aliases(catalogue), 'skill': {}})
-    snapshot_path = ROOT / 'ml/data/market/snapshot.v1.json'
     market_source = dict(source_id='bosch-smartrecruiters-my',
                          version='derived-snapshot-v1:' + market.version,
-                         sha256=hashlib.sha256(snapshot_path.read_bytes()).hexdigest(),
+                         sha256=market.version,
                          uri='https://www.bosch.com.my/careers/', geography='MY',
                          available_at=market.snapshot.get('available_at', market.snapshot['collected_at']), evidence_type='source-derived')
     services = CareerServices(PersonalMatchingService(market), market, roles=roles,

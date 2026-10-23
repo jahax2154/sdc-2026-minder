@@ -1,5 +1,7 @@
 """Real source/WSGI trace boundary; synthetic users, no provider or network mocks."""
 import json
+import copy
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -49,5 +51,22 @@ class EvidenceApiTests(unittest.TestCase):
         other=self.request('PUT','/api/profile',dict(profile=provisional_demo_profile(),expected_version=None),token=second)
         body['expected_profile_version']=other['version']
         self.request('POST','/api/role-evidence',body,token=second,expected=409)
+
+    def test_actual_A_source_registry_matches_C_verified_inspected_derivation(self):
+        from minder_app.grounding import build_bundle,resolve_claim
+        services=self.app.services
+        context=services.career_context(self.profile,expected_profile_version=self.profile['version'],
+            selected_role_ids=['onet:15-1252.00'],selected_skill_ids=['source-term:python'])
+        bundle=build_bundle(context,services,[],self.profile['version'])
+        observed=[resolve_claim(c,bundle) for c in bundle['claims'] if c.get('kind')=='current']
+        self.assertEqual(len(observed),2)
+        self.assertTrue(all(c['status']=='available' and c['sources'] for c in observed))
+        registered=next(s for s in services.sources if s['source_id']=='bosch-smartrecruiters-my')
+        self.assertEqual(registered['sha256'],services.market.version)
+        bad=copy.deepcopy(context)
+        next(s for s in bad['sources'] if s['source_id']=='bosch-smartrecruiters-my')['sha256']=hashlib.sha256(
+            (ROOT/'ml/data/market/snapshot.v1.json').read_bytes()).hexdigest()
+        rejected=build_bundle(bad,services,[],self.profile['version'])
+        self.assertFalse(any(c.get('kind')=='current' and c.get('status')=='available' for c in rejected['claims']))
 
 if __name__=='__main__':unittest.main()

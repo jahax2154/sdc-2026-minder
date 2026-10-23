@@ -1,0 +1,26 @@
+{
+  "refinement_id": "I4.1-R01",
+  "parent_checkpoint": "a0f4066c334c1b58b1dc63741c1a4708d168a556",
+  "status": "passed",
+  "C_privacy_handoff": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+  "C_merge": "f0e5ad0c89c78983d0dc379798e0a106d77953da",
+  "problem": "New C ledger correctly checks source snapshot digest against actual inspected-row derivation. A registered the differently serialized tracked-file digest, so legitimate A counts would fail closed.",
+  "fix": "Register the canonical derived-snapshot digest market.version, matching B source_facts and C runtime. This digest identifies the derived snapshot, not the careers webpage bytes. Original file digest and source bytes remain unchanged.",
+  "checks": [
+    {
+      "command": "backend suite after C privacy integration",
+      "result": "42 passed in 1.294s"
+    },
+    {
+      "command": "checks/test_evidence_api.py including actual A/C ledger derivation",
+      "result": "3 passed in 3.007s; role and skill count claims verified; wrong tracked-file digest rejected"
+    },
+    {
+      "command": "full ML regression before C backend-only merge",
+      "result": "183 passed in 135.135s"
+    }
+  ],
+  "privacy": "C claim/support ledger, minimal prompts, file permission controls and hidden ordinary numeric display integrated unchanged. New typed official/sector families currently remain unsupported by C closed passage renderer and must not be falsely cited; reusable A passage contract next.",
+  "access": "A key/model still absent; no real A Groq success claimed.",
+  "push_status": "local only; C privacy commit was not part of P1 captured push snapshot"
+}
