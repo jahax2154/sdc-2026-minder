@@ -1,0 +1,144 @@
+{
+  "synthetic": true,
+  "fits": 12,
+  "pilot": {
+    "fits": 2,
+    "training_examples": 16,
+    "elapsed_seconds": 0.01873679099999992,
+    "process_peak_rss_mib": 123.109375,
+    "device": "CPU",
+    "workers": 1
+  },
+  "elapsed_seconds": 0.13830029199999994,
+  "process_peak_rss_mib": 126.484375,
+  "runner_sha256": "dfe11749d08f2a9846337610fcf7d0c2ba721acb6ffb45fd5888cdd86c73ba4c",
+  "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+  "measured": {
+    "role": {
+      "choice": "seasonal",
+      "test": {
+        "no_change": {
+          "mae": 1.4705882352941178,
+          "rmse": 1.8942637868358374,
+          "wape": 0.010827197921177999,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "seasonal": {
+          "mae": 2.176470588235294,
+          "rmse": 2.6009048199334286,
+          "wape": 0.01602425292334344,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "ridge": {
+          "mae": 10.469243172455904,
+          "rmse": 10.715703989665862,
+          "wape": 0.07707974618092263,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "gradient_boosting": {
+          "mae": 29.025001525878906,
+          "rmse": 31.69801729166646,
+          "wape": 0.21369641660456534,
+          "zero_targets": 0,
+          "n": 17
+        }
+      },
+      "robustness": {
+        "no_change": {
+          "mae": 7.0,
+          "rmse": 7.7735816345215945,
+          "wape": 0.09919028340080972,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "seasonal": {
+          "mae": 11.142857142857142,
+          "rmse": 13.169228201704586,
+          "wape": 0.15789473684210525,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "ridge": {
+          "mae": 7.156071408030432,
+          "rmse": 8.742791278426216,
+          "wape": 0.10140182157128143,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "gradient_boosting": {
+          "mae": 6.329270499093192,
+          "rmse": 6.825687113287237,
+          "wape": 0.08968601921791973,
+          "zero_targets": 0,
+          "n": 7
+        }
+      }
+    },
+    "skill": {
+      "choice": "seasonal",
+      "test": {
+        "no_change": {
+          "mae": 1.5294117647058822,
+          "rmse": 1.8786728732554485,
+          "wape": 0.0203921568627451,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "seasonal": {
+          "mae": 1.8823529411764706,
+          "rmse": 2.326319992151199,
+          "wape": 0.025098039215686273,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "ridge": {
+          "mae": 5.787942288217505,
+          "rmse": 6.068961389659683,
+          "wape": 0.07717256384290007,
+          "zero_targets": 0,
+          "n": 17
+        },
+        "gradient_boosting": {
+          "mae": 15.713204552145566,
+          "rmse": 17.408129199400985,
+          "wape": 0.20950939402860755,
+          "zero_targets": 0,
+          "n": 17
+        }
+      },
+      "robustness": {
+        "no_change": {
+          "mae": 3.7142857142857144,
+          "rmse": 4.27617987059879,
+          "wape": 0.0962962962962963,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "seasonal": {
+          "mae": 6.0,
+          "rmse": 7.3484692283495345,
+          "wape": 0.15555555555555556,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "ridge": {
+          "mae": 4.170414273914502,
+          "rmse": 5.017931580326082,
+          "wape": 0.10812185154593153,
+          "zero_targets": 0,
+          "n": 7
+        },
+        "gradient_boosting": {
+          "mae": 3.6722929818289622,
+          "rmse": 4.301362132965921,
+          "wape": 0.09520759582519531,
+          "zero_targets": 0,
+          "n": 7
+        }
+      }
+    }
+  }
+}
