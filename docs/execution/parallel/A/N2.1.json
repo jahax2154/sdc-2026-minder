@@ -1,0 +1,209 @@
+{
+  "phase_id": "N2.1",
+  "policy_id": "personal-role-fit-v3-provisional",
+  "policy_sha256": "59b14413e2e2a741ff3304f293e2215cd21942754089a080e5c7d68d98842695",
+  "reference_sha256": "a9f80201392af47cb9966d0f81bd2f52ca99cd2e9845b5e1deb3b478be96234f",
+  "feature_names": [
+    "capability_ratio",
+    "background_points",
+    "industry_interest_points",
+    "role_interest_points",
+    "work_style_points"
+  ],
+  "feature_version": "role-fit-v3-known-components-v1",
+  "code_revision": "8011c34fd12062ef90a55505f591aa4c0b3d3886",
+  "implementation_sha256": {
+    "role_fit.py": "27d616a5ecd79458a61b6d31a991f5c1b848ddb5753d7709f437d78e9c9d0f70",
+    "role_fit_experiments.py": "051b8cc54c9bbdaa638cfc3fa5229776e15f4847add964689d21a034a397ce63",
+    "estimators.py": "c7e46b24f186bdb15d189020725005892896d0044747aba142d7f2765880539f",
+    "integration_cli.py": "f3385f8e260f505201811cc137e8d35de3891296539686af769ecac15ecb63c7"
+  },
+  "runner": "local CPU, two threads, USD0; no RunPod launch",
+  "created_at": "2026-10-23T06:38:48.839584+00:00",
+  "package_versions": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "scikit-learn": "1.6.1",
+    "xgboost": "2.1.4",
+    "joblib": "1.5.3",
+    "threadpoolctl": "3.7.0"
+  },
+  "target": "provisional_policy_distillation_0_100",
+  "independent_personal_fit_labels": 0,
+  "promotable": false,
+  "serving_selection": "baseline",
+  "selection_reason": "Exact traceable policy; teacher agreement cannot establish career-fit validity.",
+  "dataset_sha256": "a8366f575bd4bffe90a404924b4111cf484cc3a9164b40a54a4ef311a347b679",
+  "split": {
+    "train": [
+      "fictional-profile-family-7",
+      "fictional-profile-family-40",
+      "fictional-profile-family-32",
+      "fictional-profile-family-17",
+      "fictional-profile-family-10",
+      "fictional-profile-family-39",
+      "fictional-profile-family-12",
+      "fictional-profile-family-13",
+      "fictional-profile-family-30",
+      "fictional-profile-family-33",
+      "fictional-profile-family-45",
+      "fictional-profile-family-15",
+      "fictional-profile-family-24",
+      "fictional-profile-family-27",
+      "fictional-profile-family-6",
+      "fictional-profile-family-28",
+      "fictional-profile-family-41",
+      "fictional-profile-family-8",
+      "fictional-profile-family-44",
+      "fictional-profile-family-23",
+      "fictional-profile-family-38",
+      "fictional-profile-family-9",
+      "fictional-profile-family-20",
+      "fictional-profile-family-26",
+      "fictional-profile-family-43",
+      "fictional-profile-family-2",
+      "fictional-profile-family-11",
+      "fictional-profile-family-34",
+      "fictional-profile-family-47",
+      "fictional-profile-family-36",
+      "fictional-profile-family-16",
+      "fictional-profile-family-37"
+    ],
+    "validation": [
+      "fictional-profile-family-0",
+      "fictional-profile-family-14",
+      "fictional-profile-family-35",
+      "fictional-profile-family-22",
+      "fictional-profile-family-4",
+      "fictional-profile-family-29",
+      "fictional-profile-family-1",
+      "fictional-profile-family-19"
+    ],
+    "holdout": [
+      "fictional-profile-family-25",
+      "fictional-profile-family-5",
+      "fictional-profile-family-42",
+      "fictional-profile-family-3",
+      "fictional-profile-family-18",
+      "fictional-profile-family-31",
+      "fictional-profile-family-46",
+      "fictional-profile-family-21"
+    ]
+  },
+  "split_sha256": "c0f08c1b796ac001b9e8dd59e828110afbd9a36dd04eb2f5cfefccb897a08411",
+  "row_counts": {
+    "train": 378,
+    "validation": 95,
+    "holdout": 96
+  },
+  "coverage": {
+    "role_ids": [
+      "onet:15-1252.00",
+      "onet:15-2051.00",
+      "onet:17-2112.00",
+      "onet:13-2011.00",
+      "onet:11-1011.00",
+      "onet:29-1141.00",
+      "onet:25-2021.00",
+      "onet:27-1024.00",
+      "onet:41-2031.00",
+      "onet:43-6014.00",
+      "onet:49-3023.00",
+      "onet:35-1011.00"
+    ],
+    "original_rows": 576,
+    "duplicate_vectors_removed": 7,
+    "exact_vectors_shared_across_groups": 0
+  },
+  "candidates": {
+    "ridge": {
+      "validation": {
+        "teacher_MAE": 0.002748735261443838,
+        "teacher_RMSE": 0.003197248294983091,
+        "count": 95
+      },
+      "holdout": {
+        "teacher_MAE": 0.0021013099846967274,
+        "teacher_RMSE": 0.0028295627228799095,
+        "count": 96
+      },
+      "fit": {
+        "fit_wall_seconds": 0.0013096669999999033,
+        "fit_process_cpu_seconds": 0.0009660000000000224
+      },
+      "pipeline_sha256": "b64fd7ec8144d35e95aa6b798a5264f7a8e6562a097a1af5b94f68b438c28065",
+      "reload_max_absolute_difference": 0.0,
+      "live_selected": false
+    },
+    "xgboost": {
+      "validation": {
+        "teacher_MAE": 3.878885926164059,
+        "teacher_RMSE": 5.003425627680883,
+        "count": 95
+      },
+      "holdout": {
+        "teacher_MAE": 3.683204465613098,
+        "teacher_RMSE": 6.093062521509599,
+        "count": 96
+      },
+      "fit": {
+        "fit_wall_seconds": 0.014583208999999986,
+        "fit_process_cpu_seconds": 0.013839999999999852
+      },
+      "pipeline_sha256": "f109bfc0d415e6a17131dc8f58799e111b2f499354f7f2168f89c6e0eb190eeb",
+      "reload_max_absolute_difference": 0.0,
+      "live_selected": false
+    },
+    "baseline": {
+      "holdout": {
+        "teacher_MAE": 2.400178259846323e-09,
+        "teacher_RMSE": 2.814491450076896e-09,
+        "count": 96
+      },
+      "live_selected": true,
+      "caveat": "Policy teacher identity, not independently measured accuracy"
+    }
+  },
+  "limitations": [
+    "Synthetic structured profile families; no independent target validity or empirical ranking accuracy.",
+    "Holdout groups isolate fictional users; roles repeat deliberately, so unseen-role generalization is not tested.",
+    "Unknown optional evidence is represented by its declared zero adjustment, not imputed raw ability."
+  ],
+  "ridge_validation_search": [
+    {
+      "alpha": 0.1,
+      "teacher_MAE": 0.002748735261443838
+    },
+    {
+      "alpha": 1.0,
+      "teacher_MAE": 0.02742423515981449
+    },
+    {
+      "alpha": 10.0,
+      "teacher_MAE": 0.2680886060387152
+    }
+  ],
+  "selected_ridge_alpha": 0.1,
+  "bounded_fits": 4,
+  "status": "passed_provisional_control_only",
+  "paid_cost_usd": 0,
+  "group_counts": {
+    "train": 32,
+    "validation": 8,
+    "holdout": 8
+  },
+  "checks": [
+    "Actual baseline/Ridge/XGBoost executed on policy-compatible provisional targets",
+    "32/8/8 disjoint profile families; no exact feature-vector duplication across families",
+    "Ridge validation-only alpha choice; untouched holdout used for final comparison",
+    "Train-only scaling; same holdout for all candidates; exact save/reload predictions",
+    "No learned live activation, paid launch, legacy target/artifact overwrite or independent label claim"
+  ],
+  "evidence": {
+    "path": "ml/artifacts/session-a/n2.1-policy-distillation-v1/report.json",
+    "sha256": "cfa505333107d5ce636dfbb6ac55b30eb01ae9225727fa4087adf55519e8d437",
+    "log_sha256": "b4b0024eab855d5909c9ccee09f14fde055206c5af08ec951d24581ca427562c"
+  },
+  "push_status": "not pushed"
+}
