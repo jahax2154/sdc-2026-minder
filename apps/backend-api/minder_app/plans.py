@@ -14,11 +14,13 @@ def instant(value):
     return point
 
 
-def check_plan(plan, profile, previous=None):
+def check_plan(plan, profile, previous=None, *, completion_undo=None):
     validate("PlanProgress", plan)
     if plan["profile_id"] != profile["profile_id"]:
         raise AppError("profile_plan_identity_mismatch")
     tasks = {t["task_id"]: t for t in plan["tasks"]}
+    if plan["task_ids"] != [t["task_id"] for t in plan["tasks"]]:
+        raise AppError("task_index_inconsistent")
     if len(tasks) != len(plan["tasks"]):
         raise AppError("duplicate_task_id")
     visiting, visited = set(), set()
@@ -40,7 +42,10 @@ def check_plan(plan, profile, previous=None):
         if previous["selected_role_id"] != plan["selected_role_id"]:
             raise AppError("new_role_requires_separate_plan")
         for old in previous["tasks"]:
-            if (old["locked"] or old["state"] == "completed") and tasks.get(old["task_id"]) != old:
+            undo = (old["task_id"] == completion_undo and not old["locked"]
+                    and old["state"] == "completed"
+                    and tasks.get(old["task_id"]) == dict(old, state="proposed", activity_completion=False))
+            if (old["locked"] or old["state"] == "completed") and tasks.get(old["task_id"]) != old and not undo:
                 raise AppError("completed_or_locked_task_preserved")
         if not set(previous["progress_event_ids"]).issubset(plan["progress_event_ids"]):
             raise AppError("progress_history_preserved")
@@ -104,13 +109,13 @@ def check_plan(plan, profile, previous=None):
     return {"status": "unknown" if unknown else "checked", "unknown_effort_or_capacity_tasks": unknown}
 
 
-def save_plan(store, owner, plan, expected=None, *, db=None):
+def save_plan(store, owner, plan, expected=None, *, db=None, completion_undo=None):
     if db is None:
         with store.transaction() as conn:
-            return save_plan(store, owner, plan, expected, db=conn)
+            return save_plan(store, owner, plan, expected, db=conn, completion_undo=completion_undo)
     profile = store.get(owner, "profile", owner, db=db)
     previous = store.get(owner, "plan", plan["plan_id"], db=db) if expected else None
-    feasibility = check_plan(plan, profile, previous)
+    feasibility = check_plan(plan, profile, previous, completion_undo=completion_undo)
     others = [json.loads(row[0]) for row in db.execute(
         "SELECT body FROM documents WHERE owner=? AND kind='plan' AND id<>?", (owner, plan["plan_id"]))]
     scheduled_others = [p for p in others if any(t["state"] == "scheduled" for t in p["tasks"])]
