@@ -50,3 +50,31 @@ class GroqTests(unittest.TestCase):
     def test_malformed_response(self):
         with self.assertRaises(ProviderError):
             GroqAdapter(key="x", model="mock", opener=lambda *a, **k: Reply(b"{}")).complete([])
+
+    def test_native_tool_request_and_schema_guard(self):
+        tool = {"type": "function", "function": {"name": "select_saved_fact", "parameters": {
+            "type": "object", "additionalProperties": False, "properties": {
+                "id": {"enum": ["known"]}}, "required": ["id"]}}}
+        payloads = []
+        arguments = {"id": "known"}
+        def reply(req, timeout):
+            payloads.append(json.loads(req.data))
+            return Reply(json.dumps({"choices": [{"message": {"tool_calls": [{"id": "mock-tool-id",
+                "type": "function", "function": {"name": "select_saved_fact", "arguments": json.dumps(arguments)}}]}}],
+                "usage": {"total_tokens": 10}}).encode())
+        provider = GroqAdapter(key="mock-only", model="mock-only", opener=reply)
+        result = provider.complete_tool([], tool)
+        self.assertEqual(json.loads(result["text"]), {"id": "known"})
+        self.assertFalse(payloads[0]["parallel_tool_calls"])
+        arguments.update(id="invented", approval_state="approved")
+        with self.assertRaises(ProviderError) as ctx:
+            provider.complete_tool([], tool)
+        self.assertEqual(ctx.exception.code, "provider_tool_response_invalid")
+
+    def test_parallel_or_wrong_tool_names_rejected(self):
+        tool = {"type": "function", "function": {"name": "read_only", "parameters": {"type": "object"}}}
+        for calls in [[], [{"id":"mock","type":"function","function":{"name":"execute_mutation","arguments":"{}"}}]]:
+            payload = {"choices":[{"message":{"tool_calls":calls}}]}
+            with self.assertRaises(ProviderError):
+                GroqAdapter(key="mock", model="mock", opener=lambda *a, **k: Reply(
+                    json.dumps(payload).encode())).complete_tool([], tool)

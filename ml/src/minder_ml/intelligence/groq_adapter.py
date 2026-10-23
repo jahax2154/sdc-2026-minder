@@ -16,6 +16,14 @@ LOG = logging.getLogger(__name__)
 BASE = "https://api.groq.com/openai/v1"
 
 
+def safe_usage(data):
+    usage = data.get("usage") or {}
+    if not isinstance(usage, dict):
+        raise ValueError("invalid usage")
+    return {k: v for k, v in usage.items()
+            if k in ("prompt_tokens", "completion_tokens", "total_tokens") and type(v) is int and v >= 0}
+
+
 class ProviderError(Exception):
     def __init__(self, code, request_id, *, retryable=False):
         super().__init__(code)
@@ -53,9 +61,7 @@ class GroqAdapter:
                         raise ValueError("invalid response")
                     upstream_id = response.headers.get("x-request-id", rid)
                 LOG.info("groq request_id=%s attempt=%s usage=%s", rid, attempt,
-                         {k: v for k, v in data.get("usage", {}).items()
-                          if k in ("prompt_tokens", "completion_tokens", "total_tokens")
-                          and isinstance(v, int)})
+                         safe_usage(data))
                 return data, upstream_id
             except HTTPError as exc:
                 status = exc.code
@@ -90,10 +96,41 @@ class GroqAdapter:
             if not isinstance(value, str) or not value.strip():
                 raise ValueError()
             return dict(status="available", text=value, request_id=rid,
-                        model=self.model, usage={k: v for k, v in data.get("usage", {}).items()
-                                               if k.endswith("tokens") and isinstance(v, int)})
+                        model=self.model, usage=safe_usage(data))
         except (KeyError, IndexError, TypeError, ValueError):
             raise ProviderError("provider_invalid_response", rid) from None
+
+    def complete_tool(self, messages, tool, *, max_tokens=512):
+        """One forced local function request; returns validated args, never executes.
+
+        Application-supplied schema is the only tool exposed. No external tools,
+        LLM-supplied authority or arbitrary mutation names are supported here.
+        """
+        from jsonschema import Draft202012Validator
+        from jsonschema.exceptions import ValidationError
+        if not self.model:
+            raise ProviderError("provider_model_not_configured", str(uuid.uuid4()))
+        name = tool["function"]["name"]
+        schema = tool["function"]["parameters"]
+        data, rid = self._request("/chat/completions", dict(model=self.model, messages=messages,
+            temperature=0, max_completion_tokens=min(max(1, max_tokens), 1024), tools=[tool],
+            tool_choice={"type": "function", "function": {"name": name}}, parallel_tool_calls=False))
+        try:
+            calls = data["choices"][0]["message"]["tool_calls"]
+            if not isinstance(calls, list) or len(calls) != 1:
+                raise ValueError()
+            call = calls[0]
+            if call["type"] != "function" or call["function"]["name"] != name:
+                raise ValueError()
+            args = json.loads(call["function"]["arguments"])
+            Draft202012Validator(schema).validate(args)
+            if not isinstance(call["id"], str) or not call["id"] or len(call["id"]) > 256:
+                raise ValueError()
+            return dict(status="available", text=json.dumps(args), request_id=rid,
+                        model=self.model, usage=safe_usage(data),
+                        tool_call={"name": name, "id": call["id"], "arguments_validated": True})
+        except (KeyError, IndexError, TypeError, ValueError, ValidationError):
+            raise ProviderError("provider_tool_response_invalid", rid) from None
 
     def probe(self):
         """Bounded real-access check. Outputs metadata only, never response text."""

@@ -17,6 +17,9 @@ class MockProvider:
     def complete(self, messages):
         self.messages = messages
         return dict(status="available", text=self.text, request_id="mock-only", model="mock-only")
+    def complete_tool(self, messages, tool):
+        self.tool = tool
+        return self.complete(messages)
 
 
 class ChatTests(AppCase):

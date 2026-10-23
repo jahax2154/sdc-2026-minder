@@ -20,10 +20,18 @@ class BudgetedProvider:
             db.execute("INSERT OR IGNORE INTO migrations VALUES(4)")
 
     def complete(self, messages):
-        if len(json.dumps(messages).encode()) > 32768:
+        return self._call(messages)
+
+    def complete_tool(self, messages, tool):
+        return self._call(messages, tool)
+
+    def _call(self, messages, tool=None):
+        if len(json.dumps(dict(messages=messages, tool=tool)).encode()) > 32768:
             raise ProviderError("provider_context_budget_exceeded", uid())
+        def invoke():
+            return self.provider.complete_tool(messages, tool) if tool is not None else self.provider.complete(messages)
         if isinstance(self.provider, GroqAdapter) and (not self.provider.key or not self.provider.model):
-            return self.provider.complete(messages)  # missing access consumes no outbound-call quota
+            return invoke()  # missing access consumes no outbound-call quota
         if not SLOTS.acquire(timeout=1):
             raise ProviderError("provider_concurrency_limit", uid(), retryable=True)
         try:
@@ -34,6 +42,6 @@ class BudgetedProvider:
                 if row[0] >= self.limit:
                     raise ProviderError("provider_daily_budget_exceeded", uid())
                 db.execute("UPDATE provider_calls SET attempts=attempts+1 WHERE owner=? AND day=?", (self.owner, day))
-            return self.provider.complete(messages)
+            return invoke()
         finally:
             SLOTS.release()
