@@ -1,0 +1,157 @@
+{
+  "phase_id": "B3.2-R02",
+  "refines": "B3.2-R01",
+  "owner": "B",
+  "branch": "session/b-market",
+  "checked_at": "2026-10-23T09:18:00.081902+00:00",
+  "status": "limited",
+  "objective": "Complete the bounded current-market coverage expansion and hand off verified native context and exact integration/reuse limits to A",
+  "checkpoint": "commit containing this record and HANDOFF.v3.md",
+  "inputs": [
+    "Canonical decision context revision 5",
+    "Execution handbook and phase checkpoint rules",
+    "ownership.v1.json",
+    "B1.1-R04",
+    "B1.1-R05",
+    "Existing immutable historical eligibility and training-run evidence"
+  ],
+  "checkpoint_shas": {
+    "B1.1-R04": "f9dcd93577aff3d4e2da02164ec06bb31b445338",
+    "B1.1-R05": "ba469e426284b1def8a95474e64c90b8aeb95f9a",
+    "B3.2-R01": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7"
+  },
+  "changes": [
+    "Culminating versioned handoff; previous reports preserved",
+    "Separate source-coded context, A numeric cohort, historical observations and inspected-but-held data",
+    "Exact remaining integration, mapping, source-history and paid-access dependencies"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service test_forecasting test_service_contracts",
+      "result": "...................................................\n----------------------------------------------------------------------\nRan 51 tests in 22.399s\n\nOK",
+      "log_sha256": "a4be896a6594c77d1a31c49caf677d2534a5692d11f6c7836bf16f416ac94825"
+    },
+    {
+      "command": "SHA-256 plus read-only mode checks against source_snapshot.v1.json",
+      "result": {
+        "matched": 13,
+        "read_only": 13
+      }
+    },
+    {
+      "command": "Validate 96 unique evidence IDs, no canonical autojoins, no email addresses in derived context; verify registry snapshot hash",
+      "result": "passed",
+      "context_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8"
+    },
+    {
+      "command": "ownership.v1.json check over bootstrap..R05 changed paths",
+      "result": "68 paths, all B-owned; final documentation paths B-owned"
+    },
+    {
+      "command": "git merge-base --is-ancestor 70dc99e96c51e2da3cacc0b84cdc729b2be33fd9 HEAD",
+      "result": "exit 0"
+    },
+    {
+      "command": "git diff --check and review explicitly selected final documentation paths before staging",
+      "result": "passed"
+    }
+  ],
+  "coverage": {
+    "cross_taxonomy_distinct_occupations": "Not summed across incomparable or unjoined classifications",
+    "distinct_identified_employers_added": 0,
+    "dosm_distinct_major_occupation_groups": 9,
+    "dosm_distinct_sector_labels": 21,
+    "existing_identified_employer_feed_count": 1,
+    "mycol_declared_study_sector_count": 18,
+    "mycol_distinct_masco2020_four_digit_groups": 66,
+    "mycol_explicit_six_digit_memberships": 43,
+    "mycol_profile_groups_with_verified_six_digit_scope": 4
+  },
+  "A_reference": {
+    "commit": "3fe49487b3dc76eee58f8667ae6d992790615782",
+    "report": "docs/execution/parallel/A/N3.1.json",
+    "report_as_of": "2026-10-23T06:41:47.985585+00:00"
+  },
+  "official_role_status_counts": {
+    "awaiting_occupation_mapping_for_canonical_use": 5,
+    "historical_context_only": 30
+  },
+  "current_context_records": 96,
+  "current_evidence_types": {
+    "institutional_occupation_shortage_designation": 66,
+    "published_online_job_offering_levels": 30,
+    "existing_source_native_role_label_observations_separate_file": 35,
+    "existing_employer_requisitions_separate_file": 155
+  },
+  "model_readiness": {
+    "implementation": [
+      "no-change baseline",
+      "seasonal baseline",
+      "Ridge",
+      "bounded CPU XGBoost"
+    ],
+    "actual_real_approved_target_fits": 0,
+    "actual_real_approved_target_evaluations": 0,
+    "selected_for_application": 0,
+    "forecast_outputs": "unavailable; no valid comparable historical target series",
+    "synthetic_tests": "machinery only; not observed market evidence",
+    "different_target_experiment_claimed": false
+  },
+  "costs": {
+    "actual_session_usd": 0,
+    "paid_jobs": 0,
+    "remaining_credits_usd": null,
+    "account_access": "Existing ledger: absent credentials; authenticated balance/prior-jobs check unavailable. Not retried during current-context work.",
+    "reported_global_allowance_usd": 25,
+    "A_002_paid_cap_usd": 0
+  },
+  "limitations": [
+    "A current numerical ad-count comparison remains the existing four-role Bosch cohort; native context is not a score expansion",
+    "A owns consuming additive context and canonical crosswalk/shared-contract acceptance",
+    "Only four MyCOL profile groups have verified six-digit enumeration; other child scopes remain unverified",
+    "MyCOL exact publication/fieldwork dates remain unknown; edition is 2024/2025, not a 2026 observation",
+    "DOSM broad marginals cannot be relabelled as narrow-role or skill-request ad counts",
+    "Galaxy public aggregate bulk distribution held: no open permission located under linked clauses 4.3/4.4",
+    "No comparable historical MY quarterly unique-ad counts by approved role and requesting each skill with stable coverage and publication vintages",
+    "Original N01 remains pending; A separately recorded provisional policy is not N01 approval"
+  ],
+  "dependencies": [
+    "A native-context consumer integration/canonical-code joins",
+    "Permitted Galaxy bulk reuse if pursued",
+    "Comparable publication-aware role and skill target history",
+    "Authenticated RunPod access, balance/rate/prior-job and bounded spending checks before any later paid launch"
+  ],
+  "decision_request": null,
+  "next_eligible": "A can consume committed native context now; dependent forecast fits remain deferred until compatible history exists. No further independent B implementation remains in this bounded expansion.",
+  "excluded_local_state": [
+    {
+      "paths": [
+        "ml/minder_ml_starter/raw/",
+        "ml/minder_ml_starter/derived/"
+      ],
+      "status": "13 read-only pinned untracked source inputs preserved",
+      "backup": "Existing G0 physical source snapshot; no new external backup"
+    },
+    {
+      "paths": [
+        "ml/artifacts/session-b/investigation/",
+        "ml/artifacts/session-b/current-official-expansion/",
+        "ml/artifacts/session-b/pdf-deps/",
+        "ml/artifacts/session-b/swift-module-cache/"
+      ],
+      "status": "Raw acquisitions/OCR, local logs and acquisition-only tools; ignored, not distributed in app or Git",
+      "backup": "Local only; committed facts, source hashes and summary evidence"
+    },
+    {
+      "paths": [
+        ".env.local",
+        "Python caches"
+      ],
+      "status": "Local environment reservations/caches untouched; no secrets staged",
+      "backup": "No new external backup"
+    }
+  ],
+  "push_status": "not pushed — awaiting explicit instruction",
+  "deployment": "not performed",
+  "production_mutation": false
+}

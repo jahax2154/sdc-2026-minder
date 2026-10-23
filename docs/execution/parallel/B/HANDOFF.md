@@ -1,5 +1,7 @@
 # Session B market-service and RunPod handoff
 
+Latest current-coverage handoff: [HANDOFF.v3.md](HANDOFF.v3.md), B3.2-R02, records coded MyCOL/DOSM expansion, precise six-digit scope, reconciliation with A and reuse limits. Earlier checkpoint text below remains historical.
+
 Latest continuation: [HANDOFF.v2.md](HANDOFF.v2.md) records B3.2-R01, the complete accessible employer feed and actual historical-source investigation. The original B3.2 checkpoint report below is preserved as history.
 
 Session B implemented the supported current-evidence service, bounded source/event collection, next-quarter forecasting machinery and checked artifact loader. Overall status is **limited**: neither family has enough comparable quarterly unique-ad history for a genuine forecast training/backtest. No model was selected. RunPod is blocked by missing credentials; account balance and previous jobs remain unknown. Session spending is **USD 0**, with zero paid jobs. Nothing was pushed or deployed.
