@@ -1,0 +1,31 @@
+{
+  "refinement_id": "P1.1-R01",
+  "status": "passed_combined_backend_owner_repair",
+  "integrated_D": "9605f496c226b2275ebc767b87ec9a9899f1d0e2",
+  "included_owner_repair": "989480fa0386a8a6ddcd73e9c818938904bc7f68",
+  "preserved_E": "c2628eceaf4700cd124a407ec4dfe43a6cdbd4ff",
+  "preserved_F": "470593946f63709ef256643c1a1477291a677c46",
+  "checks": {
+    "backend": "73 passed3.755s",
+    "A_document_transport": "3 passed0.036s",
+    "source_journey": "P1.1 actual1016-role E journey passed",
+    "browser": "P1.2 actual A Qwen8 statements/5 sources; native arguments validated; proposal/retry/stale/settings/mobile checks passed"
+  },
+  "resolved": "P1.1 known obsolete D news assertion repaired by committed D owner, no behavior bypass",
+  "documents": {
+    "policy": "private-documents-v1; D private-document-library-v1",
+    "implementation": "Validated storage interface/configuration only",
+    "http_operations": "Empty until D service/migration6 handoff; unavailable, not fake success",
+    "storage": "Disabled unless explicit local-development; no hosted provider verified"
+  },
+  "evidence": {
+    "combined-d4-interface-backend.log": "386dffd0222a09cebe8172701bec514b018844975786f388ad51f8d7e04e4c90",
+    "combined-d4-interface-transport.log": "9802a7716d563858671349e47e297a14fd396215b692fbb42a1c62ce5443b8eb"
+  },
+  "remaining": [
+    "D service/migration6 and document deletion/extraction privacy acceptance",
+    "F final Profile/Explore committed delivery",
+    "Combined final frontend journey and scoped repairs during reserved last50minutes"
+  ],
+  "deployment": false
+}
