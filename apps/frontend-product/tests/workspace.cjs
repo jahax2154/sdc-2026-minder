@@ -1,6 +1,9 @@
 // Integrated product journey over actual same-origin APIs. Fictional user, no mocks.
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
+const path=require('node:path');
+const output=process.env.MINDER_BROWSER_OUTPUT_DIR||'/private/tmp';fs.mkdirSync(output,{recursive:true});
+const base=process.env.MINDER_PRODUCT_BASE_URL||'http://127.0.0.1:9106';
 const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/minder-c-ui-check/node_modules/playwright');
 (async()=>{
  const browser=await chromium.launch({headless:true});
@@ -8,7 +11,7 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
  page.on('pageerror',e=>errors.push(e.message));
  const api=(path,body,method=body===undefined?'GET':'POST')=>page.evaluate(async({path,body,method})=>{const r=await fetch('/api/'+path,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+sessionStorage.getItem('minder-product-token')},...(body===undefined?{}:{body:JSON.stringify(body)})});const v=await r.json();if(!r.ok)throw new Error(r.status+':'+v.code);return v;},{path,body,method});
  async function click(selector,path){const response=page.waitForResponse(r=>r.url().endsWith('/api/'+path)&&!['GET','HEAD'].includes(r.request().method()));await page.locator(selector).click();const r=await response;assert.equal(r.status(),200,JSON.stringify(await r.json()));await page.waitForFunction(()=>!document.querySelector('[data-pending=true]')&&document.querySelector('#view').getAttribute('aria-busy')==='false');}
- async function ready(hash,selector){await page.goto('http://127.0.0.1:9106/#'+hash);await page.locator(selector).waitFor();await page.locator('#view[data-rendered="'+hash+'"][aria-busy="false"]').waitFor();}
+ async function ready(hash,selector){await page.goto(base+'/#'+hash);await page.locator(selector).waitFor();await page.locator('#view[data-rendered="'+hash+'"][aria-busy="false"]').waitFor();}
  try{
   await ready('profile','#save-profile');await page.locator('#display-name').fill('Fictional Product Journey');await page.locator('#hours').fill('5');await page.locator('#goals').fill('Explore a software development direction');await click('#save-profile','profile');await page.locator('#save-claim').waitFor();
   let p=await api('profile');assert.equal(p.career_context.display_name,'Fictional Product Journey');assert.equal(p.evidence.length,0);checks.partial_profile=true;
@@ -16,7 +19,7 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
   await page.locator('#subject').fill('source-term:python');await page.locator('#claim').fill('Fictional self-reported project: I wrote a small Python text processing tool.');await click('#save-claim','profile');p=await api('profile');assert.equal(p.evidence.length,1);assert.equal(p.evidence[0].provenance.evidence_type,'explicit-user');checks.evidence_attribution=true;
   const ref=await api('assessment-reference');const skill=Object.keys(ref.skills)[0];await page.locator('#assessed-skill').selectOption(skill);await page.locator('#assessed-level').selectOption('0');await page.locator('#assessment-statement').fill('Fictional explicit assessment: I cannot yet demonstrate this skill in an independent project.');await click('#save-assessment','profile');p=await api('profile');assert.equal(p.evidence.find(e=>e.subject_id===skill).value,0);checks.explicit_zero_distinct_from_unknown=true;
   await page.locator('#cv').setInputFiles({name:'fictional.txt',mimeType:'text/plain',buffer:Buffer.from('Fictional CV: completed a school software project. No mastery assessment.')});await click('#read-cv','intake');assert.match(await page.locator('#draft').textContent(),/no skill mastery/);assert.deepEqual(await api('profile'),p);await page.locator('#reviewed-experience').fill('Corrected fictional experience: contributed tests to a class software project.');await click('#save-intake','product/intake-correction');p=await api('profile');assert.match(p.career_context.experience,/Corrected fictional/);checks.intake_review_persisted_without_mastery=true;
-  await page.screenshot({path:'/private/tmp/minder-f-profile.png',fullPage:true});
+  await page.screenshot({path:path.join(output,'minder-f-profile.png'),fullPage:true});
   // Preserve stale edits until explicit refresh/review; do not silently retry.
   await api('profile',{profile:{career_context:{goals:'Changed elsewhere'}},expected_version:p.version},'PUT');await page.locator('#goals').fill('Stale form attempt');await page.locator('#save-profile').click();await page.locator('#error').filter({hasText:/changed/}).waitFor();assert.equal((await api('profile')).career_context.goals,'Changed elsewhere');await page.getByRole('button',{name:'Refresh and review'}).click();await page.locator('#save-claim').waitFor();checks.profile_conflict_visible=true;
   await ready('career-match','#role-query');await page.locator('#role-query').fill('Software Developers');await click('#search-roles','roles');await page.locator('[data-role="onet:15-1252.00"]').click();await page.locator('#choose-direction').waitFor();
@@ -38,7 +41,7 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
     await page.setViewportSize({width:390,height:844});await ready(route,'#view');await page.waitForLoadState('networkidle');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,route+' overflows');assert.equal(await page.locator('#error').isVisible(),false,route+' error');
   }checks.mobile_all_routes_no_overflow=true;
   // Two owners cannot read each other's private records.
-  const second=await browser.newPage();await second.goto('http://127.0.0.1:9106/#profile');await second.locator('#save-profile').waitFor();assert.equal(await second.locator('#save-claim').count(),0);await second.close();checks.session_isolation=true;
-  assert.deepEqual(errors,[]);checks.page_errors=errors;console.log(JSON.stringify(checks,null,2));fs.writeFileSync('/private/tmp/minder-f-workspace.json',JSON.stringify(checks,null,2));
+  const second=await browser.newPage();await second.goto(base+'/#profile');await second.locator('#save-profile').waitFor();assert.equal(await second.locator('#save-claim').count(),0);await second.close();checks.session_isolation=true;
+  assert.deepEqual(errors,[]);checks.page_errors=errors;console.log(JSON.stringify(checks,null,2));fs.writeFileSync(path.join(output,'minder-f-workspace.json'),JSON.stringify(checks,null,2));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

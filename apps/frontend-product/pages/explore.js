@@ -63,7 +63,7 @@ async function plansAndContent(page) {
 async function tasks(plan){
   append(card('Add a task',`<form id="newTask"><label>Task title<input name="title" maxlength="200" required></label><label>Description<textarea name="description" maxlength="4000"></textarea></label><button type="submit">Add task</button></form>`));
   let newTaskBody=null;
-  bind('newTask',async()=>{const f=document.querySelector('#newTask');newTaskBody??={plan_id:plan.plan_id,expected_state_version:plan.state_version,idempotency_key:key(),task:{task_id:key(),title:f.elements.title.value.trim(),description:f.elements.description.value,state:'proposed',activity_completion:false,mastery_verified:false,prerequisite_task_ids:[],locked:false,scheduled_at:null,estimated_hours:null,evidence_ids:[],skill_ids:[]}};await api('product/tasks',newTaskBody);await render();});
+  bind('newTask',async()=>{const f=document.querySelector('#newTask');newTaskBody??={plan_id:plan.plan_id,expected_state_version:plan.state_version,idempotency_key:key(),task:{task_id:key(),title:f.elements.title.value.trim(),description:f.elements.description.value,state:'proposed',activity_completion:false,mastery_verified:false,prerequisite_task_ids:[],locked:false,scheduled_at:null,estimated_hours:null,evidence_ids:[],skill_ids:[]}};try{await api('product/tasks',newTaskBody);}catch(e){if([413,415,422].includes(e.status))newTaskBody=null;throw e;}await render();});
   append(card('Filter activities','<label>Status<select id="task-filter"><option value="">All</option><option value="proposed">Proposed</option><option value="scheduled">Scheduled</option><option value="completed">Completed</option><option value="cancelled">Cancelled</option></select></label><div id="task-list"></div>'));
   async function list(state=''){
     const result=await api('product/views/tasks',{plan_id:plan.plan_id,limit:50,...(state?{state}:{})});
@@ -81,7 +81,7 @@ async function tasks(plan){
             if(operation==='reschedule'){const date=document.querySelector('#schedule-'+i).value;changes={scheduled_at:date?new Date(date).toISOString():null};}
             exactBody={plan_id:plan.plan_id,task_id:t.task_id,operation,expected_state_version:state_version,idempotency_key,...(changes?{changes}:{})};
           }
-          await api('product/task-action',exactBody);await render();
+          try{await api('product/task-action',exactBody);}catch(e){if([413,415,422].includes(e.status))exactBody=null;throw e;}await render();
         });
       }
     });

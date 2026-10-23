@@ -38,6 +38,14 @@ This is current product evidence, not a replacement for historical P0 reports.
   No persistent config/provider change. F-DOC-REVIEW-R01 is an owner code-review
   refinement request for editable intent after an uncertain response; not covered
   by the successful lifecycle cases. See FRONTEND_REFINEMENT_REQUESTS.md.
+- P1.6 consumes final F29281ec907ef031c1ec07be27c84e25aad69969e/client code
+  c25173176489b42019b75abb8b0f00dc50943911. A real Qwen browser passes10 validated
+  statements/5 source entries/all4 measurement families/native arguments and no
+  Profile mutation; exact proposal checks pass. Intercepted error/security fixtures
+  pass separately with zero provider calls. Explicit transport-loss-after-real-
+  commit check FAILS F-DOC-REVIEW-R01: an editable new text silently replays the
+  first request. Backend does not duplicate the mutation. Owner F repair remains
+  required; full frontend closure is not claimed from the passing happy paths.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m

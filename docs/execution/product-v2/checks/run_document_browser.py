@@ -12,7 +12,12 @@ from minder_app.documents import DocumentLibrary
 
 
 def main():
-    output = ROOT / 'ml/artifacts/session-a/product/document-browser'
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--review-retry', action='store_true', help='Explicit transport-loss fault case, not live-provider evidence')
+    args = parser.parse_args()
+    output = ROOT / ('ml/artifacts/session-a/product/document-review-retry' if args.review_retry
+                     else 'ml/artifacts/session-a/product/document-browser')
     output.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='runtime-', dir=output) as folder:
         app, _ = build('A', database=Path(folder) / 'runtime.sqlite3')
@@ -30,13 +35,19 @@ def main():
             env.update(MINDER_PRODUCT_BASE_URL='http://127.0.0.1:' + str(server.server_port),
                        MINDER_BROWSER_OUTPUT_DIR=str(output))
             try:
-                result = subprocess.run(['node', 'apps/frontend-product/tests/documents.cjs'],
+                script = ('docs/execution/product-v2/checks/check_review_retry.cjs' if args.review_retry
+                          else 'apps/frontend-product/tests/documents.cjs')
+                result = subprocess.run(['node', script],
                     cwd=ROOT, env=env, capture_output=True, text=True, timeout=180)
                 (output / 'browser.log').write_text(result.stdout + result.stderr)
                 assert result.returncode == 0, 'document_browser_failed_see_private_log'
-                checks = json.loads((output / 'minder-f-documents.json').read_text())
-                assert checks['explicit_review_no_mastery'] and checks['delete_library_empty']
-                assert checks['page_errors'] == []
+                checks = json.loads((output / ('document-review-retry.json' if args.review_retry
+                                               else 'minder-f-documents.json')).read_text())
+                if args.review_retry:
+                    assert checks['stale_review_replayed'] is False
+                else:
+                    assert checks['explicit_review_no_mastery'] and checks['delete_library_empty']
+                    assert checks['page_errors'] == []
             finally:
                 server.shutdown()
                 thread.join(timeout=5)

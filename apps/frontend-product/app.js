@@ -23,11 +23,12 @@ async function render(){
   finally{view.setAttribute('aria-busy','false');view.dataset.rendered=page;rendering=false;if(queued){queued=false;await render();}}
 }
 const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);menu.onclick=()=>document.querySelector('.sidebar').classList.toggle('mobile-open');
-const search=document.querySelector('#globalSearch');search.placeholder='Find a career role…';search.onkeydown=e=>{if(e.key==='Enter'){sessionStorage.setItem('minder-product-search',search.value);location.hash='career-match';}};
+const search=document.querySelector('#globalSearch');search.placeholder='Find a career role…';search.onkeydown=e=>{if(e.key==='Enter'){sessionStorage.setItem('minder-product-search',search.value);if(location.hash==='#career-match')render();else location.hash='career-match';}};
 document.querySelector('#globalNewChat').onclick=()=>{clearConversation();location.hash='minder';render();};
 document.querySelector('#accountMenu').onclick=()=>{location.hash='profile';};
 window.addEventListener('minder-refresh',render);
 window.addEventListener('hashchange',()=>{document.querySelector('.sidebar').classList.remove('mobile-open');render();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('.sidebar').classList.remove('mobile-open');});
+let toastTimer;window.addEventListener('minder-saved',event=>{const toast=document.querySelector('#appToast');toast.textContent=event.detail;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3500);});
 hydrateIcons();
 try{await session();await render();}catch(e){showError(e);}

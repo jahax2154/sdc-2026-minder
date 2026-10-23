@@ -11,11 +11,12 @@ export async function minder(ctx) {
   if(ctx.chatDraft){input.value=ctx.chatDraft;delete ctx.chatDraft;}
   function update() {
     const active=messages.length>0;$('#minderWelcome').classList.toggle('hide',active);$('#minderActive').classList.toggle('hide',!active);
-    $('#minderThread').innerHTML=messages.map(m=>m.role==='user'?`<div class="user-message">${esc(m.text)}</div>`:m.role==='error'?`<article class="assistant-answer"><p>${esc(m.text)}</p></article>`:`<article class="assistant-answer"><p class="secondary">${m.result.provider.status==='available'?'Language-assisted answer':'Language service unavailable · saved evidence and limitations'}</p>${facts(m.result.statements)}</article>`).join('')+(pending?'<div class="thinking-row" role="status"><span class="spinner"></span>Checking saved evidence…</div>':'');
+    $('#minderThread').innerHTML=messages.map(m=>m.role==='user'?`<div class="user-message">${esc(m.text)}</div>`:m.role==='error'?`<article class="assistant-answer"><p>${esc(m.text)}</p><button class="button-outline" data-review-question="${messages.indexOf(m)}">Review question to try again</button></article>`:`<article class="assistant-answer"><p class="secondary">${m.result.provider.status==='available'?'Language-assisted answer':'Language service unavailable · saved evidence and limitations'}</p>${facts(m.result.statements)}</article>`).join('')+(pending?'<div class="thinking-row" role="status"><span class="spinner"></span>Checking saved evidence…</div>':'');
     $('#minderComposer button[type=submit]').disabled=pending;
     if(active&&innerWidth>1200)$('#minderContext').classList.remove('hide');
     $('#minderContext').innerHTML=`<div class="rail-card"><div class="rail-heading"><strong>Your context</strong></div><p>${esc(ctx.profile?.career_context?.goals||'No goal reported yet.')}</p><p>${esc(ctx.profile?.timezone||'Timezone not set')}</p><p>${esc(ctx.profile?.evidence?.length??0)} evidence items recorded.</p><a href="#profile">Review profile →</a></div><div class="rail-card"><strong>Keep moving</strong><p><a href="#roadmap">Review roadmap →</a></p><p><a href="#mindbots">Review proposed changes →</a></p></div>`;
     $('#minderScroll').scrollTop=$('#minderScroll').scrollHeight;hydrateIcons(ctx.view);
+    ctx.view.querySelectorAll('[data-review-question]').forEach(b=>b.onclick=()=>{input.value=messages[Number(b.dataset.reviewQuestion)].question;input.focus();});
   }
   async function send() {
     const message=input.value.trim();if(!message||pending)return;
@@ -25,7 +26,7 @@ export async function minder(ctx) {
     try {
       const result=validateChat(await api('chat',{message,expected_profile_version:ctx.profile.version,...(ctx.selectedRole?{selected_role_ids:[ctx.selectedRole]}:{})}));
       messages.push({role:'assistant',result});
-    }catch(e){messages.push({role:'error',text:e.message+' Your question was not automatically retried.'});if(e.status===409)await ctx.refreshProfile();}
+    }catch(e){messages.push({role:'error',question:message,text:e.message+' Your question was not automatically retried.'});if(e.status===409)await ctx.refreshProfile();}
     finally{pending=false;if(ctx.view.querySelector('#minderThread'))update();}
   }
   bind('minderComposer',send);
