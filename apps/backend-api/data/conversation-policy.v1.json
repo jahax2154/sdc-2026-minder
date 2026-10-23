@@ -1,0 +1,10 @@
+{
+  "policy_id": "minder-conversation-routing-v1",
+  "application_guidance": "Verified implemented application functions, greeting/onboarding/focused follow-up; no external citation or model invocation required",
+  "occupation_reference": "Exact pinned O*NET description; source identity/code/title/hash and US scope preserved; not Malaysian demand or personal competence",
+  "empirical_claims": "Existing minder-grounding-privacy-v1 verified record selection unchanged; no arbitrary model factual prose",
+  "unsaved_profile": "Ephemeral unknown evidence, no implicit Profile mutation; response version unsaved",
+  "conversation_context": "Owner-scoped prior ledger intent/selection/question only; no raw transcript, CV or client-supplied assistant authority",
+  "mutations": "Existing explicit action/proposal controls only; this chat performs none",
+  "provider_failure": "Explicit limited_fallback; never label skipped provider or rejected response as successful model interpretation"
+}

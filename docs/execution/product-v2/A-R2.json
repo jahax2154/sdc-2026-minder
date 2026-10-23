@@ -1,0 +1,28 @@
+{
+  "phase": "A-R2",
+  "status": "targeted_pass",
+  "contract_dependency": "6a77d22eeff3aa81b963fdb4506b9ec5cf321479",
+  "policy": "minder-conversation-routing-v1",
+  "fixes": [
+    "No saved Profile required; unsaved unknown state never implicitly saved",
+    "General capability/greeting/onboarding/focused follow-up use verified app guidance, explicitly skip unnecessary provider",
+    "Owner-scoped opaque prior intent/selection/question context; no transcript",
+    "Pinned ONet role description with source identity/US scope checks",
+    "Empirical/source/ranking requests retain unchanged C grounding and truthful provider fallback",
+    "Correlated stage timing and response mode, compatible additive envelope"
+  ],
+  "verification": {
+    "targeted": "20 passed1.472s",
+    "existing_backend": "82 passed4.052s before new targeted tests",
+    "software_providers": "Explicit mocks/no-call spies; real-provider combined check follows"
+  },
+  "evidence": {
+    "conversation-targeted.log": "b45091986ce57138a97e2c2ed9be2c39b9786b5fbc424e889a671ffefe8650d4"
+  },
+  "limitations": [
+    "Guidance is backend-authored, not a live Qwen interpretation",
+    "Conversation memory is intent scope, not server transcript restoration",
+    "F renderer/client handshake and threaded runtime acceptance follow"
+  ],
+  "deployment": false
+}

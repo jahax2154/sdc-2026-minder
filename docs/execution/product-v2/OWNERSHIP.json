@@ -78,7 +78,9 @@
         "apps/backend-api/minder_app/conversation.py",
         "apps/backend-api/data/conversation-policy.v1.json",
         "apps/backend-api/tests/test_conversation.py",
-        "apps/backend-api/tests/test_product_concurrency.py"
+        "apps/backend-api/tests/test_product_concurrency.py",
+        "docs/execution/product/llm/frontend-envelope.schema.json",
+        "docs/execution/product/llm/FRONTEND_CONTRACT.md"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
