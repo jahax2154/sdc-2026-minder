@@ -1,0 +1,152 @@
+{
+  "phase_id": "AC4.1",
+  "owner": "A",
+  "status": "passed_finite_A_HTTP_provider_source_action_worker_privacy_acceptance",
+  "runtime_base": "b3348fd23a045f3d37494c336eb041096f235656",
+  "C_handoff": "362316351ebe90b31c533eb75cff46a851808314",
+  "C_merges": {
+    "CL2": "33ef5ca83fb65e89c0c6c3106ded58a7de9365a8",
+    "CL2_R01": "c2f63e2341047fca6008bb0ab02dc60915fc4db3",
+    "CL3": "81909526733788add033659daf008db839f707bc"
+  },
+  "B_handoff": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+  "implementation": [
+    "Reusable A namespace adapter for exact C CL3 TCP HTTP operations; expected model equals A verified selection rather than C private model",
+    "Prototype facts presentation labels typed measurement families and shows nullable source period edition instead of null date arrow; omit absent population text",
+    "No shared scoring, weight, evidence mapping, action authority or provider validation weakening"
+  ],
+  "ownership": "A integration_cli and existing transferred prototype app.js after committed clean C handoff; no sibling or intended F shell edits",
+  "real_HTTP": {
+    "model": "qwen/qwen3.8-27b",
+    "provider_diagnostics": {
+      "provider_http_error": false,
+      "provider_tool_response_invalid": false,
+      "provider_rate_limited": false,
+      "provider_network_or_timeout": false
+    },
+    "checks": {
+      "employer_observation_real_selection_success": true,
+      "employer_observation_source_meaning_match": true,
+      "employer_observation_native_tool_success": true,
+      "published_offering_activity_real_selection_success": true,
+      "published_offering_activity_source_meaning_match": true,
+      "published_offering_activity_native_tool_success": true,
+      "occupation_shortage_real_selection_success": true,
+      "occupation_shortage_source_meaning_match": true,
+      "occupation_shortage_native_tool_success": true,
+      "sector_context_real_selection_success": true,
+      "sector_context_source_meaning_match": true,
+      "sector_context_native_tool_success": true,
+      "unavailable_forecast_preserved": true,
+      "unsupported_scope_and_false_success_withheld": true,
+      "direct_persisted_and_idempotent": true,
+      "cross_user_blocked": true,
+      "proactive_no_mutation": true,
+      "rejection_preserves_target": true,
+      "approval_persisted_once": true,
+      "stale_approval_blocked": true,
+      "actual_worker_new_evidence_path": true,
+      "worker_no_unapproved_change": true,
+      "all_checks_passed": true
+    },
+    "namespace_changes": [
+      "A port/output/worker namespace",
+      "strict expected model equals A verified selection"
+    ],
+    "mocked_network": false
+  },
+  "real_privacy_browser": {
+    "frontend_kind": "local acceptance/product prototype; separate intended frontend unavailable",
+    "entry_url": "http://127.0.0.1:9101/",
+    "backend_url": "http://127.0.0.1:9101/api/",
+    "separate_api_listener": "http://127.0.0.1:8101",
+    "intended_frontend_verified": false,
+    "mocked_network": false,
+    "synthetic_user": true,
+    "checks": {
+      "ordinary_ranking_values_hidden_in_actual_scored_view": true,
+      "real_native_evidence_id_selection_and_server_citations": true,
+      "unavailable_forecast_and_source_scope_visible": true,
+      "no_false_action_success_or_profile_change": true,
+      "no_page_errors": true
+    },
+    "provider_request_success": true,
+    "recorded_at": "2026-10-23T14:41:31.070Z"
+  },
+  "real_actual_clock": "AC2-R01 final:13 checks passed, including actual upcoming-minute native worker and all four persisted source families",
+  "schema_and_source_export": {
+    "backend_example_commit": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+    "export_schema_valid": true,
+    "source_passages_recomputed": 6,
+    "provider_mocked_in_export": true,
+    "actual_provider_cases_separate": true
+  },
+  "rendering_verification": {
+    "source": "actual C source-service export; selection explicitly mocked",
+    "unknown_dates_show_edition": true,
+    "no_null_date_arrow": true,
+    "no_empty_population": true,
+    "syntax_checked": true,
+    "four_typed_families_in_source_example": true,
+    "published_activity_header": true
+  },
+  "coverage": {
+    "considered_eligible": 910,
+    "candidates": 910,
+    "assessed": 910,
+    "excluded": 0,
+    "current_available": 4,
+    "current_comparable_ranked": 5,
+    "personal_only_ranked": 900,
+    "insufficient_evidence": 0,
+    "employer_comparable_ranked": 2,
+    "published_offering_comparable_ranked": 3,
+    "published_offering_supported": 7,
+    "shortage_supported": 7,
+    "shortage_adjusted_ranked": 7,
+    "shortage_context_supported": 7,
+    "shortage_exact_role_supported": 0,
+    "sector_context_supported": 907
+  },
+  "synthetic_profile": true,
+  "independent_labels": 0,
+  "normal_forecast_models": 0,
+  "scorer_and_mappings_unchanged": true,
+  "original_N01_unchanged_inactive": true,
+  "evidence": {
+    "ml/artifacts/session-a/ac4-typed-http-final/integration-evidence.json": "318f2d1e104f7f96d6e3ddf1dc444b6a3ef084525e479c5401949e5bfd402492",
+    "ml/artifacts/session-a/ac4-typed-http-final/live-evidence-bridge.json": "f6e214ddf6ae3ebcb9694a9bd4bc39bfa438814dc53c88d69576ae7875727be9",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/integration-evidence.json": "9dc03e7678095ebca9d05c3cf0e96b2251906be4a857c0acba41df56e48cdede",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/grounding-frontend-evidence.json": "13ab031942076d60b131b02c7bc20a13b39bc0f1c1518a162f824ec49675c611",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/grounding-refinement-ui.png": "7d9810d8b0b90d909a50f8d44075620d8bcd8ca4059058731841834ea66f4051",
+    "ml/artifacts/session-a/ac4-final-contract-check.json": "a8957aeaf77ef36eff265a66beb3da33b7b27498ab36b1b904076b67500a5926",
+    "ml/artifacts/session-a/ac4-coverage-final.json": "000ed1d2cd0996024635cabaebc56f3b0894a2032c6db27333ddbd866dce2c6f",
+    "ml/artifacts/session-a/ac4-final-input-preservation.json": "0cd72782938ef8ed4e89bb98ffc35e187c70efc7d3e4d21a8ec909bcaf659eee",
+    "ml/artifacts/session-a/ac4-source-rendering-check.json": "9f24cd4631574163e2e063969099a8a5d122e6d3c1c896abab1565bde968cb4f"
+  },
+  "empirical": "One bounded actual four-family HTTP selection plus finite source/action/privacy scenarios on synthetic users and actual sources. No independent career-fit/demand/forecast accuracy claim.",
+  "C_history": "C CL3 old configured-model HTTP acceptance remains limited as committed. A fixes its own runtime selection; no historical C results relabelled.",
+  "deployment": {
+    "performed": false,
+    "verified": false,
+    "intended_F_product_frontend_verified": false,
+    "hosted_continuous_scheduler_verified": false
+  },
+  "preservation": {
+    "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+    "input_count": 13,
+    "copied": 0,
+    "preserved_existing": 13,
+    "all_hashes_verified": true,
+    "all_destinations_read_only": true,
+    "public_download_or_upload": false,
+    "git_staging": false
+  },
+  "next": "Publish stable final API/base and restart only A loopback server; final remote freeze includes all tested scoped checkpoints",
+  "remaining": [
+    "Comparable real forecast history/independent personal labels absent",
+    "F intended frontend acceptance and deployed auth/storage/scheduler are separate release work",
+    "Provider nondeterminism/outages still require safe unavailable handling; finite success is not universal reliability",
+    "RunPod launch not authorised/configured; B lab preparation is complete without a paid job"
+  ]
+}

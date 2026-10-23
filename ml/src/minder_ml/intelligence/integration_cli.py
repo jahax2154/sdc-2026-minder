@@ -565,6 +565,49 @@ def verify_web(output, playwright_module, browsers_path, *, require_live_provide
     return report
 
 
+def verify_evidence_http(output):
+    """Replay C's exact CL3 operations with A namespace/verified model binding."""
+    output = Path(output).resolve()
+    if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('HTTP evidence must stay under A artifacts')
+    output.mkdir(parents=True, exist_ok=False)
+    database = output / 'runtime.sqlite3'
+    app, _ = application(database)
+    original = ROOT / 'apps/backend-api/tests/live_evidence_bridge.py'
+    source = original.read_text()
+    target = "ROOT/'ml/artifacts/session-c/live-evidence-bridge.json'"
+    model_check = "=='openai/gpt-oss-20b'"
+    worker = "'minder_app.worker','--once',"
+    if source.count(target) != 1 or source.count(model_check) != 1 or source.count(worker) != 1:
+        raise ValueError('C typed HTTP acceptance changed; review A namespace adapter')
+    source = source.replace('9103', '9101').replace(worker,
+        "'minder_ml.intelligence.integration_cli','worker-once',")
+    source = source.replace(target, 'Path(' + repr(str(output / 'live-evidence-bridge.json')) + ')')
+    # Retain exact model-identity validation, using A's actual verified selection.
+    # No provider-success, native-argument or source-meaning assertion is removed.
+    source = source.replace(model_check, '==' + repr(app.provider.model))
+    script = output / 'replay_typed_http.py'
+    script.write_text('exec(compile(' + repr(source) + ', ' + repr(str(original)) +
+        ', "exec"), {"__file__": ' + repr(str(original)) + ', "__name__": "__main__"})\n')
+    env = dict(os.environ, MINDER_DB_PATH=str(database), MINDER_API_PORT='8101', MINDER_UI_PORT='9101',
+        MINDER_ARTIFACT_DIR=str(ROOT / 'ml/artifacts/session-a'),
+        PYTHONPATH=str(ROOT / 'ml/src') + os.pathsep + str(ROOT / 'apps/backend-api'))
+    with reserved_web_servers(app), (output / 'typed-http.log').open('w') as log:
+        run = subprocess.run([sys.executable, str(script)], cwd=ROOT, env=env,
+            stdout=log, stderr=subprocess.STDOUT, timeout=180)
+    evidence = json.loads((output / 'live-evidence-bridge.json').read_text())
+    report = dict(scope='C CL3 actual TCP HTTP, real A provider, source services and worker; synthetic user',
+        owner_script_sha256=hashlib.sha256(original.read_bytes()).hexdigest(),
+        namespace_changes=['A port/output/worker namespace', 'strict expected model equals A verified selection'],
+        expected_provider_model=app.provider.model, exit_code=run.returncode, evidence=evidence,
+        deployment_verified=False)
+    (output / 'integration-evidence.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps(report, indent=2))
+    if run.returncode != 0 or not evidence['checks'].get('all_checks_passed'):
+        raise ValueError('real typed HTTP acceptance failed; preserve evidence')
+    return report
+
+
 def worker_run(owner, *, once=True, poll_seconds=1, max_seconds=180):
     """A DB guard plus C's actual owner-scoped worker; no injected clock/event."""
     import time
@@ -744,6 +787,8 @@ def main():
     web.add_argument('--browsers-path', type=Path, required=True)
     web.add_argument('--require-live-provider', action='store_true')
     web.add_argument('--privacy-only', action='store_true', help='Run only committed real-provider privacy browser; implies live provider required')
+    typed_http = sub.add_parser('verify-evidence-http')
+    typed_http.add_argument('--output', type=Path, required=True)
     sub.add_parser('serve')
     recommendation = sub.add_parser('verify-recommendations')
     recommendation.add_argument('--output', type=Path, required=True)
@@ -758,6 +803,9 @@ def main():
     live.add_argument('--require-typed-evidence', action='store_true')
     sub.add_parser('serve-web')
     args = parser.parse_args()
+    if args.command == 'verify-evidence-http':
+        verify_evidence_http(args.output)
+        return
     if args.command == 'verify-recommendations':
         recommendation_acceptance(args.output)
         return

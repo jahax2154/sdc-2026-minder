@@ -38,9 +38,10 @@ function diffLabel(change) {
   const label=({scheduled_at:'Scheduled time',estimated_hours:'Estimated hours',state:'Activity status',value:'Constraint'})[field] || 'Preference';
   return `<div class="diff">${label}<br>${esc(field==='scheduled_at'?readableTime(change.before):change.before)} → ${esc(field==='scheduled_at'?readableTime(change.after):change.after)}</div>`;
 }
-function facts(items) {return items.map(f => card(f.kind === 'current' ? 'Current observations' : f.kind === 'forecast' ? 'Next-quarter outlook' : 'Context',
-  `<small>${esc(f.category || (f.kind === 'personal_assessment' ? 'calculated assessment' : 'backend evidence'))}</small><p>${esc(f.kind === 'personal_assessment' ? 'Personal assessment is calculated from supplied evidence; qualification and full competence remain unverified.' : f.text)}</p>${f.period ? `<small>${esc(f.period.start)} → ${esc(f.period.end)}</small>` : ''}` +
-  (f.published_at ? `<small>Published ${esc(f.published_at)} · Source population ${esc(f.source_universe_id)}</small>` : '') +
+function facts(items) {const types={employer_observation:'Employer observations',published_offering_activity:'Published occupation-category activity',occupation_shortage:'Occupation shortage evidence',sector_context:'Broader sector context'};
+  return items.map(f => card(types[f.measurement_type] || (f.kind === 'current' ? 'Current observations' : f.kind === 'forecast' ? 'Next-quarter outlook' : 'Context'),
+  `<small>${esc(f.category || (f.kind === 'personal_assessment' ? 'calculated assessment' : 'backend evidence'))}</small><p>${esc(f.kind === 'personal_assessment' ? 'Personal assessment is calculated from supplied evidence; qualification and full competence remain unverified.' : f.text)}</p>${f.period ? `<small>${esc(f.period.label || (f.period.start && f.period.end ? f.period.start+' → '+f.period.end : 'Observation period not verified'))}</small>` : ''}` +
+  (f.published_at ? `<small>Published ${esc(f.published_at)}${f.source_universe_id ? ' · Source population '+esc(f.source_universe_id) : ''}</small>` : '') +
   (f.uncertainty ? `<small>Uncertainty: ${esc(f.uncertainty.method || 'not estimated')} · ${esc(f.uncertainty.lower ?? 'unknown')} to ${esc(f.uncertainty.upper ?? 'unknown')}</small>` : '') +
   (f.sources || []).map(s => /^https?:\/\//.test(s.uri) ? `<small><a href="${esc(s.uri)}" target="_blank" rel="noreferrer">${esc(s.source_id)}</a> · available ${esc(s.available_at)}</small>` : '').join(''))).join('');}
 async function getProfile() {
