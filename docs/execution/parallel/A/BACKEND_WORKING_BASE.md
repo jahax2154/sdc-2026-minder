@@ -58,6 +58,9 @@ unavailable state. No raw real CV/profile is needed to verify the prototype.
 Use the environment's existing interpreter instead of .venv on A. No application
 build is required. Data migrations are idempotent against this isolated SQLite.
 The command stays in the foreground; it does not start an unattended scheduler.
+A currently keeps this loopback development base running with isolated database
+ml/artifacts/session-a/closure-runtime/dev.sqlite3; health verified at /api/health.
+This is a local handoff service, not a remote hosting/deployment claim.
 
 Local acceptance UI: http://127.0.0.1:9101/
 Same-origin API base: /api/ (absolute local listener http://127.0.0.1:8101/api/).

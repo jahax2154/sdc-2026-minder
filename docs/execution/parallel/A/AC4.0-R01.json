@@ -1,0 +1,37 @@
+{
+  "phase_id": "AC4.0-R01",
+  "refines": "AC4.0",
+  "status": "passed_local_running_base_and_current_operations_handoff",
+  "base_sha": "2fe9060029b5bb22f120f7557d5f4a8de4b6fe6b",
+  "changes": [
+    "Refresh current release from historical I4.7 access blocker to verified AC2 binding/provider/tool/wall-clock/privacy state",
+    "Publish live local API/UI base and isolated handoff database; no hosted endpoint, worker autostart or product-frontend completion claim"
+  ],
+  "local_base": {
+    "api_listener": "http://127.0.0.1:8101/api/",
+    "same_origin_api": "http://127.0.0.1:9101/api/",
+    "ui": "http://127.0.0.1:9101/",
+    "health": {
+      "status": "ok",
+      "integration_mode": "local_source_services"
+    },
+    "loopback_only": true,
+    "database": "ml/artifacts/session-a/closure-runtime/dev.sqlite3",
+    "scheduler_autostarted": false,
+    "deployment": false
+  },
+  "real_checks": "Reuse AC2 actual11 application checks and five privacy-browser checks; runtime/scorer unchanged",
+  "owner_dependency": "C branch adopted A8c77d69; CL1-CL3 contract/bridge commits still pending. New typed model claims not claimed supported.",
+  "B_state": "SY1/SY2/SY2-R01 integrated and pushed; generated targets remain isolated and no real forecast promotion",
+  "evidence": {
+    "ml/artifacts/session-a/ac4-live-base-health.json": "b074465db5a1721a4a7d4a44b8dc1da1b710f28a3905db9b7762a0d491d9cb44"
+  },
+  "environment": "Existing A interpreter, owner-only private provider binding, loopback8101/9101, closure-runtime SQLite; no install/rebuild",
+  "deployment": {
+    "performed": false,
+    "verified": false
+  },
+  "public_data_upload": false,
+  "preservation": "Only current A operational docs and this sanitized result intended for checkpoint; private config/database/source inputs excluded",
+  "next": "Integrate only new committed C/B handoffs; stop/restart only A handoff server when runtime sources change"
+}

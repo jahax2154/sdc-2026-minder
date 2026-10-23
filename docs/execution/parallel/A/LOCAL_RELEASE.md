@@ -1,20 +1,24 @@
 # Session A — typed current-evidence integration
 
-Current handover: I4.7. This replaces the operational N3.1 description; historical
-phase reports and original policy proposals remain unchanged. The provisional
-recommendation baseline works in the local prototype. Market coverage is partial.
-A-specific real Groq access is missing; no full live-provider completion is claimed.
+Current handover: closure AC4.0/AC2, continuing I4.7. Historical phase reports and
+original policy proposals remain unchanged. The provisional baseline works and A
+real Groq/tool/wall-clock/privacy checks passed. Market coverage remains partial;
+C's additional typed-source bridge is not yet integrated.
 
 ## Revision and operation
 
-P1.1 pushed exactly the captured starting checkpoints to verified team origin:
-A a0349bcccf5923c65919727279c3a137dcda519f,
-B 90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7,
-C 144a10d54f5b632388c7a64a78e9faa08c4d70e5.
-All subsequent integration/refinement commits remain local. See [push report](P1.1.json).
-Latest consumed owner handoffs are B 020bbcf8511aa89064b7f232723afa01cf99a427
-and C fe78c8429374d4d9748837ee9f2c94ab573c56e9, with ordinary merges retaining
-checkpoint history. No main change, force, tag, PR, deployment or application build.
+Closure AC1 published the named starting snapshots: A5e24f831141a417d7d7986cbffcb0cda55341d6b,
+B020bbcf8511aa89064b7f232723afa01cf99a427, Cfe78c8429374d4d9748837ee9f2c94ab573c56e9.
+Tested A followups through2fe9060029b5bb22f120f7557d5f4a8de4b6fe6b and B through
+f62770b67eb3bd241e0a3947578064be72f609d7 were published under closure file06.
+[AC1](AC1.json), [AC2](AC2.json), [AC3.1](AC3.1.json), [AC3.2](AC3.2.json) and
+[working base](BACKEND_WORKING_BASE.md) record scope/evidence; later phase reports
+supply the current exact remote snapshot. No main change, force, tag, PR, public
+raw-data publication, application build or deployment.
+
+B's original current-evidence handoff020bbcf is preserved; later synthetic-lab
+commits are isolated from normal serving. Cfe78c84 grounder/privacy is integrated;
+C's new CL1-CL3 contract/bridge remains an external committed handoff dependency.
 
 Run from A: source .env.local, then use MINDER_PYTHON with
 PYTHONPATH=ml/src:apps/backend-api and module
@@ -23,7 +27,10 @@ minder_ml.intelligence.integration_cli serve-web.
 A API 8101/UI 9101 on loopback; same-origin /api/*. Entry /#profile,
 Career Match at /#explore, Minder chat at /#minder, agents at /#mindbots.
 C migrations/actions/persistence are reused with A's isolated
-ml/artifacts/session-a/runtime/dev.sqlite3. No sibling DB/private config is used.
+ml/artifacts/session-a/closure-runtime/dev.sqlite3 is the currently started local
+frontend-handoff database. AC2 acceptance used separate disposable A databases.
+No sibling database is used; only explicitly authorised provider variables were
+securely transferred into A's private configuration.
 A clone alone lacks the 13 pinned read-only inputs; reuse the existing G0 snapshot.
 Reuse the existing interpreter/tooling; no install or build is required.
 
@@ -105,8 +112,11 @@ grounding rewrite or source-ID-only citation fallback was made by A.
 
 ## Checks, models and access
 
-Current checks/hashes are consolidated in [I4.7](I4.7.json); source/contract/API
-evidence is in [I4.6](I4.6.json) and earlier I4 reports. Real HTTP/Chromium uses
+Historical full-suite checks are consolidated in [I4.7](I4.7.json); source/contract/API
+evidence is in [I4.6](I4.6.json). [AC2](AC2.json) records actual A provider/tool,
+11 application/scheduled checks and five real privacy-browser checks. [AC3.2](AC3.2.json)
+records43 market/forecast tests and synthetic isolation; [AC4.0](AC4.0.json) records
+permitted input provisioning without repeating A bootstrap. Real HTTP/Chromium uses
 synthetic profiles with actual local services/sources, no fetch/provider mocks.
 Scenarios distinguish incomplete intake, fresh graduate, career switcher,
 not-interested/idempotent retry/reset, source queries, persisted actions/approval
@@ -121,32 +131,39 @@ was promoted. B's actual approved-target forecast eligibility run found zero
 compatible examples. Baseline/Ridge/XGBoost machinery exists, but no real market
 fit/evaluation/selected forecast model is claimed. No new training target/spend.
 
-A's ignored owner-only .env.groq.local template has empty key/model fields.
-Enter the authorised A key privately; never paste secrets into reports or copy C
-config. Model selection is optional: the existing verifier discovers accessible
-models and validates chat/native tool support before selecting one. Presence checks currently false/false. Current authority permits bounded
-calls once available. With the same interpreter/PYTHONPATH run integration_cli
-verify-live --output ml/artifacts/session-a/<new-live-run>, then verify-web
---require-live-provider --output ml/artifacts/session-a/<new-browser-run>
---playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright
---browsers-path /private/tmp/minder-c-browser.
+A's ignored owner-only .env.groq.local is now securely configured under the latest
+explicit user instruction. Only the existing authorised C key/model were copied;
+no C ports/database/runtime/model-selection file was copied. No secret values were
+printed or committed. A itself verified discovery, model access, chat/native tool,
+direct action, proactive preview/rejection/approval, persisted state and an actual
+upcoming-minute owner-scoped scheduled event. Its real Chromium privacy/source
+case passed. These close the earlier I4.2 access blocker; original reports remain
+historical. The existing sibling-path runtime guards remain intact.
 
-These verify actual A discovery/chat/native tool and upcoming-minute owner-scoped
-worker plus C privacy browser. Injected-clock checks do not prove unattended
-scheduling. C reported real provider success in its environment; it does not prove
-A access. Intended external product/Replit frontend was not supplied; only the
-repository local prototype was tested. No hosted/deployed verification.
+Bounded reruns use the existing interpreter/PYTHONPATH and integration_cli verify-live
+--output ml/artifacts/session-a/<new-live-run>. For the scoped unchanged privacy
+browser use verify-web --privacy-only --output ml/artifacts/session-a/<new-run>
+--playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright
+--browsers-path /private/tmp/minder-c-browser. --privacy-only requires real provider
+success. Do not repeat unchanged full checks merely to inflate totals.
+
+The local handoff server is loopback-only8101/9101, with health at
+http://127.0.0.1:9101/api/health. It starts no unattended worker. Remote teammates
+use the published Git base and permitted inputs; this Mac's loopback is not their
+hosted API. Local wall-clock success does not establish hosted24/7 scheduling.
+Intended product/Replit frontend remains F-owned and unverified here.
 
 ## Exclusions and next work
 
 Original 13 read-only untracked inputs remain in the G0 shared snapshot; no new
 external backup. A ignored logs, synthetic DBs/screenshots, downloaded sources,
-model artifacts and browser tooling remain local. Empty provider template remains
+model artifacts and browser tooling remain local. Configured provider file remains owner-only and
 ignored; no credentials/private CVs/profiles/databases/weights/raw bulk inputs are
 staged. No B/C working directory or production data was changed.
 
 Next runnable work: C consumes the versioned passage contract through a committed
-handoff; A integrates and verifies it. Once A private access exists, run the bounded
-real-provider/worker/privacy cases above. B may expand supported mappings and
+handoff; A integrates and verifies it against the already working A provider.
+New non-Bosch typed-source chat/scheduled acceptance remains pending that bridge. B may expand supported mappings and
 compatible role/skill forecast history through committed handoffs. No paid job
-is queued. Later checkpoint pushes require a new explicit instruction.
+is queued. Tested task-scoped closure handoffs are authorised for normal push
+under file06; unrelated pushes/deployment remain unauthorised.
