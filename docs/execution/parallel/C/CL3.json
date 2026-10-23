@@ -1,0 +1,98 @@
+{
+  "phase_id": "CL3",
+  "status": "limited",
+  "owner": "C",
+  "backend_commit": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+  "checkpoints": {
+    "CL1": "ef4196b9856b9504eb1d719c955a67cc62d2d843",
+    "CL2": "2ebdfb65b5bf1f349c6b6425ece6070f754cff8d",
+    "CL2-R01": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54"
+  },
+  "backend_tests_passed": 47,
+  "mocked_transport_tests_passed": 7,
+  "export_schema_validation": true,
+  "final_real_http_acceptance": {
+    "backend_commit": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+    "recorded_at": "2026-10-23T14:21:11.448684+00:00",
+    "synthetic_user": true,
+    "real_provider": true,
+    "real_source_services": true,
+    "wall_clock_scheduler_repeated": false,
+    "checks": {
+      "employer_observation_real_selection_success": false,
+      "employer_observation_source_meaning_match": true,
+      "employer_observation_native_tool_success": false,
+      "published_offering_activity_real_selection_success": false,
+      "published_offering_activity_source_meaning_match": true,
+      "published_offering_activity_native_tool_success": false,
+      "occupation_shortage_real_selection_success": false,
+      "occupation_shortage_source_meaning_match": true,
+      "occupation_shortage_native_tool_success": false,
+      "sector_context_real_selection_success": false,
+      "sector_context_source_meaning_match": true,
+      "sector_context_native_tool_success": false,
+      "unavailable_forecast_preserved": true,
+      "unsupported_scope_and_false_success_withheld": true,
+      "direct_persisted_and_idempotent": true,
+      "cross_user_blocked": true,
+      "proactive_no_mutation": true,
+      "rejection_preserves_target": true,
+      "approval_persisted_once": true,
+      "stale_approval_blocked": true,
+      "actual_worker_new_evidence_path": true,
+      "worker_no_unapproved_change": true,
+      "all_checks_passed": false
+    },
+    "provider_diagnostics": {
+      "provider_http_error": true,
+      "provider_tool_response_invalid": false,
+      "provider_rate_limited": false,
+      "provider_network_or_timeout": false
+    }
+  },
+  "actual_chromium_acceptance": {
+    "frontend_kind": "local acceptance/product prototype; separate intended frontend unavailable",
+    "entry_url": "http://127.0.0.1:9103/",
+    "backend_url": "http://127.0.0.1:9103/api/",
+    "separate_api_listener": "http://127.0.0.1:8103",
+    "intended_frontend_verified": false,
+    "mocked_network": false,
+    "synthetic_user": true,
+    "checks": {
+      "ordinary_ranking_values_hidden_in_actual_scored_view": true,
+      "real_native_evidence_id_selection_and_server_citations": true,
+      "unavailable_forecast_and_source_scope_visible": true,
+      "no_false_action_success_or_profile_change": true,
+      "no_page_errors": true
+    },
+    "provider_request_success": true,
+    "recorded_at": "2026-10-23T14:19:58.197Z"
+  },
+  "exploratory_dispatch_diagnostic": {
+    "real_provider_request_success": true,
+    "native_tool_success": true,
+    "all_four_families_selected": true,
+    "final_http_acceptance": false
+  },
+  "unresolved": [
+    "Groq HTTP400/tool_use_failed persists in final HTTP multi-family selection; earlier calls also hit429. Safe fallback is not live interpretation.",
+    "F intended product shell integration and acceptance remain F work."
+  ],
+  "changed_files": [
+    "apps/backend-api/tests/live_evidence_bridge.py",
+    "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+    "docs/execution/product/llm/examples.json",
+    "docs/execution/parallel/C/CL3.json",
+    "docs/execution/parallel/C/requests/C-008-CL3-A-F-HANDOFF.md"
+  ],
+  "publication": "A sole coordinated publisher; C not pushed; no deployment or paid jobs",
+  "local_evidence_sha256": {
+    "ml/artifacts/session-c/live-evidence-bridge.json": "507e3de13293e30d41df3600d30104a7946e314e2263cbe3d0b58ec4c610d484",
+    "ml/artifacts/session-c/grounding-frontend-evidence.json": "98a1fca4004de1cebc35260b169af2503633ea750f54c7bf3548207805f4b259"
+  },
+  "app_context_tests_passed": 1,
+  "verification_notes": [
+    "Initial py_compile cache write was sandbox-denied; AST syntax check passed without cache writes.",
+    "A schema recheck initially used system Python without jsonschema; rerun using assigned MINDER_PYTHON passed."
+  ]
+}
