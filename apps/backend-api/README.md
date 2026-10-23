@@ -23,8 +23,8 @@ PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_app.worker --once
 PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m unittest discover -s apps/backend-api/tests -v
 # Actual HTTP, committed A/B sources, synthetic users in C's dev DB:
 PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" apps/backend-api/tests/http_acceptance.py
-# Real provider access check, no response text/credentials printed:
-"$MINDER_PYTHON" -m minder_ml.intelligence.groq_adapter
+# Only after configuration confirmation: real access check, booleans only:
+PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_app.provider_access
 ```
 
 Provider variable names: `GROQ_API_KEY`, `GROQ_MODEL`, optional `MINDER_LLM_DAILY_LIMIT` (default 20 calls/user/UTC day, clamped 1–100). No model default is invented; probe discovers available configured models and requires an explicit selection. Tests of transport errors use mocks and do not establish live access. Runtime names: `MINDER_DB_PATH`, `MINDER_API_PORT`, `MINDER_UI_PORT`, `MINDER_PYTHON`, `PYTHONPATH`. Agent time and enable state are saved per user; timezone comes from the profile. Deployment scheduler is explicitly unverified.
@@ -44,3 +44,9 @@ API examples (all non-health/session routes require `Authorization: Bearer <priv
 - `PUT /api/agent-settings {"settings":{"enabled":true,"check_time":"08:00"},"expected_version":null|"…"}` records daily intent. `GET /api/agent-settings`, `/api/agents` expose saved configuration/events/notices. Worker auto-analysis only proposes; failures retry at most three times. `agents.market_event` is a server-only validated-source/relevance hook, not a public market assertion endpoint.
 
 All errors use safe `code` and `request_id`; stale state returns 409, missing identity 401, other-user records 404, bad contracts 422. No raw market-score matrix in consumer routes. N01 remains inactive: 910 supported source candidates, no numerical role-fit scores or rankings. Current employer counts are a bounded observed active-ad snapshot, not national demand or quarterly inflow. Both role/skill forecasts can remain unavailable.
+
+Secure Groq configuration: the actual API and worker load `.env.groq.local` from their current worktree root through `minder_app.config`. C's absolute path is `/Users/phuahjunhong/sdc-2026-minder-worktrees/session-c/.env.groq.local`. Names: GROQ_API_KEY, GROQ_MODEL, optional MINDER_LLM_DAILY_LIMIT. Create privately without overwriting any existing file; require owner-only regular file permissions (0600), verify `.env.*` ignore and no index entry. Enter credentials directly in a local editor; never paste into chat, print/read into logs, commit or shell-source the file. Optional MINDER_GROQ_SECRET_FILE must be an absolute private path. Nonempty inherited variables override file values. The loader evaluates no shell/variable substitutions and refuses unsafe permissions/symlinks.
+
+After the user's confirmation, run `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_app.provider_access`. This performs bounded real discovery/chat/native-tool checks and prints boolean presence/request success only. A blank model can use a model actually discovered and verified by this command; only nonsecret verified selection metadata is stored at MINDER_ARTIFACT_DIR/runtime/groq-model-selection.json (0600). The secret file is never rewritten. Restart C's own API/worker after verification. No model activation is claimed before a real successful check.
+
+Post-confirmation integrated check: `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" apps/backend-api/tests/live_provider_acceptance.py --configuration-confirmed`. It requires a restarted real C backend, uses one synthetic user, exercises native grounded chat, scoped direct actions, proactive preview/reject/approval, persistence and a real upcoming local-minute scheduled worker event. No injected clock/event substitutes for the actual scheduled check. It stops only its own owner-scoped test worker, leaves other users' queued events untouched, and prints boolean success fields only. Do not run it before configuration confirmation.

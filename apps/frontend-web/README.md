@@ -14,3 +14,5 @@ PYTHONPATH=ml/src:apps/backend-api MINDER_PLAYWRIGHT_MODULE=<absolute-module-pat
 ```
 
 This runs headless Chromium against the real localhost API, creates a labelled synthetic user, exercises navigation/intake/preferences/roadmap/progress/grounded-chat availability and a real worker proposal approved through UI, and writes sanitized evidence plus a synthetic screenshot under `ml/artifacts/session-c/`. It does not mock fetch, A/B services or the provider. Missing provider access remains explicit. The initial run used a temporary Playwright installation and browser under `/private/tmp`, without a tracked package/lockfile.
+
+After provider confirmation/activation and restart, set `MINDER_REQUIRE_LIVE_PROVIDER=1` for browser acceptance to require successful native grounded selection. Browser evidence reports request-success booleans, never provider text/configuration. Worker diagnostics are scoped to the synthetic browser user's account. New optional official learning choices persist only when explicitly selected during roadmap creation; required/preferred/mandatory-status-unknown employer qualifications remain distinct.

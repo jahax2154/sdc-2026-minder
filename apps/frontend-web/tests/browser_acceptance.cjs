@@ -28,6 +28,7 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     await page.waitForLoadState('networkidle');
   }
   const checks={};
+  let providerRequestSuccess=false, nativeToolSuccess=false;
   try {
     await page.goto('http://127.0.0.1:9103');
     await page.locator('h1').filter({hasText:'Find your next direction.'}).waitFor();
@@ -64,8 +65,11 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     await page.locator('[data-tab="Roadmap"]').click();
     await page.locator('#preview-plan').waitFor();
     await clickAndWait('#preview-plan','pathway-preview');
+    await page.locator('.resource-choice').first().check();
     await clickAndWait('#accept-plan','plans');
     const plan=(await api('plans')).plans[0];
+    assert.equal((await api('plan-designs')).designs[0].design.selected_resources.length,1);
+    checks.explicit_verified_resource_choice_persisted='passed';
     await clickAndWait('#complete-'+plan.tasks[0].task_id,'direct-action');
     const changed=(await api('plans')).plans[0];
     assert.equal(changed.tasks.filter(t=>t.activity_completion).length,1);
@@ -79,8 +83,15 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     checks.future_current_separation_and_unavailable='passed';
     await page.locator('a[href="#minder"]').first().click();
     await page.locator('#message').fill('Explain the selected role and next-quarter outlook.');
+    const chatResponse=page.waitForResponse(r=>r.url().endsWith('/api/chat')&&r.request().method()==='POST');
     await clickAndWait('#ask','chat');
-    assert.match(await page.locator('#reply').textContent(),/Language provider unavailable/);
+    const chat=await (await chatResponse).json();
+    providerRequestSuccess=chat.provider.status==='available';
+    nativeToolSuccess=chat.provider.tool_call?.arguments_validated===true;
+    if(process.env.MINDER_REQUIRE_LIVE_PROVIDER==='1')
+      {assert.match(await page.locator('#reply').textContent(),/Language-assisted selection of saved evidence/);
+       assert(providerRequestSuccess&&nativeToolSuccess);}
+    else assert.match(await page.locator('#reply').textContent(),/Language-assisted selection of saved evidence|Language provider unavailable/);
     checks.actual_chat_with_honest_provider_unavailable='passed';
     // Seed a separate direct synthetic schedule for a real worker proposal.
     const task={task_id:'synthetic-review',state:'scheduled',activity_completion:false,mastery_verified:false,
@@ -94,7 +105,7 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     await clickAndWait('#configure','agent-settings');
     let proposals=[];
     for(let i=0;i<12;i++) {
-      const run=spawnSync(process.env.MINDER_PYTHON,['-m','minder_app.worker','--once'],{cwd:process.cwd(),env:process.env,encoding:'utf8'});
+      const run=spawnSync(process.env.MINDER_PYTHON,['-m','minder_app.worker','--once','--owner',p.profile_id],{cwd:process.cwd(),env:process.env,encoding:'utf8'});
       assert.equal(run.status,0,'local worker must run');
       proposals=(await api('proposals')).proposals.filter(x=>x.status==='pending');
       if(proposals.length)break;
@@ -118,7 +129,8 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
     checks.mobile_layout_no_horizontal_overflow='passed';
     const evidence={browser:await browser.version(),transport:'real Chromium UI to localhost 9103 API, actual A/B services',
-      synthetic_user:true,mocked_network:false,live_provider:'unavailable',checks,page_errors:errors,
+      synthetic_user:true,mocked_network:false,provider_request_success:providerRequestSuccess,
+      native_tool_request_success:nativeToolSuccess,checks,page_errors:errors,
       deployment_scheduler_verified:false,recorded_at:new Date().toISOString()};
     fs.writeFileSync(path.join(artifacts,'c4.1-browser-evidence.json'),JSON.stringify(evidence,null,2)+'\n');
     console.log(JSON.stringify(evidence,null,2));
