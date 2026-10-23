@@ -11,7 +11,7 @@ VIEW_REQUEST = {
         "selected_skill_ids": {"type": "array", "maxItems": 3, "uniqueItems": True,
                                "items": {"type": "string"}},
         "plan_id": {"type": "string", "minLength": 1},
-        "state": {"enum": ["proposed", "scheduled", "in_progress", "completed", "cancelled"]},
+        "state": {"enum": ["proposed", "scheduled", "completed", "cancelled"]},
         "scheduled_from": {"type": "string", "format": "date-time"},
         "scheduled_to": {"type": "string", "format": "date-time"},
         "offset": {"type": "integer", "minimum": 0},

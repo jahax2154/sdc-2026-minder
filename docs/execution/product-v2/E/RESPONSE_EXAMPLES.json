@@ -1,0 +1,485 @@
+{
+  "synthetic_user": true,
+  "provider_calls": 0,
+  "source_mode": "actual existing catalogue and source library",
+  "examples": {
+    "absent_profile_career_match": {
+      "contract_version": "product-v2-bootstrap-v1",
+      "read_version": "product-reads-v1",
+      "view": "career-match",
+      "status": "unavailable",
+      "profile_version": null,
+      "data": {
+        "status": "unavailable",
+        "reason": "profile_required"
+      },
+      "limitations": [
+        "No profile saved; no personalized assessment is inferred."
+      ]
+    },
+    "selected_role_career_match": {
+      "contract_version": "product-v2-bootstrap-v1",
+      "read_version": "product-reads-v1",
+      "view": "career-match",
+      "status": "partial",
+      "profile_version": "bc6f81f0-946b-482d-b57b-7676bce99fb2",
+      "data": {
+        "integration_mode": "local_source_services",
+        "recommendation": {
+          "contract_version": "minder-parallel-v1",
+          "profile_id": "817346d4-66ba-4f94-a36b-231635d4b405",
+          "profile_version": "bc6f81f0-946b-482d-b57b-7676bce99fb2",
+          "policy_version": "personal-role-fit-v3-provisional",
+          "model_version": null,
+          "candidate_ids": [
+            "onet:11-1011.00"
+          ],
+          "market_period_policy_key": "personal-current-evidence-v2.1",
+          "status": "partial",
+          "options": [
+            {
+              "role_id": "onet:11-1011.00",
+              "rank": null,
+              "ranking_group": null,
+              "ranking_basis": "unassessed",
+              "personal_score": null,
+              "score_status": "insufficient_information",
+              "evidence_coverage": 0.0,
+              "explanation": "Chief Executives: no supported numerical assessment yet; provide at least three anchored skill assessments and 30% coverage.",
+              "source_ids": [
+                "onet_essential_skills",
+                "onet_occupation_data"
+              ],
+              "unknowns": [
+                "onet:element:2.A.1.a",
+                "onet:element:2.A.1.b",
+                "onet:element:2.A.1.c",
+                "onet:element:2.A.1.d",
+                "onet:element:2.A.1.e",
+                "onet:element:2.A.1.f",
+                "onet:element:2.A.2.a",
+                "onet:element:2.A.2.b",
+                "onet:element:2.A.2.c",
+                "onet:element:2.A.2.d",
+                "minimum_anchored_skill_evidence_absent"
+              ],
+              "evidence_refs": [
+                "market-evidence:29595df329fee7d27f615a8a9f3a405af9a88bcf9a5f2248e3d992d2d51ad6bc",
+                "market-evidence:b996bb072ae3f74805e7e8cc505d17631a3085113537667b2da51a64b285b561"
+              ],
+              "trace_id": "recommendation-trace:14a1309419b8c3ec6b94170f1279b2a0ba90ac1c920effea7d83ce87551a1c0c"
+            }
+          ],
+          "ranking_groups": [],
+          "coverage": {
+            "considered_eligible": 1,
+            "candidates": 1,
+            "assessed": 0,
+            "excluded": 0,
+            "current_available": 0,
+            "current_comparable_ranked": 0,
+            "personal_only_ranked": 0,
+            "insufficient_evidence": 1,
+            "employer_comparable_ranked": 0,
+            "published_offering_comparable_ranked": 0,
+            "published_offering_supported": 1,
+            "shortage_supported": 0,
+            "shortage_adjusted_ranked": 0,
+            "shortage_context_supported": 0,
+            "shortage_exact_role_supported": 0,
+            "sector_context_supported": 1
+          },
+          "ordering_scope": "within_groups_only",
+          "overall_ranking_complete": false,
+          "targeted_questions": [
+            "Provide an anchored activity level and evidence description for Reading Comprehension.",
+            "Provide an anchored activity level and evidence description for Active Listening.",
+            "Provide an anchored activity level and evidence description for Writing."
+          ],
+          "limitations": [
+            "Provisional partial essential-skill evidence fit; not validated career accuracy or hiring probability.",
+            "Groups have independent ranks; display group order does not compare opportunities across coverage.",
+            "Different measurements retain their source units and mapping scope; neither broad totals nor shortage flags become ad counts.",
+            "Published category activity has declared priority over a narrow employer sample where supported; classifications use declared engineering applicability links.",
+            "Current assessment and next-quarter forecasts remain separate; unavailable forecasts do not block supported current activity.",
+            "Partial market/evidence coverage: personal-only or shortage-context fallback is not full comparable-market completion."
+          ]
+        },
+        "assessment_details": [
+          {
+            "profile_id": "817346d4-66ba-4f94-a36b-231635d4b405",
+            "profile_version": "bc6f81f0-946b-482d-b57b-7676bce99fb2",
+            "role_id": "onet:11-1011.00",
+            "role_version": "onet31-anchored-reference-v3:b177acac8c58b314728e7698b60ab5ef89a5a2d205c706447dfe3defbb8660c8",
+            "policy_version": "personal-role-fit-v3-provisional",
+            "policy_status": "provisional",
+            "model_version": null,
+            "scorer_kind": "baseline",
+            "score_status": "insufficient_information",
+            "score": null,
+            "measurement": "personal_role_evidence_fit_v3",
+            "components": [
+              {
+                "component_id": "capability",
+                "value": null,
+                "weight": 0,
+                "contribution_points": 0,
+                "unit": "fraction_0_1",
+                "rule_id": "v3-known-evidence-and-optional-adjustments",
+                "evidence_ids": [],
+                "missing_reasons": [
+                  "Unknown; no invented measurement or optional adjustment."
+                ]
+              },
+              {
+                "component_id": "transferable_background",
+                "value": null,
+                "weight": 0,
+                "contribution_points": 0,
+                "unit": "fraction_0_1",
+                "rule_id": "v3-known-evidence-and-optional-adjustments",
+                "evidence_ids": [],
+                "missing_reasons": [
+                  "Unknown; no invented measurement or optional adjustment."
+                ]
+              },
+              {
+                "component_id": "industry_interest",
+                "value": null,
+                "weight": 0,
+                "contribution_points": 0,
+                "unit": "fraction_0_1",
+                "rule_id": "v3-known-evidence-and-optional-adjustments",
+                "evidence_ids": [],
+                "missing_reasons": [
+                  "Unknown; no invented measurement or optional adjustment."
+                ]
+              },
+              {
+                "component_id": "role_interest",
+                "value": null,
+                "weight": 0,
+                "contribution_points": 0,
+                "unit": "fraction_0_1",
+                "rule_id": "v3-known-evidence-and-optional-adjustments",
+                "evidence_ids": [],
+                "missing_reasons": [
+                  "Unknown; no invented measurement or optional adjustment."
+                ]
+              },
+              {
+                "component_id": "work_style",
+                "value": null,
+                "weight": 0,
+                "contribution_points": 0,
+                "unit": "fraction_0_1",
+                "rule_id": "v3-known-evidence-and-optional-adjustments",
+                "evidence_ids": [],
+                "missing_reasons": [
+                  "Unknown; no invented measurement or optional adjustment."
+                ]
+              }
+            ],
+            "industry_contributions": [
+              {
+                "industry_id": "industry:professional-scientific-and-technical-services",
+                "background": null,
+                "preference_utility": null,
+                "assessment": null,
+                "adjustment_points": 0,
+                "selected_path": true,
+                "rule_id": "v3-industry-context-once",
+                "evidence_ids": [],
+                "preference": null,
+                "background_fields": [],
+                "role_mapping_status": "supported",
+                "missing_reasons": [
+                  "Optional missing components contribute no adjustment; raw values remain unknown."
+                ]
+              }
+            ],
+            "gaps": [
+              {
+                "criterion_id": "onet:element:2.A.1.a",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.1.b",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.1.c",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.1.d",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.1.e",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.1.f",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.2.a",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.2.b",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.2.c",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              },
+              {
+                "criterion_id": "onet:element:2.A.2.d",
+                "state": "unknown",
+                "evidence_ids": [],
+                "reason": "Missing explicit anchored skill assessment; do not infer competence."
+              }
+            ],
+            "prerequisites": [],
+            "evidence_ids": [],
+            "unknowns": [
+              "onet:element:2.A.1.a",
+              "onet:element:2.A.1.b",
+              "onet:element:2.A.1.c",
+              "onet:element:2.A.1.d",
+              "onet:element:2.A.1.e",
+              "onet:element:2.A.1.f",
+              "onet:element:2.A.2.a",
+              "onet:element:2.A.2.b",
+              "onet:element:2.A.2.c",
+              "onet:element:2.A.2.d",
+              "minimum_anchored_skill_evidence_absent"
+            ],
+            "targeted_questions": [
+              "Provide an anchored activity level and evidence description for Reading Comprehension.",
+              "Provide an anchored activity level and evidence description for Active Listening.",
+              "Provide an anchored activity level and evidence description for Writing."
+            ],
+            "trace_rule_ids": [
+              "N01-R1-delegated",
+              "v3-partial-evidence-no-imputation",
+              "v3-no-industry-exclusion",
+              "v3-preferences-once"
+            ],
+            "role_preference": null,
+            "profile_fields": [],
+            "unresolved_constraints": [],
+            "assessment_coverage": {
+              "assessed_count": 0,
+              "required_count": 10,
+              "fraction": 0.0,
+              "minimum_met": false,
+              "minimum_count": 3,
+              "minimum_fraction": 0.3
+            },
+            "evidence_kinds": {
+              "self_report": [],
+              "documented_demonstration": [],
+              "reviewed_assessment": []
+            },
+            "unclipped_score": 0,
+            "limitations": [
+              "Partial essential-skill evidence compatibility; not independently verified competence or employment qualification.",
+              "Optional absence contributes no adjustment; source context is US, not Malaysian demand."
+            ]
+          }
+        ],
+        "limitations": [],
+        "statements": [
+          {
+            "id": "fact-0",
+            "text": "Provisional evidence-fit policy v3 uses anchored skill evidence and separate optional preferences. Comparable current Malaysian observations affect backend ordering; forecasts are separate. This is not verified competence or career accuracy.",
+            "sources": []
+          },
+          {
+            "id": "fact-1",
+            "text": "Integration mode: local_source_services; these results are not live ML acceptance evidence.",
+            "sources": []
+          },
+          {
+            "id": "fact-2",
+            "text": "onet:11-1011.00: Chief Executives: no supported numerical assessment yet; provide at least three anchored skill assessments and 30% coverage.",
+            "sources": [
+              {
+                "source_id": "onet_essential_skills",
+                "version": "31.0",
+                "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+                "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+                "geography": "US",
+                "available_at": "2026-10-20T10:04:09.904185+00:00",
+                "evidence_type": "source-derived"
+              },
+              {
+                "source_id": "onet_occupation_data",
+                "version": "31.0",
+                "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+                "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+                "geography": "US",
+                "available_at": "2026-10-20T10:04:09.377847+00:00",
+                "evidence_type": "source-derived"
+              }
+            ],
+            "kind": "personal_assessment",
+            "score_status": "insufficient_information",
+            "personal_score": null,
+            "unknowns": [
+              "onet:element:2.A.1.a",
+              "onet:element:2.A.1.b",
+              "onet:element:2.A.1.c",
+              "onet:element:2.A.1.d",
+              "onet:element:2.A.1.e",
+              "onet:element:2.A.1.f",
+              "onet:element:2.A.2.a",
+              "onet:element:2.A.2.b",
+              "onet:element:2.A.2.c",
+              "onet:element:2.A.2.d",
+              "minimum_anchored_skill_evidence_absent"
+            ]
+          },
+          {
+            "id": "fact-3",
+            "text": "Current observation for role onet:11-1011.00 unavailable: no_supported_source_to_canonical_entity_mapping",
+            "sources": [],
+            "kind": "current",
+            "status": "unavailable",
+            "period": {
+              "start": "2026-10-23",
+              "end": "2026-10-23"
+            },
+            "issued_at": "2026-10-23T16:17:54.343925+00:00"
+          },
+          {
+            "id": "fact-4",
+            "text": "Next-quarter forecast for role onet:11-1011.00 unavailable: no_comparable_quarterly_unique_ad_history_for_role; active_ad_snapshot_is_not_quarterly_advertisement_inflow; dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills",
+            "sources": [],
+            "kind": "forecast",
+            "status": "unavailable",
+            "period": {
+              "start": "2027-01-01",
+              "end": "2027-03-31"
+            },
+            "issued_at": "2026-10-23T16:17:54.343925+00:00"
+          }
+        ]
+      },
+      "limitations": []
+    },
+    "no_direction_progress": {
+      "contract_version": "product-v2-bootstrap-v1",
+      "read_version": "product-reads-v1",
+      "view": "progress",
+      "status": "available",
+      "profile_version": "bc6f81f0-946b-482d-b57b-7676bce99fb2",
+      "data": {
+        "status": "empty",
+        "plan_id": null,
+        "state_version": null,
+        "completed_count": 0,
+        "eligible_count": 0,
+        "cancelled_count": 0,
+        "fraction": null,
+        "observed_at": "2026-10-23T16:17:54.383998Z",
+        "denominator": "All non-cancelled tasks in the explicitly selected active plan, each task once. Prerequisite links are dependencies, not parent/child rollups. Activity only, not skill readiness.",
+        "progress_event_ids": [],
+        "skill_evidence": [],
+        "limitation": "Event IDs are persisted activity references, not a detailed event history or skill assessment."
+      },
+      "limitations": []
+    },
+    "python_resource_filter": {
+      "contract_version": "product-content-v1",
+      "catalogue_version": "official-learning-options-v1",
+      "status": "available",
+      "resources": [
+        {
+          "resource_id": "python-tutorial",
+          "title": "The Python Tutorial",
+          "publisher": "Python Software Foundation",
+          "topic_ids": [
+            "source-term:python"
+          ],
+          "description": "A language tutorial for readers who already know basic programming.",
+          "prerequisites": "Basic programming knowledge; this is not a first introduction to programming.",
+          "estimated_hours": null,
+          "total_cost": null,
+          "access_status": "public_content_retrieved; enrolment_or_future_access_not_guaranteed",
+          "role_requirement_mapping": "unassigned; user-selected learning option, not an employer requirement",
+          "source": {
+            "source_id": "learning:python-tutorial",
+            "version": "2026-10-23T06:12:17.346259+00:00",
+            "sha256": "f73e67a8a61e1f225788cc04bcb1ff01754a8f2456eccfae12bde69baa3b907d",
+            "uri": "https://docs.python.org/3/tutorial/",
+            "geography": "global",
+            "available_at": "2026-10-23T06:12:17.346259+00:00",
+            "evidence_type": "source-derived"
+          },
+          "type": "learning_resource",
+          "published_at": null,
+          "retrieved_at": "2026-10-23T06:12:17.346259+00:00",
+          "summary": null,
+          "summary_status": "metadata_only_no_generated_summary",
+          "language": null,
+          "url": "https://docs.python.org/3/tutorial/",
+          "canonical_url": "https://docs.python.org/3/tutorial",
+          "interaction": null,
+          "matched_topic_ids": [
+            "source-term:python"
+          ],
+          "relevance_reason": "Exact topic match: source-term:python"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "next_offset": null,
+      "order": "exact_topic_match_then_resource_id; not market demand",
+      "profile_version": "bc6f81f0-946b-482d-b57b-7676bce99fb2",
+      "interactions": {
+        "resource_states": []
+      },
+      "coverage": {
+        "learning_resource": 2,
+        "article": 0,
+        "video": 0
+      },
+      "cache": {
+        "mode": "versioned_verified_metadata",
+        "revalidated_on_request": false,
+        "retrieved_at": [
+          "2026-10-23T06:12:17.346259+00:00",
+          "2026-10-23T06:12:17.908748+00:00"
+        ]
+      },
+      "limitations": [
+        "Small C source library; no news or video feed is integrated.",
+        "Publication dates, duration, total cost and language remain unknown.",
+        "Cached metadata does not guarantee current access or availability.",
+        "Learning activity does not certify mastery or employer suitability."
+      ]
+    }
+  }
+}

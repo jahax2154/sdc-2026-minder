@@ -4,29 +4,11 @@ No alternate scoring, state persistence or progress computation lives here.
 """
 from .store import AppError
 from .product_view_schemas import envelope, validate_view_request
+from .product_state import state_view
 
 VIEWS = ("overview", "career-match", "roadmap", "tasks", "progress", "news")
 OPERATIONS = {(method, "/api/product/views/" + view)
               for method in ("GET", "POST") for view in VIEWS}
-
-
-def optional_document(store, owner, kind, doc_id):
-    try:
-        return store.get(owner, kind, doc_id)
-    except AppError as error:
-        if error.code == "not_found" and error.status == 404:
-            return None
-        raise
-
-
-def state_read(app, owner, name):
-    """Only consume advertised D operations; errors never become fixture state."""
-    from .product_routes import module_for
-    module = module_for("product_state")
-    operation = ("GET", "/api/product/" + name)
-    if module is None or operation not in getattr(module, "OPERATIONS", ()):
-        return {"status": "unavailable", "reason": "D operation not integrated: " + name}
-    return module.dispatch(app, owner, *operation, {})
 
 
 def career_read(app, profile, body):
@@ -38,11 +20,14 @@ def career_read(app, profile, body):
         selected_skill_ids=body.get("selected_skill_ids")))
 
 
-def task_read(app, owner, body):
-    plans = app.store.list(owner, "plan")
+def task_read(app, owner, body, snapshot=None):
+    snapshot = snapshot if snapshot is not None else state_view(app.store, owner)
+    plans = snapshot["plans"]
     if "plan_id" in body:
         # Resolve through the owner boundary even when the filtered list is empty.
-        plans = [app.store.get(owner, "plan", body["plan_id"])]
+        plans = [p for p in plans if p["plan_id"] == body["plan_id"]]
+        if not plans:
+            raise AppError("not_found", 404)
     tasks = []
     from .plans import instant
     lower = instant(body["scheduled_from"]) if "scheduled_from" in body else None
@@ -58,14 +43,17 @@ def task_read(app, owner, body):
                 continue
             if upper and (scheduled is None or scheduled > upper):
                 continue
+            operations = [] if task["locked"] or task["state"] == "cancelled" else (
+                ["undo"] if task["state"] == "completed" else ["edit", "reschedule", "complete", "cancel"])
             tasks.append(dict(task=task, plan_id=plan["plan_id"],
-                              state_version=plan["state_version"]))
+                              state_version=plan["state_version"], supported_operations=operations,
+                              action_validation="D checks current version, dependencies and feasibility on write"))
     tasks.sort(key=lambda item: (item["plan_id"], item["task"]["task_id"]))
     offset, limit = body.get("offset", 0), body.get("limit", 20)
     return dict(tasks=tasks[offset:offset + limit], total=len(tasks), offset=offset,
                 next_offset=offset + limit if offset + limit < len(tasks) else None,
                 plan_versions={p["plan_id"]: p["state_version"] for p in plans},
-                order="plan_id,task_id", progress=state_read(app, owner, "progress"))
+                order="plan_id,task_id", progress=snapshot["progress"])
 
 
 def dispatch(app, owner, method, path, body):
@@ -73,7 +61,8 @@ def dispatch(app, owner, method, path, body):
         raise AppError("not_found", 404)
     validate_view_request(body)
     view = path.rsplit("/", 1)[-1]
-    profile = optional_document(app.store, owner, "profile", owner)
+    snapshot = state_view(app.store, owner)
+    profile = snapshot["profile"]
     limitations = []
     status = "available"
     if view == "career-match":
@@ -84,18 +73,22 @@ def dispatch(app, owner, method, path, body):
             status = "partial"
         limitations += data.get("limitations", [])
     elif view == "tasks":
-        data = task_read(app, owner, body)
+        data = task_read(app, owner, body, snapshot)
     elif view == "progress":
-        data = state_read(app, owner, "progress")
-        if data.get("status") == "unavailable":
-            status = "unavailable"
-    elif view == "roadmap":
-        plans = app.store.list(owner, "plan")
-        if "plan_id" in body:
-            plans = [app.store.get(owner, "plan", body["plan_id"])]
-        data = dict(plans=plans, direction=state_read(app, owner, "direction"),
+        data = dict(snapshot["progress"],
+                    progress_event_ids=snapshot["active_plan"]["progress_event_ids"] if snapshot["active_plan"] else [],
                     skill_evidence=profile["evidence"] if profile else [],
-                    requirements=[], unknowns=["Unknown competence is not a proven gap."])
+                    limitation="Event IDs are persisted activity references, not a detailed event history or skill assessment.")
+    elif view == "roadmap":
+        plans = snapshot["plans"]
+        if "plan_id" in body:
+            plans = [p for p in plans if p["plan_id"] == body["plan_id"]]
+            if not plans:
+                raise AppError("not_found", 404)
+        data = dict(plans=plans, direction=snapshot["direction"], active_plan=snapshot["active_plan"],
+                    skill_evidence=profile["evidence"] if profile else [],
+                    requirements=[], unknowns=["Unknown competence is not a proven gap."],
+                    gap_assessment_status="not_computed; use A career-match selected-role assessment")
         role_ids = list(dict.fromkeys(p["selected_role_id"] for p in plans))
         for role_id in role_ids:
             role = next((r for r in app.services.roles if r["role_id"] == role_id), None)
@@ -104,19 +97,28 @@ def dispatch(app, owner, method, path, body):
                     limitation="Occupational ratings are not personal competence thresholds."))
             else:
                 data["unknowns"].append("Requirements unavailable for " + role_id)
-        status = "partial" if not plans or data["direction"].get("status") == "unavailable" else "available"
+        status = "partial" if data["unknowns"][1:] else "available"
     elif view == "overview":
-        tasks = task_read(app, owner, {"limit": 50})
-        direction = state_read(app, owner, "direction")
-        data = dict(direction=direction, tasks=tasks,
+        active = snapshot["active_plan"]
+        tasks = task_read(app, owner, dict(limit=50, **({"plan_id": active["plan_id"]} if active else {})), snapshot)
+        next_task = None
+        if active:
+            by_id = {t["task_id"]: t for t in active["tasks"]}
+            ordered = [by_id[tid] for tid in active["task_ids"]]
+            from .plans import instant
+            next_task = next((t for t in sorted(ordered, key=lambda t:
+                instant(t["scheduled_at"]).timestamp() if t["scheduled_at"] else float("inf"))
+                if t["state"] in ("proposed", "scheduled") and not t["locked"]
+                and all(by_id[parent]["state"] == "completed" for parent in t["prerequisite_task_ids"])), None)
+        from .product_content import resource_list
+        data = dict(direction=snapshot["direction"], active_plan=active, tasks=tasks,
+                    progress=snapshot["progress"], resources=resource_list(app, owner, {"limit": 3}, snapshot=snapshot),
                     pending_proposals=[p for p in app.actions.proposals(owner) if p["status"] == "pending"],
-                    next_task=None)
-        # Do not guess which alternative plan the user selected.
-        limitations.append("Next task requires a selected active plan and a supported task order.")
-        status = "partial"
+                    next_task=next_task,
+                    next_task_order="Ready unlocked tasks from selected active plan; scheduled_at then plan task_ids order.")
     else:
         from .product_content import resource_list
-        data = dict(resources=resource_list(app, owner, {}), market=career_read(app, profile, body),
+        data = dict(resources=resource_list(app, owner, {}, snapshot=snapshot), market=career_read(app, profile, body),
                     news={"status": "unavailable", "reason": "No verified news feed integrated."})
         status = "partial"
     if profile is None:

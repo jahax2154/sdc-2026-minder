@@ -1,4 +1,69 @@
-# E read/content checkpoint
+# E read/content delivery — current E2 composition
+
+Early published E1 checkpoint: `664b42423620eba26a8ffa125c20a747cef7ad75`.
+Current E2 requires and includes D's committed handoff
+`1cb81b1574e1ef263a47e3bb0e098c50482340c5` through a normal merge. Integrate the
+cumulative E tip supplied with the final response; preserve both lanes' ancestry.
+Do not cherry-pick only the E2 adapter diff without D.
+
+Current implementation uses D `state_view(store, authenticated_owner)` for a
+consistent profile/direction/plans/active_plan/progress/resource_states snapshot.
+Canonical progress passes through unchanged; task filtering never redefines it.
+No new SQL, migrations, state store, provider calls or source acquisition in E.
+
+**E2 response refinements for A/F:** roadmap/overview `data.direction` is D's raw
+nullable Direction record, and `data.active_plan` is the raw nullable PlanProgress.
+This replaces the E1 temporary D-operation wrapper. Progress is available with
+status empty and fraction null when no active plan/eligible tasks exist.
+Overview now includes active-plan tasks, canonical progress, pending proposals,
+up to three real resources and next_task. Next task means an unlocked ready task
+in the selected plan, by actual scheduled instant then stored task_ids order;
+unscheduled tasks follow scheduled tasks. It never selects an alternative goal or
+schedules anything. Null means none is ready/selected. Task rows include supported
+operation names; D still validates version/dependencies/feasibility on each write.
+Roadmap exposes known requirements and skill evidence; `gap_assessment_status`
+explicitly says no new gap computation (use A's selected-role assessment).
+Progress exposes persisted progress_event_ids and separate skill evidence, with
+no fabricated detailed event timeline or skill certification.
+
+Resource records now include nullable `interaction` from D. List requests support
+`saved:boolean` and `dismissed:boolean`. Default dismissed=false excludes dismissed
+items; use dismissed=true to inspect them; reset through D makes them visible again.
+Use D's current expected_version and idempotency controls for saves/dismiss/reset.
+Both current resource IDs are already accepted by D's existing resolver; no new
+resource resolver or public catalog schema is needed for this small coverage.
+
+## Current validation and remaining limits
+
+Nine focused E tests passed. Real 1016-role source runtime and fictional-user WSGI
+journey passed: A recommendation equality, source statements, unavailable forecast,
+selected plan/next task, resource addition, canonical progress after completion,
+filtered-task progress consistency, saved-resource filtering, roadmap version
+agreement and no mastery inference. Zero provider calls and external fetches.
+The journey uses a disposable E-only database and leaves no listener running.
+
+```sh
+source .env.local
+PYTHONPATH=ml/src:apps/backend-api:apps/backend-api/tests "$MINDER_PYTHON" -m unittest test_product_views test_product_content
+PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" docs/execution/product-v2/E/check_journey.py
+```
+
+`RESPONSE_EXAMPLES.json` contains observed fictional-user responses from that
+journey, with ProductView schema validation; it includes no bearer token. Regenerate
+with the journey's `--examples` flag. Examples use actual sources, no mock service.
+
+Combined backend discovery at the first E2 run:64 tests,63 passed, one obsolete
+D test expectation errored: test_product_state.py test_wsgi_contract_status_and_
+unavailable_states expects `/api/product/views/news` to be unavailable. It is now
+implemented and returns ProductView. D/A must update that owner-controlled assertion
+when integrating E; E did not edit D's test. A's older all-unavailable bootstrap
+checks likewise describe P0.2 and are superseded for implemented capabilities.
+Later E tests add three further passing focused checks; a full-suite pass is not
+claimed. News/articles/videos, automatically mapped occupational learning gaps,
+automatic schedule generation and detailed D activity event read API remain absent.
+Two verified metadata entries are intentionally the complete initial feed.
+
+## E1 checkpoint record (historical first useful slice)
 
 Launch dependency: `fbddeb8` (P0.3), including A/B/C contracts and sources listed in
 the launch record. Owned adapter modules register through A's existing discovery;

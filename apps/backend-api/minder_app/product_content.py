@@ -18,6 +18,8 @@ REQUEST = {"type": "object", "additionalProperties": False, "properties": {
     "published_to": {"type": "string", "format": "date"},
     "offset": {"type": "integer", "minimum": 0},
     "limit": {"type": "integer", "minimum": 1, "maximum": 50},
+    "saved": {"type": "boolean"},
+    "dismissed": {"type": "boolean"},
 }}
 APPROVED_HOSTS = {"docs.python.org", "learn.microsoft.com"}
 
@@ -42,7 +44,7 @@ def catalogue():
     return library["version"], result
 
 
-def resource_list(app, owner, body):
+def resource_list(app, owner, body, *, snapshot=None):
     validate(body, REQUEST)
     from datetime import date
     for key in ("published_from", "published_to"):
@@ -51,8 +53,10 @@ def resource_list(app, owner, body):
     if body.get("published_from", "") > body.get("published_to", "9999-12-31"):
         raise AppError("invalid_publication_range")
     version, items = catalogue()
-    from .product_views import optional_document, state_read
-    profile = optional_document(app.store, owner, "profile", owner)
+    from .product_state import state_view
+    snapshot = snapshot if snapshot is not None else state_view(app.store, owner)
+    profile = snapshot["profile"]
+    states = {s["resource_id"]: s for s in snapshot["resource_states"]}
     known = {topic for item in items for topic in item["topic_ids"]}
     explicit = set(body.get("topic_ids", []))
     # Exact canonical topic IDs only; no free-text/private data is sent anywhere.
@@ -60,6 +64,12 @@ def resource_list(app, owner, body):
     relevant = explicit or inferred
     selected = []
     for item in items:
+        interaction = states.get(item["resource_id"])
+        saved, dismissed = bool(interaction and interaction["saved"]), bool(interaction and interaction["dismissed"])
+        if "saved" in body and saved != body["saved"]:
+            continue
+        if dismissed != body.get("dismissed", False):
+            continue
         if explicit and not explicit.intersection(item["topic_ids"]):
             continue
         if "types" in body and item["type"] not in body["types"]:
@@ -70,7 +80,7 @@ def resource_list(app, owner, body):
         if "published_from" in body or "published_to" in body:
             continue
         matched = sorted(relevant.intersection(item["topic_ids"]))
-        selected.append(dict(item, matched_topic_ids=matched,
+        selected.append(dict(item, interaction=interaction, matched_topic_ids=matched,
             relevance_reason=("Exact topic match: " + ", ".join(matched)) if matched else
                              "General verified learning option; no role or skill-gap mapping asserted."))
     selected.sort(key=lambda item: (not bool(item["matched_topic_ids"]), item["resource_id"]))
@@ -79,7 +89,7 @@ def resource_list(app, owner, body):
         status="available" if selected else "empty", resources=selected[offset:offset + limit],
         total=len(selected), offset=offset, next_offset=offset + limit if offset + limit < len(selected) else None,
         order="exact_topic_match_then_resource_id; not market demand", profile_version=profile["version"] if profile else None,
-        interactions=state_read(app, owner, "resource-state"),
+        interactions={"resource_states": snapshot["resource_states"]},
         coverage={"learning_resource": len(items), "article": 0, "video": 0},
         cache={"mode": "versioned_verified_metadata", "revalidated_on_request": False,
                "retrieved_at": sorted({i["retrieved_at"] for i in items})},

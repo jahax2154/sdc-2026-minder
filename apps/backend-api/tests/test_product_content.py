@@ -45,3 +45,25 @@ class ProductContentTests(AppCase):
         with patch("minder_app.product_content.learning_options", side_effect=OSError("source unavailable")):
             with self.assertRaises(OSError):
                 self.read()
+
+    def test_persisted_saved_dismiss_reset_and_profile_relevance(self):
+        profile = self.save()
+        before = self.read()
+        resource = next(r for r in before["resources"] if r["resource_id"] == "python-tutorial")
+        request = dict(resource_id="python-tutorial", saved=True, dismissed=True,
+                       expected_version=None, idempotency_key="save-dismiss")
+        state = self.app.dispatch("PUT", "/api/product/resource-state", request, self.token)
+        self.assertEqual(self.read()["total"], 1)
+        self.assertEqual(self.read({"saved": True, "dismissed": True})["resources"][0]["resource_id"], "python-tutorial")
+        other = self.store.session()["token"]
+        self.assertEqual(self.app.dispatch("POST", "/api/product/resources", {"saved": True}, other)["total"], 0)
+        self.app.dispatch("PUT", "/api/product/resource-state", dict(request, saved=False, dismissed=False,
+                          expected_version=state["version"], idempotency_key="reset"), self.token)
+        self.assertEqual(self.read()["total"], 2)
+        profile["evidence"][0]["subject_id"] = "source-term:python"
+        updated = self.app.dispatch("PUT", "/api/profile", {"profile": profile, "expected_version": profile["version"]}, self.token)
+        after = self.read()
+        self.assertEqual(after["resources"][0]["resource_id"], "python-tutorial")
+        self.assertEqual(after["resources"][0]["matched_topic_ids"], ["source-term:python"])
+        self.assertEqual(after["resources"][0]["source"], resource["source"])
+        self.assertEqual(after["profile_version"], updated["version"])
