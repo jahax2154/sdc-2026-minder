@@ -63,8 +63,8 @@ bounded aggregate cannot move further. No threshold deletes an industry/role.
 
 Use current **Malaysian** advertisement evidence only when entity/type, geography,
 source universe, cohort version, measurement, units, observation period and
-denominator agree. The live source is the 39-valid-inspected-ad Bosch sample,
-not national demand. Never allocate broad DOSM marginals to detailed roles.
+denominator agree. The current source is B1.1-R02’s 155-inspected-ad Bosch feed,
+not national demand or verified active hiring. Old source release dates remain visible. Never allocate broad DOSM marginals to detailed roles.
 
 Within a comparable cohort of at least two personally assessed roles:
 `M = 100*log1p(role_ad_count)/log1p(valid_inspected_sample_size)`;

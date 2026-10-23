@@ -89,6 +89,34 @@
         "method_id": {
           "type": "string",
           "minLength": 1
+        },
+        "assessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "self_report",
+                "documented_demonstration",
+                "reviewed_assessment",
+                "transferable_background",
+                "work_style_preference"
+              ]
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 20
+            },
+            "rubric_version": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "statement",
+            "rubric_version"
+          ]
         }
       },
       "required": [
@@ -119,7 +147,8 @@
           "enum": [
             "interested",
             "not_interested",
-            "unknown"
+            "unknown",
+            "neutral"
           ]
         },
         "authorizing_request_id": {
@@ -445,6 +474,11 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "contribution_points": {
+          "type": "number",
+          "minimum": -5,
+          "maximum": 80
         }
       },
       "required": [
@@ -527,6 +561,14 @@
             "supported",
             "unknown"
           ]
+        },
+        "adjustment_points": {
+          "type": "number",
+          "minimum": -5,
+          "maximum": 10
+        },
+        "selected_path": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -601,7 +643,8 @@
         "policy_status": {
           "enum": [
             "accepted",
-            "pending"
+            "pending",
+            "provisional"
           ]
         },
         "model_version": {
@@ -637,7 +680,8 @@
         "measurement": {
           "enum": [
             "personal_role_fit",
-            "legacy_preparation_fit"
+            "legacy_preparation_fit",
+            "personal_role_evidence_fit_v3"
           ]
         },
         "components": {
@@ -716,6 +760,91 @@
         },
         "unresolved_constraints": {
           "$ref": "#/$defs/Profile/properties/constraints"
+        },
+        "assessment_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "assessed_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "required_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fraction": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minimum_met": {
+              "type": "boolean"
+            },
+            "minimum_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minimum_fraction": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "assessed_count",
+            "required_count",
+            "fraction",
+            "minimum_met",
+            "minimum_count",
+            "minimum_fraction"
+          ]
+        },
+        "evidence_kinds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "self_report": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "documented_demonstration": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "reviewed_assessment": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "self_report",
+            "documented_demonstration",
+            "reviewed_assessment"
+          ]
+        },
+        "unclipped_score": {
+          "type": "number"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
         }
       },
       "required": [
@@ -997,6 +1126,24 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "ranking_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ranking_basis": {
+          "enum": [
+            "unassessed",
+            "personal_and_comparable_current",
+            "personal_only_market_unsupported"
+          ]
+        },
+        "evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
         }
       },
       "required": [
@@ -1046,7 +1193,8 @@
           "enum": [
             "personal_only_pending_market_policy",
             "current_only",
-            "next_calendar_quarter"
+            "next_calendar_quarter",
+            "personal-current-cohort-v1"
           ]
         },
         "status": {
@@ -1065,6 +1213,105 @@
           "uniqueItems": true
         },
         "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "ranking_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "group_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "enum": [
+                  "personal_and_comparable_current",
+                  "personal_only_market_unsupported"
+                ]
+              },
+              "role_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "limitation": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "group_id",
+              "basis",
+              "role_ids",
+              "limitation"
+            ]
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "considered_eligible": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "candidates": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "assessed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "excluded": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "current_available": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "current_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "personal_only_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "insufficient_evidence": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "considered_eligible",
+            "candidates",
+            "assessed",
+            "excluded",
+            "current_available",
+            "current_comparable_ranked",
+            "personal_only_ranked",
+            "insufficient_evidence"
+          ]
+        },
+        "ordering_scope": {
+          "const": "within_groups_only"
+        },
+        "overall_ranking_complete": {
+          "type": "boolean"
+        },
+        "targeted_questions": {
           "type": "array",
           "items": {
             "type": "string",
@@ -1149,6 +1396,59 @@
                 ]
               },
               "uniqueItems": true
+            },
+            "market_comparison": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "role_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "group_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "personal_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "current_support_index": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "sample_size": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "observed_count": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "final_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "policy_id": {
+                    "const": "personal-current-cohort-v1"
+                  }
+                },
+                "required": [
+                  "role_id",
+                  "group_id",
+                  "personal_score",
+                  "current_support_index",
+                  "sample_size",
+                  "observed_count",
+                  "final_score",
+                  "policy_id"
+                ]
+              }
             }
           },
           "required": [

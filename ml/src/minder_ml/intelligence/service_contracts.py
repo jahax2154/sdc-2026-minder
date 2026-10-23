@@ -60,7 +60,24 @@ def validate(kind, payload):
         scored = payload['score_status'] == 'scored'
         if scored != (payload['score'] is not None):
             raise ValueError('only scored assessments carry numeric scores')
-        if scored and (payload['policy_status'] != 'accepted' or payload['unknowns']
+        provisional = (payload['policy_version'] == 'personal-role-fit-v3-provisional'
+                       and payload['policy_status'] == 'provisional'
+                       and payload['measurement'] == 'personal_role_evidence_fit_v3')
+        if scored and provisional:
+            coverage = payload.get('assessment_coverage', {})
+            components = {c['component_id']: c for c in payload['components']}
+            if (not coverage.get('minimum_met') or coverage.get('assessed_count', 0) < 3
+                    or coverage.get('fraction', 0) < .3
+                    or not coverage.get('required_count')
+                    or abs(coverage['fraction'] - coverage['assessed_count'] / coverage['required_count']) > 1e-9
+                    or components.get('capability', {}).get('value') is None
+                    or any(c['value'] is None and (c['weight'] != 0 or c.get('contribution_points') != 0)
+                           for c in payload['components'])):
+                raise ValueError('v3 scoring requires anchored minimum; unknown optional inputs have no effect')
+            expected = min(100, max(0, sum(c['contribution_points'] for c in components.values())))
+            if abs(payload['score'] - expected) > 1e-7:
+                raise ValueError('v3 score differs from explicit component contributions')
+        elif scored and (payload['policy_status'] != 'accepted' or payload['unknowns']
                        or not payload['components']
                        or any(c['value'] is None or c['weight'] is None
                               for c in payload['components'])):
@@ -98,6 +115,20 @@ def validate(kind, payload):
         if public['market_period_policy_key'] == 'personal_only_pending_market_policy':
             if payload['internal']['combined_scores']:
                 raise ValueError('pending market policy cannot produce blended scores')
+        if public['market_period_policy_key'] == 'personal-current-cohort-v1':
+            options = {o['role_id']: o for o in public['options']}
+            grouped = []
+            for group in public['ranking_groups']:
+                for rank, rid in enumerate(group['role_ids'], 1):
+                    if rid not in options or options[rid]['rank'] != rank or options[rid]['ranking_group'] != group['group_id']:
+                        raise ValueError('rank must match its explicit independent group')
+                    grouped.append(rid)
+            if len(grouped) != len(set(grouped)) or any(o['rank'] is not None and o['role_id'] not in grouped for o in options.values()):
+                raise ValueError('ranked option must belong to exactly one group')
+            complete = (bool(candidates) and len(payload['internal']['combined_scores']) == len(candidates)
+                        and len(public['ranking_groups']) == 1)
+            if public['overall_ranking_complete'] != complete or (public['status'] == 'available') != complete:
+                raise ValueError('personal-only/partial coverage cannot claim full completion')
     elif kind == 'CompanyRoleResult':
         if payload['status'] == 'found' and (not payload['role_id'] or not payload['official_evidence']):
             raise ValueError('found company role requires official evidence')
