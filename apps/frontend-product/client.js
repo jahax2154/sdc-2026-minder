@@ -10,14 +10,26 @@ export class ApiError extends Error {
     this.status=status; this.code=value.code; this.requestId=value.request_id;
   }
 }
-export async function api(path, body, method=body===undefined?'GET':'POST') {
-  let response;try{response=await fetch('/api/'+path,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});}catch{throw new Error('Connection interrupted. Refresh saved state before trying this request again.');}
-  let value; try {value=await response.json();} catch {throw new Error('The server returned an unreadable response.');}
-  if(!response.ok) throw new ApiError(response.status,value);
-  if(!value || typeof value!=='object') throw new Error('The server returned an invalid response.');
-  const writes=['direct-action','proposal-decision','undo','plans','agent-settings','product/direction','product/tasks','product/task-action','product/resource-state','product/resource-to-plan','product/intake-correction','product/document-upload','product/document-delete'];
-  if(method==='PUT'||(method==='POST'&&writes.includes(path)))window.dispatchEvent(new CustomEvent('minder-saved',{detail:path==='product/document-delete'?'File deleted.':value.status==='rejected'?'Proposal rejected.':'Changes saved.'}));
-  return value;
+export const REQUEST_TIMEOUTS={read:12000,write:30000,chat:90000};
+export class RequestError extends Error {
+  constructor(code){super(code==='request_cancelled'?'Stopped waiting. Server processing may still finish.':code==='request_timeout'?'The request took too long. Review saved state before retrying.':'Connection interrupted. Review saved state before retrying.');this.code=code;}
+}
+export async function api(path, body, method=body===undefined?'GET':'POST', options={}) {
+  const controller=new AbortController();let timedOut=false;
+  const abort=()=>controller.abort();
+  if(options.signal?.aborted)abort();else options.signal?.addEventListener('abort',abort,{once:true});
+  const timeoutMs=options.timeoutMs??(path==='chat'?REQUEST_TIMEOUTS.chat:method==='GET'?REQUEST_TIMEOUTS.read:REQUEST_TIMEOUTS.write);
+  const timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
+  try {
+    const response=await fetch('/api/'+path,{method,signal:controller.signal,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+    let value;try{value=await response.json();}catch(e){if(controller.signal.aborted)throw e;throw new Error('The server returned an unreadable response.');}
+    if(!response.ok)throw new ApiError(response.status,value);
+    if(!value||typeof value!=='object')throw new Error('The server returned an invalid response.');
+    const writes=['direct-action','proposal-decision','undo','plans','agent-settings','product/direction','product/tasks','product/task-action','product/resource-state','product/resource-to-plan','product/intake-correction','product/document-upload','product/document-delete'];
+    if(method==='PUT'||(method==='POST'&&writes.includes(path)))window.dispatchEvent(new CustomEvent('minder-saved',{detail:path==='product/document-delete'?'File deleted.':value.status==='rejected'?'Proposal rejected.':'Changes saved.'}));
+    return value;
+  }catch(e){if(controller.signal.aborted)throw new RequestError(timedOut?'request_timeout':'request_cancelled');if(e instanceof TypeError)throw new RequestError('connection_interrupted');throw e;}
+  finally{clearTimeout(timer);options.signal?.removeEventListener('abort',abort);}
 }
 export async function session() {
   if(!token) {const result=await api('session',{}); if(typeof result.token!=='string') throw new Error('Session unavailable.'); token=result.token;sessionStorage.setItem('minder-product-token',token);}
