@@ -1,0 +1,27 @@
+{
+  "policy_id": "personal-current-evidence-v2.1",
+  "status": "delegated_provisional",
+  "active": true,
+  "personal_policy_id": "personal-role-fit-v3-provisional",
+  "authority": "Current user: integrate supported B shortage/published activity/employer/sector measurements and version new ranking treatments; keep working personal scorer",
+  "links_path": "ml/data/reference/market-evidence-links.v2.json",
+  "links_sha256": "a632694f5a3d5b8f6ce7b6b3b235218ff569cff1b06865b3907ea4fb2e2fd855",
+  "personal_fraction": 0.85,
+  "current_fraction": 0.15,
+  "shortage_points": 2,
+  "primary_comparison_order": [
+    "published_offering_activity",
+    "employer_observation"
+  ],
+  "published_normalization": "100*log1p(source category count)/log1p(max count among all observed categories in same latest published source period); no missing-category zero imputation",
+  "employer_normalization": "100*log1p(role mapped requisitions)/log1p(inspected employer sample size)",
+  "source_precedence": "Maximize personally assessed coverage across valid comparable groups; prefer latest published-category activity among equally covered assignments. Fall back to employer cohorts when a published singleton would strand an available comparison. Never pool unlike quantities.",
+  "minimum_personally_assessed_per_comparison_group": 2,
+  "shortage_handling": "At most +1 for a code-backed related-group institutional shortage context; at most +2 only for a separately supported exact role designation. Unknown is no adjustment, never proof of no shortage. Nominated-title/child scope retained; publication/date window may be unknown.",
+  "sector_weight": 0,
+  "sector_handling": "Context only; no allocation of broad totals to detailed roles",
+  "future_forecast_weight": 0,
+  "missing_market": "Independent rank scopes; personal-only/shortage-context fallback never full comparable-market completion",
+  "shortage_context_points": 1,
+  "nullable_shortage_dates": "Preserve edition label and null publication/fieldwork dates; availability is actual source/derived acquisition, not invented publication."
+}

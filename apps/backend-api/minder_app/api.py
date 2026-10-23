@@ -53,6 +53,19 @@ class Application:
                 from minder_ml.intelligence.market_evidence import public_trace
                 result["trace"] = public_trace(trace)
             return result
+        if path == "/api/source-market-catalogue" and method == "GET":
+            if self.services.market is None or not hasattr(self.services.market, "current_context_catalogue"):
+                raise AppError("source_context_unavailable", 404)
+            from datetime import datetime, timezone
+            return dict(records=self.services.market.current_context_catalogue(as_of=datetime.now(timezone.utc).isoformat()),
+                limitation="Source-native facts, not a canonical role catalogue or a count leaderboard. No role mapping is inferred.")
+        if path == "/api/source-market-context" and method == "POST":
+            if self.services.market is None or not hasattr(self.services.market, "current_context"):
+                raise AppError("source_context_unavailable", 404)
+            from datetime import datetime, timezone
+            return self.services.market.current_context(as_of=datetime.now(timezone.utc).isoformat(),
+                occupation_system=body.get("occupation_system"),occupation_version=body.get("occupation_version"),
+                occupation_code=body.get("occupation_code"),evidence_ids=body.get("evidence_ids"))
         if path == "/api/direct-action" and method == "POST":
             return self.actions.direct(owner, body["request"], body["idempotency_key"])
         if path == "/api/proposals":

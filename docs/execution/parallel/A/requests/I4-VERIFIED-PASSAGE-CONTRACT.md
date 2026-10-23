@@ -45,3 +45,21 @@ A source facts/trace API and ordinary UI can display verified structured records
 independently of model support. This separation must be explicit in acceptance
 reports: backend/UI typed evidence availability is not a claim that all new
 families have real-provider grounded passage support.
+
+
+## Implemented under I4.6
+
+Shared `EvidencePassage` v1 is executable in service_contracts. A's
+`make_source_passage` creates the canonical representation; consumers must call
+`EvidenceContext.verify_passage` or `PersonalMatchingService.verify_evidence_passage`
+against the known role and current committed source service. Verification checks
+actual unique employer rows, source artifacts/memory, complete record/canonical
+passage/references, role/policy and issue time. A source ID or self-consistent hash
+alone is insufficient. `evidence_for` now includes records plus these verifiable
+passage objects. Native source discovery/query APIs retain unmapped facts and
+explicit six-digit query scope without inferring a canonical role.
+
+V2.1 preserves unknown MyCOL publication/fieldwork dates with an edition label;
+related code-group context is separately typed and bounded, never an ad quantity
+or an exact whole-role/child critical designation. New source_scope and bridge
+references carry the original restrictions. Do not weaken them in any renderer.

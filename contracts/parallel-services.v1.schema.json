@@ -1209,7 +1209,8 @@
             "current_only",
             "next_calendar_quarter",
             "personal-current-cohort-v1",
-            "personal-current-evidence-v2"
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
           ]
         },
         "status": {
@@ -1335,6 +1336,14 @@
               "minimum": 0
             },
             "sector_context_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_context_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_exact_role_supported": {
               "type": "integer",
               "minimum": 0
             }
@@ -1998,7 +2007,7 @@
           "minLength": 1
         },
         "observation_period": {
-          "$ref": "#/$defs/Period"
+          "$ref": "#/$defs/EvidencePeriod"
         },
         "published_at": {
           "type": [
@@ -2043,12 +2052,55 @@
                 "source_label_proxy",
                 "broader_category_context",
                 "industry_related_context",
-                "unmapped"
+                "unmapped",
+                "code_bridge_context"
               ]
             },
             "scope": {
               "type": "string",
               "minLength": 1
+            },
+            "bridge": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "crosswalk_source": {
+                  "type": "string"
+                },
+                "crosswalk_sha256": {
+                  "type": "string"
+                },
+                "data_row_index": {
+                  "type": "integer"
+                },
+                "row_sha256": {
+                  "type": "string"
+                },
+                "match_type": {
+                  "type": "string"
+                },
+                "isco_uri": {
+                  "type": "string"
+                },
+                "isco_label": {
+                  "type": "string"
+                },
+                "masco_system": {
+                  "type": "string"
+                },
+                "masco_version": {
+                  "type": "string"
+                },
+                "masco_code": {
+                  "type": "string"
+                },
+                "masco_label": {
+                  "type": "string"
+                },
+                "classification_reference": {
+                  "type": "string"
+                }
+              }
             }
           },
           "required": [
@@ -2064,7 +2116,8 @@
             "published_comparable",
             "shortage_adjustment",
             "context_only",
-            "unsupported"
+            "unsupported",
+            "shortage_context_adjustment"
           ]
         },
         "missing_reasons": {
@@ -2086,6 +2139,58 @@
         "as_of": {
           "type": "string",
           "format": "date-time"
+        },
+        "source_record_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "source_value": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "source_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "occupation_system": {
+              "type": "string"
+            },
+            "occupation_version": {
+              "type": "string"
+            },
+            "occupation_code": {
+              "type": "string"
+            },
+            "occupation_level": {
+              "type": "integer"
+            },
+            "applies_to_all_children": {
+              "type": "boolean"
+            },
+            "explicit_six_digit_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "six_digit_scope_pdf_page": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "nominated_title_limit": {
+              "type": "string"
+            }
+          }
         }
       },
       "required": [
@@ -2123,7 +2228,10 @@
           "minLength": 1
         },
         "policy_version": {
-          "const": "personal-current-evidence-v2"
+          "enum": [
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
+          ]
         },
         "personal_score": {
           "type": [
@@ -2234,6 +2342,89 @@
         "shortage_points",
         "final_internal_score",
         "unknowns"
+      ]
+    },
+    "EvidencePeriod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "basis": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "EvidencePassage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-evidence-passage-v1"
+        },
+        "evidence_policy_id": {
+          "enum": [
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
+          ]
+        },
+        "derivation_method": {
+          "const": "typed-source-record-recomputation-v1"
+        },
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record": {
+          "$ref": "#/$defs/MarketEvidence"
+        },
+        "canonical_passage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "passage_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_record_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "evidence_policy_id",
+        "derivation_method",
+        "evidence_id",
+        "record",
+        "canonical_passage",
+        "passage_sha256",
+        "source_record_refs"
       ]
     }
   },

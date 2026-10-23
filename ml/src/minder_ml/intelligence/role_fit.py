@@ -15,7 +15,8 @@ from .service_contracts import CONTRACT_VERSION, validate, next_calendar_quarter
 
 POLICY_ID = 'personal-role-fit-v3-provisional'
 LEGACY_MARKET_POLICY = 'personal-current-cohort-v1'
-MARKET_POLICY = 'personal-current-evidence-v2'
+INTERMEDIATE_MARKET_POLICY = 'personal-current-evidence-v2'
+MARKET_POLICY = 'personal-current-evidence-v2.1'
 CONFIG = ROOT / 'ml/configs/intelligence/personal-role-fit.v3.json'
 
 
@@ -223,7 +224,7 @@ class RoleFitService:
     def assess(self, profile, roles, *, scorer_kind='baseline', policy_version=POLICY_ID,
                market_period_policy_key=MARKET_POLICY):
         p = policy()
-        if policy_version != POLICY_ID or market_period_policy_key not in (MARKET_POLICY, LEGACY_MARKET_POLICY):
+        if policy_version != POLICY_ID or market_period_policy_key not in (MARKET_POLICY, LEGACY_MARKET_POLICY, INTERMEDIATE_MARKET_POLICY):
             raise ValueError('explicit v3 personal/current policy required')
         if scorer_kind not in ('baseline', 'ridge', 'xgboost'):
             raise ValueError('unknown scorer_kind')
@@ -314,16 +315,22 @@ class RoleFitService:
             internal=dict(personal_assessments=assessments, current_market=current, forecast_market=forecast,
                 combined_score_policy_version=LEGACY_MARKET_POLICY, combined_scores=compared, market_comparison=traces))
         validate('Recommendation', result)
-        if market_period_policy_key == MARKET_POLICY:
+        if market_period_policy_key != LEGACY_MARKET_POLICY:
             from .market_evidence import EvidenceContext
-            result = EvidenceContext(self.market_service).apply(result, roles, stamp)
+            result = EvidenceContext(self.market_service, policy_version=market_period_policy_key).apply(result, roles, stamp)
         return result
 
     def evidence_for(self, role):
         """Per-role public source facts and applicability; no internal market matrix."""
-        from .market_evidence import EvidenceContext
+        from .market_evidence import EvidenceContext, make_source_passage
         stamp = self.as_of or datetime.now(timezone.utc).isoformat()
         current = self._market(role['role_id'], 'current', stamp)
+        context = EvidenceContext(self.market_service)
+        records = context.records(role, stamp, current)
         return dict(policy_version=MARKET_POLICY,
-                    records=EvidenceContext(self.market_service).records(role, stamp, current),
+                    records=records,passages=[make_source_passage(r,MARKET_POLICY) for r in records],
                     limitation='Source facts retain their measurement and mapping scope. Context is not a narrow-role quantity.')
+
+    def verify_evidence_passage(self, role, payload):
+        from .market_evidence import EvidenceContext
+        return EvidenceContext(self.market_service,policy_version=payload['evidence_policy_id']).verify_passage(payload,role)

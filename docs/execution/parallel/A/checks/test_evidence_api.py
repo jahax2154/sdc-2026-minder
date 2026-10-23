@@ -34,7 +34,9 @@ class EvidenceApiTests(unittest.TestCase):
         kinds={r['measurement_type']:r for r in result['records']}
         self.assertEqual(kinds['employer_observation']['value'],5)
         self.assertEqual(kinds['published_offering_activity']['value'],19899)
-        self.assertIsNone(kinds['occupation_shortage']['value'])
+        self.assertEqual(kinds['occupation_shortage']['value'],1)
+        self.assertIsNone(kinds['occupation_shortage']['published_at'])
+        self.assertFalse(kinds['occupation_shortage']['source_scope']['applies_to_all_children'])
         self.assertEqual(result['trace']['trace_id'],option['trace_id'])
         serialized=json.dumps(result)
         for forbidden in ('current_index','current_points','final_internal_score','Fictional study-project'):
@@ -51,6 +53,19 @@ class EvidenceApiTests(unittest.TestCase):
         other=self.request('PUT','/api/profile',dict(profile=provisional_demo_profile(),expected_version=None),token=second)
         body['expected_profile_version']=other['version']
         self.request('POST','/api/role-evidence',body,token=second,expected=409)
+
+    def test_all_native_context_is_explorable_without_inventing_canonical_links(self):
+        before=self.request('GET','/api/profile')
+        catalogue=self.request('GET','/api/source-market-catalogue')
+        self.assertEqual(len(catalogue['records']),96)
+        result=self.request('POST','/api/source-market-context',dict(occupation_system='MASCO',occupation_version='2020',occupation_code='2512-01'))
+        self.assertEqual(result['status'],'available')
+        self.assertEqual(result['records'][0]['query_scope']['relationship'],'explicitly_enumerated_six_digit_member')
+        self.assertFalse(result['records'][0]['coverage']['applies_to_all_six_digit_children'])
+        unknown=self.request('POST','/api/source-market-context',dict(occupation_system='MASCO',occupation_version='2020',occupation_code='2512-99'))
+        self.assertEqual(unknown['status'],'unknown');self.assertEqual(unknown['records'],[])
+        self.request('POST','/api/source-market-context',dict(occupation_system='O*NET',occupation_version='2019',occupation_code='15-1252.00'),expected=422)
+        self.assertEqual(before,self.request('GET','/api/profile'))
 
     def test_actual_A_source_registry_matches_C_verified_inspected_derivation(self):
         from minder_app.grounding import build_bundle,resolve_claim

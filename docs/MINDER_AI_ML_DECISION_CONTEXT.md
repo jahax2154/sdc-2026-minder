@@ -1,7 +1,7 @@
 # Minder D01–D09 — canonical product and AI/ML decision context
 
 Date: 22 October 2026 (Asia/Kuala_Lumpur)
-Content revision: 6 (23 October 2026; bounded numerical delegation below). Consolidated D01–D09 context, incorporating final market-presentation/agent-authorisation decisions and mandatory per-phase local checkpoints, linked refinements and push-only-on-explicit-instruction. Read this revision as a whole; do not maintain duplicate decision files.
+Content revision: 7 (23 October 2026; bounded numerical delegation and typed market integration below). Consolidated D01–D09 context, incorporating final market-presentation/agent-authorisation decisions and mandatory per-phase local checkpoints, linked refinements and push-only-on-explicit-instruction. Read this revision as a whole; do not maintain duplicate decision files.
 Purpose: Give implementation agents precise product decisions, derived engineering rules, required outputs and remaining dependencies. Presentation and agent-authorisation policies are now confirmed. Exact numerical scoring specifications and operational facts still require repository/data work; do not claim they were settled merely by resolving presentation or permissions.
 Basis: The architect's statements in the current conversation. The actual repository, current schemas, acquired datasets, and running model have not been inspected in this task.
 
@@ -20,6 +20,20 @@ scores are not empirically validated competence/hiring probabilities. Current
 Malaysian evidence must influence comparable ordering independently of unavailable
 forecasts; unsupported market coverage is explicitly partial, never zero demand.
 All other compatible D01–D09, provenance, ownership and local checkpoint rules remain.
+
+## Current typed market integration — 23 October 2026
+
+The latest user instruction retains the working provisional personal scorer and
+authorises typed B evidence integration plus versioned ranking treatments. Current
+market policy is `personal-current-evidence-v2.1`; prior v1/v2 remain explicit
+compatibility modes. See `docs/execution/parallel/A/MARKET_EVIDENCE_POLICY_V2_1.md`.
+Personal skill/background/preference/work-style definitions and minimum evidence
+are unchanged. Employer counts, published category activity, related shortage-group
+context and broad sector totals keep distinct units/scopes. Dated related-group
+signals use a bounded contextual adjustment; no exact whole-role critical status
+or missing-zero inference is invented. Forecasts remain separate/unavailable.
+Current user also authorises the captured starting A/B/C snapshot pushes only;
+new integration commits remain local. Original N01 history is unchanged.
 
 ## Status and interpretation
 

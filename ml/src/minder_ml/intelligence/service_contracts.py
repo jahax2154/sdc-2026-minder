@@ -9,6 +9,7 @@ from datetime import date, datetime
 from functools import lru_cache
 import json
 import math
+import hashlib
 from pathlib import Path
 from typing import Dict, List, Protocol
 
@@ -83,15 +84,25 @@ def validate(kind, payload):
                        or any(c['value'] is None or c['weight'] is None
                               for c in payload['components'])):
             raise ValueError('scoring requires accepted policy and complete components')
+    elif kind == 'EvidencePassage':
+        validate('MarketEvidence', payload['record'])
+        if (payload['evidence_id'] != payload['record']['evidence_id']
+                or payload['source_record_refs'] != payload['record'].get('source_record_refs', [])
+                or payload['passage_sha256'] != hashlib.sha256(payload['canonical_passage'].encode()).hexdigest()):
+            raise ValueError('passage identity, source references or hash differ')
     elif kind == 'MarketEvidence':
-        if payload['observation_period']['start'] > payload['observation_period']['end']:
+        period = payload['observation_period']
+        if period['start'] and period['end'] and period['start'] > period['end']:
             raise ValueError('reversed evidence period')
         if payload['status'] == 'available':
             if (payload['value'] is None or not math.isfinite(payload['value']) or not payload['source']
-                    or not payload['published_at'] or not payload['available_at']):
+                    or not payload['available_at'] or (not payload['published_at']
+                        and payload['measurement_type'] != 'occupation_shortage')):
                 raise ValueError('available typed evidence requires actual value/source/dates')
             issue = datetime.fromisoformat(payload['as_of'].replace('Z', '+00:00'))
             for key in ('published_at', 'available_at'):
+                if payload[key] is None:
+                    continue
                 stamp = datetime.fromisoformat(payload[key].replace('Z', '+00:00'))
                 if stamp.tzinfo is None or stamp > issue:
                     raise ValueError('typed evidence not yet available')
@@ -134,7 +145,7 @@ def validate(kind, payload):
         if public['market_period_policy_key'] == 'personal_only_pending_market_policy':
             if payload['internal']['combined_scores']:
                 raise ValueError('pending market policy cannot produce blended scores')
-        if public['market_period_policy_key'] in ('personal-current-cohort-v1', 'personal-current-evidence-v2'):
+        if public['market_period_policy_key'] in ('personal-current-cohort-v1', 'personal-current-evidence-v2', 'personal-current-evidence-v2.1'):
             options = {o['role_id']: o for o in public['options']}
             grouped = []
             for group in public['ranking_groups']:
@@ -150,7 +161,7 @@ def validate(kind, payload):
                         and len(public['ranking_groups']) == len(comparable) == 1)
             if public['overall_ranking_complete'] != complete or (public['status'] == 'available') != complete:
                 raise ValueError('personal-only/partial coverage cannot claim full completion')
-        if public['market_period_policy_key'] == 'personal-current-evidence-v2':
+        if public['market_period_policy_key'] in ('personal-current-evidence-v2', 'personal-current-evidence-v2.1'):
             for row in payload['internal']['evidence_records']:
                 validate('MarketEvidence', row)
             for row in payload['internal']['recommendation_traces']:
@@ -208,6 +219,15 @@ class MarketService(Protocol):
         """Return MarketResult(kind=forecast), including explicit unavailable."""
         ...
 
+
+class EvidenceService(Protocol):
+    def evidence_for(self, role: Dict) -> Dict:
+        """Typed records/passages with source and mapping scope, no private text."""
+        ...
+
+    def verify_evidence_passage(self, role: Dict, payload: Dict) -> Dict:
+        """Recompute against actual committed source records; ID alone is insufficient."""
+        ...
 
 class ApplicationAdapter(Protocol):
     def career_context(self, profile_id: str, *, expected_profile_version: str) -> Dict:
