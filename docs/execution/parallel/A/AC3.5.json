@@ -1,0 +1,45 @@
+{
+  "phase_id": "AC3.5",
+  "owner": "A",
+  "implementation_status": "integrated_software_verified",
+  "empirical_status": "post_bridge_full_live_acceptance_pending_C_CL3_refinement",
+  "C_handoff": "2ebdfb65b5bf1f349c6b6425ece6070f754cff8d",
+  "merge_sha": "33ef5ca83fb65e89c0c6c3106ded58a7de9365a8",
+  "implementation": [
+    "C source-recomputed typed passage verification before ledger storage and after load",
+    "Four measurement families retained with source/date/unit/geography/mapping/qualifications",
+    "Closed native selection and safe unsupported fallback; no scoring or source-scope change",
+    "C worker services interface added; A guarded adapter binding is a separate AC2-R01 refinement"
+  ],
+  "checks": {
+    "backend": "47 passed in3.129s; includes5 new real-source bridge/adversarial tests with mocked provider",
+    "ML": "204 passed in142.924s on combined source; software/mock tests, not model outcome accuracy",
+    "A_source_API": "I4.1-R02:4 passed in3.917s; canonical registry restoration and legacy fallback rejection separate",
+    "raw_source_bundle": "12 canonical facts valid,5936bytes before tool wrapper; no fabricated source/oversized payload observed"
+  },
+  "real_provider": {
+    "first_replay": "Failed at initial chat; original owner test did not capture public cause",
+    "second_replay": "Failed at initial chat; public provider code provider_http_error; model discovery/chat/simple native readiness still passed",
+    "separate_diagnostics": "Two isolated real chat diagnostics available with source-backed employer facts; not full new-type acceptance",
+    "raw_provider_bodies_logged": false,
+    "production_fallback_weakened": false,
+    "next": "Consume C committed CL3 transport/privacy refinement, then repeat affected finite application tests. No automatic semantic retry or invented pass."
+  },
+  "versions": {
+    "personal": "personal-role-fit-v3-provisional",
+    "market": "personal-current-evidence-v2.1",
+    "evidence": "minder-evidence-passage-v1",
+    "grounding": "minder-grounding-privacy-v1"
+  },
+  "evidence": {
+    "ml/artifacts/session-a/ac3-cl2-backend-tests.log": "08d91318c60ba471b00558827b23c98f76ccd38caf9d796ae38d10274d9c1c7f",
+    "ml/artifacts/session-a/ac3-combined-ml-final.log": "df8074a6b2a0677de8610c4857e161f7eb70f265945249145a0c2ae0f5aefe9d",
+    "ml/artifacts/session-a/ac2-r01-typed-live-v1/evidence.json": "7b2ed72333365805ba36b8f71e6ce1bc0d708f9b9c9b75e2c4d09c2b10a42654",
+    "ml/artifacts/session-a/ac2-r01-typed-live-v2/evidence.json": "8e131c0629b509a76d0a9dcfd28374bc8bf02c040994c56ae7f89bde1c6e61c6",
+    "ml/artifacts/session-a/ac3-cl2-chat-diagnostic/evidence.json": "4e9aa6df1db02469ea8f1e752efe716485421ec1e077377249868217791a0ee4",
+    "ml/artifacts/session-a/ac3-cl2-native-error-diagnostic/evidence.json": "6ac01166f067d4645eadb5eb92ce31e98611ce4b8ab210d5c4f795d3b8e37402"
+  },
+  "deployment_status": "not deployed; A local handoff server paused by its own session for runtime update",
+  "preservation": "No C worktree edits or provider values committed. Only owner C checkpoint integrated; A worker WIP remains separate.",
+  "remaining": "C CL3 and final new-type live/privacy/worker proof still required; current numerical policy stays active"
+}
