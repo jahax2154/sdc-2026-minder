@@ -31,7 +31,8 @@ export async function minder(ctx) {
   bind('minderComposer',send);
   input.maxLength=4000;input.addEventListener('input',()=>{input.style.height='auto';input.style.height=Math.min(130,input.scrollHeight)+'px';});
   input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#minderComposer').requestSubmit();}});
-  ctx.view.querySelectorAll('[data-prompt]').forEach(b=>b.onclick=()=>{input.value=b.dataset.prompt;input.focus();});
+  const prompts=['Help me understand a practical preparation path using my saved profile and selected role.','Explain which requirements are supported by my evidence and which are unassessed.','Help me review my current plan and suggest realistic next steps without changing it.','Help me compare career directions using the available evidence and its limits.'];
+  ctx.view.querySelectorAll('[data-prompt]').forEach((b,i)=>b.onclick=()=>{input.value=prompts[i]||b.dataset.prompt;input.focus();});
   $('#minderContextToggle').onclick=()=>$('#minderContext').classList.toggle('hide');
   $('#minderNewSmall').onclick=()=>{if(pending)return;messages.length=0;update();};
   $('#minderAdd').onclick=()=>{location.hash='profile';};

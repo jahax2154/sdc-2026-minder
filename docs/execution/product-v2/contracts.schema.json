@@ -579,6 +579,69 @@
         "usage",
         "extraction"
       ]
+    },
+    "ResourceToPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "resource_id",
+        "expected_state_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "resource_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "IntakeCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draft_id",
+        "profile",
+        "expected_profile_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "draft_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "profile": {
+          "type": "object"
+        },
+        "expected_profile_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
     }
   }
 }

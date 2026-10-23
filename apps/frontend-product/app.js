@@ -10,7 +10,7 @@ const labels={overview:'Overview',profile:'My profile',minder:'Minder Chat',mind
 async function render(){
   if(rendering){queued=true;return;}rendering=true;
   const current=++generation;document.querySelector('#error').hidden=true;
-  const page=location.hash.slice(1)||'minder';document.querySelector('#pageTitle').textContent=labels[page]||'Minder';
+  const page=location.hash.slice(1)||'minder';view.setAttribute('aria-busy','true');delete view.dataset.rendered;document.querySelector('#pageTitle').textContent=labels[page]||'Minder';
   document.querySelectorAll('.nav-link').forEach(a=>{a.classList.toggle('active',a.hash==='#'+page);a.setAttribute('aria-current',a.hash==='#'+page?'page':'false');});
   view.className='page-main product-page';view.innerHTML='<p role="status">Loading your workspace…</p>';
   try {
@@ -20,7 +20,7 @@ async function render(){
     else {const pages=await import('./pages/workspace.js');if(current!==generation)return;await pages.workspace(ctx,page);}
     hydrateIcons(view);
   } catch(e) {view.innerHTML=card('Unable to load this view','<p>You can refresh or open another page. Your saved records are unchanged.</p><button id="retryView">Try again</button>');document.querySelector('#retryView').onclick=render;showError(e);}
-  finally{rendering=false;if(queued){queued=false;await render();}}
+  finally{view.setAttribute('aria-busy','false');view.dataset.rendered=page;rendering=false;if(queued){queued=false;await render();}}
 }
 const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);menu.onclick=()=>document.querySelector('.sidebar').classList.toggle('mobile-open');
 const search=document.querySelector('#globalSearch');search.placeholder='Find a career role…';search.onkeydown=e=>{if(e.key==='Enter'){sessionStorage.setItem('minder-product-search',search.value);location.hash='career-match';}};

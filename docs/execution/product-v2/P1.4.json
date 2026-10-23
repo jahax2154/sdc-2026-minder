@@ -1,0 +1,43 @@
+{
+  "phase_id": "P1.4",
+  "status": "passed_A_workspace_browser",
+  "integrated_F": "1354356908a4557b9b4cd0a4d6e25fce473a3d3e",
+  "A_dependency": "1a28179b20c417167953ae1b516763dafb56f28b",
+  "implementation": "Separate F Profile/Career/Explore modules in source-design shell; exact D ResourceToPlan/IntakeCorrection schemas published; capability ledger reconciled",
+  "checks": {
+    "partial_profile": true,
+    "evidence_attribution": true,
+    "explicit_zero_distinct_from_unknown": true,
+    "intake_review_persisted_without_mastery": true,
+    "profile_conflict_visible": true,
+    "dislike_reset": true,
+    "direction_persists": true,
+    "explicit_plan_and_active_selection": true,
+    "manual_task_persisted": true,
+    "task_complete_canonical_progress": true,
+    "refresh_progress_persists": true,
+    "task_undo_same_state": true,
+    "resource_saved_refresh": true,
+    "resource_to_same_plan": true,
+    "unsupported_content_honest": true,
+    "unavailable_forecast": true,
+    "cross_screen_settings": true,
+    "mobile_all_routes_no_overflow": true,
+    "session_isolation": true,
+    "page_errors": []
+  },
+  "backend_evidence": "82 passing at P1.3-R01; no backend implementation changed in this frontend slice",
+  "origin": "http://127.0.0.1:9111",
+  "runner": "F committed assertions unchanged; only origin and ignored output paths adapted for isolated A",
+  "evidence": {
+    "a-workspace.json": "6e2c32627581d0ea3a979a279d20fd92ace10d854f538648ef92f430e3ee7d17",
+    "workspace-run.log": "fa9c46a112d00dbf7edfec81dc0be6ea1e477315a9a82eeaa99d5486429fae35",
+    "workspace-provenance.json": "c8a295f0e00df39b994ce58f7c6e4e32f6a35af406759ff97df86e2a46b2743f"
+  },
+  "provider_calls": "No chat/provider endpoint in this workspace journey; existing P1.2 real Qwen evidence retained",
+  "remaining": [
+    "F document UI committed refinement and corresponding browser checks",
+    "Final bounded combined acceptance/handoff; no hosted private storage or real forecasts"
+  ],
+  "deployment": false
+}

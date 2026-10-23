@@ -23,6 +23,13 @@ This is current product evidence, not a replacement for historical P0 reports.
   Combined backend82/82, A transport3/3 and repeated real HTTP/file checks pass;
   corruption cannot produce download bytes or a review draft. Final D examples,
   configuration/deletion semantics and hosting dependency are committed under D/.
+- P1.4 integrates F1354356908a4557b9b4cd0a4d6e25fce473a3d3e. A's real browser
+  workspace journey passes partial/explicit evidence, zero-vs-unknown, reviewed TXT,
+  profile conflicts, dislike/reset, direction/plan, manual tasks, completion/undo/
+  refresh progress, saved source resources/add-to-plan, empty format/unavailable
+  forecasts, settings, owner isolation and all9 phone routes without overflow.
+  Zero page errors. No chat/provider call in this journey; prior real Qwen checks
+  retained. ResourceToPlan/IntakeCorrection schemas now match D exactly in A export.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m
@@ -30,7 +37,7 @@ minder_ml.intelligence.product_runtime --lane A` after sourcing A .env.local.
 This is loopback-only, not a remote backend. qwen/qwen3.8-27b preserved; private
 credentials, tokens, DBs, evidence screenshots and source inputs remain outsideGit.
 
-Next consumer handoff: F final Profile/Explore/document controls and browser acceptance.
+Next consumer handoff: F document controls and final frontend acceptance record.
 F should preserve E2 raw nullable direction/active_plan shapes from E HANDOFF.
 A reused F's committed browser assertions with only origin9106->9111 and output
 paths changed in ignored A evidence. A did not edit F-owned source/tests. A future
