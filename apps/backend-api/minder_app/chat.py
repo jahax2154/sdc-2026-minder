@@ -32,10 +32,11 @@ def chat(store, services, provider, owner, message, expected_profile_version,
         if not isinstance(previous_context_id, str) or not 1 <= len(previous_context_id) <= 200:
             raise AppError('invalid_previous_context')
         previous = store.get(owner, 'grounding', previous_context_id).get('conversation_scope', {})
+    named_roles = matched_roles(services, message)
     if selected_role_ids is None:
-        selected_role_ids = previous.get('role_ids') or matched_roles(services, message) or None
+        selected_role_ids = named_roles or previous.get('role_ids') or None
     selections(services, selected_role_ids, selected_skill_ids)
-    intent = intent_for(message, previous)
+    intent = intent_for(message, previous, named_role=bool(named_roles))
     scope = dict(intent=intent, role_ids=selected_role_ids or [], question_id=previous.get('question_id'))
     ledger_id = uid()
     def finish(snapshot, answer, statements, provider_result, mode, reasons):
