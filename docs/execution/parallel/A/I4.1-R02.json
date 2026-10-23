@@ -1,0 +1,17 @@
+{
+  "phase_id": "I4.1-R02",
+  "refines": "I4.1-R01",
+  "status": "passed_CL2_registry_test_compatibility",
+  "application_C_bridge": "2ebdfb65b5bf1f349c6b6425ece6070f754cff8d",
+  "defect": "A legacy-only negative test expected corrupted registry context always to fail, but CL2 can restore it from a freshly source-recomputed typed passage.",
+  "change": "Test separately asserts authoritative restored canonical digest and the original legacy rejection when typed personal adapter is absent. No product or C-owned code altered.",
+  "checks": "4 actual A source/API tests passed in3.917s; no provider request in these tests",
+  "preserved": "Wrong unverified registry hash is never accepted as a citation. C typed ledger recomputation/adversarial tests remain intact.",
+  "evidence": {
+    "ml/artifacts/session-a/ac3-cl2-evidence-api-tests.log": "f3623d6c24c0594c94e380b055d2a3c82fc2691e8fda1d722d4d5f1da43af550",
+    "ml/artifacts/session-a/i4.1-r02-evidence-api-tests.log": "965c0bd42e235dd0e376b00c19331028433be33bda61a28ce8ae6ed401dc5300"
+  },
+  "empirical": "Source/contract software verification only",
+  "deployment": false,
+  "exclusions": "No source bytes, private config, DB, logs or unrelated A worker WIP staged"
+}

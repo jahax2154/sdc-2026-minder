@@ -5,6 +5,7 @@ import hashlib
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from minder_ml.intelligence.integration_cli import application,provisional_demo_profile,wsgi_request
 from minder_ml.intelligence.policy import ROOT
@@ -81,7 +82,14 @@ class EvidenceApiTests(unittest.TestCase):
         bad=copy.deepcopy(context)
         next(s for s in bad['sources'] if s['source_id']=='bosch-smartrecruiters-my')['sha256']=hashlib.sha256(
             (ROOT/'ml/data/market/snapshot.v1.json').read_bytes()).hexdigest()
-        rejected=build_bundle(bad,services,[],self.profile['version'])
+        # CL2 can restore a registry entry from a newly source-recomputed typed
+        # passage. The wrong registry hash must never become its citation.
+        restored=build_bundle(bad,services,[],self.profile['version'])
+        self.assertEqual(restored['sources']['bosch-smartrecruiters-my']['sha256'],services.market.version)
+        # Preserve the original Bosch-only fallback guard independently: without
+        # the verified typed provider, the bad registry must still fail closed.
+        with patch.object(services,'personal',None):
+            rejected=build_bundle(bad,services,[],self.profile['version'])
         self.assertFalse(any(c.get('kind')=='current' and c.get('status')=='available' for c in rejected['claims']))
 
 if __name__=='__main__':unittest.main()
