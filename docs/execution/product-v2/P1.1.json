@@ -1,0 +1,34 @@
+{
+  "phase_id": "P1.1",
+  "status": "WIP_combined_suite_requires_D3.1_R01",
+  "integrated_E": "c2628eceaf4700cd124a407ec4dfe43a6cdbd4ff",
+  "included_D": "1cb81b1574e1ef263a47e3bb0e098c50482340c5",
+  "A_contract_dependency": "3561e93d1bae4ec78fd661e0729fbf53322252c4",
+  "implementation": "D persisted state/migration5 and E2 read/resource composition; producer history preserved",
+  "checks": {
+    "backend": "67 run:66 pass,1 error in obsolete D E-news-unavailable assertion",
+    "source_journey": "Passed actual1016-role source/WSGI journey; no mock source/provider",
+    "bootstrap": "4 passed after A-owned capability-aware refinement",
+    "document_transport": "3 passed; stub storage explicitly not document acceptance",
+    "provider_requests": 0
+  },
+  "blocker": {
+    "owner": "D",
+    "test": "test_product_state.ProductStateTests.test_wsgi_contract_status_and_unavailable_states",
+    "cause": "Implemented E news ProductView has no unavailable error code",
+    "requested_repair": "Focused D3.1-R01 capability-consistent assertion in DOCUMENTS_CONTRACT.md; do not edit active owner files"
+  },
+  "evidence": {
+    "combined-e2-backend.log": "8b8cbcb57f810c1d4d8779e5c7701624fe7e628acb1d4922db79e48d6036b832",
+    "combined-e2-journey.json": "57d31c3ce69c1a9c454d6f6af2af86d01a0e1d874cadec35d23c782240a42167",
+    "combined-e2-bootstrap.log": "a49e31311941f510c3ce5bca9cf4d3897efefc44dfb655e15d3dd4859d635347",
+    "combined-e2-transport.log": "a5b3ebd985e73b516cb7e1e01ce783acdc4b14595541c11efbf7616d9432e42d"
+  },
+  "remaining": [
+    "D test repair handoff",
+    "F frontend committed integration and A browser acceptance",
+    "D documents storage/extraction handoff"
+  ],
+  "forecast_accuracy": "Unvalidated; unavailable real forecasts preserved",
+  "deployment": false
+}

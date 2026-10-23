@@ -26,9 +26,11 @@ class BootstrapTests(unittest.TestCase):
         self.assertEqual(wsgi_request(self.app,'GET',path)[0],401)
         code,result=wsgi_request(self.app,'GET',path,token=self.token)
         self.assertEqual(code,200);self.assertTrue(result['operations'])
-        self.assertTrue(all(x['status']=='unavailable' for x in result['operations']))
+        self.assertTrue(all(x['status'] in ('implemented','unavailable') for x in result['operations']))
+        self.assertEqual(wsgi_request(self.app,'GET','/api/product/unregistered',token=self.token)[0],404)
+        direction=next(x for x in result['operations'] if x['method']=='PUT' and x['path']=='/api/product/direction')
         self.assertEqual(wsgi_request(self.app,'PUT','/api/product/direction',
-            {'role_id':'onet:15-1252.00'},self.token)[0],404)
+            {'role_id':'onet:15-1252.00'},self.token)[0],422 if direction['status']=='implemented' else 404)
     def test_profile_metadata_is_optional_and_not_skill_evidence(self):
         from minder_ml.intelligence.integration_cli import provisional_demo_profile
         body=provisional_demo_profile('incomplete',(2,))

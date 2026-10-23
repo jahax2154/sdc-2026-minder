@@ -1,0 +1,64 @@
+{
+  "refinement_id": "P1.6-R01",
+  "status": "independent_acceptance_passed_owner_retry_failure_open",
+  "A_parent": "9a0b967d6fae18284bd53b305a1bfb3ff55d49d4",
+  "F_handoff": "29281ec907ef031c1ec07be27c84e25aad69969e",
+  "checks": {
+    "final_A_workspace": {
+      "partial_profile": true,
+      "evidence_attribution": true,
+      "explicit_zero_distinct_from_unknown": true,
+      "intake_review_persisted_without_mastery": true,
+      "profile_conflict_visible": true,
+      "dislike_reset": true,
+      "direction_persists": true,
+      "explicit_plan_and_active_selection": true,
+      "manual_task_persisted": true,
+      "task_complete_canonical_progress": true,
+      "refresh_progress_persists": true,
+      "task_undo_same_state": true,
+      "resource_saved_refresh": true,
+      "resource_to_same_plan": true,
+      "unsupported_content_honest": true,
+      "unavailable_forecast": true,
+      "cross_screen_settings": true,
+      "mobile_all_routes_no_overflow": true,
+      "session_isolation": true,
+      "page_errors": []
+    },
+    "final_A_smoke": {
+      "routes_desktop_and_mobile": 20,
+      "keyboard_navigation": true,
+      "unexpected_console_errors": [],
+      "failed_assets": []
+    },
+    "real_Qwen": "P1.6:10 validated statements/5 sources/all4 typed families/native validated, no Profile mutation",
+    "fixtures": "P1.6 explicit error/escaping/malformed/unsafe link fixtures pass; not live-provider evidence",
+    "documents": "P1.5 actual enabled/disabled browser + P1.3 actual HTTP/private files pass",
+    "backend": "82 passed at P1.3-R01; backend code unchanged"
+  },
+  "open_failure": {
+    "id": "F-DOC-REVIEW-R01",
+    "owner": "F",
+    "test": "checks/run_document_browser.py --review-retry",
+    "expected": "New visible edited text must not silently replay earlier cached request",
+    "observed": "Actual first commit + deliberately lost response; editable new text -> earlier body replayed; no duplicate backend mutation",
+    "required": "Focused committed F repair followed by A rerun"
+  },
+  "evidence": {
+    "final-workspace.log": "fa9c46a112d00dbf7edfec81dc0be6ea1e477315a9a82eeaa99d5486429fae35",
+    "final-smoke.log": "c85e89be96053ad4cbb13bc5ad4c53ec7b55a02bfa43a65f67f56c0d402771c7"
+  },
+  "runtime": {
+    "ui": "http://127.0.0.1:9111",
+    "backend": "http://127.0.0.1:8111",
+    "model": "qwen/qwen3.8-27b",
+    "storage": "Default disabled; only disposable local-development document test enabled",
+    "scheduler_autostarted": false
+  },
+  "next": "Integrate focused F reviewed-save retry repair, rerun fault + document checks, then final bounded handoff",
+  "feature_freeze_UTC": "2026-10-23 17:35:23",
+  "final_handoff_UTC": "2026-10-23 18:25:23",
+  "forecast_accuracy": "Real future forecasts and independent suitability validation unavailable; existing scopes/scorer preserved",
+  "deployment": false
+}

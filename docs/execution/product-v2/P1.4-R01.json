@@ -1,0 +1,12 @@
+{
+  "refinement_id": "P1.4-R01",
+  "status": "passed_report_only_handoff",
+  "integrated_F": "dc45f0e1ee7ee11b9ab74f9534cb9e2885aee5b3",
+  "frontend_tree": "69c0155840f0bb4754d6acf32922880dcd94ba13",
+  "verification": "Only2 F evidence documents changed; identical frontend tree already passed A actual workspace/mobile/browser checks at P1.4",
+  "scope": "Preserve F1.2 evidence/history and update capability status; no repeated browser/provider call",
+  "remaining": [
+    "F document UI and final combined handoff"
+  ],
+  "deployment": false
+}

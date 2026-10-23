@@ -1,0 +1,71 @@
+{
+  "phase_id": "P1.6",
+  "status": "WIP_owner_review_retry_repair_required",
+  "integrated_F": "29281ec907ef031c1ec07be27c84e25aad69969e",
+  "F_code": "c25173176489b42019b75abb8b0f00dc50943911",
+  "dependency_A": "a2adf04c9179850227bd69de220a6f7ef22fa494",
+  "checks": {
+    "real_Qwen": {
+      "chat": {
+        "validated_statements": 10,
+        "sources": 5,
+        "provider": "available",
+        "native_arguments_validated": true,
+        "measurement_types": [
+          "employer_observation",
+          "published_offering_activity",
+          "occupation_shortage",
+          "sector_context"
+        ],
+        "no_profile_mutation": true
+      },
+      "temporary_history_honest": true,
+      "rejection_preserves_profile": true,
+      "exact_approval_persists": true,
+      "repeat_approval_once": true,
+      "stale_visible_no_mutation": true,
+      "settings_persist": true,
+      "mobile_navigation": true,
+      "page_errors": []
+    },
+    "explicit_intercepted_fixtures": {
+      "fixture_only": true,
+      "provider_calls": 0,
+      "duplicate_pending_blocked": true,
+      "server_error_visible": true,
+      "malformed_answer_blocked": true,
+      "html_escaped": true,
+      "unsafe_source_link_blocked": true,
+      "page_errors": []
+    },
+    "failing_transport_fault": {
+      "fault_injection": true,
+      "provider_calls": 0,
+      "real_first_commit": true,
+      "editor_and_submit_allowed_changed_text": true,
+      "correction_requests": 2,
+      "stale_review_replayed": true,
+      "original_profile_version_preserved": true,
+      "no_mastery_inference": true
+    },
+    "backend": "82 passed P1.3-R01; no backend changes in this F slice"
+  },
+  "owner_blocker": {
+    "id": "F-DOC-REVIEW-R01",
+    "owner": "F",
+    "request": "FRONTEND_REFINEMENT_REQUESTS.md",
+    "reproduce": "checks/run_document_browser.py --review-retry",
+    "meaning": "After actual commit and deliberately lost response, UI allows changed text but replays old request; no duplicate backend mutation"
+  },
+  "evidence": {
+    "final-chat-actions.log": "6158036757ebc9d8c5069e4b8d54ac123b5e5de73fa4c906a64ffbc818fdeafc",
+    "final-error-fixtures.log": "f8f34ffbb6387dc018bcc3bbe50f7171f31652d9578dbc3065e3521818ccfd23",
+    "review-retry-fault.log": "20cefc4362e218b295dcd2ea988309b1430b822eec4a916fa0bd106d4346af23"
+  },
+  "remaining": [
+    "F focused committed review-intent repair",
+    "A final workspace/smoke and repaired fault checks",
+    "No hosted storage/PDF extraction/forecast accuracy claimed"
+  ],
+  "deployment": false
+}
