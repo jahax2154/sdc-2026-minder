@@ -73,7 +73,12 @@
         "package-lock.json",
         "pnpm-lock.yaml",
         "yarn.lock",
-        "ml/requirements-foundation.txt"
+        "ml/requirements-foundation.txt",
+        "apps/backend-api/minder_app/chat.py",
+        "apps/backend-api/minder_app/conversation.py",
+        "apps/backend-api/data/conversation-policy.v1.json",
+        "apps/backend-api/tests/test_conversation.py",
+        "apps/backend-api/tests/test_product_concurrency.py"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -191,5 +196,18 @@
     "B": "8102/9102",
     "C": "8103/9103"
   },
-  "runtime": "No config/DB copied; A/F may read authorised server-only config, never put keys in frontend. All source imports resolve current worktree; same interpreter may be reused read-only."
+  "runtime": "No config/DB copied; A/F may read authorised server-only config, never put keys in frontend. All source imports resolve current worktree; same interpreter may be reused read-only.",
+  "repair_transfer": {
+    "authority": "Current user explicitly assigns A-R1/A-R2/A-R3 backend chat/orchestration/runtime; brief section3 A scope, C clean committed boundary362316351ebe90b31c533eb75cff46a851808314",
+    "from": "C legacy chat file owner",
+    "to": "A bounded repair owner",
+    "paths": [
+      "apps/backend-api/minder_app/chat.py",
+      "apps/backend-api/minder_app/conversation.py",
+      "apps/backend-api/data/conversation-policy.v1.json",
+      "apps/backend-api/tests/test_conversation.py",
+      "apps/backend-api/tests/test_product_concurrency.py"
+    ],
+    "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer"
+  }
 }
