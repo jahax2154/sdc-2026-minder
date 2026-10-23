@@ -6,6 +6,7 @@ Unmapped/inaccessible pages yield explicit requirements_unavailable.
 from datetime import datetime, timezone
 import hashlib
 import json
+from pathlib import Path
 from urllib.request import build_opener, HTTPRedirectHandler, Request
 from urllib.parse import urlsplit
 from urllib.error import URLError
@@ -35,11 +36,15 @@ def retrieve(url):
 
 
 class CompanyExplorer:
-    def __init__(self, services, *, fetch=retrieve, postings=()):
+    def __init__(self, services, *, fetch=retrieve, postings=None):
+        if postings is None:
+            path = Path(__file__).resolve().parents[1] / "data/company-postings.v1.json"
+            postings = json.loads(path.read_text())["postings"] if path.exists() else []
         self.services, self.fetch, self.postings = services, fetch, list(postings)
 
     def explore(self, profile, employer_id, role_id=None):
-        employer = REGISTRY.get(employer_id.lower())
+        employer_id = employer_id.lower()
+        employer = REGISTRY.get(employer_id)
         if employer is None:
             return dict(status="requirements_unavailable", employer_name=employer_id,
                         searched_scope=["curated Malaysia MNC registry; employer not covered"],
@@ -82,10 +87,15 @@ class CompanyExplorer:
         # mappings to A's catalogue can be assessed; same personal service, no new score.
         supported = []
         known_roles = {r["role_id"]: r for r in self.services.roles}
+        seen_postings = set()
         for posting in self.postings + cached_postings:
             if (posting["employer_id"] != employer_id or posting["geography"] != "MY"
                     or not posting.get("official_link_verified") or posting["role_id"] not in known_roles):
                 continue
+            key = (posting["employer_id"], posting["role_id"], posting["title"])
+            if key in seen_postings:
+                continue
+            seen_postings.add(key)
             for source in posting["sources"]:
                 validate("Source", source)
                 if urlsplit(source["uri"]).scheme != "https":
@@ -99,6 +109,8 @@ class CompanyExplorer:
                 assessment = public_recommendation(result)
             supported.append(dict(role_id=posting["role_id"], title=posting["title"],
                 location=posting["location"], required=posting["required"], preferred=posting["preferred"],
+                qualifications_requirement_level_unspecified=posting.get("qualifications_requirement_level_unspecified", []),
+                requirement_interpretation=posting.get("requirement_interpretation", "Required/preferred criteria unavailable."),
                 published_at=posting.get("published_at"), retrieved_at=posting["retrieved_at"],
                 vacancy_status=posting.get("vacancy_status", "unknown"),
                 sources=posting["sources"], generic_occupation_assessment=assessment,
@@ -110,9 +122,10 @@ class CompanyExplorer:
             unknown_requirements=["No verified role-specific requirements in checked sources"],
             preparation_suggestions=[], explanation="Company-specific requirements unavailable in the "
             "sources checked. This does not establish that the company has no matching role.")
-        if selected and (selected["required"] or selected["preferred"]):
+        if selected and (selected["required"] or selected["preferred"] or selected["qualifications_requirement_level_unspecified"]):
             result.update(status="found", official_evidence=selected["sources"],
-                          unknown_requirements=["Company criteria assessment unavailable"],
+                          unknown_requirements=["User competence against company criteria unknown; no compatible personal rubric",
+                              "Core qualification mandatory status not explicit; see requirement interpretation"],
                           explanation="A source-supported role description was found. Current vacancy "
                           "status and posting dates are shown separately; no hiring probability is inferred.")
         validate("CompanyRoleResult", result)

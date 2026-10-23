@@ -121,7 +121,9 @@ def main():
     assert undo["target"]["tasks"][0]["scheduled_at"] == scheduled["tasks"][0]["scheduled_at"]
     checks["reversible_schedule_undo_retains_history"] = "passed"
     company = request("POST", "/api/company-explorer",dict(employer_id="bosch",role_id="onet:15-1252.00"),token)
-    assert company["result"]["status"] == "requirements_unavailable" and len(company["other_supported_roles"]) >= 1
+    assert company["result"]["status"] == "found" and len(company["other_supported_roles"]) >= 1
+    assert company["selected_posting"]["preferred"] and not company["selected_posting"]["required"]
+    assert company["result"]["unknown_requirements"]
     assert not company["main_recommendations_changed"]
     checks["real_company_snapshot_explicit_missing_criteria_separate_main_matches"] = "passed"
     evidence = dict(transport="real TCP HTTP on reserved localhost 8103/9103", synthetic_user=True,

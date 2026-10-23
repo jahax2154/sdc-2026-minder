@@ -60,7 +60,7 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
     p=await api('profile');assert.equal(p.preferences.length,0);
     checks.real_catalogue_selection_preference_and_reset='passed';
     await clickAndWait('#company','company-explorer');
-    assert.match(await page.locator('#company-result').textContent(),/Company requirements unavailable/);
+    assert.match(await page.locator('#company-result').textContent(),/Requirement level unspecified/);
     await page.locator('[data-tab="Roadmap"]').click();
     await page.locator('#preview-plan').waitFor();
     await clickAndWait('#preview-plan','pathway-preview');
