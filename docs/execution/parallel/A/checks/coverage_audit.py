@@ -16,7 +16,7 @@ from minder_ml.intelligence.integration_cli import role_aliases, provisional_dem
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.personal_service import PersonalMatchingService
 from minder_ml.intelligence.personal_cli import adapt_original_profile
-from minder_ml.intelligence.role_fit import policy
+from minder_ml.intelligence.role_fit import policy, MARKET_POLICY
 from minder_ml.intelligence.policy_sources import role_reference_v3
 
 
@@ -29,7 +29,7 @@ def main():
     market=MarketEvidenceService(aliases={'role':role_aliases(cat)})
     stamp=datetime.now(timezone.utc).isoformat();service=PersonalMatchingService(market,as_of=stamp)
     report=dict(revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True,cwd=ROOT).strip(),
-        as_of=stamp,policy_id=policy()['policy_id'],reference_version=role_reference_v3()['version'],
+        as_of=stamp,policy_id=policy()['policy_id'],reference_version=role_reference_v3()['version'],market_policy=MARKET_POLICY,
         catalogue=dict(references=len(roles),eligible=len(eligible),partial=len(roles)-len(eligible),
             eligible_industry_mapped=sum(bool(r['industry_mappings']) for r in eligible),
             eligible_work_style_mapped=sum(bool(r.get('work_style_mappings')) for r in eligible)),
@@ -48,7 +48,10 @@ def main():
         report['profiles'].append(summary)
         print(json.dumps(summary),flush=True)
         if kind=='new-anchored-fresh-graduate':
-            assert summary['coverage']['assessed']==910 and summary['coverage']['current_comparable_ranked']==4
+            assert summary['coverage']['assessed']==910 and summary['coverage']['current_comparable_ranked']==5
+            assert summary['coverage']['shortage_context_supported']==7
+            assert summary['coverage']['shortage_exact_role_supported']==0
+            assert summary['coverage']['personal_only_ranked']==900
             report['current_market']['roles']=[dict(role_id=r['entity_id'],count=r['value'],status=r['status'],
                 period=r['observation_period'],available_at=r['available_at'],source_ids=r['source_ids'])
                 for r in result['internal']['current_market'] if r['status']=='available']

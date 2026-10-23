@@ -428,7 +428,8 @@ def recommendation_acceptance(output):
         r = RoleFitService(cf).assess(provisional_demo_profile(levels=(6,6,6)), roles)
         assert r['public']['ranking_groups'][0]['role_ids'][0] == favorite
         outputs.append(dict(favored=favorite, ordered=r['public']['ranking_groups'][0]['role_ids'],
-                            calculation=r['internal']['market_comparison']))
+                            calculation=r['internal'].get('recommendation_traces', r['internal']['market_comparison'])))
+        assert outputs[-1]['calculation'], 'sensitivity evidence requires actual current-policy calculation traces'
     report['counterfactual_market_sensitivity'] = dict(kind='fictional counterfactual values; not current observations',
         same_personal_evidence=True, forecasts_unavailable=True, results=outputs)
     report['checks']['compatible_current_evidence_reverses_order_without_forecasts'] = 'passed'
@@ -529,7 +530,8 @@ def verify_web(output, playwright_module, browsers_path, *, require_live_provide
                   test_namespace_replacements=replacement_counts, checks={},
                   catalogue_references=catalogue.coverage['runtime_roles'],
                   numeric_policy='Delegated v3 provisional; anchored minimum and scoped current-market ordering')
-    report['market_policy'] = 'personal-current-evidence-v2'
+    from .role_fit import MARKET_POLICY
+    report['market_policy'] = MARKET_POLICY
     report['real_provider_required'] = require_live_provider
     report['privacy_frontend'] = 'prepared_requires_real_A_access' if not require_live_provider else 'required_live_check'
     try:
