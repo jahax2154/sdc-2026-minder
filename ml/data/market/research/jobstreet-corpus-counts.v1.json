@@ -1,0 +1,307 @@
+{
+  "approved_target_rows": [],
+  "classification": {
+    "mapping_sha256": "700bfaa69745f16eb366d4cd2d9545681a8ae4767def86288558e38a7845ea2c",
+    "roles": "conservative source-native title patterns, not broad category allocation",
+    "skills": "five literal technologies; explicit request-clause subset separated from mentions"
+  },
+  "collection_windows": null,
+  "dated_corpus_counts": {
+    "2023-Q1": {
+      "role_title_matches": {
+        "13-2011.00": 1
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:excel": 3,
+        "source-term:sql": 1
+      },
+      "technology_literal_mentions": {
+        "source-term:excel": 4,
+        "source-term:sql": 1
+      },
+      "unique_corpus_ads": 38
+    },
+    "2023-Q2": {
+      "role_title_matches": {
+        "13-2011.00": 1,
+        "15-1252.00": 3
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 1,
+        "source-term:excel": 27,
+        "source-term:java": 5,
+        "source-term:python": 3,
+        "source-term:sql": 13
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 2,
+        "source-term:excel": 36,
+        "source-term:java": 8,
+        "source-term:python": 7,
+        "source-term:sql": 23
+      },
+      "unique_corpus_ads": 314
+    },
+    "2023-Q3": {
+      "role_title_matches": {
+        "13-2011.00": 8,
+        "15-1252.00": 23,
+        "15-2051.00": 1,
+        "17-2112.00": 1
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 5,
+        "source-term:excel": 42,
+        "source-term:java": 22,
+        "source-term:python": 12,
+        "source-term:sql": 28
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 7,
+        "source-term:excel": 68,
+        "source-term:java": 32,
+        "source-term:python": 20,
+        "source-term:sql": 48
+      },
+      "unique_corpus_ads": 594
+    },
+    "2023-Q4": {
+      "role_title_matches": {
+        "13-2011.00": 12,
+        "15-1252.00": 29,
+        "15-2051.00": 2
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 8,
+        "source-term:excel": 63,
+        "source-term:java": 26,
+        "source-term:python": 20,
+        "source-term:sql": 43
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 18,
+        "source-term:excel": 106,
+        "source-term:java": 41,
+        "source-term:python": 30,
+        "source-term:sql": 65
+      },
+      "unique_corpus_ads": 771
+    },
+    "2024-Q1": {
+      "role_title_matches": {
+        "13-2011.00": 439,
+        "15-1252.00": 495,
+        "15-2051.00": 30,
+        "17-2112.00": 15
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 148,
+        "source-term:excel": 3248,
+        "source-term:java": 410,
+        "source-term:python": 416,
+        "source-term:sql": 865
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 256,
+        "source-term:excel": 4860,
+        "source-term:java": 675,
+        "source-term:python": 715,
+        "source-term:sql": 1616
+      },
+      "unique_corpus_ads": 29293
+    },
+    "2024-Q2": {
+      "role_title_matches": {
+        "13-2011.00": 305,
+        "15-1252.00": 246,
+        "15-2051.00": 22,
+        "17-2112.00": 11
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 82,
+        "source-term:excel": 3514,
+        "source-term:java": 196,
+        "source-term:python": 248,
+        "source-term:sql": 601
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 130,
+        "source-term:excel": 5137,
+        "source-term:java": 311,
+        "source-term:python": 420,
+        "source-term:sql": 1107
+      },
+      "unique_corpus_ads": 28296
+    },
+    "2025-Q1": {
+      "role_title_matches": {
+        "13-2011.00": 52,
+        "15-1252.00": 34,
+        "15-2051.00": 4
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 12,
+        "source-term:excel": 445,
+        "source-term:java": 24,
+        "source-term:python": 31,
+        "source-term:sql": 98
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 18,
+        "source-term:excel": 700,
+        "source-term:java": 45,
+        "source-term:python": 75,
+        "source-term:sql": 169
+      },
+      "unique_corpus_ads": 4046
+    },
+    "2025-Q2": {
+      "role_title_matches": {
+        "13-2011.00": 66,
+        "15-1252.00": 48,
+        "15-2051.00": 3,
+        "17-2112.00": 1
+      },
+      "technology_explicit_request_clauses": {
+        "source-term:cpp": 20,
+        "source-term:excel": 692,
+        "source-term:java": 43,
+        "source-term:python": 45,
+        "source-term:sql": 169
+      },
+      "technology_literal_mentions": {
+        "source-term:cpp": 31,
+        "source-term:excel": 1014,
+        "source-term:java": 81,
+        "source-term:python": 87,
+        "source-term:sql": 268
+      },
+      "unique_corpus_ads": 5672
+    }
+  },
+  "duplicate_job_ids": 0,
+  "eligible_for_approved_forecasting": false,
+  "fields": [
+    "job_id",
+    "job_title",
+    "company",
+    "descriptions",
+    "location",
+    "category",
+    "subcategory",
+    "role",
+    "type",
+    "salary",
+    "listingDate"
+  ],
+  "geography": {
+    "country_field_present": false,
+    "distinct_literal_locations": 647,
+    "per_record_country_validation": "not_independently_verified; no ISO country field",
+    "source_claim": "Malaysia JobStreet website",
+    "top_locations": [
+      [
+        "Kuala Lumpur",
+        15390
+      ],
+      [
+        "Petaling",
+        9746
+      ],
+      [
+        "Johor Bahru District",
+        4480
+      ],
+      [
+        "Selangor",
+        2842
+      ],
+      [
+        "Shah Alam/Subang",
+        2621
+      ],
+      [
+        "Kuala Lumpur City Centre",
+        2112
+      ],
+      [
+        "Penang",
+        1930
+      ],
+      [
+        "Penang Island",
+        1885
+      ],
+      [
+        "Seberang Perai",
+        1796
+      ],
+      [
+        "Klang District",
+        1427
+      ],
+      [
+        "Hulu Langat",
+        958
+      ],
+      [
+        "Kajang/Bangi/Serdang",
+        937
+      ],
+      [
+        "Sepang",
+        865
+      ],
+      [
+        "Kota Kinabalu District",
+        805
+      ],
+      [
+        "Kinta District",
+        776
+      ],
+      [
+        "Kuching Division",
+        770
+      ],
+      [
+        "Johor",
+        729
+      ],
+      [
+        "Seremban District",
+        638
+      ],
+      [
+        "Kulai District",
+        628
+      ],
+      [
+        "Petaling Jaya, Selangor",
+        519
+      ]
+    ]
+  },
+  "historical_available_at_by_record": null,
+  "invalid_listing_dates": 0,
+  "limitations": [
+    "Uploader describes a current weekly scrape, not a complete historical advertisement archive.",
+    "Quarters absent from the acquired corpus remain uncollected/unknown, never zero demand.",
+    "Old surviving listings do not identify all ads originally published in their quarter.",
+    "No archived source vintages or consistent collection/exposure windows supplied.",
+    "Request-clause extraction is conservative partial deterministic evidence, not independently reviewed labels.",
+    "Corpus may support descriptive research; no live Malaysian forecast, temporal backtest accuracy or full skill demand claimed."
+  ],
+  "measurement": "unique observed frozen-corpus ads grouped by original listing quarter; not complete quarterly source inflows",
+  "missing_fields": {
+    "role": 2252,
+    "salary": 37430
+  },
+  "raw_archive_sha256": "e6c855e3f0d545addefe8650ed5cd29e658aea7e978a5b5a595c96d80adfec94",
+  "raw_csv": "jobstreet_all_job_dataset.csv",
+  "rows": 69024,
+  "source_url": "https://www.kaggle.com/datasets/azraimohamad/jobstreet-all-job-dataset",
+  "synthetic": false,
+  "unique_job_ids": 69024,
+  "version": "jobstreet-frozen-corpus-audit-v1"
+}

@@ -1,0 +1,94 @@
+{
+  "sources": [
+    {
+      "source_id": "dosm-release-2026-q2",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "kind": "html",
+      "period": "2026-Q2",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2025-q4",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "kind": "html",
+      "period": "2025-Q4",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2025-q3",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "kind": "html",
+      "period": "2025-Q3",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2025-q2",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "kind": "html",
+      "period": "2025-Q2",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2025-q1",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "kind": "html",
+      "period": "2025-Q1",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2024-q4",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "kind": "html",
+      "period": "2024-Q4",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2024-q3",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-q324",
+      "kind": "html",
+      "period": "2024-Q3",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2024-q2",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-q224",
+      "kind": "html",
+      "period": "2024-Q2",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2024-q1",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-q12024",
+      "kind": "html",
+      "period": "2024-Q1",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    },
+    {
+      "source_id": "dosm-release-2023-q4",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-q42023",
+      "kind": "html",
+      "period": "2023-Q4",
+      "geography": "MY",
+      "measurement": "Actual published native occupation-label counts where explicitly numeric; missing ranked-only labels remain unknown",
+      "access_conditions": "Public official release; raw local; release date separately from retrieved byte availability"
+    }
+  ]
+}

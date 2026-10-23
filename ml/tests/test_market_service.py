@@ -3,8 +3,13 @@ import copy
 import json
 from pathlib import Path
 import unittest
+import tempfile
+import zipfile
+import io
+import csv
 
-from minder_ml.intelligence.data_pipeline import normalize_postings, parse_dosm, MARKET_DATA, inspect_csv_bytes
+from minder_ml.intelligence.data_pipeline import (normalize_postings, parse_dosm, MARKET_DATA,
+    inspect_csv_bytes, inspect_source_file, audit_jobstreet_corpus, parse_published_role_counts, sha)
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.news import normalize_events, attention
 from minder_ml.intelligence.service_contracts import validate
@@ -110,6 +115,50 @@ class CurrentTests(unittest.TestCase):
         self.assertEqual(result['value'], self.service.current('role', '15-1252.00', as_of=self.as_of)['value'])
         self.assertEqual(len(self.service.broad_observations(as_of='2020-01-01T00:00:00Z')), 0)
         self.assertEqual(len(self.service.broad_observations(as_of=self.as_of)), 952)
+
+
+class HistoricalSourceTests(unittest.TestCase):
+    def test_numeric_source_labels_only_and_period_check(self):
+        body='Big Data Analytics: Job Market Insights, First Quarter of 2026 Latest Release : 25 June 2026 '
+        body+='Software Developers (20,089 job offerings). Services (494,182 job offerings). Accountants and Auditors.'
+        args=dict(period='2026-Q1',source_url='https://www.dosm.gov.my/test-only',source_id='synthetic-test',
+                  retrieved_at=STAMP,document_sha256='a'*64)
+        observed,missing=parse_published_role_counts(body,**args)
+        self.assertEqual(len(observed),1)
+        self.assertEqual(observed[0]['value'],20089)
+        self.assertEqual(observed[0]['available_at'],STAMP)
+        self.assertEqual(len(missing),6)
+        self.assertFalse(observed[0]['eligible_for_approved_unique_ad_forecasting'])
+        with self.assertRaisesRegex(ValueError,'period_mismatch'):
+            parse_published_role_counts(body,**dict(args,period='2026-Q2'))
+
+    def test_frozen_corpus_counts_remain_ineligible_even_with_descriptions(self):
+        # Entirely fictional software fixture; no output enters source evidence.
+        with tempfile.TemporaryDirectory() as directory:
+            folder=Path(directory);archive=folder/'test.zip';output=folder/'audit.json'
+            stream=io.StringIO();writer=csv.DictWriter(stream,fieldnames=['job_id','job_title','location','listingDate','descriptions'])
+            writer.writeheader()
+            rows=[{'job_id':'a','job_title':'Software Engineer','location':'Test-only','listingDate':'2024-01-02','descriptions':'Python proficiency required. Java experience preferred. Excel in a dynamic environment.'},
+                  {'job_id':'b','job_title':'Software Engineer','location':'Test-only','listingDate':'2025-05-01','descriptions':'We use Python.'}]
+            writer.writerows(rows+[rows[0]])
+            with zipfile.ZipFile(archive,'w') as z:z.writestr('test.csv',stream.getvalue())
+            audit_jobstreet_corpus(archive,sha(archive),output)
+            import json
+            result=json.loads(output.read_text())
+            self.assertEqual(result['unique_job_ids'],2)
+            self.assertEqual(result['duplicate_job_ids'],1)
+            self.assertEqual(set(result['dated_corpus_counts']),{'2024-Q1','2025-Q2'})
+            self.assertEqual(result['dated_corpus_counts']['2024-Q1']['technology_explicit_request_clauses'],{'source-term:python':1})
+            self.assertEqual(result['dated_corpus_counts']['2025-Q2']['technology_explicit_request_clauses'],{})
+            self.assertFalse(result['eligible_for_approved_forecasting'])
+            self.assertIsNone(result['historical_available_at_by_record'])
+
+    def test_inspection_metadata_excludes_inline_images_and_unbounded_links(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'test.html'
+            path.write_text('<title>Test</title><img src="data:image/png;base64,skills"><a href="/download.csv">Data</a>')
+            result=inspect_source_file(path,'html')
+            self.assertEqual(result['data_links'],['/download.csv'])
 
 
 class NewsTests(unittest.TestCase):
