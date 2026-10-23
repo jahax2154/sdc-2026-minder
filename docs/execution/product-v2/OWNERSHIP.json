@@ -91,7 +91,11 @@
         "apps/backend-api/tests/test_product_migrations.py",
         "apps/backend-api/tests/test_profiles.py",
         "apps/backend-api/tests/test_plans.py",
-        "docs/execution/product-v2/D/**"
+        "docs/execution/product-v2/D/**",
+        "apps/backend-api/minder_app/documents.py",
+        "apps/backend-api/minder_app/document_storage.py",
+        "apps/backend-api/tests/test_documents.py",
+        "apps/backend-api/tests/test_document_storage.py"
       ],
       "forbidden": [
         "api.py/product_routes.py central registration",
