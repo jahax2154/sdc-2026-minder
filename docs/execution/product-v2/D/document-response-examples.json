@@ -1,0 +1,106 @@
+{
+  "synthetic": true,
+  "payload_policy": "No stored bytes or extracted text exported",
+  "responses": {
+    "empty_list": {
+      "contract_version": "private-document-library-v1",
+      "documents": [],
+      "limits": {
+        "max_file_bytes": 65536,
+        "max_files": 10,
+        "max_user_bytes": 524288,
+        "upload_request_bytes": 131072
+      },
+      "storage": {
+        "status": "available",
+        "mode": "local-development",
+        "durable_hosting_verified": false
+      },
+      "usage": {
+        "file_count": 0,
+        "stored_or_reserved_bytes": 0
+      },
+      "extraction": {
+        "supported_types": [
+          "text/plain"
+        ],
+        "max_text_bytes": 65536,
+        "pdf_status": "unavailable",
+        "automatic_profile_apply": false
+      }
+    },
+    "upload_metadata": {
+      "document": {
+        "content_type": "text/plain",
+        "created_at": "2026-10-23T16:39:47.584443Z",
+        "document_id": "7768c75c-e6d8-4d76-bfa0-2adc92eed9f9",
+        "extraction_status": "not_requested",
+        "filename": "fictional.txt",
+        "sha256": "a92feb033906ed765758f762cdfbf0f8e26b83ee464982d962f08997d3a94d05",
+        "size_bytes": 68,
+        "status": "active",
+        "version": "c4e8ab67-2b22-423f-bfe1-6b3b9930d81c"
+      }
+    },
+    "extraction_capabilities": {
+      "supported_types": [
+        "text/plain"
+      ],
+      "max_text_bytes": 65536,
+      "pdf_status": "unavailable",
+      "automatic_profile_apply": false
+    },
+    "cross_owner_error": {
+      "code": "document_not_found",
+      "request_id": "049cb292-af49-4c10-be18-01cd51f2c08e"
+    },
+    "stale_delete_error": {
+      "code": "stale_state_version",
+      "request_id": "cb661a01-ecaf-4f9b-9e2b-e1ad78170454"
+    },
+    "completed_delete": {
+      "document_id": "7768c75c-e6d8-4d76-bfa0-2adc92eed9f9",
+      "status": "deleted",
+      "deleted_at": "2026-10-23T16:39:47.603937Z"
+    },
+    "pdf_extraction_unavailable": {
+      "document": {
+        "content_type": "application/pdf",
+        "created_at": "2026-10-23T16:39:47.609215Z",
+        "document_id": "f77fc04c-f4bd-493a-b47e-0439d4fd4e1d",
+        "extraction_status": "unavailable",
+        "filename": "fictional.pdf",
+        "sha256": "14bcd090baf31edba64e9cbd8cdfc15f943344aa72cb3675ad8e91bfcbce03ad",
+        "size_bytes": 15,
+        "status": "active",
+        "version": "9eb9b046-c07d-4509-8650-4843d479eda7"
+      },
+      "extraction": {
+        "status": "unavailable",
+        "manual_entry_available": true,
+        "reason": "pdf_text_extraction_not_supported"
+      },
+      "draft": null
+    }
+  },
+  "txt_review_response_fields": [
+    "document",
+    "draft",
+    "extraction"
+  ],
+  "existing_intake_draft_fields": [
+    "channel",
+    "clarification",
+    "created_at",
+    "evidence_type",
+    "id",
+    "sha256",
+    "status",
+    "text"
+  ],
+  "download_response_fields": [
+    "content_base64",
+    "document",
+    "download_content_type"
+  ]
+}
