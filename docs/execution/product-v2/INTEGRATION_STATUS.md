@@ -13,9 +13,11 @@ This is current product evidence, not a replacement for historical P0 reports.
  989480fa0386a8a6ddcd73e9c818938904bc7f68. Combined backend73/73 and A upload
   transport3/3 pass. P1.1's recorded obsolete-check blocker is resolved by D's
   focused commit. P1.1/P1.2/P1.1-R01 contain exact evidence and dependencies.
-- Document routes/schema/ownership published in A3561e93. D early storage interface
-  is tested; HTTP document operations remain unadvertised until committed service
-  handlers/migration6 arrive. No hosted storage verified or activated.
+- Document service/migration6 a526558ce79b98e073d7a3316c1a94ea1adcef81 integrated
+  at P1.3. All five handlers advertise implemented; storage remains disabled by
+  default and reports that status explicitly. Combined backend81/81, A transport3/3
+  and actual loopback HTTP/private-file isolation/extraction/delete checks pass.
+  Response schemas are validated. No hosted storage verified or activated.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m
@@ -23,7 +25,7 @@ minder_ml.intelligence.product_runtime --lane A` after sourcing A .env.local.
 This is loopback-only, not a remote backend. qwen/qwen3.8-27b preserved; private
 credentials, tokens, DBs, evidence screenshots and source inputs remain outsideGit.
 
-Next consumer handoffs: F final Profile/Explore; D service/migration6/documents.
+Next consumer handoff: F final Profile/Explore/document controls and browser acceptance.
 F should preserve E2 raw nullable direction/active_plan shapes from E HANDOFF.
 A reused F's committed browser assertions with only origin9106->9111 and output
 paths changed in ignored A evidence. A did not edit F-owned source/tests. A future

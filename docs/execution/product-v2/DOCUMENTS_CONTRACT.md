@@ -1,5 +1,14 @@
 # A contract response to D — private-documents-v1
 
+P1.3 implementation update: D a526558ce79b98e073d7a3316c1a94ea1adcef81
+implements all five operations and migration6. A validated the published response
+schemas over real HTTP/private synthetic files. Library storage is disabled by
+default; an implemented handler does not imply available storage. Inspect the
+DocumentList.storage capability. Local-development mode remains unhosted.
+Exact response definitions DocumentMetadata/DocumentList/DocumentUploadResult/
+DocumentDownloadResult/DocumentExtractResult/DocumentDeleted are now published in
+contracts.schema.json. See D/D4.2.md for lifecycle/configuration semantics.
+
 Dependency: D `1cb81b1574e1ef263a47e3bb0e098c50482340c5`, A bootstrap
 `fbddeb80763442a8f1a4c8f8c2c80e4d6c4697a7`. This responds to D's coordination
 request before shared edits. Storage/extraction is not implemented by A here.
