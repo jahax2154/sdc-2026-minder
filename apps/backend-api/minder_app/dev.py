@@ -39,7 +39,7 @@ def main():
     web = make_server("127.0.0.1", int(os.environ.get("MINDER_UI_PORT", "9103")), web_app(app), handler_class=QuietHandler)
     thread = threading.Thread(target=api.serve_forever, daemon=True)
     thread.start()
-    print("Minder local source services: API 8103, UI 9103. N01 pending; deployment not activated.", flush=True)
+    print("Minder local source services: API 8103, UI 9103. Provisional evidence-fit policy; deployment not activated.", flush=True)
     try:
         web.serve_forever()
     finally:

@@ -102,11 +102,10 @@ class CompanyExplorer:
                     raise AppError("company_source_https_required")
             assessment = None
             if self.services.personal:
-                result = self.services.personal.assess(profile, [known_roles[posting["role_id"]]],
-                    scorer_kind="baseline", policy_version="N01-pending",
-                    market_period_policy_key="personal_only_pending_market_policy")
+                context = self.services.career_context(profile,
+                    expected_profile_version=profile["version"], selected_role_ids=[posting["role_id"]])
                 from minder_ml.intelligence.service_contracts import public_recommendation
-                assessment = public_recommendation(result)
+                assessment = public_recommendation(context["recommendation"])
             supported.append(dict(role_id=posting["role_id"], title=posting["title"],
                 location=posting["location"], required=posting["required"], preferred=posting["preferred"],
                 qualifications_requirement_level_unspecified=posting.get("qualifications_requirement_level_unspecified", []),
@@ -130,5 +129,5 @@ class CompanyExplorer:
                           "status and posting dates are shown separately; no hiring probability is inferred.")
         validate("CompanyRoleResult", result)
         return dict(result=result, selected_posting=selected, other_supported_roles=supported,
-                    ranking_status="pending_N01_same_personal_service_no_company_score",
+                    ranking_status="generic_occupation_context_same_service_no_company_specific_score",
                     main_recommendations_changed=False)

@@ -92,7 +92,7 @@ const {chromium} = require(process.env.MINDER_PLAYWRIGHT_MODULE || 'playwright')
       {assert.match(await page.locator('#reply').textContent(),/Language-assisted selection of saved evidence/);
        assert(providerRequestSuccess&&nativeToolSuccess);}
     else assert.match(await page.locator('#reply').textContent(),/Language-assisted selection of saved evidence|Language provider unavailable/);
-    checks.actual_chat_with_honest_provider_unavailable='passed';
+    checks.actual_chat_and_native_provider_availability='passed';
     // Seed a separate direct synthetic schedule for a real worker proposal.
     const task={task_id:'synthetic-review',state:'scheduled',activity_completion:false,mastery_verified:false,
       prerequisite_task_ids:[],locked:false,scheduled_at:'2026-10-20T01:00:00Z',estimated_hours:1,evidence_ids:[]};

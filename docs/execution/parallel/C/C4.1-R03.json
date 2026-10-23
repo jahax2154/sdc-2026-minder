@@ -1,0 +1,155 @@
+{
+  "phase_id": "C4.1-R03",
+  "original_phase": "C4.1",
+  "owner": "C",
+  "branch": "session/c-app-agents",
+  "status": "passed",
+  "scope": "Completed requested local real-provider application/UI/authority/persistence/scheduled-event acceptance; no deployment",
+  "inputs": [
+    "A committed contract/integration handoff a0349bc",
+    "Company caller cleanup 5198145",
+    "Real provider transport/access refinement 3649d10",
+    "Actual scheduled event d6fcb17"
+  ],
+  "provider": {
+    "configuration_present": true,
+    "requested_model_match": true,
+    "discovery_request_success": true,
+    "chat_request_success": true,
+    "native_tool_request_success": true,
+    "secret_values_printed": false,
+    "secret_file_rewritten": false
+  },
+  "software_checks": {
+    "backend_tests": 29,
+    "ml_tests": 168,
+    "all_passed": true,
+    "provider_mock_tests_separate": true,
+    "js_syntax_passed": true,
+    "diff_check_passed": true
+  },
+  "real_evidence": {
+    "live-provider-acceptance.json": {
+      "app_chat_request_success": true,
+      "native_tool_request_success": true,
+      "direct_change_request_success": true,
+      "proactive_preview_no_mutation": true,
+      "rejection_request_success": true,
+      "approval_request_success": true,
+      "persistence_check_success": true,
+      "actual_scheduled_event_success": true,
+      "scheduled_native_tool_request_success": true,
+      "company_evidence_request_success": true,
+      "learning_source_request_success": true
+    },
+    "live-scheduled-event-evidence.json": {
+      "real_clock": true,
+      "injected_time": false,
+      "configured_at": "2026-10-23T07:29:00.441338Z",
+      "scheduled_local": "2026-10-23T15:30:00+08:00",
+      "notice_created_at": "2026-10-23T07:30:02.839078Z",
+      "processed": true,
+      "attempts": 1,
+      "native_request_success": true,
+      "notice_after_scheduled_time": true,
+      "target_mutation_before_approval": false
+    },
+    "c4.1-http-evidence.json": {
+      "transport": "real TCP HTTP on reserved localhost 8103/9103",
+      "synthetic_user": true,
+      "provider": {
+        "request_success": true,
+        "native_tool_success": true
+      },
+      "integration_mode": "local_source_services",
+      "catalogue_references": 1016,
+      "unranked_candidates": 910,
+      "numeric_personal_scores": 0,
+      "checks": {
+        "reserved_api_ui_http_assets": "passed",
+        "saved_intake_auth_isolation_stale": "passed",
+        "full_actual_catalogue_unassessed_profile_no_fabricated_score": "passed",
+        "real_A_B_role_skill_current_forecast_separation_sources": "passed",
+        "actual_chat_provider_availability": "available",
+        "ambiguous_intake_staged_without_profile_mutation": "passed",
+        "pathway_persisted_direct_completion_exactly_once_no_mastery": "passed",
+        "actual_worker_pending_reject_approve_exact_once_cross_user": "passed",
+        "reversible_schedule_undo_retains_history": "passed",
+        "real_company_snapshot_explicit_missing_criteria_separate_main_matches": "passed"
+      },
+      "browser_interaction": "separate Chromium evidence in c4.1-browser-evidence.json",
+      "deployment_scheduler_verified": false,
+      "recorded_at": "2026-10-23T07:34:13.321874+00:00"
+    },
+    "c4.1-browser-evidence.json": {
+      "browser": "156.0.8078.4",
+      "transport": "real Chromium UI to localhost 9103 API, actual A/B services",
+      "synthetic_user": true,
+      "mocked_network": false,
+      "provider_request_success": true,
+      "native_tool_request_success": true,
+      "checks": {
+        "profile_and_statement_handlers_persist": "passed",
+        "cv_draft_without_mutation": "passed",
+        "real_catalogue_selection_preference_and_reset": "passed",
+        "explicit_verified_resource_choice_persisted": "passed",
+        "roadmap_task_progress_actual_persistence": "passed",
+        "future_current_separation_and_unavailable": "passed",
+        "actual_chat_with_honest_provider_unavailable": "passed",
+        "worker_preview_and_browser_exact_approval": "passed",
+        "mobile_layout_no_horizontal_overflow": "passed"
+      },
+      "page_errors": [],
+      "deployment_scheduler_verified": false,
+      "recorded_at": "2026-10-23T07:32:20.105Z"
+    }
+  },
+  "evidence_artifacts": [
+    {
+      "path": "ml/artifacts/session-c/live-provider-acceptance.json",
+      "sha256": "d862f60b3988beb6d79419b943855e42c8fd19e8f5cff9684d58e5e708936c1d",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-c/live-scheduled-event-evidence.json",
+      "sha256": "1f56a20906f97176653c94dbd21a1d25a9d24b53187d150b94d91e18dc9876b0",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-c/c4.1-http-evidence.json",
+      "sha256": "397f93dd303d6e48bf26ba48dfeee3c7c5f4deba2684307964a5f39441d637aa",
+      "committed": false
+    },
+    {
+      "path": "ml/artifacts/session-c/c4.1-browser-evidence.json",
+      "sha256": "6b507d53973b4b0f144cd669ffc44d314c801706ba4d0e50837646310669ee7e",
+      "committed": false
+    }
+  ],
+  "notes": [
+    "All eleven dedicated live-provider acceptance booleans true; no mocked provider/fetch in these checks",
+    "Actual daily event followed its saved upcoming local time; no injected clock/tick/manual daily enqueue",
+    "Real Chromium required successful native provider and verified explicit learning selection/company qualification display; zero page errors; mobile no overflow",
+    "Legacy browser check name actual_chat_with_honest_provider_unavailable was a historical label only: actual provider_request_success and native_tool_request_success are true; diagnostic label renamed without changing tested behavior",
+    "HTTP missing-evidence profile has zero personal scores; this is not a claim that A provisional v3 is inactive",
+    "All test workers scoped to their own synthetic user and stopped; only verified C server restarted; no other session directory/process/database touched"
+  ],
+  "security": {
+    "owner_only": true,
+    "ignored": true,
+    "tracked": false,
+    "secret_url_blocked": true,
+    "credential_values_in_evidence": false
+  },
+  "remaining_limits": [
+    "No deployment or deployed unattended scheduling verified/requested",
+    "Company competence-to-requirement mapping remains unknown; generic occupation assessment is current A CareerServices, not a company score",
+    "Learning-resource effort/cost/mastery unknown unless separately evidenced",
+    "Role/skill forecasts remain source-backed unavailable; current source coverage and provisional fit validity limits retained",
+    "A must configure its own private runtime; no credentials/model metadata/databases copied"
+  ],
+  "recorded_at": "2026-10-23T07:35:13.957802+00:00",
+  "checkpoint": "commit containing this record",
+  "next": "Commit final A handoff with exact local checkpoint SHAs and secure per-worktree run instructions",
+  "push_status": "not pushed"
+}

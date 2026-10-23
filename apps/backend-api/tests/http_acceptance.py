@@ -53,7 +53,7 @@ def main():
     assert catalogue["total"] == 1016
     assert len(full["recommendation"]["candidate_ids"]) == 910
     assert all(o["rank"] is None and o["personal_score"] is None for o in full["recommendation"]["options"])
-    checks["full_actual_catalogue_unranked_pending_N01"] = "passed"
+    checks["full_actual_catalogue_unassessed_profile_no_fabricated_score"] = "passed"
     selected = dict(selected_role_ids=["onet:15-1252.00"], selected_skill_ids=["source-term:python"])
     context = request("POST", "/api/career-context", selected, token)
     assert "internal_index" not in json.dumps(context)
