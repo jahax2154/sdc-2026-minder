@@ -72,6 +72,7 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
                               sources=catalogue.coverage['sources'] + [market_source],
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
+    services.role_reference = catalogue.reference
     return Application(Store(database), services, provider if provider is not None else a_provider()), catalogue
 
 

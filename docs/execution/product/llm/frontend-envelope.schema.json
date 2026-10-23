@@ -1,17 +1,131 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
-  "title":"Actual C ChatResponse export envelope (not a new shared contract)",
-  "type":"object","additionalProperties":false,
-  "required":["statements","provider","integration_mode","context_version","profile_version","behaviour_policy_version","action_status"],
-  "properties":{
-    "statements":{"type":"array","items":{"type":"object","required":["id","evidence_ids","text","category","sources"],"properties":{
-      "id":{"type":"string"},"evidence_ids":{"type":"array","items":{"type":"string"}},"text":{"type":"string"},
-      "category":{"enum":["external_fact","user_reported","calculated_assessment","proposed_action","limitation"]},
-      "sources":{"type":"array","items":{"type":"object","required":["source_id","uri","sha256","version","geography","available_at","evidence_type"]}}
-    }}},
-    "provider":{"type":"object","required":["status"],"properties":{"status":{"enum":["available","unavailable"]}}},
-    "integration_mode":{"type":"string"},"context_version":{"type":"string"},"profile_version":{"type":"string"},
-    "behaviour_policy_version":{"const":"minder-grounding-privacy-v1"},
-    "action_status":{"const":"no_mutation_requested_or_executed"}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Actual C ChatResponse export envelope (not a new shared contract)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "statements",
+    "provider",
+    "integration_mode",
+    "context_version",
+    "profile_version",
+    "behaviour_policy_version",
+    "action_status"
+  ],
+  "properties": {
+    "statements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "evidence_ids",
+          "text",
+          "category",
+          "sources"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "text": {
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "external_fact",
+              "user_reported",
+              "calculated_assessment",
+              "proposed_action",
+              "limitation"
+            ]
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "source_id",
+                "uri",
+                "sha256",
+                "version",
+                "geography",
+                "available_at",
+                "evidence_type"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        }
+      }
+    },
+    "integration_mode": {
+      "type": "string"
+    },
+    "context_version": {
+      "type": "string"
+    },
+    "profile_version": {
+      "type": "string"
+    },
+    "behaviour_policy_version": {
+      "const": "minder-grounding-privacy-v1"
+    },
+    "action_status": {
+      "const": "no_mutation_requested_or_executed"
+    },
+    "answer": {
+      "type": "string",
+      "maxLength": 8000
+    },
+    "response_mode": {
+      "enum": [
+        "application_guidance",
+        "grounded_evidence",
+        "limited_fallback"
+      ]
+    },
+    "conversation_policy_version": {
+      "const": "minder-conversation-routing-v1"
+    },
+    "conversation_context_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "diagnostics": {
+      "type": "object",
+      "required": [
+        "request_id",
+        "intent",
+        "reason_codes",
+        "context_ms",
+        "ledger_ms",
+        "provider_ms",
+        "total_ms",
+        "evidence_count",
+        "provider_invoked",
+        "model"
+      ]
+    }
   }
 }

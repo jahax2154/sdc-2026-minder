@@ -64,3 +64,7 @@ Bridge implemented in `2ebdfb65b5bf1f349c6b6425ece6070f754cff8d`: the earlier CL
 Examples refreshed against the CL2 commit retain mocked selection labelling. Live-provider results and any transient provider failures are separately recorded in CL3; safe fallback statements alone never count as a successful provider interpretation. F must still perform product-frontend browser acceptance against its actual chosen shell/proxy.
 
 A saved minimal synthetic/empty-evidence profile is sufficient to ask a question; a complete assessment is not required. Use the returned current Profile.version. There is no separate conversation bootstrap. API examples are actual source-service responses with **mocked** provider selection; see `CL3.json` for separate real-provider outcomes and unresolved failures.
+
+## A-R2 capability/conversation repair
+
+See [CHAT_REPAIR_CONTRACT.md](../../product-v2/CHAT_REPAIR_CONTRACT.md). Additive answer/response_mode/conversation_context_id/diagnostics are in the export envelope. Unsaved callers may omit/null expected_profile_version; saved profiles still need exact versions. General verified app guidance intentionally skips provider calls and is not a live model answer. Pinned US role quotations may also use grounded_evidence with provider.invoked:false/provider_not_required_for_verified_reference. Only limited_fallback denotes a service/rejected-output fallback. External grounding policy remains v1; conversation-routing-v1 is separate.
