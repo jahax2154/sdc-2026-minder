@@ -1,0 +1,180 @@
+{
+  "phase_id": "N1.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "passed",
+  "objective": "Delegate replacement policy and source-grounded rubric/industry/work-style references",
+  "authority": "Current user numerical implementation delegation; original N01 not historically approved",
+  "inputs": [
+    "B 63b45ab4ce572b2cf750ed9f527f33b1f7b94a21",
+    "C c5de33bcd2f27a537ca57b30e1e4cba859098e80"
+  ],
+  "changes": [
+    "Versioned provisional policy drafted; active=false until executable validation",
+    "Official O*NET anchors, industry relationships and positive work-style mappings captured with original hashes",
+    "Exact code/title matching; exceptions and US/AI-Expert scope retained",
+    "Bounded integration ownership transfer recorded before C consumer edits; no sibling worktree writes"
+  ],
+  "checks": [
+    {
+      "command": "test_personal_service.py",
+      "result": "11 passed"
+    },
+    {
+      "command": "test_service_contracts.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "validate all Role DTOs",
+      "result": "1016 valid"
+    }
+  ],
+  "coverage": {
+    "catalogue_version": "onet31-anchored-reference-v3",
+    "raw_rows": {
+      "onet_occupation_data": 1016,
+      "onet_essential_skills": 18200,
+      "onet_scales_reference": 33,
+      "onet_software_skills": 31821
+    },
+    "raw_unique_occupations": 1016,
+    "normalized_roles": 1016,
+    "runtime_roles": 1016,
+    "eligible_roles": 910,
+    "partial_roles": 106,
+    "roles_with_software": 923,
+    "roles_with_industry_mappings": 992,
+    "roles_with_work_style_mappings": 891,
+    "anchored_essential_skills": 10,
+    "rejected": [],
+    "sources": [
+      {
+        "source_id": "onet_occupation_data",
+        "version": "31.0",
+        "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:09.377847+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_essential_skills",
+        "version": "31.0",
+        "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:09.904185+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_scales_reference",
+        "version": "31.0",
+        "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:10.865829+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_software_skills",
+        "version": "31.0",
+        "sha256": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/software_skills.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:10.207871+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "available_at": "2026-10-23T06:09:13.292292+00:00",
+        "evidence_type": "source-derived",
+        "geography": "US",
+        "sha256": "7205657fb54280827d6902b94e06f95ef0b9ed10f1f9f8ed3f02779d4c7a9573",
+        "source_id": "onet31-anchors-v3",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/level_scale_anchors.csv",
+        "version": "31.0"
+      },
+      {
+        "available_at": "2026-10-23T06:09:19.930501+00:00",
+        "evidence_type": "source-derived",
+        "geography": "US",
+        "sha256": "c830fae497c67aeb342fd23bbab6085a6804e646beb182eb2d7f3c18c34d3809",
+        "source_id": "onet31-industries-v3",
+        "uri": "https://www.onetonline.org/find/industry/All_Industries.csv?fmt=csv&i=0",
+        "version": "industry-table-2025-captured-2026-10-23"
+      },
+      {
+        "available_at": "2026-10-23T06:09:47.974567+00:00",
+        "evidence_type": "source-derived",
+        "geography": "US",
+        "sha256": "a3e5331df515dbc9ede284667e72189a4f24c8a8af80f61bae908596ea48c926",
+        "source_id": "onet31-work_styles-v3",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/work_styles.csv",
+        "version": "31.0"
+      }
+    ],
+    "legacy_runtime_roles": 3,
+    "scoring_coverage": "profile-dependent; reported by assessment service",
+    "limitations": [
+      "US anchors/industry relationships are reference context, not Malaysian market evidence",
+      "Anchored self-report/project claims are provisional, not independently verified competence",
+      "Partial references remain browseable; no plan prerequisite"
+    ]
+  },
+  "source_exceptions": [
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    },
+    {
+      "code": "",
+      "reason": "not_in_native_catalogue_or_title_changed"
+    }
+  ],
+  "limitations": [
+    "Anchored evidence remains self-report/project claim unless independently reviewed",
+    "US relationships are not Malaysian market observations",
+    "Original N01 and legacy F0 unchanged; no activation in this phase"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "N1.2 executable personal/current-market service"
+}

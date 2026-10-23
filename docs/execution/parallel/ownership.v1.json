@@ -96,14 +96,17 @@
         "ml/tests/test_review.py",
         "ml/tests/test_service_contracts.py",
         "ml/tests/fixtures/",
-        "ml/tests/test_personal_service.py"
+        "ml/tests/test_personal_service.py",
+        "ml/tests/test_role_fit_v3.py"
       ],
       "reserved_new_ml_files": [
         "ml/src/minder_ml/intelligence/catalogue_service.py",
         "ml/src/minder_ml/intelligence/personal_service.py",
         "ml/src/minder_ml/intelligence/personal_cli.py",
         "ml/src/minder_ml/intelligence/personal_training.py",
-        "ml/src/minder_ml/intelligence/integration_cli.py"
+        "ml/src/minder_ml/intelligence/integration_cli.py",
+        "ml/src/minder_ml/intelligence/role_fit.py",
+        "ml/src/minder_ml/intelligence/role_fit_experiments.py"
       ]
     },
     "B": {
@@ -169,5 +172,20 @@
     "launch_processes": "No B/C sessions or services auto-started; user launches prompts in assigned worktrees."
   },
   "history": "R0 code 8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f and evidence cd252e449048f6ffbab6e09663fcd02481682e28 reused. No fabricated historical checkpoints.",
-  "push_policy": "No push until later explicit instruction"
+  "push_policy": "No push until later explicit instruction",
+  "integration_transfers": {
+    "N01-R1": {
+      "authority": "Current user requests complete recommendation mechanism; C final handoff c5de33b permits coordinated integration-time changes after stable committed ownership boundary",
+      "from": "C",
+      "to": "A integration in session-a only",
+      "paths": [
+        "ml/src/minder_ml/intelligence/app_context.py",
+        "apps/backend-api/minder_app/api.py",
+        "apps/backend-api/minder_app/runtime.py",
+        "apps/frontend-web/app.js",
+        "apps/frontend-web/index.html"
+      ],
+      "excludes": "All sibling working directories, B market internals, C migrations/actions/worker/provider persistence remain owner-controlled"
+    }
+  }
 }

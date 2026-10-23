@@ -371,6 +371,17 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "work_style_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mapping"
+          },
+          "uniqueItems": true
+        },
+        "assessment_scope": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [

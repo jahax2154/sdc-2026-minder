@@ -15,3 +15,5 @@ Statuses: **APPROVED** means explicitly required by the task brief or subsequent
 | D009 | 2026-10-20 | PROPOSED | Minder product name | Provisional name supplied in task brief |
 
 For future decisions, record ID, actual decision date, status, rationale, approving authority and affected documents. Do not promote proposals without explicit agreement.
+
+| N01-R1 | 2026-10-23 | DELEGATED PROVISIONAL | User authorizes Session A's bounded replacement recommendation arithmetic, normalization, evidence minimum and personal/current-market combination; original N01 remains unapproved history | Current user task; policy/version and effects in docs/execution/parallel/A/RECOMMENDATION_POLICY_V3.md; no empirical approval implied |

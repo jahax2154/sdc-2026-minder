@@ -34,7 +34,8 @@ class CatalogueTests(unittest.TestCase):
         role = catalogue.role('onet:11-1011.00')
         self.assertEqual({r['unit'] for r in role['requirements']}, {'onet:IM', 'onet:LV'})
         self.assertTrue(all(r['provenance']['geography'] == 'US' for r in role['requirements']))
-        self.assertEqual(role['industry_mappings'], [])
+        self.assertTrue(role['industry_mappings'])
+        self.assertTrue(all(m['source']['geography'] == 'US' for m in role['industry_mappings']))
         originals = {r['O*NET-SOC Code']: r for r in
                      [catalogue.reference(x['role_id'])['occupation'] for x in roles]}
         self.assertEqual(len(originals), len(roles))
@@ -134,6 +135,7 @@ class PersonalServiceTests(unittest.TestCase):
 
     def test_explicit_filters_are_visible_reversible_and_use_only_accepted_mappings(self):
         roles = copy.deepcopy(self.roles)
+        roles[1]['industry_mappings'] = []  # explicit unknown-mapping fixture
         roles[0]['industry_mappings'] = [dict(target_id='i1', source=roles[0]['source'],
                                               relation='synthetic-test', status='pending')]
         restriction = dict(role_ids=None, industry_ids=['i1'], query=None, authorizing_request_id='filter-request')

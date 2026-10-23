@@ -16,7 +16,7 @@ from collections import Counter, defaultdict
 from .policy import ROOT, fingerprint
 from .catalogue_repair import read_source_facts
 
-CATALOGUE_VERSION = 'onet31-initial-reference-v1'
+CATALOGUE_VERSION = 'onet31-anchored-reference-v3'
 SOURCE_IDS = ('onet_occupation_data', 'onet_essential_skills',
               'onet_scales_reference', 'onet_software_skills')
 
@@ -109,6 +109,21 @@ class OccupationalCatalogue:
                              notice='US reference; software flags are not Malaysian demand or proficiency.')
             role['version'] = CATALOGUE_VERSION + ':' + fingerprint({'role': role, 'reference': reference})
             self._roles[rid], self._references[rid] = role, reference
+        from .policy_sources import role_reference_v3
+        extension = role_reference_v3()
+        for rid, role in self._roles.items():
+            role['industry_mappings'] = [dict(target_id=iid, source=extension['sources']['industries'],
+                relation='US_2025_employment_presence_top_industries_not_MY_demand', status='source_accepted')
+                for iid, _ in extension['industry_mappings'].get(rid, [])]
+            role['work_style_mappings'] = [dict(target_id=sid, source=extension['sources']['work_styles'],
+                relation='positive_work_style_impact_not_personal_competence', status='source_accepted')
+                for sid, *_ in extension['work_style_mappings'].get(rid, [])]
+            role['missing_reasons'] = [m for m in role['missing_reasons']
+                if m != 'occupational_to_person_evidence_rubric_unavailable'
+                and not (m == 'source_grounded_industry_mappings_unavailable' and role['industry_mappings'])]
+            role['assessment_scope'] = 'Partial essential-skill anchored evidence comparison; not employment qualification'
+            role['version'] = CATALOGUE_VERSION + ':' + fingerprint({'role': role, 'extension': extension['version'],
+                                                                    'sources': extension['sources']})
         known_codes = {r['occupation']['O*NET-SOC Code'] for r in self._references.values()}
         for sid, codes in [('onet_essential_skills', skills), ('onet_software_skills', software)]:
             for code in sorted(set(codes) - known_codes):
@@ -120,10 +135,13 @@ class OccupationalCatalogue:
                                                               for r in self._roles.values()),
             partial_roles=sum(r['eligibility'] == 'partial' for r in self._roles.values()),
             roles_with_software=sum(bool(r['software_examples']) for r in self._references.values()),
-            rejected=self.rejected, sources=list(sources.values()),
-            legacy_runtime_roles=3, numerical_scored_roles=0,
-            limitations=['N01 pending; no numerical role-fit ranking',
-                         'No accepted personal measurement rubric or industry crosswalk',
+            roles_with_industry_mappings=sum(bool(r['industry_mappings']) for r in self._roles.values()),
+            roles_with_work_style_mappings=sum(bool(r['work_style_mappings']) for r in self._roles.values()),
+            anchored_essential_skills=len(extension['skill_rubrics']),
+            rejected=self.rejected, sources=list(sources.values()) + list(extension['sources'].values()),
+            legacy_runtime_roles=3, scoring_coverage='profile-dependent; reported by assessment service',
+            limitations=['US anchors/industry relationships are reference context, not Malaysian market evidence',
+                         'Anchored self-report/project claims are provisional, not independently verified competence',
                          'Partial references remain browseable; no plan prerequisite'])
 
     def roles(self, *, eligible_only=False):

@@ -5,6 +5,18 @@ import json
 from .policy import ROOT, fingerprint, load_policy
 
 
+def role_reference_v3():
+    """Pinned native anchors/industry/work-style projection, not personal labels."""
+    config = json.loads((ROOT / 'ml/configs/intelligence/personal-role-fit.v3.json').read_text())
+    path = (ROOT / config['reference_path']).resolve()
+    if not path.is_relative_to(ROOT.resolve()) or hashlib.sha256(path.read_bytes()).hexdigest() != config['reference_sha256']:
+        raise ValueError('role reference v3 checksum/path mismatch')
+    data = json.loads(path.read_text())
+    if data['version'] != 'role-reference-v3.1':
+        raise ValueError('role reference version mismatch')
+    return data
+
+
 def native_catalogue():
     _, active = load_policy()
     pack = ROOT / 'ml/minder_ml_starter'

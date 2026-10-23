@@ -1,9 +1,25 @@
 # Minder D01–D09 — canonical product and AI/ML decision context
 
 Date: 22 October 2026 (Asia/Kuala_Lumpur)
-Content revision: 5. Consolidated D01–D09 context, incorporating final market-presentation/agent-authorisation decisions and mandatory per-phase local checkpoints, linked refinements and push-only-on-explicit-instruction. Read this revision as a whole; do not maintain duplicate decision files.
+Content revision: 6 (23 October 2026; bounded numerical delegation below). Consolidated D01–D09 context, incorporating final market-presentation/agent-authorisation decisions and mandatory per-phase local checkpoints, linked refinements and push-only-on-explicit-instruction. Read this revision as a whole; do not maintain duplicate decision files.
 Purpose: Give implementation agents precise product decisions, derived engineering rules, required outputs and remaining dependencies. Presentation and agent-authorisation policies are now confirmed. Exact numerical scoring specifications and operational facts still require repository/data work; do not claim they were settled merely by resolving presentation or permissions.
 Basis: The architect's statements in the current conversation. The actual repository, current schemas, acquired datasets, and running model have not been inspected in this task.
+
+## Current numerical implementation authority — 23 October 2026
+
+The user delegates provisional numerical weights, normalization, evidence coverage,
+missing-data handling and the personal/current-market combination to Session A
+within the seven requirements in the current task. This supersedes waiting for
+approval of the original N01 proposal for those bounded choices. N01's original
+proposal remains historically unapproved and is preserved unchanged. Its clearly
+versioned replacement is N01-R1, `personal-role-fit-v3-provisional`, documented in
+`docs/execution/parallel/A/RECOMMENDATION_POLICY_V3.md` and machine configuration
+`ml/configs/intelligence/personal-role-fit.v3.json`. Engineering must implement and
+verify it rather than asking for coefficient-by-coefficient approval. Provisional
+scores are not empirically validated competence/hiring probabilities. Current
+Malaysian evidence must influence comparable ordering independently of unavailable
+forecasts; unsupported market coverage is explicitly partial, never zero demand.
+All other compatible D01–D09, provenance, ownership and local checkpoint rules remain.
 
 ## Status and interpretation
 
