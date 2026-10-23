@@ -12,7 +12,7 @@ POLICY_ID = json.loads((Path(__file__).resolve().parents[1] / 'data/conversation
 def intent_for(message, previous=None):
     previous = previous or {}
     text = message.casefold().strip()
-    if re.search(r'\b(market|demand|malaysia|forecast|quarter|salary|qualification|requirements|shortage|hiring|evidence|score|recommend|rank|change|edit|complete|reschedule)\b', text):
+    if re.search(r'\b(market|demand|malaysia|forecast|quarter|salary|qualification|requirements|shortage|hiring|evidence|score|recommend|rank|fit|compare|preparation|pathway|plans?|roadmap|progress|tasks?|skills|change|edit|complete|reschedule)\b', text):
         return 'grounded_evidence'
     if re.search(r'\b(role|developer|engineer|accountant|occupation)\b', text) and re.search(r'\b(explain|does|do|what|about|describe)\b', text):
         return 'role_reference'

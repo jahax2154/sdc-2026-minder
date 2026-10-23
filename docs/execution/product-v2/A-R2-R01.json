@@ -1,0 +1,10 @@
+{
+  "refinement": "A-R2-R01",
+  "status": "targeted_pass",
+  "scope": "Keep profile-specific preparation/plan/task/skill/comparison requests on grounded context route instead of matching the generic help keyword",
+  "verification": "20 conversation/chat/grounding checks passed1.237s",
+  "evidence_sha256": "57ae02613d851ee706dab3f40942d21e6117ae83f8d8173bb74f387b5205c6d1",
+  "contract_change": false,
+  "remaining": "Combined runtime/browser/source acceptance follows",
+  "deployment": false
+}
