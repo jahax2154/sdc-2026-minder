@@ -433,7 +433,7 @@ def recommendation_acceptance(output):
         same_personal_evidence=True, forecasts_unavailable=True, results=outputs)
     report['checks']['compatible_current_evidence_reverses_order_without_forecasts'] = 'passed'
     report['limitations'] = ['Policy outputs and demonstrations are provisional, not independently evaluated personal-fit labels.',
-        'Only four source-mapped roles have comparable current MY employer-feed evidence; remaining roles stay explorable.',
+        'Employer and declared published-category comparisons remain independently scoped; most roles remain personal-only with context where available.',
         'No invented forecasts, replacement probabilities, deployment, paid execution or private profile data.']
     (output / 'evidence.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(dict(cases={k:v.get('coverage',v) for k,v in report['cases'].items()},
@@ -467,7 +467,7 @@ def reserved_web_servers(app):
                 thread.join(timeout=5)
 
 
-def verify_web(output, playwright_module, browsers_path):
+def verify_web(output, playwright_module, browsers_path, *, require_live_provider=False):
     """Replay committed C acceptance against A, without editing owner modules.
 
     Only test ports, output paths and report port labels are adapted. Generated
@@ -507,10 +507,21 @@ def verify_web(output, playwright_module, browsers_path):
                            + ', "__name__": "__main__"})\n')
     browser_script = output / 'replay_browser.cjs'
     browser_script.write_text(source['browser'].replace(old_browser, 'path.resolve(' + json.dumps(str(output)) + ')'))
+    privacy_original = ROOT / 'apps/frontend-web/tests/grounding_privacy_acceptance.cjs'
+    privacy_script = None
+    if require_live_provider:
+        privacy_source = privacy_original.read_text().replace('8103','8101').replace('9103','9101')
+        profile_path = output / 'grounding-profile.synthetic.json'
+        profile_path.write_text(json.dumps(provisional_demo_profile()) + '\n')
+        privacy_source = privacy_source.replace('ml/artifacts/session-c/grounding-profile.synthetic.json', str(profile_path))
+        privacy_source = privacy_source.replace(old_browser, 'path.resolve(' + json.dumps(str(output)) + ')')
+        privacy_script = output / 'replay_grounding_privacy.cjs'
+        privacy_script.write_text(privacy_source)
     env = dict(os.environ, MINDER_DB_PATH=str(database), MINDER_API_PORT='8101', MINDER_UI_PORT='9101',
                PYTHONPATH=str(ROOT / 'ml/src') + os.pathsep + str(ROOT / 'apps/backend-api'),
                MINDER_PYTHON=sys.executable, MINDER_PLAYWRIGHT_MODULE=str(Path(playwright_module).resolve()),
                PLAYWRIGHT_BROWSERS_PATH=str(Path(browsers_path).resolve()))
+    env['MINDER_REQUIRE_LIVE_PROVIDER'] = '1' if require_live_provider else '0'
     report = dict(implementation='Integrated application; C acceptance adapted for A ports, paths, worker namespace and current policy labels',
                   database=str(database.relative_to(ROOT)), api_port=8101, ui_port=9101,
                   owner_script_sha256={kind: hashlib.sha256(path.read_bytes()).hexdigest()
@@ -518,15 +529,22 @@ def verify_web(output, playwright_module, browsers_path):
                   test_namespace_replacements=replacement_counts, checks={},
                   catalogue_references=catalogue.coverage['runtime_roles'],
                   numeric_policy='Delegated v3 provisional; anchored minimum and scoped current-market ordering')
+    report['market_policy'] = 'personal-current-evidence-v2'
+    report['real_provider_required'] = require_live_provider
+    report['privacy_frontend'] = 'prepared_requires_real_A_access' if not require_live_provider else 'required_live_check'
     try:
         with reserved_web_servers(app):
-            for name, command in [('http', [sys.executable, str(http_script)]),
+            commands = [('http', [sys.executable, str(http_script)]),
                                   ('browser', ['node', str(browser_script)]),
-                                  ('recommendation', ['node', str(ROOT / 'docs/execution/parallel/A/checks/recommendation_browser.cjs')])]:
+                                  ('recommendation', ['node', str(ROOT / 'docs/execution/parallel/A/checks/recommendation_browser.cjs')])]
+            if privacy_script:
+                commands.append(('grounding_privacy', ['node', str(privacy_script)]))
+                report['privacy_owner_script_sha256'] = hashlib.sha256(privacy_original.read_bytes()).hexdigest()
+            for name, command in commands:
                 env['MINDER_RECOMMENDATION_EVIDENCE'] = str(output / 'recommendation-browser.json')
                 with (output / (name + '.log')).open('w') as log:
                     run = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
-                                         stderr=subprocess.STDOUT, timeout=180)
+                                         stderr=subprocess.STDOUT, timeout=300)
                 report['checks'][name] = dict(exit_code=run.returncode)
                 if run.returncode != 0:
                     raise ValueError(name + ' acceptance failed; inspect isolated A log')
@@ -631,6 +649,7 @@ def main():
     web.add_argument('--output', type=Path, required=True)
     web.add_argument('--playwright-module', type=Path, required=True)
     web.add_argument('--browsers-path', type=Path, required=True)
+    web.add_argument('--require-live-provider', action='store_true')
     sub.add_parser('serve')
     recommendation = sub.add_parser('verify-recommendations')
     recommendation.add_argument('--output', type=Path, required=True)
@@ -663,7 +682,8 @@ def main():
     elif args.command == 'acceptance':
         acceptance(args.output)
     elif args.command == 'verify-web':
-        verify_web(args.output, args.playwright_module, args.browsers_path)
+        verify_web(args.output, args.playwright_module, args.browsers_path,
+                   require_live_provider=args.require_live_provider)
     elif args.command == 'serve-web':
         import threading
         path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))

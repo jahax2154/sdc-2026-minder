@@ -1,0 +1,133 @@
+{
+  "phase_id": "I4.4",
+  "status": "passed_local_HTTP_Chromium_provider_access_still_missing",
+  "personal_policy": "personal-role-fit-v3-provisional",
+  "market_policy": "personal-current-evidence-v2",
+  "changes": [
+    "UI distinct published-category/employer groups and separate coverage classes",
+    "Per-role typed source counts/units/dates/scopes and source URLs; unknown shortage remains explicit",
+    "Profile-versioned trace lookup from actual recommendations; no ordinary score/rank/component-point rendering",
+    "C committed privacy/grounding caller/source contracts reused; new C real-provider privacy script prepared for A namespace without claiming execution"
+  ],
+  "checks": {
+    "HTTP": {
+      "exit_code": 0,
+      "evidence": {
+        "transport": "real TCP HTTP on reserved localhost 8101/9101",
+        "synthetic_user": true,
+        "provider": {
+          "request_success": false,
+          "native_tool_success": false
+        },
+        "integration_mode": "local_source_services",
+        "catalogue_references": 1016,
+        "unranked_candidates": 910,
+        "numeric_personal_scores": 0,
+        "checks": {
+          "reserved_api_ui_http_assets": "passed",
+          "saved_intake_auth_isolation_stale": "passed",
+          "full_actual_catalogue_unassessed_profile_no_fabricated_score": "passed",
+          "real_A_B_role_skill_current_forecast_separation_sources": "passed",
+          "actual_chat_provider_availability": "unavailable",
+          "ambiguous_intake_staged_without_profile_mutation": "passed",
+          "pathway_persisted_direct_completion_exactly_once_no_mastery": "passed",
+          "actual_worker_pending_reject_approve_exact_once_cross_user": "passed",
+          "reversible_schedule_undo_retains_history": "passed",
+          "real_company_snapshot_explicit_missing_criteria_separate_main_matches": "passed"
+        },
+        "browser_interaction": "separate Chromium evidence in c4.1-browser-evidence.json",
+        "deployment_scheduler_verified": false,
+        "recorded_at": "2026-10-23T09:14:02.487366+00:00"
+      }
+    },
+    "Chromium_C_prototype": {
+      "exit_code": 0,
+      "evidence": {
+        "browser": "156.0.8078.4",
+        "transport": "real Chromium UI to localhost 9101 API, actual A/B services",
+        "synthetic_user": true,
+        "mocked_network": false,
+        "provider_request_success": false,
+        "native_tool_request_success": false,
+        "checks": {
+          "profile_and_statement_handlers_persist": "passed",
+          "cv_draft_without_mutation": "passed",
+          "real_catalogue_selection_preference_and_reset": "passed",
+          "explicit_verified_resource_choice_persisted": "passed",
+          "roadmap_task_progress_actual_persistence": "passed",
+          "future_current_separation_and_unavailable": "passed",
+          "actual_chat_and_native_provider_availability": "passed",
+          "worker_preview_and_browser_exact_approval": "passed",
+          "mobile_layout_no_horizontal_overflow": "passed"
+        },
+        "page_errors": [],
+        "deployment_scheduler_verified": false,
+        "recorded_at": "2026-10-23T09:15:40.816Z"
+      }
+    },
+    "Chromium_A_typed_recommendation": {
+      "transport": "real Chromium and HTTP; no route/fetch/provider mocks",
+      "synthetic_profile": true,
+      "checks": {
+        "incomplete_profile_requests_focused_input": "passed",
+        "fresh_graduate_all_supported_roles_scoped_ranks_no_prior_job_or_ratings": "passed",
+        "typed_source_units_and_owner_scoped_trace_visible": "passed",
+        "not_interested_lowers_preference_only_idempotent_and_reset_restores": "passed",
+        "career_switcher_context_trace_and_other_industries_retained": "passed",
+        "mobile_no_overflow_and_no_page_errors": "passed"
+      },
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 5,
+        "personal_only_ranked": 905,
+        "insufficient_evidence": 0,
+        "employer_comparable_ranked": 2,
+        "published_offering_comparable_ranked": 3,
+        "published_offering_supported": 7,
+        "shortage_supported": 0,
+        "shortage_adjusted_ranked": 0,
+        "sector_context_supported": 907
+      }
+    },
+    "backend_privacy": "42 passed",
+    "A_source_and_trace_boundary": "3 passed"
+  },
+  "coverage": {
+    "considered_eligible": 910,
+    "candidates": 910,
+    "assessed": 910,
+    "excluded": 0,
+    "current_available": 4,
+    "current_comparable_ranked": 5,
+    "personal_only_ranked": 905,
+    "insufficient_evidence": 0,
+    "employer_comparable_ranked": 2,
+    "published_offering_comparable_ranked": 3,
+    "published_offering_supported": 7,
+    "shortage_supported": 0,
+    "shortage_adjusted_ranked": 0,
+    "sector_context_supported": 907
+  },
+  "ownership": "A UI integration edits followed C committed clean handoff; no concurrent C working directory mutation or C grounding-module rewrite.",
+  "access": {
+    "api_key_present": false,
+    "model_configured": false,
+    "actual_A_provider_success": false,
+    "privacy_real_provider_browser": "not run; prepared and requires A-authorised configuration"
+  },
+  "limits": [
+    "Local prototype/acceptance frontend only; no separate intended product/Replit frontend supplied or deployed",
+    "C closed passage verifier supports concrete inspected Bosch derivations; new typed official/sector/shortage model claims remain fail-closed until supported interface consumed",
+    "B new ba469e4 handoff arrived after this immutable test run and will be integrated next"
+  ],
+  "evidence": {
+    "integration-evidence.json": "a50b0b360e7905f21d86c2fbce6829efe919fc82c63dbb497d03cf6152ec9cfe",
+    "recommendation-browser.json": "568d11cbdce3c692430bea72265b0528f0c9e06f247a27c571d434ba026ab723",
+    "recommendation-ui.png": "55d19fe7da3ea170ff33fa50fd73dd68ae6dd4b7ced2f2eaa36f79cdeac663b8"
+  },
+  "push_status": "local only"
+}
