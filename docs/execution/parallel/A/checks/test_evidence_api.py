@@ -1,0 +1,53 @@
+"""Real source/WSGI trace boundary; synthetic users, no provider or network mocks."""
+import json
+from pathlib import Path
+import tempfile
+import unittest
+
+from minder_ml.intelligence.integration_cli import application,provisional_demo_profile,wsgi_request
+from minder_ml.intelligence.policy import ROOT
+
+
+class EvidenceApiTests(unittest.TestCase):
+    def setUp(self):
+        root=ROOT/'ml/artifacts/session-a/evidence-api-tests';root.mkdir(parents=True,exist_ok=True)
+        self.folder=tempfile.TemporaryDirectory(dir=root)
+        self.app,_=application(Path(self.folder.name)/'runtime.sqlite3',role_ids=[
+            'onet:15-1252.00','onet:13-2011.00','onet:11-1011.00','onet:15-2051.00','onet:17-2112.00'])
+        self.token=self.request('POST','/api/session')['token']
+        self.profile=self.request('PUT','/api/profile',dict(profile=provisional_demo_profile(),expected_version=None))
+
+    def tearDown(self):self.folder.cleanup()
+
+    def request(self,method,path,body=None,token=None,expected=200):
+        code,value=wsgi_request(self.app,method,path,body,self.token if token is None and hasattr(self,'token') else token or '')
+        self.assertEqual(code,expected)
+        return value
+
+    def test_source_counts_scope_and_versioned_trace_are_public_without_internal_scores(self):
+        context=self.request('GET','/api/career-context')
+        option=next(o for o in context['recommendation']['options'] if o['role_id']=='onet:15-1252.00')
+        result=self.request('POST','/api/role-evidence',dict(role_id=option['role_id'],trace_id=option['trace_id'],
+            expected_profile_version=self.profile['version']))
+        kinds={r['measurement_type']:r for r in result['records']}
+        self.assertEqual(kinds['employer_observation']['value'],5)
+        self.assertEqual(kinds['published_offering_activity']['value'],19899)
+        self.assertIsNone(kinds['occupation_shortage']['value'])
+        self.assertEqual(result['trace']['trace_id'],option['trace_id'])
+        serialized=json.dumps(result)
+        for forbidden in ('current_index','current_points','final_internal_score','Fictional study-project'):
+            self.assertNotIn(forbidden,serialized)
+        self.assertEqual(context['recommendation']['coverage']['current_comparable_ranked'],5)
+
+    def test_auth_stale_profile_cross_user_and_unknown_role_are_rejected(self):
+        self.request('POST','/api/role-evidence',dict(role_id='onet:15-1252.00'),token='invalid',expected=401)
+        self.request('POST','/api/role-evidence',dict(role_id='not-in-catalogue'),expected=404)
+        context=self.request('GET','/api/career-context');option=context['recommendation']['options'][0]
+        body=dict(role_id=option['role_id'],trace_id=option['trace_id'],expected_profile_version='stale')
+        self.request('POST','/api/role-evidence',body,expected=409)
+        second=self.request('POST','/api/session')['token']
+        other=self.request('PUT','/api/profile',dict(profile=provisional_demo_profile(),expected_version=None),token=second)
+        body['expected_profile_version']=other['version']
+        self.request('POST','/api/role-evidence',body,token=second,expected=409)
+
+if __name__=='__main__':unittest.main()

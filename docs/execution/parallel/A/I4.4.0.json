@@ -1,0 +1,34 @@
+{
+  "phase_id": "I4.4.0",
+  "status": "passed_evidence_API_boundary_UI_grounding_follow_C_handoff",
+  "endpoint": "POST /api/role-evidence",
+  "changes": [
+    "Per-role source facts preserve measurement/value/unit/date/scope and unavailable/null families",
+    "Optional profile-versioned trace resolved server-side against the requesting owner and view",
+    "Public trace omits normalized current index, market contribution points and internal final score"
+  ],
+  "checks": [
+    {
+      "command": "checks/test_evidence_api.py",
+      "result": "2 passed in 2.288s; actual WSGI/source services and SQLite, synthetic users, no provider mocks"
+    },
+    {
+      "command": "backend regression",
+      "result": "29 passed in .632s"
+    }
+  ],
+  "security_checks": [
+    "Unauthenticated request rejected",
+    "Unknown role rejected",
+    "Stale profile rejected",
+    "Another user cannot resolve captured trace even with own current version",
+    "No raw personal evidence statements or internal market arithmetic in endpoint output"
+  ],
+  "C_handoff_ready": "fe78c8429374d4d9748837ee9f2c94ab573c56e9; inspect/integrate after in-flight full regression completes; C active files were not concurrently edited",
+  "next": [
+    "Integrate C-007 grounding/privacy and presentation checkpoint preserving history",
+    "Wire typed evidence into application-facing facts with a verifiable passage interface; unsupported C adapters remain fail-closed",
+    "Actual A Groq acceptance still requires A-authorised private configuration"
+  ],
+  "push_status": "local only"
+}

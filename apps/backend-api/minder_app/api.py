@@ -32,6 +32,27 @@ class Application:
             if self.services.personal is None:
                 raise AppError("assessment_unavailable", 404)
             return self.services.personal.reference()
+        if path == "/api/role-evidence" and method == "POST":
+            personal = self.services.personal
+            if personal is None or not hasattr(personal, "evidence_for"):
+                raise AppError("evidence_service_unavailable", 404)
+            role = next((r for r in self.services.roles if r["role_id"] == body["role_id"]), None)
+            if role is None:
+                raise AppError("role_not_found", 404)
+            result = personal.evidence_for(role)
+            if body.get("trace_id"):
+                profile = self.store.get(owner, "profile", owner)
+                if body.get("expected_profile_version") != profile["version"]:
+                    raise AppError("stale_trace_profile_version", 409)
+                context = self.services.career_context(profile,
+                    expected_profile_version=profile["version"], selected_role_ids=body.get("view_role_ids"))
+                trace = next((t for t in context["recommendation"]["internal"].get("recommendation_traces", [])
+                              if t["role_id"] == role["role_id"] and t["trace_id"] == body["trace_id"]), None)
+                if trace is None:
+                    raise AppError("trace_stale_or_outside_profile_view", 409)
+                from minder_ml.intelligence.market_evidence import public_trace
+                result["trace"] = public_trace(trace)
+            return result
         if path == "/api/direct-action" and method == "POST":
             return self.actions.direct(owner, body["request"], body["idempotency_key"])
         if path == "/api/proposals":
