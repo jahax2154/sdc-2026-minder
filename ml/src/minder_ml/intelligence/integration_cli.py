@@ -24,6 +24,29 @@ def role_aliases(catalogue):
             for r in catalogue.roles()}
 
 
+def a_provider_config():
+    """Shared secure loader, refusing another lane's private configuration."""
+    selected = os.environ.get('MINDER_GROQ_SECRET_FILE')
+    if selected:
+        path = Path(selected).resolve()
+        for lane in ('session-b', 'session-c'):
+            if path.is_relative_to(ROOT.parent / lane):
+                raise ValueError('A_provider_configuration_must_not_use_another_lane')
+    from minder_app.config import load_provider_config
+    return load_provider_config()
+
+
+def a_provider():
+    """Use only A's verified model metadata; no inherited sibling artifact path."""
+    from minder_app.provider_access import selected_model
+    from .groq_adapter import GroqAdapter
+    config = a_provider_config()
+    provider = GroqAdapter(key=config.api_key, model=config.model or selected_model(
+        ROOT / 'ml/artifacts/session-a/runtime/groq-model-selection.json'))
+    provider.daily_limit = config.daily_limit
+    return provider
+
+
 def application(database, *, role_ids=None):
     # C's stdlib package lives in its owned app path in THIS worktree.
     sys.path.insert(0, str(ROOT / 'apps/backend-api'))
@@ -47,8 +70,7 @@ def application(database, *, role_ids=None):
                               sources=catalogue.coverage['sources'] + [market_source],
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
-    from minder_app.config import configured_provider
-    return Application(Store(database), services, configured_provider()), catalogue
+    return Application(Store(database), services, a_provider()), catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):
@@ -518,6 +540,87 @@ def verify_web(output, playwright_module, browsers_path):
     return report
 
 
+def worker_run(owner, *, once=True, poll_seconds=1, max_seconds=180):
+    """A DB guard plus C's actual owner-scoped worker; no injected clock/event."""
+    import time
+    sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+    from minder_app.store import Store
+    from minder_app.actions import ActionExecutor
+    from minder_app.agents import Worker
+    path = Path(os.environ['MINDER_DB_PATH']).resolve()
+    if not path.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('A worker adapter database must stay under A artifacts')
+    if not owner:
+        raise ValueError('explicit single-owner worker scope required')
+    store = Store(path)
+    worker = Worker(store, ActionExecutor(store), provider=a_provider())
+    deadline = time.monotonic() + min(300, max(1, max_seconds))
+    while True:
+        result = worker.tick(owner=owner)
+        print(json.dumps(result), flush=True)
+        if once or time.monotonic() >= deadline:
+            return
+        time.sleep(max(1, min(30, poll_seconds)))
+
+
+def verify_live(output):
+    """Real A provider/app/scheduled-event acceptance; public flags only.
+
+    Current user authorizes these bounded calls. A's own private access is a
+    required input; no C configuration/model metadata/DB is copied or imported.
+    """
+    sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+    from minder_app.provider_access import verify
+    output = Path(output).resolve()
+    if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('live evidence must stay under A artifacts')
+    output.mkdir(parents=True, exist_ok=False)
+    report = dict(phase_id='I4.2', status='access_unavailable', checks={},
+                  scope='A own private configuration, reserved ports and isolated synthetic SQLite',
+                  real_provider_success=False, deployment_verified=False)
+    try:
+        config = a_provider_config()
+        report['configuration_presence'] = config.presence()
+        if not config.api_key:
+            report['blocker'] = 'A_authorized_private_provider_key_not_configured'
+            return report
+        # No key/model values/provider response bodies enter the report or logs.
+        selection = ROOT / 'ml/artifacts/session-a/runtime/groq-model-selection.json'
+        report['access'] = verify(config, path=selection)
+        if not all(report['access'].values()):
+            report['blocker'] = 'A_real_provider_access_or_native_function_check_failed'
+            return report
+        database = output / 'runtime.sqlite3'
+        app, _ = application(database)
+        original = ROOT / 'apps/backend-api/tests/live_provider_acceptance.py'
+        source = original.read_text().replace('9103', '9101')
+        source = source.replace('"minder_app.worker","--once",',
+                                '"minder_ml.intelligence.integration_cli","worker-once",')
+        source = source.replace('"minder_app.worker","--owner",',
+                                '"minder_ml.intelligence.integration_cli","worker","--owner",')
+        target = 'ROOT / "ml/artifacts/session-c/live-provider-acceptance.json"'
+        if source.count(target) != 1:
+            raise ValueError('C live acceptance changed; review A namespace adapter')
+        source = source.replace(target, 'Path(' + repr(str(output / 'live-checks.json')) + ')')
+        script = output / 'replay_live.py'
+        script.write_text('exec(compile(' + repr(source) + ', ' + repr(str(original))
+            + ', "exec"), {"__file__": ' + repr(str(original)) + ', "__name__": "__main__"})\n')
+        report['owner_script_sha256'] = hashlib.sha256(original.read_bytes()).hexdigest()
+        env = dict(os.environ, MINDER_DB_PATH=str(database), MINDER_API_PORT='8101', MINDER_UI_PORT='9101',
+            MINDER_ARTIFACT_DIR=str(ROOT / 'ml/artifacts/session-a'),
+            PYTHONPATH=str(ROOT / 'ml/src') + os.pathsep + str(ROOT / 'apps/backend-api'))
+        with reserved_web_servers(app), (output / 'live.log').open('w') as log:
+            process = subprocess.run([sys.executable, str(script), '--configuration-confirmed'],
+                cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, timeout=240)
+        report['checks'] = json.loads((output / 'live-checks.json').read_text())
+        report['real_provider_success'] = process.returncode == 0 and all(report['checks'].values())
+        report['status'] = 'passed_local_real_provider_and_scheduled_event' if report['real_provider_success'] else 'failed_check'
+        return report
+    finally:
+        (output / 'evidence.json').write_text(json.dumps(report, indent=2) + '\n')
+        print(json.dumps(report, indent=2))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
@@ -534,22 +637,27 @@ def main():
     recommendation.add_argument('--output', type=Path, required=True)
     worker = sub.add_parser('worker-once')
     worker.add_argument('--owner', required=True)
+    continuous = sub.add_parser('worker')
+    continuous.add_argument('--owner', required=True)
+    continuous.add_argument('--poll-seconds', type=int, default=1)
+    continuous.add_argument('--max-seconds', type=int, default=180)
+    live = sub.add_parser('verify-live')
+    live.add_argument('--output', type=Path, required=True)
     sub.add_parser('serve-web')
     args = parser.parse_args()
     if args.command == 'verify-recommendations':
         recommendation_acceptance(args.output)
         return
     if args.command == 'worker-once':
-        sys.path.insert(0, str(ROOT / 'apps/backend-api'))
-        from minder_app.store import Store
-        from minder_app.actions import ActionExecutor
-        from minder_app.agents import Worker
-        from minder_app.config import configured_provider
-        path = Path(os.environ['MINDER_DB_PATH']).resolve()
-        if not path.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
-            raise ValueError('A worker adapter database must stay under A artifacts')
-        store = Store(path)
-        print(json.dumps(Worker(store, ActionExecutor(store), provider=configured_provider()).tick(owner=args.owner)))
+        worker_run(args.owner)
+        return
+    if args.command == 'worker':
+        worker_run(args.owner, once=False, poll_seconds=args.poll_seconds, max_seconds=args.max_seconds)
+        return
+    if args.command == 'verify-live':
+        report = verify_live(args.output)
+        if not report['real_provider_success']:
+            raise SystemExit(1)
         return
     if args.command == 'smoke':
         smoke(args.output)

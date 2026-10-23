@@ -1,0 +1,23 @@
+{
+  "phase_id": "I4.2.0",
+  "status": "prepared_guards_verified_dependent_live_run_waiting_access",
+  "changes": [
+    "A-only config/model metadata binding reuses shared C secure loader and real Groq adapter",
+    "Refuse B/C private config paths before reading; retain strict A SQLite guard",
+    "Bounded real-clock single-owner worker adapter for upcoming-minute acceptance",
+    "Reproducible actual C live acceptance replay with only A ports/paths/worker namespace adapted"
+  ],
+  "checks": [
+    {
+      "command": "checks/test_runtime_binding.py",
+      "result": "3 passed; no credential read/network request"
+    },
+    {
+      "command": "integration_cli verify-live --output ml/artifacts/session-a/i4.2-live-access-v1",
+      "result": "expected exit 1 access_unavailable; key/model false; zero external requests, no fabricated pass"
+    }
+  ],
+  "access_blocker": "A private provider key not configured; owner-only ignored empty template prepared, user input question pending. C key/config/metadata not copied.",
+  "next": "After A own authorised configuration is ready, run verify-live and real-provider-required browser checks; current user already authorises these bounded calls, no new permission question needed.",
+  "push_status": "local only"
+}
