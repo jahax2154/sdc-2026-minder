@@ -169,7 +169,16 @@ class ProductStateTests(AppCase):
         code, result = http("GET", "/api/product/progress", {})
         self.assertEqual((code, result["status"], result["fraction"]), (200, "empty", None))
         self.assertEqual(http("PUT", "/api/product/direction", {"owner": "someone-else"})[0], 422)
-        self.assertEqual(http("POST", "/api/product/views/news", {})[1]["code"], "product_capability_unavailable")
+        _, advertised = http("GET", "/api/product/capabilities", {})
+        news = next(r for r in advertised["operations"]
+                    if r["method"] == "POST" and r["path"] == "/api/product/views/news")
+        news_code, news_result = http("POST", news["path"], {})
+        if news["status"] == "implemented":
+            self.assertEqual(news_code, 200)
+            self.assertEqual(news_result["view"], "news")
+            self.assertIn(news_result["status"], ("available", "partial", "unavailable"))
+        else:
+            self.assertEqual((news_code, news_result["code"]), (404, "product_capability_unavailable"))
         profile = self.save()
         code, error = http("PUT", "/api/profile", {"profile": {"career_context": {"goals": "Private text"}},
             "expected_version": "stale"})
