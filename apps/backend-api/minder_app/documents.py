@@ -10,24 +10,15 @@ import re
 import uuid
 from jsonschema import Draft202012Validator
 from .store import AppError, now, uid
+from .product_state_schemas import schemas as public_schemas
 
 CONTRACT_VERSION = "private-document-library-v1"
-OPERATIONS = ()  # Published only when the corresponding handlers are implemented.
-ID = {"type": "string", "minLength": 1, "maxLength": 200}
-SCHEMAS = {
-    "upload": dict(type="object", additionalProperties=False,
-        required=["filename", "content_type", "content_base64", "idempotency_key"],
-        properties=dict(filename={"type": "string", "minLength": 1, "maxLength": 180},
-            content_type={"enum": ["application/pdf", "text/plain"]},
-            content_base64={"type": "string", "minLength": 1}, idempotency_key=ID)),
-    "download": dict(type="object", additionalProperties=False,
-        required=["document_id"], properties=dict(document_id=ID)),
-    "extract": dict(type="object", additionalProperties=False,
-        required=["document_id"], properties=dict(document_id=ID)),
-    "delete": dict(type="object", additionalProperties=False,
-        required=["document_id", "expected_version", "idempotency_key"],
-        properties=dict(document_id=ID, expected_version=ID, idempotency_key=ID)),
-}
+
+# A's published request definitions are the only structural authority.
+SCHEMAS = {"upload": public_schemas()["DocumentUpload"],
+           "download": public_schemas()["DocumentRead"],
+           "extract": public_schemas()["DocumentRead"],
+           "delete": public_schemas()["DocumentDelete"]}
 
 
 @dataclass(frozen=True)
@@ -57,6 +48,9 @@ class DocumentLimits:
 
 
 def validate_upload(body, limits):
+    if (isinstance(body, dict) and isinstance(body.get("content_base64"), str)
+            and len(body["content_base64"]) > 4*((limits.max_file_bytes+2)//3)):
+        raise AppError("document_too_large", 413)
     Draft202012Validator(SCHEMAS["upload"]).validate(body)
     name = body["filename"]
     if name != name.strip() or name in (".", "..") or any(c in name for c in ("/", "\\")) or any(ord(c) < 32 or ord(c) == 127 for c in name):
@@ -64,8 +58,6 @@ def validate_upload(body, limits):
     suffix = Path(name).suffix.lower()
     if (suffix, body["content_type"]) not in ((".pdf", "application/pdf"), (".txt", "text/plain")):
         raise AppError("unsupported_document_format", 415)
-    if len(body["content_base64"]) > 4*((limits.max_file_bytes+2)//3):
-        raise AppError("document_too_large", 413)
     try:
         content = base64.b64decode(body["content_base64"], validate=True)
     except (binascii.Error, ValueError):
