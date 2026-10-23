@@ -1,0 +1,46 @@
+{
+  "actual_results": {
+    "baseline": "implemented; no real approved-target evaluation",
+    "different_target_research_training": "not_run; real frozen-corpus count compilation is separately labelled descriptive research",
+    "forecast_role": "unavailable",
+    "forecast_skill": "unavailable",
+    "remaining_runpod_credit_usd": null,
+    "ridge": "implemented; synthetic unit machinery only, no real approved-target fit",
+    "session_cost_usd": 0,
+    "session_paid_jobs": 0,
+    "xgboost": "implemented; synthetic unit machinery only, no real approved-target fit"
+  },
+  "branch": "session/b-market",
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "code_commit": "db06fedf593d3e448d1e2c9a3d77b52703bb0e06",
+      "command": "market_training run with immutable dataset SHA and matching committed HEAD",
+      "result": "Exit0; unavailable_data; training not_run, 0 fits, 0 eligible examples, 0 selected models",
+      "run_id": "market-2026-10-23T06-48-42.150440+00-00"
+    },
+    {
+      "command": "RunPod environment/config presence and latest committed A-002 request inspection",
+      "result": "No key/config; account balance/prior jobs unknown; A no paid job and USD0 request cap"
+    }
+  ],
+  "dependency_ids": [
+    "COMPLETE_COMPARABLE_QUARTERLY_ROLE_AND_SKILL_AD_COUNTS",
+    "HISTORICAL_PUBLICATION_VINTAGES",
+    "RUNPOD_ACCESS_FOR_PAID_EXECUTION"
+  ],
+  "inputs": [
+    "B2.1-R02 db06fedf593d3e448d1e2c9a3d77b52703bb0e06",
+    "forecast-dataset.v1.json sha256 63eed17c6c09ab2f8b74bbd2c417a7894cf08760cdf982901b052ff5ada6f965"
+  ],
+  "limitations": [
+    "No independent forecast accuracy, live model, or national hiring inference from acquired corpus",
+    "No funded RunPod job claimed or launched; account access is separate from the data blocker"
+  ],
+  "next_eligible": "B3.2-R01 final source/current integration handoff and verification",
+  "objective": "Run committed updated source-eligibility request, record actual model/cost state and continue serving independent current evidence",
+  "owner": "B",
+  "phase_id": "B2.2-R01",
+  "refines": "B2.2",
+  "status": "deferred_dependency"
+}

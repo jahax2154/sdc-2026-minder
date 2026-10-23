@@ -161,6 +161,38 @@ class HistoricalSourceTests(unittest.TestCase):
             self.assertEqual(result['data_links'],['/download.csv'])
 
 
+class PublishedServiceTests(unittest.TestCase):
+    def setUp(self):
+        self.service=MarketEvidenceService(aliases={'role':{'onet:15-1252.00':'15-1252.00'}})
+        self.identifier='dosm:jmi:published-role-label:software-developers'
+        self.as_of=max(r['available_at'] for r in self.service.published_roles['observations'])
+
+    def test_real_published_counts_are_separate_from_employer_ad_counts(self):
+        official=self.service.current('role',self.identifier,as_of=self.as_of)
+        employer=self.service.current('role','onet:15-1252.00',as_of=self.as_of)
+        self.assertEqual(official['value'],19899)
+        self.assertEqual(official['observation_period'],{'start':'2026-04-01','end':'2026-06-30'})
+        self.assertEqual(official['published_at'][:10],'2026-08-18')
+        self.assertEqual(employer['value'],5)
+        self.assertNotEqual(official['measurement'],employer['measurement'])
+        self.assertNotEqual(official['source_universe_id'],employer['source_universe_id'])
+        self.assertEqual(len(self.service.source_facts('role',self.identifier)['published_observations']),2)
+        self.assertIsNone(official['internal_index'])
+
+    def test_historical_release_date_does_not_invent_archived_byte_availability(self):
+        result=self.service.current('role',self.identifier,as_of='2026-09-01T00:00:00Z')
+        self.assertIsNone(result['value'])
+        self.assertIn('not_available',result['missing_reasons'][0])
+        self.assertEqual(len(self.service.published_role_observations(as_of='2026-09-01T00:00:00Z')),0)
+        self.assertEqual(len(self.service.published_role_observations(as_of=self.as_of)),35)
+
+    def test_published_top_role_values_cannot_bypass_forecast_target(self):
+        result=self.service.forecast('role',self.identifier,issued_at=self.as_of)
+        self.assertEqual(result['status'],'unavailable')
+        self.assertIsNone(result['value'])
+        self.assertIn('published_offerings_not_verified_unique_advertisements',result['missing_reasons'])
+
+
 class NewsTests(unittest.TestCase):
     def setUp(self):
         self.registry = json.loads((MARKET_DATA / 'sources.v1.json').read_text())

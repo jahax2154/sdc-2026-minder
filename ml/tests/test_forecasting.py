@@ -44,6 +44,11 @@ class ForecastTests(unittest.TestCase):
         self.assertEqual(data['rows'], [])
         self.assertEqual(data['provenance']['dosm_quarters'], 28)
         self.assertEqual(data['provenance']['dosm_actual_vintage_dates'], ['2026-08-18'])
+        source_audits={r['source']:r for r in data['excluded_source_targets']}
+        self.assertEqual(source_audits['DOSM explicit published role facts']['observations'],35)
+        self.assertEqual(source_audits['DOSM explicit published role facts']['max_numeric_points_per_series'],7)
+        self.assertEqual(source_audits['JobStreet original frozen corpus']['unique_job_ids'],69024)
+        self.assertFalse(source_audits['JobStreet original frozen corpus']['collection_windows_known'])
         with tempfile.TemporaryDirectory() as d:
             result = experiment(data, evaluation_as_of='2026-10-23T00:00:00Z', output_dir=d)
             self.assertEqual(result['fits'], 0)

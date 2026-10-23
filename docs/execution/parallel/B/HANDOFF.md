@@ -1,5 +1,7 @@
 # Session B market-service and RunPod handoff
 
+Latest continuation: [HANDOFF.v2.md](HANDOFF.v2.md) records B3.2-R01, the complete accessible employer feed and actual historical-source investigation. The original B3.2 checkpoint report below is preserved as history.
+
 Session B implemented the supported current-evidence service, bounded source/event collection, next-quarter forecasting machinery and checked artifact loader. Overall status is **limited**: neither family has enough comparable quarterly unique-ad history for a genuine forecast training/backtest. No model was selected. RunPod is blocked by missing credentials; account balance and previous jobs remain unknown. Session spending is **USD 0**, with zero paid jobs. Nothing was pushed or deployed.
 
 This handoff is the B3.2 culminating local checkpoint. Its SHA is the commit containing this document; earlier exact checkpoints follow. The bootstrap ancestor `70dc99e96c51e2da3cacc0b84cdc729b2be33fd9` was verified before edits. No recovery/setup was repeated. Only B-owned paths changed.

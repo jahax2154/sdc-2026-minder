@@ -1,43 +1,53 @@
 {
-  "version": "single-operator-runpod-ledger-v1",
-  "checked_at": "2026-10-22T17:57:48.814752+00:00",
-  "operator": "Session B only",
-  "reported_account_allowance_usd": 25,
-  "additional_budget_authorised": false,
-  "global_paid_cap_usd": 25,
-  "balance_verified": false,
-  "remaining_credits_usd": null,
-  "prior_account_jobs_verified": false,
-  "account_current_spend_per_hour": null,
+  "A_handoff": {
+    "launch_requested": false,
+    "maximum_spend_usd": 0,
+    "observed_A_commit": "dd5a1d182f0ea823cfd59109987fd0c21e687c97",
+    "reason": "N01 and compatible personal targets/rubrics missing; A owns bounded local synthetic mathematical smoke",
+    "request": "docs/execution/parallel/A/requests/A-002-training-requirements.md",
+    "status": "acknowledged_no_paid_job_queued"
+  },
+  "B_jobs": {
+    "reason": "No compatible quarterly role/skill target series after actual source investigation; no empty-data paid job launched",
+    "status": "deferred_dependency"
+  },
   "access_status": "blocked_external_no_credentials",
+  "account_current_spend_per_hour": null,
+  "actual_session_cost_usd": 0,
+  "actual_session_paid_jobs": 0,
+  "additional_budget_authorised": false,
+  "balance_verified": false,
+  "checked_at": "2026-10-23T06:50:07.182254+00:00",
   "credential_checks": {
     "RUNPOD_API_KEY": "not_configured",
     "RUNPOD_TOKEN": "not_configured",
     "private_config_files": "absent at .runpod/config.toml and .config/runpod/config.toml; no repo .env or ml/.env"
   },
+  "global_paid_cap_usd": 25,
   "jobs": [],
-  "actual_session_paid_jobs": 0,
-  "actual_session_cost_usd": 0,
+  "latest_recheck": {
+    "A_request_rechecked": "A-002 still explicitly no paid job, maximum spend USD0",
+    "B_data_status": "Updated audit inspected 155 employer ads, 35 official role observations and 69024 corpus ads; no valid comparable approved-target quarterly series",
+    "authenticated_balance_query": "not_possible_without_credentials",
+    "key_configured": false,
+    "paid_jobs_created": 0,
+    "private_config_present": false,
+    "remaining_credits_usd": null,
+    "session_actual_cost_usd": 0
+  },
+  "operator": "Session B only",
   "prior_account_consumption_usd": null,
+  "prior_account_jobs_verified": false,
   "proposed_operator_limits": {
-    "maximum_concurrent_paid_jobs": 1,
-    "maximum_single_job_usd": 2,
-    "maximum_job_seconds": 900,
     "automatic_retries": 0,
-    "top_up": false,
-    "status": "not_exercised; must verify account rate, balance, external stop and immutable runnable request before launch"
+    "maximum_concurrent_paid_jobs": 1,
+    "maximum_job_seconds": 900,
+    "maximum_single_job_usd": 2,
+    "status": "not_exercised; must verify account rate, balance, external stop and immutable runnable request before launch",
+    "top_up": false
   },
-  "A_handoff": {
-    "request": "docs/execution/parallel/A/requests/A-002-training-requirements.md",
-    "observed_A_commit": "dd5a1d182f0ea823cfd59109987fd0c21e687c97",
-    "maximum_spend_usd": 0,
-    "launch_requested": false,
-    "status": "acknowledged_no_paid_job_queued",
-    "reason": "N01 and compatible personal targets/rubrics missing; A owns bounded local synthetic mathematical smoke"
-  },
-  "B_jobs": {
-    "status": "deferred_dependency",
-    "reason": "zero eligible real quarterly role/skill target series"
-  },
-  "safety": "No account API requests or resource changes possible without credentials; no claim that all reported USD25 remains."
+  "remaining_credits_usd": null,
+  "reported_account_allowance_usd": 25,
+  "safety": "No account API requests or resource changes possible without credentials; no claim that all reported USD25 remains.",
+  "version": "single-operator-runpod-ledger-v1"
 }
