@@ -8,6 +8,7 @@ export async function minder(ctx) {
   const response=await fetch('pages/minder.html');if(!response.ok)throw new Error('Chat layout unavailable.');
   ctx.view.innerHTML=await response.text();ctx.view.className='page-main chat-page';
   const $=s=>ctx.view.querySelector(s), input=$('#minderInput');
+  if(ctx.chatDraft){input.value=ctx.chatDraft;delete ctx.chatDraft;}
   function update() {
     const active=messages.length>0;$('#minderWelcome').classList.toggle('hide',active);$('#minderActive').classList.toggle('hide',!active);
     $('#minderThread').innerHTML=messages.map(m=>m.role==='user'?`<div class="user-message">${esc(m.text)}</div>`:m.role==='error'?`<article class="assistant-answer"><p>${esc(m.text)}</p></article>`:`<article class="assistant-answer"><p class="secondary">${m.result.provider.status==='available'?'Language-assisted answer':'Language service unavailable · saved evidence and limitations'}</p>${facts(m.result.statements)}</article>`).join('')+(pending?'<div class="thinking-row" role="status"><span class="spinner"></span>Checking saved evidence…</div>':'');
