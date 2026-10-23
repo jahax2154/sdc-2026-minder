@@ -1,10 +1,11 @@
 // Real pre-repair browser/API measurements. Only synthetic input/owner; no tokens logged.
 const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/minder-c-ui-check/node_modules/playwright');
 const fs=require('node:fs');
+const {execFileSync}=require('node:child_process');
 const base=process.env.MINDER_PRODUCT_BASE_URL||'http://127.0.0.1:9106';
 (async()=>{
  const browser=await chromium.launch({headless:true}),page=await browser.newPage({viewport:{width:1440,height:1000}});
- const out={frontend_revision:'29281ec907ef031c1ec07be27c84e25aad69969e',url:base,synthetic:true,samples:[],waterfall:[]},starts=new Map();
+ const out={frontend_revision:process.env.MINDER_FRONTEND_REVISION||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),url:base,synthetic:true,samples:[],waterfall:[]},starts=new Map();
  page.on('request',r=>{if(new URL(r.url()).pathname.startsWith('/api/'))starts.set(r,performance.now());});
  page.on('response',r=>{if(starts.has(r.request()))out.waterfall.push({path:new URL(r.url()).pathname,method:r.request().method(),status:r.status(),duration_ms:Math.round(performance.now()-starts.get(r.request()))});});
  const api=(route,body,method=body===undefined?'GET':'POST')=>page.evaluate(async({route,body,method})=>{const r=await fetch('/api/'+route,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+sessionStorage.getItem('minder-product-token')},...(body===undefined?{}:{body:JSON.stringify(body)})});return {status:r.status,body:await r.json()};},{route,body,method});

@@ -1,0 +1,74 @@
+[
+  {
+    "path": "/private/tmp/minder-f-repair-before-chat.png",
+    "sha256": "92cf9c73e7ca4f1cb35485ff76d9f330a006955e4775d681c1060ebc6f5c9b12",
+    "bytes": 138775,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-after-onboarding.png",
+    "sha256": "94ee386446bf3faf26211106573294f505fbe51653193bcbc59b993eb883e17b",
+    "bytes": 135903,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-after-onboarding-context.png",
+    "sha256": "cdcd11acc41141abb5f5b05780848f0ba75d4e3b62128811d3a993d0769aca78",
+    "bytes": 156247,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-rail-desktop.png",
+    "sha256": "fcd096accec7de2197cfa500dd51ef825a22addb8f9ebc7dfb07a3264a9cb05d",
+    "bytes": 81250,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-menu-mobile.png",
+    "sha256": "1924d4eb97c4c819fbbb5cf562f1b4b31dff8c05278acd14dcf0bccb1b571cb0",
+    "bytes": 37744,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-after-mindbot.png",
+    "sha256": "7bfe9243f6d10bb89189b84c27f0df304347bbce42ada9a00ef97e5949630a63",
+    "bytes": 87215,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-provider-off-fallback.png",
+    "sha256": "a6cb3bc55bb82be0bd0e5028d3f3628ae477cde41e7db9d431766c85890b0d77",
+    "bytes": 166475,
+    "mode": "real_HTTP_configured_provider_absent_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-provider-off-mindbot.png",
+    "sha256": "fa45633ef251beb20811c957a06045cb2470cf628523a228e5251930cce66969",
+    "bytes": 87405,
+    "mode": "real_HTTP_configured_provider_absent_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-final-context-mobile.png",
+    "sha256": "994ca4ccc3d7395f4c22f12b0fde58e30360dce8198853953c683604614b82da",
+    "bytes": 35481,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-final-mobile.png",
+    "sha256": "4fd9ab3732066611c58307730f7fecbb56e8908cdfcb87bab61854f70f1dc183",
+    "bytes": 54283,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-final-role-source.png",
+    "sha256": "9bebf33538d8f918b5ac2449494daeb638e2027f7fd558bf62625928bd525d9b",
+    "bytes": 142328,
+    "mode": "real_HTTP_synthetic_owner"
+  },
+  {
+    "path": "/private/tmp/minder-f-repair-final-working.png",
+    "sha256": "204edea664425a472c07d1a5de133ccda61e947d2f93921de53eb6ed6f28a986",
+    "bytes": 133582,
+    "mode": "real_HTTP_synthetic_owner"
+  }
+]

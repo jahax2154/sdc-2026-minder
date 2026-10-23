@@ -1,0 +1,113 @@
+{
+  "phase": "A-I2",
+  "status": "targeted_brief_acceptance_passed",
+  "integrated_F": "8446ca801de8d8a0163c390f76d2aa609a5fec16",
+  "F_product_code": "aeb3e08b6088cf06e6dc917d47a3e2097b5f1dd8",
+  "backend": "12e7496db73f4f3a1a19c0c3a7b16decaa22d226",
+  "runtime": "19b19e0fc026c96c752b61b0f48e5e46b82aadad",
+  "checks": {
+    "backend": "90 passed7.024s",
+    "A_browser": {
+      "unsaved_useful_answer": true,
+      "no_implicit_profile_save": true,
+      "paraphrase": true,
+      "owner_scoped_followup": true,
+      "incomplete_profile_capabilities": true,
+      "temporary_conversation": true,
+      "pinned_role_source_scope": true,
+      "focused_personal_clarification": true,
+      "real_chat_workspace_overlap": {
+        "workspace_ms": 109,
+        "saved_ready_before_chat_finished": true,
+        "chat_provider": "available",
+        "provider_invoked": true,
+        "diagnostics": {
+          "request_id": "4e40d839-dde1-4cdc-96d2-1c72ca9a1097",
+          "intent": "grounded_evidence",
+          "reason_codes": [
+            "grounded_selection"
+          ],
+          "evidence_count": 4,
+          "provider_invoked": true,
+          "model": "qwen/qwen3.8-27b",
+          "total_ms": 788.23,
+          "context_ms": 32.905,
+          "ledger_ms": 132.97,
+          "provider_ms": 618.349
+        }
+      },
+      "unavailable_forecast_preserved": true,
+      "real_proposal_reject_approve_repeat_stale": true,
+      "explicit_direct_action": true,
+      "foreign_followup_context_rejected": true
+    },
+    "A_provider_off": {
+      "mode": "actual_HTTP_configured_provider_absent_disposable_A_database",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_credentials_missing",
+        "invoked": false
+      },
+      "samples": [
+        {
+          "kind": "initial_navigation",
+          "frame_ms": 1,
+          "saved_ready_ms": 32
+        },
+        {
+          "kind": "repeat_navigation",
+          "frame_ms": 1,
+          "saved_ready_ms": 24
+        },
+        {
+          "kind": "repeat_navigation",
+          "frame_ms": 1,
+          "saved_ready_ms": 24
+        }
+      ],
+      "page_errors": [],
+      "mindbots_added_chat_requests": 0
+    },
+    "visuals": "Actual A screenshots inspected; one screenshot-only empirical request returned limited_fallback, not counted as successful provider interpretation",
+    "unsaved_empirical": {
+      "environment": "Actual A runtime, synthetic unsaved owner, empirical follow-up after pinned role; no mock",
+      "elapsed_ms": 1526.368,
+      "mode": "grounded_evidence",
+      "provider_status": "available",
+      "provider_code": null,
+      "diagnostics": {
+        "request_id": "3740549c-4758-45f3-ab06-619e9ed3edc8",
+        "intent": "grounded_evidence",
+        "reason_codes": [
+          "grounded_selection"
+        ],
+        "evidence_count": 8,
+        "provider_invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 1525.078,
+        "context_ms": 26.597,
+        "ledger_ms": 118.541,
+        "provider_ms": 1378.164
+      },
+      "source_entries": 5,
+      "forecast_unavailable": true
+    }
+  },
+  "evidence": {
+    "repair-final-combined.log": "98ec1a7fe600a493db62c9573e639a2ec43175630ed30efa5fb8d9f89512046e",
+    "repair-final-integrated-A.log": "d4489ea8444278d94611bcc49853343a0c0ba6fcbc24820a8f80354953911560",
+    "repair-final-visuals-A.log": "4430ce90b9d301c5c72bc5e44c0d5dad88e8d65b90927ec5883c52433cb61db0",
+    "repair-provider-off-A.log": "08f7041a3e152956b882415496713a95dda7b46fca1aaa9906b56be27069a63d",
+    "unsaved-empirical-diagnostic.json": "d10a68f8eb17a3ccb621ad800893fd74ae99071a870372ab0a2d912c94b0c3fc"
+  },
+  "current_urls": [
+    "http://127.0.0.1:9111/#minder",
+    "http://127.0.0.1:9111/#mindbots"
+  ],
+  "remaining": [
+    "Prior document-review retry finding deferred outside this brief",
+    "Normal document storage disabled; hosting/continuous scheduler/real forecasts unverified or unavailable",
+    "Guidance is application-authored; empirical language remains constrained to verified records; no cross-refresh transcript restoration"
+  ],
+  "deployment": false
+}

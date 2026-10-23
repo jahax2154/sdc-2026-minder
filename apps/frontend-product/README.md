@@ -31,3 +31,18 @@ chat_actions uses one actual provider call unless MINDER_SKIP_CHAT=1; error_stat
 is explicitly intercepted fixture-only evidence and makes no provider call.
 workspace/documents/smoke use real same-origin APIs with fictional owners and no
 provider calls. Same token/session remains across refresh within its browser tab.
+
+Targeted chat/Mindbot repair checks: tests/repair_ui.cjs and repair_workspace.cjs
+are explicitly injected transport/deadline fixtures (no provider calls).
+repair_navigation.cjs uses the real shell/routes. repair_integrated.cjs uses actual
+API/provider for unsaved/partial guidance, follow-up/source scope, pending-chat
+workspace and action protection; MINDER_GUIDANCE_ONLY=1 skips empirical/provider
+cases. repair_visuals.cjs captures real repaired states with one sourced call.
+repair_baseline.cjs records actual current HEAD (or MINDER_FRONTEND_REVISION) and is
+the historical reproduction helper, not an assertion that later replies are broken.
+
+Only when the normal F server is stopped, tests/serve_provider_unavailable.py starts
+actual committed handlers/server with an explicitly absent provider key and a
+fresh disposable F-only DB on8106/9106; repair_provider_off.cjs verifies that mode.
+Stop it normally and restore the standard --lane F launcher afterward. This is a
+configured-unavailable test, not a real Groq incident. Private config is unchanged.

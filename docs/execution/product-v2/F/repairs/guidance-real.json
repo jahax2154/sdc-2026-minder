@@ -1,0 +1,249 @@
+{
+  "synthetic": true,
+  "base": "http://127.0.0.1:9106",
+  "checks": {
+    "unsaved_useful_answer": true,
+    "no_implicit_profile_save": true,
+    "paraphrase": true,
+    "owner_scoped_followup": true,
+    "incomplete_profile_capabilities": true,
+    "temporary_conversation": true
+  },
+  "samples": [
+    {
+      "question": "How can u help me minder?",
+      "request": {
+        "message": "How can u help me minder?",
+        "expected_profile_version": null
+      },
+      "ms": 30,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "dd042c5e-da52-4203-9c9d-eef9f7723ced",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 5.688,
+        "context_ms": 3.375,
+        "ledger_ms": 2.307,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "What could you do for someone who is unsure where to begin?",
+      "request": {
+        "message": "What could you do for someone who is unsure where to begin?",
+        "expected_profile_version": null,
+        "previous_context_id": "cc5b7fec-2e4f-4bc1-ba11-a75ababddc65"
+      },
+      "ms": 13,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "46e2fc80-ee24-4a87-9383-12fc02cc6ea8",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.805,
+        "context_ms": 1.929,
+        "ledger_ms": 2.87,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "I am a fresh graduate. Where should I start?",
+      "request": {
+        "message": "I am a fresh graduate. Where should I start?",
+        "expected_profile_version": null,
+        "previous_context_id": "b9b791d9-d2ea-4acd-b6b2-23f9b6ff9bb5"
+      },
+      "ms": 10,
+      "answer": "You can begin with coursework, a personal project, volunteering or work experience. We can use that as your self-reported context without inventing skill mastery. Tell me about one thing you worked on and what you did yourself.",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "8e626cb9-70d2-4713-9dcc-402de6614276",
+        "intent": "onboarding",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.312,
+        "context_ms": 1.955,
+        "ledger_ms": 2.351,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "I built a class project. What detail should I describe?",
+      "request": {
+        "message": "I built a class project. What detail should I describe?",
+        "expected_profile_version": null,
+        "previous_context_id": "e2ef1c39-bb36-4459-a545-5284c8370558"
+      },
+      "ms": 12,
+      "answer": "Describe the goal, what you personally did, and a result you can explain. Leave uncertain skills unknown; a project title alone is not a competence assessment. What did you personally contribute?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "ccf184fb-6340-4c15-802a-31d1b4bc5f94",
+        "intent": "followup",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 5.317,
+        "context_ms": 2.622,
+        "ledger_ms": 2.684,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    },
+    {
+      "question": "How can you help me with an incomplete profile?",
+      "request": {
+        "message": "How can you help me with an incomplete profile?",
+        "expected_profile_version": "a69185f3-ee5c-4dc4-80a7-7b8f40706081"
+      },
+      "ms": 14,
+      "answer": "Hi, I'm Minder. You can start without a complete profile. I can help you save a partial profile using your own experience and evidence, explore career roles and compare supported evidence, review a plan, tasks and recorded progress, and review proposed changes before approving them. Are you exploring your first career, changing careers, or considering a particular role?",
+      "mode": "application_guidance",
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_not_required_for_application_guidance",
+        "invoked": false
+      },
+      "diagnostics": {
+        "request_id": "7aef1194-edbd-4833-a57d-ae6a4dbd7413",
+        "intent": "capabilities",
+        "reason_codes": [
+          "verified_application_or_reference_response"
+        ],
+        "evidence_count": 0,
+        "provider_invoked": false,
+        "model": "qwen/qwen3.8-27b",
+        "total_ms": 4.112,
+        "context_ms": 1.517,
+        "ledger_ms": 2.588,
+        "provider_ms": 0
+      },
+      "source_count": 0
+    }
+  ],
+  "waterfall": [
+    {
+      "path": "/api/session",
+      "method": "POST",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 2
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 10
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 1
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "ms": 1
+    },
+    {
+      "path": "/api/profile",
+      "method": "PUT",
+      "status": 200,
+      "ms": 74
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "ms": 5
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "ms": 2
+    }
+  ],
+  "page_errors": [],
+  "provider_evidence": "application guidance skips provider; empirical responses record actual status separately"
+}
