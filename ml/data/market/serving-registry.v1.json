@@ -29,6 +29,7 @@
   ],
   "models": [],
   "promotion_rule_version": "quarter-count-promotion-v1",
+  "public_context_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
   "published_role_snapshot_sha256": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
   "selection_status": "unavailable_data",
   "synthetic": false,

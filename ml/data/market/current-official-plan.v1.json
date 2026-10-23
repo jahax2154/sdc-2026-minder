@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "source_id": "talentcorp-mycol-landing",
+      "url": "https://www.talentcorp.com.my/mycol/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Institutional shortage methodology and publication catalogue",
+      "access_conditions": "Public aggregate publication; inspect linked reuse terms; no personal records"
+    },
+    {
+      "source_id": "talentcorp-mycol-2024-2025",
+      "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+      "kind": "pdf",
+      "geography": "MY",
+      "measurement": "Occupation-shortage designation, not ad count/hiring probability",
+      "access_conditions": "Public official 21.7MB report linked from MyCOL landing; raw local; derive codes/status/source facts only"
+    },
+    {
+      "source_id": "myfuturejobs-galaxy-official-entry",
+      "url": "https://myfuturejobs.gov.my/bm/myfuturejobsgalaxy-2/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Official source/methodology for public aggregate occupational/job information",
+      "access_conditions": "Public informational entry; do not enter candidate login or collect CVs/profiles/contact records"
+    },
+    {
+      "source_id": "myfuturejobs-galaxy-public-app",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public aggregate occupational explorer and exposed data links",
+      "access_conditions": "Official entry-linked public app; no authenticated/private API or personal data collection"
+    }
+  ]
+}

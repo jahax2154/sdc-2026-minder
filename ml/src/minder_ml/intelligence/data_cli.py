@@ -7,7 +7,7 @@ import sys
 
 from .annotation_io import export_annotations, import_annotations
 from .data_adapters import derive_profile
-from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha, acquire_market, probe_market_sources, replay_market_snapshot, audit_jobstreet_corpus, extract_published_role_history
+from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha, acquire_market, probe_market_sources, replay_market_snapshot, audit_jobstreet_corpus, extract_published_role_history, build_public_current_evidence
 from .data_schemas import validate_entity
 from .market import build_market_views
 
@@ -64,6 +64,11 @@ def main(argv=None):
     published=sub.add_parser('market-published-roles')
     published.add_argument('--report',type=Path,action='append',required=True)
     published.add_argument('--output',type=Path,required=True)
+    current=sub.add_parser('market-current-evidence')
+    current.add_argument('--ocr',type=Path,required=True)
+    current.add_argument('--acquisition-report',type=Path,required=True)
+    current.add_argument('--output',type=Path,required=True)
+    current.add_argument('--scope-ocr',type=Path)
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--pack", type=Path, default=PACK)
     prepare = sub.add_parser("prepare")
@@ -90,7 +95,9 @@ def main(argv=None):
     report.add_argument("--review-results", type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command == 'market-published-roles':
+        if args.command == 'market-current-evidence':
+            output=build_public_current_evidence(args.ocr,args.acquisition_report,args.output,args.scope_ocr)
+        elif args.command == 'market-published-roles':
             output=extract_published_role_history(args.report,args.output)
         elif args.command == 'market-corpus-audit':
             output=audit_jobstreet_corpus(args.input,args.expected_sha256,args.output)

@@ -1,0 +1,74 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Record A four integrated market-informed roles and every official role observation: 5 latest awaiting canonical mapping, 30 historical/context-only; all 35 callable as source-native facts",
+    "Add 66 explicit national MASCO 2020 4-digit shortage groups from MyCOL Table7, without title-only joins or all-child/negative-demand inference",
+    "Add 21 distinct latest sector levels and 9 occupation-major-group levels, preserving source grain, unclassified coverage and quality flags",
+    "Versioned date/scope/source records; unknown MyCOL publication/fieldwork dates stay null",
+    "Add targeted current_context and code/label catalogue interface; no numeric conversion or change to A count-cohort ranking",
+    "Inspect public Galaxy aggregate data but hold bulk redistribution/application rows under linked reuse restrictions",
+    "Whitelist occupational/aggregate facts; no CVs, applicant records or recruiter/author contact details in derived/context data"
+  ],
+  "checkpoint": "commit containing this phase record and early handoff",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service.CurrentContextTests test_market_service.CurrentTests test_market_service.PublishedServiceTests test_service_contracts",
+      "log_sha256": "ac007d502332a1ceae3aa1e31aabcaa296d7afe862a65578298b93772f45a25c",
+      "result": ".........................\n----------------------------------------------------------------------\nRan 25 tests in 0.693s\n\nOK"
+    },
+    {
+      "command": "market-current-evidence on pinned source report and local Table7 OCR",
+      "result": "66 distinct explicit MASCO codes, 21 distinct sector labels, 9 distinct major groups; 96 allowlisted records"
+    },
+    {
+      "command": "Independent public code-reference membership check (local only)",
+      "result": "66 of 66 MyCOL codes recognized; no Galaxy rows/values distributed"
+    },
+    {
+      "command": "Read committed A report and source records with reconcile_current_coverage.py",
+      "result": "4 already integrated count roles; 35 source role facts individually classified, with exact comparison/mapping reasons"
+    }
+  ],
+  "coverage": {
+    "cross_taxonomy_distinct_occupations": "Not summed across incomparable or unjoined classifications",
+    "distinct_identified_employers_added": 0,
+    "dosm_distinct_major_occupation_groups": 9,
+    "dosm_distinct_sector_labels": 21,
+    "existing_identified_employer_feed_count": 1,
+    "mycol_declared_study_sector_count": 18,
+    "mycol_distinct_masco2020_four_digit_groups": 66
+  },
+  "inputs": [
+    "A committed N3.1 four-role coverage snapshot",
+    "Existing 35 official role facts and pinned DOSM source cells reused",
+    "Newly acquired public MyCOL 2024/2025 report and user-specified official Galaxy source"
+  ],
+  "limitations": [
+    "No cross-taxonomy grand total or automatic expansion of A numerical ad-count cohort",
+    "Native MyCOL context awaits A consumer integration/canonical mapping; current count ranking remains 4 roles",
+    "Shortage designation, published offering levels and employer ads remain different measurements",
+    "No open-data licence/permission invented; Galaxy bulk held",
+    "No forecasts/history prerequisite or paid execution required for this delivery"
+  ],
+  "next_eligible": "B3.2-R02 full verification, final source/reuse/coverage handoff to A",
+  "objective": "Early coded current-market coverage expansion and exact reconciliation with A four-role cohort",
+  "operational_notes": [
+    "pypdf6.21.2 and typing-extensions installed only under ignored lane pdf-deps; no root/shared environment change",
+    "Public PDF has image-based coded tables; AppleVision failed inside sandbox, approved headless local rerun completed 17 source pages plus 6 metadata/method pages",
+    "Raw PDF/OCR/client metadata remain local, not committed or passed into application/LLM inputs"
+  ],
+  "owner": "B",
+  "phase_id": "B1.1-R04",
+  "refines": "B1.1",
+  "source_conditions": {
+    "official_entry": "https://myfuturejobs.gov.my/bm/myfuturejobsgalaxy-2/",
+    "permission_status": "not_granted_or_assumed",
+    "reason": "Linked MYFutureJobs terms clauses 4.3/4.4 restrict storage/reproduction/distribution; no separate Galaxy open-data licence located.",
+    "records_distributed_to_application": 0,
+    "source_observed_four_digit_groups": 428,
+    "source_observed_six_digit_occupations": 3041,
+    "status": "public_aggregate_records_inspected_distribution_held",
+    "terms_url": "https://myfuturejobs.gov.my/wp-content/uploads/2024/03/TermsAndConditions.pdf"
+  },
+  "status": "limited"
+}

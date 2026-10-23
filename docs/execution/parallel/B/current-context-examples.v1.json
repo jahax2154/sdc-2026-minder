@@ -1,0 +1,173 @@
+{
+  "as_of": "2026-10-23T08:56:10.800221+00:00",
+  "dosm_manufacturing": {
+    "issued_at": "2026-10-23T08:56:10.800221+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T08:56:10.800221+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "source_native_current_level_only; not narrow-role allocation or mixed-unit comparison",
+        "coverage": {
+          "economic_activity_unclassified": 273024,
+          "employer_count": null,
+          "grain": "economic-activity marginal",
+          "published_total": 555509,
+          "source_representativeness": "not independently verified"
+        },
+        "entity_type": "sector",
+        "evidence_id": "dosm:jmi:2026-q2:sector:manufacturing",
+        "geography": {
+          "country_code": "MY",
+          "scope": "published national source coverage"
+        },
+        "limitations": [
+          "Source-covered online offerings, not all Malaysian employment, vacancies or hires.",
+          "Separate marginal tables are not joint occupation/sector/employer observations.",
+          "Never allocate broad totals to a narrow role or requested skill.",
+          "Q2 industry classification/coverage change and large unclassified count limit cross-quarter comparisons."
+        ],
+        "measurement_type": "published_online_job_offerings",
+        "observation_period": {
+          "basis": "published quarter",
+          "end": "2026-06-30",
+          "label": "2026 Q2",
+          "start": "2026-04-01"
+        },
+        "publication_date_status": "official_release_date; time_of_day_not_asserted",
+        "published_at": "2026-08-18",
+        "quality_flags": [
+          "classification_coverage_review"
+        ],
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official aggregate attachment; pinned immutable source reused",
+          "licence": "Specific attachment redistribution licence not independently verified; raw workbook not redistributed"
+        },
+        "sector": {
+          "code": null,
+          "code_status": "not_supplied_in_acquired_workbook; no code inferred from title or row order",
+          "label": "Manufacturing",
+          "system": "DOSM JMI published economic activities",
+          "version": null
+        },
+        "source": {
+          "publisher": "Department of Statistics Malaysia",
+          "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "source_cell": {
+            "cell": "AL8",
+            "raw_value": "20074",
+            "sheet": "e2-Summary Table BI",
+            "value_status": "observed"
+          },
+          "source_id": "dosm_jmi_q2_2026_data",
+          "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026"
+        },
+        "source_available_at": "2026-10-20T10:09:55.962156+00:00",
+        "unit": "published job offerings",
+        "value": 20074
+      }
+    ],
+    "source_snapshot_sha256": "22e9fab3cf6d65d41528d8693d9e1d2a21f3d726496c6daca46a59f502a0f15b",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "mycol_child_scope_unknown": {
+    "issued_at": "2026-10-23T08:56:10.800221+00:00",
+    "missing_reason": "six_digit_membership_not_verified",
+    "numeric_comparison_eligible": false,
+    "records": [],
+    "source_snapshot_sha256": "22e9fab3cf6d65d41528d8693d9e1d2a21f3d726496c6daca46a59f502a0f15b",
+    "status": "unknown",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "mycol_nonlisting": {
+    "issued_at": "2026-10-23T08:56:10.800221+00:00",
+    "missing_reason": "no_matching_available_source_fact; non_listing_is_unknown_not_low_demand",
+    "numeric_comparison_eligible": false,
+    "records": [],
+    "source_snapshot_sha256": "22e9fab3cf6d65d41528d8693d9e1d2a21f3d726496c6daca46a59f502a0f15b",
+    "status": "unknown",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "mycol_software_group": {
+    "issued_at": "2026-10-23T08:56:10.800221+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T08:56:10.800221+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "usable_source_coded_context_not_compatible_with_ad_count_ranking",
+        "coverage": {
+          "applies_to_all_six_digit_children": false,
+          "declared_study_sectors": 18,
+          "distinct_national_four_digit_groups": 66,
+          "employer_count": null,
+          "sector_coverage_basis": "institutional MyCOL landing statement; not 18 per-occupation sector mappings"
+        },
+        "entity_type": "occupation",
+        "evidence_id": "mycol:2024-2025:masco2020:2512",
+        "geography": {
+          "country_code": "MY",
+          "scope": "national"
+        },
+        "limitations": [
+          "Institutional shortage designation, not number of ads, hires, employment or probability.",
+          "Non-listing is unknown and does not imply low demand.",
+          "National group designation may cover only nominated six-digit jobs; do not mark every child critical.",
+          "Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.",
+          "No title-only MASCO/O*NET join or numerical recommendation contribution is applied."
+        ],
+        "measurement_type": "institutional_occupation_shortage_designation",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "occupation": {
+          "code": "2512",
+          "label": "Software Developers",
+          "level": 4,
+          "system": "MASCO",
+          "version": "2020"
+        },
+        "publication_date_status": "not_stated_in_inspected_landing_or_verified_report_metadata",
+        "published_at": null,
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official report",
+          "licence": "No open-data licence asserted; preserve attribution; raw report/prose not redistributed",
+          "terms_url": "https://www.talentcorp.com.my/terms-conditions/"
+        },
+        "source": {
+          "code_bbox": {
+            "height": 0.01848049315596767,
+            "width": 0.023255813121795588,
+            "x": 0.6017441864042185,
+            "y": 0.38193018481832
+          },
+          "landing_url": "https://www.talentcorp.com.my/mycol/",
+          "pdf_page": 44,
+          "publisher": "TalentCorp",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "source_id": "talentcorp-mycol-2024-2025",
+          "table": "Table 7: national critical occupations",
+          "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf"
+        },
+        "source_available_at": "2026-10-23T08:37:42.858633+00:00",
+        "unit": "designation_not_advertisement_count",
+        "value": "listed_in_national_MyCOL"
+      }
+    ],
+    "source_snapshot_sha256": "22e9fab3cf6d65d41528d8693d9e1d2a21f3d726496c6daca46a59f502a0f15b",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  }
+}

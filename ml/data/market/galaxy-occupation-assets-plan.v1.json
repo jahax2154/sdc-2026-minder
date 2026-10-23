@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "source_id": "galaxy-jg-api",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/assets/jg-api.afdd0b41.js",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public occupational explorer asset, not a person profile",
+      "access_conditions": "Inspect aggregate occupation/sector/classification data requests only; no candidates/CVs/contact records"
+    },
+    {
+      "source_id": "galaxy-highskilljobprofile",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/assets/HighSkillJobProfile.5e6e32ab.js",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public occupational explorer asset, not a person profile",
+      "access_conditions": "Inspect aggregate occupation/sector/classification data requests only; no candidates/CVs/contact records"
+    },
+    {
+      "source_id": "galaxy-searchresult",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/assets/SearchResult.57f0e51a.js",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public occupational explorer asset, not a person profile",
+      "access_conditions": "Inspect aggregate occupation/sector/classification data requests only; no candidates/CVs/contact records"
+    },
+    {
+      "source_id": "galaxy-aboutus",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/assets/AboutUs.b22e644c.js",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public occupational explorer asset, not a person profile",
+      "access_conditions": "Inspect aggregate occupation/sector/classification data requests only; no candidates/CVs/contact records"
+    }
+  ]
+}

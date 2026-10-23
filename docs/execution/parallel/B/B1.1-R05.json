@@ -1,0 +1,52 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Extract 43 explicitly enumerated six-digit codes across native groups2141/2411/2512/2524",
+    "Preserve nominated-job-title restrictions and positive-membership-only completeness",
+    "Return a parent-source fact with explicit query-scope provenance only for an enumerated six-digit code",
+    "Unknown nonlisted child queries remain unknown; no O*NET mapping or child title pairing invented",
+    "Keep 66 group entities,21sector levels,9major occupation groups; do not add hierarchical counts as independent occupations"
+  ],
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "command": "Local headless OCR on four acquired public profile-header pages",
+      "result": "4 pages completed; 43 explicit codes, no new download or personal-data endpoints"
+    },
+    {
+      "command": "market-current-evidence with --scope-ocr plus strict parent/child-prefix checks",
+      "result": "4 scoped groups,43 positive memberships; each tied to source PDF page"
+    },
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service.CurrentContextTests test_market_service.CurrentTests test_market_service.PublishedServiceTests test_service_contracts",
+      "log_sha256": "530557ddb9e8a5c120d59a9e91645c10c39193a874b3ba4e7c7367857f58a2bd",
+      "result": "...........................\n----------------------------------------------------------------------\nRan 27 tests in 0.644s\n\nOK"
+    }
+  ],
+  "coverage": {
+    "cross_taxonomy_distinct_occupations": "Not summed across incomparable or unjoined classifications",
+    "distinct_identified_employers_added": 0,
+    "dosm_distinct_major_occupation_groups": 9,
+    "dosm_distinct_sector_labels": 21,
+    "existing_identified_employer_feed_count": 1,
+    "mycol_declared_study_sector_count": 18,
+    "mycol_distinct_masco2020_four_digit_groups": 66,
+    "mycol_explicit_six_digit_memberships": 43,
+    "mycol_profile_groups_with_verified_six_digit_scope": 4
+  },
+  "inputs": [
+    "B1.1-R04 f9dcd93",
+    "Same acquired MyCOL document, four detailed profile headers on PDF pages79/113/125/137"
+  ],
+  "limitations": [
+    "All other children/groups retain unverified individual scope",
+    "Group facts and positive memberships are not advertisement counts, role-fit scores or O*NET canonical joins",
+    "Historical early v1 examples retain their prior unknown child-scope state; new v2 examples show the added source proof"
+  ],
+  "next_eligible": "B3.2-R02 final verification/source conditions and culminating handoff",
+  "objective": "Verify precise six-digit MyCOL scope for the four relevant native groups, without blanket child or title-only crosswalk inference",
+  "owner": "B",
+  "phase_id": "B1.1-R05",
+  "refines": "B1.1-R04",
+  "status": "passed"
+}

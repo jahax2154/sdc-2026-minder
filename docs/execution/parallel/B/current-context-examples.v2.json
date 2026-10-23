@@ -1,0 +1,403 @@
+{
+  "2141-03": {
+    "issued_at": "2026-10-23T09:09:55.576473+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T09:09:55.576473+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "usable_source_coded_context_not_compatible_with_ad_count_ranking",
+        "coverage": {
+          "applies_to_all_six_digit_children": false,
+          "declared_study_sectors": 18,
+          "distinct_national_four_digit_groups": 66,
+          "employer_count": null,
+          "explicit_six_digit_codes": [
+            "2141-01",
+            "2141-03",
+            "2141-04",
+            "2141-09",
+            "2141-10",
+            "2141-15",
+            "2141-29",
+            "2141-32",
+            "2141-52",
+            "2141-53",
+            "2141-57",
+            "2141-61",
+            "2141-64",
+            "2141-67",
+            "2141-68",
+            "2141-69",
+            "2141-71",
+            "2141-74"
+          ],
+          "sector_coverage_basis": "institutional MyCOL landing statement; not 18 per-occupation sector mappings",
+          "six_digit_completeness": "positive enumerated codes only; non-matching queries remain unknown",
+          "six_digit_scope_limit": "Only nominated job titles and explicitly enumerated six-digit codes; no unlisted-child inference"
+        },
+        "entity_type": "occupation",
+        "evidence_id": "mycol:2024-2025:masco2020:2141",
+        "geography": {
+          "country_code": "MY",
+          "scope": "national"
+        },
+        "limitations": [
+          "Institutional shortage designation, not number of ads, hires, employment or probability.",
+          "Non-listing is unknown and does not imply low demand.",
+          "National group designation may cover only nominated six-digit jobs; do not mark every child critical.",
+          "Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.",
+          "No title-only MASCO/O*NET join or numerical recommendation contribution is applied."
+        ],
+        "measurement_type": "institutional_occupation_shortage_designation",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "occupation": {
+          "code": "2141",
+          "label": "Industrial and Production Engineers",
+          "level": 4,
+          "system": "MASCO",
+          "version": "2020"
+        },
+        "publication_date_status": "not_stated_in_inspected_landing_or_verified_report_metadata",
+        "published_at": null,
+        "query_scope": {
+          "occupation_code": "2141-03",
+          "relationship": "explicitly_enumerated_six_digit_member",
+          "source_pdf_page": 79,
+          "title_limit": "Publication nominated-job-title restriction retained; individual code-to-title pairing not invented"
+        },
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official report",
+          "licence": "No open-data licence asserted; preserve attribution; raw report/prose not redistributed",
+          "terms_url": "https://www.talentcorp.com.my/terms-conditions/"
+        },
+        "source": {
+          "code_bbox": {
+            "height": 0.014373716899085953,
+            "width": 0.020348837375640874,
+            "x": 0.11046511636547414,
+            "y": 0.18891170426435167
+          },
+          "landing_url": "https://www.talentcorp.com.my/mycol/",
+          "pdf_page": 44,
+          "publisher": "TalentCorp",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "six_digit_scope_pdf_page": 79,
+          "source_id": "talentcorp-mycol-2024-2025",
+          "table": "Table 7: national critical occupations",
+          "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf"
+        },
+        "source_available_at": "2026-10-23T08:37:42.858633+00:00",
+        "unit": "designation_not_advertisement_count",
+        "value": "listed_in_national_MyCOL"
+      }
+    ],
+    "source_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "2411-25": {
+    "issued_at": "2026-10-23T09:09:55.576473+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T09:09:55.576473+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "usable_source_coded_context_not_compatible_with_ad_count_ranking",
+        "coverage": {
+          "applies_to_all_six_digit_children": false,
+          "declared_study_sectors": 18,
+          "distinct_national_four_digit_groups": 66,
+          "employer_count": null,
+          "explicit_six_digit_codes": [
+            "2411-06",
+            "2411-07",
+            "2411-09",
+            "2411-14",
+            "2411-16",
+            "2411-17",
+            "2411-20",
+            "2411-25",
+            "2411-37",
+            "2411-39",
+            "2411-41",
+            "2411-47",
+            "2411-49",
+            "2411-51"
+          ],
+          "sector_coverage_basis": "institutional MyCOL landing statement; not 18 per-occupation sector mappings",
+          "six_digit_completeness": "positive enumerated codes only; non-matching queries remain unknown",
+          "six_digit_scope_limit": "Only nominated job titles and explicitly enumerated six-digit codes; no unlisted-child inference"
+        },
+        "entity_type": "occupation",
+        "evidence_id": "mycol:2024-2025:masco2020:2411",
+        "geography": {
+          "country_code": "MY",
+          "scope": "national"
+        },
+        "limitations": [
+          "Institutional shortage designation, not number of ads, hires, employment or probability.",
+          "Non-listing is unknown and does not imply low demand.",
+          "National group designation may cover only nominated six-digit jobs; do not mark every child critical.",
+          "Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.",
+          "No title-only MASCO/O*NET join or numerical recommendation contribution is applied."
+        ],
+        "measurement_type": "institutional_occupation_shortage_designation",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "occupation": {
+          "code": "2411",
+          "label": "Accountants and Auditors",
+          "level": 4,
+          "system": "MASCO",
+          "version": "2020"
+        },
+        "publication_date_status": "not_stated_in_inspected_landing_or_verified_report_metadata",
+        "published_at": null,
+        "query_scope": {
+          "occupation_code": "2411-25",
+          "relationship": "explicitly_enumerated_six_digit_member",
+          "source_pdf_page": 113,
+          "title_limit": "Publication nominated-job-title restriction retained; individual code-to-title pairing not invented"
+        },
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official report",
+          "licence": "No open-data licence asserted; preserve attribution; raw report/prose not redistributed",
+          "terms_url": "https://www.talentcorp.com.my/terms-conditions/"
+        },
+        "source": {
+          "code_bbox": {
+            "height": 0.01848049315596767,
+            "width": 0.023255813121795588,
+            "x": 0.6031976746406525,
+            "y": 0.5482546198320093
+          },
+          "landing_url": "https://www.talentcorp.com.my/mycol/",
+          "pdf_page": 44,
+          "publisher": "TalentCorp",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "six_digit_scope_pdf_page": 113,
+          "source_id": "talentcorp-mycol-2024-2025",
+          "table": "Table 7: national critical occupations",
+          "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf"
+        },
+        "source_available_at": "2026-10-23T08:37:42.858633+00:00",
+        "unit": "designation_not_advertisement_count",
+        "value": "listed_in_national_MyCOL"
+      }
+    ],
+    "source_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "2512-01": {
+    "issued_at": "2026-10-23T09:09:55.576473+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T09:09:55.576473+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "usable_source_coded_context_not_compatible_with_ad_count_ranking",
+        "coverage": {
+          "applies_to_all_six_digit_children": false,
+          "declared_study_sectors": 18,
+          "distinct_national_four_digit_groups": 66,
+          "employer_count": null,
+          "explicit_six_digit_codes": [
+            "2512-01",
+            "2512-04",
+            "2512-19",
+            "2512-23",
+            "2512-39",
+            "2512-47",
+            "2512-49"
+          ],
+          "sector_coverage_basis": "institutional MyCOL landing statement; not 18 per-occupation sector mappings",
+          "six_digit_completeness": "positive enumerated codes only; non-matching queries remain unknown",
+          "six_digit_scope_limit": "Only nominated job titles and explicitly enumerated six-digit codes; no unlisted-child inference"
+        },
+        "entity_type": "occupation",
+        "evidence_id": "mycol:2024-2025:masco2020:2512",
+        "geography": {
+          "country_code": "MY",
+          "scope": "national"
+        },
+        "limitations": [
+          "Institutional shortage designation, not number of ads, hires, employment or probability.",
+          "Non-listing is unknown and does not imply low demand.",
+          "National group designation may cover only nominated six-digit jobs; do not mark every child critical.",
+          "Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.",
+          "No title-only MASCO/O*NET join or numerical recommendation contribution is applied."
+        ],
+        "measurement_type": "institutional_occupation_shortage_designation",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "occupation": {
+          "code": "2512",
+          "label": "Software Developers",
+          "level": 4,
+          "system": "MASCO",
+          "version": "2020"
+        },
+        "publication_date_status": "not_stated_in_inspected_landing_or_verified_report_metadata",
+        "published_at": null,
+        "query_scope": {
+          "occupation_code": "2512-01",
+          "relationship": "explicitly_enumerated_six_digit_member",
+          "source_pdf_page": 125,
+          "title_limit": "Publication nominated-job-title restriction retained; individual code-to-title pairing not invented"
+        },
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official report",
+          "licence": "No open-data licence asserted; preserve attribution; raw report/prose not redistributed",
+          "terms_url": "https://www.talentcorp.com.my/terms-conditions/"
+        },
+        "source": {
+          "code_bbox": {
+            "height": 0.01848049315596767,
+            "width": 0.023255813121795588,
+            "x": 0.6017441864042185,
+            "y": 0.38193018481832
+          },
+          "landing_url": "https://www.talentcorp.com.my/mycol/",
+          "pdf_page": 44,
+          "publisher": "TalentCorp",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "six_digit_scope_pdf_page": 125,
+          "source_id": "talentcorp-mycol-2024-2025",
+          "table": "Table 7: national critical occupations",
+          "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf"
+        },
+        "source_available_at": "2026-10-23T08:37:42.858633+00:00",
+        "unit": "designation_not_advertisement_count",
+        "value": "listed_in_national_MyCOL"
+      }
+    ],
+    "source_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "2512-99": {
+    "issued_at": "2026-10-23T09:09:55.576473+00:00",
+    "missing_reason": "six_digit_membership_not_verified",
+    "numeric_comparison_eligible": false,
+    "records": [],
+    "source_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "status": "unknown",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  },
+  "2524-01": {
+    "issued_at": "2026-10-23T09:09:55.576473+00:00",
+    "missing_reason": null,
+    "numeric_comparison_eligible": false,
+    "records": [
+      {
+        "available_at": "2026-10-23T09:09:55.576473+00:00",
+        "canonical_role_mappings": [],
+        "comparison_status": "usable_source_coded_context_not_compatible_with_ad_count_ranking",
+        "coverage": {
+          "applies_to_all_six_digit_children": false,
+          "declared_study_sectors": 18,
+          "distinct_national_four_digit_groups": 66,
+          "employer_count": null,
+          "explicit_six_digit_codes": [
+            "2524-01",
+            "2524-03",
+            "2524-16",
+            "2524-24"
+          ],
+          "sector_coverage_basis": "institutional MyCOL landing statement; not 18 per-occupation sector mappings",
+          "six_digit_completeness": "positive enumerated codes only; non-matching queries remain unknown",
+          "six_digit_scope_limit": "Only nominated job titles and explicitly enumerated six-digit codes; no unlisted-child inference"
+        },
+        "entity_type": "occupation",
+        "evidence_id": "mycol:2024-2025:masco2020:2524",
+        "geography": {
+          "country_code": "MY",
+          "scope": "national"
+        },
+        "limitations": [
+          "Institutional shortage designation, not number of ads, hires, employment or probability.",
+          "Non-listing is unknown and does not imply low demand.",
+          "National group designation may cover only nominated six-digit jobs; do not mark every child critical.",
+          "Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.",
+          "No title-only MASCO/O*NET join or numerical recommendation contribution is applied."
+        ],
+        "measurement_type": "institutional_occupation_shortage_designation",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "occupation": {
+          "code": "2524",
+          "label": "Data Professionals",
+          "level": 4,
+          "system": "MASCO",
+          "version": "2020"
+        },
+        "publication_date_status": "not_stated_in_inspected_landing_or_verified_report_metadata",
+        "published_at": null,
+        "query_scope": {
+          "occupation_code": "2524-01",
+          "relationship": "explicitly_enumerated_six_digit_member",
+          "source_pdf_page": 137,
+          "title_limit": "Publication nominated-job-title restriction retained; individual code-to-title pairing not invented"
+        },
+        "record_version": "current-public-market-evidence-v1",
+        "reuse_conditions": {
+          "access": "public official report",
+          "licence": "No open-data licence asserted; preserve attribution; raw report/prose not redistributed",
+          "terms_url": "https://www.talentcorp.com.my/terms-conditions/"
+        },
+        "source": {
+          "code_bbox": {
+            "height": 0.016427105027526756,
+            "width": 0.024709300994873007,
+            "x": 0.6017441868883608,
+            "y": 0.21149897324159017
+          },
+          "landing_url": "https://www.talentcorp.com.my/mycol/",
+          "pdf_page": 44,
+          "publisher": "TalentCorp",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "six_digit_scope_pdf_page": 137,
+          "source_id": "talentcorp-mycol-2024-2025",
+          "table": "Table 7: national critical occupations",
+          "url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf"
+        },
+        "source_available_at": "2026-10-23T08:37:42.858633+00:00",
+        "unit": "designation_not_advertisement_count",
+        "value": "listed_in_national_MyCOL"
+      }
+    ],
+    "source_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "status": "available",
+    "usage": "Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.",
+    "version": "current-public-market-evidence-v1"
+  }
+}

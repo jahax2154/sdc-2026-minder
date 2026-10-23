@@ -1,0 +1,95 @@
+{
+  "checked_at": "2026-10-23T09:02:32.226959+00:00",
+  "new_application_coverage": "66 MASCO national shortage groups, 21 distinct DOSM sector labels, 9 major occupation groups; 1 previously verified employer feed; counts are not summed across taxonomies",
+  "sources": [
+    {
+      "available_at": "2026-10-23T08:37:42.858633+00:00",
+      "declared_study_sectors": 18,
+      "distinct_occupation_groups": 66,
+      "employer_count": null,
+      "geography": "MY national; regional lists are separate",
+      "limitations": [
+        "Only selected six-digit children may be covered",
+        "Non-listing means unknown, never low demand",
+        "Shortage designation is not ad volume, hiring probability or individual qualification"
+      ],
+      "measurement": "institutional occupation-shortage designation",
+      "new_state": "Public official report acquired; 212 PDF spreads, 66 explicit national MASCO 2020 4-digit groups parsed from image Table 7",
+      "observation_period": "2024/2025 edition; mixed statistical/survey sources, not a verified October 2026 snapshot",
+      "prior_state": "Reference link existed; earlier source audit had no acquired MyCOL report or coded shortage records",
+      "publication_status": "Exact date not found in inspected landing/verified report metadata; not inferred from URL or PDF file dates",
+      "published_at": null,
+      "requested_url": "https://www.talentcorp.com.my/mycol/",
+      "reuse": "Source-linked aggregate codes/designations only, institution attributed; no open licence asserted; raw report/prose not redistributed",
+      "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+      "source": "MyCOL",
+      "source_url": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+      "usable_now": "Source-coded context API; canonical joins and numerical comparison are not applied"
+    },
+    {
+      "distinct_major_occupation_groups": 9,
+      "distinct_sectors": 21,
+      "employer_count": null,
+      "geography": "MY, source-covered recruitment platforms",
+      "latest_role_label_observations": 5,
+      "limitations": [
+        "555509 source total includes 273024 economically unclassified offerings",
+        "Classification/coverage change limits cross-quarter growth comparisons",
+        "Broad marginals cannot be allocated to narrow roles or skills",
+        "Not entire employment, all vacancies or verified deduplicated unique-ad target"
+      ],
+      "measurement": "published source-covered online job offerings",
+      "new_state": "Reuse pinned source; package 21 latest sector levels and 9 major occupation group levels as separate current context",
+      "observation_period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "occupation_codes": "Not provided for these extracted workbook/role-label entries; retained null, never assigned by similar title",
+      "older_role_label_observations": 30,
+      "prior_state": "Already acquired pinned workbook and 35 explicit role-label observations across 11 releases",
+      "published_at": "2026-08-18",
+      "requested_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "reuse": "Public official aggregate facts with source attribution; raw workbook not redistributed; attachment-specific open licence not asserted",
+      "source": "DOSM JMI 2026 Q2",
+      "usable_now": "Source-native dated levels/role facts; mapping to canonical roles remains separate"
+    },
+    {
+      "distribution_status": "held; zero bulk occupation rows copied into app/Git",
+      "employer_count": null,
+      "exact_reason": "Linked terms 4.3/4.4 restrict storage, reproduction/distribution; no separate Galaxy open-data licence or written permission located",
+      "geography": "MY; public classification endpoint covers major groups 1-8",
+      "limitations": [
+        "Do not sum per-occupation company counts as unique employers",
+        "Unversioned platform shortage flags do not replace the versioned MyCOL edition",
+        "Absence/zero/missing coverage are not national low demand"
+      ],
+      "measurement": "Public MASCO 2020 occupational reference and selected-portal job-advertisement aggregates; not whole employment",
+      "new_state": "Official entry/client/public aggregate responses inspected; candidate/person/CV routes excluded",
+      "prior_state": "Earlier audit checked LMX portals, not this official Galaxy entry and client-used occupational API",
+      "privacy": "Only public aggregate/code endpoints queried; no applicants, CVs, personal accounts or recruiter contact endpoints",
+      "published_at": null,
+      "requested_url": "https://myfuturejobs.gov.my/bm/myfuturejobsgalaxy-2/",
+      "source": "MYFutureJobsGalaxy",
+      "source_display_period": "Vacancy notes name April 2026; per-record list period/publication time not supplied",
+      "source_observed_four_digit_groups": 428,
+      "source_observed_sector_codes": 21,
+      "source_observed_six_digit_occupation_codes": 3041,
+      "terms_url": "https://myfuturejobs.gov.my/wp-content/uploads/2024/03/TermsAndConditions.pdf"
+    }
+  ],
+  "terms_evidence": [
+    {
+      "retrieved_at": "2026-10-23T08:53:07.922642+00:00",
+      "sha256": "6dd579e9d4f85a1fa437d8354149f832824ff11ccdd5b0c9a9656056f842eace",
+      "source_id": "talentcorp-reuse-terms",
+      "url": "https://www.talentcorp.com.my/terms-conditions/"
+    },
+    {
+      "retrieved_at": "2026-10-23T08:53:07.951977+00:00",
+      "sha256": "d8164e93062a7a1ffcf7dea6d4f5c1bacb22417a54d593fa803fb740a133daf2",
+      "source_id": "myfuturejobs-reuse-terms",
+      "url": "https://myfuturejobs.gov.my/wp-content/uploads/2024/03/TermsAndConditions.pdf"
+    }
+  ],
+  "version": "official-source-comparison-v1"
+}

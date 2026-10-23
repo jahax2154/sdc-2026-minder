@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "source_id": "talentcorp-reuse-terms",
+      "url": "https://www.talentcorp.com.my/terms-conditions/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Published access/reuse conditions for aggregate report source",
+      "access_conditions": "Read terms only, derive no personal/contact data"
+    },
+    {
+      "source_id": "myfuturejobs-reuse-terms",
+      "url": "https://myfuturejobs.gov.my/wp-content/uploads/2024/03/TermsAndConditions.pdf",
+      "kind": "pdf",
+      "geography": "MY",
+      "measurement": "Linked terms clauses 4.3/4.4; no rights grant inferred for Galaxy redistribution",
+      "access_conditions": "Public terms; raw local; restrict Galaxy bulk redistribution pending permission"
+    }
+  ]
+}
