@@ -7,7 +7,7 @@ from minder_ml.intelligence.policy import ROOT
 
 from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
 from minder_ml.intelligence.service_contracts import validate
-from minder_ml.intelligence.personal_service import PersonalMatchingService, update_preference, filter_roles
+from minder_ml.intelligence.personal_service import PendingPersonalService as PersonalMatchingService, update_preference, filter_roles
 from minder_ml.intelligence.personal_cli import synthetic_profile
 from minder_ml.intelligence.personal_training import machinery_plan, grouped_split, load_machinery_candidate, ARTIFACT_ROOT
 
@@ -97,11 +97,9 @@ class PersonalServiceTests(unittest.TestCase):
                 service.assess(profile, self.roles)
 
     def test_committed_c_pending_token_maps_to_canonical_inactive_policy(self):
-        from minder_ml.intelligence.app_context import CareerServices
         profile = synthetic_profile()
-        result = CareerServices(PersonalMatchingService(), roles=self.roles,
-                                mode='local_source_services').career_context(
-                                    profile, expected_profile_version=profile['version'])
+        result = {'recommendation': PersonalMatchingService().assess(profile, self.roles,
+            policy_version='N01-pending', market_period_policy_key='personal_only_pending_market_policy')}
         self.assertEqual(result['recommendation']['public']['policy_version'], 'personal-role-fit-v2-proposal')
         self.assertEqual(result['recommendation']['public']['status'], 'policy_pending')
 

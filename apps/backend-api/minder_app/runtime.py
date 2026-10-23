@@ -20,8 +20,8 @@ def application():
     sources = list(catalogue.coverage["sources"]) + [dict(source_id="bosch-smartrecruiters-my",
         version="derived-measurement-snapshot:" + market.version, sha256=market.version,
         uri="https://www.bosch.com.my/careers/", geography="MY",
-        available_at=market.snapshot["collected_at"], evidence_type="source-derived")]
-    services = CareerServices(PersonalMatchingService(), market, roles, sources,
+        available_at=market.snapshot.get("available_at", market.snapshot["collected_at"]), evidence_type="source-derived")]
+    services = CareerServices(PersonalMatchingService(market), market, roles, sources,
         mode="local_source_services", skill_entity_ids=[x["source_skill_id"] for x in market.mapping["skills"]])
     path = Path(os.environ.get("MINDER_DB_PATH", ROOT / "ml/artifacts/session-c/runtime/dev.sqlite3")).resolve()
     if not path.is_relative_to((ROOT / "ml/artifacts/session-c").resolve()):

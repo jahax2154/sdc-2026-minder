@@ -42,12 +42,13 @@ def application(database, *, role_ids=None):
                          version='derived-snapshot-v1:' + market.version,
                          sha256=hashlib.sha256(snapshot_path.read_bytes()).hexdigest(),
                          uri='https://www.bosch.com.my/careers/', geography='MY',
-                         available_at=market.snapshot['collected_at'], evidence_type='source-derived')
-    services = CareerServices(PersonalMatchingService(), market, roles=roles,
+                         available_at=market.snapshot.get('available_at', market.snapshot['collected_at']), evidence_type='source-derived')
+    services = CareerServices(PersonalMatchingService(market), market, roles=roles,
                               sources=catalogue.coverage['sources'] + [market_source],
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
-    return Application(Store(database), services), catalogue
+    from minder_app.config import configured_provider
+    return Application(Store(database), services, configured_provider()), catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):
@@ -114,7 +115,7 @@ def smoke(output):
     evidence['checks']['actual_chat_boundary_with_provider_availability'] = chat['provider']['status']
     evidence['limitations'] = ['No live-provider success implied by bounded unavailable response.',
                                'B current evidence is a 39-ad inspected employer sample, not national demand.',
-                               'N01 pending: zero numeric role-fit scores.',
+                               'This unanchored demonstration has zero assessed roles; structured evidence enables provisional scoring.',
                                'Local WSGI evidence is not a deployed or TCP HTTP check.']
     (output / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
     print(json.dumps(dict(checks=evidence['checks'], provider=chat['provider'],
@@ -277,7 +278,7 @@ def acceptance(output):
         evidence['checks']['actual_provider_state'] = chat['provider']
         evidence['examples'] = dict(context=current, company=company, chat=chat,
                                     pathway_design=preview['design'])
-    evidence['limitations'] = ['N01 pending: complete synthetic evidence does not yield numeric scores.',
+    evidence['limitations'] = ['Legacy/unanchored synthetic claims do not supply the new anchored rubric.',
         'No empirical personal-fit/forecast accuracy, live Groq success or deployed scheduler claimed.',
         'Company-specific requirements unavailable; generic occupational assessment remains separate.',
         'Agent temporal/event simulations covered in C tests; this HTTP run exercises persisted proposal/actions.',
@@ -285,6 +286,138 @@ def acceptance(output):
     (output / 'evidence.json').write_text(json.dumps(evidence, indent=2) + '\n')
     print(json.dumps(evidence['checks'], indent=2))
     return evidence
+
+
+def provisional_demo_profile(audience='fresh_graduate', levels=(2, 4, 4)):
+    """Fictional explicit source-anchored intake; never an independent label."""
+    import copy
+    from .personal_cli import synthetic_profile
+    from .role_fit import reference
+    profile = synthetic_profile(audience)
+    source = copy.deepcopy(profile['evidence'][0]['provenance'])
+    source['evidence_type'] = 'synthetic-fixture'
+    profile.update(evidence=[], preferences=[], constraints=[])
+    for i, (sid, level) in enumerate(zip(sorted(reference()['skills']), levels)):
+        profile['evidence'].append(dict(evidence_id='demo-anchored-' + str(i), subject_id=sid,
+            value=level, unit='onet:LV', state='known', method_id='minder-anchored-evidence-v1',
+            provenance=source, assessment=dict(kind='self_report',
+                statement='Fictional study-project activity supporting the selected source anchor; no paid work claimed.',
+                rubric_version='onet31-essential-anchors-v1')))
+    return profile
+
+
+def recommendation_acceptance(output):
+    """Required recommendation cases through real isolated HTTP and real A/B data."""
+    import copy
+    from .role_fit import RoleFitService
+    output = Path(output).resolve()
+    if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+        raise ValueError('recommendation evidence must stay under A artifacts')
+    output.mkdir(parents=True, exist_ok=False)
+    app, catalogue = application(output / 'runtime.sqlite3')
+    report = dict(transport='actual loopback HTTP / isolated SQLite / sourced A+B services',
+                  synthetic_profiles=True, cases={}, checks={}, catalogue=catalogue.coverage)
+    rid = 'onet:15-1252.00'
+    with http_boundary(app) as http:
+        def request(method, path, body=None, token=''):
+            status, value = http(method, path, body, token)
+            if status != 200:
+                raise ValueError('recommendation acceptance HTTP failure: ' + path + ' ' + str(status))
+            return value
+        def save_new(profile):
+            token = request('POST', '/api/session')['token']
+            profile = request('PUT', '/api/profile', dict(profile=profile, expected_version=None), token)
+            return token, profile
+        def context(token, selected=None):
+            return request('POST', '/api/career-context', {} if selected is None else dict(selected_role_ids=selected), token)
+        def summarize(ctx):
+            r = ctx['recommendation']
+            return dict(coverage=r['coverage'], status=r['status'], overall_ranking_complete=r['overall_ranking_complete'],
+                groups=[dict(group_id=g['group_id'], basis=g['basis'], count=len(g['role_ids']),
+                    top_role_ids=g['role_ids'][:3], limitation=g['limitation']) for g in r['ranking_groups']],
+                targeted_questions=r['targeted_questions'])
+        token, profile = save_new(provisional_demo_profile())
+        reference = request('GET', '/api/assessment-reference', token=token)
+        assert len(reference['skills']) == 10
+        before = context(token); report['cases']['fresh_graduate'] = summarize(before)
+        assert before['recommendation']['coverage']['assessed'] > 0
+        assert len(before['recommendation']['candidate_ids']) == catalogue.coverage['eligible_roles']
+        selected_before = context(token, [rid])
+        before_score = selected_before['recommendation']['options'][0]['personal_score']
+        direct = dict(request=dict(kind='update_profile', target_id=profile['profile_id'], expected=profile['version'],
+            diff=[dict(path='/preferences/role/' + rid, before=None, after='not_interested')],
+            reason='Synthetic explicit Not interested demonstration'), idempotency_key='demo-not-interested')
+        action = request('POST', '/api/direct-action', direct, token)
+        assert request('POST', '/api/direct-action', direct, token) == action
+        marked = request('GET', '/api/profile', token=token)
+        after = context(token, [rid]); after_score = after['recommendation']['options'][0]['personal_score']
+        assert abs(before_score - after_score - 5) < 1e-6
+        assert marked['evidence'] == profile['evidence']
+        assert selected_before['assessment_details'][0]['gaps'] == after['assessment_details'][0]['gaps']
+        def market_facts(ctx):
+            return [{k: s.get(k) for k in ('kind','status','text','period','sources','source_universe_id')}
+                for s in ctx['statements'] if s.get('kind') in ('current','forecast')]
+        assert market_facts(selected_before) == market_facts(after)
+        reset = dict(request=dict(kind='update_profile', target_id=marked['profile_id'], expected=marked['version'],
+            diff=[dict(path='/preferences/role/' + rid, before='not_interested', after=None)],
+            reason='Synthetic explicit preference reset'), idempotency_key='demo-reset')
+        request('POST', '/api/direct-action', reset, token)
+        restored = context(token, [rid])
+        assert restored['recommendation']['options'][0]['personal_score'] == before_score
+        assert request('GET', '/api/profile', token=token)['evidence'] == profile['evidence']
+        report['cases']['not_interested_and_reset'] = dict(before=before_score, not_interested=after_score,
+            reset=before_score, repeated_request_idempotent=True, skill_and_market_unchanged=True)
+        switcher = provisional_demo_profile('career_switcher', (4, 4, 4, 2))
+        software = catalogue.role(rid); iid = software['industry_mappings'][0]['target_id']
+        method = 'minder-transferable-background-v1'
+        e = copy.deepcopy(switcher['evidence'][0]); e.update(evidence_id='demo-background', subject_id=iid,
+            unit='fraction_0_1', value=1, method_id=method, assessment=dict(kind='transferable_background',
+                statement='Fictional sustained hands-on domain work in this industry, independently of skill ratings.', rubric_version=method))
+        switcher['evidence'].append(e)
+        switcher['current_fields'] = [dict(field_id=iid, field_type='industry', state='want_to_leave', evidence_ids=[e['evidence_id']])]
+        switcher['preferences'] = [dict(entity_type='industry', entity_id=iid, state='not_interested', authorizing_request_id='demo-industry-request')]
+        st, sp = save_new(switcher); sc = context(st)
+        report['cases']['career_switcher'] = summarize(sc)
+        assert set(sc['recommendation']['candidate_ids']) == set(before['recommendation']['candidate_ids'])
+        report['cases']['career_switcher']['software_industry_trace'] = context(st, [rid])['assessment_details'][0]['industry_contributions']
+        incomplete = provisional_demo_profile('incomplete', (2,))
+        it, ip = save_new(incomplete); ic = context(it)
+        assert ic['recommendation']['coverage']['assessed'] == 0 and ic['recommendation']['targeted_questions']
+        report['cases']['incomplete_profile'] = summarize(ic)
+        provider = request('POST', '/api/chat', dict(message='Explain my source-backed assessment and current versus next-quarter evidence.',
+            expected_profile_version=request('GET','/api/profile',token=token)['version'], selected_role_ids=[rid]), token)
+        report['provider'] = dict(status=provider['provider']['status'], actual_request_success=provider['provider']['status']=='available')
+        report['checks']['actual_HTTP_intake_assessment_feedback_reset_market_and_provider_boundary'] = 'passed'
+        assert 'internal_index' not in json.dumps(before)
+    # Explicit counterfactual counts test sensitivity, never replaces factual B observations.
+    market = app.services.market
+    class Counterfactual:
+        snapshot = market.snapshot
+        favored = None
+        def current(self, kind, entity_id, *, as_of):
+            r = market.current(kind, entity_id, as_of=as_of)
+            r['value'] = self.snapshot['collection']['accepted_ads'] if entity_id == self.favored else 0
+            return r
+        def forecast(self, *args, **kwargs):
+            raise ValueError('unavailable_forecast_does_not_block_current')
+    roles = [catalogue.role(x) for x in (rid, 'onet:15-2051.00')]
+    cf = Counterfactual(); outputs=[]
+    for favorite in (rid, 'onet:15-2051.00'):
+        cf.favored = favorite
+        r = RoleFitService(cf).assess(provisional_demo_profile(levels=(6,6,6)), roles)
+        assert r['public']['ranking_groups'][0]['role_ids'][0] == favorite
+        outputs.append(dict(favored=favorite, ordered=r['public']['ranking_groups'][0]['role_ids'],
+                            calculation=r['internal']['market_comparison']))
+    report['counterfactual_market_sensitivity'] = dict(kind='fictional counterfactual values; not current observations',
+        same_personal_evidence=True, forecasts_unavailable=True, results=outputs)
+    report['checks']['compatible_current_evidence_reverses_order_without_forecasts'] = 'passed'
+    report['limitations'] = ['Policy outputs and demonstrations are provisional, not independently evaluated personal-fit labels.',
+        'Only four source-mapped roles have comparable current MY employer-feed evidence; remaining roles stay explorable.',
+        'No invented forecasts, replacement probabilities, deployment, paid execution or private profile data.']
+    (output / 'evidence.json').write_text(json.dumps(report, indent=2) + '\n')
+    print(json.dumps(dict(cases={k:v.get('coverage',v) for k,v in report['cases'].items()},
+                         checks=report['checks'], provider=report['provider']), indent=2))
+    return report
 
 
 @contextmanager
@@ -333,6 +466,14 @@ def verify_web(output, playwright_module, browsers_path):
     for kind in source:
         replacement_counts[kind] = {p: source[kind].count(p) for p in ('8103', '9103')}
         source[kind] = source[kind].replace('8103', '8101').replace('9103', '9101')
+    source['http'] = source['http'].replace('full_actual_catalogue_unranked_pending_N01',
+                                            'full_actual_catalogue_unranked_without_anchored_evidence')
+    # Preserve C's strict DB guard. Invoke the same shared worker through A's
+    # independently guarded namespace adapter instead of opening C's database.
+    source['http'] = source['http'].replace('"minder_app.worker","--once",',
+                                            '"minder_ml.intelligence.integration_cli","worker-once",')
+    source['browser'] = source['browser'].replace("'minder_app.worker','--once',",
+                                                  "'minder_ml.intelligence.integration_cli','worker-once',")
     old_http = 'ROOT / "ml/artifacts/session-c/c4.1-http-evidence.json"'
     old_browser = "path.resolve('ml/artifacts/session-c')"
     if source['http'].count(old_http) != 1 or source['browser'].count(old_browser) != 1:
@@ -349,17 +490,19 @@ def verify_web(output, playwright_module, browsers_path):
                PYTHONPATH=str(ROOT / 'ml/src') + os.pathsep + str(ROOT / 'apps/backend-api'),
                MINDER_PYTHON=sys.executable, MINDER_PLAYWRIGHT_MODULE=str(Path(playwright_module).resolve()),
                PLAYWRIGHT_BROWSERS_PATH=str(Path(browsers_path).resolve()))
-    report = dict(implementation='unchanged committed C application/UI/tests with A binding',
+    report = dict(implementation='Integrated application; C acceptance adapted for A ports, paths, worker namespace and current policy labels',
                   database=str(database.relative_to(ROOT)), api_port=8101, ui_port=9101,
                   owner_script_sha256={kind: hashlib.sha256(path.read_bytes()).hexdigest()
                                        for kind, path in originals.items()},
                   test_namespace_replacements=replacement_counts, checks={},
                   catalogue_references=catalogue.coverage['runtime_roles'],
-                  numeric_policy='N01 pending/inactive; no numeric role ranking')
+                  numeric_policy='Delegated v3 provisional; anchored minimum and scoped current-market ordering')
     try:
         with reserved_web_servers(app):
             for name, command in [('http', [sys.executable, str(http_script)]),
-                                  ('browser', ['node', str(browser_script)])]:
+                                  ('browser', ['node', str(browser_script)]),
+                                  ('recommendation', ['node', str(ROOT / 'docs/execution/parallel/A/checks/recommendation_browser.cjs')])]:
+                env['MINDER_RECOMMENDATION_EVIDENCE'] = str(output / 'recommendation-browser.json')
                 with (output / (name + '.log')).open('w') as log:
                     run = subprocess.run(command, cwd=ROOT, env=env, stdout=log,
                                          stderr=subprocess.STDOUT, timeout=180)
@@ -387,8 +530,27 @@ def main():
     web.add_argument('--playwright-module', type=Path, required=True)
     web.add_argument('--browsers-path', type=Path, required=True)
     sub.add_parser('serve')
+    recommendation = sub.add_parser('verify-recommendations')
+    recommendation.add_argument('--output', type=Path, required=True)
+    worker = sub.add_parser('worker-once')
+    worker.add_argument('--owner', required=True)
     sub.add_parser('serve-web')
     args = parser.parse_args()
+    if args.command == 'verify-recommendations':
+        recommendation_acceptance(args.output)
+        return
+    if args.command == 'worker-once':
+        sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+        from minder_app.store import Store
+        from minder_app.actions import ActionExecutor
+        from minder_app.agents import Worker
+        from minder_app.config import configured_provider
+        path = Path(os.environ['MINDER_DB_PATH']).resolve()
+        if not path.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
+            raise ValueError('A worker adapter database must stay under A artifacts')
+        store = Store(path)
+        print(json.dumps(Worker(store, ActionExecutor(store), provider=configured_provider()).tick(owner=args.owner)))
+        return
     if args.command == 'smoke':
         smoke(args.output)
     elif args.command == 'acceptance':
@@ -400,7 +562,7 @@ def main():
         path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))
         app, _ = application(path)
         with reserved_web_servers(app):
-            print('Minder Session A: API 8101, UI 9101; local source services, N01 pending.', flush=True)
+            print('Minder Session A: API 8101, UI 9101; local source services, provisional evidence-fit with partial market coverage.', flush=True)
             threading.Event().wait()
     else:
         from wsgiref.simple_server import make_server

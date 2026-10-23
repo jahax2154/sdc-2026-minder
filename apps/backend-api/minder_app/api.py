@@ -28,6 +28,10 @@ class Application:
         if path == "/api/session" and method == "POST":
             return self.store.session()
         owner = self.store.authenticate(token)
+        if path == "/api/assessment-reference" and method == "GET":
+            if self.services.personal is None:
+                raise AppError("assessment_unavailable", 404)
+            return self.services.personal.reference()
         if path == "/api/direct-action" and method == "POST":
             return self.actions.direct(owner, body["request"], body["idempotency_key"])
         if path == "/api/proposals":

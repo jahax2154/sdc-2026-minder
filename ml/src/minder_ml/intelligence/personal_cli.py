@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 from .catalogue_service import OccupationalCatalogue
-from .personal_service import PersonalMatchingService
+from .personal_service import PendingPersonalService as PersonalMatchingService
 from .policy import ROOT
 from .service_contracts import validate
 

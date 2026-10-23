@@ -1,8 +1,8 @@
-"""Initial role assessment while N01 is pending; never execute proposal weights.
+"""Current matching facade plus the preserved, explicitly requested pending API.
 
-Requirements are occupational references, not competence rubrics. Matching a
-subject identifier preserves evidence but cannot establish a met/gap judgment.
-No legacy preparation model or preparation feature is used for this target.
+The replacement v3 service is the default. PendingPersonalService retains the
+original inactive N01 semantics for historical callers and regression evidence.
+Legacy preparation remains a separate target.
 """
 import copy
 import json
@@ -95,7 +95,7 @@ def industry_context(profile, role):
     return result
 
 
-class PersonalMatchingService:
+class PendingPersonalService:
     """Concrete implementation of PersonalService's JSON boundary for C.
 
     Candidate order is supplied catalogue order, never an asserted ranking.
@@ -198,3 +198,20 @@ class PersonalMatchingService:
             result['public']['limitations'].append('No supported role references in the supplied view.')
         validate('Recommendation', result)
         return result
+
+
+from .role_fit import RoleFitService, POLICY_ID, MARKET_POLICY as CURRENT_MARKET_POLICY
+
+
+class PersonalMatchingService(RoleFitService):
+    """Current delegated policy by default; explicit old requests stay historical."""
+    def assess(self, profile, roles, *, scorer_kind='baseline', policy_version=POLICY_ID,
+               market_period_policy_key=CURRENT_MARKET_POLICY):
+        if policy_version in (POLICY_VERSION, 'N01-pending'):
+            from datetime import datetime, timezone
+            return PendingPersonalService(self.market_service,
+                as_of=self.as_of or datetime.now(timezone.utc).isoformat()).assess(
+                    profile, roles, scorer_kind=scorer_kind, policy_version=policy_version,
+                    market_period_policy_key=market_period_policy_key)
+        return super().assess(profile, roles, scorer_kind=scorer_kind, policy_version=policy_version,
+                              market_period_policy_key=market_period_policy_key)

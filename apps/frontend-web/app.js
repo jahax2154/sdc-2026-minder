@@ -19,8 +19,11 @@ async function api(path, body, method = body === undefined ? 'GET' : 'POST') {
 function bind(id, handler) {
   const el = document.getElementById(id);
   if (el) el.addEventListener('click', async () => {
-    el.disabled = true; error.hidden = true;
-    try {await handler();} catch(e) {showError(e);} finally {el.disabled = false;}
+    const controls=Array.from(view.querySelectorAll('button,input,select,textarea')).map(node=>[node,node.disabled]);
+    controls.forEach(([node])=>{node.disabled=true;});error.hidden = true;
+    try {await handler();} catch(e) {showError(e);} finally {
+      controls.forEach(([node,disabled])=>{if(node.isConnected)node.disabled=disabled;});
+    }
   });
 }
 function showError(e) {error.textContent = e.message; error.hidden = false;}
@@ -54,7 +57,7 @@ async function overview() {
   title('Find your next direction.', 'Bring your experience, curiosity and constraints together. Explore the evidence, then choose a step that works for you.');
   const plans = profile ? (await api('plans')).plans : [];
   const tasks = plans.flatMap(p => p.tasks);
-  append(`<div class="grid">${card('Your profile', `<p>${profile ? `${profile.evidence.length} recorded evidence items` : 'A fresh start. No employment history required.'}</p><a href="#profile">Review profile →</a>`)}${card('Your next steps', `<p>${tasks.filter(t=>t.activity_completion).length} of ${tasks.length} activities complete</p><a href="#explore">Explore roadmap →</a>`)}${card('Evidence, with limits', '<p>Occupational references and a bounded Malaysian employer snapshot are connected. Personal rankings await N01. Missing forecasts stay unavailable.</p>')}</div>`);
+  append(`<div class="grid">${card('Your profile', `<p>${profile ? `${profile.evidence.length} recorded evidence items` : 'A fresh start. No employment history required.'}</p><a href="#profile">Review profile →</a>`)}${card('Your next steps', `<p>${tasks.filter(t=>t.activity_completion).length} of ${tasks.length} activities complete</p><a href="#explore">Explore roadmap →</a>`)}${card('Evidence, with limits', '<p>Occupational references and a bounded Malaysian employer snapshot are connected. Provisional personal evidence-fit and scoped current-market ranks are available after focused intake. Missing forecasts stay unavailable.</p>')}</div>`);
 }
 
 async function profileView() {
@@ -70,6 +73,7 @@ async function profileView() {
     await render();
   });
   if (!profile) return;
+  await assessmentIntake();
   append(card('Add your evidence', `<label>Skill or topic<input id="subject" placeholder="Python, project management, or another skill"></label><label>Your evidence or experience<textarea id="claim" placeholder="Describe a project, experience or qualification. This is saved as your statement."></textarea></label><button id="save-claim">Save my statement</button>`));
   bind('save-claim', async () => {
     const subject = document.querySelector('#subject').value.trim(), claim = document.querySelector('#claim').value.trim();
@@ -88,6 +92,75 @@ async function profileView() {
     document.querySelector('#draft').textContent = result.clarification + '\n\n' + result.text;
   });
   append(card('Recorded evidence', profile.evidence.length ? profile.evidence.map(e=>`<p>${esc(e.subject_id)}: ${esc(e.value ?? 'unknown')}<small>${esc(e.provenance.evidence_type)} · ${esc(e.method_id)}</small></p>`).join('') : '<p>No evidence yet. Missing information is unknown.</p>'));
+}
+
+async function assessmentEdit(subject, value, method, kind, statement, unit) {
+  if(value !== null && statement.trim().length < 20) throw new Error('Describe the activity and evidence in at least 20 characters.');
+  const p=structuredClone(profile), stamp=new Date().toISOString();
+  // A new current observation replaces this exact intake item; persisted profile history retains earlier versions.
+  p.evidence=p.evidence.filter(e=>!(e.subject_id===subject && e.method_id===method));
+  if(value !== null) {
+    const sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(statement)))).map(x=>x.toString(16).padStart(2,'0')).join('');
+    p.evidence.push({evidence_id:key(),subject_id:subject,value,unit,state:'known',method_id:method,
+      assessment:{kind,statement,rubric_version:method==='minder-anchored-evidence-v1'?'onet31-essential-anchors-v1':method},
+      provenance:{source_id:'user:'+profile.profile_id,version:stamp,sha256:sha,uri:'urn:minder:explicit-assessment',geography:'MY',available_at:stamp,evidence_type:'explicit-user'}});
+  }
+  return p;
+}
+async function saveAssessment(...args) {
+  const p=await assessmentEdit(...args);
+  profile=await api('profile',{profile:p,expected_version:profile.version},'PUT');
+}
+
+async function assessmentIntake() {
+  const ref=await api('assessment-reference');
+  const options=items=>Object.entries(items).map(([id,label])=>`<option value="${esc(id)}">${esc(label)}</option>`).join('');
+  const known=profile.evidence.filter(e=>e.method_id===ref.skill_method_id);
+  append(card('Assess a few essential skills', `<p>Start with three skills. Choose a source activity level and describe what you did. Study projects count as self-report; prior employment and role ratings are optional. These provisional assessments do not certify competence.</p><p>${known.length} structured skill observations saved. Each role also needs at least 30% of its usable criteria.</p><label>Skill<select id="assessed-skill">${options(Object.fromEntries(Object.entries(ref.skills).map(([id,r])=>[id,r.label])))}</select></label><label>Closest activity level<select id="assessed-level"></select></label><p id="anchor-description"></p><label>Evidence type<select id="evidence-kind"><option value="self_report">Self-report</option><option value="documented_demonstration">Described project or demonstration (unreviewed claim)</option></select></label><label>Activity and evidence<textarea id="assessment-statement" placeholder="Describe the activity, your contribution and evidence supporting this anchor."></textarea></label><button id="save-assessment">Save skill assessment</button><button class="secondary" id="remove-assessment">Clear this skill assessment</button><p><a href="${esc(ref.sources[0].uri)}" target="_blank" rel="noreferrer">O*NET source anchors</a> · US occupational reference, not a Malaysian competence standard.</p>`));
+  const updateDescription=()=>{
+    const sid=document.querySelector('#assessed-skill').value, value=document.querySelector('#assessed-level').value;
+    document.querySelector('#anchor-description').textContent=value===''?'Unanswered: capability stays unknown.':value==='0'?'Explicitly assessed: I cannot yet demonstrate this skill.':ref.skills[sid].anchors.find(a=>String(a.value)===value)?.description || '';
+  };
+  const updateSkill=()=>{
+    const sid=document.querySelector('#assessed-skill').value, old=known.find(e=>e.subject_id===sid);
+    document.querySelector('#assessed-level').innerHTML='<option value="">Unanswered</option><option value="0">Not yet able (explicit assessment)</option>'+ref.skills[sid].anchors.map(a=>`<option value="${a.value}">Source activity level ${a.value}</option>`).join('');
+    document.querySelector('#assessed-level').value=old?String(old.value):'';
+    document.querySelector('#assessment-statement').value=old?.assessment?.statement || '';
+    document.querySelector('#evidence-kind').value=old?.assessment?.kind || 'self_report';updateDescription();
+  };
+  document.querySelector('#assessed-skill').onchange=updateSkill;document.querySelector('#assessed-level').onchange=updateDescription;updateSkill();
+  bind('save-assessment',async()=>{
+    const value=document.querySelector('#assessed-level').value;
+    if(value==='') throw new Error('Choose an activity level or use Clear to remove the assessment.');
+    await saveAssessment(document.querySelector('#assessed-skill').value,Number(value),ref.skill_method_id,document.querySelector('#evidence-kind').value,document.querySelector('#assessment-statement').value,'onet:LV');await render();
+  });
+  bind('remove-assessment',async()=>{await saveAssessment(document.querySelector('#assessed-skill').value,null,ref.skill_method_id,'self_report','','onet:LV');await render();});
+  append(card('Industry context & interests (optional)', `<p>Context and interests influence supported paths without excluding other industries. A job title or current industry does not assign skill ability.</p><label>Industry<select id="context-industry">${options(ref.industries)}</select></label><label>Current relationship<select id="industry-history"><option value="unknown">Unknown / not supplied</option><option value="known">Current or prior field</option><option value="want_to_leave">I want to leave this field</option><option value="none_yet">No experience yet</option></select></label><label>Transferable background<select id="industry-background"><option value="">Unanswered / reset</option><option value="0">Explicitly no relevant exposure</option><option value="0.5">Relevant study or project context</option><option value="1">Sustained hands-on domain work</option></select></label><label>Background evidence<textarea id="background-statement" placeholder="Describe domain work or study. This remains separate from skill evidence."></textarea></label><label>Industry interest<select id="industry-interest"><option value="unknown">Unanswered / reset</option><option value="interested">Interested</option><option value="neutral">Neutral</option><option value="not_interested">Not interested</option></select></label><button id="save-industry">Save industry context</button>`));
+  const updateIndustry=()=>{
+    const iid=document.querySelector('#context-industry').value;
+    const old=profile.evidence.find(e=>e.subject_id===iid&&e.method_id==='minder-transferable-background-v1');
+    document.querySelector('#industry-history').value=profile.current_fields.find(f=>f.field_id===iid&&f.field_type==='industry')?.state || 'unknown';
+    document.querySelector('#industry-background').value=old?String(old.value):'';
+    document.querySelector('#background-statement').value=old?.assessment?.statement || '';
+    document.querySelector('#industry-interest').value=profile.preferences.find(p=>p.entity_type==='industry'&&p.entity_id===iid)?.state || 'unknown';
+  };
+  document.querySelector('#context-industry').onchange=updateIndustry;updateIndustry();
+  bind('save-industry',async()=>{
+    const iid=document.querySelector('#context-industry').value, background=document.querySelector('#industry-background').value;
+    const history=document.querySelector('#industry-history').value, interest=document.querySelector('#industry-interest').value;
+    const p=await assessmentEdit(iid,background===''?null:Number(background),'minder-transferable-background-v1','transferable_background',document.querySelector('#background-statement').value,'fraction_0_1');
+    p.current_fields=p.current_fields.filter(f=>!(f.field_id===iid&&f.field_type==='industry'));
+    if(history!=='unknown')p.current_fields.push({field_id:iid,field_type:'industry',state:history,evidence_ids:p.evidence.filter(e=>e.subject_id===iid).map(e=>e.evidence_id)});
+    p.preferences=p.preferences.filter(e=>!(e.entity_type==='industry'&&e.entity_id===iid));
+    if(interest!=='unknown')p.preferences.push({entity_type:'industry',entity_id:iid,state:interest,authorizing_request_id:key()});
+    profile=await api('profile',{profile:p,expected_version:profile.version},'PUT');await render();
+  });
+  append(card('Work style (optional)', `<p>Stated working preferences influence roles with a sourced style link. They never establish ability.</p><label>Style<select id="work-style">${options(ref.work_styles)}</select></label><label>Your preference<select id="style-value"><option value="">Unanswered / reset</option><option value="1">Prefer</option><option value="0.5">Neutral</option><option value="0">Prefer to avoid</option></select></label><label>Context<textarea id="style-statement" placeholder="Describe the working conditions you prefer."></textarea></label><button id="save-style">Save work-style preference</button>`));
+  const updateStyle=()=>{
+    const old=profile.evidence.find(e=>e.subject_id===document.querySelector('#work-style').value&&e.method_id==='minder-work-style-preference-v1');
+    document.querySelector('#style-value').value=old?String(old.value):'';document.querySelector('#style-statement').value=old?.assessment?.statement || '';
+  };document.querySelector('#work-style').onchange=updateStyle;updateStyle();
+  bind('save-style',async()=>{const value=document.querySelector('#style-value').value;await saveAssessment(document.querySelector('#work-style').value,value===''?null:Number(value),'minder-work-style-preference-v1','work_style_preference',document.querySelector('#style-statement').value,'fraction_0_1');await render();});
 }
 
 async function minder() {
@@ -159,7 +232,16 @@ async function explore() {
 }
 
 async function careerMatch() {
-  append(card('Find a role to explore', '<p>No numerical personal ranking is active. Browse the full supported catalogue, or filter explicitly.</p><label>Search by title<input id="role-query" placeholder="Software, engineering, accounting…"></label><button id="search-roles">Search</button><button class="secondary" id="clear-roles">Clear filter</button><div id="roles"></div>'));
+  const recommendation=(await api('career-context')).recommendation;
+  const coverage=recommendation?.coverage;
+  if(coverage) append(card('Your recommendation coverage', `<p>${coverage.assessed} of ${coverage.candidates} eligible candidates assessed · ${coverage.current_comparable_ranked} ranked with comparable current Malaysian evidence · ${coverage.personal_only_ranked} personal-only ranks.</p><p>Provisional essential-skill evidence fit. Groups have independent ranks; their display order does not compare opportunities across groups. ${recommendation.overall_ranking_complete?'Current comparison supported for this view.':'Partial coverage: personal-only results are not full recommendation completion.'}</p>`));
+  for(const q of recommendation?.targeted_questions || []) append(card('Focused input needed',`<p>${esc(q)}</p><a href="#profile">Add an anchored assessment</a>`));
+  for(const group of recommendation?.ranking_groups || []) {
+    const options=recommendation.options.filter(o=>o.ranking_group===group.group_id).slice(0,8);
+    append(card(group.basis==='personal_and_comparable_current'?'Current-evidence comparison':'Personal-only exploration · market comparison unsupported',`<p>${esc(group.limitation)}</p><small>Showing ${options.length} of ${group.role_ids.length} ranked roles in this group. Explore any other role below.</small>`+options.map(o=>`<p><button class="secondary" data-recommended-role="${esc(o.role_id)}">#${o.rank} · ${esc(o.explanation.split(':')[0])}</button><small>Personal evidence fit ${Number(o.personal_score).toFixed(1)}/100 · ${Math.round(o.evidence_coverage*100)}% assessed</small>${esc(o.explanation)}</p>`).join('')));
+  }
+  document.querySelectorAll('[data-recommended-role]').forEach(b=>b.onclick=()=>{selectedRole=b.dataset.recommendedRole;sessionStorage.setItem('minder-role',selectedRole);render().catch(showError);});
+  append(card('Find a role to explore', '<p>Browse every reference or filter this catalogue view explicitly. Recommendations above consider every supported eligible role.</p><label>Search by title<input id="role-query" placeholder="Software, engineering, accounting…"></label><button id="search-roles">Search</button><button class="secondary" id="clear-roles">Clear filter</button><div id="roles"></div>'));
   async function search(query='') {
     const result=await api('roles',{query,limit:20});
     document.querySelector('#roles').innerHTML=`<p class="muted">${result.total} catalogue references · first ${result.roles.length} in catalogue order, not rank</p>`+result.roles.map(r=>`<p><button class="secondary" data-role="${esc(r.role_id)}">${esc(r.label)}</button><small>${esc(r.role_id)} · ${esc(r.eligibility)}</small></p>`).join('');
@@ -170,7 +252,9 @@ async function careerMatch() {
   if(!selectedRole) return;
   const context=await api('career-context',{selected_role_ids:[selectedRole]});
   append(facts(context.statements));
-  append(card('Your preference',`<p>Selected: ${esc(selectedRole)}. Preference does not delete this role.</p><button id="interested">Interested</button><button class="secondary" id="not-interested">Not interested</button><button class="secondary" id="reset-preference">Reset preference</button>`));
+  const detail=context.assessment_details?.[0];
+  if(detail) append(card('Separate personal evidence',`<p>${esc(detail.score_status)} · ${detail.assessment_coverage?.assessed_count ?? 0}/${detail.assessment_coverage?.required_count ?? 0} skill criteria assessed</p>`+detail.components.map(c=>`<p>${esc(c.component_id.replaceAll('_',' '))}: ${c.value===null?'unanswered':Number(c.value).toFixed(3)} · contribution ${Number(c.contribution_points || 0).toFixed(2)} points</p>`).join('')+`<small>Skill evidence: self-report ${detail.evidence_kinds?.self_report?.length || 0}, described demonstrations ${detail.evidence_kinds?.documented_demonstration?.length || 0}, reviewed ${detail.evidence_kinds?.reviewed_assessment?.length || 0}. Industry paths retain separate background and interest values; only the strongest supported path contributes once.</small>`+detail.industry_contributions.map(i=>`<p>${esc(i.industry_id)} · background ${esc(i.background ?? 'unknown')} · interest ${esc(i.preference_utility ?? 'unknown')} · ${Number(i.adjustment_points || 0).toFixed(1)} points ${i.selected_path?'(selected path)':''}</p>`).join('')));
+  append(card('Your preference',`<p>Selected: ${esc(selectedRole)} · ${esc(profile.preferences.find(p=>p.entity_type==='role'&&p.entity_id===selectedRole)?.state || 'unanswered')}. Preference does not delete this role.</p><button id="interested">Interested</button><button class="secondary" id="not-interested">Not interested</button><button class="secondary" id="reset-preference">Reset preference</button>`));
   for(const [id,state] of [['interested','interested'],['not-interested','not_interested'],['reset-preference',null]]) bind(id,async()=>{
     const before=profile.preferences.find(p=>p.entity_type==='role'&&p.entity_id===selectedRole)?.state ?? null;
     if(before===state)return;

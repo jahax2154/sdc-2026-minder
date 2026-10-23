@@ -1,7 +1,8 @@
-"""Application-facing service composition. No new numeric policy or ranking."""
+"""Application composition: backend ranks; explanations preserve coverage scopes."""
 from datetime import datetime, timezone
 from urllib.parse import urlsplit
 from .service_contracts import public_recommendation, validate
+from .role_fit import POLICY_ID, MARKET_POLICY
 
 
 class CareerServices:
@@ -25,7 +26,7 @@ class CareerServices:
         result = None
         if self.personal is not None:
             result = self.personal.assess(profile, view, scorer_kind="baseline",
-                policy_version="N01-pending", market_period_policy_key="personal_only_pending_market_policy")
+                policy_version=POLICY_ID, market_period_policy_key=MARKET_POLICY)
             validate("Recommendation", result)
             if (result["public"]["profile_id"] != profile["profile_id"] or
                     result["public"]["profile_version"] != profile["version"]):
@@ -48,13 +49,16 @@ class CareerServices:
             market = result["internal"]["current_market"] + result["internal"]["forecast_market"]
         return {"integration_mode": self.mode, "recommendation": result, "market": market,
                 "selected_role_ids": selected_role_ids, "selected_skill_ids": selected_skill_ids,
-                "limitations": [] if result else ["Personal service not connected; N01 remains pending."],
+                "limitations": [] if result else ["Personal service not connected; assessment unavailable."],
                 "sources": self.sources}
 
     def public_context(self, context):
         return dict(integration_mode=context["integration_mode"],
                     recommendation=public_recommendation(context["recommendation"])
                     if context["recommendation"] else None,
+                    assessment_details=[a for a in context['recommendation']['internal']['personal_assessments']
+                        if a['role_id'] in context.get('selected_role_ids', [])]
+                        if context['recommendation'] and context.get('selected_role_ids') else [],
                     limitations=context["limitations"],
                     statements=grounded_statements(context))
 
@@ -70,7 +74,9 @@ def grounded_statements(context):
     def add(text, ids=(), **metadata):
         statements.append(dict(id="fact-" + str(len(statements)), text=text,
             sources=[sources[x] for x in ids if x in sources], **metadata))
-    add("Numerical role-fit policy N01 remains pending; no new scoring weights have been selected.")
+    add("Provisional evidence-fit policy v3 uses anchored skill evidence and separate optional preferences. "
+        "Comparable current Malaysian observations affect backend ordering; forecasts are separate. "
+        "This is not verified competence or career accuracy.")
     if context["integration_mode"] != "live":
         add("Integration mode: " + context["integration_mode"] + "; these results are not live ML acceptance evidence.")
     result = context["recommendation"]
@@ -78,9 +84,19 @@ def grounded_statements(context):
         public = public_recommendation(result)
         selected = context.get("selected_role_ids")
         if selected is None:
-            add(str(len(public["candidate_ids"])) + " supported candidates are available for exploration. "
-                "Select up to three roles for grounded chat; catalogue order is not a recommendation rank.")
-        for option in public["options"] if selected is not None else []:
+            c = public.get('coverage', {})
+            add(f"{c.get('assessed', 0)} of {len(public['candidate_ids'])} candidates have a supported personal assessment; "
+                f"{c.get('current_comparable_ranked', 0)} have comparable current Malaysian evidence and "
+                f"{c.get('personal_only_ranked', 0)} have personal-only ranks. "
+                "Ranks compare roles within each coverage group only; personal-only results are incomplete market comparison.")
+        explain_ids = set(selected or [])
+        if selected is None:
+            for group in public.get('ranking_groups', []):
+                explain_ids.update(group['role_ids'][:3])
+                add(group['group_id'] + ': ' + group['limitation'])
+            for question in public.get('targeted_questions', []):
+                add(question)
+        for option in [o for o in public['options'] if o['role_id'] in explain_ids]:
             add(option["role_id"] + ": " + option["explanation"], option["source_ids"],
                 kind="personal_assessment", score_status=option["score_status"],
                 personal_score=option["personal_score"], unknowns=option["unknowns"])
