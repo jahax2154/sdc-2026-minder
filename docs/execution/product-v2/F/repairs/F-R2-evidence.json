@@ -1,0 +1,11 @@
+{
+  "real_shell": true,
+  "provider_calls": 0,
+  "rail_width": 72,
+  "hover_focus_labels": true,
+  "rail_does_not_expand_on_hover": true,
+  "route_access_and_active_state": true,
+  "phone_labeled_menu": true,
+  "touch_labeled_menu": true,
+  "page_errors": []
+}

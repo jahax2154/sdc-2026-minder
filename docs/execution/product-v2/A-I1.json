@@ -1,0 +1,215 @@
+{
+  "phase": "A-I1",
+  "status": "targeted_F_repairs_pass",
+  "integrated_F": "4dc5b4ed3f0170e29b862ad014bcaca69c082215",
+  "backend": "12e7496db73f4f3a1a19c0c3a7b16decaa22d226",
+  "checks": {
+    "context": {
+      "fixture_only": true,
+      "provider_calls": 0,
+      "working_success_failure_cancel_timeout": true,
+      "timeout_test": "45s deadline compressed to80ms in browser fixture",
+      "duplicate_send_blocked": true,
+      "context_toggle_close_escape": true,
+      "context_draft_scroll_width_preserved": true,
+      "no_reopen_on_response": true,
+      "mobile_focus_and_escape": true,
+      "page_errors": []
+    },
+    "navigation": {
+      "real_shell": true,
+      "provider_calls": 0,
+      "rail_width": 72,
+      "hover_focus_labels": true,
+      "rail_does_not_expand_on_hover": true,
+      "route_access_and_active_state": true,
+      "phone_labeled_menu": true,
+      "touch_labeled_menu": true,
+      "page_errors": []
+    },
+    "workspace_faults": {
+      "fixture_faults": true,
+      "provider_calls": 0,
+      "frame_with_rejected_read_ms": 61,
+      "independent_sections_without_model": true,
+      "manual_section_retry": true,
+      "saved_state_while_chat_transport_pending_ms": 107,
+      "no_late_chat_overwrite": true,
+      "auth_failure_masks_all_saved_data": true,
+      "read_deadline": "8s compressed to100ms, actionable section retry",
+      "unavailable_backend_has_startup_retry": true,
+      "page_errors": []
+    },
+    "real_backend": {
+      "environment": "Disposable A-only SQLite; actual full source services and loopback HTTP",
+      "synthetic_profiles": true,
+      "model": "qwen/qwen3.8-27b",
+      "guidance": {
+        "unsaved": {
+          "elapsed_ms": 11.606,
+          "response_mode": "application_guidance",
+          "provider_code": "provider_not_required_for_application_guidance",
+          "diagnostics": {
+            "request_id": "cf8af1e6-e886-4ad7-9994-3a6235f312b8",
+            "intent": "capabilities",
+            "reason_codes": [
+              "verified_application_or_reference_response"
+            ],
+            "evidence_count": 0,
+            "provider_invoked": false,
+            "model": "qwen/qwen3.8-27b",
+            "total_ms": 7.138,
+            "context_ms": 4.399,
+            "ledger_ms": 2.735,
+            "provider_ms": 0.0
+          }
+        },
+        "partial": {
+          "elapsed_ms": 4.728,
+          "response_mode": "application_guidance",
+          "provider_code": "provider_not_required_for_application_guidance",
+          "diagnostics": {
+            "request_id": "ecbf4deb-b5eb-42ea-853a-f4ac9142cac3",
+            "intent": "capabilities",
+            "reason_codes": [
+              "verified_application_or_reference_response"
+            ],
+            "evidence_count": 0,
+            "provider_invoked": false,
+            "model": "qwen/qwen3.8-27b",
+            "total_ms": 3.931,
+            "context_ms": 1.328,
+            "ledger_ms": 2.599,
+            "provider_ms": 0.0
+          }
+        },
+        "rich": {
+          "elapsed_ms": 3.317,
+          "response_mode": "application_guidance",
+          "provider_code": "provider_not_required_for_application_guidance",
+          "diagnostics": {
+            "request_id": "801a7859-3da7-4c17-ae22-6b5688bb5615",
+            "intent": "capabilities",
+            "reason_codes": [
+              "verified_application_or_reference_response"
+            ],
+            "evidence_count": 0,
+            "provider_invoked": false,
+            "model": "qwen/qwen3.8-27b",
+            "total_ms": 2.591,
+            "context_ms": 1.259,
+            "ledger_ms": 1.329,
+            "provider_ms": 0.0
+          }
+        },
+        "greeting": {
+          "elapsed_ms": 4.596,
+          "response_mode": "application_guidance"
+        },
+        "paraphrase": {
+          "elapsed_ms": 3.821,
+          "response_mode": "application_guidance"
+        },
+        "onboarding": {
+          "elapsed_ms": 3.24,
+          "response_mode": "application_guidance"
+        }
+      },
+      "reads_during_real_provider": [
+        {
+          "route": "profile",
+          "status": 200,
+          "elapsed_ms": 2.993,
+          "chat_pending_at_start": true
+        },
+        {
+          "route": "agents",
+          "status": 200,
+          "elapsed_ms": 1.133,
+          "chat_pending_at_start": true
+        },
+        {
+          "route": "proposals",
+          "status": 200,
+          "elapsed_ms": 0.984,
+          "chat_pending_at_start": true
+        },
+        {
+          "route": "action-history",
+          "status": 200,
+          "elapsed_ms": 0.987,
+          "chat_pending_at_start": true
+        },
+        {
+          "route": "agent-settings",
+          "status": 404,
+          "elapsed_ms": 0.923,
+          "chat_pending_at_start": true
+        }
+      ],
+      "deployment": false,
+      "followup": {
+        "elapsed_ms": 4.511,
+        "owner_scope": true,
+        "no_raw_transcript": true
+      },
+      "role_reference": {
+        "elapsed_ms": 5.961,
+        "source_geography": "US",
+        "provider_invoked": false
+      },
+      "real_provider": {
+        "elapsed_ms": 1139.759,
+        "status": "available",
+        "code": null,
+        "native_arguments_validated": true,
+        "statement_count": 8,
+        "measurement_types": [
+          "employer_observation",
+          "occupation_shortage",
+          "published_offering_activity",
+          "sector_context"
+        ],
+        "diagnostics": {
+          "request_id": "d306aee9-9419-4f16-b83b-f519055d30b5",
+          "intent": "grounded_evidence",
+          "reason_codes": [
+            "grounded_selection"
+          ],
+          "evidence_count": 8,
+          "provider_invoked": true,
+          "model": "qwen/qwen3.8-27b",
+          "total_ms": 1138.14,
+          "context_ms": 24.179,
+          "ledger_ms": 122.933,
+          "provider_ms": 989.487
+        }
+      },
+      "configured_outage": {
+        "provider_code": "provider_credentials_missing",
+        "outbound_calls": 0,
+        "saved_reads_passed": true,
+        "evidence_kind": "Explicit disabled-key configuration; not a real Groq account outage"
+      },
+      "no_profile_mutation": true,
+      "status": "passed"
+    },
+    "backend_combined": "90 passed7.044s; latest catalogue-role refinement20 targeted passed1.152s"
+  },
+  "notes": [
+    "Fixtures explicitly intercept chat/errors/deadlines and are not real-provider evidence",
+    "Initial100ms compressed-deadline fixture timed out one optional section; unchanged repeat passed with sanitized responses2-4ms. Production8s bound unchanged; original failure retained",
+    "Initial HTTP matrix harness used stale version for a foreign-context check then treated absent-settings404 as failure; corrected test harness, preserved logs, backend protections unchanged",
+    "Visually inspected actual A desktop72px rail and mobile restored-chat-width screenshots"
+  ],
+  "evidence": {
+    "repair-ui-A.log": "495bbaa00cd5694e1b5b978f8ae3975f82b073850ebd36109facff072d024281",
+    "repair-navigation-A.log": "30772b50deea5da56b419ac42e0f7ff814a5bc428d8dda57834186a8c97fb490",
+    "repair-workspace-A.log": "3bfd7ef3bf3e47d50022932209e2965a8b417acb2ab88ac914bbada54a9dc6f7",
+    "repair-workspace-A-initial.log": "70f82eaffaa67b93a9ff6824f6cb8d747f7eebdbe7976656ac99ac02b20870f7",
+    "chat-repair-live.log": "a460044fa1523082f0b8cc0ff804b53ca6feaf84e9e33beaf3f9b3a0ca4a5a8e",
+    "chat-repair-combined.log": "793cf3dfc986ceb402ac8333caa3dcc99afed1a30a4670975a4f3895e84944e6"
+  },
+  "remaining": "Integrate F final handoff and verify final client with real A browser/provider and configured provider absence",
+  "deployment": false
+}
