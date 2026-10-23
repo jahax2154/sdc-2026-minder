@@ -6,5 +6,5 @@
     {"source_id": "mida-official", "publisher": "Malaysian Investment Development Authority", "host": "www.mida.gov.my", "claim_types": ["announcement", "investment", "adoption", "hiring", "layoffs", "measured_outcome"], "geography": "MY", "uri": "https://www.mida.gov.my/", "licence": "Derived event facts and source links only; preserve announcement/outcome distinction"}
   ],
   "excluded": ["anonymous comments", "personal posts", "engagement counts", "search snippets without underlying documents"],
-  "collection_limits": {"employers": 1, "detail_requests_maximum": 160, "default_detail_requests": 40, "http_timeout_seconds": 20, "automatic_retries": 0, "bytes_per_response": 5000000}
+  "collection_limits": {"employers": 1, "detail_requests_maximum": 160, "default_detail_requests": 160, "http_timeout_seconds": 20, "automatic_retries": 0, "bytes_per_response": 5000000}
 }

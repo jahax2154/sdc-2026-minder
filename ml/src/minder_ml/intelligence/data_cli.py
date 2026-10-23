@@ -7,7 +7,7 @@ import sys
 
 from .annotation_io import export_annotations, import_annotations
 from .data_adapters import derive_profile
-from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha, acquire_market
+from .data_pipeline import PACK, SNAPSHOTS, ROOT, encoded, inspect_pack, prepare_snapshot, sha, acquire_market, probe_market_sources, replay_market_snapshot
 from .data_schemas import validate_entity
 from .market import build_market_views
 
@@ -46,8 +46,17 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     acquire = sub.add_parser('market-acquire')
-    acquire.add_argument('--max-details', type=int, default=40)
+    acquire.add_argument('--max-details', type=int, default=160)
     acquire.add_argument('--output', type=Path, default=ROOT / 'ml/data/market/snapshot.v1.json')
+    acquire.add_argument('--reuse-raw', type=Path)
+    acquire.add_argument('--reuse-snapshot', type=Path)
+    probe = sub.add_parser('market-probe')
+    probe.add_argument('--plan', type=Path, required=True)
+    probe.add_argument('--output', type=Path, required=True)
+    replay = sub.add_parser('market-replay')
+    replay.add_argument('--input',type=Path,required=True)
+    replay.add_argument('--raw-root',type=Path,action='append',required=True)
+    replay.add_argument('--output',type=Path,required=True)
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--pack", type=Path, default=PACK)
     prepare = sub.add_parser("prepare")
@@ -74,8 +83,13 @@ def main(argv=None):
     report.add_argument("--review-results", type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.command == 'market-acquire':
-            output = acquire_market(output=args.output, max_details=args.max_details)
+        if args.command == 'market-replay':
+            output = replay_market_snapshot(args.input,args.raw_root,args.output)
+        elif args.command == 'market-probe':
+            output = probe_market_sources(args.plan,args.output)
+        elif args.command == 'market-acquire':
+            output = acquire_market(output=args.output, max_details=args.max_details,
+                                    reuse_raw=args.reuse_raw, reuse_snapshot=args.reuse_snapshot)
         elif args.command == "inspect":
             output = inspect_pack(args.pack)
         elif args.command == "prepare":

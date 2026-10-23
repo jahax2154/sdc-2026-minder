@@ -11,6 +11,9 @@ import xml.etree.ElementTree as ET
 import zipfile
 import html
 import time
+import io
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
@@ -61,7 +64,8 @@ def normalize_postings(details, *, retrieved_at, mapping):
     Required/optional/negated clauses stay distinct. Only positive qualification
     mentions enter skill counts; absence in our dictionary is not absence of skill.
     """
-    accepted, rejected, seen, fingerprints = [], [], set(), set()
+    accepted, rejected, seen = [], [], set()
+    fingerprints = {}
     for d in details:
         try:
             if d['location']['country'].lower() != 'my':
@@ -76,14 +80,15 @@ def normalize_postings(details, *, retrieved_at, mapping):
             sections = d.get('jobAd', {}).get('sections', {})
             qualifications = plain_text(sections.get('qualifications', {}).get('text', ''))
             title = d['name'].strip()
-            if not title or not qualifications.strip():
-                raise ValueError('missing_title_or_qualifications')
+            if not title:
+                raise ValueError('missing_title')
             signature = hashlib.sha256(json.dumps([title.casefold(), d['location'].get('city'),
                                                   qualifications.casefold()], sort_keys=True).encode()).hexdigest()
-            if key in seen or signature in fingerprints:
-                raise ValueError('duplicate_ad_or_repost')
+            if key in seen:
+                raise ValueError('duplicate_native_requisition')
             seen.add(key)
-            fingerprints.add(signature)
+            template_peer = fingerprints.get(signature)
+            fingerprints.setdefault(signature, key)
             roles = []
             if not re.search(r'\bintern(ship)?\b', title, re.I):
                 roles = [r['source_role_id'] for r in mapping['roles'] if re.search(r['title_pattern'], title, re.I)]
@@ -99,20 +104,27 @@ def normalize_postings(details, *, retrieved_at, mapping):
                         if kind == 'requested':
                             skills.append(skill['source_skill_id'])
             accepted.append({'ad_id': ad_id, 'requisition_id': key, 'title': title,
-                             'url': 'https://jobs.smartrecruiters.com/BoschGroup/' + ad_id,
+                             'url': d.get('postingUrl') or 'https://jobs.smartrecruiters.com/BoschGroup/' + ad_id,
                              'source_id': 'bosch-smartrecruiters-my', 'country': 'MY',
                              'city': d['location'].get('city'), 'published_at': published,
                              # Release date is not an archived first-availability date.
                              'available_at': retrieved_at, 'ingested_at': retrieved_at,
                              'role_ids': sorted(set(roles)), 'skill_ids': sorted(set(skills)),
                              'skill_mentions': mentions, 'content_sha256': signature,
+                             'qualifications_status': 'observed' if qualifications.strip() else 'missing',
+                             'template_peer_requisition': template_peer,
+                             'quality_flags': (['same_template_distinct_native_requisition'] if template_peer else []) +
+                                 (['missing_qualifications_not_zero_skills'] if not qualifications.strip() else []) +
+                                 (['release_date_older_than_one_year'] if
+                                  (datetime.fromisoformat(retrieved_at)-datetime.fromisoformat(published.replace('Z','+00:00'))).days > 365 else []),
                              'validity': 'listed_in_employer_feed_at_collection'})
         except (KeyError, ValueError, TypeError) as exc:
             rejected.append({'ad_id': d.get('id'), 'reason': str(exc)})
     return accepted, rejected
 
 
-def acquire_market(*, output=MARKET_DATA / 'snapshot.v1.json', max_details=40):
+def acquire_market(*, output=MARKET_DATA / 'snapshot.v1.json', max_details=160,
+                   reuse_raw=None, reuse_snapshot=None):
     """Reuse pinned DOSM cells and acquire a bounded official employer sample.
 
     The inspected sample is a snapshot stock, never a quarterly inflow series.
@@ -127,7 +139,19 @@ def acquire_market(*, output=MARKET_DATA / 'snapshot.v1.json', max_details=40):
     observations, quality, provenance = parse_dosm()
     if quality['rejected_rows']:
         raise ValueError('pinned DOSM round-trip failed')
-    attempts, details, listings = [], [], []
+    attempts, details, listings, failures = [], [], [], []
+    cached = {}
+    if reuse_raw is not None:
+        if reuse_snapshot is None:
+            raise ValueError('cache_reuse_requires_pinned_snapshot')
+        previous = json.loads(Path(reuse_snapshot).read_text())
+        for record in previous['acquisition']:
+            if '/postings/' not in record['url'] or record.get('http_status') != 200:
+                continue
+            identifier = record['url'].rsplit('/', 1)[-1]
+            file = Path(reuse_raw) / (identifier + '.json')
+            if file.is_file() and sha(file) == record['sha256']:
+                cached[identifier] = (json.loads(file.read_text()), record)
     # Terms/documentation are evidence of access, not a blanket reuse licence.
     for name, url in [('posting-api', 'https://developers.smartrecruiters.com/docs/posting-api'),
                       ('bosch-careers', 'https://www.bosch.com.my/careers/'),
@@ -151,26 +175,55 @@ def acquire_market(*, output=MARKET_DATA / 'snapshot.v1.json', max_details=40):
                 break
         except (OSError, ValueError, KeyError) as exc:
             attempts.append({'url': url, 'status': 'unavailable', 'reason': type(exc).__name__})
+            failures.append({'url': url, 'reason': type(exc).__name__})
             break
     # Sequential acquisition; max 160 detail requests, no automatic retries.
+    reused = 0
+    requested = 0
+    listed_ids = set()
     for item in listings[:max_details]:
+        if item['id'] in listed_ids:
+            continue
+        listed_ids.add(item['id'])
         url = 'https://api.smartrecruiters.com/v1/companies/BoschGroup/postings/' + item['id']
+        if item['id'] in cached and cached[item['id']][0].get('releasedDate') == item.get('releasedDate'):
+            detail, record = cached[item['id']]
+            details.append(detail)
+            attempts.append(dict(record, reused_verified_cache=True,
+                                 membership_rechecked_at=utc_now()))
+            reused += 1
+            continue
         try:
+            requested += 1
             body, record = fetch_public(url, raw / (item['id'] + '.json'))
             attempts.append(record)
             details.append(json.loads(body))
         except (OSError, ValueError) as exc:
             attempts.append({'url': url, 'status': 'unavailable', 'reason': type(exc).__name__})
+            failures.append({'url': url, 'reason': type(exc).__name__})
         time.sleep(.15)
     collected = utc_now()
     ads, rejected = normalize_postings(details, retrieved_at=collected, mapping=mapping)
+    complete_listing = total is not None and len(listed_ids) == total
+    complete_details = complete_listing and len(details) == len(listed_ids)
     snapshot = {'version': 'market-snapshot-v1', 'synthetic': False, 'collected_at': collected,
                 'mapping_version': mapping['version'], 'mapping_sha256': sha(MARKET_DATA / 'mapping.v1.json'),
                 'source_universe_id': 'bosch-my-bounded-inspected-ads-v1',
                 'collection': {'reported_feed_total': total, 'listing_rows': len(listings),
                                'detail_cap': max_details, 'detail_responses': len(details),
+                               'new_detail_requests': requested, 'reused_verified_details': reused,
                                'accepted_ads': len(ads), 'rejections': rejected,
-                               'complete_feed': total is not None and len(ads) == total,
+                               'qualification_observed_ads': sum(a['qualifications_status']=='observed' for a in ads),
+                               'qualification_missing_ads': sum(a['qualifications_status']=='missing' for a in ads),
+                               'same_template_distinct_requisitions': sum(a['template_peer_requisition'] is not None for a in ads),
+                               'release_date_range': {'min':min((a['published_at'] for a in ads),default=None),
+                                                      'max':max((a['published_at'] for a in ads),default=None)},
+                               'release_year_counts':dict(Counter(a['published_at'][:4] for a in ads)),
+                               'listing_ids': len(listed_ids), 'request_failures': failures,
+                               'complete_listing': complete_listing,
+                               'complete_detail_collection': complete_details,
+                               'complete_feed': complete_details,
+                               'limit_explanation': '40 was a collector-selected initial request cap, not an API/access limit; expansion cap is explicit.',
                                'window_kind': 'observed_active_snapshot_not_quarterly_inflow'},
                 'ads': ads, 'acquisition': attempts,
                 'dosm_quality': quality, 'dosm_source': provenance,
@@ -185,12 +238,138 @@ def acquire_market(*, output=MARKET_DATA / 'snapshot.v1.json', max_details=40):
                                 'Source-native role mappings require A canonical-ID translation.',
                                 'Skill counts exclude preferred/negated mentions; dictionary coverage is partial.',
                                 'Raw job descriptions retained locally; redistribution licence not established.']}
-    output = Path(output)
+    output = Path(output).resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(encoded(snapshot))
     return {'snapshot': str(output.relative_to(ROOT)), 'sha256': sha(output),
             'collection': snapshot['collection'], 'dosm_quality': quality,
             'raw_directory': str(raw.relative_to(ROOT))}
+
+
+def inspect_csv_bytes(body):
+    """Inspect actual rows without exporting job descriptions or inventing dates."""
+    text = body.decode('utf-8-sig', errors='replace')
+    rows = list(csv.DictReader(io.StringIO(text)))
+    fields = list(rows[0]) if rows else []
+    dates = {}
+    for field in fields:
+        if any(t in field.casefold() for t in ('date', 'posted', 'listed', 'published')):
+            values = [r[field].strip() for r in rows if r.get(field, '').strip()]
+            parsed, unparsed = [], Counter()
+            for value in values:
+                day = None
+                for fmt in ('%Y-%m-%d', '%d/%m/%Y', '%m/%d/%Y', '%d-%m-%Y', '%d %b %Y', '%d %B %Y'):
+                    try:
+                        day = datetime.strptime(value[:10] if fmt == '%Y-%m-%d' else value, fmt).date().isoformat()
+                        break
+                    except ValueError:
+                        pass
+                if day:
+                    parsed.append(day)
+                else:
+                    unparsed[value] += 1
+            dates[field] = {'nonempty': len(values), 'parsed_dates': len(parsed),
+                            'min': min(parsed, default=None), 'max': max(parsed, default=None),
+                            'calendar_quarters': dict(Counter(d[:4] + '-Q' + str((int(d[5:7])-1)//3+1) for d in parsed)),
+                            'unparsed_examples': unparsed.most_common(5)}
+    id_fields = [f for f in fields if f.casefold() in ('id','job_id','jobid','ad_id','url','job_url','link')]
+    return {'format': 'csv', 'row_count': len(rows), 'fields': fields,
+            'missing_fields': {f: sum(not (r.get(f) or '').strip() for r in rows) for f in fields},
+            'date_fields': dates, 'identity_fields': id_fields,
+            'duplicate_identity_rows': {f: len(rows)-len({r.get(f) for r in rows}) for f in id_fields},
+            'classification_fields': [f for f in fields if any(t in f.casefold() for t in ('skill','category','class','occupation','title'))],
+            'description_fields': [f for f in fields if any(t in f.casefold() for t in ('description','qualification','requirement'))]}
+
+
+def replay_market_snapshot(input_path, raw_roots, output):
+    """Re-normalize pinned acquired bytes without repeating network requests."""
+    snapshot=json.loads(Path(input_path).read_text())
+    details=[]
+    for record in snapshot['acquisition']:
+        if '/postings/' not in record['url'] or record.get('http_status')!=200:
+            continue
+        identifier=record['url'].rsplit('/',1)[-1]
+        candidates=[p for root in raw_roots for p in Path(root).rglob(identifier+'.json')]
+        path=next((p for p in candidates if sha(p)==record['sha256']),None)
+        if path is None:
+            raise ValueError('missing_pinned_raw_ad:'+identifier)
+        details.append(json.loads(path.read_text()))
+    mapping=json.loads((MARKET_DATA/'mapping.v1.json').read_text())
+    ads,rejected=normalize_postings(details,retrieved_at=snapshot['collected_at'],mapping=mapping)
+    snapshot['ads']=ads
+    snapshot['available_at']=utc_now()
+    snapshot['normalization_version']='native-requisition-count-and-qualification-coverage-v2'
+    snapshot['source_universe_id']='bosch-my-inspected-native-requisitions-v2'
+    snapshot['collection'].update(accepted_ads=len(ads),rejections=rejected,
+        qualification_observed_ads=sum(a['qualifications_status']=='observed' for a in ads),
+        qualification_missing_ads=sum(a['qualifications_status']=='missing' for a in ads),
+        same_template_distinct_requisitions=sum(a['template_peer_requisition'] is not None for a in ads),
+        release_date_range={'min':min((a['published_at'] for a in ads),default=None),
+                            'max':max((a['published_at'] for a in ads),default=None)},
+        release_year_counts=dict(Counter(a['published_at'][:4] for a in ads)))
+    snapshot['limitations'] += [
+        '155 listed source-native requisitions were inspected; current feed membership was rechecked. Old release dates are not newly observed posting flows.',
+        'Same text across distinct native requisitions is flagged, not proof of a repost; only repeated native requisition identity is deduplicated.',
+        'Missing qualification sections remain unknown and are excluded from skill-count denominator, not dropped from role evidence.']
+    output=Path(output).resolve();output.parent.mkdir(parents=True,exist_ok=True);output.write_text(encoded(snapshot))
+    return {'snapshot':str(output.relative_to(ROOT)),'sha256':sha(output),'collection':snapshot['collection']}
+
+
+def inspect_source_file(path, kind):
+    path = Path(path)
+    body = path.read_bytes()
+    if kind == 'csv':
+        return inspect_csv_bytes(body)
+    if kind == 'zip':
+        with zipfile.ZipFile(io.BytesIO(body)) as archive:
+            members = [n for n in archive.namelist() if n.lower().endswith('.csv')]
+            if sum(archive.getinfo(n).file_size for n in members) > 100_000_000:
+                raise ValueError('uncompressed_CSV_inspection_limit')
+            return {'format': 'zip', 'members': {n: inspect_csv_bytes(archive.read(n)) for n in members}}
+    if kind == 'xlsx':
+        sheets = read_workbook(path)
+        return {'format': 'xlsx', 'sheets': {name: {'nonempty_cells': len(cells),
+                 'label_cells': {k: v for k, v in cells.items() if re.fullmatch(r'[AB]\d+', k) and v}}
+                 for name,cells in sheets.items()}}
+    if kind == 'json':
+        data = json.loads(body)
+        if isinstance(data, list):
+            return {'format': 'json', 'records': len(data), 'metadata_records': [
+                {k:v for k,v in row.items() if k in ('name','path','size','download_url','ref','title','lastUpdated','licenseName')}
+                for row in data[:30] if isinstance(row,dict)]}
+        return {'format': 'json', 'keys': list(data), 'metadata': {k:v for k,v in data.items()
+                if k in ('title','subtitle','licenseName','licenses','lastUpdated','totalBytes','resources','datasetFiles','files')}}
+    text = body.decode('utf-8', errors='replace')
+    links = re.findall(r'''(?:href|src)=["']([^"']+)["']''', text)
+    return {'format': 'html', 'title': re.findall(r'<title[^>]*>(.*?)</title>',text,re.S)[:1],
+            'data_links': [u for u in links if any(t in u.lower() for t in
+                ('csv','xlsx','json','.js','download','release-document','api/','skill','job-profile'))][:100],
+            'text_sha256': hashlib.sha256(plain_text(text).encode()).hexdigest()}
+
+
+def probe_market_sources(plan, output):
+    """Finite source plan -> downloaded bytes -> row/field/date evidence ledger."""
+    entries = json.loads(Path(plan).read_text())['sources']
+    if len(entries) > 20:
+        raise ValueError('source_probe_plan_limit_20')
+    batch = MARKET_ARTIFACTS / 'investigation' / utc_now().replace(':','-')
+    def inspect(entry):
+        result = dict(entry)
+        file = batch / (entry['source_id'] + '.' + entry['kind'])
+        try:
+            _, record = fetch_public(entry['url'], file, max_bytes=30_000_000)
+            result.update(access=record, inspection=inspect_source_file(file,entry['kind']),
+                          raw_file=str(file.relative_to(ROOT)), status='inspected_actual_response')
+        except (OSError,ValueError,KeyError,zipfile.BadZipFile) as exc:
+            result.update(status='unavailable', error=type(exc).__name__,
+                          http_status=getattr(exc,'code',None), reason=str(exc))
+        return result
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        records = list(pool.map(inspect, entries))
+    result = {'version':'market-source-investigation-v1','checked_at':utc_now(),
+              'automatic_retries':0,'source_results':records}
+    output=Path(output);output.parent.mkdir(parents=True,exist_ok=True);output.write_text(encoded(result))
+    return result
 
 
 def sha(path):

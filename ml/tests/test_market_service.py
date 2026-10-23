@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import unittest
 
-from minder_ml.intelligence.data_pipeline import normalize_postings, parse_dosm, MARKET_DATA
+from minder_ml.intelligence.data_pipeline import normalize_postings, parse_dosm, MARKET_DATA, inspect_csv_bytes
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.news import normalize_events, attention
 from minder_ml.intelligence.service_contracts import validate
@@ -40,6 +40,21 @@ class AcquisitionTests(unittest.TestCase):
         self.assertEqual(rows[0]['role_ids'], [])
         self.assertEqual(rejected[0]['reason'], 'future_publication')
 
+    def test_template_is_not_duplicate_and_missing_qualifications_is_unknown(self):
+        missing=ad('missing');missing['jobAd']['sections']['qualifications']['text']=''
+        rows,rejected=normalize_postings([ad('first'),ad('second'),missing],retrieved_at=STAMP,mapping=self.mapping)
+        self.assertEqual(len(rows),3)
+        self.assertFalse(rejected)
+        self.assertIn('same_template_distinct_native_requisition',rows[1]['quality_flags'])
+        self.assertEqual(rows[2]['qualifications_status'],'missing')
+        self.assertIn('missing_qualifications_not_zero_skills',rows[2]['quality_flags'])
+
+    def test_source_csv_dates_are_not_invented_from_relative_labels(self):
+        result=inspect_csv_bytes(b'job_id,listingDate,description\na,2024-01-01,SQL\nb,3 days ago,\n')
+        self.assertEqual(result['date_fields']['listingDate']['parsed_dates'],1)
+        self.assertEqual(result['date_fields']['listingDate']['min'],'2024-01-01')
+        self.assertEqual(result['missing_fields']['description'],1)
+
     def test_actual_pinned_dosm_cells(self):
         rows, quality, provenance = parse_dosm()
         self.assertEqual(quality['rejected_rows'], 0)
@@ -53,16 +68,17 @@ class AcquisitionTests(unittest.TestCase):
 class CurrentTests(unittest.TestCase):
     def setUp(self):
         self.service = MarketEvidenceService()
-        self.as_of = self.service.snapshot['collected_at']
+        self.as_of = self.service.snapshot.get('available_at',self.service.snapshot['collected_at'])
 
     def test_actual_counts_and_contract(self):
         role = self.service.current('role', '15-1252.00', as_of=self.as_of)
         skill = self.service.current('skill', 'source-term:sql', as_of=self.as_of)
-        self.assertEqual(role['value'], 1)
-        self.assertEqual(skill['value'], 4)
+        self.assertEqual(role['value'], 5)
+        self.assertEqual(skill['value'], 11)
         self.assertIsNone(role['internal_index'])
-        self.assertIn('39-ad', role['explanation'])
-        self.assertEqual(len(self.service.source_facts('skill', 'source-term:sql')['supporting_ads']), 4)
+        self.assertIn('155-ad', role['explanation'])
+        self.assertIn('154 inspected advertisements with observed qualification sections',skill['denominator'])
+        self.assertEqual(len(self.service.source_facts('skill', 'source-term:sql')['supporting_ads']), 11)
         for result in (role, skill):
             validate('MarketResult', result)
             self.assertEqual(result['published_at'], self.as_of)
@@ -89,7 +105,7 @@ class CurrentTests(unittest.TestCase):
         mapped = MarketEvidenceService(aliases={'role': {'canonical-id': '15-1252.00'}})
         result = mapped.current('role', 'canonical-id', as_of=self.as_of)
         self.assertEqual(result['entity_id'], 'canonical-id')
-        self.assertEqual(result['value'], 1)
+        self.assertEqual(result['value'], 5)
         # No profile/preference input exists on the market adapter boundary.
         self.assertEqual(result['value'], self.service.current('role', '15-1252.00', as_of=self.as_of)['value'])
         self.assertEqual(len(self.service.broad_observations(as_of='2020-01-01T00:00:00Z')), 0)
