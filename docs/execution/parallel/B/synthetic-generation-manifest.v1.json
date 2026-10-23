@@ -1,0 +1,113 @@
+{
+  "actual_simulated_zeros": 72,
+  "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+  "example_splits": {
+    "robustness": 14,
+    "test": 34,
+    "train": 156,
+    "validation": 24
+  },
+  "examples": [
+    {
+      "available_at": "2010-04-20T00:00:00Z",
+      "collection_complete": true,
+      "dataset_id": "fictional-market-scenarios-v1",
+      "display_label": "Simulated scenario — generated assumptions, not observed Malaysian demand.",
+      "entity_id": "sim:stable:role",
+      "entity_type": "role",
+      "geography": "SIMULATED",
+      "group_id": "sim:stable",
+      "period": {
+        "end": "2010-03-31",
+        "start": "2010-01-01"
+      },
+      "published_at": "2010-04-20T00:00:00Z",
+      "scenario": "stable",
+      "simulated_denominator": 1000,
+      "source_universe_id": "sim:stable:coverage-0",
+      "split": "train",
+      "synthetic": true,
+      "unit": "fictional advertisement counts",
+      "value": 73
+    },
+    {
+      "available_at": "2010-04-20T00:00:00Z",
+      "collection_complete": true,
+      "dataset_id": "fictional-market-scenarios-v1",
+      "display_label": "Simulated scenario — generated assumptions, not observed Malaysian demand.",
+      "entity_id": "sim:stable:skill",
+      "entity_type": "skill",
+      "geography": "SIMULATED",
+      "group_id": "sim:stable",
+      "period": {
+        "end": "2010-03-31",
+        "start": "2010-01-01"
+      },
+      "published_at": "2010-04-20T00:00:00Z",
+      "scenario": "stable",
+      "simulated_denominator": 1000,
+      "source_universe_id": "sim:stable:coverage-0",
+      "split": "train",
+      "synthetic": true,
+      "unit": "fictional advertisement counts",
+      "value": 41
+    }
+  ],
+  "excluded": {
+    "at_least_four_contiguous_quarters_required": 60,
+    "missing_or_invalid_counts": 30,
+    "missing_target_not_zero": 8,
+    "no_target_in_same_coverage_epoch": 40,
+    "outside_prespecified_group_time_split": 498
+  },
+  "generator": "fictional-market-scenarios-v1",
+  "generator_sha256": "bbf74696abcb143ec28544d6c0049011961927fe6d548ef37b86572a152852af",
+  "groups": 9,
+  "isolation": {
+    "normal_market_service": "service requires explicitly real evidence",
+    "normal_registry": "incompatible_or_synthetic_forecast_registry",
+    "observed_training_runner": "synthetic_or_unspecified_data_cannot_be_real_experiment_evidence"
+  },
+  "missing_values": 8,
+  "normal_serving_eligible": false,
+  "observed_before_after_identical": true,
+  "observed_hashes": {
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/current-official-plan.v1.json": "af0953fdfe6cf5e8cb2ab5ec775da1ab30651994542faa595fcfde05182428ee",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/current-public-evidence.v1.json": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/current-reuse-terms-plan.v1.json": "6a66324deccd386d1a7da15213ba9748b87aca51a0f61629f95dcba655f8c95b",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/events.v1.json": "fb885c367af299e00bec6d7e92fd8d1e970fefa4a31d4bf1026468523e4ceccf",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/forecast-dataset.v1.json": "63eed17c6c09ab2f8b74bbd2c417a7894cf08760cdf982901b052ff5ada6f965",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/galaxy-aggregate-plan.v1.json": "45bb0555439249484df8d27eba0fd6df085350d9b37215692bf12f7ff73add58",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/galaxy-occupation-assets-plan.v1.json": "03219f303a8fd6fe8e4e654a84533cadf11c31ec64a9eca3d70a54337f35eee7",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/galaxy-public-data-plan.v1.json": "57de1f137819c3f262476fe8b6fd1ef8c9417a5fe3bec3372b75ff226594fe3f",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/investigation-dosm-releases.v1.json": "33d8d45fd77ddced41a0f6e2aaa2ee0cabd3cf6ff890e7164ef7662c6be538af",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/investigation-followup.v1.json": "8187a5351aa404193020555cd94dc09526ae4522748a3893c3d3d8edb5da62d2",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/investigation-official-portals.v1.json": "dcd2e5669283357a35bc86d5ba237fda097646539bf6300b43ddd0746545f72c",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/investigation-plan.v1.json": "b8f135760ef9f8d03499f70ee567e167f75fece3b2b11b1119ebb22913969b07",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/investigation-records.v1.json": "6c57b4f37394a7ef754e66ab1fbef31dc78ec7e0b6e14111286506a80cab6352",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/mapping.v1.json": "700bfaa69745f16eb366d4cd2d9545681a8ae4767def86288558e38a7845ea2c",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/news-plan.v1.json": "688a1339c13a08942eab9dd9ca5b8f390257565aa926ac25217b87b7cbd689dd",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/published-role-observations.v1.json": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/research/jobstreet-corpus-counts.v1.json": "58d22360637c1fbbc11eaa9b738e14dff7f30bd19948e9681b25b4ce1b77e1ba",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/serving-registry.v1.json": "dc169837886af1b069f0fff42f4fe9232d0ba7030d57cf3359962406de847c64",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/snapshot.v1.json": "1a5d6e05721428ba2281a9c13551b96013b2cd5baafa9def9decaf1fedec16b3",
+    "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/ml/data/market/sources.v1.json": "c502d9ce89376e4cad0a1ee03bf8a17b27744fee692f9d08b1cc7310144c5a13",
+    "ml/minder_ml_starter/derived/dosm_jmi_quarterly_long.csv": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b",
+    "ml/minder_ml_starter/derived/ilo_genai_occupation_2025.csv": "b331fa8bf4452f6df0737d7201cc529a892c1a12dbdf013f60cee6cef8e7250e",
+    "ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+    "ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1",
+    "ml/minder_ml_starter/raw/dosm_wages_occupation.csv": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17",
+    "ml/minder_ml_starter/raw/dosm_wages_state.csv": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea",
+    "ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+    "ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a",
+    "ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c",
+    "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+    "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+    "ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+    "ml/minder_ml_starter/raw/onet_31_0_software_skills.csv": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016"
+  },
+  "records": 864,
+  "series": 18,
+  "spec_sha256": "f2ade9c8990917410f00fe77fa89268fbd0c296a4a16141cf85bad5a3031c29f",
+  "synthetic": true
+}

@@ -1,0 +1,19 @@
+{
+  "version": "synthetic-scenario-spec-v1",
+  "generator": "fictional-market-scenarios-v1",
+  "synthetic": true,
+  "seed": 20261023,
+  "quarters": 48,
+  "purpose": "Bounded fictional count simulation and estimator comparison; no missing market evidence replacement",
+  "unit": "fictional advertisement counts",
+  "timeline": "2010-Q1 through 2021-Q4; simulated publication 20 days after quarter end; actual target lead two quarters",
+  "scenario_groups": "Entire families are disjoint: stable/rising/falling train; seasonal/sparse validation; abrupt/missing/coverage_change test; damped_cycle additional robustness only. Two correlated role/skill variants per group stay together.",
+  "group_assignment": "fixed before any random draws; correlated role/skill pair always same group and split",
+  "parameters": "Exact fixed equations, missing-quarter positions and coverage epochs are versioned in the generator; group scale uniform[0.85,1.15], role noise integer[-2,2], skill approx 55% with noise[-1,1] capped at role count",
+  "generator_fitting": "none; no calibration or parameter selection using data or test metrics",
+  "chronological_split": "train labels published before 2018; validation issues 2018-2019 and labels published before 2020; test and robustness issues 2020 onwards; unknown targets/history excluded without imputation",
+  "real_aggregate_anchors": [],
+  "permitted_uses": ["isolated software verification", "synthetic-only training/evaluation", "reproducibility demonstration"],
+  "forbidden_uses": ["observed Malaysian evidence", "normal market serving", "increasing source coverage", "independent accuracy or augmentation benefit claims"],
+  "limitations": ["Assumed worlds, not observed demand", "Related variants remain related even with different seeds", "No real holdout exists", "No privacy-sensitive inputs or restricted source records used"]
+}

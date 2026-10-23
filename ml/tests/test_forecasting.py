@@ -139,6 +139,55 @@ class ForecastTests(unittest.TestCase):
             self.assertTrue(all(e['x_news'] is None for e in result(bad)))
 
 
+class ScenarioIsolationTests(unittest.TestCase):
+    def lab(self):
+        import importlib.util
+        path = Path(__file__).resolve().parents[2] / 'docs/execution/parallel/B/checks/synthetic_market_experiment.py'
+        spec = importlib.util.spec_from_file_location('synthetic_market_lab', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def test_determinism_family_groups_and_missing_zero_distinction(self):
+        lab = self.lab()
+        spec = json.loads(lab.SPEC.read_text())
+        dataset = lab.generate(spec)
+        self.assertEqual(dataset, lab.generate(spec))
+        self.assertEqual(len(dataset['rows']), 864)
+        self.assertEqual({r['geography'] for r in dataset['rows']}, {'SIMULATED'})
+        examples, excluded = lab.examples(dataset)
+        families = {s: {e['scenario'] for e in examples if e['split'] == s}
+                    for s in ('train', 'validation', 'test', 'robustness')}
+        self.assertTrue(all(not families[a] & families[b] for a in families for b in families if a != b))
+        self.assertGreater(excluded['missing_target_not_zero'], 0)
+        self.assertTrue(any(e['label'] == 0 for e in examples))
+        self.assertTrue(all(e['label'] is not None for e in examples))
+        for e in examples:
+            self.assertTrue(all(d <= e['issued_at'] for d in e['history_available_at']))
+            self.assertEqual(e['x'][-1], 2)
+
+    def test_future_values_do_not_change_earlier_features_or_bridge_coverage(self):
+        lab = self.lab(); dataset = lab.generate(json.loads(lab.SPEC.read_text()))
+        original, _ = lab.examples(dataset)
+        changed = copy.deepcopy(dataset)
+        for row in changed['rows']:
+            if row['period']['start'] >= '2021-01-01' and row['value'] is not None:
+                row['value'] += 999
+        later, _ = lab.examples(changed)
+        before = {e['example_id']: e['x'] for e in original if e['issued_at'] < '2021-01-01'}
+        after = {e['example_id']: e['x'] for e in later if e['issued_at'] < '2021-01-01'}
+        self.assertEqual(before, after)
+        for e in original:
+            if e['scenario'] == 'coverage_change':
+                self.assertTrue(e['source_universe_id'].endswith('coverage-1'))
+                self.assertTrue(all(p['start'] >= '2017-01-01' for p in e['history_periods']))
+
+    def test_runtime_rejects_actual_lab_dataset_and_manifest(self):
+        lab = self.lab(); dataset = lab.generate(json.loads(lab.SPEC.read_text()))
+        with tempfile.TemporaryDirectory() as directory:
+            self.assertEqual(len(lab.isolation(dataset, Path(directory))), 3)
+
+
 class RegistryTests(unittest.TestCase):
     """Temporary fake acceptance metadata exercises loader branches only.
 
