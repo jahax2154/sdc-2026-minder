@@ -37,6 +37,9 @@ class MarketEvidenceService:
         self.published_version = hashlib.sha256(published_path.read_bytes()).hexdigest() if published_path.is_file() else None
         if self.published_roles.get('synthetic', False):
             raise ValueError('synthetic_published_role_evidence')
+        context_path=MARKET_DATA/'current-public-evidence.v1.json'
+        self.context_evidence=json.loads(context_path.read_text()) if context_path.is_file() else None
+        self.context_version=hashlib.sha256(context_path.read_bytes()).hexdigest() if context_path.is_file() else None
         self.forecast_registry = forecast_registry
         registry_path = MARKET_DATA / 'serving-registry.v1.json'
         if snapshot is None and forecast_registry is None and registry_path.is_file():
@@ -47,6 +50,8 @@ class MarketEvidenceService:
                 raise ValueError('current_snapshot_checksum_mismatch')
             if self.published_version != self.forecast_registry.manifest.get('published_role_snapshot_sha256'):
                 raise ValueError('published_role_snapshot_checksum_mismatch')
+            if self.context_version != self.forecast_registry.manifest.get('public_context_snapshot_sha256'):
+                raise ValueError('public_context_snapshot_checksum_mismatch')
 
     def _source_id(self, entity_type, entity_id):
         return self.aliases.get(entity_type, {}).get(entity_id, entity_id)
@@ -197,3 +202,44 @@ class MarketEvidenceService:
         """Explicit source-label facts, separate from canonical employer counts."""
         return [copy.deepcopy(r) for r in self.published_roles['observations']
                 if timestamp(r['available_at']) <= timestamp(as_of)]
+
+    def current_context(self, *, as_of, occupation_system=None, occupation_version=None,
+                        occupation_code=None, evidence_ids=None):
+        """Targeted source facts, never coerced into the numeric MarketResult.
+
+        MASCO codes are source-native. No title-only canonical join, inferred
+        child membership, negative shortage status or numerical blend exists.
+        This additive B interface is proposed to A for context integration.
+        """
+        import re
+        timestamp(as_of)
+        if occupation_code is None and not evidence_ids:
+            raise ValueError('explicit_source_occupation_or_evidence_ids_required')
+        if evidence_ids and len(evidence_ids)>20:
+            raise ValueError('bounded_selected_evidence_query_required')
+        if occupation_code is not None and (occupation_system!='MASCO' or occupation_version!='2020'
+                or not re.fullmatch(r'\d{4}(?:-\d{2})?',occupation_code)):
+            raise ValueError('explicit_MASCO_2020_code_required; canonical_mappings_are_not_inferred')
+        records=[]
+        if self.context_evidence:
+            for r in self.context_evidence['records']:
+                occupation=r.get('occupation',{})
+                match=(occupation_code is not None and occupation.get('system')==occupation_system
+                       and occupation.get('version')==occupation_version and occupation.get('code')==occupation_code)
+                if (match or (evidence_ids and r['evidence_id'] in evidence_ids)) and timestamp(r['available_at'])<=timestamp(as_of):
+                    records.append(copy.deepcopy(r))
+        reason=None if records else ('six_digit_membership_not_verified' if occupation_code and '-' in occupation_code
+                                    else 'no_matching_available_source_fact; non_listing_is_unknown_not_low_demand')
+        return {'version':'current-public-market-evidence-v1','status':'available' if records else 'unknown',
+                'issued_at':as_of,'source_snapshot_sha256':self.context_version,'records':records,
+                'missing_reason':reason,'numeric_comparison_eligible':False,
+                'usage':'Source-coded explanation facts only; shortage designations and broad published levels are not advertisement-count ranking inputs.'}
+
+    def current_context_catalogue(self, *, as_of):
+        """Discover codes/labels/types without a raw score/count leaderboard."""
+        timestamp(as_of)
+        return [{'evidence_id':r['evidence_id'],'entity_type':r['entity_type'],
+                 'entity':copy.deepcopy(r.get('occupation') or r.get('sector')),
+                 'measurement_type':r['measurement_type'],'observation_period':r['observation_period']}
+                for r in (self.context_evidence or {}).get('records',[])
+                if timestamp(r['available_at'])<=timestamp(as_of)]

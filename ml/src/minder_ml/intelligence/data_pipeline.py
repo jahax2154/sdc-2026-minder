@@ -322,6 +322,13 @@ def replay_market_snapshot(input_path, raw_roots, output):
 def inspect_source_file(path, kind):
     path = Path(path)
     body = path.read_bytes()
+    if kind == 'pdf':
+        # Optional offline extraction tool lives in the lane's ignored tools.
+        # The application serves curated JSON and does not import this parser.
+        from pypdf import PdfReader
+        reader=PdfReader(io.BytesIO(body))
+        return {'format':'pdf','pages':len(reader.pages),'encrypted':reader.is_encrypted,
+                'purpose':'Aggregate occupational publication; personal/contact sections excluded from derived output'}
     if kind == 'csv':
         return inspect_csv_bytes(body)
     if kind == 'zip':
@@ -524,6 +531,129 @@ def extract_published_role_history(reports, output):
             'No automatic MASCO/O*NET crosswalk or forecast promotion applied.']}
     Path(output).write_text(encoded(result))
     return {'output':str(output),'observations':len(records),'missing':len(missing),'releases':len(sources)}
+
+
+def clean_aggregate_label(value):
+    """Allowlisted occupation/sector labels only; remove incidental contacts."""
+    value=plain_text(value)
+    value=re.sub(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}','[contact removed]',value,flags=re.I)
+    value=re.sub(r'\+\d[\d ()-]{7,}\d','[contact removed]',value)
+    return re.sub(r'\s+',' ',value).strip()
+
+
+def parse_mycol_national_table(ocr_pages):
+    """Table 7, PDF spreads 44/45, exactly 66 explicitly coded national groups.
+
+    No forewords, contact sections, respondent identities, historic list tables
+    or regional tables enter derived evidence. OCR geometry is preserved.
+    """
+    result=[]
+    for page in ocr_pages:
+        number=page['pdf_page']
+        if number not in (44,45): continue
+        anchors=[r for r in page['lines'] if re.fullmatch(r'\d{4}',r['text'].strip())
+                 and (number==44 or r['x']<.5)]
+        for anchor in anchors:
+            left=anchor['x']<.5
+            following=[r['y'] for r in anchors if (r['x']<.5)==left and r['y']<anchor['y']-.005]
+            bottom=max(following)+.012 if following else anchor['y']-.025
+            titles=[r for r in page['lines'] if anchor['x']+.035<r['x']<(.5 if left else .99)
+                    and bottom<r['y']<anchor['y']+.014]
+            title=clean_aggregate_label(' '.join(r['text'] for r in sorted(titles,key=lambda r:-r['y'])))
+            if not title or '[contact removed]' in title:
+                raise ValueError('invalid_or_incidental_contact_in_occupation_label')
+            result.append({'code':anchor['text'].strip(),'label':title,'pdf_page':number,
+                           'table':'Table 7: national critical occupations',
+                           'code_bbox':{k:anchor[k] for k in ('x','y','width','height')}})
+    if len(result)!=66 or len({r['code'] for r in result})!=66:
+        raise ValueError('national_list_must_have_66_unique_published_codes')
+    return sorted(result,key=lambda r:r['code'])
+
+
+def build_public_current_evidence(ocr_path, acquisition_report, output):
+    """Code-preserving current context: shortages != offering counts != ads."""
+    report=json.loads(Path(acquisition_report).read_text())
+    source=next(r for r in report['source_results'] if r['source_id']=='talentcorp-mycol-2024-2025')
+    if source.get('status')!='inspected_actual_response' or sha(Path(source['raw_file']))!=source['access']['sha256']:
+        raise ValueError('MyCOL_acquired_publication_hash_required')
+    groups=parse_mycol_national_table(json.loads(Path(ocr_path).read_text()))
+    available=utc_now();records=[]
+    for group in groups:
+        records.append({'record_version':'current-public-market-evidence-v1',
+            'evidence_id':'mycol:2024-2025:masco2020:'+group['code'],
+            'entity_type':'occupation','occupation':{'system':'MASCO','version':'2020',
+                'code':group['code'],'level':4,'label':group['label']},
+            'geography':{'country_code':'MY','scope':'national'},
+            'measurement_type':'institutional_occupation_shortage_designation',
+            'value':'listed_in_national_MyCOL','unit':'designation_not_advertisement_count',
+            'observation_period':{'label':'MyCOL 2024/2025 edition','start':None,'end':None,
+                'basis':'edition, not a verified continuous fieldwork or calendar-flow window'},
+            'published_at':None,'publication_date_status':'not_stated_in_inspected_landing_or_verified_report_metadata',
+            'available_at':available,'source_available_at':source['access']['retrieved_at'],
+            'source':{'source_id':source['source_id'],'publisher':'TalentCorp',
+                'url':source['url'],'landing_url':'https://www.talentcorp.com.my/mycol/',
+                'sha256':source['access']['sha256'],'pdf_page':group['pdf_page'],
+                'table':group['table'],'code_bbox':group['code_bbox']},
+            'coverage':{'distinct_national_four_digit_groups':66,'declared_study_sectors':18,
+                'sector_coverage_basis':'institutional MyCOL landing statement; not 18 per-occupation sector mappings',
+                'employer_count':None,'applies_to_all_six_digit_children':False},
+            'comparison_status':'usable_source_coded_context_not_compatible_with_ad_count_ranking',
+            'canonical_role_mappings':[],
+            'reuse_conditions':{'access':'public official report',
+                'licence':'No open-data licence asserted; preserve attribution; raw report/prose not redistributed',
+                'terms_url':'https://www.talentcorp.com.my/terms-conditions/'},
+            'limitations':['Institutional shortage designation, not number of ads, hires, employment or probability.',
+                'Non-listing is unknown and does not imply low demand.',
+                'National group designation may cover only nominated six-digit jobs; do not mark every child critical.',
+                'Mixed survey/statistical evidence and edition scope are not an October 2026 market snapshot.',
+                'No title-only MASCO/O*NET join or numerical recommendation contribution is applied.']})
+    snapshot=json.loads((MARKET_DATA/'snapshot.v1.json').read_text())
+    for row in snapshot['dosm_observations']:
+        if row['period_end']!='2026-06-30' or row['group_kind']!='category':continue
+        sector=row['dimension_scope']=='industry'
+        label=row['industry_label'] if sector else row['occupation_label']
+        identifier=re.sub('[^a-z0-9]+','-',label.casefold()).strip('-')
+        entity={'system':'DOSM JMI published economic activities' if sector else 'DOSM JMI published major occupation groups',
+                'version':None,'code':None,'label':clean_aggregate_label(label),
+                'code_status':'not_supplied_in_acquired_workbook; no code inferred from title or row order'}
+        records.append({'record_version':'current-public-market-evidence-v1',
+            'evidence_id':'dosm:jmi:2026-q2:'+('sector:' if sector else 'major-occupation:')+identifier,
+            'entity_type':'sector' if sector else 'occupation_major_group',
+            'sector' if sector else 'occupation':entity,
+            'geography':{'country_code':'MY','scope':'published national source coverage'},
+            'measurement_type':'published_online_job_offerings', 'value':row['value'],'unit':'published job offerings',
+            'observation_period':{'start':row['period_start'],'end':row['period_end'],'label':'2026 Q2','basis':'published quarter'},
+            'published_at':'2026-08-18','publication_date_status':'official_release_date; time_of_day_not_asserted',
+            'available_at':available,'source_available_at':row['retrieved_at'],
+            'source':{'source_id':row['source_id'],'publisher':'Department of Statistics Malaysia',
+                'url':'https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026',
+                'sha256':row['source_version'],'source_cell':row['source_record']},
+            'coverage':{'grain':'economic-activity marginal' if sector else 'occupation-major-group marginal',
+                'published_total':555509,'economic_activity_unclassified':273024 if sector else None,
+                'employer_count':None,'source_representativeness':'not independently verified'},
+            'comparison_status':'source_native_current_level_only; not narrow-role allocation or mixed-unit comparison',
+            'quality_flags':row['quality_flags'],'canonical_role_mappings':[],
+            'reuse_conditions':{'access':'public official aggregate attachment; pinned immutable source reused',
+                'licence':'Specific attachment redistribution licence not independently verified; raw workbook not redistributed'},
+            'limitations':['Source-covered online offerings, not all Malaysian employment, vacancies or hires.',
+                'Separate marginal tables are not joint occupation/sector/employer observations.',
+                'Never allocate broad totals to a narrow role or requested skill.',
+                'Q2 industry classification/coverage change and large unclassified count limit cross-quarter comparisons.']})
+    result={'version':'current-public-market-evidence-v1','synthetic':False,'generated_at':available,
+        'records':records,'privacy':'Only code/label, aggregate designation/count, scope, dates and provenance are allowlisted; no applicant, author or recruiter contacts.',
+        'coverage':{'mycol_distinct_masco2020_four_digit_groups':66,'dosm_distinct_sector_labels':21,
+            'dosm_distinct_major_occupation_groups':9,'distinct_identified_employers_added':0,
+            'existing_identified_employer_feed_count':1,'mycol_declared_study_sector_count':18,
+            'cross_taxonomy_distinct_occupations':'Not summed across incomparable or unjoined classifications'},
+        'galaxy':{'status':'public_aggregate_records_inspected_distribution_held',
+            'reason':'Linked MYFutureJobs terms clauses 4.3/4.4 restrict storage/reproduction/distribution; no separate Galaxy open-data licence located.',
+            'official_entry':'https://myfuturejobs.gov.my/bm/myfuturejobsgalaxy-2/',
+            'terms_url':'https://myfuturejobs.gov.my/wp-content/uploads/2024/03/TermsAndConditions.pdf',
+            'source_observed_six_digit_occupations':3041,'source_observed_four_digit_groups':428,
+            'records_distributed_to_application':0,'permission_status':'not_granted_or_assumed'}}
+    if len(records)!=96:raise ValueError('expected_66_shortage_21_sector_9_major_records')
+    Path(output).write_text(encoded(result))
+    return {'output':str(output),'coverage':result['coverage'],'evidence_records':len(records)}
 
 
 def sha(path):

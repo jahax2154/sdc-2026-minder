@@ -1,0 +1,1227 @@
+{
+  "A_four_market_informed_roles": [
+    {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "classification_basis": "B declared employer-title rules plus exact native O*NET ID aliases; not an official MASCO crosswalk",
+      "count": 0,
+      "delivery_status": "already_integrated_and_usable_under_A_existing_provisional_policy",
+      "limitations": [
+        "Known zero only within the inspected Bosch sample; never low national demand.",
+        "New institutional shortage facts do not automatically alter this numeric ordering."
+      ],
+      "period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "role_id": "onet:13-2011.00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "status": "available"
+    },
+    {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "classification_basis": "B declared employer-title rules plus exact native O*NET ID aliases; not an official MASCO crosswalk",
+      "count": 5,
+      "delivery_status": "already_integrated_and_usable_under_A_existing_provisional_policy",
+      "limitations": [
+        "Known zero only within the inspected Bosch sample; never low national demand.",
+        "New institutional shortage facts do not automatically alter this numeric ordering."
+      ],
+      "period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "role_id": "onet:15-1252.00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "status": "available"
+    },
+    {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "classification_basis": "B declared employer-title rules plus exact native O*NET ID aliases; not an official MASCO crosswalk",
+      "count": 0,
+      "delivery_status": "already_integrated_and_usable_under_A_existing_provisional_policy",
+      "limitations": [
+        "Known zero only within the inspected Bosch sample; never low national demand.",
+        "New institutional shortage facts do not automatically alter this numeric ordering."
+      ],
+      "period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "role_id": "onet:15-2051.00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "status": "available"
+    },
+    {
+      "available_at": "2026-10-23T06:13:31.947075+00:00",
+      "classification_basis": "B declared employer-title rules plus exact native O*NET ID aliases; not an official MASCO crosswalk",
+      "count": 0,
+      "delivery_status": "already_integrated_and_usable_under_A_existing_provisional_policy",
+      "limitations": [
+        "Known zero only within the inspected Bosch sample; never low national demand.",
+        "New institutional shortage facts do not automatically alter this numeric ordering."
+      ],
+      "period": {
+        "end": "2026-10-23",
+        "start": "2026-10-23"
+      },
+      "role_id": "onet:17-2112.00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "status": "available"
+    }
+  ],
+  "A_reference": {
+    "commit": "3fe49487b3dc76eee58f8667ae6d992790615782",
+    "report": "docs/execution/parallel/A/N3.1.json",
+    "report_as_of": "2026-10-23T06:41:47.985585+00:00"
+  },
+  "checked_at": "2026-10-23T09:00:37.771457+00:00",
+  "new_application_context_coverage": {
+    "cross_taxonomy_distinct_occupations": "Not summed across incomparable or unjoined classifications",
+    "distinct_identified_employers_added": 0,
+    "dosm_distinct_major_occupation_groups": 9,
+    "dosm_distinct_sector_labels": 21,
+    "existing_identified_employer_feed_count": 1,
+    "mycol_declared_study_sector_count": 18,
+    "mycol_distinct_masco2020_four_digit_groups": 66
+  },
+  "official_role_observations": [
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:12:45.108267+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Software Developers",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-03-31",
+        "start": "2026-01-01"
+      },
+      "published_at": "2026-06-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+      "source_id": "dosm-jmi-2026q1-page",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "unit": "published job offerings",
+      "value": 20089
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:12:45.108267+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-03-31",
+        "start": "2026-01-01"
+      },
+      "published_at": "2026-06-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-jmi-2026q1-page",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "unit": "published job offerings",
+      "value": 24784
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:12:45.108267+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-03-31",
+        "start": "2026-01-01"
+      },
+      "published_at": "2026-06-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-jmi-2026q1-page",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "unit": "published job offerings",
+      "value": 48186
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:12:45.108267+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-03-31",
+        "start": "2026-01-01"
+      },
+      "published_at": "2026-06-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-jmi-2026q1-page",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "unit": "published job offerings",
+      "value": 26869
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:12:45.108267+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-03-31",
+        "start": "2026-01-01"
+      },
+      "published_at": "2026-06-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-jmi-2026q1-page",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "unit": "published job offerings",
+      "value": 26257
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.876178+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "awaiting_occupation_mapping_for_canonical_use",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified."
+      ],
+      "label": "Software Developers",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "published_at": "2026-08-18T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+      "source_id": "dosm-release-2026-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "unit": "published job offerings",
+      "value": 19899
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.876178+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "awaiting_occupation_mapping_for_canonical_use",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "published_at": "2026-08-18T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2026-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "unit": "published job offerings",
+      "value": 22067
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.876178+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "awaiting_occupation_mapping_for_canonical_use",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "published_at": "2026-08-18T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2026-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "unit": "published job offerings",
+      "value": 40640
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.876178+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "awaiting_occupation_mapping_for_canonical_use",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "published_at": "2026-08-18T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2026-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "unit": "published job offerings",
+      "value": 26649
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.876178+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "awaiting_occupation_mapping_for_canonical_use",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2026-06-30",
+        "start": "2026-04-01"
+      },
+      "published_at": "2026-08-18T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2026-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+      "unit": "published job offerings",
+      "value": 23984
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.858493+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "published_at": "2026-05-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2025-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "unit": "published job offerings",
+      "value": 20111
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.858493+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "published_at": "2026-05-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2025-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "unit": "published job offerings",
+      "value": 42411
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.858493+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "published_at": "2026-05-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2025-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "unit": "published job offerings",
+      "value": 36656
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.858493+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "published_at": "2026-05-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2025-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "unit": "published job offerings",
+      "value": 29569
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.858493+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-12-31",
+        "start": "2025-10-01"
+      },
+      "published_at": "2026-05-25T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-professionals",
+      "source_id": "dosm-release-2025-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q42025",
+      "unit": "published job offerings",
+      "value": 22093
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.857168+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-09-30",
+        "start": "2025-07-01"
+      },
+      "published_at": "2026-04-28T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2025-q3",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "unit": "published job offerings",
+      "value": 17587
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.857168+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-09-30",
+        "start": "2025-07-01"
+      },
+      "published_at": "2026-04-28T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2025-q3",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "unit": "published job offerings",
+      "value": 40213
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.857168+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-09-30",
+        "start": "2025-07-01"
+      },
+      "published_at": "2026-04-28T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2025-q3",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "unit": "published job offerings",
+      "value": 35606
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.857168+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-09-30",
+        "start": "2025-07-01"
+      },
+      "published_at": "2026-04-28T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2025-q3",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "unit": "published job offerings",
+      "value": 30523
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:22.857168+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-09-30",
+        "start": "2025-07-01"
+      },
+      "published_at": "2026-04-28T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-professionals",
+      "source_id": "dosm-release-2025-q3",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q32025",
+      "unit": "published job offerings",
+      "value": 18860
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.024094+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-06-30",
+        "start": "2025-04-01"
+      },
+      "published_at": "2026-02-26T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2025-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "unit": "published job offerings",
+      "value": 9990
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.024094+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-06-30",
+        "start": "2025-04-01"
+      },
+      "published_at": "2026-02-26T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2025-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "unit": "published job offerings",
+      "value": 21663
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.024094+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-06-30",
+        "start": "2025-04-01"
+      },
+      "published_at": "2026-02-26T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2025-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "unit": "published job offerings",
+      "value": 12954
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.024094+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-06-30",
+        "start": "2025-04-01"
+      },
+      "published_at": "2026-02-26T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2025-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "unit": "published job offerings",
+      "value": 34034
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.024094+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-06-30",
+        "start": "2025-04-01"
+      },
+      "published_at": "2026-02-26T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-professionals",
+      "source_id": "dosm-release-2025-q2",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-second-quarter-of-",
+      "unit": "published job offerings",
+      "value": 7544
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.013983+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-03-31",
+        "start": "2025-01-01"
+      },
+      "published_at": "2026-01-30T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2025-q1",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "unit": "published job offerings",
+      "value": 9462
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.013983+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-03-31",
+        "start": "2025-01-01"
+      },
+      "published_at": "2026-01-30T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2025-q1",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "unit": "published job offerings",
+      "value": 21411
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.013983+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-03-31",
+        "start": "2025-01-01"
+      },
+      "published_at": "2026-01-30T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2025-q1",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "unit": "published job offerings",
+      "value": 13088
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.013983+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-03-31",
+        "start": "2025-01-01"
+      },
+      "published_at": "2026-01-30T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2025-q1",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "unit": "published job offerings",
+      "value": 13001
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.013983+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2025-03-31",
+        "start": "2025-01-01"
+      },
+      "published_at": "2026-01-30T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-professionals",
+      "source_id": "dosm-release-2025-q1",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-first-q12025",
+      "unit": "published job offerings",
+      "value": 7996
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.025316+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Accountants and Auditors",
+      "occupation_code": null,
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "published_at": "2025-12-22T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "source_id": "dosm-release-2024-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "unit": "published job offerings",
+      "value": 9422
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.025316+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Advertising and Marketing Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "published_at": "2025-12-22T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "source_id": "dosm-release-2024-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "unit": "published job offerings",
+      "value": 23823
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.025316+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Managing Directors and Chief Executives",
+      "occupation_code": null,
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "published_at": "2025-12-22T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "source_id": "dosm-release-2024-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "unit": "published job offerings",
+      "value": 11442
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.025316+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Administrative Associate Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "published_at": "2025-12-22T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:administrative-associate-professionals",
+      "source_id": "dosm-release-2024-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "unit": "published job offerings",
+      "value": 13148
+    },
+    {
+      "already_callable_as_source_native_context": true,
+      "available_at": "2026-10-23T06:24:30.025316+00:00",
+      "canonical_role_mapping_applied": false,
+      "classification": {
+        "canonical_role_mapping": "not_applied",
+        "edition": "not_verified_for_each_release",
+        "native_code": null,
+        "system": "DOSM JMI published occupation labels"
+      },
+      "comparison_status": "unsuitable_for_A_Bosch_ad_count_cohort",
+      "delivery_status": "historical_context_only",
+      "exact_reasons": [
+        "Published offering quantity/source universe/quarter differs from the 155-requisition employer snapshot.",
+        "The extracted source entry supplies a label but no verified occupation code; no code inferred from similar titles.",
+        "Unique-ad deduplication and positions-per-ad equivalence are unverified.",
+        "Older than the latest acquired DOSM Q2 2026 release; missing top-list entries are not zero."
+      ],
+      "label": "Public Relations Professionals",
+      "occupation_code": null,
+      "period": {
+        "end": "2024-12-31",
+        "start": "2024-10-01"
+      },
+      "published_at": "2025-12-22T23:59:59+08:00",
+      "source_entity_id": "dosm:jmi:published-role-label:public-relations-professionals",
+      "source_id": "dosm-release-2024-q4",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-and-my-job-profile-fourth-q42024",
+      "unit": "published job offerings",
+      "value": 8372
+    }
+  ],
+  "official_status_counts": {
+    "awaiting_occupation_mapping_for_canonical_use": 5,
+    "historical_context_only": 30
+  },
+  "other_acquired_evidence": [
+    {
+      "classification": "MASCO 2020 4-digit",
+      "comparison_status": "not_an_ad_count_or_rank; designation_not_comparable_to_Bosch_counts",
+      "delivery_status": "newly_callable_source_coded_context; awaiting_A_context_integration_and_canonical_code_mapping",
+      "distinct_occupation_groups": 66,
+      "exact_reason": "Shortage classification; subset of six-digit children may be designated; non-listing stays unknown.",
+      "source": "MyCOL 2024/2025"
+    },
+    {
+      "comparison_status": "current_levels_only; no_narrow_role_allocation",
+      "delivery_status": "newly_callable_source_native_current_context; awaiting_A_context_integration",
+      "distinct_sector_labels": 21,
+      "exact_reason": "National source marginals, large unclassified count and classification/coverage-review flag; not joint role-sector observations.",
+      "source": "DOSM latest economic activities"
+    },
+    {
+      "comparison_status": "unsuitable_for_narrow_role_count_comparison",
+      "delivery_status": "newly_callable_broad_current_context; awaiting_A_context_integration",
+      "distinct_major_groups": 9,
+      "exact_reason": "Broad major group grain cannot be treated as each canonical role; native codes absent from the workbook are left null.",
+      "source": "DOSM latest major occupation groups"
+    },
+    {
+      "comparison_status": "unsuitable_for_live_current_or_complete_quarter_flow_comparison",
+      "delivery_status": "historical_context_only",
+      "exact_reason": "Surviving weekly-scrape corpus, dates end May 2025; missing quarters, collection windows, historical availability and per-record country verification.",
+      "source": "JobStreet original 69024-ad corpus"
+    },
+    {
+      "comparison_status": "not_integrated; source_period_and_reuse_conditions_must_be_respected",
+      "delivery_status": "public_inspection_completed_bulk_distribution_held",
+      "exact_reason": "Linked terms clauses 4.3/4.4 restrict storage/reproduction/distribution; no separate open licence or permission located. No bulk rows exported.",
+      "source": "Galaxy public occupational aggregates",
+      "source_distinct_four_digit_groups": 428,
+      "source_distinct_six_digit_occupations": 3041
+    },
+    {
+      "comparison_status": "unsuitable_as_advertisement_demand_counts",
+      "delivery_status": "reference_or_context_only_for_this_market_expansion",
+      "exact_reason": "Foreign occupational requirements/crosswalks, technical AI exposure, employment stocks or wages have different geography or quantities. No conversion to MY ad counts.",
+      "source": "Other pinned references: O*NET/ESCO/ILO, labour force and wages"
+    }
+  ],
+  "privacy": "No CVs/applicant profiles/recruiter contacts acquired; derived context contains only allowlisted aggregate facts.",
+  "version": "current-coverage-reconciliation-v1"
+}

@@ -10,6 +10,7 @@ import csv
 
 from minder_ml.intelligence.data_pipeline import (normalize_postings, parse_dosm, MARKET_DATA,
     inspect_csv_bytes, inspect_source_file, audit_jobstreet_corpus, parse_published_role_counts, sha)
+from minder_ml.intelligence.data_pipeline import parse_mycol_national_table, clean_aggregate_label
 from minder_ml.intelligence.market_service import MarketEvidenceService
 from minder_ml.intelligence.news import normalize_events, attention
 from minder_ml.intelligence.service_contracts import validate
@@ -191,6 +192,68 @@ class PublishedServiceTests(unittest.TestCase):
         self.assertEqual(result['status'],'unavailable')
         self.assertIsNone(result['value'])
         self.assertIn('published_offerings_not_verified_unique_advertisements',result['missing_reasons'])
+
+
+class CurrentContextTests(unittest.TestCase):
+    def setUp(self):
+        self.service=MarketEvidenceService(aliases={'role':{'onet:15-1252.00':'15-1252.00'}})
+        self.as_of=self.service.context_evidence['generated_at']
+
+    def test_real_mycol_codes_designation_and_unknown_publication_date(self):
+        result=self.service.current_context(as_of=self.as_of,occupation_system='MASCO',occupation_version='2020',occupation_code='2512')
+        self.assertEqual(result['status'],'available')
+        row=result['records'][0]
+        self.assertEqual(row['occupation']['code'],'2512')
+        self.assertEqual(row['occupation']['label'],'Software Developers')
+        self.assertEqual(row['value'],'listed_in_national_MyCOL')
+        self.assertIsNone(row['published_at'])
+        self.assertFalse(row['coverage']['applies_to_all_six_digit_children'])
+        self.assertFalse(result['numeric_comparison_eligible'])
+
+    def test_nonlisting_six_digit_and_early_asof_remain_unknown(self):
+        for code in ('9999','2512-01'):
+            result=self.service.current_context(as_of=self.as_of,occupation_system='MASCO',occupation_version='2020',occupation_code=code)
+            self.assertEqual(result['status'],'unknown')
+            self.assertEqual(result['records'],[])
+        prior=self.service.current_context(as_of='2026-10-23T00:00:00Z',occupation_system='MASCO',occupation_version='2020',occupation_code='2512')
+        self.assertEqual(prior['status'],'unknown')
+        self.assertFalse(self.service.current_context_catalogue(as_of='2026-10-23T00:00:00Z'))
+
+    def test_sector_is_aggregate_not_allocated_to_narrow_role(self):
+        identifier='dosm:jmi:2026-q2:sector:manufacturing'
+        result=self.service.current_context(as_of=self.as_of,evidence_ids=[identifier])
+        row=result['records'][0]
+        self.assertEqual(row['value'],20074)
+        self.assertEqual(row['entity_type'],'sector')
+        self.assertIsNone(row['sector']['code'])
+        self.assertEqual(row['canonical_role_mappings'],[])
+        self.assertIn('classification_coverage_review',row['quality_flags'])
+        self.assertEqual(self.service.current('role','onet:15-1252.00',as_of=self.as_of)['value'],5)
+
+    def test_distinct_coverage_and_no_galaxy_bulk_records_or_contacts(self):
+        records=self.service.context_evidence['records']
+        self.assertEqual(sum(r['entity_type']=='occupation' for r in records),66)
+        self.assertEqual(sum(r['entity_type']=='sector' for r in records),21)
+        self.assertEqual(sum(r['entity_type']=='occupation_major_group' for r in records),9)
+        self.assertEqual(len({r['occupation']['code'] for r in records if r['entity_type']=='occupation'}),66)
+        self.assertEqual(self.service.context_evidence['galaxy']['records_distributed_to_application'],0)
+        labels=[(r.get('occupation') or r.get('sector'))['label'] for r in records]
+        self.assertTrue(all('@' not in x and '+60' not in x for x in labels))
+        self.assertTrue(all('jpm_job_desc' not in r and 'creator' not in r for r in records))
+        catalogue=self.service.current_context_catalogue(as_of=self.as_of)
+        self.assertEqual(len(catalogue),96)
+        self.assertTrue(all('value' not in r for r in catalogue))
+
+    def test_query_does_not_infer_title_or_canonical_crosswalk(self):
+        with self.assertRaisesRegex(ValueError,'explicit_source'):
+            self.service.current_context(as_of=self.as_of)
+        with self.assertRaisesRegex(ValueError,'not_inferred'):
+            self.service.current_context(as_of=self.as_of,occupation_system='ONET',occupation_version='2019',occupation_code='15-1252.00')
+
+    def test_missing_ocr_codes_and_incidental_contacts_are_rejected(self):
+        with self.assertRaisesRegex(ValueError,'66_unique'):
+            parse_mycol_national_table([])
+        self.assertEqual(clean_aggregate_label('Software Developers test@example.invalid'),'Software Developers [contact removed]')
 
 
 class NewsTests(unittest.TestCase):

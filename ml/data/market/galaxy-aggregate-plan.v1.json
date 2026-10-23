@@ -1,0 +1,44 @@
+{
+  "sources": [
+    {
+      "source_id": "galaxy-aggregate-0",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/api/list/masco1d",
+      "kind": "json",
+      "geography": "MY",
+      "measurement": "Public occupation/classification/aggregate metadata returned by the official explorer",
+      "access_conditions": "Read-only public endpoint used by the official app; no CV/applicant/recruiter/person endpoints"
+    },
+    {
+      "source_id": "galaxy-aggregate-1",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/api/list/msic1d",
+      "kind": "json",
+      "geography": "MY",
+      "measurement": "Public occupation/classification/aggregate metadata returned by the official explorer",
+      "access_conditions": "Read-only public endpoint used by the official app; no CV/applicant/recruiter/person endpoints"
+    },
+    {
+      "source_id": "galaxy-aggregate-2",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/api/summary/month_list",
+      "kind": "json",
+      "geography": "MY",
+      "measurement": "Public occupation/classification/aggregate metadata returned by the official explorer",
+      "access_conditions": "Read-only public endpoint used by the official app; no CV/applicant/recruiter/person endpoints"
+    },
+    {
+      "source_id": "galaxy-aggregate-3",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/api/vac/notes",
+      "kind": "json",
+      "geography": "MY",
+      "measurement": "Public occupation/classification/aggregate metadata returned by the official explorer",
+      "access_conditions": "Read-only public endpoint used by the official app; no CV/applicant/recruiter/person endpoints"
+    },
+    {
+      "source_id": "galaxy-aggregate-4",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/api/jobprofile/list",
+      "kind": "json",
+      "geography": "MY",
+      "measurement": "Public occupation/classification/aggregate metadata returned by the official explorer",
+      "access_conditions": "Read-only public endpoint used by the official app; no CV/applicant/recruiter/person endpoints"
+    }
+  ]
+}

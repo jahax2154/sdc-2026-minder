@@ -1,0 +1,12 @@
+{
+  "sources": [
+    {
+      "source_id": "galaxy-public-client-bundle",
+      "url": "https://jobgalaxy.myfuturejobs.gov.my/assets/index.e223a400.js",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Public aggregate explorer client asset; inspect exposed occupational/statistical data links only",
+      "access_conditions": "Public asset linked by official Galaxy app; do not invoke candidate/profile/CV endpoints"
+    }
+  ]
+}
