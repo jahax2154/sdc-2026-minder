@@ -18,6 +18,11 @@ This is current product evidence, not a replacement for historical P0 reports.
   default and reports that status explicitly. Combined backend81/81, A transport3/3
   and actual loopback HTTP/private-file isolation/extraction/delete checks pass.
   Response schemas are validated. No hosted storage verified or activated.
+- P1.3-R01 consumes final D9f1f2eeabb8d5d8247fcc1b0353a8777d690d71e,
+  including canonical-schema reuse5c3886957f1f7b30e84a3f12743ef8fcb4648b93.
+  Combined backend82/82, A transport3/3 and repeated real HTTP/file checks pass;
+  corruption cannot produce download bytes or a review draft. Final D examples,
+  configuration/deletion semantics and hosting dependency are committed under D/.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m

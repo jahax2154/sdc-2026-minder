@@ -234,3 +234,14 @@ class DocumentLibraryTests(AppCase):
             self.assertNotIn("sensitive", str(error))
         status, error = wsgi_request(self.app, "POST", "/api/product/document-upload", dict(upload_body(), owner="other"), self.token)
         self.assertEqual(status, 422)
+
+    def test_corrupted_file_cannot_download_or_create_review_draft(self):
+        doc = self.call("upload", upload_body(b"Fictional"))["document"]
+        path = next(self.root.iterdir())
+        path.write_bytes(b"Different")  # Same length, different hash.
+        for op in ("download", "extract"):
+            with self.assertRaises(AppError) as error:
+                self.call(op, {"document_id": doc["document_id"]})
+            self.assertEqual(error.exception.code, "document_storage_integrity_failed")
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM drafts").fetchone()[0], 0)
