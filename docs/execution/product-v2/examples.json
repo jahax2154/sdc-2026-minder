@@ -1,0 +1,190 @@
+{
+  "base": "bc5161bd2f43e747654e37408c56758faeb52d23",
+  "synthetic_user": true,
+  "provider_called": false,
+  "actual_capability_response": {
+    "contract_version": "product-v2-bootstrap-v1",
+    "operations": [
+      {
+        "method": "GET",
+        "path": "/api/product/direction",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/progress",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/resource-state",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/career-match",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/news",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/overview",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/progress",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/roadmap",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "GET",
+        "path": "/api/product/views/tasks",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/intake-correction",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/resource-detail",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_content"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/resource-to-plan",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/resources",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_content"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/task-action",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/tasks",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/career-match",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/news",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/overview",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/progress",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/roadmap",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "POST",
+        "path": "/api/product/views/tasks",
+        "owner": "E",
+        "status": "unavailable",
+        "module": "product_views"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/product/direction",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      },
+      {
+        "method": "PUT",
+        "path": "/api/product/resource-state",
+        "owner": "D",
+        "status": "unavailable",
+        "module": "product_state"
+      }
+    ]
+  },
+  "actual_missing_operation": {
+    "http_status": 404,
+    "code": "product_capability_unavailable"
+  },
+  "planned_request_examples": {
+    "direction": {
+      "role_id": "onet:15-1252.00",
+      "expected_version": null,
+      "idempotency_key": "fictional-select-direction"
+    },
+    "resource_state": {
+      "resource_id": "source-term:python",
+      "saved": true,
+      "dismissed": false,
+      "expected_version": null,
+      "idempotency_key": "fictional-save-resource"
+    }
+  },
+  "note": "Planned requests are schemas, not implemented endpoint results. Existing C examples reused from docs/execution/product/llm; no token exported."
+}

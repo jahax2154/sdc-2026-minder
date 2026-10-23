@@ -1,0 +1,27 @@
+{
+  "phase_id": "P0.2",
+  "status": "passed_contract_and_single_writer_binding",
+  "base": "bc5161bd2f43e747654e37408c56758faeb52d23",
+  "changes": [
+    "One A central product registry/auth boundary, missing owner modules explicitly unavailable",
+    "Separate D/E modules and F product root; D-only new migrations after4, C controls preserved",
+    "Optional bounded self-report Profile context and Task labels/refs; no scoring semantics change",
+    "Guarded per-lane runtime keeps default A namespace guard and preserves Qwen; D/E provider disabled"
+  ],
+  "contracts": "product-v2-bootstrap-v1 + existing canonical schemas/C actual export",
+  "verification": {
+    "bootstrap": "4 passed3.263s",
+    "shared": "12 passed0.073s",
+    "backend": "47 passed3.037s",
+    "real_provider": "Reused prior AC4 verified Qwen; no closure/provider rerun",
+    "fresh_lane_setup": "P0.3 next"
+  },
+  "evidence": {
+    "ml/artifacts/session-a/p0-bootstrap/contract-tests.log": "f68565bfd94c22e1c2da406fd2752fe407345f36cff105a177021c753030943e",
+    "ml/artifacts/session-a/p0-bootstrap/shared-regression.log": "8701b20bcb98b21a68674a5aef172b5a0397d0c5cf4c1f402469c2a5963cd545",
+    "ml/artifacts/session-a/p0-bootstrap/backend-regression.log": "9edcb6edc72ef9edbd3e090d97dea888b8aa9db0c90c383a680101b5921e2d42"
+  },
+  "migration_owner": "D, scoped from committed C3623163/current user directive",
+  "deployment": false,
+  "remaining": "New product state/views/frontend still producer work, not bootstrap completion by schema alone"
+}

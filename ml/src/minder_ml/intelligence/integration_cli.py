@@ -47,7 +47,7 @@ def a_provider():
     return provider
 
 
-def application(database, *, role_ids=None):
+def application(database, *, role_ids=None, namespace='session-a', provider=None):
     # C's stdlib package lives in its owned app path in THIS worktree.
     sys.path.insert(0, str(ROOT / 'apps/backend-api'))
     from minder_app.api import Application
@@ -55,8 +55,11 @@ def application(database, *, role_ids=None):
     from .app_context import CareerServices
     from .market_service import MarketEvidenceService
     database = Path(database).resolve()
-    if not database.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
-        raise ValueError('integration DB must be isolated under Session A artifacts')
+    if namespace not in ('session-a', 'session-d', 'session-e', 'session-f'):
+        raise ValueError('unknown integration namespace')
+    if not database.is_relative_to((ROOT / 'ml/artifacts' / namespace).resolve()):
+        raise ValueError('integration DB must be isolated under Session A artifacts' if namespace == 'session-a'
+                         else 'integration DB must stay under its declared product lane artifacts')
     catalogue = OccupationalCatalogue()
     roles = catalogue.roles() if role_ids is None else [catalogue.role(rid) for rid in role_ids]
     market = MarketEvidenceService(aliases={'role': role_aliases(catalogue), 'skill': {}})
@@ -69,7 +72,7 @@ def application(database, *, role_ids=None):
                               sources=catalogue.coverage['sources'] + [market_source],
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
-    return Application(Store(database), services, a_provider()), catalogue
+    return Application(Store(database), services, provider if provider is not None else a_provider()), catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):

@@ -165,7 +165,8 @@
     "integration": "A integrates meaningful local lane commits after owner handoff; no concurrent edits to owner modules",
     "optional_D": "not assigned/launched; requires later ownership transfer",
     "I4": "A publishes typed evidence/trace schemas and adapter; B source/market internals remain B-owned; consume C bounded grounding/privacy committed handoff before overlapping app_context edits.",
-    "closure_v1": "A coordinates docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1 and shared closure integration; C owns committed docs/execution/product/llm API contract and grounding bridge; B owns isolated simulation internals. No second writer in owner modules."
+    "closure_v1": "A coordinates docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1 and shared closure integration; C owns committed docs/execution/product/llm API contract and grounding bridge; B owns isolated simulation internals. No second writer in owner modules.",
+    "active_product_v2": "Current exact D/E/F assignments and C-to-D state/migration transfer: docs/execution/product-v2/OWNERSHIP.json; supersedes older unassigned-D/exclusive-C wording for transferred files only."
   },
   "runtime": {
     "credentials": "Inherited environment or private local config only; none committed or copied",

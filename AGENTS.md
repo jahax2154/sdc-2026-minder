@@ -21,3 +21,16 @@ The initial Task 001 scaffolding-only limits and old gate no-commit prompts desc
 Read [canonical D01–D09 revision 5](docs/MINDER_AI_ML_DECISION_CONTEXT.md), [execution handbook](docs/Minder_ML_AI_Layer_Execution_Pack/00_EXECUTION_HANDBOOK.md), and [phase checkpoints](docs/Minder_ML_AI_Layer_Execution_Pack/07_PHASE_CHECKPOINT_RULES.md). These supersede conflicting product meaning and old push authorizations; retain compatible technical policies and historical reports. Local coherent phase commits are mandatory. **Do not push to any remote without a later explicit instruction.**
 
 G0 ownership/contracts and lane launch records live under `docs/execution/parallel/`. Follow its path ownership before editing shared files. Initial role fit is distinct from legacy milestone preparation; pending numerical replacements are not approved policy. Session A owns integration/shared schemas and dependencies, B market internals and paid RunPod execution, C backend/UI/provider/persistence. No duplicate paid jobs or shared live database writes.
+
+## Active product lanes — P0, 23 October 2026
+
+Current product ownership/commands are docs/execution/product-v2/OWNERSHIP.json
+and LAUNCH.md, supplementing compatible A/B/C historical records. A owns central
+registration/public contracts; D alone owns new product migrations and transferred
+profile/plan state files; E owns separate read/content adapters; F owns
+apps/frontend-product (not the acceptance UI). G remains inactive until a committed
+F foundation and exact page transfer. Preserve the verified Qwen provider profile.
+Use only assigned lane DB/ports/outputs. Integrate committed handoffs continuously;
+reserve the final50minutes for acceptance/repairs/handoff. Current user authorises
+normal tested task-scoped commits/pushes to assigned branches, never main/force/
+deployment. D/E/F publish their own branches; A publishes integrated A snapshots.

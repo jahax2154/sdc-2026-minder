@@ -290,6 +290,29 @@
         "timezone": {
           "type": "string",
           "minLength": 1
+        },
+        "career_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "display_name": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "education": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "experience": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "goals": {
+              "type": "string",
+              "maxLength": 4000
+            }
+          },
+          "description": "Optional explicitly user-reported context, not competence or scoring evidence; does not select direction or mutate plans."
         }
       },
       "required": [
@@ -1677,6 +1700,31 @@
             "minLength": 1
           },
           "uniqueItems": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "resource_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "skill_ids": {
+          "type": "array",
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       },
       "required": [

@@ -28,6 +28,9 @@ class Application:
         if path == "/api/session" and method == "POST":
             return self.store.session()
         owner = self.store.authenticate(token)
+        if path.startswith('/api/product/'):
+            from .product_routes import dispatch
+            return dispatch(self, owner, method, path, body)
         if path == "/api/assessment-reference" and method == "GET":
             if self.services.personal is None:
                 raise AppError("assessment_unavailable", 404)

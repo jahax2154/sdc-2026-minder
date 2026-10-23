@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://minder.local/product-v2/bootstrap-v1",
+  "$defs": {
+    "DirectionWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role_id",
+        "expected_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "role_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "plan_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "TaskCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "expected_state_version",
+        "idempotency_key",
+        "task"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "task": {
+          "$ref": "urn:minder:parallel:v1#/$defs/Task"
+        }
+      }
+    },
+    "TaskAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "task_id",
+        "operation",
+        "expected_state_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "operation": {
+          "enum": [
+            "edit",
+            "reschedule",
+            "complete",
+            "undo",
+            "cancel"
+          ]
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "changes": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "scheduled_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "estimated_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "ResourceStateWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_id",
+        "saved",
+        "dismissed",
+        "expected_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "dismissed": {
+          "type": "boolean"
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "ProductView": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "view",
+        "status",
+        "profile_version",
+        "data",
+        "limitations"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "product-v2-bootstrap-v1"
+        },
+        "view": {
+          "enum": [
+            "overview",
+            "career-match",
+            "roadmap",
+            "tasks",
+            "progress",
+            "news"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "profile_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data": {
+          "type": "object"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
