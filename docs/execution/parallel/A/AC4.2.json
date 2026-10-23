@@ -1,0 +1,400 @@
+{
+  "phase_id": "AC4.2",
+  "owner": "A",
+  "status": "verified_local_A_scope_closed_with_declared_empirical_and_deployment_limits",
+  "checkpoint": "Commit containing this report; full remote A SHA verified/reported after normal publication",
+  "runtime_source_sha": "23f3f057132889b2f62e72657a9f4678042bc0e0",
+  "branch": "session/a-personal-integration",
+  "remote": "https://github.com/jahax2154/sdc-2026-minder.git",
+  "initial_snapshots_pushed_first": [
+    {
+      "branch": "session/a-personal-integration",
+      "captured_sha": "5e24f831141a417d7d7986cbffcb0cda55341d6b",
+      "previous_remote_sha": "a0349bcccf5923c65919727279c3a137dcda519f",
+      "outgoing_commit_count": 29,
+      "remote_verified_sha": "5e24f831141a417d7d7986cbffcb0cda55341d6b",
+      "result": "normal_fast_forward_pushed_verified"
+    },
+    {
+      "branch": "session/b-market",
+      "captured_sha": "020bbcf8511aa89064b7f232723afa01cf99a427",
+      "previous_remote_sha": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+      "outgoing_commit_count": 3,
+      "remote_verified_sha": "020bbcf8511aa89064b7f232723afa01cf99a427",
+      "result": "normal_fast_forward_pushed_verified"
+    },
+    {
+      "branch": "session/c-app-agents",
+      "captured_sha": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+      "previous_remote_sha": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+      "outgoing_commit_count": 1,
+      "remote_verified_sha": "fe78c8429374d4d9748837ee9f2c94ab573c56e9",
+      "result": "normal_fast_forward_pushed_verified"
+    }
+  ],
+  "publication": {
+    "authority": "Current explicit user and closure file06",
+    "scope": "Named initial snapshots plus reviewed tested task-scoped full-SHA handoffs only",
+    "B_final_snapshot": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+    "C_final_snapshot": "362316351ebe90b31c533eb75cff46a851808314",
+    "A_final_snapshot": "commit containing this report",
+    "normal_push_only": true,
+    "main_force_squash_amend_tags_PR_deployment": false,
+    "secret_private_data_generated_artifact_scan": "Initial delta424objects then reviewed new deltas; no findings. Reuse prior scans for unchanged history; final doc/runtime delta inspected before push."
+  },
+  "phase_checkpoints": [
+    {
+      "phase_id": "AC1",
+      "sha": "f181accd92abc3cc2c775a1b0d508b9a5db8bfb4",
+      "status": "passed: named initial snapshots first, scanned and remote verified"
+    },
+    {
+      "phase_id": "AC2",
+      "sha": "87c80cf69b9da27d9bffbcf2049fc4c2b54d1493",
+      "status": "passed: authorised provider binding and original real application/privacy/actual-clock checks"
+    },
+    {
+      "phase_id": "AC3.1",
+      "sha": "80592a61181a35cfe7c5f16849f2d82868430d0f",
+      "status": "passed: B SY1 integration and actual A synthetic isolation replay"
+    },
+    {
+      "phase_id": "AC4.0",
+      "sha": "9ff9b6a6eacf561630660d5b5c619f1c631b9e41",
+      "status": "passed: early frontend Git/API base and tested permitted input provisioning"
+    },
+    {
+      "phase_id": "AC3.2",
+      "sha": "2fe9060029b5bb22f120f7557d5f4a8de4b6fe6b",
+      "status": "passed: B measured lab/refinement metadata and unchanged normal forecasts"
+    },
+    {
+      "phase_id": "AC4.0-R01",
+      "sha": "1066d64776ba5e4b2e00a711335a4ca12a0e03ea",
+      "status": "passed: healthy running local API and current operational handoff"
+    },
+    {
+      "phase_id": "AC3.3",
+      "sha": "e1ef87e0b9517a5a6526fc2d209d1d6e8962f3ca",
+      "status": "passed: B final SY3 pinned job/card/reproduction verification; no paid launch"
+    },
+    {
+      "phase_id": "AC3.4",
+      "sha": "e10c922041f3333a7fe792d939ed263512001c86",
+      "status": "passed: C CL1 contract schemas and six actual source derivations"
+    },
+    {
+      "phase_id": "I4.1-R02",
+      "sha": "e10057f73c87570787c069dee648a50b89665dc4",
+      "status": "passed: verified registry restoration versus legacy fallback rejection"
+    },
+    {
+      "phase_id": "AC3.5",
+      "sha": "46754158742954a53a34a00c33bf96d800038b51",
+      "status": "software passed; original-model live failures honestly retained, superseded by AC2-R01"
+    },
+    {
+      "phase_id": "AC2-R01",
+      "sha": "b3348fd23a045f3d37494c336eb041096f235656",
+      "status": "passed: A worker services binding, verified private Qwen selection,13 real checks"
+    },
+    {
+      "phase_id": "AC4.1",
+      "sha": "23f3f057132889b2f62e72657a9f4678042bc0e0",
+      "status": "passed: actual typed TCP HTTP/native/source/action/worker and privacy rendering"
+    }
+  ],
+  "integrated_handoffs": [
+    {
+      "phase": "B SY1",
+      "owner_sha": "3dcc8e08fcfafc0c358aaf140063e929c2a752f7",
+      "merge_sha": "fd9e30129a5d3b9cf8a27b20612d0dafc0f3e812",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "B SY2/SY2-R01",
+      "owner_sha": "f62770b67eb3bd241e0a3947578064be72f609d7",
+      "merge_sha": "8c77d69a1dfdb5f7807f9ec1c3947a2c9ba0181d",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "B SY3",
+      "owner_sha": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+      "merge_sha": "b5137f2d583786ed05921391986f1d0060267642",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "C CL1",
+      "owner_sha": "ef4196b9856b9504eb1d719c955a67cc62d2d843",
+      "merge_sha": "f77e7ff158bb4ce9488a7b87012519c230f78591",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "C CL2",
+      "owner_sha": "2ebdfb65b5bf1f349c6b6425ece6070f754cff8d",
+      "merge_sha": "33ef5ca83fb65e89c0c6c3106ded58a7de9365a8",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "C CL2-R01",
+      "owner_sha": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+      "merge_sha": "c2f63e2341047fca6008bb0ab02dc60915fc4db3",
+      "history": "normal merge, only missing committed deltas"
+    },
+    {
+      "phase": "C CL3",
+      "owner_sha": "362316351ebe90b31c533eb75cff46a851808314",
+      "merge_sha": "81909526733788add033659daf008db839f707bc",
+      "history": "normal merge, only missing committed deltas"
+    }
+  ],
+  "implementation": {
+    "active_personal_policy": "personal-role-fit-v3-provisional",
+    "reference": "role-reference-v3.2",
+    "market_policy": "personal-current-evidence-v2.1",
+    "shared_contract": "minder-parallel-v1 additive typed EvidencePassage v1",
+    "grounding": "minder-grounding-privacy-v1",
+    "runtime_provider": "Groq",
+    "A_selected_model": "qwen/qwen3.8-27b",
+    "personal_model": "existing deterministic baseline; Ridge/XGBoost artifacts preserved, no learned promotion",
+    "new_source_support": [
+      "employer_observation",
+      "published_offering_activity",
+      "occupation_shortage",
+      "sector_context"
+    ],
+    "worker": "Actual A services passed through strict A config/DB/single-owner adapter to C canonical verifier; no shared live DB",
+    "frontend_contract": "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+    "setup": "docs/execution/parallel/A/BACKEND_WORKING_BASE.md",
+    "source_provision": "13 pinned permitted local inputs; hash preflight, no overwrite/public upload; A setup reused"
+  },
+  "empirical_evidence": {
+    "real_provider_application_and_actual_clock": {
+      "app_chat_request_success": true,
+      "native_tool_request_success": true,
+      "direct_change_request_success": true,
+      "proactive_preview_no_mutation": true,
+      "rejection_request_success": true,
+      "approval_request_success": true,
+      "persistence_check_success": true,
+      "actual_scheduled_event_success": true,
+      "scheduled_native_tool_request_success": true,
+      "company_evidence_request_success": true,
+      "learning_source_request_success": true,
+      "app_new_types_grounded": true,
+      "scheduled_all_four_types_grounded": true
+    },
+    "real_typed_detail": {
+      "app_new_types_grounded": true,
+      "scheduled_all_four_types_grounded": true,
+      "app_measurement_types": [
+        "employer_observation",
+        "occupation_shortage",
+        "published_offering_activity",
+        "sector_context"
+      ],
+      "scheduled_measurement_types": [
+        "employer_observation",
+        "published_offering_activity",
+        "occupation_shortage",
+        "sector_context"
+      ],
+      "citations_periods_units_scopes_recomputed": true,
+      "profile_unchanged": true,
+      "forecast_unavailable": true,
+      "raw_payload_exported": false
+    },
+    "real_TCP_HTTP": {
+      "employer_observation_real_selection_success": true,
+      "employer_observation_source_meaning_match": true,
+      "employer_observation_native_tool_success": true,
+      "published_offering_activity_real_selection_success": true,
+      "published_offering_activity_source_meaning_match": true,
+      "published_offering_activity_native_tool_success": true,
+      "occupation_shortage_real_selection_success": true,
+      "occupation_shortage_source_meaning_match": true,
+      "occupation_shortage_native_tool_success": true,
+      "sector_context_real_selection_success": true,
+      "sector_context_source_meaning_match": true,
+      "sector_context_native_tool_success": true,
+      "unavailable_forecast_preserved": true,
+      "unsupported_scope_and_false_success_withheld": true,
+      "direct_persisted_and_idempotent": true,
+      "cross_user_blocked": true,
+      "proactive_no_mutation": true,
+      "rejection_preserves_target": true,
+      "approval_persisted_once": true,
+      "stale_approval_blocked": true,
+      "actual_worker_new_evidence_path": true,
+      "worker_no_unapproved_change": true,
+      "all_checks_passed": true
+    },
+    "expected_model_identity_preserved": "qwen/qwen3.8-27b",
+    "real_provider_HTTP_diagnostics": {
+      "provider_http_error": false,
+      "provider_tool_response_invalid": false,
+      "provider_rate_limited": false,
+      "provider_network_or_timeout": false
+    },
+    "real_privacy_Chromium": {
+      "frontend_kind": "local acceptance/product prototype; separate intended frontend unavailable",
+      "entry_url": "http://127.0.0.1:9101/",
+      "backend_url": "http://127.0.0.1:9101/api/",
+      "separate_api_listener": "http://127.0.0.1:8101",
+      "intended_frontend_verified": false,
+      "mocked_network": false,
+      "synthetic_user": true,
+      "checks": {
+        "ordinary_ranking_values_hidden_in_actual_scored_view": true,
+        "real_native_evidence_id_selection_and_server_citations": true,
+        "unavailable_forecast_and_source_scope_visible": true,
+        "no_false_action_success_or_profile_change": true,
+        "no_page_errors": true
+      },
+      "provider_request_success": true,
+      "recorded_at": "2026-10-23T14:41:31.070Z"
+    },
+    "software": {
+      "ML": "204 passed142.924s on combined CL2 source",
+      "backend": "47 passed3.129s",
+      "transport": "7 passed0.029s after bounded output refinement, mocked transport",
+      "A_namespace": "3 passed",
+      "A_source_API": "4 passed3.917s",
+      "provisioning": "2 passed0.040s",
+      "final_contract": "Envelope/shared schemas valid; all six export passages recomputed by A; export selection explicitly mocked",
+      "rendering": "Actual source export fixture verifies edition/null/publication labels; actual real-provider browser separate"
+    },
+    "same_synthetic_profile_coverage": {
+      "considered_eligible": 910,
+      "candidates": 910,
+      "assessed": 910,
+      "excluded": 0,
+      "current_available": 4,
+      "current_comparable_ranked": 5,
+      "personal_only_ranked": 900,
+      "insufficient_evidence": 0,
+      "employer_comparable_ranked": 2,
+      "published_offering_comparable_ranked": 3,
+      "published_offering_supported": 7,
+      "shortage_supported": 7,
+      "shortage_adjusted_ranked": 7,
+      "shortage_context_supported": 7,
+      "shortage_exact_role_supported": 0,
+      "sector_context_supported": 907
+    },
+    "catalogue_references": 1016,
+    "supported_roles": 910,
+    "partial_explorable": 106,
+    "scorer_and_mapping_files_unchanged": true,
+    "original_N01_byte_identical_inactive": true,
+    "observed_increase_from_synthetic_lab": 0,
+    "independent_personal_fit_labels": 0,
+    "real_forecast_model_count": 0
+  },
+  "evidence_interpretation": "Counts overlap; current5 includes3 occupation-category proxies/2 employer primary, shortage7 related groups/0 exact whole-role designations, sector907 context not precise role demand. Overall result remains partial; personal-only900 not full market completion.",
+  "C_history": {
+    "owner_final_status": "limited original-model multi-family HTTP; source/authority checks and Chromium passed",
+    "preserved": true,
+    "A_resolution": "Actual-access-verified Qwen runtime profile, same authorised key and unchanged strict validation/caps/budgets. All four A HTTP/source/native and scheduled scenarios passed.",
+    "earlier_failed_artifacts": "Preserved in AC3.5/AC2-R01, including first-chat provider_http_error and old-model typed failures. No historical approval/pass invented."
+  },
+  "B_experiment": {
+    "handoff": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+    "data_class": "fictional synthetic, geography SIMULATED",
+    "rows": 864,
+    "groups": 9,
+    "series": 18,
+    "B_actual_local_experiment_fits": 36,
+    "independent_real_target_fits": 0,
+    "normal_serving_models": 0,
+    "scope": "Training/validation/test/robustness simulation metrics only; no real Malaysian-demand or augmentation accuracy claim",
+    "A_duplicate_fits": 0,
+    "RunPod_jobs": 0,
+    "paid_jobs": 0,
+    "job_preparation": "Complete source-pinned55input/launcher verification; actual paid run separately unauthorised/unavailable"
+  },
+  "operational_deployment": {
+    "local_base": {
+      "recorded_at": "2026-10-23T14:45:24.116163+00:00",
+      "runtime_source": "23f3f057132889b2f62e72657a9f4678042bc0e0",
+      "health": {
+        "status": "ok",
+        "integration_mode": "local_source_services"
+      },
+      "UI": "http://127.0.0.1:9101/",
+      "same_origin_API": "http://127.0.0.1:9101/api/",
+      "API_listener": "http://127.0.0.1:8101/api/",
+      "database": "ml/artifacts/session-a/closure-runtime/dev.sqlite3",
+      "loopback_only": true,
+      "scheduler_autostarted": false,
+      "deployed": false
+    },
+    "local_handoff_server_running": true,
+    "production_data_modified": false,
+    "deployment_performed": false,
+    "hosted_service_verified": false,
+    "continuous_hosted_scheduler_verified": false,
+    "intended_F_product_frontend_verified": false,
+    "application_build_performed": false,
+    "dependency_install_in_A": false,
+    "Groq_inference_cost": "not measured; existing authorised key and runtime call budgets; no billing change"
+  },
+  "credential_handling": "Only authorised provider variables bound into A ignored0600config; original key unchanged, A model selection changed only after actual verification. No credentials/config/DB/model-selection file committed; no C ports/DB/non-provider settings copied and C file unchanged.",
+  "remaining": [
+    {
+      "kind": "empirical_data",
+      "item": "Compatible real historical role/skill forecast targets and independent personal-fit labels absent; forecasts remain unavailable, not zero.",
+      "next": "Future B permitted-source/label work via committed handoffs; do not block F/local integration."
+    },
+    {
+      "kind": "product_frontend",
+      "item": "F intended shell/client/proxy acceptance is separate; repo prototype tested only.",
+      "next": "F consumes final published A base/actual C contract, tests real source/action/approval/refresh states and hands off full SHA."
+    },
+    {
+      "kind": "release",
+      "item": "Hosted auth/storage/always-on worker, deployment and broader D/E/submission work not in this closure.",
+      "next": "Separately owned/authorised release work; no deployment inferred from push/local clock."
+    },
+    {
+      "kind": "provider_reliability",
+      "item": "Finite actual success does not guarantee all provider outputs/account availability; original-model failures retained.",
+      "next": "Keep strict native/schema/source checks and explicit unavailable UI; no semantic retry/budget bypass."
+    },
+    {
+      "kind": "paid_compute",
+      "item": "No paid RunPod access/balance/quote/image/termination authority verified.",
+      "next": "B retains source-pinned prepared job only; no launch queued or authorised."
+    }
+  ],
+  "preserved_inputs": {
+    "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+    "input_count": 13,
+    "copied": 0,
+    "preserved_existing": 13,
+    "all_hashes_verified": true,
+    "all_destinations_read_only": true,
+    "public_download_or_upload": false,
+    "git_staging": false
+  },
+  "excluded_local_state": "Original13 read-only untracked raw/derived files preserved in G0 snapshot; private configured .env.groq.local, runtime/model selection, DB/WAL, source downloads, generated lab rows, models, logs/screenshots/tooling stay local ignored and not newly externally backed up.",
+  "working_tree_after_checkpoint": "Expected no intended tracked changes; original raw/derived directories remain untracked. No sibling directory mutation or credentials/private source staging.",
+  "artifacts": {
+    "final_live": "ml/artifacts/session-a/ac2-r01-typed-live-final/evidence.json",
+    "final_HTTP": "ml/artifacts/session-a/ac4-typed-http-final/integration-evidence.json",
+    "final_privacy": "ml/artifacts/session-a/ac4-privacy-final-rendering/grounding-frontend-evidence.json",
+    "source_coverage": "ml/artifacts/session-a/ac4-coverage-final.json",
+    "health": "ml/artifacts/session-a/ac4-final-live-base-health.json"
+  },
+  "evidence_hashes": {
+    "ml/artifacts/session-a/ac4-typed-http-final/integration-evidence.json": "318f2d1e104f7f96d6e3ddf1dc444b6a3ef084525e479c5401949e5bfd402492",
+    "ml/artifacts/session-a/ac4-typed-http-final/live-evidence-bridge.json": "f6e214ddf6ae3ebcb9694a9bd4bc39bfa438814dc53c88d69576ae7875727be9",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/integration-evidence.json": "9dc03e7678095ebca9d05c3cf0e96b2251906be4a857c0acba41df56e48cdede",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/grounding-frontend-evidence.json": "13ab031942076d60b131b02c7bc20a13b39bc0f1c1518a162f824ec49675c611",
+    "ml/artifacts/session-a/ac4-privacy-final-rendering/grounding-refinement-ui.png": "7d9810d8b0b90d909a50f8d44075620d8bcd8ca4059058731841834ea66f4051",
+    "ml/artifacts/session-a/ac4-final-contract-check.json": "a8957aeaf77ef36eff265a66beb3da33b7b27498ab36b1b904076b67500a5926",
+    "ml/artifacts/session-a/ac4-coverage-final.json": "000ed1d2cd0996024635cabaebc56f3b0894a2032c6db27333ddbd866dce2c6f",
+    "ml/artifacts/session-a/ac4-final-input-preservation.json": "0cd72782938ef8ed4e89bb98ffc35e187c70efc7d3e4d21a8ec909bcaf659eee",
+    "ml/artifacts/session-a/ac4-source-rendering-check.json": "9f24cd4631574163e2e063969099a8a5d122e6d3c1c896abab1565bde968cb4f"
+  }
+}

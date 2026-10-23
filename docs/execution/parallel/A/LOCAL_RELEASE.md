@@ -1,169 +1,143 @@
-# Session A — typed current-evidence integration
+# Session A — verified local closure and frontend handoff
 
-Current handover: closure AC4.0/AC2, continuing I4.7. Historical phase reports and
-original policy proposals remain unchanged. The provisional baseline works and A
-real Groq/tool/wall-clock/privacy checks passed. Market coverage remains partial;
-C's additional typed-source bridge is not yet integrated.
+Current handover: AC4.2. Tested runtime source:
+23f3f057132889b2f62e72657a9f4678042bc0e0.
+The final documentation checkpoint follows that runtime without changing it.
+Branch: session/a-personal-integration on the verified Minder GitHub origin.
 
-## Revision and operation
+A's local scope is implemented and verified: C's four-family bridge and final
+contract are integrated; A's authorised Groq binding, source selection, direct
+actions/proposals, actual scheduled event and privacy/source browser passed.
+Market coverage and empirical model validity remain limited. This does not
+declare the intended product frontend or deployed application complete.
 
-Closure AC1 published the named starting snapshots: A5e24f831141a417d7d7986cbffcb0cda55341d6b,
-B020bbcf8511aa89064b7f232723afa01cf99a427, Cfe78c8429374d4d9748837ee9f2c94ab573c56e9.
-Tested A followups through2fe9060029b5bb22f120f7557d5f4a8de4b6fe6b and B through
-f62770b67eb3bd241e0a3947578064be72f609d7 were published under closure file06.
-[AC1](AC1.json), [AC2](AC2.json), [AC3.1](AC3.1.json), [AC3.2](AC3.2.json) and
-[working base](BACKEND_WORKING_BASE.md) record scope/evidence; later phase reports
-supply the current exact remote snapshot. No main change, force, tag, PR, public
-raw-data publication, application build or deployment.
+## Start and connect
 
-B's original current-evidence handoff020bbcf is preserved; later synthetic-lab
-commits are isolated from normal serving. Cfe78c84 grounder/privacy is integrated;
-C's new CL1-CL3 contract/bridge remains an external committed handoff dependency.
+The handoff service is running on this Mac, loopback only:
+http://127.0.0.1:9101/ with same-origin /api/.
+Separate API listener: http://127.0.0.1:8101/api/.
+Health /api/health reports local_source_services. Isolated persistent handoff DB:
+ml/artifacts/session-a/closure-runtime/dev.sqlite3. No unattended worker is started.
 
-Run from A: source .env.local, then use MINDER_PYTHON with
-PYTHONPATH=ml/src:apps/backend-api and module
-minder_ml.intelligence.integration_cli serve-web.
+A uses the existing interpreter and owner-only ignored .env.groq.local. Under the
+latest explicit instruction, only the existing authorised C provider variables
+were securely bound into A; C ports/database/runtime config were not copied.
+A subsequently selected the actually accessible qwen/qwen3.8-27b after real
+four-family/native/source verification. The same key, daily-call/context budget,
+1024-token cap, native validation and action authority remain in force.
+No secret is in Git or the frontend. C's private configuration remains unchanged.
 
-A API 8101/UI 9101 on loopback; same-origin /api/*. Entry /#profile,
-Career Match at /#explore, Minder chat at /#minder, agents at /#mindbots.
-C migrations/actions/persistence are reused with A's isolated
-ml/artifacts/session-a/closure-runtime/dev.sqlite3 is the currently started local
-frontend-handoff database. AC2 acceptance used separate disposable A databases.
-No sibling database is used; only explicitly authorised provider variables were
-securely transferred into A's private configuration.
-A clone alone lacks the 13 pinned read-only inputs; reuse the existing G0 snapshot.
-Reuse the existing interpreter/tooling; no install or build is required.
+    source .env.local
+    export MINDER_DB_PATH="$PWD/ml/artifacts/session-a/closure-runtime/dev.sqlite3"
+    export MINDER_ARTIFACT_DIR="$PWD/ml/artifacts/session-a"
+    PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli serve-web
 
-Supply three explicit anchored skill observations with activity descriptions.
-Industry background/interests, role interests and work-style inputs are separate
-optional evidence. No prior job or role-by-role ratings are needed. CV/chat claims
-remain reviewable; no automatic mastery inference. Incomplete profiles receive
-focused questions and no invented personal assessment.
+For another machine, use [working-base setup](BACKEND_WORKING_BASE.md) and the
+actual [C frontend contract](../../product/llm/FRONTEND_CONTRACT.md). F uses relative
+same-origin /api routing/proxy and the existing bearer/version/idempotency
+bindings. This Mac's loopback address is not a hosted remote-team API.
+No streaming or server conversation-history API is promised by the current
+contract. Intended HTML/Replit frontend acceptance remains F-owned.
 
-## Policies and measurement treatment
+The 13 pinned source inputs are not in a Git clone. The committed standard-library
+provision_dev_inputs.py verifies an authorised local pack and all existing
+destinations before copying only missing matching files read-only. It never
+overwrites, downloads, publishes or stages inputs; no new redistribution rights
+are granted. A's own bootstrap was reused, not repeated.
 
-Personal policy personal-role-fit-v3-provisional, references role-reference-v3.2
-and baseline remain active. Minimum: three compatible native observations and
-30% assessed role criteria. C is the mean of min(person LV / role LV,1) over usable
-assessed positive-LV criteria. F is clipped 80*C + industry path + role interest +
-work-style alignment; unknown optional values have no adjustment and retain null
-raw values. Background/industry interest use the strongest supported path once.
-Preparation time/resources stay in pathways.
-See [personal policy](RECOMMENDATION_POLICY_V3.md). Original N01 remains historically
-unapproved/inactive. Legacy F0/67 and learner artifacts are preserved.
+## Active policies and coverage
 
-Current market policy personal-current-evidence-v2.1 retains separate employer
-observations, published occupation-category offering activity, related shortage-
-group context and sector context. Comparable activity uses .85*F+.15*M within valid
-independent source groups; employer M normalises log count against 155 inspected
-ads, published M against the observed maximum for that same source period.
-No pooled denominators or global rank across unlike groups. A related shortage-
-group prior contributes at most +1 once without changing F. Sector totals have
-zero rank weight. Missing evidence is unknown. Forecasts contribute zero and
-remain separately unavailable. See [v2.1 policy and scope](MARKET_EVIDENCE_POLICY_V2_1.md).
+Personal: personal-role-fit-v3-provisional; references role-reference-v3.2.
+Market: personal-current-evidence-v2.1.
+Grounding: minder-grounding-privacy-v1 with minder-evidence-passage-v1.
+LLM runtime selection: A-typed-selection-v2, qwen/qwen3.8-27b.
+The deterministic personal baseline serves; existing Ridge/XGBoost work is
+preserved. No scoring configuration, reference mapping or original N01 changed.
+Original N01 is historically unapproved/inactive; it was not silently approved.
 
-Seven code-backed related-group links preserve pinned crosswalk rows and MyCOL
-native scope. They do not certify whole-role equivalence or that every child is
-critical. MyCOL publication/continuous fieldwork dates remain null; edition and
-actual availability remain explicit. All 96 B native facts are queryable without
-inventing canonical links or mutating profile/preferences. Galaxy bulk data
-remains undistributed under B's reuse hold.
+Three compatible anchored skill observations and 30% assessed role criteria form
+the practical minimum. Optional preferences stay optional; other industries are
+considered, not excluded by current field/interests. Reset removes only prior
+preference effect; repeated feedback is idempotent. Preparation time/resources
+remain pathway feasibility. See RECOMMENDATION_POLICY_V3.md.
 
-## Actual coverage and interfaces
+Current activity ordering remains .85F+.15M within compatible independent groups,
+plus the existing bounded at-most +1 related shortage-group context. Sector
+context has zero rank weight; unavailable forecasts do not gate current evidence.
+See MARKET_EVIDENCE_POLICY_V2_1.md for normalization, mapping and missingness.
 
-| Same anchored synthetic profile | Original v1 | Current v2.1 |
-| --- | ---: | ---: |
-| Personally assessed eligible roles | 910 | 910 |
-| Comparable activity ranking, including category proxies | 4 | 5 |
-| Exact native employer observations available | 4 | 4 |
-| Published-category primary / employer primary | 0 / 4 | 3 / 2 |
-| Related shortage-group context | 0 | 7 |
-| Exact whole-role shortage designation | 0 | 0 |
-| Related sector context integrated | 0 | 907 |
-| Personal-only ranks without contextual adjustment | 906 | 900 |
+Same anchored synthetic example, measured again at final closure:
 
-Counts overlap: two shortage-linked roles have activity comparisons; five others
-receive contextual exploration treatment. No sum implies 907 narrow role-demand
-series or a catalogue-wide comparable rank. Catalogue: 1,016 references, 910
-supported, 106 partial/explorable. The five unchanged original calibration profiles
-and one-observation incomplete profile lack the new assessment minimum.
-Independent personal-fit labels: zero.
+| Coverage | Count |
+| --- | ---: |
+| Catalogue references / supported / partial-explorable | 1,016 / 910 / 106 |
+| Personally assessed eligible roles | 910 |
+| Current activity comparisons: category proxies / employer primary | 5: 3 / 2 |
+| Native employer observations available | 4 |
+| Related shortage-group context / exact whole-role designation | 7 / 0 |
+| Related sector context | 907 |
+| Personal-only ranks without contextual adjustment | 900 |
+| Selected normal forecast models | 0 |
 
-POST /api/role-evidence returns typed source records and canonical verifiable
-passages. Optional trace retrieval requires owner/current profile-version-bound
-trace identity; normalized market values and final internal scores are excluded.
-GET /api/source-market-catalogue and POST /api/source-market-context expose bounded
-native facts. Unlisted children stay unknown. Source cards show quantity/type/
-unit/source/scope/date. Ordinary numeric ranks/scores/points remain hidden in C's
-presentation while backend ordering is preserved.
+Counts overlap. Two shortage-linked roles already have activity comparisons;
+five others receive contextual exploration treatment. Sector counts are not
+narrow-role demand, shortage context is not proof this role/every child is critical,
+and category offerings are not employer ad counts. Overall ranking remains partial
+with no comparable global rank. Independent personal-fit labels remain zero.
 
-[EvidencePassage v1](requests/I4-VERIFIED-PASSAGE-CONTRACT.md) verifies actual source
-artifact/row integrity and recomputes the complete record/passage/references.
-Wrong values/scope/dates/citations/role/future issue time fail even with a
-valid-looking ID/hash. This is closed structured-source verification, not source
-truth, mapping validity or general natural-language entailment.
+B's final d9ffd4f3cc7625c736ea081c52da3c1122b21c08 supplies isolated simulation
+code/results/card and source-pinned RunPod preparation. No synthetic observations,
+predictions or models enter normal recommendations/coverage/default forecasts.
+B measured 36 fictional experiment fits across three local runs; these establish
+simulation behavior, not independent Malaysian-demand accuracy. No paid job was
+launched. Compatible real forecast history remains absent.
 
-C's integrated minder-grounding-privacy-v1 uses owner-scoped support ledgers,
-closed claim selection, exact Bosch count reconciliation, minimized prompts and
-0600 DB files. It does not yet consume the new typed passage adapter. Published,
-shortage and sector facts work in backend/UI; their new LLM claims remain
-unsupported until C returns a focused committed consumer handoff. No broad C
-grounding rewrite or source-ID-only citation fallback was made by A.
+## Executed checks and limits
 
-## Checks, models and access
+AC2-R01: all13 real A provider/application/actual-clock checks passed. Actual chat
+and the upcoming-minute owner-scoped notice retained all four evidence families
+with source/period/unit/mapping reconciliation and unavailable forecasts.
 
-Historical full-suite checks are consolidated in [I4.7](I4.7.json); source/contract/API
-evidence is in [I4.6](I4.6.json). [AC2](AC2.json) records actual A provider/tool,
-11 application/scheduled checks and five real privacy-browser checks. [AC3.2](AC3.2.json)
-records43 market/forecast tests and synthetic isolation; [AC4.0](AC4.0.json) records
-permitted input provisioning without repeating A bootstrap. Real HTTP/Chromium uses
-synthetic profiles with actual local services/sources, no fetch/provider mocks.
-Scenarios distinguish incomplete intake, fresh graduate, career switcher,
-not-interested/idempotent retry/reset, source queries, persisted actions/approval
-and unavailable forecasts. Controlled counterfactual counts test ranking
-sensitivity without altering factual snapshots. Mocked transport unit checks
-are separate from real provider success.
+AC4.1: C's exact typed TCP HTTP operations passed on A, including native selection
+and source meaning for each family, explicit persisted action/idempotency,
+cross-user/stale controls, proactive preview/rejection/approval and worker facts.
+The real Chromium privacy/source case passed with no page errors. Typed prototype
+cards show edition labels for null date windows and omit absent population text.
 
-Baseline serves. Existing Ridge/XGBoost policy-distillation runs are preserved:
-48 fictional families, 569 rows, 32/8/8 family split; holdout teacher MAE Ridge
-.0021, XGBoost 3.6832. Independent evaluation labels remain zero; neither learner
-was promoted. B's actual approved-target forecast eligibility run found zero
-compatible examples. Baseline/Ridge/XGBoost machinery exists, but no real market
-fit/evaluation/selected forecast model is claimed. No new training target/spend.
+Software: 204 ML and47 backend checks passed; seven targeted mocked transport
+checks verified the existing cap/smaller budgets after C's refinement; three
+namespace guards, four A source/API and two provisioning checks passed.
+Mocked export selection and rendering-fixture checks are explicitly separate from
+real provider/HTTP/Chromium/actual-clock evidence. Six final export passages were
+recomputed by A against pinned sources.
 
-A's ignored owner-only .env.groq.local is now securely configured under the latest
-explicit user instruction. Only the existing authorised C key/model were copied;
-no C ports/database/runtime/model-selection file was copied. No secret values were
-printed or committed. A itself verified discovery, model access, chat/native tool,
-direct action, proactive preview/rejection/approval, persisted state and an actual
-upcoming-minute owner-scoped scheduled event. Its real Chromium privacy/source
-case passed. These close the earlier I4.2 access blocker; original reports remain
-historical. The existing sibling-path runtime guards remain intact.
+Earlier failed native-tool cases and C's limited original-model CL3 HTTP result
+are retained honestly. A's verified selection resolved its finite accepted cases;
+this is not a guarantee of all provider outputs. Invalid/unavailable responses
+still fail safely. Backend calculations determine ranks; the LLM selects
+verified canonical passages/IDs, not arbitrary facts or execution authority.
 
-Bounded reruns use the existing interpreter/PYTHONPATH and integration_cli verify-live
---output ml/artifacts/session-a/<new-live-run>. For the scoped unchanged privacy
-browser use verify-web --privacy-only --output ml/artifacts/session-a/<new-run>
---playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright
---browsers-path /private/tmp/minder-c-browser. --privacy-only requires real provider
-success. Do not repeat unchanged full checks merely to inflate totals.
+Stop only the A handoff serve-web process before bounded acceptance reruns because
+they reserve the same A ports; restart it afterward. Use new output directories:
 
-The local handoff server is loopback-only8101/9101, with health at
-http://127.0.0.1:9101/api/health. It starts no unattended worker. Remote teammates
-use the published Git base and permitted inputs; this Mac's loopback is not their
-hosted API. Local wall-clock success does not establish hosted24/7 scheduling.
-Intended product/Replit frontend remains F-owned and unverified here.
+    PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-live --require-typed-evidence --output ml/artifacts/session-a/<new-live-run>
+    PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-evidence-http --output ml/artifacts/session-a/<new-http-run>
+    PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.integration_cli verify-web --privacy-only --output ml/artifacts/session-a/<new-browser-run> --playwright-module /private/tmp/minder-c-ui-check/node_modules/playwright --browsers-path /private/tmp/minder-c-browser
 
-## Exclusions and next work
+## Publication, exclusions and next work
 
-Original 13 read-only untracked inputs remain in the G0 shared snapshot; no new
-external backup. A ignored logs, synthetic DBs/screenshots, downloaded sources,
-model artifacts and browser tooling remain local. Configured provider file remains owner-only and
-ignored; no credentials/private CVs/profiles/databases/weights/raw bulk inputs are
-staged. No B/C working directory or production data was changed.
+AC1 published the named starting A/B/C snapshots first. Subsequent tested scoped
+handoffs retain meaningful normal-merge/checkpoint/refinement history under closure
+file06. AC4.2 records exact phase/merge SHA lineage and final publication evidence.
+No main update, force, squash, amend, tag, PR, deployment or application build.
 
-Next runnable work: C consumes the versioned passage contract through a committed
-handoff; A integrates and verifies it against the already working A provider.
-New non-Bosch typed-source chat/scheduled acceptance remains pending that bridge. B may expand supported mappings and
-compatible role/skill forecast history through committed handoffs. No paid job
-is queued. Tested task-scoped closure handoffs are authorised for normal push
-under file06; unrelated pushes/deployment remain unauthorised.
+All13 original untracked inputs still match hashes/read-only modes in the existing
+G0 shared snapshot. No new external input backup. Private config, source downloads,
+model-selection metadata, model weights, generated rows, logs, screenshots and
+synthetic SQLite/WAL files stay ignored/local and are not newly backed up.
+No real CV/profile or sibling working directory was modified or published.
+
+Next: F binds and accepts its intended product frontend against this exact backend.
+Real forecast history/independent personal labels, deployed identity/storage/
+continuous scheduler and submission release remain separate work. B's paid runner
+requires separate access/budget/launch authority; none is queued or inferred here.

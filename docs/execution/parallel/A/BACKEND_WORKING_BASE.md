@@ -2,18 +2,22 @@
 
 Repository: https://github.com/jahax2154/sdc-2026-minder
 Branch: session/a-personal-integration.
-Real-provider-tested runtime checkpoint:
-87c80cf69b9da27d9bffbcf2049fc4c2b54d1493.
-The AC4.0 commit containing this handoff adds input provisioning and isolated B
-scenario integration; its full published SHA is reported by A. Runtime scoring
-and endpoint implementations remain those tested at AC2.
+Final tested runtime checkpoint:
+23f3f057132889b2f62e72657a9f4678042bc0e0.
+The final AC4.2 documentation freeze follows this source; A reports its exact
+remote SHA after publication. C final handoff362316351ebe90b31c533eb75cff46a851808314
+and B final handoffd9ffd4f3cc7625c736ea081c52da3c1122b21c08 are integrated with normal history.
 
-This is an available Git starting point and local API contract boundary. There is
-no published/hosted API URL or deployment. C owns the authoritative endpoint/schema export at
-docs/execution/product/llm/FRONTEND_CONTRACT.md. CL1ef4196b9856b9504eb1d719c955a67cc62d2d843
-is now integrated and accepted by A. F can bind its actual examples now; A validated
-the envelope/shared schemas and recomputed all six source passages from pinned inputs.
-No backend duplication or new provider client is needed.
+The authoritative C endpoint/schema export is
+[FRONTEND_CONTRACT.md](../../product/llm/FRONTEND_CONTRACT.md), with schema-valid
+examples. A accepted its six source passages against pinned services. Four typed
+families now work in actual A chat and scheduled notices; AC2-R01/AC4.1 record
+real provider/TCP HTTP/source/action/clock/privacy acceptance. No scorer or
+evidence-scope change. F can wire this contract now.
+
+This is a published Git starting point plus a loopback development service, not a
+hosted remote API or deployment. Local entry http://127.0.0.1:9101/ and /api/ are
+running on this Mac. Remote F uses its approved same-origin proxy/backend setup.
 
 ## Start the existing backend in a permitted development checkout
 
@@ -42,11 +46,11 @@ existing inputs/symlinks/outside-worktree destinations. It never stages inputs.
 Without --source-root it only verifies existing inputs. A Git clone alone does
 not include these bytes; no public input download/bundle is fabricated here.
 
-Provider access: configure authorised server-only GROQ_API_KEY and optional
-GROQ_MODEL in the checkout's ignored owner-only regular .env.groq.local, using the
+Provider access: configure authorised server-only GROQ_API_KEY and
+GROQ_MODEL=qwen/qwen3.8-27b for the tested A profile in the checkout's ignored owner-only regular .env.groq.local, using the
 existing safe loader. Do not expose them to the frontend. A's current authorised
-binding works; no new key is required for A. A's verified noncredential model ID
-is recorded in AC2.json. Without provider access, the API returns an honest
+binding works; no new key is required for A. Its verified noncredential model ID
+and the original-model failure history are recorded in AC2-R01.json. Without provider access, the API returns an honest
 unavailable state. No raw real CV/profile is needed to verify the prototype.
 
     export PYTHONPATH=ml/src:apps/backend-api
@@ -110,12 +114,19 @@ actual upcoming-minute owner-scoped worker passed in AC2. The real Chromium priv
 check passed with source binding, unavailable forecast, no false action/profile
 mutation and no page errors. This verifies the repository local prototype only.
 
-C's current closed grounder verifies Bosch derivations. New published/shortage/
-sector facts work in backend/UI, with A EvidencePassage v1 available. CL2-CL3
-consumer/real-provider proof is still pending; do not label these model claims
-already supported. A will publish an updated base after committed integration.
-B simulations remain isolated: no change to ordinary recommendation/source counts
-or default forecast availability. Missing historical forecasts do not block F
-client/source/design work.
+C's typed bridge now recomputes all four accepted source families before ledger
+storage and after load. A's worker adapter passes its real services into that same
+boundary. Current/forecast, source units, category-proxy and related-group/child
+limits remain explicit. No raw profile/CV/ranking matrix is sent as facts.
 
-See AC2.json for real evidence and AC4.0.json for provisioning verification.
+C's own original-model final HTTP report remains limited as historically recorded;
+A verified and selected accessible Qwen using the same authorised key, unchanged
+cap/validation/authority and no semantic retry. All four families passed real A
+selection/source reconciliation, TCP HTTP and actual scheduled output checks.
+Invalid output/unavailability remains a supported safe state for F.
+
+B simulations stay isolated from normal evidence, coverage and forecasts. Missing
+history does not block F frontend work. Intended product frontend/browser acceptance,
+production authentication/hosting/storage and continuous scheduler remain separate
+F/release responsibilities. Only repository prototype privacy/source rendering was
+verified here. See AC4.1.json and AC4.2.json.
