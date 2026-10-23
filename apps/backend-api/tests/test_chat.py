@@ -12,13 +12,15 @@ class FixturePersonal:
 
 
 class MockProvider:
-    def __init__(self, text):
+    def __init__(self, text=None):
         self.text = text
     def complete(self, messages):
         self.messages = messages
         return dict(status="available", text=self.text, request_id="mock-only", model="mock-only")
     def complete_tool(self, messages, tool):
         self.tool = tool
+        if self.text is None:
+            self.text = json.dumps({"statement_ids": [tool["function"]["parameters"]["properties"]["statement_ids"]["items"]["enum"][0]]})
         return self.complete(messages)
 
 
@@ -26,10 +28,11 @@ class ChatTests(AppCase):
     def test_contract_fixture_round_trip_and_no_raw_scores(self):
         p = self.save()
         self.app.services = CareerServices(FixturePersonal(), mode="contract_fixture")
-        self.app.provider = MockProvider('{"statement_ids":["fact-0"]}')
+        self.app.provider = MockProvider()
         result = self.app.dispatch("POST", "/api/chat", dict(message="Next quarter?",
             expected_profile_version=p["version"]), self.token)
         self.assertEqual(result["integration_mode"], "contract_fixture")
+        self.assertEqual(result["provider"]["status"], "available")
         self.assertNotIn("internal_index", json.dumps(result))
         self.assertTrue(any(x.get("kind") == "forecast" for x in result["statements"]))
         self.assertEqual(self.app.dispatch("GET", "/api/profile", {}, self.token), p)

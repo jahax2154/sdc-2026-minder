@@ -3,9 +3,11 @@ from contextlib import contextmanager
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import secrets
 import sqlite3
+import stat
 from datetime import datetime, timezone
 import uuid
 
@@ -54,6 +56,24 @@ class Store:
     def connect(self):
         db = sqlite3.connect(self.path, timeout=5, factory=ClosingConnection)
         db.row_factory = sqlite3.Row
+        # Local personal state is plaintext; restrict owned DB/WAL/SHM files,
+        # without deleting/rewriting records or claiming encryption/expiry.
+        try:
+            for name in (self.path, self.path + "-wal", self.path + "-shm"):
+                try:
+                    fd = os.open(name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+                except FileNotFoundError:
+                    continue
+                try:
+                    info = os.fstat(fd)
+                    if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid():
+                        raise OSError("not owned regular database")
+                    os.fchmod(fd, 0o600)
+                finally:
+                    os.close(fd)
+        except OSError:
+            db.close()
+            raise AppError("local_database_permissions_failed", 500) from None
         return db
 
     @contextmanager

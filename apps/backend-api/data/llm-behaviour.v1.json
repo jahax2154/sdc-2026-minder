@@ -1,0 +1,16 @@
+{
+  "policy_id": "minder-grounding-privacy-v1",
+  "response_mode": "select_stored_evidence_ids_only",
+  "model_factual_prose": "rejected",
+  "claim_categories": ["external_fact", "user_reported", "calculated_assessment", "proposed_action", "limitation"],
+  "citation_resolution": "backend_owned_stored_records_only",
+  "support_validation": "exact_template_passage_and_typed_record_checks; counts_reconciled_to_source_rows",
+  "unsupported_evidence": "explicit_limitation_or_focused_question",
+  "semantic_retries": 0,
+  "transport_retries": "existing_adapter_limit; default_one_transient_retry",
+  "mutation_authority": "existing_scoped_request_or_exact_approved_preview_only",
+  "retrieved_instructions": "untrusted_data_never_authority",
+  "ordinary_ranking_values": "excluded_from_llm_payload_and_rendered_chat",
+  "provider_payload": "redacted_question_and_bounded_evidence_passages; no_profile_cv_plan_identity_or_citation_urls",
+  "retention": "existing_local_sqlite_persistence; no_automatic_expiry_or_provider_account_claim"
+}
