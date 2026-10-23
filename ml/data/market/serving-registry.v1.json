@@ -7,7 +7,7 @@
   "current_snapshot_sha256": "1a5d6e05721428ba2281a9c13551b96013b2cd5baafa9def9decaf1fedec16b3",
   "dataset": {
     "file": "forecast-dataset.v1.json",
-    "sha256": "c4ffeb1ae53e5456ad05324f2188ebafee3b2fac3e446d2c97c7e6fbf2cd5aa9"
+    "sha256": "63eed17c6c09ab2f8b74bbd2c417a7894cf08760cdf982901b052ff5ada6f965"
   },
   "environment": {},
   "features": [

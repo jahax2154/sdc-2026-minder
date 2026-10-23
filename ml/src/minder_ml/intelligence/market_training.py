@@ -34,7 +34,7 @@ PROMOTION_RULE = {
 
 def audit_sources(snapshot):
     rows = snapshot['dosm_observations']
-    return {'version': VERSION, 'synthetic': False, 'rows': [],
+    result = {'version': VERSION, 'synthetic': False, 'rows': [],
             'provenance': {'snapshot_version': snapshot['version'],
                            'collected_at': snapshot['collected_at'],
                            'employer_observed_ads': len(snapshot['ads']),
@@ -47,11 +47,40 @@ def audit_sources(snapshot):
             'excluded_source_targets': [
                 {'source': 'DOSM JMI', 'rows': len(rows), 'reason':
                  'Broad published offerings are not dedup-verified narrow-role/skill counts; no defensible allocation. '
-                 'All cells available in August 2026 vintage; no historical release archive acquired.'},
+                 'These pinned cells are from the August 2026 vintage. Separately acquired prior releases '
+                 'and explicit role facts do not change the grain or availability of these pinned cells.'},
                 {'source': 'Bosch MY', 'rows': len(snapshot['ads']), 'reason':
-                 'One incomplete active-ad snapshot, not historical quarterly advertisement inflows.'},
+                 'One active-ad snapshot, not historical quarterly advertisement inflows. '
+                 'Completeness of the current native feed does not recover closed historical ads.'},
                 {'source': 'DOSM labour force/wages', 'reason': 'Different quantities, not advertisement targets.'}],
             'news_comparison': 'unavailable_no_archived_publication_aware_news_features'}
+    published_path=MARKET_DATA/'published-role-observations.v1.json'
+    if published_path.is_file():
+        published=json.loads(published_path.read_text())
+        series={}
+        for row in published['observations']:
+            series.setdefault(row['entity_id'],[]).append(row)
+        audit={'source':'DOSM explicit published role facts','file_sha256':sha(published_path),
+            'observations':len(published['observations']),'missing_cells':len(published['missing']),
+            'source_label_series':len(series),'max_numeric_points_per_series':max(map(len,series.values()),default=0),
+            'unique_ad_dedup_verified':all(r['dedup_verified'] for r in published['observations']) if published['observations'] else False,
+            'historical_byte_vintages_independently_archived':False,
+            'quantity':'published_online_job_offerings_for_source_role_label',
+            'approved_target_eligible':False,'reason':'Published offering unit is not verified unique ads; '
+                'top-list censoring, short numeric history, classification and original-byte availability limits remain.'}
+        result['excluded_source_targets'].append(audit)
+    corpus_path=MARKET_DATA/'research/jobstreet-corpus-counts.v1.json'
+    if corpus_path.is_file():
+        corpus=json.loads(corpus_path.read_text())
+        result['excluded_source_targets'].append({'source':'JobStreet original frozen corpus',
+            'file_sha256':sha(corpus_path),'rows':corpus['rows'],'unique_job_ids':corpus['unique_job_ids'],
+            'populated_listing_quarters':len(corpus['dated_corpus_counts']),
+            'collection_windows_known':corpus['collection_windows'] is not None,
+            'historical_available_at_known':corpus['historical_available_at_by_record'] is not None,
+            'quantity':corpus['measurement'],'approved_target_eligible':corpus['eligible_for_approved_forecasting'],
+            'reason':'Dated surviving-corpus counts are not complete historical advertisement flows; '
+                'missing collection/closed-ad coverage, historical availability and per-record geography remain.'})
+    return result
 
 
 def metrics(predictions):
