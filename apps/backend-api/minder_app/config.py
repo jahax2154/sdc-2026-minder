@@ -100,6 +100,7 @@ def load_provider_config(*, path=None, environ=None):
 def configured_provider():
     from minder_ml.intelligence.groq_adapter import GroqAdapter
     config = load_provider_config()
-    provider = GroqAdapter(key=config.api_key, model=config.model)
+    from .provider_access import selected_model
+    provider = GroqAdapter(key=config.api_key, model=config.model or selected_model())
     provider.daily_limit = config.daily_limit
     return provider
