@@ -8,7 +8,8 @@ from .product_state_schemas import check
 
 OPERATIONS = tuple((method, "/api/product/" + path) for method, path in (
     ("GET", "direction"), ("PUT", "direction"), ("POST", "tasks"),
-    ("POST", "task-action"), ("GET", "progress")))
+    ("POST", "task-action"), ("GET", "progress"), ("GET", "resource-state"),
+    ("PUT", "resource-state"), ("POST", "resource-to-plan"), ("POST", "intake-correction")))
 
 
 def encode(value):
@@ -46,7 +47,9 @@ def state_view(store, owner):
             "SELECT body FROM documents WHERE owner=? AND kind='plan' ORDER BY id", (owner,))]
         active = next((p for p in plans if direction and p["plan_id"] == direction["plan_id"]), None)
         return dict(profile=profile, profile_version=profile["version"] if profile else None,
-            direction=direction, plans=plans, active_plan=active, progress=progress(active))
+            direction=direction, plans=plans, active_plan=active, progress=progress(active),
+            resource_states=[json.loads(r[0]) for r in db.execute(
+                "SELECT body FROM documents WHERE owner=? AND kind='resource_state' ORDER BY id", (owner,))])
 
 
 def retry_write(app, owner, path, body, operation):
@@ -169,18 +172,69 @@ def task_write(app, owner, body, db, event_id, *, create=False):
     return save_plan(store, owner, plan, plan["state_version"], db=db, completion_undo=undo)
 
 
+def resource_state_write(app, owner, body, db, event_id):
+    resource_for(body["resource_id"])
+    previous = optional(app.store, owner, "resource_state", body["resource_id"], db)
+    if (previous["version"] if previous else None) != body["expected_version"]:
+        raise AppError("stale_state_version", 409)
+    if previous and all(previous[k] == body[k] for k in ("saved", "dismissed")):
+        return previous
+    return app.store.put(owner, "resource_state", body["resource_id"],
+        dict(resource_id=body["resource_id"], saved=body["saved"], dismissed=body["dismissed"], updated_at=now()),
+        body["expected_version"], db=db)
+
+
+def resource_to_plan(app, owner, body, db, event_id):
+    resource = resource_for(body["resource_id"])
+    task = dict(task_id=uid(), title=resource["title"], description=resource["description"],
+        resource_id=resource["resource_id"], state="proposed", activity_completion=False,
+        mastery_verified=False, prerequisite_task_ids=[], locked=False, scheduled_at=None,
+        estimated_hours=resource.get("estimated_hours"), evidence_ids=[], skill_ids=[])
+    request = dict(plan_id=body["plan_id"], expected_state_version=body["expected_state_version"], task=task)
+    result = task_write(app, owner, request, db, event_id, create=True)
+    result.update(task_id=task["task_id"], resource_metadata=resource)
+    return result
+
+
+def intake_correction(app, owner, body, db, event_id):
+    row = db.execute("SELECT body,status FROM drafts WHERE owner=? AND id=?", (owner, body["draft_id"])).fetchone()
+    if row is None:
+        raise AppError("draft_not_found", 404)
+    if row["status"] != "pending_clarification":
+        raise AppError("draft_already_reviewed", 409)
+    from .profiles import save_profile
+    profile = save_profile(app.store, owner, body["profile"], body["expected_profile_version"], db=db)
+    draft = json.loads(row["body"])
+    draft.update(status="reviewed", reviewed_at=now(), profile_version=profile["version"])
+    db.execute("UPDATE drafts SET body=?,status=? WHERE owner=? AND id=?",
+               (encode(draft), draft["status"], owner, body["draft_id"]))
+    return dict(profile=profile, draft_id=draft["id"], status=draft["status"])
+
+
 def dispatch(app, owner, method, path, body):
     if (method, path) not in OPERATIONS:
         raise AppError("product_capability_unavailable", 404)
     if method == "GET":
         view = state_view(app.store, owner)
-        return view["progress"] if path.endswith("/progress") else dict(direction=view["direction"])
+        if path.endswith("/progress"):
+            return view["progress"]
+        if path.endswith("/resource-state"):
+            return dict(resource_states=view["resource_states"])
+        return dict(direction=view["direction"])
     from .product_migrations import migrate
     migrate(app.store)
-    kind = "DirectionWrite" if path.endswith("/direction") else "TaskCreate" if path.endswith("/tasks") else "TaskAction"
+    kind = {"direction": "DirectionWrite", "tasks": "TaskCreate", "task-action": "TaskAction",
+            "resource-state": "ResourceStateWrite", "resource-to-plan": "ResourceToPlan",
+            "intake-correction": "IntakeCorrection"}[path.rsplit("/", 1)[-1]]
     check(kind, body)
     def write(db, event_id):
         if kind == "DirectionWrite":
             return direction_write(app, owner, body, db, event_id)
+        if kind == "ResourceStateWrite":
+            return resource_state_write(app, owner, body, db, event_id)
+        if kind == "ResourceToPlan":
+            return resource_to_plan(app, owner, body, db, event_id)
+        if kind == "IntakeCorrection":
+            return intake_correction(app, owner, body, db, event_id)
         return task_write(app, owner, body, db, event_id, create=kind == "TaskCreate")
     return retry_write(app, owner, path, body, write)

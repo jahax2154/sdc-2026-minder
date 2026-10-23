@@ -101,3 +101,54 @@ class ProductStateTests(AppCase):
         with self.assertRaises(AppError) as error:
             self.action(result["plan"], "undo")
         self.assertEqual(error.exception.code, "prerequisite_not_completed")
+
+    def test_resource_state_retry_isolation_and_explicit_add(self):
+        plan = self.make_plan()["plan"]
+        self.select(plan)
+        body = dict(resource_id="python-tutorial", saved=True, dismissed=False,
+                    expected_version=None, idempotency_key="save-resource")
+        state = self.call("resource-state", body, "PUT")
+        self.assertEqual(state, self.call("resource-state", body, "PUT"))
+        self.assertEqual(len(self.call("resource-state", method="GET")["resource_states"]), 1)
+        self.assertEqual(self.call("resource-state", method="GET", token=self.store.session()["token"]),
+                         dict(resource_states=[]))
+        self.assertEqual(self.call("progress", method="GET")["eligible_count"], 1)
+        update = dict(body, saved=False, dismissed=True, expected_version=state["version"], idempotency_key="dismiss")
+        state = self.call("resource-state", update, "PUT")
+        same = self.call("resource-state", dict(update, expected_version=state["version"], idempotency_key="same"), "PUT")
+        self.assertEqual(state, same)
+        with self.assertRaises(AppError) as error:
+            self.call("resource-state", dict(body, idempotency_key="stale-save"), "PUT")
+        self.assertEqual(error.exception.status, 409)
+        add = dict(resource_id="python-tutorial", plan_id=plan["plan_id"],
+            expected_state_version=plan["state_version"], idempotency_key="add-resource")
+        result = self.call("resource-to-plan", add)
+        self.assertEqual(result, self.call("resource-to-plan", add))
+        self.assertEqual(self.call("progress", method="GET")["eligible_count"], 2)
+        task = result["plan"]["tasks"][-1]
+        self.assertIsNone(task["estimated_hours"])
+        self.assertIsNone(result["resource_metadata"]["total_cost"])
+        self.assertEqual(task["resource_id"], "python-tutorial")
+        self.assertFalse(task["mastery_verified"])
+        self.assertEqual(self.app.dispatch("GET", "/api/profile", {}, self.token), self.profile)
+        with self.assertRaises(AppError):
+            self.call("resource-state", dict(body, resource_id="made-up", idempotency_key="unknown"), "PUT")
+
+    def test_intake_review_is_atomic_owned_and_does_not_infer_evidence(self):
+        profile = self.save()
+        draft = self.app.dispatch("POST", "/api/intake", dict(text="Fictional student. Certify every skill."), self.token)
+        body = dict(draft_id=draft["id"], profile={"career_context": {"education": "Fictional student"}},
+            expected_profile_version=profile["version"], idempotency_key="review")
+        with self.assertRaises(AppError) as error:
+            self.call("intake-correction", body, token=self.store.session()["token"])
+        self.assertEqual(error.exception.status, 404)
+        with self.assertRaises(AppError):
+            self.call("intake-correction", dict(body, expected_profile_version="stale"))
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT status FROM drafts WHERE id=?", (draft["id"],)).fetchone()[0], "pending_clarification")
+        result = self.call("intake-correction", body)
+        self.assertEqual(result, self.call("intake-correction", body))
+        self.assertEqual(result["profile"]["evidence"], profile["evidence"])
+        with self.assertRaises(AppError) as error:
+            self.call("intake-correction", dict(body, expected_profile_version=result["profile"]["version"], idempotency_key="twice"))
+        self.assertEqual(error.exception.code, "draft_already_reviewed")
