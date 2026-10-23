@@ -1,0 +1,47 @@
+{
+  "phase_id": "AC3.2",
+  "owner": "A",
+  "status": "passed_B_SY2_and_refinement_isolation",
+  "handoffs": [
+    "e2561ff2430eb317ae8cbe547c6c913246c0cd32",
+    "f62770b67eb3bd241e0a3947578064be72f609d7"
+  ],
+  "merge_sha": "8c77d69a1dfdb5f7807f9ec1c3947a2c9ba0181d",
+  "implementation": "Committed bounded baseline/Ridge/XGBoost lab results and portability refinement; no model serving activation",
+  "checks": {
+    "service_and_forecast_tests": "43 passed in22.422s, RuntimeWarnings treated as errors",
+    "A_generator_replay": "dataset hash matches B committed measured results; original observed files unchanged",
+    "metadata": "all eight lab exports synthetic/non-serving; no selected normal model; disjoint frozen split IDs",
+    "normal_role_forecast": "unavailable",
+    "normal_registry_models": 0
+  },
+  "empirical": {
+    "label_origin": "fictional-market-scenarios-v1 fixed assumed equations, not observed Malaysian demand",
+    "owner_execution": "B local CPU12fits including2pilot; no A refit",
+    "paid_cost_usd": 0,
+    "runpod_job_id": null,
+    "metrics": "B/SY2.json and synthetic-results.v1.json retain test/robustness metrics. Seasonal chosen on validation; no-change lower final-test MAE; no reselection on test.",
+    "independent_real_accuracy": false,
+    "new_observed_coverage": 0,
+    "augmentation_benefit": "not evaluated"
+  },
+  "active_runtime": {
+    "personal_policy": "personal-role-fit-v3-provisional",
+    "market_policy": "personal-current-evidence-v2.1",
+    "scorer": "existing baseline unchanged",
+    "forecasts": "unavailable",
+    "source_counts": "unchanged"
+  },
+  "artifact_access": "No normal runtime requires lab weights. B ignored model bytes were not copied, loaded or committed; committed lineage/results reviewed. A replays only generator/isolation.",
+  "evidence": {
+    "ml/artifacts/session-a/ac3-sy2-service-tests.log": "8af8c5c55b2806515704560b35e0703acb30c3c888c8a0f0661132f02d296c62",
+    "ml/artifacts/session-a/ac3-sy2-replay/generation-manifest.json": "8be708d231e12c629d57aa426a8d0d74140b51bdbe76a219f42c244b4a008a3b",
+    "docs/execution/parallel/B/synthetic-results.v1.json": "f0a12383f0a5fca3b5866162ce1cfb77ed0212fccad16372178e1798d8ca6337"
+  },
+  "remaining": "B SY3 final clean-export/model-card/RunPod-ready handoff and C CL1-CL3 separate",
+  "deployment": {
+    "performed": false,
+    "verified": false
+  },
+  "preservation": "No source bytes, credential, model weights, generated rows or sibling working files staged"
+}
