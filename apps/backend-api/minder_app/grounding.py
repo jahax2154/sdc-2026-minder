@@ -10,7 +10,9 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
+from jsonschema.exceptions import ValidationError
 from minder_ml.intelligence.service_contracts import validate
+from minder_ml.intelligence.market_evidence import make_source_passage, KINDS
 from .store import uid
 
 POLICY = json.loads((Path(__file__).resolve().parents[1] / "data/llm-behaviour.v1.json").read_text())
@@ -48,6 +50,14 @@ def minimise_question(value):
 
 def passage(record):
     kind, data = record["record_type"], record["data"]
+    if kind == "typed_source":
+        validate("EvidencePassage", data)
+        # Structural/template integrity is checked even without a service handle.
+        # Actual source recomputation is separately mandatory via verify_bundle.
+        expected = make_source_passage(data["record"], data["evidence_policy_id"])
+        if expected != data:
+            raise GroundingError("typed_passage_derivation_mismatch")
+        return data["canonical_passage"]
     if kind == "market_count":
         support = record["support"]
         if (data["kind"] != "current" or data["status"] != "available" or data["unit"] != "advertisements"
@@ -136,6 +146,48 @@ def build_bundle(context, services, plans, profile_version):
                     "calculated_assessment", metadata={"kind": "personal_assessment"})
     else:
         add("limitation", {"code": "no_service"}, "limitation")
+    # A-owned v2.1 source derivations, selected by registered role ID only.
+    # One record per family/role bounds provider context; the per-role API retains
+    # all records. No raw traces, personal narratives or internal weights are sent.
+    personal = services.personal
+    if personal is not None and hasattr(personal, "evidence_for"):
+        for role_id in (selected or [])[:3]:
+            role = next((r for r in services.roles if r["role_id"] == role_id), None)
+            try:
+                if role is None or not hasattr(personal, "verify_evidence_passage"):
+                    raise GroundingError("typed_verifier_missing")
+                payloads = personal.evidence_for(role)["passages"]
+                for family in KINDS:
+                    candidates = [p for p in payloads if p["record"]["measurement_type"] == family]
+                    candidates.sort(key=lambda p: p["record"]["status"] != "available")
+                    if not candidates:
+                        add("limitation", {"code": "unsupported"}, "limitation")
+                        continue
+                    verified = personal.verify_evidence_passage(role, candidates[0])
+                    row = verified["record"]
+                    source_ids = []
+                    if row["status"] == "available":
+                        source = row["source"]
+                        validate("Source", source)
+                        parsed = urlsplit(source["uri"])
+                        if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
+                            raise GroundingError("unsafe_source_uri")
+                        sid = source["source_id"]
+                        if (sid in sources and sources[sid] != source and
+                                any(sid in r["source_ids"] for r in bundle["evidence"].values())):
+                            # Never relabel an earlier observation with another
+                            # record's source version/date/URL.
+                            raise GroundingError("source_identity_conflict")
+                        sources[sid] = copy.deepcopy(source)
+                        source_ids = [sid]
+                    add("typed_source", verified, "external_fact" if row["status"] == "available" else "limitation",
+                        source_ids=source_ids, metadata=dict(kind="market_evidence", measurement_type=family,
+                            status=row["status"], period=row["observation_period"], published_at=row["published_at"],
+                            geography=row["geography"], unit=row["unit"], mapping=copy.deepcopy(row["mapping"]),
+                            source_entity_id=row["source_entity_id"], limitations=copy.deepcopy(row["limitations"]),
+                            evidence_schema_version=verified["schema_version"], evidence_policy_id=verified["evidence_policy_id"]))
+            except (ValueError, KeyError, TypeError, AttributeError, ValidationError):
+                add("limitation", {"code": "unsupported"}, "limitation")
     for item in context.get("market", []):
         try:
             validate("MarketResult", item)
@@ -173,7 +225,7 @@ def build_bundle(context, services, plans, profile_version):
             add("market_count", data, "external_fact", support=support, source_ids=item["source_ids"], metadata=dict(
                 kind="current", status="available", period=item["observation_period"], published_at=item["published_at"],
                 source_universe_id=item["source_universe_id"], support_kind="derived_measurement_not_webpage_quote"))
-        except (ValueError, KeyError, TypeError, AttributeError):
+        except (ValueError, KeyError, TypeError, AttributeError, ValidationError):
             add("limitation", {"code": "unsupported"}, "limitation")
     if not context.get("market"):
         add("limitation", {"code": "no_service"}, "limitation", metadata={"kind": "forecast", "status": "unavailable"})
@@ -193,6 +245,19 @@ def resolve_claim(claim, bundle):
         raise GroundingError("claim_passage_mismatch")
     categories = dict(market_count="external_fact", unavailable_market="limitation", assessment="calculated_assessment",
         progress="user_reported", proposal="proposed_action", policy="calculated_assessment", limitation="limitation")
+    if record["record_type"] == "typed_source":
+        row = record["data"]["record"]
+        categories["typed_source"] = "external_fact" if row["status"] == "available" else "limitation"
+        for key, value in dict(kind="market_evidence", measurement_type=row["measurement_type"], status=row["status"],
+                period=row["observation_period"], published_at=row["published_at"], geography=row["geography"],
+                unit=row["unit"], mapping=row["mapping"], source_entity_id=row["source_entity_id"],
+                limitations=row["limitations"], evidence_schema_version=record["data"]["schema_version"],
+                evidence_policy_id=record["data"]["evidence_policy_id"]).items():
+            if claim.get(key) != value:
+                raise GroundingError("typed_claim_scope_mismatch")
+        expected_sources = [row["source"]["source_id"]] if row["status"] == "available" else []
+        if record["source_ids"] != expected_sources or any(bundle["sources"].get(s) != row["source"] for s in expected_sources):
+            raise GroundingError("typed_citation_binding_mismatch")
     if claim["category"] != categories[record["record_type"]]:
         raise GroundingError("claim_category_mismatch")
     if record["record_type"] in ("market_count", "unavailable_market"):
@@ -223,3 +288,31 @@ def validate_selection(text, bundle):
 def provider_facts(bundle):
     return [dict(id=c["id"], evidence_ids=c["evidence_ids"], category=c["category"],
                  passage=resolve_claim(c, bundle)["text"]) for c in bundle["claims"]]
+
+
+def verify_bundle(bundle, services):
+    """Recheck saved typed passages against actual pinned records before use.
+
+    A self-consistent changed passage/hash is insufficient. On any failure remove
+    the claim and record and replace them with the closed safe limitation.
+    Used by both interactive and scheduled paths; never accepts document authority.
+    """
+    for claim in list(bundle["claims"]):
+        record = bundle["evidence"].get(claim["id"])
+        if record is None or record["record_type"] != "typed_source":
+            continue
+        try:
+            role_id = record["data"]["record"]["role_id"]
+            role = next(r for r in services.roles if r["role_id"] == role_id)
+            if services.personal.verify_evidence_passage(role, record["data"]) != record["data"]:
+                raise GroundingError("typed_verification_failed")
+            resolve_claim(claim, bundle)
+        except (ValueError, KeyError, TypeError, AttributeError, StopIteration, ValidationError):
+            replacement = dict(record_type="limitation", data={"code":"unsupported"}, support={}, source_ids=[])
+            replacement["passage"] = passage(replacement)
+            bundle["evidence"][claim["id"]] = replacement
+            bundle["claims"][bundle["claims"].index(claim)] = dict(id=claim["id"], evidence_ids=[claim["id"]],
+                text=replacement["passage"], category="limitation")
+    used = {sid for record in bundle["evidence"].values() for sid in record["source_ids"]}
+    bundle["sources"] = {sid: source for sid, source in bundle["sources"].items() if sid in used}
+    return bundle

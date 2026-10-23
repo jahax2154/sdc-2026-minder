@@ -5,7 +5,7 @@ from minder_ml.intelligence.groq_adapter import GroqAdapter, ProviderError
 from .store import AppError, uid
 from .provider_budget import BudgetedProvider
 from .grounding import (POLICY_ID, SYSTEM_POLICY, build_bundle, provider_facts,
-                        minimise_question, validate_selection, resolve_claim)
+                        minimise_question, validate_selection, resolve_claim, verify_bundle)
 
 
 def chat(store, services, provider, owner, message, expected_profile_version,
@@ -23,7 +23,7 @@ def chat(store, services, provider, owner, message, expected_profile_version,
     ledger_id = uid()
     snapshot = store.put(owner, "grounding", ledger_id,
         build_bundle(context, services, plans, profile["version"]), None)
-    bundle = store.get(owner, "grounding", ledger_id)
+    bundle = verify_bundle(store.get(owner, "grounding", ledger_id), services)
     facts = provider_facts(bundle)
     selected = [resolve_claim(c, bundle) for c in bundle["claims"]]
     provider_result = {"status": "unavailable", "code": "provider_not_configured"}
