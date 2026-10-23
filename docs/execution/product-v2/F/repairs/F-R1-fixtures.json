@@ -2,7 +2,7 @@
   "fixture_only": true,
   "provider_calls": 0,
   "working_success_failure_cancel_timeout": true,
-  "timeout_test": "90s deadline compressed to80ms in browser fixture",
+  "timeout_test": "45s deadline compressed to80ms in browser fixture",
   "duplicate_send_blocked": true,
   "context_toggle_close_escape": true,
   "context_draft_scroll_width_preserved": true,
