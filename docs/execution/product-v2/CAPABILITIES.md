@@ -4,7 +4,8 @@ Historical P0.1 inventory: INVENTORY.md; exported existing contract:
 docs/execution/product/llm/FRONTEND_CONTRACT.md. This ledger is not feature completion.
 Current verification is in P1.1/P1.2/P1.1-R01/P1.3/P1.3-R01 and P1.4 reports.
 F1.1 implementation and F1.2 filter/mobile evidence are integrated; A's actual
-workspace journey passes. Document UI and final combined acceptance remain separate.
+workspace journey passes. Document lifecycle/default-disabled browser checks pass;
+final combined acceptance and bounded owner refinements remain separate.
 
 | User capability | Existing/first-slice status | Owner and next runnable work |
 | --- | --- | --- |
@@ -20,7 +21,7 @@ workspace journey passes. Document UI and final combined acceptance remain separ
 | News & Trends | E partial learning/source statements; F read/filter presentation | No general news acquisition, broad feed or new demand formula |
 | Minder | F approved chat layout with actual Qwen/source rendering | P1.2 A real-provider browser passed; transcript remains temporary |
 | Mindbots | F actual proposals/actions/events/settings/history | P1.2 exact reject/approve/retry/stale passed; no continuous24/7 claim |
-| Private PDF/TXT library | D migration6 and all5 handlers; A schemas/real HTTP tests |82 backend checks pass; storage default disabled, F UI pending, PDF extraction unavailable |
+| Private PDF/TXT library | D migration6/all5 handlers; F library/review/attachments; A schema/HTTP/browser checks |82 backend checks and local lifecycle pass; storage default disabled; PDF extraction unavailable; F-DOC-REVIEW-R01 pending |
 | Product shell/Profile/Explore | Separate F-owned modules inside approved shell | F1.1/F1.2 and A phone/workspace journey passed; G remains inactive |
 | Product routing/dev isolation | A registry/launcher; unique D/E/F resources; A8111/9111 | Auth boundary retained; missing or disabled capabilities explicit |
 | Real future forecast/independent suitability accuracy | Unavailable/unvalidated | Separate B/data work, no product launch gate |

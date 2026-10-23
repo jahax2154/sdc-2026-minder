@@ -30,6 +30,14 @@ This is current product evidence, not a replacement for historical P0 reports.
   forecasts, settings, owner isolation and all9 phone routes without overflow.
   Zero page errors. No chat/provider call in this journey; prior real Qwen checks
   retained. ResourceToPlan/IntakeCorrection schemas now match D exactly in A export.
+- P1.5 integrates F6f3fa4035cc0724a1e49e9351a59a95560fcfdae document controls.
+  Unmodified F browser test passes on a disposable A-only local-development server:
+  exact attachment, explicit TXT review/no mastery, unavailable PDF extraction,
+  deletion retaining applied profile, refresh/size/mobile and zero page errors.
+  Normal A runtime separately shows unavailable storage and disables upload.
+  No persistent config/provider change. F-DOC-REVIEW-R01 is an owner code-review
+  refinement request for editable intent after an uncertain response; not covered
+  by the successful lifecycle cases. See FRONTEND_REFINEMENT_REQUESTS.md.
 
 Stable local base: http://127.0.0.1:9111 with same-origin `/api`, backend8111,
 launcher `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m
@@ -37,7 +45,7 @@ minder_ml.intelligence.product_runtime --lane A` after sourcing A .env.local.
 This is loopback-only, not a remote backend. qwen/qwen3.8-27b preserved; private
 credentials, tokens, DBs, evidence screenshots and source inputs remain outsideGit.
 
-Next consumer handoff: F document controls and final frontend acceptance record.
+Next consumer handoff: F final shared/client checks and bounded review-intent repair.
 F should preserve E2 raw nullable direction/active_plan shapes from E HANDOFF.
 A reused F's committed browser assertions with only origin9106->9111 and output
 paths changed in ignored A evidence. A did not edit F-owned source/tests. A future

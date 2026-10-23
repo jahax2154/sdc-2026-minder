@@ -1,6 +1,7 @@
 // Reuses the reviewed assessment/intake presentation from C/A acceptance UI.
 // Rendered within the approved product shell and source design tokens.
 import {api,optional,key} from '../client.js';
+import {documents} from './documents.js';
 import {card,esc,bind,showError,facts,source,safeURL} from '../ui.js';
 
 export async function profilePage(ctx,page){
@@ -27,6 +28,7 @@ async function profileView() {
     await render();
   });
   if (!profile) return;
+  append('<div id="documentsRoot"></div>');await documents(ctx,document.querySelector('#documentsRoot'));
   await assessmentIntake();
   append(card('Add your evidence', `<label>Skill or topic<input id="subject" placeholder="Python, project management, or another skill"></label><label>Your evidence or experience<textarea id="claim" placeholder="Describe a project, experience or qualification. This is saved as your statement."></textarea></label><button id="save-claim">Save my statement</button>`));
   bind('save-claim', async () => {
