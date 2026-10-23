@@ -59,6 +59,12 @@ def save_profile(store, owner, body, expected, *, db=None):
 
 
 def intake_draft(store, owner, *, text, filename=None, content_type="text/plain", channel="chat"):
+    with store.transaction() as db:
+        return _intake_draft(db, owner, text=text, filename=filename, content_type=content_type, channel=channel)
+
+
+def _intake_draft(db, owner, *, text, filename=None, content_type="text/plain", channel="chat"):
+    """Shared validated intake insert for atomic document-derived review records."""
     if content_type != "text/plain" or (filename and not filename.lower().endswith(".txt")):
         raise AppError("unsupported_document_type_use_utf8_txt", 415)
     if not isinstance(text, str) or not text.strip():
@@ -70,7 +76,6 @@ def intake_draft(store, owner, *, text, filename=None, content_type="text/plain"
                  evidence_type="document-claim" if filename else "unconfirmed_chat_claim",
                  clarification="Select the skill/field, describe your evidence, then explicitly save it. "
                                "This text has been read, but no skill mastery has been inferred.")
-    with store.transaction() as db:
-        db.execute("INSERT INTO drafts VALUES(?,?,?,?)", (owner, draft["id"],
-            __import__("json").dumps(draft), draft["status"]))
+    db.execute("INSERT INTO drafts VALUES(?,?,?,?)", (owner, draft["id"],
+        __import__("json").dumps(draft), draft["status"]))
     return draft
