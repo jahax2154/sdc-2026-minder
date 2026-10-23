@@ -21,7 +21,9 @@ def main():
     if not path.is_relative_to((root / "ml/artifacts/session-c").resolve()):
         raise ValueError("C worker database must stay under reserved Session C artifacts")
     store = Store(path)
-    worker = Worker(store, ActionExecutor(store), provider=configured_provider())
+    from .runtime import application
+    services = application().services
+    worker = Worker(store, ActionExecutor(store), provider=configured_provider(), services=services)
     while True:
         result = worker.tick(owner=args.owner)
         print(json.dumps(result), flush=True)

@@ -1,0 +1,10 @@
+{
+  "phase_id":"CL2","status":"passed","owner":"C","depends_on":"ef4196b9856b9504eb1d719c955a67cc62d2d843",
+  "evidence_schema":"minder-evidence-passage-v1","evidence_policy":"personal-current-evidence-v2.1",
+  "implementation":["Consume A evidence_for and verify_evidence_passage before ledger storage","Recompute actual source support after ledger load and validate rendered passage/metadata/citation bindings","One bounded record per family per selected role; full details remain in role-evidence API","Use same verified bundle in actual CLI scheduled worker; ignore event-supplied passages"],
+  "families":["employer_observation","published_offering_activity","occupation_shortage","sector_context"],
+  "verification":{"backend_unit_tests_passed":47,"new_focused_tests":5,"real_committed_sources":true,"provider_mocked_in_unit_tests":true,"real_provider_check":"CL3 pending"},
+  "preserved":["N01 remains inactive; no scoring edits","Direct action and immutable approval/rejection authority","User isolation, tool/schema validation, bounded provider retries/quotas, minimal payloads and redacted logs","Original Bosch derivations and unavailable forecasts"],
+  "limits":["Closed template/actual record verification; not arbitrary prose entailment or proof of external source truth/freshness","At most one available record per family/role sent to provider; no pooling or inference across families","No continuous scheduler or product frontend deployment claim"],
+  "publication":"No push; A sole coordinated publisher"
+}
