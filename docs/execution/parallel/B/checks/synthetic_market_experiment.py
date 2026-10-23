@@ -7,6 +7,13 @@ import json
 import math
 from pathlib import Path
 import random
+import importlib.metadata
+import resource
+import subprocess
+import sys
+import time
+
+import joblib
 
 from minder_ml.intelligence.data_pipeline import MARKET_DATA, MARKET_ARTIFACTS, sha
 from minder_ml.intelligence.forecasting import feature_vector, history_as_of, quarter_number
@@ -194,13 +201,153 @@ def prepare(output):
     return result
 
 
+def run(output, *, expected_dataset, expected_code):
+    """Frozen train-only fits; tune on validation, then inspect final test once.
+
+    Whole scenario families and related variants are disjoint, in addition to
+    chronological embargoes. Held series' own past observations are permitted
+    inference context, never training labels or fitted preprocessing input.
+    """
+    from minder_ml.intelligence.forecasting import (METHODS, RIDGE_ALPHAS, BOOST_DEPTHS,
+        FEATURES, fit_candidate, predict, count_metrics)
+    if sha(output / 'dataset.json') != expected_dataset or sha(Path(__file__)) != expected_code:
+        raise ValueError('immutable_dataset_and_code_hashes_required')
+    dataset = json.loads((output / 'dataset.json').read_text())
+    prepared, excluded = examples(dataset)
+    before = observed_hashes()
+    started = time.monotonic()
+    fits = 0
+
+    def fit(method, rows, parameter):
+        nonlocal fits
+        if fits >= 12 or time.monotonic() - started > 120:
+            raise RuntimeError('bounded_lab_budget_exhausted')
+        model = fit_candidate(method, rows, parameter=parameter)
+        fits += 1
+        return model
+
+    def peak_mib():
+        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        return peak / (1024*1024 if sys.platform == 'darwin' else 1024)
+
+    pilot = [e for e in prepared if e['entity_type'] == 'role' and e['split'] == 'train'][:16]
+    pilot_start = time.monotonic()
+    for method in ('ridge', 'gradient_boosting'):
+        fit(method, pilot, 2)
+    pilot_result = {'fits': 2, 'training_examples': len(pilot),
+                    'elapsed_seconds': time.monotonic() - pilot_start,
+                    'process_peak_rss_mib': peak_mib(), 'device': 'CPU', 'workers': 1}
+    report = {'version': VERSION, 'synthetic': True, 'display_label': LABEL,
+              'normal_serving_eligible': False, 'selected_normal_runtime_model': None,
+              'real_validation': 'unavailable_no_compatible_real_target_holdout',
+              'execution_location': 'local_cpu', 'runpod_job_id': None, 'paid_cost_usd': 0,
+              'dataset_sha256': expected_dataset, 'runner_sha256': expected_code,
+              'code_base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+              'features': list(FEATURES), 'pilot': pilot_result, 'excluded': excluded,
+              'environment': {n: importlib.metadata.version(n) for n in
+                              ('numpy', 'scikit-learn', 'scipy', 'xgboost', 'joblib', 'threadpoolctl')},
+              'python': sys.version.split()[0], 'family_results': {}, 'artifacts': [],
+              'selection_rule': 'Per output family: lowest validation MAE, ties prefer METHODS order; frozen before final test. No normal-runtime promotion.',
+              'fit_policy': 'Training families/labels only; no test-time or validation refit. Each method sees the same examples. Parameters chosen only using validation.',
+              'split_ids': {s: [e['example_id'] for e in prepared if e['split'] == s]
+                            for s in ('train', 'validation', 'test', 'robustness')}}
+    frozen, models = {}, {}
+    for family in ('role', 'skill'):
+        train = [e for e in prepared if e['entity_type'] == family and e['split'] == 'train']
+        validation = [e for e in prepared if e['entity_type'] == family and e['split'] == 'validation']
+        assert max(e['label_available_at'] for e in train) < min(e['issued_at'] for e in validation)
+        held = [e for e in prepared if e['entity_type'] == family and e['split'] in ('test', 'robustness')]
+        assert max(e['label_available_at'] for e in validation) < min(e['issued_at'] for e in held)
+        trials, configs = {}, {}
+        for method in METHODS:
+            parameters = RIDGE_ALPHAS if method == 'ridge' else BOOST_DEPTHS if method == 'gradient_boosting' else (None,)
+            candidates = []
+            for parameter in parameters:
+                model = fit(method, train, parameter) if method in ('ridge', 'gradient_boosting') else None
+                predictions = predict(method, model, validation)
+                metric = count_metrics([e['label'] for e in validation], predictions)
+                candidates.append({'parameter': parameter, 'metrics': metric})
+                models[(family, method, parameter)] = model
+            best = min(candidates, key=lambda t: t['metrics']['mae'])
+            configs[method] = best['parameter']
+            trials[method] = {'trials': candidates, 'best': best}
+        chosen = min(METHODS, key=lambda m: (trials[m]['best']['metrics']['mae'], METHODS.index(m)))
+        frozen[family] = {'validation_choice_simulation_only': chosen, 'parameters': configs}
+        report['family_results'][family] = {'validation': trials, 'metrics_by_split': {}, 'per_scenario': {}}
+    # This artifact exists before *any* final-test predictions or metrics.
+    write(output / 'frozen-selection.json', {'synthetic': True, 'normal_serving_eligible': False,
+          'selection': frozen, 'dataset_sha256': expected_dataset, 'runner_sha256': expected_code})
+    report['frozen_selection_sha256'] = sha(output / 'frozen-selection.json')
+    all_predictions = []
+    for family in ('role', 'skill'):
+        record = report['family_results'][family]
+        record.update(frozen[family])
+        for method in METHODS:
+            parameter = frozen[family]['parameters'][method]
+            model = models[(family, method, parameter)]
+            for split in ('train', 'validation', 'test', 'robustness'):
+                rows = [e for e in prepared if e['entity_type'] == family and e['split'] == split]
+                predictions = predict(method, model, rows)
+                record['metrics_by_split'].setdefault(split, {})[method] = count_metrics(
+                    [e['label'] for e in rows], predictions)
+                for scenario in sorted({e['scenario'] for e in rows}):
+                    pairs = [(e, p) for e, p in zip(rows, predictions) if e['scenario'] == scenario]
+                    record['per_scenario'].setdefault(scenario, {'split': split,
+                        'interpretation': 'training_resubstitution_only' if split == 'train' else 'synthetic_' + split,
+                        'methods': {}})['methods'][method] = count_metrics(
+                            [e['label'] for e, p in pairs], [p for e, p in pairs])
+                all_predictions.extend({'synthetic': True, 'display_label': LABEL,
+                    'example_id': e['example_id'], 'family': family, 'scenario': e['scenario'],
+                    'split': split, 'method': method, 'actual': e['label'], 'prediction': float(p)}
+                    for e, p in zip(rows, predictions))
+            artifact = output / 'models' / (family + '-' + method + '.joblib')
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            joblib.dump(model, artifact)
+            metadata = {'synthetic': True, 'display_label': LABEL, 'normal_serving_eligible': False,
+                        'dataset_sha256': expected_dataset, 'runner_sha256': expected_code,
+                        'label_origin': VERSION + ' fixed fictional equations, not observed ads',
+                        'method': method, 'family': family, 'parameter': parameter,
+                        'features': list(FEATURES), 'training_example_ids': [e['example_id'] for e in prepared
+                            if e['entity_type'] == family and e['split'] == 'train'],
+                        'artifact_sha256': sha(artifact), 'artifact': 'models/' + artifact.name,
+                        'environment': report['environment']}
+            write(artifact.with_suffix('.metadata.json'), metadata)
+            report['artifacts'].append(metadata)
+    write(output / 'predictions.json', {'synthetic': True, 'display_label': LABEL, 'predictions': all_predictions})
+    report['predictions_sha256'] = sha(output / 'predictions.json')
+    report['isolation'] = isolation(dataset, output)
+    assert before == observed_hashes()
+    report.update(fits=fits, elapsed_seconds=time.monotonic() - started,
+                  process_peak_rss_mib=peak_mib(), observed_before_after_identical=True,
+                  limits={'max_fits': 12, 'max_seconds_between_fit_checks': 120, 'workers': 1},
+                  limitations=['Assumed fictional worlds; no independent real demand accuracy',
+                               'Training metrics are resubstitution, not holdout evidence',
+                               'Validation families differ from training and test; no repeated test-driven tuning',
+                               'RSS is process high-water memory including imports; not per-fit allocation',
+                               'No calibrated uncertainty, real augmentation benefit or real forecast activation'])
+    write(output / 'results.json', report)
+    return report
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['generate'])
+    parser.add_argument('command', choices=['generate', 'run'])
     parser.add_argument('--output-dir', type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument('--expected-dataset-sha256')
+    parser.add_argument('--expected-code-sha256')
     args = parser.parse_args()
-    result = prepare(args.output_dir)
-    print(json.dumps({k: v for k, v in result.items() if k not in ('observed_hashes', 'examples')}, indent=2))
+    if args.command == 'generate':
+        result = prepare(args.output_dir)
+        print(json.dumps({k: v for k, v in result.items() if k not in ('observed_hashes', 'examples')}, indent=2))
+    else:
+        result = run(args.output_dir, expected_dataset=args.expected_dataset_sha256,
+                     expected_code=args.expected_code_sha256)
+        print(json.dumps({'synthetic': True, 'fits': result['fits'], 'pilot': result['pilot'],
+              'elapsed_seconds': result['elapsed_seconds'], 'process_peak_rss_mib': result['process_peak_rss_mib'],
+              'dataset_sha256': result['dataset_sha256'], 'runner_sha256': result['runner_sha256'],
+              'measured': {f: {'validation_choice_simulation_only': r['validation_choice_simulation_only'],
+                  'test': r['metrics_by_split']['test'], 'robustness': r['metrics_by_split']['robustness']}
+                  for f, r in result['family_results'].items()}}, indent=2))
 
 
 if __name__ == '__main__':

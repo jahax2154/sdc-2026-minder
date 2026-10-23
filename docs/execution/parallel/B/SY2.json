@@ -1,0 +1,86 @@
+{
+  "phase_id": "SY2",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "base_sha": "3dcc8e08fcfafc0c358aaf140063e929c2a752f7",
+  "checkpoint": "commit containing this record",
+  "objective": "Measured bounded synthetic-only baseline/Ridge/XGBoost comparison on disjoint scenario groups and chronological splits",
+  "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+  "runner_sha256": "dfe11749d08f2a9846337610fcf7d0c2ba721acb6ffb45fd5888cdd86c73ba4c",
+  "execution_location": "local_cpu",
+  "paid_cost_usd": 0,
+  "runpod_job_id": null,
+  "actual_fits": 12,
+  "pilot": {
+    "device": "CPU",
+    "elapsed_seconds": 0.01873679099999992,
+    "fits": 2,
+    "process_peak_rss_mib": 123.109375,
+    "training_examples": 16,
+    "workers": 1
+  },
+  "elapsed_seconds": 0.13830029199999994,
+  "process_peak_rss_mib": 126.484375,
+  "splits": {
+    "groups": "train stable/rising/falling; validation seasonal/sparse; test abrupt/missing/coverage_change; robustness damped_cycle",
+    "examples": {
+      "train": 156,
+      "validation": 24,
+      "test": 34,
+      "robustness": 14
+    },
+    "time": "train labels available before 2018; validation issues 2018-2019, labels before 2020; test/robustness issues 2020+",
+    "related_variants": "Role and skill share each group; no family/source group crosses a split",
+    "preprocessing": "All ten full candidate fits use training families only; validation selects alpha/depth; no held-out refit",
+    "frozen_selection_sha256": "4a009b6b70e23ca15d77ca9e2a3a4215c45103ea0ae7414b6903c3437f381416"
+  },
+  "measured_test_MAE_fictional_counts": {
+    "role": {
+      "gradient_boosting": 29.025001525878906,
+      "no_change": 1.4705882352941178,
+      "ridge": 10.469243172455904,
+      "seasonal": 2.176470588235294
+    },
+    "skill": {
+      "gradient_boosting": 15.713204552145566,
+      "no_change": 1.5294117647058822,
+      "ridge": 5.787942288217505,
+      "seasonal": 1.8823529411764706
+    }
+  },
+  "validation_selected_simulation_methods": {
+    "role": "seasonal",
+    "skill": "seasonal"
+  },
+  "checks": [
+    {
+      "command": "synthetic_market_experiment.py prepare/run with exact code and dataset SHA-256",
+      "result": "12 fits including two pilot fits; eight artifact exports; no observed hash changes; frozen selection before test metrics"
+    },
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting",
+      "result": "................\n----------------------------------------------------------------------\nRan 16 tests in 0.198s\n\nOK",
+      "sha256": "71dcd5ea696762456f55f10150f68895cc5f69245c7aa44062e0976a27eff5c1"
+    }
+  ],
+  "artifacts": "Eight baseline/model .joblib files plus synthetic metadata retained under ignored ml/artifacts/session-b/synthetic-lab/v1/models; hashes and training-label lineage in synthetic-results.v1.json",
+  "evidence": [
+    "synthetic-results.v1.json",
+    "synthetic-execution.v1.txt"
+  ],
+  "limitations": [
+    "Assumed fictional worlds; no independent real demand accuracy",
+    "Training metrics are resubstitution, not holdout evidence",
+    "Validation families differ from training and test; no repeated test-driven tuning",
+    "RSS is process high-water memory including imports; not per-fit allocation",
+    "No calibrated uncertainty, real augmentation benefit or real forecast activation",
+    "The abrupt level shift begins in 2018: final test measures a sustained unseen regime, not the immediate transition. Coverage changes in 2017: history never bridges its denominator epochs.",
+    "Sparse zeros are evaluated in validation, not final test; test zero_targets is zero.",
+    "Seasonal wins validation but persistence has lower final-test MAE; no winner was reselected on that test.",
+    "Seeds/formulas are fixed assumed worlds; different-family performance is simulation robustness only."
+  ],
+  "normal_runtime_change": false,
+  "real_forecasts": "unavailable; real evaluation remains absent",
+  "next_eligible": "SY3 exact replay, isolated-artifact runtime checks, reproducible bounded RunPod specification and model/data card"
+}
