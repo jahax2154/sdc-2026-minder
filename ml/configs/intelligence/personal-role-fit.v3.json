@@ -6,7 +6,7 @@
   "authority": "2026-10-23 user delegates provisional weights, normalization, coverage, missingness and current-market combination within seven confirmed requirements; original N01 unapproved history preserved",
   "target": "partial_essential_skill_evidence_fit",
   "reference_path": "ml/data/reference/role-reference.v3.json",
-  "reference_sha256": "41c9e6319a22b3347ba62443218b4930afa21de718254a540e6b230d2ba22a4e",
+  "reference_sha256": "a9f80201392af47cb9966d0f81bd2f52ca99cd2e9845b5e1deb3b478be96234f",
   "skill_method_id": "minder-anchored-evidence-v1",
   "skill_rubric_version": "onet31-essential-anchors-v1",
   "minimum_assessed_skills": 3,

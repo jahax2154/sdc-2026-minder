@@ -45,7 +45,9 @@ No milestone, preparation hours or resources enter initial fit.
 - Use the **maximum** supported path adjustment, with untouched paths supplying
   no adjustment. This retains alternative industries: disliking one does not
   penalise supported untouched alternatives. Show every path's E/U and selected
-  path separately. Each signal enters once; no extra final penalty.
+  path separately. The compatibility DTO's bounded industry assessment is
+  `(path_points+5)/15`, mapping the declared -5..10 point range onto 0..1;
+  contributions use path points, never a second application of that display index. Each signal enters once; no extra final penalty.
 - Work-style alignment: `5*(2*W-1)`, W the mean explicitly supplied utilities on
   this occupation's sourced positive-impact work-style tags. Absent tags have
   no effect. Preserve the source's AI/Expert provenance; this is stated affinity,
@@ -91,8 +93,10 @@ explains allowlisted backend facts. Internal market matrices are not public.
 
 Pinned projection `ml/data/reference/role-reference.v3.json` includes ten native
 skill anchor sets, 992 exact-code/title industry relationships and 891 sets of
-five positive-impact work styles. Twelve unmatched/renamed industry records are
-explicit exceptions. The industry table covers US top employment sectors for
+five positive-impact work styles. Twelve source aggregate rows lack native codes and are not joined; their labels
+are explicit exceptions. Twenty-four native occupations lack an exact industry
+relationship, including 3 otherwise-supported assessment roles. They stay
+eligible; optional industry effects remain unsupported rather than fabricated. The industry table covers US top employment sectors for
 2025; it is partial and not Malaysian demand. Full source bytes remain ignored
 under A artifacts; normalized source-backed reference data and hashes are tracked.
 O*NET CC BY 4.0 attribution/change notice is in the projection. Existing thirteen

@@ -12,7 +12,7 @@ def role_reference_v3():
     if not path.is_relative_to(ROOT.resolve()) or hashlib.sha256(path.read_bytes()).hexdigest() != config['reference_sha256']:
         raise ValueError('role reference v3 checksum/path mismatch')
     data = json.loads(path.read_text())
-    if data['version'] != 'role-reference-v3.1':
+    if data['version'] != 'role-reference-v3.2':
         raise ValueError('role reference version mismatch')
     return data
 
