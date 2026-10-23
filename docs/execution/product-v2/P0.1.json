@@ -1,0 +1,344 @@
+{
+  "phase_id": "P0.1",
+  "status": "passed_inventory_and_approved_design_source_checkpoint",
+  "base_sha": "07f60a8e0b3097685f99d0bc68d05edd29021391",
+  "closure_reused": "docs/execution/parallel/A/AC4.2.json; no model/closure rerun",
+  "actual_model_id": "qwen/qwen3.8-27b",
+  "provider_key_present": true,
+  "provider_secret_values_exported": false,
+  "design": {
+    "files": [
+      {
+        "path": "docs/minder-ui-html-previews/README.md",
+        "bytes": 4330,
+        "sha256": "bae05e70cedb0ab26d287657fbd21c556ddc0a6dd87fb6a14d319fc334e45da7",
+        "provided_source_sha256": "bae05e70cedb0ab26d287657fbd21c556ddc0a6dd87fb6a14d319fc334e45da7",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/frog-blue.svg",
+        "bytes": 983,
+        "sha256": "85d0f3e571ceb78248fe21960f8e234cf90852f0b5bb50939c3a3b9eeaedd761",
+        "provided_source_sha256": "85d0f3e571ceb78248fe21960f8e234cf90852f0b5bb50939c3a3b9eeaedd761",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/frog-lavender.svg",
+        "bytes": 983,
+        "sha256": "a0b3076b5c12d33c6cf51b0dac4b559326ef17de5e577356ed2dc0875353d51c",
+        "provided_source_sha256": "a0b3076b5c12d33c6cf51b0dac4b559326ef17de5e577356ed2dc0875353d51c",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/frog-lime.svg",
+        "bytes": 983,
+        "sha256": "54d49ba3a3ca82f248581631d79e3234215936053ebc803d5d050d9bc44b2209",
+        "provided_source_sha256": "54d49ba3a3ca82f248581631d79e3234215936053ebc803d5d050d9bc44b2209",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/frog-rose.svg",
+        "bytes": 983,
+        "sha256": "bda43ce186637e27c9a631797d745784ef651dc562023e90c76a6164b3cf0962",
+        "provided_source_sha256": "bda43ce186637e27c9a631797d745784ef651dc562023e90c76a6164b3cf0962",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/frog-yellow.svg",
+        "bytes": 983,
+        "sha256": "0a890c94e492aa609611c6b11fd4f8abd00e133a5bd0bec13d77babd80e9c74e",
+        "provided_source_sha256": "0a890c94e492aa609611c6b11fd4f8abd00e133a5bd0bec13d77babd80e9c74e",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/heart-blue.svg",
+        "bytes": 774,
+        "sha256": "845fdaac5e2221ec7bd24060ffc0ff543e71c4e86c5d4fda52e92c66eb7024a0",
+        "provided_source_sha256": "845fdaac5e2221ec7bd24060ffc0ff543e71c4e86c5d4fda52e92c66eb7024a0",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/heart-lavender.svg",
+        "bytes": 774,
+        "sha256": "2c7a69b4da8e124c1761f1ecc650474e187d1a64b7b09c41583a7ae2f3a76250",
+        "provided_source_sha256": "2c7a69b4da8e124c1761f1ecc650474e187d1a64b7b09c41583a7ae2f3a76250",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/heart-lime.svg",
+        "bytes": 774,
+        "sha256": "2045a8ceb0c9d72ffa86a4684001f5ae0921537675143bb5ba473e0fc96a02c0",
+        "provided_source_sha256": "2045a8ceb0c9d72ffa86a4684001f5ae0921537675143bb5ba473e0fc96a02c0",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/heart-rose.svg",
+        "bytes": 774,
+        "sha256": "c2afd888558e9cb470575097d920fbddfa8460c3be5cd4050522ae76165c0b7e",
+        "provided_source_sha256": "c2afd888558e9cb470575097d920fbddfa8460c3be5cd4050522ae76165c0b7e",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/heart-yellow.svg",
+        "bytes": 774,
+        "sha256": "9439806701c5a3d4c343300ad88b58cb921abad36dd00e6d29eaf9bd0d39760d",
+        "provided_source_sha256": "9439806701c5a3d4c343300ad88b58cb921abad36dd00e6d29eaf9bd0d39760d",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/minder.css",
+        "bytes": 24494,
+        "sha256": "c19f73ccf3dfafe4c833f7ece9541d594f0e99a9af88ee786f510fb4cd7e7184",
+        "provided_source_sha256": "c19f73ccf3dfafe4c833f7ece9541d594f0e99a9af88ee786f510fb4cd7e7184",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/minder.js",
+        "bytes": 22113,
+        "sha256": "0e9552d20a0cb8c7f58337fdec46dc5086e4a6a7dcca2ad6b64efaa37024470e",
+        "provided_source_sha256": "0e9552d20a0cb8c7f58337fdec46dc5086e4a6a7dcca2ad6b64efaa37024470e",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/nimo-blue.png",
+        "bytes": 52547,
+        "sha256": "3305611317dab3763e079479ef76d9b95bf9772c8d34bb86c3ba88e9ae746d4c",
+        "provided_source_sha256": "3305611317dab3763e079479ef76d9b95bf9772c8d34bb86c3ba88e9ae746d4c",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/nimo-lavender.png",
+        "bytes": 45229,
+        "sha256": "b364971ca275519717c3ffc41fb07a7ffd874b9f5d277e3485b817a620e07114",
+        "provided_source_sha256": "b364971ca275519717c3ffc41fb07a7ffd874b9f5d277e3485b817a620e07114",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/nimo-lime.png",
+        "bytes": 45154,
+        "sha256": "970ae294f115527fc08d82896431ed68f3215424d1583cbf4b9a3c8b68f65679",
+        "provided_source_sha256": "970ae294f115527fc08d82896431ed68f3215424d1583cbf4b9a3c8b68f65679",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/nimo-rose.png",
+        "bytes": 44678,
+        "sha256": "0810277f1c1b7143f095e6d88d2c544b513029980738ffdb9e259d5ed9365228",
+        "provided_source_sha256": "0810277f1c1b7143f095e6d88d2c544b513029980738ffdb9e259d5ed9365228",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/nimo-yellow.png",
+        "bytes": 41816,
+        "sha256": "cbb394f2a9d4089d8ad9d0139196920f6e141a25a78744928bebc0affc061326",
+        "provided_source_sha256": "cbb394f2a9d4089d8ad9d0139196920f6e141a25a78744928bebc0affc061326",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/puff-blue.svg",
+        "bytes": 1107,
+        "sha256": "4e7081308e307426bc5e6d4031991f961ba5fe98395ca46d563f285472f2afb0",
+        "provided_source_sha256": "4e7081308e307426bc5e6d4031991f961ba5fe98395ca46d563f285472f2afb0",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/puff-lavender.svg",
+        "bytes": 1107,
+        "sha256": "e84c66500c90e725d1f600350b0bed0f27522ecabf21466aab1b87dd6f12b14b",
+        "provided_source_sha256": "e84c66500c90e725d1f600350b0bed0f27522ecabf21466aab1b87dd6f12b14b",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/puff-lime.svg",
+        "bytes": 1107,
+        "sha256": "a7fd70439a493b3fea3d56b938018bc56390970f5d2fee4a98c7a437ed15c1e2",
+        "provided_source_sha256": "a7fd70439a493b3fea3d56b938018bc56390970f5d2fee4a98c7a437ed15c1e2",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/puff-rose.svg",
+        "bytes": 1107,
+        "sha256": "99802f650ae59f5253e11bbf50a37d3b5d91d027ce3cc2f1db8318849e0f4085",
+        "provided_source_sha256": "99802f650ae59f5253e11bbf50a37d3b5d91d027ce3cc2f1db8318849e0f4085",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/puff-yellow.svg",
+        "bytes": 1107,
+        "sha256": "1ead0ed98a6f9c1e2feb74e051b228a5f448581375c2c14dcc02b743744ab3e8",
+        "provided_source_sha256": "1ead0ed98a6f9c1e2feb74e051b228a5f448581375c2c14dcc02b743744ab3e8",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/star-blue.svg",
+        "bytes": 867,
+        "sha256": "d2eb44eb4092d406f6ccd1ae3a2b63fc7cc74e63bc8eb747ddc522522e296f7c",
+        "provided_source_sha256": "d2eb44eb4092d406f6ccd1ae3a2b63fc7cc74e63bc8eb747ddc522522e296f7c",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/star-lavender.svg",
+        "bytes": 867,
+        "sha256": "e1bd9142fa246d140877c49d30571216a6c1beb12eb79d6750ffcdb33cd5088e",
+        "provided_source_sha256": "e1bd9142fa246d140877c49d30571216a6c1beb12eb79d6750ffcdb33cd5088e",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/star-lime.svg",
+        "bytes": 867,
+        "sha256": "0298f5f5096edb44d3332520fe4264082bf4e6ed51f62206c11fe21083a9b489",
+        "provided_source_sha256": "0298f5f5096edb44d3332520fe4264082bf4e6ed51f62206c11fe21083a9b489",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/star-rose.svg",
+        "bytes": 867,
+        "sha256": "ca64c677657f1c91804a6ed21d0b447dda37402282a8dafc6b35e2dfcd9d6984",
+        "provided_source_sha256": "ca64c677657f1c91804a6ed21d0b447dda37402282a8dafc6b35e2dfcd9d6984",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/assets/star-yellow.svg",
+        "bytes": 867,
+        "sha256": "b7cfdba1252a0bfbcb26ce1d5890096d6b31c23b5ebb7f354d407db20832ab89",
+        "provided_source_sha256": "b7cfdba1252a0bfbcb26ce1d5890096d6b31c23b5ebb7f354d407db20832ab89",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/mindbot.html",
+        "bytes": 985894,
+        "sha256": "ac69bd911b7a2c2ce92cfbf0b8f3f20e592c292a0d3ec654cf662cc3d11cb24d",
+        "provided_source_sha256": "3cdef02b5592c98e1a249de9d4c2a09beaf6a23f686554e700b21a3980ae6cdb",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/minder-chat.html",
+        "bytes": 57983,
+        "sha256": "b822c3dd2cc658c7072d417cd7fc320b88f6f13e76b159023a9b490d075311e4",
+        "provided_source_sha256": "2a9fb89af303c3d1547056295d58e0b087e7a6d00b11741d7e6042ac5dd0dc2a",
+        "kind": "approved_HTML_or_runtime_asset"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-activity-profile-bottom.png",
+        "bytes": 178015,
+        "sha256": "39c70af33a5dbe847bada11906ea8abc308cedb272e288847bece44d71316d70",
+        "provided_source_sha256": "39c70af33a5dbe847bada11906ea8abc308cedb272e288847bece44d71316d70",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-activity-profile.png",
+        "bytes": 176726,
+        "sha256": "0e48ea14f04d1c7c45535cc96b7bb9c284da37dddd1d586cc135d3a619411337",
+        "provided_source_sha256": "0e48ea14f04d1c7c45535cc96b7bb9c284da37dddd1d586cc135d3a619411337",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-customization.png",
+        "bytes": 187690,
+        "sha256": "fbf9dfed7d477370140701e4e1e8481c0125a64a0e644ce4237dc3392706985d",
+        "provided_source_sha256": "fbf9dfed7d477370140701e4e1e8481c0125a64a0e644ce4237dc3392706985d",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-mobile.png",
+        "bytes": 61186,
+        "sha256": "60d5618f68bfb741e7c572873c8a9a936200ca1180c7bd08761c80bb9185c44f",
+        "provided_source_sha256": "60d5618f68bfb741e7c572873c8a9a936200ca1180c7bd08761c80bb9185c44f",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-new.png",
+        "bytes": 115351,
+        "sha256": "32bca097e66ebc16f1de80c646370d9abf766c3697698a72557aba359d83eeb6",
+        "provided_source_sha256": "32bca097e66ebc16f1de80c646370d9abf766c3697698a72557aba359d83eeb6",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/mindbot-schedule.png",
+        "bytes": 153418,
+        "sha256": "d8ce834638d9065bf65faa45f9524e2b67714a07e54966d4f425653ed284a49d",
+        "provided_source_sha256": "d8ce834638d9065bf65faa45f9524e2b67714a07e54966d4f425653ed284a49d",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/minder-chat-conversation-bottom.png",
+        "bytes": 202189,
+        "sha256": "cda18700047d13fade04e4e2fb54be9f0883ac91523f3c1ae3e00feb15b6b71d",
+        "provided_source_sha256": "cda18700047d13fade04e4e2fb54be9f0883ac91523f3c1ae3e00feb15b6b71d",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/minder-chat-conversation.png",
+        "bytes": 207302,
+        "sha256": "fd6e7c9a621b498c3a4c94791a4b77cba9b57818d90bd7f343603627d1a86724",
+        "provided_source_sha256": "fd6e7c9a621b498c3a4c94791a4b77cba9b57818d90bd7f343603627d1a86724",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/minder-chat-mobile.png",
+        "bytes": 53675,
+        "sha256": "f23544b92fc4991e5d6d276be6705b9c7aa767ccb35d53fef1699de2e07f58ee",
+        "provided_source_sha256": "f23544b92fc4991e5d6d276be6705b9c7aa767ccb35d53fef1699de2e07f58ee",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/minder-chat-new.png",
+        "bytes": 107106,
+        "sha256": "7ff9b4a09554e796086b574bf0c694d47e5770fc33adeae991cd390da8f58fd0",
+        "provided_source_sha256": "7ff9b4a09554e796086b574bf0c694d47e5770fc33adeae991cd390da8f58fd0",
+        "kind": "approved_supplied_reference_screenshot"
+      },
+      {
+        "path": "docs/minder-ui-html-previews/screenshots/minder-chat-thinking.png",
+        "bytes": 143484,
+        "sha256": "38577f9c83a868cb6bbb3241d58efbeb9e9437dfb717d291117603397babb865",
+        "provided_source_sha256": "38577f9c83a868cb6bbb3241d58efbeb9e9437dfb717d291117603397babb865",
+        "kind": "approved_supplied_reference_screenshot"
+      }
+    ],
+    "external_urls": {
+      "minder-chat.html": [],
+      "mindbot.html": [],
+      "assets/minder.js": [],
+      "assets/minder.css": []
+    },
+    "screenshots": "11 user-supplied fictional design references included; newly generated A browser evidence stays ignored",
+    "normalization": "Two whitespace-only HTML lines normalized; original hashes retained"
+  },
+  "design_browser": {
+    "mode": "offline approved HTML reference, canned behavior, no API/provider validation",
+    "checks": [
+      {
+        "page": "minder-chat",
+        "headings": [
+          "Ready to dive in, Avery?",
+          "Minder Chat"
+        ],
+        "page_errors": [],
+        "mobile_overflow": false
+      },
+      {
+        "page": "mindbot",
+        "headings": [
+          "Nimo"
+        ],
+        "page_errors": [],
+        "mobile_overflow": false
+      }
+    ]
+  },
+  "old_worktrees": "original,A,B,C only; D/E/F absent, no existing product ownership/launch found",
+  "stack": "stdlibWSGI/SQLite/jsonschema, vanilla acceptance UI; React/Vite absent",
+  "pack": "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1; three-hour update copied from provided original",
+  "verification": [
+    "41 approved design files credential scan clear; supplied screenshots are design inputs, not new runtime output",
+    "assets JS syntax passed",
+    "offline desktop/mobile browser zero pageerrors/overflow",
+    "approved screenshots visually reviewed",
+    "currentQwen owner-only config verified by presence/model only",
+    "A remote07f60 verified; D/E/F remote refs absent"
+  ],
+  "boundaries": "P0.2 contracts/runtime/sole writers next; no feature implementation or sibling mutation in P0.1",
+  "deployment": false,
+  "paid_jobs": 0
+}

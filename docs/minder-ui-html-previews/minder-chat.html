@@ -1,0 +1,407 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="color-scheme" content="light"><title>Minder Chat | minder.</title><style>/* Minder design contract v1 · faithful interactive HTML prototype */
+:root {
+  --app-bg:#f7f8f4; --surface:#fff; --surface-alt:#f1f4ef;
+  --surface-quiet:#f9faf8; --border:#e4e8e0; --border-strong:#d5dcd4;
+  --text:#111315; --text-secondary:#656e69; --text-muted:#949c96;
+  --sage:#5e7d69; --sage-dark:#355642; --sage-soft:#dde8de;
+  --success:#6c8e79; --chip:#eef1ec; --shadow:0 4px 22px rgba(31,45,35,.025);
+  --radius-sm:12px; --radius-md:16px; --radius-lg:20px;
+  --sidebar-width:269px; --topbar-height:75px;
+  font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-synthesis:none; color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--app-bg);color:var(--text)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.42}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid rgba(94,125,105,.3);outline-offset:2px}
+svg{display:block;flex-shrink:0}
+.icon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0}
+.icon svg{width:100%;height:100%}
+.i-sm{width:16px;height:16px}.i-xs{width:14px;height:14px}.i-lg{width:23px;height:23px}
+.hide{display:none!important}
+.muted{color:var(--text-muted)}.secondary{color:var(--text-secondary)}
+.app-shell{display:flex;width:100vw;height:100dvh;min-height:530px;overflow:hidden}
+.sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);border-right:1px solid #e8eae6;background:#f7f8f6;display:flex;flex-direction:column;padding:22px 18px 0;position:relative;z-index:9}
+.logo{height:44px;display:flex;align-items:center;gap:12px;padding-left:11px;font-size:24px;font-weight:750;letter-spacing:-1.25px}
+.logo-mark{background:#263e32;width:33px;height:33px;border-radius:9px;position:relative;box-shadow:0 1px 2px #0001;display:inline-block;flex-shrink:0}
+.logo-mark:before,.logo-mark:after{content:"";position:absolute;inset:5px 6px;border:1.7px solid #f8fdf9;border-radius:42% 45% 47% 43%;transform:rotate(-18deg)}
+.logo-mark:after{inset:7px 9px 6px 7px;border-width:1.25px;transform:rotate(16deg)}
+.side-new{height:47px;margin:27px 1px 37px;display:flex;align-items:center;justify-content:center;gap:11px;font-size:13px;font-weight:660;letter-spacing:-.12px;border-radius:9px;background:#fff;border:1px solid #dfe3de;box-shadow:0 2px 6px #2222 0}
+.side-new:hover,.button-outline:hover,.surface-button:hover{background:#f4f6f2;border-color:#cfd8ce}
+.nav-label{font-weight:700;letter-spacing:1.5px;font-size:10px;color:#8b928c;padding-left:14px;margin-bottom:12px}
+.nav-group{display:flex;flex-direction:column;gap:4px;margin-bottom:29px}
+.nav-link{min-height:43px;padding:0 11px 0 14px;display:flex;align-items:center;gap:13px;color:#616a65;font-size:13.5px;border:1px solid transparent;border-radius:9px;transition:background .16s,color .16s;font-weight:500;white-space:nowrap}
+.nav-link:hover{background:#ecefec;color:#28392e}
+.nav-link.active{background:#e9eee8;color:#233d2f;font-weight:700}
+.nav-link > span:nth-child(2){flex:1}
+.nav-link .icon{color:#52635b;width:19px;height:19px}
+.tag-on{font-size:10px;font-weight:700;color:#384d3e;border:1px solid #dbe1db;border-radius:7px;padding:3px 7px;background:#f9faf7}
+.nav-profile-mini{width:22px;height:22px;object-fit:contain}
+.side-bottom{margin-top:auto;min-height:0}
+.side-note{background:#ecf1eb;border-radius:12px;padding:20px 21px 18px;margin:0 6px 16px}
+.side-note .icon{color:#2d4c3a;margin-bottom:16px}
+.side-note strong{display:block;font-size:13px;margin-bottom:9px}
+.side-note p{font-size:12px;line-height:1.55;color:#697970;margin:0 0 11px}
+.side-note a{font-weight:650;font-size:12px;color:#2f553c;display:inline-flex;align-items:center;gap:8px}
+.account{height:83px;border-top:1px solid #e5e9e3;display:flex;gap:12px;align-items:center;padding:0 2px 0 7px}
+.initials{width:35px;height:35px;border-radius:50%;background:#e0e6df;display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+.account-info{flex:1;min-width:0}.account-name{font-size:12.5px;font-weight:700}.account-sub{color:#969c96;font-size:10.5px;margin-top:4px}
+.icon-button{width:35px;height:35px;display:inline-flex;justify-content:center;align-items:center;background:transparent;border:1px solid transparent;border-radius:10px;color:#4e5c56}
+.icon-button:hover{background:#f1f4ef;border-color:#e2e7e0}
+.account .icon-button{width:27px;height:27px}
+.right-screen{min-width:0;display:flex;flex:1;flex-direction:column;background:#fff}
+.topbar{height:var(--topbar-height);min-height:var(--topbar-height);display:flex;align-items:center;justify-content:space-between;padding:0 33px 0 52px;border-bottom:1px solid #e7eae5;background:#fff;position:relative;z-index:8}
+.breadcrumb{display:flex;align-items:center;gap:15px;font-size:13px;color:#88908b;white-space:nowrap}.breadcrumb .current{font-weight:600;color:#404b47}
+.top-actions{display:flex;align-items:center;gap:21px}
+.header-search{width:236px;height:39px;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;gap:9px;padding:0 12px;color:#757f78;background:#fff}
+.header-search input{height:100%;border:0;outline:0;min-width:0;flex:1;font-size:12px;background:transparent}
+.header-search input::placeholder{color:#a0a6a1}
+.header-separator{width:1px;height:30px;background:var(--border)}
+.ask-button{height:39px;display:flex;align-items:center;gap:8px;border:0;padding:0 18px;background:#f0f3ee;border-radius:10px;font-size:12px;font-weight:700}
+.ask-button:hover{background:#e5ede4}
+.top-actions .initials{width:36px;height:36px}
+.page-main{position:relative;flex:1;min-height:0;display:flex;overflow:hidden}
+.content-col{min-width:0;min-height:0;flex:1;display:flex;flex-direction:column;position:relative}
+.context-rail{width:360px;flex:none;border-left:1px solid var(--border);background:#fcfdfb;padding:19px;overflow:auto;scrollbar-width:thin}
+.rail-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:19px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.rail-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;gap:8px}.rail-heading strong{font-size:14px;letter-spacing:-.15px}.text-link{font-weight:600;color:#4a6855;font-size:11.5px;border:0;background:transparent;padding:4px 0}
+.rail-desc{font-size:12.5px;color:var(--text-secondary);line-height:1.55}
+.rail-subtitle{display:block;font-size:10.5px;color:#a0a8a0;margin-top:5px}
+.rail-detail{display:flex;gap:11px;align-items:start;margin:11px 0;padding:2px 0}
+.rail-detail>div:last-child{flex:1;min-width:0}
+.rail-detail .icon-circle{width:38px;height:38px}
+.rail-title{display:block;font-size:13px;font-weight:680;line-height:1.35}
+.rail-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.mini-data{padding:9px;border-radius:9px;background:#f7f9f6;font-size:11px}.mini-data strong{display:block;font-size:16px;margin-bottom:4px}
+.rail-row{padding:12px 0;border-top:1px solid #ecf0eb;display:flex;gap:11px;align-items:center;font-size:12px}
+.rail-row:first-of-type{border-top:0}
+.rail-row>span:nth-child(2){flex:1}
+.icon-circle{height:43px;width:43px;display:grid;place-items:center;border-radius:12px;background:#edf2ec;color:#355542;flex-shrink:0}
+.inline-action{display:flex;align-items:center;gap:8px;color:#425b4a;border:0;background:transparent;font-size:12px;font-weight:600;padding:0}
+.button-outline,.surface-button{height:38px;display:inline-flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:9px;padding:0 13px;background:#fff;font-size:12px;font-weight:600}
+.button-primary{height:40px;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#334f3e;border:1px solid #334f3e;border-radius:10px;padding:0 17px;color:#fff;font-size:12px;font-weight:650;transition:background .16s}
+.button-primary:hover{background:#233a2d}.button-primary:active{transform:scale(.987)}
+.status-pill{font-size:10px;border-radius:8px;background:#e9f1e8;color:#345a3f;padding:6px 9px;font-weight:620;white-space:nowrap}
+.mini-note{padding:12px;background:#f0f4ef;border-radius:10px;font-size:11.5px;line-height:1.55;color:#596c5f}
+/* Chat interface */
+.chat-page{background:#fff}
+.chat-scroller{flex:1;overflow:auto;scrollbar-width:thin;min-height:0;display:flex;flex-direction:column}
+.chat-new-content{display:flex;flex:1;flex-direction:column;align-items:center;justify-content:center;padding:20px 28px 80px;min-height:470px}
+.chat-greeting{text-align:center;margin-top:24px}
+.chat-greeting h1{margin:0 0 11px;font-size:43px;line-height:1.13;letter-spacing:-1.6px;font-weight:730}
+.chat-greeting p{color:#7d8582;font-size:16px;margin:0;line-height:1.55}
+.suggestion-grid{margin-top:39px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(910px,100%);gap:14px}
+.suggest-card{display:flex;align-items:center;text-align:left;gap:18px;padding:22px 23px;min-height:109px;border:1px solid var(--border);border-radius:16px;background:#fff;transition:border-color .16s,background .16s,transform .16s}
+.suggest-card:hover{border-color:#bbcabc;background:#fafcf9;transform:translateY(-1px)}
+.suggest-card .icon-circle{width:53px;height:53px;border-radius:50%}
+.suggest-card .suggest-copy{flex:1;min-width:0}
+.suggest-title{display:block;font-weight:700;font-size:15px;letter-spacing:-.35px;margin-bottom:5px}
+.suggest-description{display:block;font-size:12.8px;color:#77817a;line-height:1.45}
+.active-chat-head{padding:26px 50px 12px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.kicker{font-size:10px;letter-spacing:1.25px;color:#8d9790;font-weight:730}
+.active-chat-head h1{margin:8px 0 3px;font-size:33px;letter-spacing:-1.1px;font-weight:740}
+.active-chat-head p{font-size:13px;color:#7a817c;margin:0}
+.head-actions{display:flex;align-items:center;gap:7px}
+.chat-thread{width:min(870px,calc(100% - 70px));margin:18px auto 20px;display:flex;flex-direction:column;gap:22px}
+.user-message{align-self:flex-end;max-width:69%;min-width:230px;background:#eef3ed;border-radius:13px 13px 4px 13px;padding:14px 18px;font-size:14px;line-height:1.56;letter-spacing:-.1px}
+.message-time{align-self:flex-end;margin-top:-15px;font-size:10px;color:#9ba49e}
+.assistant-answer{font-size:14px;line-height:1.72;color:#323b36;max-width:100%}
+.assistant-answer p{margin:0 0 18px}
+.assistant-answer h3{font-size:18px;line-height:1.25;letter-spacing:-.45px;margin:0 0 5px;color:#121816}
+.rich-answer{border:1px solid #e4e9e2;border-radius:14px;padding:20px 21px 11px;margin:6px 0 17px;background:#fff}
+.rich-answer-sub{font-size:12px;color:#919b94;margin-bottom:11px!important}
+.roadmap-item{padding:12px 1px;border-top:1px solid #edf0ed;display:flex;gap:12px;align-items:center}
+.roadmap-item .number{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#edf2ec;color:#375541;font-weight:680;flex-shrink:0}
+.roadmap-copy{flex:1;min-width:0}.roadmap-copy strong{display:block;font-size:13px;color:#262f2a;line-height:1.4}
+.roadmap-copy small{font-size:11px;color:#939b96;line-height:1.5;display:block}
+.roadmap-item .tag{font-size:10px;padding:5px 12px;background:#edf3ec;border-radius:8px;color:#40624c;min-width:60px;text-align:center}
+.message-tools{display:flex;align-items:center;gap:6px;margin-top:2px;color:#818b84}.message-tools .icon-button{height:26px;width:26px}
+.followups{display:flex;gap:8px;flex-wrap:wrap;margin-top:0}
+.chip{font-size:11.3px;color:#536257;padding:9px 11px;border:1px solid var(--border);border-radius:10px;background:#fff;display:inline-flex;align-items:center;gap:8px}
+.chip:hover{background:#f2f6f0;border-color:#c7d3c5}
+.spinner{width:20px;height:20px;border:2px dotted #789981;border-left-color:#214f31;border-radius:50%;animation:spin 1.15s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.thinking-row{display:flex;align-items:center;gap:10px;color:#647468;font-size:12px;font-weight:550;padding:2px 0}
+.dots{display:inline-flex;gap:5px;margin-left:2px}.dots span{width:7px;height:7px;background:#becfc0;border-radius:50%;animation:dotpulse 1s infinite alternate}.dots span:nth-child(2){animation-delay:.22s}.dots span:nth-child(3){animation-delay:.44s}
+@keyframes dotpulse{from{opacity:.35;transform:translateY(1px)}to{opacity:1;transform:translateY(-2px)}}
+.composer-area{flex-shrink:0;padding:12px clamp(28px,4.3vw,70px) 19px;background:linear-gradient(to bottom,#fffc,white 35%);position:relative;z-index:4}
+.composer-area .composer-inner{max-width:1070px;margin:0 auto;position:relative}
+.composer{display:flex;align-items:flex-end;gap:12px;border:1px solid #dfe5dd;border-radius:22px;min-height:62px;background:#fff;padding:10px 11px 10px 13px;box-shadow:0 2px 15px rgba(15,25,15,.025)}
+.composer:focus-within{border-color:#a3b9a5;box-shadow:0 0 0 3px rgba(98,136,103,.065)}
+.composer .icon-button{height:39px;width:39px;border-radius:12px;color:#52635a}
+.composer textarea{resize:none;overflow:auto;max-height:130px;line-height:1.6;padding:9px 1px 6px;min-height:39px;flex:1;min-width:0;border:0;background:transparent;outline:0;font-size:13px;scrollbar-width:thin}
+.composer textarea::placeholder{color:#a0a8a1}
+.send-button{width:41px;height:41px;border-radius:50%;border:0;background:#7a9380;color:#fff;display:grid;place-items:center;flex-shrink:0;transition:background .16s}.send-button:hover:not(:disabled){background:#365642}.send-button:disabled{background:#bbcabb;opacity:.72}
+.composer-caption{text-align:center;margin-top:12px;color:#9ba39d;font-size:11px}
+.toast{position:fixed;bottom:105px;left:50%;transform:translate(-50%,12px);background:#233d2f;color:#fff;padding:11px 18px;border-radius:10px;font-size:12px;opacity:0;pointer-events:none;z-index:100;transition:opacity .2s,transform .2s;box-shadow:0 10px 28px #0002}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* MindBot */
+.agent-page{background:#fff}
+.agent-tools{position:absolute;right:24px;top:14px;display:flex;align-items:center;gap:5px;z-index:5}
+.agent-tools button{border:1px solid transparent;background:#fff;color:#465a4d;border-radius:9px}
+.agent-tools button:hover{background:#f1f4ef;border-color:#e5e9e2}
+.agent-hero{display:flex;align-items:center;flex-direction:column;text-align:center;padding:12px 14px 0;flex-shrink:0}
+.agent-hero .agent-avatar{width:87px;height:91px;object-fit:contain;cursor:pointer;transition:transform .2s}
+.agent-hero .agent-avatar:hover{transform:translateY(-2px)}
+.agent-hero h1{font-size:27px;margin:0 0 5px;font-weight:730;letter-spacing:-.9px}
+.agent-hero p{margin:0;color:#7e8a81;font-size:12.5px;line-height:1.55}
+.agent-quick-nav{display:flex;gap:11px;margin-top:15px;flex-wrap:wrap;justify-content:center}
+.agent-quick-nav .feature-button{border:1px solid var(--border);border-radius:11px;min-width:137px;background:#fff;padding:11px 12px;display:flex;align-items:center;gap:10px;text-align:left}
+.agent-quick-nav .feature-button.selected,.agent-quick-nav .feature-button:hover{background:#edf3eb;border-color:#e6eee4}
+.feature-button .icon-circle{width:33px;height:33px;border-radius:10px}.feature-button strong{font-size:12px;display:block}.feature-button small{font-size:10px;color:#87928b;display:block;margin-top:2px}
+.agent-new-content{display:flex;flex:1;flex-direction:column;justify-content:center;align-items:center;padding:0 30px 36px}
+.agent-new-content h2{font-size:25px;font-weight:700;letter-spacing:-.85px;margin:14px 0 9px}
+.agent-new-content p{font-size:13px;color:#849087;margin:0 0 22px}
+.agent-suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;width:min(720px,100%)}
+.agent-suggestions .suggest-card{min-height:88px;padding:15px;gap:12px}
+.agent-suggestions .suggest-card .icon-circle{width:42px;height:42px}.agent-suggestions .suggest-title{font-size:13px}.agent-suggestions .suggest-description{font-size:11px}
+.agent-thread{width:min(850px,calc(100% - 70px));margin:22px auto 25px;display:flex;flex-direction:column;gap:16px}
+.agent-thread .user-message{max-width:77%}
+.agent-response{padding:17px 19px 10px;border:1px solid var(--border);border-radius:15px;background:#fff;font-size:13px;line-height:1.55}
+.agent-response>h3{font-size:18px;margin:0 0 7px;letter-spacing:-.5px}
+.agent-response>p{color:#6b776e;margin:0 0 12px;line-height:1.5}
+.agent-action{display:flex;gap:12px;padding:13px 1px;border-top:1px solid #ebefeb;align-items:flex-start}
+.agent-action .icon-circle{width:39px;height:39px}.agent-action .action-content{flex:1;min-width:0}
+.agent-action strong{font-size:13px}.agent-action p{font-size:11px;color:#929e94;margin:3px 0 5px}
+.agent-action ul{margin:5px 0 0;padding-left:16px;font-size:11.1px;line-height:1.55;color:#748177}
+.agent-action .action-trail{display:flex;align-items:center;gap:7px}
+.preview-disclaimer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:11px 0 0;border-top:1px solid #edf1eb;font-size:11px;color:#919b95}
+.profile-popover{position:absolute;top:14px;right:20px;width:340px;max-height:calc(100% - 27px);overflow:auto;z-index:7;background:#fff;border:1px solid #e2e7e0;border-radius:19px;padding:20px;box-shadow:0 14px 45px rgba(25,35,25,.075);scrollbar-width:thin}
+.profile-popover .close-pop{position:absolute;top:10px;right:10px}
+.profile-identity{display:flex;align-items:center;gap:14px;margin:10px 0 20px}
+.profile-identity img{width:73px;height:76px;object-fit:contain}.profile-identity strong{font-size:22px;letter-spacing:-.4px}.profile-identity small{display:block;color:#859187;margin-top:7px;font-size:12px}
+.pop-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:17px}.pop-actions button{justify-content:center;height:40px}
+.device-row{display:flex;align-items:center;gap:10px;padding:13px;background:#fafcf9;border:1px solid var(--border);border-radius:12px;font-size:12px;margin-bottom:19px}
+.device-illustration{width:44px;height:34px;display:grid;place-items:center;background:linear-gradient(130deg,#bac6d1,#edf2f6,#869cae);border-radius:6px;color:#46566a}
+.device-row>div:nth-child(2){flex:1}.device-row small{display:block;margin-top:3px;color:#58956a}
+.pop-section{border-top:1px solid #e7ede6;padding-top:17px;margin-top:17px}.pop-section h4{margin:0 0 12px;font-size:14px}.pop-line{display:flex;gap:10px;align-items:center;font-size:12px;color:#405048;padding:4px 0}.pop-line .icon{color:#637568}.pop-line span:last-child{flex:1}.pop-line small{color:#9aa49c;display:block;margin-top:4px}
+.modal-scrim{position:fixed;inset:0;background:rgba(35,44,37,.35);z-index:40;display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(1px)}
+.modal-dialog{width:min(875px,100%);max-height:calc(100dvh - 44px);overflow:auto;background:#fff;border:1px solid #ebeeea;box-shadow:0 25px 80px rgba(12,26,16,.19);border-radius:20px;padding:23px 27px 23px;position:relative}
+.modal-dialog h2{font-size:24px;margin:0 0 22px;letter-spacing:-.7px}.modal-close{position:absolute;right:18px;top:19px}
+.custom-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px}
+.custom-fields{min-width:0;padding-right:18px;border-right:1px solid var(--border)}
+.field-label{font-size:12px;font-weight:680;margin:0 0 8px;display:block}
+.text-field,.select-field{height:42px;width:100%;border:1px solid #e0e5df;border-radius:10px;background:#fff;padding:0 13px;font-size:13px;outline:none}
+.text-field:focus,.select-field:focus{border-color:#89a88d}
+.custom-section{margin-top:19px}
+.swatches{display:flex;align-items:center;gap:13px;flex-wrap:wrap}.swatch{width:43px;height:43px;border-radius:50%;border:2px solid white;box-shadow:0 0 0 1px #e6eae6;display:grid;place-items:center;position:relative}.swatch:after{content:"";width:17px;height:17px;border-radius:50%;background:#141816a8}.swatch.selected{box-shadow:0 0 0 2px #4c8263,0 0 0 5px #eaf3e9}
+.avatar-options{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.avatar-choice{border:1px solid #e5e9e5;background:#fafbf9;width:65px;height:66px;border-radius:13px;display:grid;place-items:center}.avatar-choice.selected{border-color:#5d8b6a;box-shadow:0 0 0 2px #e1ebe1}.avatar-choice img{width:49px;height:52px;object-fit:contain}
+.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.custom-preview{border-radius:14px;background:#f7f9f6;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:353px;padding:17px}
+.custom-preview h3{margin:5px 0 0;font-size:28px;letter-spacing:-.9px}.custom-preview img{height:178px;width:184px;object-fit:contain}.custom-preview .button-primary{width:100%;height:43px;border-radius:24px}
+.custom-preview small{font-size:10px;color:#a0a8a0}
+.schedule-dialog{width:min(690px,100%)}.schedule-title{display:flex;align-items:center;gap:10px;margin-bottom:6px}.schedule-title h2{margin:0}.schedule-intro{font-size:12px;color:#7e8980;margin:10px 0 20px}
+.schedule-list{border:1px solid var(--border);border-radius:13px;overflow:hidden}
+.schedule-row{display:flex;align-items:center;gap:13px;padding:16px;border-top:1px solid var(--border)}.schedule-row:first-child{border:0}
+.schedule-row>.icon-circle{width:39px;height:39px}.schedule-row>div:nth-child(2){flex:1}.schedule-row strong{font-size:13px;display:block}.schedule-row small{font-size:11px;color:#89978a;display:block;margin-top:4px}
+.toggle{appearance:none;width:37px;height:23px;background:#d8e0d8;position:relative;border-radius:15px;cursor:pointer;transition:background .16s;flex-shrink:0}.toggle:before{content:"";width:17px;height:17px;position:absolute;top:3px;left:3px;background:white;border-radius:50%;box-shadow:0 1px 4px #0002;transition:transform .16s}.toggle:checked{background:#587c62}.toggle:checked:before{transform:translateX(14px)}
+.schedule-add{display:grid;grid-template-columns:1fr 185px auto;gap:10px;margin-top:14px}
+/* Tablet and compact screens */
+@media(max-width:1350px){:root{--sidebar-width:238px}.sidebar{padding-left:13px;padding-right:13px}.topbar{padding-left:34px}.context-rail{width:315px;padding:14px}.rail-card{padding:15px}.active-chat-head{padding-left:35px;padding-right:35px}.chat-thread{width:min(820px,calc(100% - 50px))}.agent-thread{width:min(820px,calc(100% - 50px))}}
+@media(max-width:1050px){:root{--sidebar-width:215px}.sidebar{padding:18px 9px 0}.side-note{padding:14px}.context-rail{position:absolute;right:0;top:0;bottom:0;z-index:6;width:min(360px,90vw);box-shadow:-10px 0 30px #0000000d}.topbar{padding:0 21px}.header-search{width:175px}.chat-greeting h1{font-size:36px}.profile-popover{right:9px}}
+@media(max-width:730px){.app-shell{min-height:0}.sidebar{display:none}.topbar{height:60px;min-height:60px;padding:0 13px}.breadcrumb{gap:7px;font-size:11px}.top-actions{gap:8px}.header-search,.header-separator{display:none}.ask-button{height:34px;padding:0 10px;font-size:10px}.top-actions .initials{width:29px;height:29px;font-size:10px}.chat-new-content{padding:12px 18px 35px}.chat-greeting h1{font-size:32px}.chat-greeting p{font-size:13px}.suggestion-grid{grid-template-columns:1fr;gap:9px;margin-top:24px}.suggest-card{min-height:70px;padding:13px 15px}.suggest-card .icon-circle{width:38px;height:38px}.suggest-title{font-size:13px}.suggest-description{font-size:11px}.composer-area{padding:10px 12px 17px}.composer-caption{font-size:9px}.active-chat-head{padding:17px 19px 6px}.active-chat-head h1{font-size:23px}.active-chat-head p{font-size:11px}.chat-thread,.agent-thread{width:calc(100% - 30px)}.user-message{max-width:90%;font-size:12px}.agent-hero .agent-avatar{width:64px;height:70px}.agent-hero h1{font-size:22px}.agent-tools{right:7px;top:4px;gap:0}.agent-tools .icon-button{width:30px}.agent-quick-nav .feature-button{min-width:95px;padding:7px}.feature-button .icon-circle{display:none}.agent-quick-nav{gap:5px}.agent-new-content{padding:12px 14px}.agent-suggestions{grid-template-columns:1fr}.profile-popover{right:6px;top:10px;width:min(330px,calc(100vw - 12px));max-height:calc(100% - 20px)}.modal-dialog{padding:18px}.custom-grid{grid-template-columns:1fr}.custom-fields{padding-right:0;border-right:0}.custom-preview{min-height:215px}.custom-preview img{height:125px}.schedule-add{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style></head><body><div class="app-shell"><aside class="sidebar"><div class="logo"><span class="logo-mark"></span><span>minder.</span></div><button class="side-new" type="button" id="globalNewChat"><span class="icon " data-icon="plus" aria-hidden="true"></span><span>New conversation</span></button><div class="nav-label">YOUR SPACE</div><nav class="nav-group" aria-label="Your space"><a class="nav-link demo-route" href="#" data-description="Overview"><span class="icon " data-icon="grid" aria-hidden="true"></span><span>Overview</span></a><a class="nav-link demo-route" href="#" data-description="Explore"><span class="icon " data-icon="compass" aria-hidden="true"></span><span>Explore</span></a><a class="nav-link active" href="minder-chat.html"><span class="icon " data-icon="message-circle" aria-hidden="true"></span><span>Minder Chat</span></a><a class="nav-link" href="mindbot.html"><span class="icon " data-icon="bot" aria-hidden="true"></span><span>MindBot</span><span class="tag-on">ON</span></a><a class="nav-link demo-route" href="#" data-description="My profile"><span class="icon " data-icon="user-round" aria-hidden="true"></span><span>My profile</span></a></nav><div class="nav-label">KEEP MOVING</div><nav class="nav-group" aria-label="Keep moving"><a class="nav-link demo-route" href="#" data-description="My roadmap"><span class="icon " data-icon="target" aria-hidden="true"></span><span>My roadmap</span></a><a class="nav-link demo-route" href="#" data-description="My tasks"><span class="icon " data-icon="circle-check" aria-hidden="true"></span><span>My tasks</span></a></nav><div class="side-bottom"><div class="side-note"><span class="icon " data-icon="sprout" aria-hidden="true"></span><strong>A little every day</strong><p>Build the skills, collect the evidence, and let your path take shape.</p><a href="#" class="demo-route" data-description="Roadmap">Continue roadmap <span class="icon i-sm" data-icon="arrow-right" aria-hidden="true"></span></a></div><div class="account"><div class="initials">AL</div><div class="account-info"><div class="account-name">Avery Lim</div><div class="account-sub">Personal workspace</div></div><button class="icon-button" aria-label="Account options" id="accountMenu"><span class="icon " data-icon="ellipsis" aria-hidden="true"></span></button></div></div></aside><div class="right-screen"><header class="topbar"><div class="breadcrumb"><span>Workspace</span><span class="icon i-sm" data-icon="chevron-right" aria-hidden="true"></span><span class="current">Minder Chat</span></div>
+    <div class="top-actions"><label class="header-search"><span class="icon i-sm" data-icon="search" aria-hidden="true"></span><input aria-label="Search anything" id="globalSearch" placeholder="Search anything..." type="search"></label><span class="header-separator"></span><a class="ask-button" href="minder-chat.html"><span class="icon i-sm" data-icon="sparkles" aria-hidden="true"></span> Ask Minder</a><span class="initials" title="Avery Lim">AL</span></div></header><main class="page-main chat-page" data-page="minder"><div class="content-col">
+      <div class="chat-scroller" id="minderScroll">
+       <section class="chat-new-content" id="minderWelcome"><div class="chat-greeting"><h1>Ready to dive in, Avery?</h1><p>Ask Minder for career guidance, learning plans, next steps, or practical help.</p></div><div class="suggestion-grid"><button class="suggest-card" type="button" data-prompt="I want a 12-month roadmap to transition into a machine learning engineer role. Start from my current background and break it into practical next steps."><span class="icon-circle"><span class="icon i-lg" data-icon="calendar-days" aria-hidden="true"></span></span><span class="suggest-copy"><span class="suggest-title">Build a 12-month roadmap</span><span class="suggest-description">Turn your background into a clear plan with milestones.</span></span><span class="icon " data-icon="chevron-right" aria-hidden="true"></span></button><button class="suggest-card" type="button" data-prompt="Review my current skill gaps for a Machine Learning Engineer role."><span class="icon-circle"><span class="icon i-lg" data-icon="chart-no-axes-column" aria-hidden="true"></span></span><span class="suggest-copy"><span class="suggest-title">Review my skill gaps</span><span class="suggest-description">See what to focus on and how to improve.</span></span><span class="icon " data-icon="chevron-right" aria-hidden="true"></span></button><button class="suggest-card" type="button" data-prompt="Turn my Machine Learning Engineer goal into a realistic weekly task plan."><span class="icon-circle"><span class="icon i-lg" data-icon="list-checks" aria-hidden="true"></span></span><span class="suggest-copy"><span class="suggest-title">Turn my goal into weekly tasks</span><span class="suggest-description">Break it down into actionable next steps.</span></span><span class="icon " data-icon="chevron-right" aria-hidden="true"></span></button><button class="suggest-card" type="button" data-prompt="Compare Machine Learning Engineer, Data Scientist, and Applied AI Engineer paths."><span class="icon-circle"><span class="icon i-lg" data-icon="route" aria-hidden="true"></span></span><span class="suggest-copy"><span class="suggest-title">Compare career paths</span><span class="suggest-description">Explore roles, required skills, and next steps.</span></span><span class="icon " data-icon="chevron-right" aria-hidden="true"></span></button></div></section>
+       <section id="minderActive" class="hide">
+         <div class="active-chat-head"><div><div class="kicker">YOUR PERSONAL AI COMPANION</div><h1>Minder Chat</h1><p>Personalized career guidance, learning plans, and practical next steps.</p></div>
+           <div class="head-actions"><button type="button" class="button-outline" id="minderContextToggle"><span class="icon i-sm" data-icon="panel-right" aria-hidden="true"></span> Context</button><button type="button" class="icon-button" id="minderNewSmall" title="New conversation"><span class="icon " data-icon="square-pen" aria-hidden="true"></span></button></div></div>
+         <div class="chat-thread" id="minderThread" aria-live="polite"></div>
+       </section></div><footer class="composer-area"><div class="composer-inner"><form class="composer" id="minderComposer" autocomplete="off">
+       <button type="button" class="icon-button" id="minderAdd" title="Options"><span class="icon i-lg" data-icon="plus" aria-hidden="true"></span></button>
+       <textarea rows="1" id="minderInput" placeholder="Message Minder..." aria-label="Message Minder"></textarea>
+
+       <button class="send-button" type="submit" aria-label="Send message"><span class="icon i-lg" data-icon="arrow-up" aria-hidden="true"></span></button></form>
+       <div class="composer-caption">Minder can make mistakes. Consider checking important information.</div>
+       </div></footer></div>
+       <aside class="context-rail hide" id="minderContext" aria-label="Conversation context">
+        <div class="rail-card"><div class="rail-heading"><strong>Current goal</strong><button class="text-link demo-route" data-description="Edit goal">Edit</button></div><div class="rail-detail"><span class="icon-circle"><span class="icon " data-icon="target" aria-hidden="true"></span></span><div><div class="rail-title">Machine Learning Engineer</div><div class="rail-desc">Transition into a machine learning engineer role in the next 12–18 months.</div></div></div></div>
+        <div class="rail-card"><div class="rail-heading"><strong>Roadmap context</strong><button class="text-link demo-route" data-description="Roadmap">View roadmap →</button></div><div class="rail-row"><span class="icon i-sm" data-icon="briefcase-business" aria-hidden="true"></span><span style="color:#89968c">Current role</span><span style="font-size:11px;color:#52665a;text-align:right">Data Analyst</span></div><div class="rail-row"><span class="icon i-sm" data-icon="target" aria-hidden="true"></span><span style="color:#89968c">Target role</span><span style="font-size:11px;color:#52665a;text-align:right">Machine Learning Engineer</span></div><div class="rail-row"><span class="icon i-sm" data-icon="map-pin" aria-hidden="true"></span><span style="color:#89968c">Location</span><span style="font-size:11px;color:#52665a;text-align:right">Singapore (GMT+8)</span></div><div class="rail-row"><span class="icon i-sm" data-icon="clock" aria-hidden="true"></span><span style="color:#89968c">Time frame</span><span style="font-size:11px;color:#52665a;text-align:right">12 months</span></div><div class="rail-row"><span class="icon i-sm" data-icon="layers" aria-hidden="true"></span><span style="color:#89968c">Focus areas</span><span style="font-size:11px;color:#52665a;text-align:right">ML, data engineering, product</span></div><div class="rail-row"><span class="icon i-sm" data-icon="book-open" aria-hidden="true"></span><span style="color:#89968c">Learning style</span><span style="font-size:11px;color:#52665a;text-align:right">Hands-on projects</span></div><div class="rail-row"><span class="icon i-sm" data-icon="triangle-alert" aria-hidden="true"></span><span style="color:#89968c">Constraints</span><span style="font-size:11px;color:#52665a;text-align:right">Limited budget, full-time work</span></div></div>
+        <div class="rail-card"><div class="rail-heading"><strong>Suggested actions</strong></div><button type="button" class="rail-row" style="width:100%;background:white;border-left:0;border-right:0;border-bottom:0;text-align:left" data-demo="Add to my tasks"><span class="icon-circle"><span class="icon " data-icon="calendar-plus" aria-hidden="true"></span></span><span><span class="rail-title">Add to my tasks</span><span class="rail-subtitle">Create tasks from this plan</span></span><span class="icon i-sm" data-icon="chevron-right" aria-hidden="true"></span></button><button type="button" class="rail-row" style="width:100%;background:white;border-left:0;border-right:0;border-bottom:0;text-align:left" data-demo="Find learning resources"><span class="icon-circle"><span class="icon " data-icon="graduation-cap" aria-hidden="true"></span></span><span><span class="rail-title">Find learning resources</span><span class="rail-subtitle">Get curated courses and materials</span></span><span class="icon i-sm" data-icon="chevron-right" aria-hidden="true"></span></button><button type="button" class="rail-row" style="width:100%;background:white;border-left:0;border-right:0;border-bottom:0;text-align:left" data-demo="Update my roadmap"><span class="icon-circle"><span class="icon " data-icon="target" aria-hidden="true"></span></span><span><span class="rail-title">Update my roadmap</span><span class="rail-subtitle">Save to your career roadmap</span></span><span class="icon i-sm" data-icon="chevron-right" aria-hidden="true"></span></button></div>
+        <div class="mini-note">Preview data only. Connect to the Minder backend to make recommendations and tasks persistent.</div>
+       </aside></main></div></div><div class="toast" role="status" aria-live="polite" id="appToast"></div><script>window.MINDER_PAGE="minder";</script><script>/* Interactive, dependency-free frontend prototype. No production services are connected. */
+(()=>{
+'use strict';
+const paths={
+ 'plus':'M12 5v14 M5 12h14','arrow-right':'M5 12h14 M13 6l6 6-6 6','arrow-up':'M12 19V5 M5 12l7-7 7 7',
+ 'chevron-right':'m9 18 6-6-6-6','chevron-left':'m15 18-6-6 6-6','x':'M18 6 6 18M6 6l12 12',
+ 'grid':'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',
+ 'compass':'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M16 8l-2.7 5.3L8 16l2.7-5.3z',
+ 'message-circle':'M20 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-4.5a9 9 0 0 1-.9-4A8.5 8.5 0 1 1 20 11.5z',
+ 'bot':'M12 2v4 M9 2h6 M5 9h14v11H5z M2 12v5M22 12v5 M9 13v1M15 13v1 M9 17h6',
+ 'user-round':'M20 21a8 8 0 0 0-16 0 M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+ 'target':'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',
+ 'circle-check':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M8 12l2.5 2.5 5-5',
+ 'sprout':'M12 21v-9 M12 13c0-5-4-7-9-7 0 6 4 8 9 7z M12 15c0-5 4-8 9-8 0 6-4 8-9 8z',
+ 'ellipsis':'M5 12h.01 M12 12h.01 M19 12h.01',
+ 'search':'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z m10 2-4.35-4.35',
+ 'sparkles':'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M20 18l.6 1.4L22 20l-1.4.6L20 22l-.6-1.4L18 20l1.4-.6z M4 2l.6 1.4L6 4l-1.4.6L4 6l-.6-1.4L2 4l1.4-.6z',
+ 'calendar-days':'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M7 14h2 M12 14h2 M17 14h0 M7 18h2 M12 18h2',
+ 'calendar-check':'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M8 15l3 3 5-5',
+ 'calendar-plus':'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M12 13v5 M9.5 15.5h5',
+ 'chart-no-axes-column':'M4 20V12h3v8 M10 20V7h3v13 M16 20V3h3v17',
+ 'list-checks':'M10 6h11 M10 12h11 M10 18h11 M3 6l2 2 3-4 M3 12l2 2 3-4 M3 18l2 2 3-4',
+ 'route':'M4 4h5v5H4z M15 15h5v5h-5z M9 6h4a5 5 0 0 1 5 5v4 M6 9v4a5 5 0 0 0 5 5h4',
+ 'panel-right':'M3 4h18v16H3z M15 4v16', 'square-pen':'M4 5v15h15 M6 11l10-8 4 4-10 8-5 1z',
+ 'briefcase-business':'M3 7h18v13H3z M8 7V4h8v3 M3 12h18',
+ 'layers':'m12 2 9 5-9 5-9-5 9-5z m-9 10 9 5 9-5 m-18 5 9 5 9-5',
+ 'map-pin':'M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+ 'clock':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2',
+ 'clock-3':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6h5',
+ 'book-open':'M12 6c-3-3-7-3-10-2v15c4-2 8-1 10 1 2-2 6-3 10-1V4c-3-1-7-1-10 2z M12 6v14',
+ 'triangle-alert':'M12 3 2 21h20z M12 9v5 M12 18h.01',
+ 'graduation-cap':'m2 10 10-5 10 5-10 5-10-5z M6 12v5c4 3 8 3 12 0v-5 M22 10v6',
+ 'file-text':'M6 2h9l5 5v15H6z M15 2v5h5 M9 12h8 M9 16h8',
+ 'database':'M4 6c0-5 16-5 16 0s-16 5-16 0z M4 6v12c0 5 16 5 16 0V6 M4 12c0 5 16 5 16 0',
+ 'sliders-horizontal':'M3 7h8 M15 7h6 M11 4v6 M3 17h2 M9 17h12 M7 14v6',
+ 'phone':'M5 3l4 4-2 3c1 3 5 7 8 8l3-2 4 4-2 3c-11 1-21-12-20-18z',
+ 'blocks':'M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h8v8h-8z',
+ 'slack':'M10 3v8 M6 7h8 M14 13v8 M10 17h8 M3 10h8 M7 14v7 M13 3h8 M17 7v8',
+ 'monitor':'M2 4h20v14H2z M8 22h8 M12 18v4','mic':'M9 4a3 3 0 0 1 6 0v8a3 3 0 0 1-6 0z M5 11a7 7 0 0 0 14 0 M12 18v4 M9 22h6',
+ 'check-square':'M4 4h16v16H4z M8 12l3 3 5-6','copy':'M8 8h12v13H8z M4 17H3V3h13v2','check':'M5 12l4 4L19 6',
+ 'refresh-cw':'M21 12a9 9 0 0 1-15.5 6.3 M3 12A9 9 0 0 1 18.5 5.7 M17 3l2 3 3-2 M2 20l3-2 2 3'
+};
+function svg(name){const d=paths[name]||paths['circle-check'];return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;}
+function hydrateIcons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=svg(el.dataset.icon);el.removeAttribute('data-icon');});}
+const $=q=>document.querySelector(q), $$=q=>[...document.querySelectorAll(q)];
+let toastTimer=0;
+function toast(s){const t=$('#appToast');t.textContent=s;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),3500);}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function setInput(inp,text){inp.value=text;inp.style.height='auto';inp.style.height=Math.min(130,inp.scrollHeight)+'px';inp.focus();}
+function autoSize(inp){inp.style.height='auto';inp.style.height=Math.min(130,inp.scrollHeight)+'px';}
+function scrollEnd(el){requestAnimationFrame(()=>el.scrollTo({top:el.scrollHeight,behavior:'smooth'}));}
+const jobRole='Machine Learning Engineer';
+const phrases={
+ roadmap:'I want a 12-month roadmap to transition into a machine learning engineer role. Start from my current background and break it into practical next steps.',
+ skills:'Review my current skill gaps for a Machine Learning Engineer role.',
+ comparison:'Compare Machine Learning Engineer, Data Scientist, and Applied AI Engineer paths.'
+};
+function roadmapHTML(){const rows=[
+ ['Months 1–2: Build foundations','Strengthen core ML and engineering fundamentals.','Learn'],
+ ['Months 3–4: Develop core skills','Gain hands-on experience with Python, evaluation, and ML workflows.','Practice'],
+ ['Months 5–6: Build & ship projects','Complete portfolio projects and document your work.','Build'],
+ ['Months 7–9: Gain real-world experience','Contribute to open source, internships, or relevant projects.','Apply'],
+ ['Months 10–12: Prepare and transition','Polish your portfolio, practice interviews, and begin applying.','Transition']];
+return `<p>Based on your current profile and target role, here's a practical 12-month preparation roadmap. It focuses on a few concrete milestones and measurable project evidence.</p><div class="rich-answer"><h3>12-month transition roadmap</h3><p class="rich-answer-sub">A proposed learning and portfolio sequence · Illustrative plan</p>${rows.map((r,i)=>`<div class="roadmap-item"><span class="number">${i+1}</span><div class="roadmap-copy"><strong>${r[0]}</strong><small>${r[1]}</small></div><span class="tag">${r[2]}</span></div>`).join('')}</div><p>Would you like me to turn this into a detailed weekly plan with specific resources and projects?</p>`;}
+function skillHTML(){return `<p>For a machine learning engineering pathway, focus on demonstrated capabilities rather than treating unassessed skills as zero.</p><div class="rich-answer"><h3>Skills to build next</h3><p class="rich-answer-sub">Example priorities — update with your actual skill evidence</p>${[['Model deployment','Package, serve and monitor an ML model.','High'],['MLOps foundations','Learn repeatable pipelines and basic cloud operations.','High'],['Experiment evaluation','Measure performance and investigate failure modes.','Medium']].map((r,i)=>`<div class="roadmap-item"><span class="number">${i+1}</span><div class="roadmap-copy"><strong>${r[0]}</strong><small>${r[1]}</small></div><span class="tag">${r[2]}</span></div>`).join('')}</div><p>Connect your profile and evidence to replace this example with personalized recommendations.</p>`;}
+function compareHTML(){return `<p>Three related roles share important foundations but differ in the work they emphasize.</p><div class="rich-answer"><h3>Career path comparison</h3><p class="rich-answer-sub">Illustrative distinctions, not validated match scores</p>${[['Machine Learning Engineer','ML implementation, evaluation and deployment'],['Data Scientist','Statistical analysis, experimentation and business insight'],['Applied AI Engineer','AI capabilities integrated into applications and workflows']].map((r,i)=>`<div class="roadmap-item"><span class="number">${i+1}</span><div class="roadmap-copy"><strong>${r[0]}</strong><small>${r[1]}</small></div></div>`).join('')}</div><p>Which day-to-day work would you most like to explore?</p>`;}
+const chatState={started:false,busy:false};
+function chatWelcome(){chatState.started=false;chatState.busy=false;$('#minderWelcome').classList.remove('hide');$('#minderActive').classList.add('hide');$('#minderThread').innerHTML='';$('#minderContext').classList.add('hide');$('#minderInput').value='';$('#minderInput').style.height='';}
+function showChat(){if(chatState.started)return;chatState.started=true;$('#minderWelcome').classList.add('hide');$('#minderActive').classList.remove('hide');if(innerWidth>1200)$('#minderContext').classList.remove('hide');}
+function typeMessage(prompt,{immediate=false,thinkingOnly=false}={}){
+ const trimmed=prompt.trim();if(!trimmed||chatState.busy)return;
+ showChat();const thread=$('#minderThread');
+ const bubble=document.createElement('div');bubble.className='user-message';bubble.textContent=trimmed;thread.appendChild(bubble);
+ const row=document.createElement('div');row.className='thinking-row';row.innerHTML='<span class="spinner"></span><span>Minder is thinking...</span><span class="dots"><span></span><span></span><span></span></span>';thread.appendChild(row);
+ chatState.busy=true;scrollEnd($('#minderScroll'));
+ if(thinkingOnly)return;
+ const finish=()=>{
+  if(!chatState.started||!row.isConnected)return;
+  row.remove();chatState.busy=false;
+  const response=document.createElement('article');response.className='assistant-answer';
+  const lower=trimmed.toLowerCase();let answer=lower.includes('skill gap')?skillHTML():lower.includes('compare')?compareHTML():roadmapHTML();
+  response.innerHTML=answer+`<div class="message-tools"><button class="icon-button copy-answer" title="Copy response">${svg('copy')}</button><button class="icon-button" title="Sample response">${svg('sparkles')}</button></div>`;
+  thread.appendChild(response);
+  const chips=document.createElement('div');chips.className='followups';
+  [['calendar-days','Turn this into weekly tasks','Turn my roadmap into a concrete weekly task list.'],['chart-no-axes-column','Show skill gaps',phrases.skills],['route','Compare role alternatives',phrases.comparison]].forEach(([icon,title,prompt])=>{const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.prompt=prompt;b.innerHTML=svg(icon)+escapeHtml(title);chips.appendChild(b);});
+  thread.appendChild(chips);scrollEnd($('#minderScroll'));
+ };
+ if(immediate)finish();else setTimeout(finish,1150);
+}
+function initMinder(){const inp=$('#minderInput');$('#minderComposer').addEventListener('submit',e=>{e.preventDefault();const t=inp.value;inp.value='';autoSize(inp);typeMessage(t);});
+ inp.addEventListener('input',()=>autoSize(inp));inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#minderComposer').requestSubmit();}});
+ $('#minderAdd').addEventListener('click',()=>toast('Attachments are not connected in this HTML prototype.'));
+ $('#minderContextToggle').addEventListener('click',()=>$('#minderContext').classList.toggle('hide'));
+ $('#minderNewSmall').addEventListener('click',chatWelcome);
+ document.addEventListener('click',e=>{const s=e.target.closest('[data-prompt]');if(s&&!s.closest('.agent-page'))setInput(inp,s.dataset.prompt);
+  if(e.target.closest('.copy-answer')){const text=e.target.closest('.assistant-answer').innerText;navigator.clipboard?.writeText(text).then(()=>toast('Response copied')).catch(()=>toast('Copy unavailable in this browser'));}
+  const b=e.target.closest('[data-demo]');if(b)toast(b.dataset.demo+' is an example action. Connect an API to activate it.');
+ });
+ const state=new URLSearchParams(location.search).get('state');if(state==='active')typeMessage(phrases.roadmap,{immediate:true});if(state==='thinking')typeMessage(phrases.roadmap,{thinkingOnly:true});
+}
+let prefs={name:'Nimo',color:'blue',character:'blob',persona:'Professional & focused',language:'English'};
+function agentAsset(kind,color){return window.MINDER_CHARACTER_IMAGES?.[kind]?.[color]||window.MINDER_AVATARS[color]||window.MINDER_AVATARS.blue;}
+try{prefs={...prefs,...JSON.parse(localStorage.getItem('minder-mindbot-demo-prefs')||'{}')}}catch(_){}
+function updateBotUI(){const name=prefs.name||'Nimo';const image=agentAsset(prefs.character,prefs.color);
+ ['botHeroName','botProfileName','customPreviewName'].forEach(id=>{const el=$('#'+id);if(el)el.textContent=name;});
+ ['botHeroAvatar','botProfileAvatar','customPreviewImage'].forEach(id=>{const el=$('#'+id);if(el){el.src=image;el.alt=name+' avatar';}});
+ const el=$('#botWelcomeTitle');if(el)el.textContent='What should '+name+' help with today?';
+ const comp=$('#computerTitle');if(comp)comp.textContent=name+"'s computer";
+ const nav=$('.nav-link.active');if(nav&&window.MINDER_PAGE==='mindbot'){
+  nav.setAttribute('aria-label','MindBot · '+name);
+  const icon=nav.querySelector('.icon');if(icon){const im=document.createElement('img');im.className='nav-profile-mini';im.src=image;im.alt='';icon.replaceWith(im);}const old=nav.querySelector('img.nav-profile-mini');if(old)old.src=image;
+  const txt=nav.querySelector('span:not(.tag-on)');if(txt)txt.textContent=name;
+ }
+}
+function showModal(id){$('#'+id).classList.remove('hide');document.body.dataset.modal=id;}
+function hideModal(id){$('#'+id).classList.add('hide');delete document.body.dataset.modal;}
+function botNew(){$('#botWelcome').classList.remove('hide');$('#botThread').classList.add('hide');$('#botThread').innerHTML='';$('#botScroll').scrollTop=0;$('#botInput').value='';$('#botInput').style.height='';}
+function addBotMessage(prompt,{immediate=false,thinkingOnly=false}={}){
+ if(!prompt.trim())return;$('#botWelcome').classList.add('hide');const thread=$('#botThread');thread.classList.remove('hide');
+ const bubble=document.createElement('div');bubble.className='user-message';bubble.textContent=prompt;thread.appendChild(bubble);
+ const status=document.createElement('div');status.className='thinking-row';status.innerHTML='<span class="spinner"></span><span>'+escapeHtml(prefs.name)+' is working...</span><span class="dots"><span></span><span></span><span></span></span>';thread.appendChild(status);scrollEnd($('#botScroll'));
+ if(thinkingOnly)return;
+ const done=()=>{
+  if(!status.isConnected)return;status.remove();const report=document.createElement('div');report.className='agent-response';
+  report.innerHTML=`<h3>I've prepared a plan for your week.</h3><p>Here is a preview of the changes based on your classes and current priorities. Review these suggestions before applying them to any connected system.</p>
+   <div class="agent-action"><span class="icon-circle">${svg('calendar-days')}</span><div class="action-content"><strong>Schedule changes</strong><p>Three proposed adjustments around your classes.</p><ul><li>Move deep work to Tuesday 10:00–12:00</li><li>Keep Wednesday 2:00–4:00 available for project work</li><li>Leave existing classes and appointments unchanged</li></ul></div><span class="status-pill">3 changes</span></div>
+   <div class="agent-action"><span class="icon-circle">${svg('clock-3')}</span><div class="action-content"><strong>Updated focus blocks</strong><p>Focus sessions organized around available time.</p><ul><li>Tuesday — Model evaluation</li><li>Wednesday — Portfolio project</li><li>Friday — Technical writing</li></ul></div><span class="status-pill">3 blocks</span></div>
+   <div class="agent-action"><span class="icon-circle">${svg('check-square')}</span><div class="action-content"><strong>Tasks affected</strong><p>Move the portfolio write-up to Friday and preserve its dependencies.</p></div><span class="status-pill">1 task</span></div>
+   <div class="preview-disclaimer"><span>Sample agent worklog · No external changes were made.</span><button type="button" class="button-primary approve-preview">${svg('check')} Approve preview</button></div>`;
+  thread.appendChild(report);scrollEnd($('#botScroll'));
+ };
+ if(immediate)done();else setTimeout(done,1050);
+}
+function toggleProfile(force){const panel=$('#botProfile');if(force===undefined)panel.classList.toggle('hide');else panel.classList.toggle('hide',!force);}
+function initBot(){updateBotUI();const inp=$('#botInput');$('#botComposer').addEventListener('submit',e=>{e.preventDefault();const t=inp.value;inp.value='';autoSize(inp);addBotMessage(t);});
+ inp.addEventListener('input',()=>autoSize(inp));inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#botComposer').requestSubmit();}});
+ $$('#botWelcome [data-prompt]').forEach(b=>b.addEventListener('click',()=>setInput(inp,b.dataset.prompt)));
+ $('#botAdd').addEventListener('click',()=>toast('Attachments are not connected in this HTML prototype.'));
+ $('#botVoice').addEventListener('click',()=>toast('Voice is not connected in this HTML prototype.'));
+ $('#botCall').addEventListener('click',()=>toast('Calls require a connected communications service.'));
+ $('#botMore').addEventListener('click',()=>toggleProfile());$('#botProfileToggle').addEventListener('click',()=>toggleProfile());
+ $('#closeBotProfile').addEventListener('click',()=>toggleProfile(false));$('#profileCall').addEventListener('click',()=>toast('Calls require a connected communications service.'));
+ $('#profileIntegrations').addEventListener('click',()=>toast('Slack is not connected in this HTML preview.'));
+ $('#profileComputer').addEventListener('click',()=>toast('No remote computer is connected to this prototype.'));
+ $('#openMemory').addEventListener('click',()=>{toggleProfile(true);toast('Memory overview is illustrative; personal memory is not connected.');});
+ $('#openSchedule').addEventListener('click',()=>showModal('scheduleOverlay'));$('#profileSchedule').addEventListener('click',()=>{toggleProfile(false);showModal('scheduleOverlay')});
+ $('#openCustomize').addEventListener('click',()=>openCustomize());$('#profileCustomize').addEventListener('click',()=>{toggleProfile(false);openCustomize()});$('#botHeroAvatar').addEventListener('click',()=>openCustomize());
+ $('#closeCustomize').addEventListener('click',()=>hideModal('customizeOverlay'));
+ $('#closeSchedule').addEventListener('click',()=>hideModal('scheduleOverlay'));
+ $$('.modal-scrim').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)hideModal(el.id)}));
+ $$('.swatch').forEach(s=>s.addEventListener('click',()=>selectColor(s.dataset.color)));
+ $$('.avatar-choice').forEach(s=>s.addEventListener('click',()=>selectCharacter(s.dataset.avatar)));
+ $('#agentNameField').addEventListener('input',e=>$('#customPreviewName').textContent=e.target.value.trim()||'Your agent');
+ $('#saveCustomize').addEventListener('click',saveCustomize);
+ $('#addScheduleForm').addEventListener('submit',e=>{e.preventDefault();const nm=$('#scheduleName').value.trim();if(!nm)return;
+ const div=document.createElement('div');div.className='schedule-row';div.innerHTML=`<span class="icon-circle">${svg('calendar-days')}</span><div><strong>${escapeHtml(nm)}</strong><small>${escapeHtml($('#scheduleCadence').value)} · Demo schedule</small></div><input type="checkbox" checked class="toggle" aria-label="Enable ${escapeHtml(nm)}">`;$('#scheduleList').appendChild(div);e.target.reset();toast('Schedule added to the local preview.');});
+ $('#botThread').addEventListener('click',e=>{if(e.target.closest('.approve-preview'))toast('Approved in the preview. No external calendar or task changes were made.');});
+ const state=new URLSearchParams(location.search).get('state');if(state==='active')addBotMessage('Reschedule my deep work blocks this week around my classes and move the portfolio task to Friday.',{immediate:true});
+ if(state==='thinking')addBotMessage('Review my schedule and prepare an adjusted weekly plan.',{thinkingOnly:true});
+ if(state==='profile'){addBotMessage('Reschedule my deep work blocks this week around my classes and move the portfolio task to Friday.',{immediate:true});toggleProfile(true);}
+ if(state==='customize')openCustomize();if(state==='schedule')showModal('scheduleOverlay');
+}
+function selectColor(color){if(!window.MINDER_AVATARS[color])return;
+ $$('.swatch').forEach(el=>{const y=el.dataset.color===color;el.classList.toggle('selected',y);el.setAttribute('aria-pressed',String(y));});
+ const kind=$('.avatar-choice.selected')?.dataset.avatar||'blob';$('#customPreviewImage').src=agentAsset(kind,color);
+}
+function selectCharacter(kind){$$('.avatar-choice').forEach(el=>{const active=el.dataset.avatar===kind;el.classList.toggle('selected',active);el.setAttribute('aria-pressed',String(active));});const col=$('.swatch.selected')?.dataset.color||'blue';$('#customPreviewImage').src=agentAsset(kind,col);}
+function openCustomize(){toggleProfile(false);$('#agentNameField').value=prefs.name;$('#agentPersona').value=prefs.persona;$('#agentLanguage').value=prefs.language;$('#customPreviewName').textContent=prefs.name;selectCharacter(prefs.character||'blob');selectColor(prefs.color);showModal('customizeOverlay');}
+function saveCustomize(){const name=$('#agentNameField').value.trim();if(!name){$('#agentNameField').focus();toast('Enter a name to continue.');return;}
+ const sel=$('.swatch.selected');prefs={name,persona:$('#agentPersona').value,language:$('#agentLanguage').value,color:sel?.dataset.color||'blue',character:$('.avatar-choice.selected')?.dataset.avatar||'blob'};
+ try{localStorage.setItem('minder-mindbot-demo-prefs',JSON.stringify(prefs))}catch(_){}
+ updateBotUI();hideModal('customizeOverlay');toast('Agent appearance and preferences updated in this preview.');}
+function common(){hydrateIcons();$('#globalNewChat').addEventListener('click',()=>window.MINDER_PAGE==='minder'?chatWelcome():botNew());
+ $$('.demo-route').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();toast((el.dataset.description||'This module')+' is outside this two-page HTML preview.');}));
+ $('#accountMenu').addEventListener('click',()=>toast('Account settings are not part of this two-page preview.'));
+ $('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();toast('Global search requires an application backend.');}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){['customizeOverlay','scheduleOverlay'].forEach(id=>{const el=$('#'+id);if(el&&!el.classList.contains('hide'))hideModal(id)});const p=$('#botProfile');if(p)toggleProfile(false);}});
+}
+common(); if(window.MINDER_PAGE==='minder')initMinder();else initBot();
+})();
+</script></body></html>
