@@ -1,5 +1,9 @@
 # P0.2 — product bootstrap contract v1
 
+Additive private document interface: [DOCUMENTS_CONTRACT.md](DOCUMENTS_CONTRACT.md),
+policy private-documents-v1. Registration is published; storage/extraction remains
+unavailable until D's committed module advertises its implemented operations.
+
 Existing working routes and schemas are authority. Reuse
 ../product/llm/FRONTEND_CONTRACT.md, its envelope schema/examples, and
 contracts/parallel-services.v1.schema.json with service_contracts.validate.
