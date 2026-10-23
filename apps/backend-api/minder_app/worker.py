@@ -7,6 +7,7 @@ import time
 from .actions import ActionExecutor
 from .agents import Worker
 from .store import Store
+from .config import configured_provider
 
 
 def main():
@@ -14,8 +15,11 @@ def main():
     parser.add_argument("--once", action="store_true")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[3]
-    store = Store(os.environ.get("MINDER_DB_PATH", str(root / "ml/artifacts/session-c/runtime/dev.sqlite3")))
-    worker = Worker(store, ActionExecutor(store))
+    path = Path(os.environ.get("MINDER_DB_PATH", str(root / "ml/artifacts/session-c/runtime/dev.sqlite3"))).resolve()
+    if not path.is_relative_to((root / "ml/artifacts/session-c").resolve()):
+        raise ValueError("C worker database must stay under reserved Session C artifacts")
+    store = Store(path)
+    worker = Worker(store, ActionExecutor(store), provider=configured_provider())
     while True:
         result = worker.tick()
         print(json.dumps(result), flush=True)

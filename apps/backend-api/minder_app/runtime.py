@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 from minder_ml.intelligence.app_context import CareerServices
-from minder_ml.intelligence.groq_adapter import GroqAdapter
+from .config import configured_provider
 from .store import Store
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -26,6 +26,6 @@ def application():
     path = Path(os.environ.get("MINDER_DB_PATH", ROOT / "ml/artifacts/session-c/runtime/dev.sqlite3")).resolve()
     if not path.is_relative_to((ROOT / "ml/artifacts/session-c").resolve()):
         raise ValueError("C runtime database must stay under reserved Session C artifacts")
-    app = Application(Store(path), services, GroqAdapter())
+    app = Application(Store(path), services, configured_provider())
     app.catalogue_coverage = catalogue.coverage
     return app

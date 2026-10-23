@@ -13,7 +13,7 @@ class BudgetedProvider:
     def __init__(self, store, owner, provider, *, daily_limit=None):
         self.store, self.owner, self.provider = store, owner, provider
         self.limit = max(1, min(100, int(daily_limit if daily_limit is not None else
-                                      os.environ.get("MINDER_LLM_DAILY_LIMIT", "20"))))
+            getattr(provider, "daily_limit", os.environ.get("MINDER_LLM_DAILY_LIMIT", "20")))))
         with store.transaction() as db:
             db.execute("CREATE TABLE IF NOT EXISTS provider_calls(owner TEXT, day TEXT, attempts INTEGER, "
                        "PRIMARY KEY(owner,day))")
