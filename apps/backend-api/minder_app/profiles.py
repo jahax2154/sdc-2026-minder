@@ -5,31 +5,57 @@ from minder_ml.intelligence.service_contracts import validate
 from .store import AppError, now, uid
 
 
-def save_profile(store, owner, body, expected):
-    body = dict(body, profile_id=owner, profile_group_id=owner, version=uid())
-    validate("Profile", body)
+def save_profile(store, owner, body, expected, *, db=None):
+    import json
+    import copy
+    if not isinstance(body, dict):
+        raise AppError("profile_object_required")
+    allowed = {"profile_id", "profile_group_id", "version", "synthetic", "evidence",
+               "preferences", "current_fields", "constraints", "timezone", "career_context"}
+    if set(body) - allowed:
+        raise AppError("unknown_profile_field")
+    # A partial update merges against the exact expected revision inside the write
+    # transaction. Empty arrays explicitly clear input; omitted fields stay unknown.
+    if db is None:
+        with store.transaction() as conn:
+            return save_profile(store, owner, body, expected, db=conn)
     try:
-        ZoneInfo(body["timezone"])
+        previous = store.get(owner, "profile", owner, db=db)
+    except AppError as error:
+        if error.status != 404:
+            raise
+        previous = None
+    if (previous["version"] if previous else None) != expected:
+        raise AppError("stale_state_version", 409)
+    value = copy.deepcopy(previous) if previous else dict(
+        synthetic=False, evidence=[], preferences=[], current_fields=[],
+        constraints=[], timezone="Asia/Kuala_Lumpur")
+    context = dict(value.get("career_context", {}))
+    value.update(copy.deepcopy(body))
+    if "career_context" in body and isinstance(body["career_context"], dict):
+        context.update(body["career_context"])
+        value["career_context"] = context
+    value.update(profile_id=owner, profile_group_id=owner, version=uid())
+    validate("Profile", value)
+    if any(len(value[k]) > 500 for k in ("evidence", "preferences", "current_fields", "constraints")):
+        raise AppError("profile_collection_too_large")
+    try:
+        ZoneInfo(value["timezone"])
     except (ZoneInfoNotFoundError, ValueError):
         raise AppError("invalid_timezone") from None
-    # The public intake endpoint accepts self-report, never certifies competence.
-    for evidence in body["evidence"]:
+    for evidence in value["evidence"]:
         if evidence["provenance"]["evidence_type"] not in ("explicit-user", "document-claim", "synthetic-fixture"):
             raise AppError("intake_cannot_certify_evidence")
-    with store.transaction() as db:
-        # This entry is only reached by a structured direct UI edit, never chat.
-        import json
-        request_id = uid()
-        previous = store.get(owner, "profile", owner, db=db) if expected else None
-        db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, request_id,
-            json.dumps(dict(kind="explicit_profile_save", expected=expected, profile=body), sort_keys=True), now()))
-        result = store.put(owner, "profile", owner, body, expected, db=db)
-        from .agents import emit
-        if previous:
-            for field, trigger in [("constraints", "constraints_changed"), ("preferences", "preferences_changed")]:
-                if previous[field] != result[field]:
-                    emit(db, owner, request_id + ":" + field, trigger, dict(profile_version=result["version"]))
-        return result
+    request_id = uid()
+    db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, request_id,
+        json.dumps(dict(kind="explicit_profile_save", expected=expected, profile=value), sort_keys=True), now()))
+    result = store.put(owner, "profile", owner, value, expected, db=db)
+    from .agents import emit
+    if previous:
+        for field, trigger in [("constraints", "constraints_changed"), ("preferences", "preferences_changed")]:
+            if previous[field] != result[field]:
+                emit(db, owner, request_id + ":" + field, trigger, dict(profile_version=result["version"]))
+    return result
 
 
 def intake_draft(store, owner, *, text, filename=None, content_type="text/plain", channel="chat"):
