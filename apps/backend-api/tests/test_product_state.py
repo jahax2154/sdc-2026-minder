@@ -152,3 +152,30 @@ class ProductStateTests(AppCase):
         with self.assertRaises(AppError) as error:
             self.call("intake-correction", dict(body, expected_profile_version=result["profile"]["version"], idempotency_key="twice"))
         self.assertEqual(error.exception.code, "draft_already_reviewed")
+
+    def test_wsgi_contract_status_and_unavailable_states(self):
+        from io import BytesIO
+        import json
+        def http(method, path, body, token=None):
+            raw = json.dumps(body).encode()
+            captured = []
+            result = self.app(dict(REQUEST_METHOD=method, PATH_INFO=path,
+                CONTENT_LENGTH=str(len(raw)), **{"wsgi.input": BytesIO(raw)},
+                HTTP_AUTHORIZATION="Bearer " + (token if token is not None else self.token)),
+                lambda status, headers: captured.append((status, dict(headers))))
+            self.assertEqual(captured[0][1]["Cache-Control"], "no-store")
+            return int(captured[0][0].split()[0]), json.loads(b"".join(result))
+        self.assertEqual(http("GET", "/api/product/progress", {}, token="invalid")[0], 401)
+        code, result = http("GET", "/api/product/progress", {})
+        self.assertEqual((code, result["status"], result["fraction"]), (200, "empty", None))
+        self.assertEqual(http("PUT", "/api/product/direction", {"owner": "someone-else"})[0], 422)
+        self.assertEqual(http("POST", "/api/product/views/news", {})[1]["code"], "product_capability_unavailable")
+        profile = self.save()
+        code, error = http("PUT", "/api/profile", {"profile": {"career_context": {"goals": "Private text"}},
+            "expected_version": "stale"})
+        self.assertEqual((code, error["code"]), (409, "stale_state_version"))
+        self.assertEqual(set(error), {"code", "request_id"})
+        code, capabilities = http("GET", "/api/product/capabilities", {})
+        implemented = [r for r in capabilities["operations"] if r["module"] == "product_state"]
+        self.assertEqual(len(implemented), 9)
+        self.assertTrue(all(r["status"] == "implemented" for r in implemented))
