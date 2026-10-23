@@ -22,13 +22,22 @@ async function render(){
   } catch(e) {view.innerHTML=card('Unable to load this view','<p>You can refresh or open another page. Your saved records are unchanged.</p><button id="retryView">Try again</button>');document.querySelector('#retryView').onclick=render;showError(e);}
   finally{view.setAttribute('aria-busy','false');view.dataset.rendered=page;rendering=false;if(queued){queued=false;await render();}}
 }
-const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);menu.onclick=()=>document.querySelector('.sidebar').classList.toggle('mobile-open');
+const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.setAttribute('aria-controls','workspaceNav');menu.setAttribute('aria-expanded','false');menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);
+const nav=document.querySelector('.sidebar'),tooltip=document.querySelector('#navTooltip');
+function setNavigation(open){nav.classList.toggle('mobile-open',open);menu.setAttribute('aria-expanded',String(open));document.querySelector('#navBackdrop').hidden=!open;tooltip.hidden=true;if(open)document.querySelector('#closeNavigation').focus();}
+menu.onclick=()=>setNavigation(!nav.classList.contains('mobile-open'));
+document.querySelector('#closeNavigation').onclick=()=>{setNavigation(false);menu.focus();};document.querySelector('#navBackdrop').onclick=()=>{setNavigation(false);menu.focus();};
+for(const control of nav.querySelectorAll('.nav-link,#globalNewChat,#accountMenu')){
+ const label=control.getAttribute('aria-label')||control.querySelector('span:nth-child(2)')?.textContent.trim()||'New conversation';control.setAttribute('aria-label',label);control.dataset.navLabel=label;
+ function showLabel(){if(nav.classList.contains('mobile-open')||matchMedia('(max-width:730px)').matches)return;const rect=control.getBoundingClientRect();tooltip.textContent=label;tooltip.style.left=(rect.right+12)+'px';tooltip.style.top=Math.max(8,Math.min(innerHeight-44,rect.top+(rect.height-30)/2))+'px';tooltip.hidden=false;control.setAttribute('aria-describedby','navTooltip');}
+ control.addEventListener('mouseenter',showLabel);control.addEventListener('focus',showLabel);for(const type of ['mouseleave','blur'])control.addEventListener(type,()=>{tooltip.hidden=true;control.removeAttribute('aria-describedby');});
+}
 const search=document.querySelector('#globalSearch');search.placeholder='Find a career role…';search.onkeydown=e=>{if(e.key==='Enter'){sessionStorage.setItem('minder-product-search',search.value);if(location.hash==='#career-match')render();else location.hash='career-match';}};
-document.querySelector('#globalNewChat').onclick=()=>{clearConversation();location.hash='minder';render();};
+document.querySelector('#globalNewChat').onclick=()=>{if(clearConversation()===false)return;setNavigation(false);location.hash='minder';render();};
 document.querySelector('#accountMenu').onclick=()=>{location.hash='profile';};
 window.addEventListener('minder-refresh',render);
-window.addEventListener('hashchange',()=>{document.querySelector('.sidebar').classList.remove('mobile-open');render();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('.sidebar').classList.remove('mobile-open');});
+window.addEventListener('hashchange',()=>{setNavigation(false);render();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('mobile-open')){setNavigation(false);menu.focus();}});
 let toastTimer;window.addEventListener('minder-saved',event=>{const toast=document.querySelector('#appToast');toast.textContent=event.detail;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3500);});
 hydrateIcons();
 try{await session();await render();}catch(e){showError(e);}
