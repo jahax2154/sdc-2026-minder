@@ -468,13 +468,14 @@ def reserved_web_servers(app):
                 thread.join(timeout=5)
 
 
-def verify_web(output, playwright_module, browsers_path, *, require_live_provider=False):
+def verify_web(output, playwright_module, browsers_path, *, require_live_provider=False, privacy_only=False):
     """Replay committed C acceptance against A, without editing owner modules.
 
     Only test ports, output paths and report port labels are adapted. Generated
     replay scripts/logs/screenshots stay in A artifacts; application code and
     test operations stay unchanged. No browser/network/provider mocking.
     """
+    require_live_provider = require_live_provider or privacy_only
     output = Path(output).resolve()
     if not output.is_relative_to((ROOT / 'ml/artifacts/session-a').resolve()):
         raise ValueError('web evidence must stay under Session A artifacts')
@@ -532,6 +533,7 @@ def verify_web(output, playwright_module, browsers_path, *, require_live_provide
                   numeric_policy='Delegated v3 provisional; anchored minimum and scoped current-market ordering')
     from .role_fit import MARKET_POLICY
     report['market_policy'] = MARKET_POLICY
+    report['acceptance_scope'] = 'real_provider_privacy_only' if privacy_only else 'full_HTTP_Chromium'
     report['real_provider_required'] = require_live_provider
     report['privacy_frontend'] = 'prepared_requires_real_A_access' if not require_live_provider else 'required_live_check'
     try:
@@ -539,6 +541,8 @@ def verify_web(output, playwright_module, browsers_path, *, require_live_provide
             commands = [('http', [sys.executable, str(http_script)]),
                                   ('browser', ['node', str(browser_script)]),
                                   ('recommendation', ['node', str(ROOT / 'docs/execution/parallel/A/checks/recommendation_browser.cjs')])]
+            if privacy_only:
+                commands = []
             if privacy_script:
                 commands.append(('grounding_privacy', ['node', str(privacy_script)]))
                 report['privacy_owner_script_sha256'] = hashlib.sha256(privacy_original.read_bytes()).hexdigest()
@@ -551,6 +555,8 @@ def verify_web(output, playwright_module, browsers_path, *, require_live_provide
                 if run.returncode != 0:
                     raise ValueError(name + ' acceptance failed; inspect isolated A log')
             for name in ('http', 'browser'):
+                if name not in report['checks']:
+                    continue
                 report['checks'][name]['evidence'] = json.loads(
                     (output / ('c4.1-' + name + '-evidence.json')).read_text())
     finally:
@@ -652,6 +658,7 @@ def main():
     web.add_argument('--playwright-module', type=Path, required=True)
     web.add_argument('--browsers-path', type=Path, required=True)
     web.add_argument('--require-live-provider', action='store_true')
+    web.add_argument('--privacy-only', action='store_true', help='Run only committed real-provider privacy browser; implies live provider required')
     sub.add_parser('serve')
     recommendation = sub.add_parser('verify-recommendations')
     recommendation.add_argument('--output', type=Path, required=True)
@@ -685,7 +692,7 @@ def main():
         acceptance(args.output)
     elif args.command == 'verify-web':
         verify_web(args.output, args.playwright_module, args.browsers_path,
-                   require_live_provider=args.require_live_provider)
+                   require_live_provider=args.require_live_provider, privacy_only=args.privacy_only)
     elif args.command == 'serve-web':
         import threading
         path = os.environ.get('MINDER_DB_PATH', str(ROOT / 'ml/artifacts/session-a/runtime/dev.sqlite3'))
