@@ -1,6 +1,9 @@
 // Actual F server and real provider. Fictional owner; no fetch/provider mocking.
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
+const path=require('node:path');
+const output=process.env.MINDER_BROWSER_OUTPUT_DIR||'/private/tmp';fs.mkdirSync(output,{recursive:true});
+const base=process.env.MINDER_PRODUCT_BASE_URL||'http://127.0.0.1:9106';
 const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/minder-c-ui-check/node_modules/playwright');
 (async()=>{
  const browser=await chromium.launch({headless:true});
@@ -9,7 +12,7 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
  async function api(path,body,method=body===undefined?'GET':'POST'){
   return page.evaluate(async({path,body,method})=>{const r=await fetch('/api/'+path,{method,headers:{'Content-Type':'application/json',Authorization:'Bearer '+sessionStorage.getItem('minder-product-token')},...(body===undefined?{}:{body:JSON.stringify(body)})});const v=await r.json();if(!r.ok)throw new Error(r.status+':'+v.code);return v;},{path,body,method});
  }
- async function ready(hash,selector){await page.goto('http://127.0.0.1:9106/#'+hash);await page.locator(selector).waitFor();}
+ async function ready(hash,selector){await page.goto(base+'/#'+hash);await page.locator(selector).waitFor();}
  try{
   await ready('minder','#minderInput');
   let p=await api('profile',{profile:{synthetic:true,timezone:'Asia/Kuala_Lumpur',career_context:{display_name:'Fictional F Test',goals:'Explore software development'},constraints:[{constraint_id:'hours',scope:'weekly_hours',hard:true,value:5,unit:'hours_per_week',evidence_id:'explicit-user'}]},expected_version:null},'PUT');
@@ -23,9 +26,10 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
   await page.locator('.assistant-answer').waitFor();assert(answer.statements.length>0);
   assert.equal(await page.locator('.source').count()>0,answer.statements.some(s=>s.sources.length>0));
   assert(await page.locator('.source').count()>0);
+  assert(answer.statements.some(s=>['published_offering_activity','occupation_shortage','sector_context'].includes(s.measurement_type)));
   assert.deepEqual(await api('profile'),p);
-  checks.chat={validated_statements:answer.statements.length,sources:await page.locator('.source').count(),provider:answer.provider.status,native_arguments_validated:answer.provider.tool_call?.arguments_validated===true,no_profile_mutation:true};
-  await page.screenshot({path:'/private/tmp/minder-f-chat.png',fullPage:true});
+  checks.chat={validated_statements:answer.statements.length,sources:await page.locator('.source').count(),provider:answer.provider.status,native_arguments_validated:answer.provider.tool_call?.arguments_validated===true,measurement_types:[...new Set(answer.statements.map(s=>s.measurement_type).filter(Boolean))],no_profile_mutation:true};
+  await page.screenshot({path:path.join(output,'minder-f-chat.png'),fullPage:true});
   await page.reload();await page.locator('#minderInput').waitFor();assert.equal(await page.locator('.assistant-answer').count(),0);checks.temporary_history_honest=true;
   }
   function request(after){return {kind:'update_profile',target_id:p.profile_id,expected:p.version,diff:[{path:'/constraints/hours/value',before:5,after}],reason:'Fictional browser review of weekly availability'};}
@@ -44,8 +48,8 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
   await page.locator('#openSchedule').click();
   await page.locator('#dailySettings input[name="enabled"]').check();await page.locator('#dailySettings input[name="check_time"]').fill('09:30');await page.locator('#dailySettings button').click();await page.waitForTimeout(400);assert.equal((await api('agent-settings')).check_time,'09:30');checks.settings_persist=true;
   await page.setViewportSize({width:390,height:844});await ready('minder','#minderInput');assert(await page.locator('.mobile-menu').isVisible());await page.locator('.mobile-menu').click();assert(await page.locator('.sidebar').isVisible());await page.keyboard.press('Escape');assert(!(await page.locator('.sidebar').isVisible()));checks.mobile_navigation=true;
-  await page.screenshot({path:'/private/tmp/minder-f-mobile.png',fullPage:true});
+  await page.screenshot({path:path.join(output,'minder-f-mobile.png'),fullPage:true});
   assert.deepEqual(errors,[]);checks.page_errors=errors;
-  console.log(JSON.stringify(checks,null,2));fs.writeFileSync('/private/tmp/minder-f-chat-actions.json',JSON.stringify(checks,null,2));
+  console.log(JSON.stringify(checks,null,2));fs.writeFileSync(path.join(output,'minder-f-chat-actions.json'),JSON.stringify(checks,null,2));
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exit(1);});

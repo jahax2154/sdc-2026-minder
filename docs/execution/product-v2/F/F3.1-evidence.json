@@ -1,0 +1,99 @@
+{
+  "phase": "F3.1",
+  "mode": "real_same_origin_local_backend_with_separate_explicit_error_fixtures",
+  "backend_dependencies": {
+    "D": "9f1f2eeabb8d5d8247fcc1b0353a8777d690d71e",
+    "E": "c2628eceaf4700cd124a407ec4dfe43a6cdbd4ff",
+    "A_document_contract": "3561e93d1bae4ec78fd661e0729fbf53322252c4"
+  },
+  "backend_tests": {
+    "passed": 82,
+    "failed": 0
+  },
+  "chat_actions": {
+    "chat": {
+      "validated_statements": 10,
+      "sources": 5,
+      "provider": "available",
+      "native_arguments_validated": true,
+      "measurement_types": [
+        "employer_observation",
+        "published_offering_activity",
+        "occupation_shortage",
+        "sector_context"
+      ],
+      "no_profile_mutation": true
+    },
+    "temporary_history_honest": true,
+    "rejection_preserves_profile": true,
+    "exact_approval_persists": true,
+    "repeat_approval_once": true,
+    "stale_visible_no_mutation": true,
+    "settings_persist": true,
+    "mobile_navigation": true,
+    "page_errors": []
+  },
+  "workspace": {
+    "partial_profile": true,
+    "evidence_attribution": true,
+    "explicit_zero_distinct_from_unknown": true,
+    "intake_review_persisted_without_mastery": true,
+    "profile_conflict_visible": true,
+    "dislike_reset": true,
+    "direction_persists": true,
+    "explicit_plan_and_active_selection": true,
+    "manual_task_persisted": true,
+    "task_complete_canonical_progress": true,
+    "refresh_progress_persists": true,
+    "task_undo_same_state": true,
+    "resource_saved_refresh": true,
+    "resource_to_same_plan": true,
+    "unsupported_content_honest": true,
+    "unavailable_forecast": true,
+    "cross_screen_settings": true,
+    "mobile_all_routes_no_overflow": true,
+    "session_isolation": true,
+    "page_errors": []
+  },
+  "documents_enabled_local": {
+    "upload_without_profile_apply": true,
+    "attachment_bytes_exact": true,
+    "explicit_review_no_mastery": true,
+    "pdf_stored_extraction_unavailable": true,
+    "delete_preserves_applied_profile": true,
+    "delete_library_empty": true,
+    "refresh_persistence": true,
+    "size_limit_visible": true,
+    "mobile_documents": true,
+    "page_errors": []
+  },
+  "documents_default_disabled": {
+    "storage_unavailable_visible": true,
+    "upload_disabled": true
+  },
+  "smoke": {
+    "route_width_combinations": 20,
+    "keyboard_navigation": true,
+    "unexpected_console_errors": [],
+    "failed_assets": []
+  },
+  "error_fixtures": {
+    "explicit_intercepts": true,
+    "provider_calls": 0,
+    "duplicate_pending_blocked": true,
+    "malformed_answer_blocked": true,
+    "html_escaped": true,
+    "unsafe_link_blocked": true
+  },
+  "deployment": false,
+  "scheduler_autostarted": false,
+  "not_claimed": [
+    "server conversation transcript",
+    "continuous scheduler verification",
+    "PDF text extraction",
+    "hosted durable document storage",
+    "verified news/video feed",
+    "forecast accuracy",
+    "independent competence labels"
+  ]
+}
