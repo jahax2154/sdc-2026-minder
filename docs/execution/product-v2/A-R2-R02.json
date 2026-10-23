@@ -1,0 +1,10 @@
+{
+  "refinement": "A-R2-R02",
+  "status": "targeted_pass",
+  "cause": "Natural plural occupational titles and other known catalogue titles were not recognized by a singular noun router",
+  "fix": "Use verified catalogue title matches plus plural role nouns; explicit capability questions retain guidance priority",
+  "checks": "20 passed; singular/plural Software Developers, known Data Scientists title, capability-versus-role distinction",
+  "evidence_sha256": "1ed42ea1cbee0fa4b1ae77a6c8fab77ea9f18c004ad631bc407e95fff4f5ef5e",
+  "contract_change": false,
+  "deployment": false
+}

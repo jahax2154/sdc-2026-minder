@@ -76,6 +76,10 @@ class ConversationTests(AppCase):
         self.app.services.role_reference=catalogue.reference
         self.app.provider=NoProvider()
         result=self.ask('What does a Software Developer do?',expected_profile_version=None)
+        plural=self.ask('Explain what Software Developers do.',expected_profile_version=None)
+        self.assertEqual(plural['statements'][0]['kind'],'occupation_reference')
+        self.assertEqual(intent_for('Describe Data Scientists',named_role=True),'role_reference')
+        self.assertEqual(intent_for('What can you help me with?',named_role=True),'capabilities')
         statement=result['statements'][0]
         self.assertIn(catalogue.reference(role['role_id'])['occupation']['Description'],statement['text'])
         self.assertEqual(statement['sources'][0]['geography'],'US')
