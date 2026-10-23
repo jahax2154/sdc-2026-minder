@@ -31,13 +31,18 @@ def write(path, obj):
     path.write_text(json.dumps(obj, sort_keys=True, indent=2, ensure_ascii=False) + '\n')
 
 
-def observed_hashes():
+def observed_hashes(source_root=None):
     # Includes the unchanged normal registry, original inputs and all market data
     # except the explicitly isolated lab specification namespace.
     paths = [p for p in MARKET_DATA.rglob('*') if p.is_file() and 'synthetic-lab' not in p.parts]
     manifest = json.loads(Path('docs/execution/parallel/source_snapshot.v1.json').read_text())
-    paths += [Path('ml/minder_ml_starter') / r['path'] for r in manifest['source_files']]
-    return {str(p): sha(p) for p in sorted(paths)}
+    source_root = Path('ml/minder_ml_starter') if source_root is None else Path(source_root)
+    paths += [source_root / r['path'] for r in manifest['source_files']]
+    # A clean RunPod code checkout must not require uploading preserved raw
+    # source records merely to run fully fictional simulations. Absence is
+    # explicit and also checked for changes; existing local inputs stay pinned.
+    return {str(p): sha(p) if p.is_file() else 'absent_not_required_for_simulation'
+            for p in sorted(paths)}
 
 
 def generate(spec):

@@ -187,6 +187,13 @@ class ScenarioIsolationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             self.assertEqual(len(lab.isolation(dataset, Path(directory))), 3)
 
+    def test_lab_does_not_require_uploading_untracked_real_inputs(self):
+        lab = self.lab()
+        with tempfile.TemporaryDirectory() as directory:
+            hashes = lab.observed_hashes(source_root=Path(directory))
+            self.assertEqual(sum(v == 'absent_not_required_for_simulation' for v in hashes.values()), 13)
+            self.assertTrue(any(v != 'absent_not_required_for_simulation' for v in hashes.values()))
+
 
 class RegistryTests(unittest.TestCase):
     """Temporary fake acceptance metadata exercises loader branches only.
