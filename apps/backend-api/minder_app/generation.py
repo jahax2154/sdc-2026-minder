@@ -115,7 +115,8 @@ def private_context(profile, plans):
         ('goals', 'experience', 'situation', 'background', 'industry', 'role_interests', 'weekly_hours', 'education')}
     allowed_context = json.loads(json.dumps(allowed_context)[:6000]) if len(json.dumps(allowed_context)) <= 6000 else {}
     return dict(career_context=allowed_context, onboarding={k: v for k,v in profile.get('onboarding', {}).items()
-                if k in ('stage','objective','context','education_level','interests','work_areas')},
+                if k in ('stage','objective','context','education_level','interests','work_areas',
+                         'self_reported_skills','experience_state','experience_summary','interests_uncertain')},
         constraints=[{k: c[k] for k in ('scope', 'value', 'unit', 'hard') if k in c}
                      for c in profile.get('constraints', [])[:15]],
         reported_skill_inputs=[dict(subject_id=e.get('subject_id'),

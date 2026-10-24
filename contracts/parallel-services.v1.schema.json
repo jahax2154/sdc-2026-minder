@@ -317,7 +317,7 @@
         "onboarding": {
           "type": "object",
           "additionalProperties": false,
-          "description": "Explicit user-reported onboarding metadata; no competence certification or numerical scoring effect.",
+          "description": "Explicit user reports; never competence. May inform separately labelled starter exploration and pathway feasibility without changing assessed scoring.",
           "properties": {
             "stage": {
               "enum": [
@@ -371,6 +371,37 @@
             "optional_enrichment": {
               "type": "string",
               "maxLength": 4000
+            },
+            "self_reported_skills": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "experience_state": {
+              "enum": [
+                "none_yet",
+                "provided",
+                "uncertain"
+              ]
+            },
+            "experience_summary": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "interests_uncertain": {
+              "type": "boolean"
+            },
+            "weekly_study_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 80
             }
           }
         }

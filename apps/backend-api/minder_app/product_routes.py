@@ -8,6 +8,7 @@ from .store import AppError
 
 VERSION = 'product-v2-bootstrap-v1'
 ROUTES = {}
+ROUTES[('POST', '/api/product/starter-recommendations')] = 'starter'
 for method, path in (
     ('GET', 'direction'), ('PUT', 'direction'), ('POST', 'tasks'),
     ('POST', 'task-action'), ('GET', 'progress'), ('GET', 'resource-state'),
@@ -74,7 +75,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations', 'generation_state', 'bot_preferences') else 'E',
+            operations.append(dict(method=verb, path=route, owner='A' if name == 'starter' else 'D' if name in ('product_state', 'documents', 'conversations', 'generation_state', 'bot_preferences') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))

@@ -124,6 +124,8 @@ class Application:
             if method == "GET":
                 return self.store.get(owner, "profile", owner)
             if method == "PUT":
+                from .starter import normal_intake
+                body = dict(body, profile=normal_intake(self, owner, body['profile']))
                 return save_profile(self.store, owner, body["profile"], body.get("expected_version"))
         if path == "/api/intake" and method == "POST":
             return intake_draft(self.store, owner, **body)
