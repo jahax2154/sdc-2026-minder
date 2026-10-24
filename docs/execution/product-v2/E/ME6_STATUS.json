@@ -7,15 +7,15 @@
   },
   "source": {
     "official_branch": "session/a-personal-integration",
-    "A_explicit_implementation_pin": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
-    "A_committed_handoff": "docs/execution/product-v2/A_N12_CLERK_PROTECT_CSP_HANDOFF.md",
-    "reported_loaded_SHA": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
+    "A_explicit_implementation_pin": "5689d46f3884cc69a441d551450075862d4ad292",
+    "A_committed_handoff": "docs/execution/product-v2/A_N13_HOSTING_PACKAGER_REPAIR.md",
+    "reported_loaded_SHA": "5689d46f3884cc69a441d551450075862d4ad292",
     "Replit_local_branch": "reported_previous_branch_minder_managed_20c65eb_current_branch_not_rechecked",
     "preserved_configuration_checkpoint": "4528209dd303a7de1b2961cda0f0331048fe3dbd",
     "preserved_configuration_branch": "minder-pre-integration-4528209",
     "application_frontend_source_changes": false,
     "provider_launcher_configuration_diff": "application_deploy_sources_and_dependency_manifests_reported_identical_to_approved_pin",
-    "Replit_local_configuration_HEAD_last_reported": "a5552048b57d22b9d26d70662acdd89d1585009d"
+    "Replit_local_configuration_HEAD_last_reported": "86c75b3d1879df04fb9a525d0a533a87fabf300f"
   },
   "actual_Replit_execution_report": {
     "evidence": "Replit Agent update result on the correct project",
@@ -66,10 +66,10 @@
     "deployed_SHA": null,
     "last_verified_publish_status": "first_Reserved_VM_publication_failed",
     "hosted_login_two_account_restart_scheduler_acceptance": "not_run",
-    "automatic_approval_review": "earlier_Autoscale_attempt_rejected_later_guarded_Reserved_VM_final_UI_action_permitted",
+    "automatic_approval_review": "initial_default_Autoscale_rejected_first_actual_VM_UI_submission_permitted_later_connector_retry_rejected",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
     "bypass_or_indirect_publication": "none_final_UI_review_permitted_actual_Reserved_VM_submission",
-    "safe_continuation": "load_A_approved_packager_only_repair_then_retry_same_VM_no_upgrades_topups_or_Autoscale",
+    "safe_continuation": "existing_Reserved_VM_UI_republish_after_verified_root_repair_then_hosted_acceptance",
     "prospective_domain": "https://minder-junhongphuah.replit.app",
     "actual_UI": {
       "Reserved_VM_selected": true,
@@ -88,7 +88,26 @@
     "repair": "A_owned_root_packager_features_enabledForHosting_false_existing_frozen_uv_build_retained",
     "production_origin_prepared": true,
     "public_auth_config_secret_fields_absent": true,
-    "sign_in_up_redirects_current_origin": true
+    "sign_in_up_redirects_current_origin": true,
+    "first_actual_build_id": "0e8d3024-91c8-4af3-b0dd-e0315866a8fb",
+    "repair_readiness": {
+      "packager_enabledForHosting": false,
+      "frozen_build_passed": true,
+      "startup_passed": true,
+      "preview_health_HTTP": 200,
+      "authenticated_Clerk_instance_match": true
+    },
+    "existing_provider_metadata": {
+      "isDeployed": true,
+      "type": "vm",
+      "hasSuccessfulBuild": false,
+      "machine_slug": "e2-small",
+      "CPU": 0.5,
+      "RAM_GiB": 2,
+      "Autoscale_present": false
+    },
+    "latest_connector_retry_review": "rejected_cannot_guarantee_VM_retention_after_failed_first_build_use_verified_UI",
+    "retry_state": "user_requested_only_to_click_Republish_then_confirmation_in_existing_UI_no_settings_changes"
   },
   "operator_fix_checks": {
     "passed": 16,
@@ -121,7 +140,7 @@
   "preview": {
     "context": "managed_development_not_published_production",
     "HTTP_health": 200,
-    "source_revision": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
+    "source_revision": "5689d46f3884cc69a441d551450075862d4ad292",
     "existing_worker_live": true,
     "single_workflow_reloaded": true,
     "HTTPS_URL": "https://0f48cf79-f55a-4b24-ba5c-a03d800e03bd-00-3gwq1ildzsct2.riker.replit.dev",
@@ -138,6 +157,6 @@
     "root_template_uv_resolution_packages": 51,
     "NVIDIA_packages": 0,
     "requires_A_root_pyproject_and_uv_lock_integration": false,
-    "revised_combined_source_pin": "74b9688e124f0e6d5f2eb57943fd2671614dab9a"
+    "revised_combined_source_pin": "5689d46f3884cc69a441d551450075862d4ad292"
   }
 }
