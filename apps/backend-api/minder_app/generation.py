@@ -122,6 +122,7 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
         raise AppError('chat_message_required_or_too_large')
     profile = profile_for(app.store, owner, expected_profile_version)
     plans = app.store.list(owner, 'plan')
+    observed_plan_versions = {p['plan_id']: p['state_version'] for p in plans}
     context = private_context(profile, plans)
     target_roles = {p['selected_role_id'] for p in plans}
     context['preferences'] = [{k:p[k] for k in ('entity_type','entity_id','state')}
@@ -204,8 +205,12 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
         response['generation'] = dict(policy_version=POLICY_ID, draft_id=identifier,
             status='unsaved_draft', model=provider_result.get('model'), profile_version=profile['version'],
             advice=generated, claim_scope='Proposed practice guidance; not assessed competence, demand or a saved plan.')
+        from .generation_state import record_generation
+        recorded = record_generation(app.store, owner, response['generation'])
+        response['generation']['record_version'] = recorded['version']
     # Legacy context ledger holds visible answer for bounded /api/chat follow-up.
     # Durable transcripts are D's conversation service, not another chat store.
     app.store.put(owner, 'grounding', identifier, dict(conversation_scope=dict(intent='typed_guidance',
-        role_ids=[], question_id=None), visible_answer=answer), None)
+        role_ids=[], question_id=None), visible_answer=answer,
+        observed_plan_versions=observed_plan_versions), None)
     return response

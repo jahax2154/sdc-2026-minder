@@ -95,7 +95,7 @@ def requested_time(message, timezone):
     return local.replace(hour=hour,minute=minute,second=0,microsecond=0)
 
 
-def operation_request(app, owner, operation, message, direct):
+def operation_request(app, owner, operation, message, direct, observed_versions):
     import uuid
     from .generation import profile_for
     plans=app.store.list(owner,'plan');kind=operation['kind'];payload=operation.get('payload',{})
@@ -151,6 +151,8 @@ def operation_request(app, owner, operation, message, direct):
                      for k,v in payload.items() if k in ('title','description','estimated_hours')]
             if not changes:raise AppError('specific_task_edit_required')
         else:raise AppError('unsupported_conversation_operation')
+    if observed_versions.get(plan['plan_id']) != plan['state_version']:
+        raise AppError('stale_state_version',409)
     return dict(kind=kind,target_id=plan['plan_id'],expected=plan['state_version'],diff=changes,
         reason='Conversation scoped task instruction' if direct else 'Conversation suggested task change',evidence_ids=[])
 
@@ -170,7 +172,10 @@ def turn(app, owner, channel, message, history, request_id, body):
     if operation['kind']=='none':return response
     direct=explicit_command(message,operation.get('instruction_quote'))
     try:
-        request=operation_request(app,owner,operation,message,direct)
+        from .generation import profile_for
+        profile_for(app.store,owner,body.get('expected_profile_version'))
+        scope=app.store.get(owner,'grounding',generation['draft_id'])
+        request=operation_request(app,owner,operation,message,direct,scope['observed_plan_versions'])
         if direct:
             key=body.get('idempotency_key')
             if not key:raise AppError('idempotency_key_required')

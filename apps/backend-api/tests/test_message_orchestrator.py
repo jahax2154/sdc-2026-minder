@@ -44,13 +44,14 @@ class IntegratedTurnTests(AppCase):
 
     def test_due_result_in_singleton_pause_resume_and_restart_dedupe(self):
         owner=self.save()['profile_id']
-        settings=configure(self.store,owner,dict(enabled=True,check_time='08:00'),None)
+        from minder_app.automation_state import save_automation_settings as schedule
         at=datetime(2026,10,27,0,1,tzinfo=timezone.utc)
+        settings=schedule(self.store,owner,dict(enabled=True,check_time='08:00'),None,at=at-timedelta(minutes=2))
         worker=Worker(self.store,self.app.actions)
         worker.daily(at,owner=owner)
-        paused=configure(self.store,owner,dict(enabled=False,check_time='08:00'),settings['version'])
+        paused=schedule(self.store,owner,dict(enabled=False,check_time='08:00'),settings['version'],at=at)
         self.assertEqual(worker.tick(at,owner=owner)['status'],'idle')
-        configure(self.store,owner,dict(enabled=True,check_time='08:00'),paused['version'])
+        schedule(self.store,owner,dict(enabled=True,check_time='08:00'),paused['version'],at=at)
         self.assertEqual(worker.tick(at,owner=owner)['status'],'processed')
         history=Conversations(self.store).mindbot(owner)
         self.assertEqual(len(history['messages']),1)
@@ -125,3 +126,35 @@ class IntegratedTurnTests(AppCase):
         self.assertEqual(self.store.get(owner,'plan',plan['plan_id']),plan)
         self.assertEqual(requested_time('tomorrow at 6pm','Asia/Kuala_Lumpur').hour,18)
         self.assertIsNone(requested_time('tomorrow evening','Asia/Kuala_Lumpur'))
+
+    def test_schedule_timezone_catchup_last_result_and_scope_are_canonical(self):
+        from minder_app.automation_state import save_automation_settings
+        from minder_app.profiles import save_profile
+        owner=self.save()['profile_id']
+        profile=self.store.get(owner,'profile',owner)
+        save_profile(self.store,owner,{'timezone':'UTC'},profile['version'])
+        save_automation_settings(self.store,owner,dict(check_time='09:00',timezone='Asia/Kuala_Lumpur',state='active'),
+            None,at=datetime(2026,10,24,0,tzinfo=timezone.utc))
+        worker=Worker(self.store,self.app.actions)
+        at=datetime(2026,10,26,1,tzinfo=timezone.utc)
+        self.assertEqual(worker.tick(at,owner=owner)['status'],'processed')
+        settings=self.store.get(owner,'agent_settings',owner)
+        self.assertEqual(settings['next_run'],'2026-10-27T01:00:00Z')
+        self.assertEqual(settings['last_result']['status'],'processed')
+        self.assertTrue(settings['last_result']['conversation_id'])
+        self.assertEqual(worker.tick(at,owner=owner)['status'],'idle')
+        self.assertEqual(len(Conversations(self.store).mindbot(owner)['messages']),1)
+
+    def test_pending_provider_cannot_commit_after_cancellation(self):
+        from minder_app.automation_state import save_automation_settings
+        owner=self.save()['profile_id'];at=datetime(2026,10,26,1,tzinfo=timezone.utc)
+        save_automation_settings(self.store,owner,dict(check_time='09:00',state='active'),None,
+            at=at-timedelta(minutes=2))
+        worker=Worker(self.store,self.app.actions)
+        def cancel_during(event,instant):
+            current=self.store.get(owner,'agent_settings',owner)
+            save_automation_settings(self.store,owner,dict(state='cancelled'),current['version'],at=instant)
+            return dict(summary='Never publish this cancelled result')
+        worker.analyse=cancel_during
+        self.assertEqual(worker.tick(at,owner=owner)['status'],'cancelled')
+        self.assertFalse(Conversations(self.store).mindbot(owner)['messages'])
