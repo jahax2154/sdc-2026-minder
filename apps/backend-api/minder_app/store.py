@@ -94,6 +94,9 @@ class Store:
             with self.connect() as source:
                 with sqlite3.connect(str(destination), factory=ClosingConnection) as target:
                     source.backup(target)
+                    # Portable snapshots must not require writable WAL sidecars
+                    # during the first read-only restore/verification.
+                    target.execute("PRAGMA journal_mode=DELETE")
         except Exception:
             destination.unlink(missing_ok=True)
             raise AppError("database_backup_failed", 500) from None
