@@ -84,7 +84,10 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
                               mode='local_source_services')
     services.role_reference = catalogue.reference
     store = Store(database, volume_root=allowed) if durable_root is not None else Store(database)
-    return Application(store, services, provider if provider is not None else a_provider()), catalogue
+    app = Application(store, services, provider if provider is not None else a_provider())
+    from minder_app.public_retrieval import PublicRetrieval
+    app.public_retrieval = PublicRetrieval()
+    return app, catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):

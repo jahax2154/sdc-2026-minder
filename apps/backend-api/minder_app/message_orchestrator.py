@@ -241,6 +241,9 @@ def operation_request(app, owner, operation, message, direct, observed_versions,
 def turn(app, owner, channel, message, history, request_id, body):
     if channel not in ('minder', 'mindbot'):
         raise AppError('invalid_conversation_channel')
+    from .web_evidence import current_question, answer
+    if current_question(message) and getattr(app, 'public_retrieval', None) is not None:
+        return answer(app, owner, message, body.get('expected_profile_version'), request_id=request_id)
     from .conversation import intent_for,matched_roles
     role_reference=intent_for(message,named_role=bool(matched_roles(app.services,message)))=='role_reference'
     if EMPIRICAL.search(message) or role_reference:
