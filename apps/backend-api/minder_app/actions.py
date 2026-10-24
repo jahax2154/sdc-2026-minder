@@ -6,6 +6,7 @@ mint direct authorities here; workers may only prepare pending proposals.
 import copy
 import hashlib
 import json
+from contextlib import contextmanager
 from minder_ml.intelligence.service_contracts import validate
 from .plans import save_plan, instant
 from .store import AppError, uid, now
@@ -34,7 +35,7 @@ def migrate(store):
 
 def action_request(kind, target_id, expected, diff, reason, evidence_ids=()):
     if kind not in ("complete_task", "reschedule_task", "update_profile", "change_goal", "replace_plan",
-                    "create_task", "edit_task", "schedule_task"):
+                    "create_task", "edit_task", "schedule_task", "configure_automation"):
         raise AppError("unsupported_action")
     if not expected or not target_id or not diff:
         raise AppError("specific_action_scope_required")
@@ -44,6 +45,32 @@ def action_request(kind, target_id, expected, diff, reason, evidence_ids=()):
         raise AppError("duplicate_diff_path")
     return dict(kind=kind, target_id=target_id, expected_state_version=expected,
                 diff=copy.deepcopy(diff), reason=reason, evidence_ids=list(evidence_ids))
+
+
+class _TransactionStore:
+    """Reuse D's validated writer on the executor's existing transaction."""
+    def __init__(self, store, db):
+        self.store, self.db = store, db
+
+    def __getattr__(self, name):
+        return getattr(self.store, name)
+
+    @contextmanager
+    def transaction(self):
+        yield self.db
+
+
+def _automation_changes(before, request):
+    changes={}
+    for change in request['diff']:
+        parts=change['path'].split('/')
+        if len(parts)!=3 or parts[1]!='settings' or parts[2] not in ('enabled','check_time','timezone','state','scope'):
+            raise AppError('unsupported_automation_scope')
+        field=parts[2]
+        if before.get(field)!=change['before']:
+            raise AppError('diff_before_mismatch',409)
+        changes[field]=change['after']
+    return changes
 
 
 class ActionExecutor:
@@ -124,13 +151,31 @@ class ActionExecutor:
             return json.loads(row["result"])
 
     def _preview(self, db, owner, req):
-        kind = "profile" if req["kind"] in ("update_profile", "change_goal") else "plan"
-        if kind == "profile" and req["target_id"] != owner:
+        kind = ('agent_settings' if req['kind']=='configure_automation' else
+                "profile" if req["kind"] in ("update_profile", "change_goal") else "plan")
+        if kind in ('profile','agent_settings') and req["target_id"] != owner:
             raise AppError("profile_not_found", 404)
-        before = self.store.get(owner, kind, req["target_id"], db=db)
-        version_key = "version" if kind == "profile" else "state_version"
+        try:
+            before = self.store.get(owner, kind, req["target_id"], db=db)
+        except AppError as error:
+            if error.status!=404 or kind!='agent_settings':raise
+            before={'version':'missing'}
+        version_key = "state_version" if kind == 'plan' else 'version'
         if before[version_key] != req["expected_state_version"]:
             raise AppError("stale_state_version", 409)
+        if kind=='agent_settings':
+            from .automation_state import save_automation_settings
+            changes=_automation_changes(before,req)
+            # Validate through D's actual writer, then roll back every tentative
+            # state/authority/event change. No provider or side effect in helper.
+            db.execute('SAVEPOINT automation_preview')
+            try:
+                after=save_automation_settings(_TransactionStore(self.store,db),owner,changes,
+                    None if before['version']=='missing' else before['version'])
+            finally:
+                db.execute('ROLLBACK TO automation_preview')
+                db.execute('RELEASE automation_preview')
+            return kind,before,after
         after = copy.deepcopy(before)
         for change in req["diff"]:
             parts = change["path"].split("/")
@@ -221,14 +266,18 @@ class ActionExecutor:
         authority_id = request_id or proposal["proposal_id"]
         if kind == "plan" and req["kind"] == "complete_task":
             after["progress_event_ids"].append(aid)
-        if kind == "profile":
+        if kind == 'agent_settings':
+            from .automation_state import save_automation_settings
+            saved=save_automation_settings(_TransactionStore(self.store,db),owner,
+                _automation_changes(before,req),None if before['version']=='missing' else before['version'])
+        elif kind == "profile":
             for item in after["preferences"]:
                 if item["authorizing_request_id"] == "pending-authority":
                     item["authorizing_request_id"] = authority_id
             saved = self.store.put(owner, kind, req["target_id"], after, req["expected_state_version"], db=db)
         else:
             saved = save_plan(self.store, owner, after, req["expected_state_version"], db=db)["plan"]
-        version = saved["version" if kind == "profile" else "state_version"]
+        version = saved['state_version' if kind=='plan' else 'version']
         action = dict(action_id=aid, kind=req["kind"], origin="direct_request" if request_id else proposal["origin"],
             expected_state_version=req["expected_state_version"], idempotency_key=key,
             authorizing_request_id=request_id, proposal_id=proposal["proposal_id"] if proposal else None,

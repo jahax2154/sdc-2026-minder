@@ -48,7 +48,11 @@ plan means clarification. update_preference uses provided role/industry id and s
 (null means reset/removes prior preference). change_goal uses payload.goals.
 instruction_quote must be the ENTIRE EXACT current user message, not a substring.
 Never claim you saved/changed/completed something: server execution supplies that
-confirmation. No explicit command means advice or a proposed change, never authority.'''
+confirmation. No explicit command means advice or a proposed change, never authority.
+Use configure_automation for explicit daily-check create/edit/pause/resume/cancel:
+payload automation_state active/paused/cancelled and check_time HH:MM if requested.
+Do not create a daily time if absent; ask for it. Existing omitted settings remain.
+Only choose provided plan_id for an explicitly scoped daily check, never another user.'''
 
 EMPIRICAL = re.compile(r'\b(market|demand|malaysian?|forecasts?|quarters?|salary|shortage|hiring|rankings?|scores?|compare|requirements|qualification|source[s]?|evidence coverage)\b', re.I)
 
@@ -123,7 +127,14 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     profile = profile_for(app.store, owner, expected_profile_version)
     plans = app.store.list(owner, 'plan')
     observed_plan_versions = {p['plan_id']: p['state_version'] for p in plans}
+    try:
+        automation = app.store.get(owner,'agent_settings',owner)
+    except AppError as error:
+        if error.status!=404:raise
+        automation = None
     context = private_context(profile, plans)
+    context['daily_automation'] = ({k:automation[k] for k in ('enabled','check_time','timezone','state','scope') if k in automation}
+                                   if automation else None)
     target_roles = {p['selected_role_id'] for p in plans}
     context['preferences'] = [{k:p[k] for k in ('entity_type','entity_id','state')}
                                for p in profile.get('preferences', [])[:30]]
@@ -212,5 +223,6 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     # Durable transcripts are D's conversation service, not another chat store.
     app.store.put(owner, 'grounding', identifier, dict(conversation_scope=dict(intent='typed_guidance',
         role_ids=[], question_id=None), visible_answer=answer,
-        observed_plan_versions=observed_plan_versions), None)
+        observed_plan_versions=observed_plan_versions,
+        observed_automation_version=automation['version'] if automation else None), None)
     return response

@@ -95,7 +95,7 @@ def requested_time(message, timezone):
     return local.replace(hour=hour,minute=minute,second=0,microsecond=0)
 
 
-def operation_request(app, owner, operation, message, direct, observed_versions):
+def operation_request(app, owner, operation, message, direct, observed_versions, observed_automation=None):
     import uuid
     from .generation import profile_for
     plans=app.store.list(owner,'plan');kind=operation['kind'];payload=operation.get('payload',{})
@@ -118,7 +118,26 @@ def operation_request(app, owner, operation, message, direct, observed_versions)
         return dict(kind='update_profile' if kind=='update_preference' else kind,target_id=owner,expected=profile['version'],
             diff=[dict(path=path,before=before,after=after)],reason='Conversation scoped profile instruction',evidence_ids=[])
     if kind=='configure_automation':
-        raise AppError('automation_conversation_tool_pending_state_delivery')
+        try:before=app.store.get(owner,'agent_settings',owner)
+        except AppError as error:
+            if error.status!=404:raise
+            before=None
+        if (before['version'] if before else None)!=observed_automation:
+            raise AppError('stale_state_version',409)
+        changes={}
+        if 'automation_state' in payload:changes['state']=payload['automation_state']
+        elif 'enabled' in payload:changes['enabled']=payload['enabled']
+        if 'check_time' in payload:changes['check_time']=payload['check_time']
+        if before is None and 'check_time' not in changes:
+            raise AppError('clarify_daily_check_time')
+        plan_id=operation.get('plan_id')
+        if plan_id:
+            if plan_id not in {p['plan_id'] for p in plans}:raise AppError('specific_saved_plan_required')
+            changes['scope']={'plan_ids':[plan_id]}
+        if not changes:raise AppError('specific_automation_change_required')
+        return dict(kind=kind,target_id=owner,expected=before['version'] if before else 'missing',
+            diff=[dict(path='/settings/'+k,before=before.get(k) if before else None,after=v) for k,v in changes.items()],
+            reason='Conversation daily automation instruction',evidence_ids=[])
     matches=[(p,t) for p in plans for t in p['tasks'] if t['task_id']==operation['task_id']]
     if kind=='create_task':
         plan=next((p for p in plans if p['plan_id']==operation.get('plan_id')),None)
@@ -175,7 +194,7 @@ def turn(app, owner, channel, message, history, request_id, body):
         from .generation import profile_for
         profile_for(app.store,owner,body.get('expected_profile_version'))
         scope=app.store.get(owner,'grounding',generation['draft_id'])
-        request=operation_request(app,owner,operation,message,direct,scope['observed_plan_versions'])
+        request=operation_request(app,owner,operation,message,direct,scope['observed_plan_versions'],scope.get('observed_automation_version'))
         if direct:
             key=body.get('idempotency_key')
             if not key:raise AppError('idempotency_key_required')
