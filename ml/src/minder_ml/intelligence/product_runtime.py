@@ -80,6 +80,28 @@ def build(lane, *, database=None, role_ids=None):
     return app, reservation
 
 
+def build_hosted(database):
+    """E's mounted-volume factory; no claim that a mount/provider is provisioned."""
+    import os
+    import sys
+    sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+    from minder_app.config import load_provider_config
+    config = load_provider_config()
+    if config.model and config.model != MODEL:
+        raise ValueError('preserve_verified_Qwen_product_configuration')
+    provider = GroqAdapter(key=config.api_key, model=MODEL)
+    provider.daily_limit = config.daily_limit
+    root = os.environ.get('MINDER_DATA_ROOT')
+    if not root:
+        raise ValueError('MINDER_DATA_ROOT_required')
+    app, _ = application(database, provider=provider, durable_root=root)
+    from minder_app.provider_budget import BudgetedProvider
+    BudgetedProvider(app.store, 'bootstrap-no-call', provider)
+    from minder_app.product_migrations import migrate
+    migrate(app.store)
+    return app
+
+
 class QuietHandler(WSGIRequestHandler):
     def log_message(self, *args):
         pass
