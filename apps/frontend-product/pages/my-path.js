@@ -1,3 +1,4 @@
+import {beginPanelRefresh} from '../panel-refresh.js';
 import {api,key} from '../client.js';
 import {esc,source,showError} from '../ui.js';
 import {svg} from '../icons.js';
@@ -9,10 +10,8 @@ export async function myPath(ctx,tab='next'){
  view.querySelectorAll('.tabs a').forEach(a=>{const active=a.hash==='#'+ctx.page+'/'+tab;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  const previousTab=view.dataset.panelTab;view.dataset.panelTab=tab;
  const body=view.querySelector('#pathBody'),read=path=>api(path,undefined,'GET',{signal:ctx.signal});
- if(previousTab!==undefined&&previousTab!==tab){body.innerHTML='<p role="status">Loading this section…</p>';view.scrollTop=0;}
- body.setAttribute('aria-busy','true');const refreshStatus=document.createElement('span');refreshStatus.className='panel-loading';refreshStatus.role='status';refreshStatus.textContent='Updating…';body.before(refreshStatus);
- ctx.signal.addEventListener('abort',()=>refreshStatus.remove(),{once:true});
- const observer=new MutationObserver(()=>{body.setAttribute('aria-busy','false');refreshStatus.remove();observer.disconnect();});observer.observe(body,{childList:true});ctx.signal.addEventListener('abort',()=>observer.disconnect(),{once:true});
+ if(previousTab!==undefined&&previousTab!==tab){delete body.dataset.ready;body.innerHTML='<p role="status">Loading this section…</p>';view.scrollTop=0;}
+ beginPanelRefresh(ctx,body,previousTab===tab);
  if(!ctx.profile){body.innerHTML='<section class="panel empty"><h2>Start with a little context</h2><p>Save a partial profile before preparing a roadmap. You can explore careers and talk with Minder while it is incomplete.</p><a class="button primary" href="#profile">Create my profile</a></section>';return;}
  const [directionState,planState,designState,progress,generationState]=await Promise.all(['product/direction','plans','plan-designs','product/progress','product/generations'].map(read));if(!ctx.isCurrent())return;
  const direction=directionState.direction,plans=planState.plans,plan=plans.find(p=>p.plan_id===direction?.plan_id),design=designState.designs.find(d=>d.plan_id===plan?.plan_id)?.design;
