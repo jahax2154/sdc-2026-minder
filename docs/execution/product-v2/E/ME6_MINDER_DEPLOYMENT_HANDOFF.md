@@ -40,8 +40,12 @@ local file remains ignored, untracked and owner-only.
 
 No public deployment exists. The preview replit.dev URL is not the judge endpoint.
 The intended configuration is Reserved VM with one replica and the existing cohosted
-worker; actual machine size, quoted price and allowance still require Publishing UI
-verification. The connector's first-publish operation defaults to Autoscale and must
+worker; actual Publishing UI shows Shared0.5vCPU/2GiB, quoted USD15/month or
+USD0.0208/hour. Remaining allowance is not visible; user confirmation is pending.
+Replit also requests phone account verification through WhatsApp. No phone number
+or code was read or entered by this agent. The public primaryDomain is
+https://minder-junhongphuah.replit.app (prospective, not published). Both production
+database creation and schema/data initialization checkboxes are selected. The connector's first-publish operation defaults to Autoscale and must
 not be used for this task. Production PostgreSQL is normally created during first
 publication; do not copy the development database DSN as a substitute.
 
@@ -59,3 +63,8 @@ No hosted acceptance result is inferred from those tests.
 
 Excluded local raw/derived inputs and private configuration remain uncommitted;
 this checkpoint does not claim they are backed up. Career Compass was not modified.
+
+Actual managed preview probes return401 for missing-token and spoofed-owner-header
+private reads/writes and anonymous session creation. No test-auth bypass is exposed.
+Provider-only public origin/explicit authorized-parties preparation is in progress;
+no app source changes or publication were requested.

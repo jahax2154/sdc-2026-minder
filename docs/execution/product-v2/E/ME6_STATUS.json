@@ -69,7 +69,19 @@
     "automatic_approval_review": "rejected_before_provider_publication",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
     "bypass_or_indirect_publication": "not_attempted",
-    "safe_continuation": "verify_managed_preview_startup_authentication_and_VM_origin_settings_before_any_further_publish_attempt"
+    "safe_continuation": "verify_managed_preview_startup_authentication_and_VM_origin_settings_before_any_further_publish_attempt",
+    "prospective_domain": "https://minder-junhongphuah.replit.app",
+    "actual_UI": {
+      "Reserved_VM_selected": true,
+      "machine": "Shared 0.5 vCPU / 2 GiB RAM",
+      "quoted_monthly_USD": 15,
+      "quoted_hourly_USD": 0.0208,
+      "remaining_allowance": "not_visible_user_confirmation_pending",
+      "Create_production_database_checked": true,
+      "initialize_with_development_schema_data_checked": true,
+      "Replit_account_phone_verification": "UI_requests_phone_and_WhatsApp_code_user_action_pending",
+      "submitted": false
+    }
   },
   "operator_fix_checks": {
     "passed": 16,
@@ -77,10 +89,10 @@
     "latest_combined_focused_checks_passed": 26
   },
   "remaining_unknowns": [
-    "actual_Reserved_VM_size_quote_allowance_and_first_publication",
-    "production_database_creation_and_binding_during_first_publish",
-    "real_signup_signin_two_user_isolation_restart_and_due_worker_event",
-    "final_HTTPS_origin_and_published_secret_validation"
+    "Replit_phone_account_verification_and_existing_allowance_confirmation",
+    "first_publication_production_database_binding_and_single_replica",
+    "published_origin_and_secret_validation",
+    "real_signup_signin_two_user_isolation_restart_and_due_worker_event"
   ],
   "private_CV_storage": {
     "user_supplied_existing_bucket": true,
@@ -108,7 +120,10 @@
     "HTTPS_URL": "https://0f48cf79-f55a-4b24-ba5c-a03d800e03bd-00-3gwq1ildzsct2.riker.replit.dev",
     "external_unauthenticated_probe": "platform_redirect_not_established_as_public_judge_endpoint",
     "fresh_Clerk_UI": "two_fresh_sessions_rendered_zero_CSP_violations_real_account_signin_not_completed",
-    "Protect_connect_host_and_port_wildcards_verified": true
+    "Protect_connect_host_and_port_wildcards_verified": true,
+    "private_boundary_probe_HTTP": 401,
+    "missing_token_and_spoofed_owner_reads_writes_denied": true,
+    "anonymous_session_creation_denied": true
   },
   "managed_Python_upstream_handoff": {
     "E_component_SHA": "4b53fd8d953212d009b1b928a382d9ff19ee6018",
