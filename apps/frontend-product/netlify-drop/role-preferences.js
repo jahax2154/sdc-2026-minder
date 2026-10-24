@@ -1,0 +1,16 @@
+import {api,key} from './client.js';
+import {esc} from './ui.js';
+export function rolePreferences(ctx,root,roleId,onChanged){
+ let profile=ctx.profile,exact=null,pending=false,recovery=false,message='';
+ const valid=()=>ctx.isCurrent()&&root.isConnected;
+ function paint(){if(!valid())return;if(!profile){root.innerHTML='<h3>Your career preference</h3><p>Preferences are optional. Save a partial profile to record one.</p><a class="button" href="#profile">My profile</a>';return;}
+ const current=profile.preferences.find(p=>p.entity_type==='role'&&p.entity_id===roleId)?.state??null;
+ root.innerHTML=`<h3>Your career preference</h3><p>${current==='interested'?'Interested':current==='not_interested'?'Not interested':'No preference recorded'}. This does not remove the career or change your saved direction.</p><div class="actions">${[['interested','Interested'],['not_interested','Not interested'],[null,'Reset preference']].map(([state,label])=>`<button class="button" type="button" data-career-preference="${state??'reset'}" aria-pressed="${current===state}" ${pending||recovery||current===state?'disabled':''}>${label}</button>`).join('')}</div><p role="status" data-preference-status>${esc(message)}</p>${recovery?'<button class="button" data-reload-preference>Reload saved preference</button>':''}${recovery&&exact?'<button class="button" data-retry-preference>Retry exact preference</button>':''}`;
+ root.querySelectorAll('[data-career-preference]').forEach(b=>b.onclick=()=>{const state=b.dataset.careerPreference==='reset'?null:b.dataset.careerPreference;if(state===current||pending||recovery)return;exact={request:{kind:'update_profile',target_id:profile.profile_id,expected:profile.version,diff:[{path:'/preferences/role/'+roleId,before:current,after:state}],reason:'Explicit role preference edit'},idempotency_key:key()};save();});
+ root.querySelector('[data-retry-preference]')?.addEventListener('click',save);root.querySelector('[data-reload-preference]')?.addEventListener('click',async()=>{if(pending)return;await ctx.refreshProfile();if(!valid())return;if(ctx.profileError){message='Saved preferences could not be reloaded. Retry the read.';}else{profile=ctx.profile;recovery=!!exact;message=exact?'Saved profile reloaded. Retrieve the exact action outcome before another preference.':'Saved preferences reloaded. Review before choosing.';}paint();});
+ }
+ async function save(){if(pending||!exact)return;pending=true;message='Saving preference…';paint();try{const result=await api('direct-action',exact,'POST',{signal:ctx.signal});if(!valid())return;if(result.action?.execution_status!=='applied'||!result.target?.version)throw new Error('The preference outcome could not be validated. Retrieve the exact outcome before another choice.');profile=result.target;exact=null;onChanged();await ctx.refreshProfile();if(!valid())return;recovery=!!ctx.profileError;if(!ctx.profileError)profile=ctx.profile;message=ctx.profileError?'Preference saved. Reload the profile before another change.':'Preference saved. Refresh matches when you want to review updated recommendations.';}
+ catch(e){if(!valid())return;recovery=true;if(e.status&&e.status<500)exact=null;message=e.message+' No automatic retry was made.';}
+ finally{pending=false;paint();}}
+ paint();
+}
