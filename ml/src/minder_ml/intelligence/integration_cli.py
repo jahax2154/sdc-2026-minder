@@ -39,9 +39,9 @@ def a_provider_config():
 def a_provider():
     """Use only A's verified model metadata; no inherited sibling artifact path."""
     from minder_app.provider_access import selected_model
-    from .groq_adapter import GroqAdapter
+    from minder_app.model_gateway import CoordinatedGroq
     config = a_provider_config()
-    provider = GroqAdapter(key=config.api_key, model=config.model or selected_model(
+    provider = CoordinatedGroq(key=config.api_key, model=config.model or selected_model(
         ROOT / 'ml/artifacts/session-a/runtime/groq-model-selection.json'))
     provider.daily_limit = config.daily_limit
     return provider

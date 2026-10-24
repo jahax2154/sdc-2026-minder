@@ -10,6 +10,7 @@ VERSION = 'product-v2-bootstrap-v1'
 ROUTES = {}
 ROUTES[('POST', '/api/product/starter-recommendations')] = 'starter'
 ROUTES[('GET', '/api/product/retrieval-capabilities')] = 'web_evidence'
+ROUTES[('GET', '/api/product/provider-status')] = 'model_gateway'
 ROUTES[('GET', '/api/product/minder-handoffs')] = 'handoffs'
 ROUTES[('POST', '/api/product/handoff-decision')] = 'handoffs'
 for method, path in (
@@ -78,7 +79,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='A' if name in ('starter', 'web_evidence', 'handoffs') else 'D' if name in ('product_state', 'documents', 'conversations', 'generation_state', 'bot_preferences') else 'E',
+            operations.append(dict(method=verb, path=route, owner='A' if name in ('starter', 'web_evidence', 'handoffs', 'model_gateway') else 'D' if name in ('product_state', 'documents', 'conversations', 'generation_state', 'bot_preferences') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))

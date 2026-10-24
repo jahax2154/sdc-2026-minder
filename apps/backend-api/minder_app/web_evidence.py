@@ -141,6 +141,7 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
                 answer_text += '\n\n' + ' '.join(value['limitations'])
         except ProviderError as error:
             provider = dict(error.public(), invoked=error.code not in ('provider_credentials_missing', 'provider_daily_budget_exceeded', 'provider_concurrency_limit'))
+            if 'transport_attempts' in provider:provider['invoked']=provider['transport_attempts']>0
         except (ValueError, TypeError, KeyError, ValidationError) as error:
             code = str(error) if str(error) in ('duplicate_source_quote','unsupported_web_quantity','unexpected_web_url','unsupported_guarantee','unsupported_prediction_term','unsupported_web_intro_quantity') else 'web_schema_or_quote_reference_mismatch'
             provider = dict(provider, status='unavailable', code='public_web_explanation_not_verified', validation_code=code, invoked=True)
@@ -160,6 +161,7 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
         sources_fetched=True if sources else False)
     if candidate is not None and provider['status'] != 'available':
         ledger['rejected_visible_explanation'] = candidate
+        ledger['validation_failure_rule'] = provider.get('validation_code')
     app.store.put(owner, 'public_web_evidence', identifier, ledger, None)
     return dict(answer=answer_text, response_mode='grounded_evidence' if provider['status']=='available' else 'limited_fallback',
         conversation_policy_version='minder-conversation-routing-v1', conversation_context_id=identifier,
