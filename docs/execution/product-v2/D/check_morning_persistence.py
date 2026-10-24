@@ -11,6 +11,7 @@ import sys
 import tempfile
 from minder_app.api import Application
 from minder_app.auth_adapter import VerifiedIdentity
+from minder_app.bot_preferences import get_preferences,save_preferences
 from minder_app.automation_state import save_automation_settings,record_automation_result
 from minder_app.conversations import Conversations
 from minder_app.documents import DocumentLibrary
@@ -32,10 +33,13 @@ def restart_read(database,owner,document_id,conversation_id):
     assert profile["career_context"]["education"]=="Reviewed fictional education"
     assert service.open(owner,{"conversation_id":conversation_id})["messages"][1]["response"]["action_status"]=="applied"
     assert store.get(owner,"agent_settings",owner)["last_result"]["status"]=="processed"
+    assert get_preferences(store,owner)["preferences"]["display_name"]=="Study Companion"
+    assert len(service.search(owner,{"query":"fictional task"})["conversations"])==1
     with store.connect() as db:
         versions=[row[0] for row in db.execute("SELECT version FROM migrations ORDER BY version")]
     print(json.dumps(dict(status="passed",new_process=True,engine=store.engine,schema_version=max(versions),
-        private_file_read=True,profile_read=True,visible_history_read=True,run_result_read=True)))
+        private_file_read=True,profile_read=True,visible_history_read=True,run_result_read=True,
+        bot_identity_read=True,owned_history_search=True)))
 
 
 def main():
@@ -106,6 +110,11 @@ def main():
                 break
         assert run.get("event_id","").startswith("daily:2026-10-24") and run["status"]=="processed"
         record_automation_result(store,owner,run["event_id"],at=datetime(2026,10,24,1,0,tzinfo=timezone.utc))
+        saved_schedule=store.get(owner,"agent_settings",owner)
+        save_preferences(store,owner,{"display_name":"  Study Companion  ","avatar_id":"frog-rose","expected_version":None})
+        assert not get_preferences(store,other)["configured"]
+        assert store.get(owner,"agent_settings",owner)==saved_schedule
+        assert service.search(other,{"query":"fictional task"})["conversations"]==[]
         assert service.mindbot(owner)["conversation"]["conversation_id"]==singleton[0]
         env={key:os.environ[key] for key in ("PATH","PYTHONPATH","LANG") if key in os.environ}
         env["PYTHONDONTWRITEBYTECODE"]="1"
@@ -113,7 +122,7 @@ def main():
             capture_output=True,text=True,timeout=20,env=env)
         assert child.returncode==0, "fresh process read failed (private diagnostics withheld)"
         restart=json.loads(child.stdout)
-        assert restart["new_process"] and restart["schema_version"]==7
+        assert restart["new_process"] and restart["schema_version"]==7 and restart["bot_identity_read"] and restart["owned_history_search"]
         store.backup(Path(folder)/"backups/private.sqlite3")
         library.delete(owner,dict(document_id=doc["document_id"],expected_version=reviewed["document"]["version"],idempotency_key="delete-cv"))
         assert library.list(owner)["documents"]==[] and list((Path(folder)/"uploads/documents").iterdir())==[]
@@ -126,7 +135,7 @@ def main():
         hosted_durability="unverified_access_pending",checks=["anonymous_not_claimed","two_owner_isolation","CV_review_apply",
         "multiple_Minder","concurrent_single_Mindbot","actual_action_reference","exact_retry_no_action_replay",
         "real_existing_Worker_daily_notice","same_Mindbot_run_result","fresh_process_restart","private_DB_backup",
-        "CV_byte_and_draft_deletion","accepted_profile_retained"])))
+        "CV_byte_and_draft_deletion","accepted_profile_retained","persisted_bot_preferences","server_history_search"])))
 
 
 if __name__=="__main__":

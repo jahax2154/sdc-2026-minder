@@ -1,6 +1,7 @@
 """D's executable conversation inputs; A owns publication and HTTP registration."""
 from jsonschema import Draft202012Validator
 from .store import AppError
+from .product_state_schemas import schemas as public_schemas
 import json
 
 ID = {"type": "string", "minLength": 1, "maxLength": 200}
@@ -17,6 +18,7 @@ SCHEMAS = {
         properties=dict(conversation_id=ID, idempotency_key=ID,
             message={"type": "string", "minLength": 1, "maxLength": 4000},
             expected_profile_version={"type": ["string", "null"], "maxLength": 200})),
+    "search": public_schemas()["ConversationSearch"],
     "empty": dict(type="object", additionalProperties=False),
 }
 VISIBLE_FIELDS = set("answer statements provider profile_version context_version action_status behaviour_policy_version "
@@ -50,3 +52,8 @@ def visible_response(response):
                 or any(not isinstance(item, str) or not item or len(item) > 200 for item in response[key])):
             raise AppError("invalid_conversation_references", 500)
     return response
+
+
+def validate_search_result(value):
+    Draft202012Validator({"$defs":public_schemas(),"$ref":"#/$defs/ConversationSearchResult"}).validate(value)
+    return value

@@ -5,13 +5,13 @@ import json
 import re
 from .store import AppError, now, uid
 from .product_migrations import migrate
-from .conversation_schemas import check, visible_response
+from .conversation_schemas import check, visible_response, validate_search_result
 
 CONTRACT_VERSION = "persistent-conversations-v1"
 OPERATIONS = (("GET", "/api/product/conversations"), ("POST", "/api/product/conversations"),
     ("GET", "/api/product/conversation"), ("POST", "/api/product/conversation"),
     ("DELETE", "/api/product/conversation"), ("GET", "/api/product/mindbot-conversation"),
-    ("POST", "/api/product/conversation-turn"))
+    ("POST", "/api/product/conversation-turn"), ("POST", "/api/product/conversations-search"))
 
 
 def encode(value):
@@ -87,6 +87,34 @@ class Conversations:
             rows = db.execute("SELECT * FROM conversations WHERE owner=? AND channel='minder' AND status='active' "
                               "ORDER BY updated_at DESC,id", (owner,)).fetchall()
             return dict(contract_version=CONTRACT_VERSION, conversations=[self.metadata(row) for row in rows])
+
+    def search(self, owner, body):
+        """Literal Unicode casefold substring in titles/visible text, never tools."""
+        check("search", body)
+        query = body["query"].strip()
+        limit, offset = body.get("limit", 20), body.get("offset", 0)
+        term = query.casefold()
+        clause = """FROM conversations c WHERE c.owner=? AND c.channel='minder' AND c.status='active'
+            AND (?='' OR instr(minder_casefold(c.title),?)>0 OR EXISTS(
+                SELECT 1 FROM conversation_messages m WHERE m.owner=c.owner AND m.conversation_id=c.id
+                AND instr(minder_casefold(CASE WHEN m.role='user' THEN json_extract(m.body,'$.text')
+                          ELSE json_extract(m.body,'$.answer') END),?)>0
+                OR (m.owner=c.owner AND m.conversation_id=c.id AND EXISTS(
+                    SELECT 1 FROM json_each(m.body,'$.statements') s
+                    WHERE instr(minder_casefold(CASE WHEN s.type='object'
+                        THEN json_extract(s.value,'$.text') ELSE '' END),?)>0))))"""
+        params = (owner, term, term, term, term)
+        with self.store.connect() as db:
+            db.create_function("minder_casefold", 1, lambda text: text.casefold() if isinstance(text,str) else "",
+                               deterministic=True)
+            db.execute("BEGIN")
+            total = db.execute("SELECT count(*) " + clause, params).fetchone()[0]
+            rows = db.execute("SELECT c.* " + clause + " ORDER BY c.updated_at DESC,c.id LIMIT ? OFFSET ?",
+                              params + (limit, offset)).fetchall()
+            more = offset+len(rows)<total
+            return validate_search_result(dict(contract_version="conversation-search-v1", search_scope="title_and_visible_messages",
+                        conversations=[self.metadata(row) for row in rows], query=query, offset=offset, limit=limit,
+                        has_more=more, next_offset=offset+len(rows) if more else None))
 
     def open(self, owner, body):
         check("open", body)
@@ -258,6 +286,8 @@ def dispatch(app, owner, method, path, body):
     if path.endswith("/mindbot-conversation"):
         check("empty",body)
         return service.mindbot(owner)
+    if path.endswith("/conversations-search"):
+        return service.search(owner, body)
     if path.endswith("/conversations"):
         if method == "GET":
             check("empty",body)
