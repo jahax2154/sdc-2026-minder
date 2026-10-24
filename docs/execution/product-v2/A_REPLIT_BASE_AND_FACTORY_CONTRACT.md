@@ -31,8 +31,12 @@ then uses existing ProductServer/QuietHandler/web_app(app) and the existing
 minder_app.hosted_worker.run(app, stop_event=...). One cohosted worker in one
 Reserved VM. No duplicate scheduler/process/paid training/model probing.
 
-D owns and will commit minder_app.postgres_store.PostgresStore.from_environment().
-Required markers: engine='postgresql', persistence_mode='managed-postgresql'.
+D owns and will commit minder_app.postgres_store.PostgresStore(DATABASE_URL,
+schema=MINDER_DB_SCHEMA or 'minder'). Required markers: engine='postgresql',
+persistence_mode='postgresql', durability_status='configured_host_acceptance_pending',
+volume_root=None; path never contains the DSN. A reads DATABASE_URL only from trusted
+server environment and passes it directly to this constructor, never Path().
+A-N6.0-R01 aligns the initial7d4073f proposal with D's actual early export.
 It provides the ACTUAL Store API and connection/transaction SQL behavior used by
 existing actions/worker/identity/generation/proposals, including current-version
 and idempotency guarantees. Merely assigning these markers is not PG verification.
@@ -47,8 +51,9 @@ The optional store/library arguments are trusted server/test injection only.
 Required runtime env: MINDER_ENV=production, MINDER_AUTH_MODE=managed,
 MINDER_AUTH_PROVIDER=clerk, MINDER_DOCUMENT_STORAGE=replit-app-storage;
 GROQ_MODEL=qwen/qwen3.8-27b and existing private credential, plus D's DATABASE_URL
-and bucket configuration supplied through server-only secrets. D publishes actual
-bucket env names, migration command and sanitized failures with its committed export.
+and MINDER_DOCUMENT_STORAGE_BUCKET_ID supplied through server-only configuration.
+MINDER_DOCUMENT_STORAGE_PREFIX defaults to minder/private/. D publishes migration
+commands and sanitized failures with its committed export.
 No DATABASE_URL/key in browser bundles, Git, logs or cross-thread messages.
 Clerk signature AND online active-session verification remain required. No local
 anonymous login fallback. A factory sets managed_identity_required and binds the
@@ -61,7 +66,11 @@ Approve psycopg[binary]==3.3.6 and replit-object-storage==1.0.2 for this bounded
 port, Python3.12 retained. Verified public PyPI metadata: psycopg requires>=3.10;
 Replit package requires>=3.8,<3.13, uses google-cloud-storage>=2.14,<3 and requests
 >=2.31,<3. E owns deploy/requirements-hosted*.txt lock updates; D may install these
-in its isolated environment for adapter tests. No blanket pip/runtime upgrade,
+in its isolated environment for adapter tests. Approve pgserver==0.1.4 WITHOUT extras as a D-only isolated native PostgreSQL test
+server (PyPI metadata verified; requires>=3.9). It is not a hosted runtime dependency,
+new cloud database, shared DB write or production compatibility claim. Keep its
+binaries/data/test schemas outside Git and stop only its owned local test server.
+https://pypi.org/project/pgserver/0.1.4/ . No blanket pip/runtime upgrade,
 new ORM, provider/model switch or architectural rewrite. Resolve/pin transitive
 compatibility without changing existing unrelated packages. Package/API sources:
 https://pypi.org/project/psycopg/3.3.6/ and
