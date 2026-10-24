@@ -1,6 +1,6 @@
 # A-FG1 — source display and saved-career read contract
 
-Status: backend bounded implementation; frontend and combined acceptance open.
+Status: historical contract handoff; local functional repair now passes. Hosted acceptance remains pending.
 Latest integration/status ledger: [A_FUNCTIONAL_GATE_STATUS.md](A_FUNCTIONAL_GATE_STATUS.md).
 Base A5384b90a24b0cf23dfe55e1535ae4dca38b55dcd, F739a6c3bf62775bee5729e0bd135c3e15bb15a74
 already integrated. F remains exclusive frontend writer. D persistence, E read

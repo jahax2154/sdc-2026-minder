@@ -1,3 +1,6 @@
+Current continuation: [functional gate and exact accepted source](A_FUNCTIONAL_GATE_STATUS.md).
+The two F defects below are now repaired; this report preserves the earlier checkpoint.
+
 # A-UX3 — integrated Home/chat acceptance; two F edge checks remain open
 
 Actual functional runtime: **b8d4b495dd8d9b9e9f7cfbc0716a301f868e66b4**,
