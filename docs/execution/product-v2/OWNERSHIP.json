@@ -1,6 +1,6 @@
 {
-  "version": "product-v2-ownership-v1",
-  "base": "07f60a8e0b3097685f99d0bc68d05edd29021391",
+  "version": "product-v2-ownership-morning-r3",
+  "base": "12856703ef187b09cbcb857b85923890fef331c4",
   "lanes": {
     "A": {
       "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-a",
@@ -80,7 +80,19 @@
         "apps/backend-api/tests/test_conversation.py",
         "apps/backend-api/tests/test_product_concurrency.py",
         "docs/execution/product/llm/frontend-envelope.schema.json",
-        "docs/execution/product/llm/FRONTEND_CONTRACT.md"
+        "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+        "apps/backend-api/minder_app/generation.py",
+        "apps/backend-api/minder_app/generation_schemas.py",
+        "apps/backend-api/minder_app/message_orchestrator.py",
+        "apps/backend-api/minder_app/identity_boundary.py",
+        "apps/backend-api/minder_app/actions.py",
+        "apps/backend-api/minder_app/agents.py",
+        "apps/backend-api/minder_app/worker.py",
+        "apps/backend-api/tests/test_generation.py",
+        "apps/backend-api/tests/test_message_orchestrator.py",
+        "apps/backend-api/tests/test_identity_boundary.py",
+        "docs/Minder_Morning_Completion_Runbook_2026-10-24.md",
+        "docs/minder-approved-product-designs/**"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -102,14 +114,22 @@
         "apps/backend-api/minder_app/documents.py",
         "apps/backend-api/minder_app/document_storage.py",
         "apps/backend-api/tests/test_documents.py",
-        "apps/backend-api/tests/test_document_storage.py"
+        "apps/backend-api/tests/test_document_storage.py",
+        "apps/backend-api/minder_app/store.py",
+        "apps/backend-api/minder_app/conversations.py",
+        "apps/backend-api/minder_app/conversation_schemas.py",
+        "apps/backend-api/minder_app/identity_store.py",
+        "apps/backend-api/minder_app/postgres_store.py",
+        "apps/backend-api/tests/test_conversations.py",
+        "apps/backend-api/tests/test_identity_store.py",
+        "apps/backend-api/tests/test_postgres_store.py"
       ],
       "forbidden": [
         "api.py/product_routes.py central registration",
-        "C store/actions/agents/worker/provider/grounder/config",
         "E product_views/product_content",
         "all frontend",
-        "root contracts/config/scoring without A handoff"
+        "root contracts/config/scoring without A handoff",
+        "A actions/agents/worker/provider orchestration; E auth adapter; F frontend"
       ]
     },
     "E": {
@@ -120,7 +140,12 @@
         "apps/backend-api/data/product-resources.v1.json",
         "apps/backend-api/tests/test_product_views.py",
         "apps/backend-api/tests/test_product_content.py",
-        "docs/execution/product-v2/E/**"
+        "docs/execution/product-v2/E/**",
+        "apps/backend-api/minder_app/auth_adapter.py",
+        "apps/backend-api/minder_app/hosted_worker.py",
+        "apps/backend-api/tests/test_auth_adapter.py",
+        "apps/backend-api/tests/test_hosted_worker.py",
+        "deploy/**"
       ],
       "forbidden": [
         "all migrations/SQL/state writers",
@@ -147,10 +172,6 @@
     },
     "C": {
       "allowed": [
-        "apps/backend-api/minder_app/store.py",
-        "apps/backend-api/minder_app/actions.py",
-        "apps/backend-api/minder_app/agents.py",
-        "apps/backend-api/minder_app/worker.py",
         "apps/backend-api/minder_app/grounding.py",
         "apps/backend-api/minder_app/config.py",
         "apps/backend-api/minder_app/provider_access.py",
@@ -177,7 +198,9 @@
     "new_product_migrations": "D",
     "product_frontend_shell_client_styles_routes_and_package": "F",
     "root_dependencies": "A",
-    "provider_grounder_actions": "C"
+    "provider_grounder_actions": "C factual grounding/provider configuration retained; A model/action orchestration actions/agents/worker; no overlapping writer",
+    "identity_and_conversation_storage": "D",
+    "isolated_auth_adapter_and_host_worker": "E"
   },
   "state_transfer": {
     "authority": "Current user invokes D shared-state scope and existing pack; C final committed362316351ebe90b31c533eb75cff46a851808314 is the inspected clean boundary",
@@ -212,5 +235,6 @@
     ],
     "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer",
     "status": "Active A bounded chat repair ownership; C original allowlist entry removed to enforce one writer"
-  }
+  },
+  "morning_r3": "Current user Revision3 supersedes older deferral/no-deploy text. D sole persistence/migration writer including Store; E auth/host wrapper; A central routes/model/actions; F entire frontend. New dependencies requested to A; no other working directory edits."
 }
