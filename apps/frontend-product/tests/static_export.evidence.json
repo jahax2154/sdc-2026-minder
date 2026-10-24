@@ -1,0 +1,32 @@
+{
+  "static_server": "http://127.0.0.1:9196",
+  "visited": [
+    "careers/matches",
+    "careers/compare",
+    "careers/outlook",
+    "my-path/next",
+    "my-path/roadmap",
+    "my-path/skills",
+    "my-path/progress",
+    "profile/overview",
+    "profile/background",
+    "profile/goals",
+    "profile/skills",
+    "profile/record",
+    "minder",
+    "mindbots"
+  ],
+  "approved_assets_local": true,
+  "login_not_required": true,
+  "example_banner": true,
+  "no_api_requests": true,
+  "no_external_requests": true,
+  "no_live_ai_replies": true,
+  "no_server_changes_or_task_progress_simulated": true,
+  "no_scheduled_action_success": true,
+  "customization_draft_cancel": true,
+  "uploads_unavailable": true,
+  "mobile_navigation": true,
+  "page_errors": [],
+  "http_errors": []
+}
