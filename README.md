@@ -1,13 +1,14 @@
 # Minder — SDC Hackathon 2026
 
-AI-powered career pathway decision-support system.
+An AI-assisted career exploration and personalised reskilling platform that helps students, fresh graduates and early-career professionals understand their existing skills, explore career opportunities and get well-prepared dor future workforce changes.
 
-## Repository
-- apps/web: Frontend
-- apps/api: Backend API
-- ml: ML training, evaluation and inference
-- contracts: Shared API examples and contracts
-- docs: Product and engineering documentation
-- tests: Integration and end-to-end tests
+## Team Information
+| Field | Details |
+|-------|---------|
+| Team Name | AINewBee |
+| Team Domain | Domain 1 - The Aiversity Future-Ready Workforce Domain |
+| SDG Track (1-17) | SDG 4 - Quality Education |
+| Team Leader | Lee Yi Cheng |
+| University | Asia Pacific University, University Technology Malaysia |
+| Number of Members | 3 |
 
-Status: Initial engineering setup.
