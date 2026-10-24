@@ -185,7 +185,7 @@ class QuietHandler(WSGIRequestHandler):
 
 
 def content_security_policy():
-    """Exact configured identity origin; no wildcard or executable inline code."""
+    """Configured identity origin plus Clerk's documented Protect service scope."""
     from minder_app.auth_adapter import AuthConfig
     from minder_app.store import AppError
     import os
@@ -200,12 +200,16 @@ def content_security_policy():
         config = None
     if config is not None:
         origin = config.issuer.rstrip('/')
-        scripts += [origin, 'https://challenges.cloudflare.com']
-        connections += [origin, 'https://clerk-telemetry.com', 'https://img.clerk.com']
+        # Clerk's rotating abuse-protection hosts also use non-443 connection
+        # ports. Keep this fixed provider scope separate from exact overrides.
+        # https://clerk.com/docs/guides/secure/best-practices/csp-headers
+        scripts += [origin, 'https://challenges.cloudflare.com', 'https://*.protect.clerk.com']
+        connections += [origin, 'https://clerk-telemetry.com', 'https://img.clerk.com',
+                        'https://*.protect.clerk.com:*']
         images += [origin, 'https://img.clerk.com']
-        frames += [origin, 'https://challenges.cloudflare.com']
-        # Clerk Protect can require instance-specific subdomains. Provision exact
-        # observed hosts only, rather than opening *.protect.clerk.com or all HTTPS.
+        frames += [origin, 'https://challenges.cloudflare.com', 'https://*.protect.clerk.com']
+        # Optional configured origins remain exact HTTPS hosts, never arbitrary
+        # wildcard domains or ports. Only the fixed Protect scope above rotates.
         for value in os.environ.get('MINDER_CLERK_ADDITIONAL_ORIGINS', '').split(','):
             value = value.strip()
             if not value:
