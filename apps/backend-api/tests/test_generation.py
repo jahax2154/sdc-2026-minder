@@ -31,6 +31,13 @@ class AdviceProvider:
 
 
 class GenerationTests(AppCase):
+    def test_saved_normal_onboarding_notes_are_reused_without_skill_assessment(self):
+        from minder_app.generation import private_context
+        note='Basic Python practice; no paid experience yet.'
+        context=private_context(dict(onboarding=dict(optional_enrichment=note)),[])
+        self.assertEqual(context['onboarding']['optional_enrichment'],note)
+        self.assertEqual(context['reported_skill_inputs'],[])
+
     def test_compact_turn_excludes_full_plan_and_retains_exact_rejected_claim_rule(self):
         self.make_plan()
         claim='There are 9000 jobs waiting for you.'
