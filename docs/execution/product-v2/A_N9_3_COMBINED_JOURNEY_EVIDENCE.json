@@ -1,0 +1,289 @@
+{
+  "checkpoint": "A-N9.3",
+  "status": "passed_local_fresh_journey",
+  "runtime": "http://127.0.0.1:9111",
+  "backend_revision": "d0d9f960732dc3520680f976e8196e1c562eac94",
+  "application_source_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+  "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+  "identity_scope": "New normal local anonymous session, not hosted Clerk acceptance",
+  "normal_onboarding": {
+    "profile_version": "6306af5e-e17e-415b-82b7-f5d1d7cc9fda",
+    "evidence_count": 0,
+    "CV_uploaded": false,
+    "stage": "studying",
+    "context": "Computer science student",
+    "experience_state": "none_yet",
+    "weekly_hours": 3
+  },
+  "no_seeded_profile": true,
+  "CV_uploaded": false,
+  "starter": {
+    "status": "provisional",
+    "policy": "starter-exploration-v1",
+    "profile_version": "6306af5e-e17e-415b-82b7-f5d1d7cc9fda",
+    "coverage": {
+      "supported_considered": 910,
+      "after_explicit_restrictions": 910,
+      "returned": 5,
+      "assessed_personal_scores": 0,
+      "returned_with_supported_market_comparison": 0
+    },
+    "rendered_cards": [
+      "Software Developers",
+      "Network and Computer Systems Administrators",
+      "Software Quality Assurance Analysts and Testers",
+      "Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors",
+      "Computer Programmers"
+    ],
+    "personal_assessment": null
+  },
+  "selected": {
+    "role_id": "onet:15-1252.00",
+    "label": "Software Developers",
+    "direction_version": "86fbd28d-68b4-4de1-b2d2-12541bec9b30"
+  },
+  "generation": {
+    "elapsed_ms": 1418,
+    "status": "completed",
+    "mode": "generated_guidance",
+    "provider": {
+      "coordination_policy": "groq-shared-quota-v1",
+      "generation_protocol": "bounded-roadmap-guidance-v1.1",
+      "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+      "invoked": true,
+      "model": "qwen/qwen3.8-27b",
+      "queue_ms": 0.587,
+      "quota_header_scope": {
+        "requests": "requests_per_day",
+        "tokens": "tokens_per_minute"
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "999",
+        "x-ratelimit-remaining-tokens": "6466",
+        "x-ratelimit-reset-requests": "1m26.4s",
+        "x-ratelimit-reset-tokens": "11.505s"
+      },
+      "request_id": "req_01m5qf77kdev0vt9byytfrp126",
+      "status": "available",
+      "tool_call": {
+        "arguments_validated": true,
+        "id": "c30svb6k6",
+        "name": "propose_guidance"
+      },
+      "transport_attempts": 1,
+      "usage": {
+        "completion_tokens": 383,
+        "prompt_tokens": 1399,
+        "total_tokens": 1782
+      }
+    },
+    "stages": 2
+  },
+  "canonical_plan": {
+    "plan_id": "eedda5e6-f88d-43ac-94cc-cf0a0f0d34d1",
+    "selected_role_id": "onet:15-1252.00",
+    "task_ids": [
+      "85199c24-e495-5b36-90bd-562c5fdd04c9",
+      "a84700ce-0a50-5ad7-9468-079b6c6d48b4"
+    ],
+    "explicit_save_and_separate_activation": true
+  },
+  "four_views": [
+    {
+      "tab": "skills",
+      "heading": "Skills for Software Developers",
+      "plan_id": "eedda5e6-f88d-43ac-94cc-cf0a0f0d34d1"
+    },
+    {
+      "tab": "next",
+      "heading": "Make your next step count",
+      "plan_id": "eedda5e6-f88d-43ac-94cc-cf0a0f0d34d1"
+    },
+    {
+      "tab": "roadmap",
+      "heading": "Your path to Software Developers",
+      "plan_id": "eedda5e6-f88d-43ac-94cc-cf0a0f0d34d1"
+    },
+    {
+      "tab": "progress",
+      "heading": "See what your work adds up to",
+      "plan_id": "eedda5e6-f88d-43ac-94cc-cf0a0f0d34d1"
+    }
+  ],
+  "task_completion": {
+    "before": 0,
+    "after": 1,
+    "denominator": 2,
+    "same_plan_after_refresh": true
+  },
+  "minder_to_mindbot": {
+    "status": "passed",
+    "decision": "approve",
+    "elapsed_ms": 731,
+    "provider": {
+      "coordination_policy": "groq-shared-quota-v1",
+      "generation_protocol": "bounded-schedule-proposal-v1",
+      "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+      "invoked": true,
+      "model": "qwen/qwen3.8-27b",
+      "queue_ms": 0.144,
+      "quota_header_scope": {
+        "requests": "requests_per_day",
+        "tokens": "tokens_per_minute"
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "998",
+        "x-ratelimit-remaining-tokens": "5440",
+        "x-ratelimit-reset-requests": "2m52.8s",
+        "x-ratelimit-reset-tokens": "19.2s"
+      },
+      "request_id": "req_01m5qf79bcewdsnfttezyf8hkq",
+      "status": "available",
+      "tool_call": {
+        "arguments_validated": true,
+        "id": "rhrpyz5q0",
+        "name": "propose_schedule"
+      },
+      "transport_attempts": 1,
+      "usage": {
+        "completion_tokens": 210,
+        "prompt_tokens": 759,
+        "total_tokens": 969
+      }
+    },
+    "action_status": "approval_required",
+    "explore_saved_schedule_visible_after_refresh": true,
+    "one_corresponding_message": true,
+    "exact_turn_replay_no_duplicate": true,
+    "target_changed": true
+  },
+  "saved_schedule": "2026-12-03T15:00:00+08:00",
+  "single_mindbot_conversation": true,
+  "restart": {
+    "status": "passed",
+    "backend_revision": "d0d9f960732dc3520680f976e8196e1c562eac94",
+    "same_plan": true,
+    "same_progress": true,
+    "same_singleton_and_notice_count": true,
+    "approved_proposal_retained": true,
+    "rejected_case": "reused actual prior checkpoint"
+  },
+  "no_artificial_inter_turn_waits": true,
+  "pre_journey_window": {
+    "requested_at": "2026-10-24T17:27:00Z",
+    "scope": "Wait before starting the fresh-user journey; no artificial inter-turn pauses"
+  },
+  "provider_calls": {
+    "native_successes": 2,
+    "transport_attempts": 2,
+    "prompt_tokens": 2158,
+    "completion_tokens": 593,
+    "total_tokens": 2751
+  },
+  "page_errors": [],
+  "reused_evidence": {
+    "rejection": "Actual0311821 core checkpoint; core mutation/frontend files unchanged",
+    "market": "A_N9_2_LIVE_RELEVANCE_EVIDENCE.json; three actual Qwen UI passes; not repeated in this core run"
+  },
+  "served_asset_verification": {
+    "runtime": "http://127.0.0.1:9111",
+    "backend_revision": "d0d9f960732dc3520680f976e8196e1c562eac94",
+    "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+    "public_static_files": [
+      {
+        "path": "app.js",
+        "sha256": "46b88f0de1164767fddb0c9b65d33e8a86349d02aebbc64a27f03bd46da1dd7c",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "client.js",
+        "sha256": "f35ce2c0876edf9742db7190168378910823c13267d08d4e7a964dfb74c0b9a8",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "chat-renderer.js",
+        "sha256": "d9e1249061478c87413bdd1ce1cd89187f64f390782ade60177ee2a9dc37455b",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/careers.js",
+        "sha256": "04a638a66d480883a7a4e11d860a93112a85403ba03a018b6b1e31bafc758cd0",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/profile.js",
+        "sha256": "03c3d82af17448f12b1a6d95df3112c20d4d37454fdb08d5c00c87e657e90e60",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/starter-matches.js",
+        "sha256": "a8967295c36ff36cb0f09a18dce5247aba5143aa519266bbfa40dde274e49123",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/minder.js",
+        "sha256": "19dc39a5a937600c063a4b4ae3a29f297d10f4e8133accec4fb501f025d63104",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/mindbots.js",
+        "sha256": "a75ea5c5bbaa1337e2b83e7ba47a2f12bfd58ad063af123aa688446433146881",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/my-path.js",
+        "sha256": "9a48dba4ed46009a23c50073e9076c4eb005813f46cb4f8bba56176da78939d2",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/task-controls.js",
+        "sha256": "d81b403126235d6b8321a65e25da51049ed253cc0cae04f71cbe4c1671f7fa05",
+        "matches_committed_handoff": true
+      }
+    ],
+    "no_provider_call": true,
+    "no_authentication_or_profile_created": true
+  },
+  "checks": {
+    "locked_backend": {
+      "tests": 227,
+      "seconds": 14.122,
+      "skips": 0,
+      "result": "passed; provider fixtures"
+    },
+    "native_postgresql": {
+      "tests": 136,
+      "seconds": 12.244,
+      "restart_fresh_process": "passed",
+      "result": "actual isolated PostgreSQL16.2; provider fixtures"
+    },
+    "deploy": {
+      "tests": 16,
+      "seconds": 0.209,
+      "result": "passed; hosted/auth fixtures"
+    }
+  },
+  "private_evidence_directory": "/private/tmp/minder-a-combined-current-explore",
+  "remaining_limits": [
+    "Three-market-question ordinary-paced test hit the shared daily token quota; later targeted answers passed.",
+    "Local anonymous journey does not waive hosted Clerk login/two-user isolation, production persistence or durable CV browser acceptance.",
+    "E source/config reconciliation and safe publish prerequisites remain separate."
+  ],
+  "post_restart_owned_state": {
+    "canonical_plan_count": 1,
+    "task_count": 2,
+    "completed_tasks": 1,
+    "mastery_verified_tasks": 0,
+    "profile_competency_evidence_count": 0,
+    "saved_schedule": "2026-12-03T15:00:00+08:00",
+    "single_mindbot_room": true,
+    "mindbot_messages": 3,
+    "minder_messages": 2,
+    "read_only_query": true,
+    "scope": "Exact owned synthetic browser account after the real server restart; no session tokens or unrelated owners read"
+  }
+}

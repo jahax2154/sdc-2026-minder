@@ -34,3 +34,11 @@ publishing. Verify the managed-development preview honestly as preview, fix the
 actual auth/startup/origin/VM prerequisites, then request a new publish review with
 the supported production-data flow. Do not label development storage as production
 or bypass the existing review rejection. Production persistence needs actual tests.
+
+Acceptance follow-up: A_N9_3_COMBINED_JOURNEY.md now records a fresh normal-intake
+local journey PASS on d0d9f960732dc3520680f976e8196e1c562eac94, whose application
+code is byte-identical to this31e85cb candidate. The previously open Explore saved-
+schedule display and actual same-revision restart passed. Two native Qwen calls,
+no inter-turn pause, no CV/anchors/fixtures. Hosted auth/CV/durability and the older
+quota-limited three-question conversation remain separate; preserve E's current
+configuration checkpoint and integrate only committed source/config handoffs.

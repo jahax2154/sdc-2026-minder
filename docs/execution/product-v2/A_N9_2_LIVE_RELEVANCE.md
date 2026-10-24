@@ -95,3 +95,8 @@ development database as production proof. E is obtaining strict authenticated
 managed-development preview startup and verified origin/VM configuration before
 seeking a new publish review through the supported production-DB creation flow.
 Actual production durability/isolation remains a post-publish acceptance check.
+
+Follow-up A-N9.3: the current fresh-user combined journey now PASSES, including
+actual approved schedule visible in Explore after refresh and same-revision server
+restart. See A_N9_3_COMBINED_JOURNEY.md. The old unexercised-Explore status above
+records this earlier checkpoint; it is not rewritten as a historical pass.
