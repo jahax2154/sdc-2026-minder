@@ -2,6 +2,7 @@ import {api,optional,key} from '../client.js';
 import {card,esc,bind,diffLabel,facts} from '../ui.js';
 import {svg} from '../icons.js';
 import {mindbotChat} from './mindbot-chat.js';
+import {dailyAutomation} from './daily-automation.js';
 export async function mindbots(ctx){
  ctx.view.className='page-main agent-page';
  const hasActivity=false,state={};
@@ -55,16 +56,16 @@ export async function mindbots(ctx){
   if(result.history.length)reveal();el.innerHTML=result.history.length?'':card('Saved actions','<p>No saved actions yet.</p>');
   result.history.forEach((h,i)=>{const a=h.result?.action||h.action||h;el.insertAdjacentHTML('beforeend',card('Saved action · '+a.execution_status,`<p>${esc(a.reason)}</p><small>${esc(h.created_at||'Time unavailable')} · ${esc(a.approval_state)}</small>${(a.diff||[]).map(diffLabel).join('')}${a.execution_status==='applied'&&a.kind!=='complete_task'?`<button id="undo-${i}" class="secondary">Undo this change</button>`:''}`));const idempotency_key=key();bind('undo-'+i,async()=>{await api('undo',{action_id:a.action_id,expected_state_version:a.resulting_state_version,idempotency_key});await refreshSaved();});});
  });
- function paintSettings(){
+ async function paintSettings(){
   if(!valid()||!settingsLoaded)return;const el=document.querySelector('#botSettings');
   if(ctx.profileStatus==='loading'){el.innerHTML=card('Daily check','<p role="status">Loading saved profile context…</p>');return;}
   if(ctx.profileError){el.innerHTML=card('Daily check','<p>Profile context could not be loaded. Other saved sections remain available.</p><button id="retryBotProfile">Retry profile context</button>');bind('retryBotProfile',()=>ctx.refreshProfile());return;}
   if(!ctx.profile){el.innerHTML=card('Daily check','<p>Save a partial profile to configure your daily check.</p><a href="#profile">My profile →</a>');return;}
-  el.innerHTML=card('Daily check',`<form id="dailySettings"><label>Check time (${esc(ctx.profile.timezone)})<input name="check_time" type="time" value="${esc(settings?.check_time||'08:00')}" required></label><label><input name="enabled" type="checkbox" ${settings?.enabled?'checked':''}> Enable daily check</label><button type="submit">Save daily check</button></form><p>Saving settings does not start a background worker.</p>`);
-  bind('dailySettings',async()=>{const form=document.querySelector('#dailySettings');try{await api('agent-settings',{settings:{enabled:form.elements.enabled.checked,check_time:form.elements.check_time.value},expected_version:settings?.version||null},'PUT');await reloadSettings();}catch(e){if(e.status===409)await reloadSettings();throw e;}});
+  el.innerHTML=card('Daily automation','<div id="dailyAutomationRoot"></div>');await dailyAutomation(ctx,el.querySelector('#dailyAutomationRoot'),settings,reloadSettings);
  }
- const reloadSettings=()=>section('botSettings','Daily check',()=>optional('agent-settings',readOptions),async value=>{settings=value;settingsLoaded=true;await ctx.profileReady;paintSettings();});
- ctx.onProfileLoaded=paintSettings;
+ const reloadSettings=()=>section('botSettings','Daily check',()=>optional('agent-settings',readOptions),async value=>{settings=value;settingsLoaded=true;await ctx.profileReady;await paintSettings();});
+ ctx.onProfileLoaded=()=>{if(!ctx.view.querySelector('#dailyAutomation'))paintSettings();};
+ ctx.onBotResult=()=>Promise.allSettled([reloadProposals(),reloadAgents(),reloadHistory()]);
  async function refreshSaved(){await Promise.allSettled([reloadProposals(),reloadAgents(),reloadHistory(),ctx.refreshProfile()]);}
  // Render the approved frame first; these ordinary reads never request a model/job.
  await Promise.allSettled([chatReady,reloadProposals(),reloadAgents(),reloadHistory(),reloadSettings()]);

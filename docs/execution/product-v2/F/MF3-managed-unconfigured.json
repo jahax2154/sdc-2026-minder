@@ -1,0 +1,10 @@
+{
+  "actual_managed_mode": true,
+  "config_status": "unavailable",
+  "anonymous_allowed": false,
+  "browser_anonymous_session_calls": 0,
+  "explicit_anonymous_post_status": 401,
+  "private_ui_hidden": true,
+  "live_login_claimed": false,
+  "page_errors": []
+}

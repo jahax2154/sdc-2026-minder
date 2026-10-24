@@ -1,6 +1,6 @@
 // Existing anchored assessment controls; secondary to the approved profile presentation.
 import {api,optional,key} from '../client.js';
-import {card,esc,bind} from '../ui.js';
+import {card,esc,bind,sourceAttribution} from '../ui.js';
 export async function profileEvidence(ctx,view){
 let profile=ctx.profile;const append=html=>view.insertAdjacentHTML('beforeend',html);const render=()=>ctx.render();
 async function assessmentEdit(subject, value, method, kind, statement, unit) {
@@ -72,5 +72,5 @@ async function assessmentIntake() {
   };document.querySelector('#work-style').onchange=updateStyle;updateStyle();
   bind('save-style',async()=>{const value=document.querySelector('#style-value').value;await saveAssessment(document.querySelector('#work-style').value,value===''?null:Number(value),'minder-work-style-preference-v1','work_style_preference',document.querySelector('#style-statement').value,'fraction_0_1');await render();});
 }
-await assessmentIntake();
+await assessmentIntake();append(sourceAttribution());
 }
