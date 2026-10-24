@@ -239,5 +239,227 @@ pnpm --filter @workspace/career-compass run build
 ```
 
 
+## How We Use Replit
+
+Replit serves as the primary development and hosting platform for the Aiversecity Career Compass web application. Our team used Replit to develop, test, refine, and deploy the frontend and backend components.
+
+### Development
+
+- **Frontend Development:** Developed the web application using React, TypeScript, Vite, Tailwind CSS, and shadcn/ui.
+- **Backend Development:** Implemented an Express and TypeScript backend to support API communication, external trend-data retrieval, and AI service integration.
+- **UI/UX Design:** Designed and refined the *Calm Horizon* interface, focusing on minimalist layouts, accessible navigation, and a comfortable learning experience.
+- **AI Integration:** Implemented an AI service adapter to communicate with the team's machine-learning service hosted through RunPod.
+- **AI-Assisted Development:** Used Replit Agent to assist with code generation, interface refinement, integration, and testing. Generated changes were reviewed and tested during development.
+
+### Testing
+
+Replit was used to run and verify the application during development, including:
+
+- Frontend component and functionality tests.
+- TypeScript type checking.
+- Production build verification.
+- API and AI integration tests.
+- Responsive interface checks across desktop, tablet, and mobile layouts.
+- Manual testing of CV uploads, career recommendations, skill-gap analysis, and learning pathways.
+
+### Hosting and Deployment
+
+Aiversecity Career Compass is deployed using Replit.
+
+**Live Prototype:** https://aiversecity-career-compass.replit.app
+
+The deployed application provides access to the career exploration platform, including the CV analysis interface, personalised career recommendations, learning pathways, AI scenarios, SDG connections, and the AI career assistant.
+
+### Credentials and Security
+
+Sensitive credentials, including external AI service authentication details, are configured through secure environment settings rather than being hardcoded into frontend source code.
+
+The application is designed to separate backend communication from client-side interactions when accessing external AI services.
+
+### Proof of Replit Usage
+
+Evidence of Replit usage is included in the submission documentation.
+
+**Proof of Use:** [Replit Proof of Use](submission/SDC2026_AINewBee_Replit_POU.pdf)
+
+
+## How We Use RunPod
+
+RunPod is used as the cloud computing platform for the machine-learning component of Aiversecity Career Compass. It supports AI-powered career guidance and skill analysis through a model service integrated with our Replit application.
+
+### Machine Learning Workload
+
+The machine-learning component supports the platform's AI-assisted features, including:
+
+- **Skill Analysis:** Analysing user skill profiles to support personalised career guidance.
+- **Future Skill Recommendations:** Generating suggestions about skills users may develop for their selected career pathways.
+- **AI Career Assistant:** Supporting career-related questions and explanations through the chatbot interface.
+
+The AI-generated recommendations complement the application's explainable skill-matching algorithm and scenario-based assessments.
+
+### RunPod Setup
+
+The team's machine-learning service is hosted using RunPod.
+
+- **Deployment Type:** [Specify GPU Pod or Serverless Endpoint]
+- **Model Name and Version:** [Enter the actual model used]
+- **GPU Type:** [Enter GPU model if using a GPU Pod]
+- **Model Framework:** [Enter actual framework, e.g. PyTorch or Transformers]
+- **Endpoint:** [Enter the deployed inference endpoint or state how the service is accessed]
+
+### Integration with Replit
+
+The application follows this communication flow:
+
+```text
+User
+  |
+  v
+Replit Frontend (React)
+  |
+  v
+Replit Backend (Express)
+  |
+  v
+RunPod ML Service
+  |
+  v
+AI-generated analysis
+  |
+  v
+Career Compass Dashboard
+```
+
+The frontend communicates with the Express backend, which sends structured requests to the RunPod-hosted model service and processes the returned responses.
+
+The platform also retains its existing explainable career-matching and learning-pathway functionality independently of the external AI service.
+
+### Example API Request
+
+The following is a conceptual example of an analysis request. The actual request format must follow the deployed model's API contract.
+
+```json
+{
+  "profile": {
+    "skills": [
+      {
+        "skillId": "python",
+        "level": 3
+      },
+      {
+        "skillId": "sql",
+        "level": 2
+      }
+    ]
+  },
+  "selectedCareerId": "data-analyst",
+  "scenario": "fast"
+}
+```
+
+The model service returns structured analysis that the application can use to present AI-assisted recommendations and explanations.
+
+### Responsible AI and Data Handling
+
+- Uploaded CVs are processed to identify relevant skills.
+- Users can review and correct extracted skills before analysis.
+- AI-generated recommendations are intended to support career decision-making, not guarantee future employment.
+- Model limitations and hypothetical scenario assumptions should be communicated clearly.
+- API credentials must be stored securely and excluded from the public repository.
+
+### Proof of RunPod Usage
+
+Evidence of RunPod usage is included in the submission documentation.
+
+**Proof of Use:** [RunPod Proof of Use](submission/SDC2026_AINewBee_Runpod_POU.pdf)
+
+
+## Challenges & Learnings
+
+During the development of Aiversecity Career Compass, our team encountered several challenges involving system integration, user experience design, data reliability, and project coordination.
+
+### 1. Integrating Frontend, Backend, and Machine Learning
+
+One of our main challenges was integrating the React frontend and Express backend with the machine-learning service developed separately by another team member.
+
+To address this, we adopted a modular architecture with defined API contracts, allowing the web application and ML components to be developed and tested independently.
+
+**What we learned:** Clear API specifications and communication between team members are essential when integrating independently developed software components.
+
+### 2. Designing an Accessible and User-Friendly Interface
+
+Our initial interface contained several information-heavy sections, making the platform potentially overwhelming for users who were unfamiliar with career analytics.
+
+We refined the design into **Calm Horizon**, a minimalist interface using sage-green accents, simplified navigation, spacious layouts, and clearer learning pathways.
+
+**What we learned:** Effective UI/UX design is not simply about visual appearance. Presenting information progressively can make complex features easier to understand and encourage users to continue learning.
+
+### 3. Providing Explainable Career Recommendations
+
+Career recommendation systems can become difficult for users to trust when they cannot understand how recommendations are generated.
+
+We addressed this by using transparent skill-coverage scoring, displaying relevant skill gaps, and explaining the assumptions behind future AI-disruption scenarios.
+
+**What we learned:** Explainability and transparency are important when building AI-assisted systems that support personal decisions.
+
+### 4. Managing External Trend Data
+
+Our platform incorporates external trend signals, which introduce challenges involving data availability, accuracy, and interpretation.
+
+We implemented source attribution, publication dates, refresh functionality, and appropriate error-handling mechanisms.
+
+**What we learned:** External information should be presented with its sources and limitations. Published attention or news coverage should not be misrepresented as actual hiring demand.
+
+### 5. Coordinating Development and Version Control
+
+Our team developed different system components across Replit, GitHub branches, and the ML development environment.
+
+Maintaining compatible interfaces and coordinating code changes required careful communication and task allocation.
+
+**What we learned:** Version control, modular development, and clearly assigned responsibilities help teams collaborate more effectively under time constraints.
+
+## Future Improvements
+
+Although Aiversecity Career Compass provides a functional prototype, several improvements could enhance its capabilities and user experience in future versions.
+
+- [ ] **Expanded Career Database** — Support a wider range of industries, occupations, and career pathways.
+- [ ] **Improved Labour-Market Intelligence** — Integrate additional reliable job-market datasets to strengthen future skill recommendations.
+- [ ] **Enhanced AI Recommendations** — Improve model evaluation and recommendation quality using appropriate datasets and testing methods.
+- [ ] **Multilingual Support** — Provide additional language options to improve accessibility for Malaysian users.
+- [ ] **Employer and Education Partnerships** — Explore collaboration with employers and training providers to improve the relevance of career and learning recommendations.
+
+
+## Team
+
+Our team consists of three members working collaboratively on the design, development, documentation, and integration of Aiversecity Career Compass.
+
+| Name | Role | GitHub |
+|---|---|---|
+| [Lee Yi Cheng] | **Full-Stack Developer** — Replit frontend and backend development, UI/UX design, API integration, and deployment | [@yicheng-0612](https://github.com/yicheng-0612) |
+| [Phuah Jun Hong] | **Machine Learning Engineer** — ML model development, training, evaluation, and RunPod integration | [@jahax2154](https://github.com/jahax2154) |
+| [Lau Wen Le] | **Documentation & Project Coordinator** — Technical documentation, project proposal, presentation materials, submission preparation, and team coordination | [@WenLe0317](https://github.com/WenLe0317) |
+
+## Submission Checklist
+
+- [X] Team name, Domain 1, and SDG 4 track are correctly stated.
+- [ ] GitHub repository is publicly accessible to judges.
+- [X] Live Replit application link is working.
+- [ ] Presentation slide deck link has been added.
+- [ ] Demo video link has been added.
+- [ ] Replit proof of use is included in `submission/`.
+- [ ] RunPod proof of use is included in `submission/`.
+- [ ] Preliminary submission document is completed (`SDC2026_TeamName_Preliminary.pdf`).
+- [ ] Technical & Tools Declaration is completed (`SDC2026_TeamName_TechDeclaration.pdf`).
+- [X] All submission documents use the registered team name.
+- [ ] Frontend, backend, and ML source code are available in the final repository.
+- [X] Installation and testing instructions have been verified.
+- [X] No API keys, passwords, or other secrets are committed to GitHub.
+- [ ] Apache License 2.0 is included in the repository.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
+
 
 
