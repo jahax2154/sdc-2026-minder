@@ -12,6 +12,44 @@ def bind(app):
     def handler(owner, channel, message, history, request_id, body):
         return turn(app, owner, channel, message, history, request_id, body)
     app.conversation_turn_handler = handler
+    app.generation_materializer = lambda owner, generation, role_id: materialize(app, owner, generation, role_id)
+
+
+def materialize(app, owner, generation, role_id):
+    """D calls only for explicit draft acceptance, never while discussing advice."""
+    import uuid
+    from .generation import profile_for, validate_advice
+    from .generation_schemas import POLICY_ID
+    if generation.get('policy_version') != POLICY_ID or generation.get('status') != 'unsaved_draft':
+        raise AppError('unsupported_generation_policy')
+    profile = profile_for(app.store, owner, generation.get('profile_version'))
+    if profile['version'] is None:
+        raise AppError('save_partial_profile_before_accepting_plan')
+    role = next((r for r in app.services.roles if r['role_id'] == role_id), None)
+    if role is None or role.get('eligibility') != 'eligible':
+        raise AppError('supported_selected_role_required')
+    advice = validate_advice(generation['advice'], [], [])
+    if advice['operation']['kind'] != 'none' or not advice['stages']:
+        raise AppError('generation_has_no_acceptable_roadmap')
+    tasks, parents = [], []
+    for index, stage in enumerate(advice['stages']):
+        current = []
+        for offset, item in enumerate(stage['tasks']):
+            identifier = str(uuid.uuid5(uuid.NAMESPACE_URL,
+                '|'.join((owner, generation['draft_id'], role_id, str(index), str(offset)))))
+            current.append(identifier)
+            tasks.append(dict(task_id=identifier, title=item['title'],
+                description=stage['title'] + '\n' + item['description'], state='proposed',
+                activity_completion=False, mastery_verified=False, locked=False,
+                prerequisite_task_ids=list(parents), scheduled_at=None,
+                estimated_hours=item['estimated_hours'], evidence_ids=[], skill_ids=[], resource_id=None))
+        parents = current
+    plan = dict(plan_id='generated:'+generation['draft_id'], profile_id=owner, selected_role_id=role_id,
+        state_version='draft', previous_version=None, task_ids=[t['task_id'] for t in tasks], tasks=tasks,
+        progress_event_ids=[], constraints=[])
+    from .plans import check_plan
+    check_plan(plan, profile)
+    return plan
 
 
 def turn(app, owner, channel, message, history, request_id, body):
