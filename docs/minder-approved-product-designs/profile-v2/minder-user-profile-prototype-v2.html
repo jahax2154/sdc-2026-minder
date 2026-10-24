@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Minder — User Profile Prototype v2</title>
+  <style>
+    /* Minder User Profile visual contract: restrained, white, sage, and typographic. */
+    :root {
+      --background: #ffffff;
+      --surface: #ffffff;
+      --ink: #101514;
+      --secondary: #667184;
+      --quiet: #7e8895;
+      --line: #e3e8e5;
+      --line-strong: #d3dbd6;
+      --sage: #eaf1eb;
+      --sage-light: #f5f8f5;
+      --sage-border: #b5c9bb;
+      --forest: #345c46;
+      --forest-dark: #254834;
+      --danger: #b14d48;
+      --shadow: 0 12px 26px rgba(20, 42, 28, .035);
+      --radius: 11px;
+      --sidebar-width: 276px;
+      --font: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { min-width: 320px; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--background); font-family: var(--font); font-size: 15px; -webkit-font-smoothing: antialiased; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { opacity: .46; cursor: not-allowed; }
+    button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid rgba(76, 116, 88, .4); outline-offset: 2px; }
+    a { color: inherit; }
+    .icon { display: inline-block; flex: none; vertical-align: middle; width: 20px; height: 20px; }
+    .app-shell { display: grid; grid-template-columns: var(--sidebar-width) minmax(0, 1fr); min-height: 100vh; }
+    .sidebar { position: sticky; top: 0; height: 100vh; min-height: 690px; display: flex; flex-direction: column; background: #fff; border-right: 1px solid var(--line); padding: 26px 20px 20px; z-index: 5; }
+    .brand { display: flex; align-items: center; gap: 13px; padding: 0 12px; min-height: 38px; }
+    .brand-mark { height: 37px; width: 37px; border-radius: 10px; background: #294d3c; color: white; display: grid; place-items: center; }
+    .brand-mark svg { height: 31px; width: 31px; }
+    .brand-name { font-size: 27px; letter-spacing: -1.55px; font-weight: 790; }
+    .new-conversation { display: flex; width: 100%; gap: 12px; align-items: center; justify-content: center; margin: 33px 0 37px; border: 1px solid var(--line-strong); background: #fff; min-height: 53px; border-radius: 9px; font-size: 14px; font-weight: 620; }
+    .new-conversation:hover, .outline:hover { border-color: #a8bbae; background: #fbfdfb; }
+    .nav-group { margin-bottom: 35px; }
+    .nav-caption { margin: 0 13px 18px; color: var(--secondary); font-size: 11px; letter-spacing: 1.75px; font-weight: 730; }
+    .nav-item { width: 100%; display: flex; align-items: center; justify-content: flex-start; gap: 17px; border: 0; border-radius: 10px; background: none; color: #5b6678; padding: 12px 14px; height: 47px; font-size: 15px; text-align: left; }
+    .nav-item:hover { background: #f8faf8; color: #223a2d; }
+    .nav-item.active { background: #eef3ee; color: #1f3428; font-weight: 650; }
+    .nav-item .icon { height: 21px; width: 21px; }
+    .status-on { margin-left: auto; border: 1px solid #d7e4db; background: #f8faf8; border-radius: 8px; padding: 4px 10px; font-size: 11px; font-weight: 700; color: #264e38; }
+    .sidebar-spacer { flex: 1; }
+    .motivation { margin: 0 6px 16px; padding: 21px 20px 16px; border-radius: 10px; background: #eff5ef; }
+    .motivation .icon { color: #244936; }
+    .motivation strong { display: block; font-size: 15px; margin: 12px 0 7px; font-weight: 700; }
+    .motivation p { margin: 0 0 13px; color: #728078; font-size: 13px; line-height: 1.6; }
+    .motivation button { border: 0; background: none; padding: 0; font-size: 13px; color: #2a5039; font-weight: 650; display: flex; align-items: center; gap: 10px; }
+    .sidebar-account { padding: 16px 0 0; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 12px; min-height: 60px; }
+    .avatar-small { width: 44px; height: 44px; border-radius: 50%; background: #e5ede6; display: grid; place-items: center; font-weight: 750; color: #142019; flex: none; }
+    .account-name { font-weight: 660; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 140px; }
+    .account-subtitle { font-size: 12px; color: #87909c; margin-top: 4px; }
+    .account-more { margin-left: auto; border: 0; background: none; color: #576375; padding: 7px; border-radius: 8px; }
+    .account-more:hover { background: #edf3ed; }
+    .workspace { min-width: 0; }
+    .topbar { height: 80px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 34px 0 55px; gap: 16px; }
+    .breadcrumb { display: flex; align-items: center; gap: 15px; white-space: nowrap; font-size: 13px; }
+    .breadcrumb .muted { color: var(--secondary); }
+    .topbar-right { display: flex; align-items: center; gap: 18px; }
+    .search-shell { height: 44px; width: 244px; border: 1px solid var(--line); border-radius: 9px; display: flex; align-items: center; gap: 11px; padding: 0 15px; color: #8b94a2; font-size: 13px; }
+    .top-divider { height: 29px; width: 1px; background: var(--line); }
+    .ask-minder { border: none; background: #edf2ee; border-radius: 10px; color: #13271a; padding: 12px 18px; display: flex; align-items: center; gap: 10px; white-space: nowrap; font-size: 13px; font-weight: 720; }
+    .ask-minder:hover { background: #e3ece5; }
+    .top-avatar { height: 42px; width: 42px; border-radius: 50%; display: grid; place-items: center; background: #eaf0eb; font-weight: 760; font-size: 13px; }
+    .page-main { padding: 36px 54px 70px; max-width: 1670px; margin: 0 auto; }
+    .page-title { font-size: clamp(35px,3.15vw,51px); letter-spacing: -2.3px; line-height: 1.1; font-weight: 790; margin: 0 0 9px; }
+    .page-subtitle { color: var(--secondary); font-size: clamp(15px,1.45vw,21px); line-height: 1.4; margin: 0; }
+    .overline { font-size: 11px; font-weight: 770; letter-spacing: 1.95px; color: #747d8c; margin-bottom: 12px; }
+    .profile-identity { margin: -20px auto 0; width: fit-content; max-width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .identity-avatar { width: 116px; height: 116px; border-radius: 50%; background: #e6eee7; display: grid; place-items: center; font-weight: 760; font-size: 40px; letter-spacing: -1px; color: #101915; }
+    .identity-name-row { display: flex; align-items: center; gap: 9px; margin-top: 7px; }
+    .identity-name { margin: 0; font-size: 34px; line-height: 1.15; letter-spacing: -1.1px; font-weight: 770; }
+    .identity-edit { border: none; background: none; border-radius: 7px; padding: 5px; display: inline-grid; place-items: center; color: #748279; opacity: .8; }
+    .identity-edit:hover { background: var(--sage); opacity: 1; }
+    .identity-description { margin: 8px 0 0; color: var(--secondary); font-size: 16px; }
+    .identity-form { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+    .identity-form .field-input { width: 245px; }
+    .tabs-scroller { overflow-x: auto; max-width: 1050px; margin: 26px auto 23px; padding: 0 2px 2px; scrollbar-width: thin; }
+    .profile-tabs { width: 100%; min-width: 780px; height: 68px; border: 1px solid #dce3df; border-radius: 40px; display: flex; align-items: center; padding: 8px 10px; background: #fff; }
+    .profile-tab { min-width: 0; flex: 1; height: 48px; border: none; background: transparent; border-radius: 18px; color: #1d2831; display: flex; justify-content: center; align-items: center; gap: 11px; padding: 0 12px; white-space: nowrap; font-size: 14px; font-weight: 570; position: relative; }
+    .profile-tab:not(:first-child)::before { content: ''; position: absolute; left: -1px; top: 12px; height: 24px; width: 1px; background: var(--line); }
+    .profile-tab.selected { background: #eaf2eb; color: #163c26; font-weight: 710; }
+    .profile-tab.selected::before, .profile-tab.selected + .profile-tab::before { opacity: 0; }
+    .profile-tab:not(.selected):hover { background: #f7f9f7; }
+    .profile-tab .icon { width: 21px; height: 21px; }
+    .panel { background: #fff; border: 1px solid #e0e6e2; border-radius: 9px; box-shadow: var(--shadow); padding: 23px 27px; }
+    .profile-panel { max-width: 1310px; margin: 0 auto; }
+    .section-title { display: flex; align-items: center; gap: 18px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .section-title.compact { display: block; padding-bottom: 16px; }
+    .section-title .section-icon { width: 58px; height: 58px; border-radius: 50%; background: var(--sage); display: grid; place-items: center; color: #2d5c42; flex: none; }
+    .section-title h2 { font-size: 25px; margin: 0 0 3px; font-weight: 760; letter-spacing: -.65px; }
+    .section-title p { margin: 0; color: var(--secondary); font-size: 16px; }
+    .section-title.compact h2 { font-size: 24px; }
+    .fact-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .fact { padding: 16px 8px 18px; min-width: 0; border-bottom: 1px solid var(--line); }
+    .fact:nth-child(2n) { padding-left: 43px; border-left: 1px solid var(--line); }
+    .fact:nth-last-child(-n+2) { border-bottom: none; }
+    .fact-label { color: var(--secondary); font-size: 13px; margin-bottom: 8px; }
+    .fact-value { color: #19201c; font-size: 16px; font-weight: 550; overflow-wrap: anywhere; }
+    .fact-value.missing { color: #8992a0; }
+    .callout { margin-top: 5px; padding: 18px 23px; background: #eef5ef; border-radius: 9px; display: flex; align-items: center; gap: 23px; }
+    .callout .callout-icon { display: grid; place-items: center; color: #2a6142; min-width: 48px; padding-right: 17px; border-right: 1px solid #d7e3da; }
+    .callout .callout-copy { min-width: 0; flex: 1; }
+    .callout h3 { margin: 0 0 5px; font-size: 18px; letter-spacing: -.4px; }
+    .callout p { margin: 0; color: var(--secondary); font-size: 15px; line-height: 1.5; }
+    .panel-bottom-link { margin-top: 17px; display: inline-flex; align-items: center; gap: 9px; border: none; background: none; color: var(--forest); text-decoration: underline; text-underline-offset: 3px; font-size: 14px; padding: 1px 4px; }
+    .button { min-height: 43px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 17px; border-radius: 9px; border: 1px solid transparent; font-weight: 650; font-size: 13px; white-space: nowrap; }
+    .button.primary { background: var(--forest); border-color: var(--forest); color: #fff; }
+    .button.primary:hover { background: var(--forest-dark); }
+    .button.outline { border-color: var(--line-strong); background: #fff; color: #27312c; }
+    .button.text-only { background: none; color: #315642; }
+    .button.sm { min-height: 36px; padding: 0 14px; font-size: 13px; }
+    .button.ghost { background: #f8faf8; border-color: #e5ebe5; color: #3c5747; }
+    .row-list { margin-top: 0; }
+    .edit-row { border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(170px, 42%) minmax(0,1fr) 36px; gap: 18px; min-height: 70px; align-items: center; padding: 11px 1px; }
+    .edit-row:last-child { border-bottom: 0; }
+    .row-label { font-size: 15px; font-weight: 650; }
+    .row-hint { margin-top: 4px; color: var(--secondary); font-size: 12px; line-height: 1.45; }
+    .row-value { font-size: 15px; color: #25332a; overflow-wrap: anywhere; }
+    .row-value.empty { color: #929aaa; }
+    .edit-icon { border: none; background: none; color: #273a31; border-radius: 7px; padding: 7px; display: inline-grid; place-items: center; }
+    .edit-icon:hover { background: var(--sage); }
+    .row-editor { display: flex; flex-direction: column; gap: 8px; }
+    .edit-actions { display: flex; justify-content: flex-end; align-items: center; gap: 9px; }
+    .field-input { appearance: none; border: 1px solid #d6ded8; background: #fff; min-height: 48px; padding: 11px 14px; border-radius: 8px; font-size: 14px; width: 100%; color: #1a231d; }
+    .field-input:focus { outline: none; border-color: #47735a; box-shadow: 0 0 0 2px rgba(75,111,85,.11); }
+    .field-input.invalid { border-color: var(--danger); }
+    textarea.field-input { min-height: 83px; resize: vertical; }
+    .inline-error { color: var(--danger); font-size: 12px; margin-top: 6px; }
+    .help-line { padding: 13px 0 0; margin-top: 5px; border-top: 1px solid var(--line); display: flex; align-items: center; gap: 10px; color: #85919b; font-size: 12px; }
+    .tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin: 13px 0 7px; }
+    .skill-tag { display: inline-flex; gap: 9px; align-items: center; background: #f0f5f0; color: #254c36; border: 1px solid #d1dfd3; border-radius: 8px; padding: 7px 12px; font-size: 13px; }
+    .tag-remove { border: 0; background: none; display: inline-grid; place-items: center; padding: 1px; color: #315b40; }
+    .text-action { display: inline-flex; align-items: center; gap: 9px; padding: 6px 2px; border: none; background: none; font-size: 13px; font-weight: 650; color: #245339; }
+    .text-action:hover, .panel-bottom-link:hover { color: #102c1c; }
+    .skill-section { padding: 18px 0 13px; border-bottom: 1px solid var(--line); }
+    .skill-section:last-of-type { border-bottom: none; }
+    .skill-section h3 { font-size: 17px; margin: 0 0 3px; }
+    .skill-section p { color: var(--secondary); font-size: 13px; margin: 0; }
+    .skill-item { display: grid; grid-template-columns: minmax(120px,1fr) minmax(130px, 42%) auto; gap: 15px; align-items: center; border: 1px solid var(--line); border-radius: 9px; padding: 8px 14px; margin-top: 9px; }
+    .skill-item > span { font-size: 14px; font-weight: 580; }
+    .level-tag { font-size: 13px; color: #67776a; }
+    .skill-inline-form { margin-top: 10px; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+    .skill-inline-form > .field-input { width: min(100%,320px); }
+    .skill-inline-form > select.field-input { width: 190px; }
+    .plain-note { padding: 14px 17px; border-radius: 8px; background: #f0f5f0; display: flex; gap: 13px; align-items: center; color: #214632; margin-top: 10px; font-size: 13px; }
+    .plain-note p { color: var(--secondary); margin: 4px 0 0; }
+    .record-accordion { border: 1px solid var(--line); border-radius: 9px; margin-top: 13px; overflow: hidden; }
+    .record-heading { border: none; background: #fff; width: 100%; min-height: 54px; padding: 13px 18px; display: flex; align-items: center; gap: 14px; text-align: left; border-bottom: 1px solid var(--line); font-size: 15px; }
+    .record-heading:hover { background: #f9fbf9; }
+    .record-heading .count { background: #f0f2f4; padding: 5px 10px; border-radius: 20px; color: #828d9b; font-size: 12px; }
+    .record-heading .chevron { margin-left: auto; }
+    .record-body { text-align: center; border-bottom: 1px solid var(--line); padding: 20px 18px 17px; color: var(--secondary); }
+    .record-empty-icon { width: 47px; height: 47px; display: grid; place-items: center; border-radius: 50%; background: #eef4ee; color: #315942; margin: 0 auto 12px; }
+    .record-body strong { color: #14241b; display: block; font-size: 14px; }
+    .record-body p { font-size: 13px; margin: 7px 0 14px; }
+    .record-entry { text-align: left; display: flex; justify-content: space-between; gap: 15px; padding: 12px 7px; border-bottom: 1px solid var(--line); }
+    .record-entry:last-child { border-bottom: 0; }
+    .record-entry strong { color: #172d1c; }
+    .record-entry p { margin: 6px 0 0; }
+    .record-form { max-width: 620px; text-align: left; margin: 6px auto 0; }
+    .record-form label { font-weight: 620; display: block; margin: 10px 0 7px; font-size: 13px; }
+    .record-form .edit-actions { margin-top: 12px; }
+    .setup-heading { margin-bottom: 22px; }
+    .setup-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(265px, 32%); gap: 22px; align-items: start; }
+    .setup-layout.no-help { display: block; max-width: 920px; }
+    .setup-panel { padding: 30px 31px 24px; min-width: 0; }
+    .setup-progress { display: flex; align-items: center; gap: 16px; font-size: 13px; color: #4a5755; }
+    .setup-progress .progress-track { height: 10px; flex: 1; background: #eef0f1; border-radius: 30px; overflow: hidden; }
+    .setup-progress .progress-fill { height: 100%; background: #759180; border-radius: inherit; }
+    .time-pill { display: flex; align-items: center; gap: 7px; background: #f7f8f8; color: #6f7783; border-radius: 20px; padding: 8px 11px; white-space: nowrap; font-size: 12px; }
+    .setup-panel h2 { font-size: clamp(25px,2.3vw,34px); line-height: 1.2; letter-spacing: -.95px; font-weight: 770; margin: 29px 0 6px; }
+    .setup-panel .question-desc { color: var(--secondary); font-size: 16px; margin: 0 0 20px; }
+    .choice-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+    .choice-grid.one-col { display: block; }
+    .choice { display: flex; align-items: center; width: 100%; text-align: left; min-height: 103px; border: 1px solid #e0e6e4; border-radius: 9px; background: #fff; padding: 20px; gap: 19px; color: #14221b; }
+    .choice:hover { border-color: #8eae98; }
+    .choice.chosen { border-color: #6b8d75; background: #f3f7f3; box-shadow: inset 0 0 0 1px rgba(101,138,105,.07); }
+    .choice.one-col { min-height: 72px; padding: 15px 20px; margin-bottom: 10px; }
+    .choice-icon { width: 36px; color: #1e3727; flex: none; }
+    .choice-copy { min-width: 0; flex: 1; }
+    .choice-title { font-size: 14px; font-weight: 690; line-height: 1.35; }
+    .choice-detail { font-size: 12px; color: var(--secondary); line-height: 1.45; margin-top: 4px; }
+    .selection-ring { width: 22px; height: 22px; flex: none; border: 1.5px solid #c5cdd3; border-radius: 50%; display: grid; place-items: center; color: white; }
+    .choice.chosen .selection-ring { border-color: var(--forest); background: var(--forest); }
+    .setup-footer { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .setup-footer-right { display: flex; align-items: center; gap: 9px; }
+    .setup-help { padding: 27px 25px; }
+    .setup-help h3 { font-size: 22px; margin: 0 0 28px; letter-spacing: -.4px; }
+    .help-point { display: flex; align-items: flex-start; gap: 16px; border-bottom: 1px solid var(--line); padding: 0 0 21px; margin-bottom: 22px; }
+    .help-point:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+    .help-icon { display: grid; place-items: center; width: 51px; height: 51px; border-radius: 50%; background: #edf3ed; color: #2a5639; flex: none; }
+    .help-point strong { display: block; font-size: 14px; margin: 3px 0 7px; }
+    .help-point p { margin: 0; color: var(--secondary); font-size: 13px; line-height: 1.55; }
+    .form-field { margin-top: 17px; }
+    .form-field label { display: block; font-size: 14px; font-weight: 620; margin-bottom: 8px; }
+    .form-field label .optional { font-weight: 450; color: var(--secondary); }
+    .form-field .field-input { min-height: 52px; }
+    .note-band { background: #eff5ef; border-radius: 8px; padding: 15px 19px; display: flex; align-items: center; gap: 14px; color: #284d36; margin-top: 24px; }
+    .note-band strong { display: block; font-size: 13px; }
+    .note-band p { color: var(--secondary); font-size: 12px; margin: 4px 0 0; }
+    .review-rows { display: flex; flex-direction: column; gap: 12px; }
+    .review-row { display: grid; grid-template-columns: 54px 1fr 37px; gap: 15px; align-items: center; border: 1px solid var(--line); border-radius: 10px; padding: 16px 17px; min-height: 94px; }
+    .review-icon { width: 51px; height: 51px; border-radius: 50%; background: #edf3ed; display: grid; place-items: center; color: #315641; }
+    .review-row strong { display: block; margin-bottom: 7px; font-size: 14px; }
+    .review-row p { margin: 0; color: var(--secondary); line-height: 1.5; font-size: 14px; }
+    .error-banner { border: 1px solid #e8b9b6; border-radius: 8px; background: #fff6f5; color: #903d37; padding: 11px 14px; margin: 14px 0; font-size: 13px; }
+    .empty-copy { color: var(--secondary); font-size: 14px; line-height: 1.6; }
+    .placeholder-destination { max-width: 880px; margin: 85px auto; text-align: center; }
+    .placeholder-destination .big-graphic { display: grid; place-items: center; width: 73px; height: 73px; margin: 0 auto 20px; border-radius: 20px; background: var(--sage); color: var(--forest); }
+    .placeholder-destination h2 { font-size: 32px; }
+    .placeholder-destination p { color: var(--secondary); line-height: 1.6; max-width: 630px; margin: 0 auto 24px; }
+    .scrim { position: fixed; inset: 0; background: rgba(12,27,18,.24); display: flex; justify-content: flex-end; z-index: 40; }
+    .drawer { background: #fff; width: min(430px,90vw); min-height: 100vh; padding: 30px; box-shadow: -14px 0 50px rgba(13,31,17,.12); }
+    .drawer h2 { font-size: 25px; margin: 22px 0 13px; }
+    .drawer p, .drawer li { color: var(--secondary); line-height: 1.7; }
+    .drawer-close { float: right; }
+    .modal-scrim { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(16,31,21,.26); padding: 20px; }
+    .modal { background: white; border-radius: 14px; width: min(430px,100%); padding: 28px; box-shadow: 0 24px 80px rgba(11,23,17,.15); }
+    .modal h2 { font-size: 24px; margin: 0 0 11px; }
+    .modal p { color: var(--secondary); line-height: 1.6; }
+    .modal .edit-actions { margin-top: 24px; }
+    .toast { position: fixed; z-index: 70; bottom: 20px; right: 22px; background: #234832; color: #fff; padding: 12px 18px; border-radius: 10px; font-size: 13px; box-shadow: 0 10px 35px rgba(23,44,29,.2); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .demo-footnote { text-align: center; font-size: 11px; color: #a0a8a3; margin: 18px auto 0; }
+    @media (max-width: 1260px) { .search-shell { width: 200px; } .page-main { padding: 35px 34px 60px; } .setup-layout { grid-template-columns: minmax(0,1fr) 265px; } .setup-help { padding: 23px 20px; } .identity-avatar { width: 100px; height: 100px; } }
+    @media (max-width: 1060px) { :root { --sidebar-width: 78px; } .sidebar { padding: 20px 11px 13px; min-height: 0; } .brand { justify-content: center; padding: 0; } .brand-name, .new-conversation span, .nav-caption, .nav-item span, .motivation, .account-name-wrap, .account-more, .status-on { display: none; } .new-conversation { margin: 27px 0; } .nav-item { justify-content: center; padding: 10px; } .sidebar-account { justify-content: center; } .topbar { padding-left: 35px; } .setup-layout { display: block; } .setup-help { display: none; } }
+    @media (max-width: 700px) { .app-shell { display: block; } .sidebar { position: static; height: 60px; min-height: 60px; padding: 11px 18px; border-bottom: 1px solid var(--line); border-right: 0; display: block; } .brand { display: flex; justify-content: flex-start; } .brand-name { display: inline; font-size: 23px; } .brand-mark { width: 33px; height: 33px; } .new-conversation, .sidebar nav, .sidebar-spacer, .sidebar-account { display: none; } .topbar { height: 60px; padding: 0 16px; } .breadcrumb { font-size: 11px; gap: 8px; } .search-shell, .top-divider { display: none; } .topbar-right { gap: 9px; } .ask-minder { padding: 9px; font-size: 0; } .ask-minder .icon { width: 18px; } .top-avatar { width: 34px; height: 34px; font-size: 12px; } .page-main { padding: 29px 17px 50px; } .page-title { font-size: 34px; letter-spacing: -1.4px; } .page-subtitle { font-size: 15px; } .profile-identity { margin: 23px auto 0; } .identity-avatar { width: 80px; height: 80px; font-size: 29px; } .identity-name { font-size: 25px; } .identity-description { font-size: 12px; max-width: 280px; line-height: 1.5; } .tabs-scroller { margin: 22px -4px 20px; } .profile-tabs { height: 60px; min-width: 730px; } .profile-tab { height: 43px; font-size: 12px; } .panel { padding: 19px 17px; } .fact-grid { display: block; } .fact { border-bottom: 1px solid var(--line)!important; padding: 14px 0!important; border-left: 0!important; } .fact:last-child { border-bottom: none!important; } .callout { align-items: flex-start; flex-wrap: wrap; gap: 12px; padding: 15px; } .callout .callout-icon { border-right: 0; min-width: 0; } .callout .button { width: 100%; } .section-title h2 { font-size: 22px; } .section-title p { font-size: 13px; line-height: 1.5; } .section-title .section-icon { width: 44px; height: 44px; } .edit-row { grid-template-columns: 1fr 38px; gap: 10px; } .row-label-wrap { grid-column: 1; } .row-value, .row-editor { grid-column: 1; grid-row: 2; } .edit-icon { grid-column: 2; grid-row: 1/3; } .skill-item { grid-template-columns: 1fr; gap: 8px; } .setup-layout { display: block; } .setup-panel { padding: 19px 16px; } .setup-panel h2 { font-size: 25px; } .setup-progress { gap: 10px; } .time-pill { display: none; } .choice-grid { display: block; } .choice { margin-bottom: 10px; min-height: 75px; padding: 14px; } .setup-footer { flex-wrap: wrap; } .setup-footer-right { margin-left: auto; } .review-row { grid-template-columns: 42px 1fr 32px; gap: 9px; padding: 10px; } .review-icon { width: 39px; height: 39px; } }
+    @media (prefers-reduced-motion: no-preference) { .button,.choice,.nav-item,.profile-tab,.edit-icon { transition: background .14s ease, border-color .14s ease; } }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    'use strict';
+    /* A functioning local prototype. No auth, real API, ML, or cloud persistence. */
+    const STORAGE_PROFILE = 'minder:user-profile:prototype-v2';
+    const STORAGE_DRAFT = 'minder:user-profile:draft-v2';
+    const ACCOUNT_DISPLAY_NAME = 'Avery Lim'; // Fictitious account identity for this self-contained preview.
+    const sections = [
+      { id:'overview', name:'Overview', icon:'grid' },
+      { id:'background', name:'Background', icon:'user' },
+      { id:'goals', name:'Goals & Preferences', icon:'target' },
+      { id:'skills', name:'Skills', icon:'bars' },
+      { id:'record', name:'My Record', icon:'document' }
+    ];
+    const stages = [
+      { id:'studying', title:"I'm studying", desc:"I'm currently in school, college, or university.", icon:'graduation' },
+      { id:'entering', title:"I'm entering the workforce", desc:"I'm preparing for my first full-time role.", icon:'briefcase' },
+      { id:'working', title:"I'm working", desc:"I'm currently employed in a professional role.", icon:'laptop' },
+      { id:'changing', title:"I'm changing careers", desc:"I'm moving into a new field or role.", icon:'switch' },
+      { id:'between', title:"I'm between roles", desc:"I'm exploring my next opportunity.", icon:'search' },
+      { id:'other', title:'Something else', desc:'My situation is different from these options.', icon:'more' }
+    ];
+    const studentGoals = [
+      { id:'fit', title:'Discover careers that fit me', desc:'Explore roles that match my interests, strengths, and goals.', icon:'brain' },
+      { id:'internship', title:'Prepare for internships or my first job', desc:'Get guidance on what to learn, build, and apply for.', icon:'briefcase' },
+      { id:'path', title:'Build a path toward a career', desc:'Create a step-by-step plan with skills and milestones.', icon:'bars' },
+      { id:'future', title:'Explore future opportunities', desc:'Learn about emerging roles, industries, and trends.', icon:'compass' },
+      { id:'unsure', title:"I'm not sure yet", desc:'Help me explore my options.', icon:'chat' }
+    ];
+    const otherGoals = [
+      { id:'fit', title:'Discover careers that fit me', desc:'Explore directions that suit my interests and experience.', icon:'brain' },
+      { id:'internship', title:'Prepare for my next role', desc:'Understand what I can build and improve.', icon:'briefcase' },
+      { id:'path', title:'Build a path toward a career', desc:'Plan practical steps toward a role I have in mind.', icon:'bars' },
+      { id:'future', title:'Explore future opportunities', desc:'Discover possible new fields and directions.', icon:'compass' },
+      { id:'unsure', title:"I'm not sure yet", desc:'Explore my options without choosing a role today.', icon:'chat' }
+    ];
+    const svgPaths = {
+      grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+      user:'<path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/>',
+      target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+      bars:'<rect x="4" y="13" width="4" height="8" rx=".5"/><rect x="10" y="8" width="4" height="13" rx=".5"/><rect x="16" y="3" width="4" height="18" rx=".5"/>',
+      document:'<path d="M6 2h8l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v5h5M8 12h8M8 16h8"/>',
+      plus:'<path d="M12 4v16M4 12h16"/>',
+      chevron:'<path d="m9 18 6-6-6-6"/>',
+      down:'<path d="m6 9 6 6 6-6"/>',
+      up:'<path d="m6 15 6-6 6 6"/>',
+      back:'<path d="m15 18-6-6 6-6M9 12h12"/>',
+      arrow:'<path d="M4 12h16m-7-7 7 7-7 7"/>',
+      check:'<path d="m5 12 4 4L19 6"/>',
+      x:'<path d="M18 6 6 18M6 6l12 12"/>',
+      edit:'<path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L9 17l-4 1 1-4L16.5 3.5z"/>',
+      graduation:'<path d="m2 10 10-5 10 5-10 5-10-5zM6 12v5c3 3 9 3 12 0v-5M22 10v7"/>',
+      briefcase:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13c6 4 12 4 18 0"/>',
+      laptop:'<rect x="4" y="4" width="16" height="12" rx="1"/><path d="m2 20 2-4h16l2 4H2z"/>',
+      switch:'<path d="M4 7h16m-5-5 5 5-5 5M20 17H4m5-5-5 5 5 5"/>',
+      search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+      more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>',
+      brain:'<path d="M12 6a3 3 0 0 0-5-2 4 4 0 0 0-3 5 4 4 0 0 0 0 7 4 4 0 0 0 3 5 3 3 0 0 0 5-2V6zM12 6a3 3 0 0 1 5-2 4 4 0 0 1 3 5 4 4 0 0 1 0 7 4 4 0 0 1-3 5 3 3 0 0 1-5-2V6zM8 9v7m8-7v7"/>',
+      compass:'<circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.5 5.1-5.1 2.5 2.5-5.1 5.1-2.5z"/>',
+      chat:'<path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5A8.3 8.3 0 0 1 9 19.3L3 21l1.7-6A8.3 8.3 0 0 1 4 11.5a8.5 8.5 0 1 1 17 0z"/>',
+      bot:'<rect x="4" y="7" width="16" height="14" rx="2"/><path d="M12 3v4M9 3h6M1 12h3m16 0h3"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/><path d="M9 17h6"/>',
+      sprout:'<path d="M12 22V12M12 17c-5 0-8-3-8-8 5 0 8 3 8 8zM12 12c0-5 3-8 8-8 0 5-3 8-8 8z"/>',
+      sparkle:'<path d="m12 2 2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z"/>',
+      info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/>',
+      clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/>',
+      library:'<path d="M4 6h5v15H4zM10 3h5v18h-5zM16 8h5v13h-5z"/>',
+      paperclip:'<path d="m21 11.5-8 8a6 6 0 0 1-8.5-8.5l9-9a4 4 0 0 1 5.7 5.7L9 17.9a2 2 0 0 1-2.8-2.8l9-9"/>'
+    };
+    const icon = (name, size=20) => `<svg class="icon" viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${svgPaths[name]||svgPaths.info}</svg>`;
+    const esc = v => String(v == null ? '' : v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+    const read = (key, defaultValue=null) => { try { const s=localStorage.getItem(key); return s ? JSON.parse(s) : defaultValue; } catch { return defaultValue; } };
+    const write = (key,value) => { try { localStorage.setItem(key,JSON.stringify(value)); return true; } catch { return false; } };
+    const blankDraft = () => ({ stage:null,goal:null,context:'',educationLevel:'',institution:'',enrichment:'',interests:[] });
+    function initials(name) {
+      const words = String(name||'').trim().split(/\s+/u).filter(Boolean);
+      if (!words.length) return '?';
+      const graphemes = s => (typeof Intl.Segmenter === 'function' ? Array.from(new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(s), x=>x.segment) : Array.from(s));
+      return (words.length === 1 ? graphemes(words[0]).slice(0,2).join('') : graphemes(words[0])[0]+graphemes(words[words.length-1])[0]).toLocaleUpperCase();
+    }
+    const demoProfile = () => ({ version:2,displayName:ACCOUNT_DISPLAY_NAME,stage:'studying',goal:'fit',context:'Computer Science / Artificial Intelligence',educationLevel:'Undergraduate degree',institution:'',interests:[],preferredWorkAreas:'',enrichment:'',skills:[{id:'python',name:'Python',level:'Learning',source:'self-reported'},{id:'problem-solving',name:'Problem solving',level:'Practicing',source:'self-reported'}],records:{projects:[],achievements:[],files:[]},createdAt:new Date().toISOString(),updatedAt:new Date().toISOString() });
+    let profile = read(STORAGE_PROFILE);
+    if (!profile && new URLSearchParams(location.search).get('demo') === 'profile') { profile=demoProfile(); write(STORAGE_PROFILE,profile); }
+    let draft = Object.assign(blankDraft(),read(STORAGE_DRAFT)||{});
+    let route = '';
+    let edit = null;
+    let error = '';
+    let modal = null;
+    let pendingRoute = null;
+    let drawer = false;
+    let recordOpen = 'projects';
+    let toast = '';
+    let returnFocus = null;
+    let toastTimer = null;
+    const draftSave = () => write(STORAGE_DRAFT,draft);
+    const stageById = id => stages.find(x=>x.id===id);
+    const goalById = (id,stage) => (stage==='studying'?studentGoals:otherGoals).find(x=>x.id===id);
+    const sectionById = id => sections.find(x=>x.id===id);
+    function contextDefinition(stage,goal) {
+      if (stage === 'studying') {
+        if (goal==='fit'||goal==='internship') return {title:"What are you studying?",label:'Field of study',placeholder:'e.g. Computer Science / Artificial Intelligence',required:true,study:true,desc:'We use your current studies as a starting point, not a limit on your options.'};
+        if (goal==='path') return {title:'Which career are you interested in?',label:'Career or role',placeholder:'e.g. Robotics Engineer',required:true,desc:'A rough direction is enough—you can change it later.'};
+        if (goal==='future') return {title:'Which fields or technologies interest you?',label:'Interests',placeholder:'e.g. AI, Robotics, Healthcare',required:false,desc:'Any topic that catches your curiosity is useful.'};
+        return {title:'Which subjects or activities do you enjoy?',label:'Subjects or activities',placeholder:'e.g. Mathematics, coding, design',required:false,desc:'You can leave this open if you are still exploring.'};
+      }
+      if (stage==='changing' && goal==='path') return {title:'Which career would you like to move toward?',label:'Career or role',placeholder:'e.g. Data Scientist',required:false,desc:'A direction is helpful but not required.'};
+      if (stage==='changing') return {title:'What kind of work do you do now?',label:'Current role or field',placeholder:'e.g. Operations coordinator',required:false,desc:'Use a broad description if you prefer.'};
+      if (stage==='entering') return {title:'What did you study or learn most recently?',label:'Study or experience',placeholder:'e.g. Diploma in Business',required:false,desc:'Formal and informal experience both count.'};
+      if (goal==='path') return {title:'Which career are you interested in?',label:'Career or role',placeholder:'e.g. UX Designer',required:false,desc:'Any starting direction works.'};
+      if (goal==='future') return {title:'Which fields interest you?',label:'Interests',placeholder:'e.g. Green energy, software',required:false,desc:'You can explore beyond your current work.'};
+      return {title:'What would you like Minder to know about your background?',label:'Current background',placeholder:'Describe your studies or experience briefly',required:false,desc:'A short answer is enough; you can fill in details later.'};
+    }
+    const currentContext = () => contextDefinition(draft.stage,draft.goal);
+    const hashPath = () => decodeURIComponent(location.hash.replace(/^#\/?/,''));
+    const defaultRoute = () => profile ? 'profile/overview' : 'profile/setup/situation';
+    function normalizePath(path) {
+      if (!path) return defaultRoute();
+      if (path.startsWith('profile/setup/')) return profile ? 'profile/overview' : path;
+      if (path.startsWith('profile/')) return profile ? (sectionById(path.split('/')[1])?path:'profile/overview') : 'profile/setup/situation';
+      if (path.startsWith('explore/') || path==='minder-chat'||path==='mindbot'||path==='roadmap'||path==='tasks'||path==='workspace') return path;
+      return defaultRoute();
+    }
+    function go(path) {
+      path=normalizePath(path);
+      if (edit && isDirty() && path!==route) { pendingRoute=path; modal='discard'; render(); return; }
+      if (edit && path!==route) edit=null;
+      error=''; drawer=false; route=path;
+      const hash='#/'+path;
+      if (location.hash!==hash) location.hash=hash; else render();
+    }
+    function isDirty() { return !!edit && JSON.stringify(edit.value)!==JSON.stringify(edit.original); }
+    function notify(message) { toast=message; clearTimeout(toastTimer); render(); toastTimer=setTimeout(()=>{toast=''; render();},2800); }
+    function commitProfile(next) {
+      const updated={...next,updatedAt:new Date().toISOString()};
+      if (!write(STORAGE_PROFILE,updated)) { error='Could not save in this browser. Your changes are still here. Check storage permissions and retry.'; render(); return false; }
+      profile=updated; error=''; return true;
+    }
+    function setStage(id) { if (draft.stage!==id) {draft.stage=id;draft.context='';draft.educationLevel='';draft.institution='';} draftSave(); render(); }
+    function setGoal(id) { if (draft.goal!==id) {draft.goal=id;draft.context='';} draftSave(); render(); }
+    const setupRoutes = ['situation','objective','context','optional','review'];
+    function setupBack(current) { const i=setupRoutes.indexOf(current); go('profile/setup/'+setupRoutes[Math.max(0,i-1)]); }
+    function nextSetup(step) {
+      error='';
+      if (step==='situation') { if (!draft.stage) { error='Please select your current situation.'; render(); return; } go('profile/setup/objective'); }
+      if (step==='objective') { if (!draft.goal) { error='Please choose what you would like help with.'; render(); return; } go('profile/setup/context'); }
+      if (step==='context') { if (currentContext().required && !draft.context.trim()) { error='Please enter your field of study or choose “Not sure yet”.'; render(); return; } go('profile/setup/optional'); }
+      if (step==='optional') go('profile/setup/review');
+    }
+    function createProfile() {
+      error='';
+      if (!draft.stage || !draft.goal || (currentContext().required&&!draft.context.trim())) { error='Please complete the three questions before creating your profile.'; render(); return; }
+      const next={version:2,displayName:ACCOUNT_DISPLAY_NAME,stage:draft.stage,goal:draft.goal,context:draft.context.trim(),educationLevel:draft.educationLevel,institution:draft.institution.trim(),enrichment:draft.enrichment.trim(),interests:draft.interests.slice(),preferredWorkAreas:'',skills:[],records:{projects:[],achievements:[],files:[]},createdAt:new Date().toISOString()};
+      if (!commitProfile(next)) return;
+      try { localStorage.removeItem(STORAGE_DRAFT); } catch {}
+      draft=blankDraft(); go('profile/overview'); notify('Your profile has been created.');
+    }
+    function beginEdit(field,scope='profile') {
+      if (!profile) return;
+      const original = scope==='profile' ? (profile[field]??'') : null;
+      edit={scope,field,original:structuredClone(original),value:structuredClone(original)};
+      error=''; render();
+      requestAnimationFrame(()=>document.querySelector('[data-edit-value]')?.focus());
+    }
+    function cancelEdit() { edit=null; error=''; render(); }
+    function saveEdit() {
+      if (!edit) return;
+      error='';
+      if (edit.scope==='profile') {
+        let v=String(edit.value).trim();
+        if (edit.field==='displayName' && (v.length<2||v.length>80)) {error='Use a name between 2 and 80 characters.';render();return;}
+        if (v.length>220) {error='Please keep this field under 220 characters.';render();return;}
+        const next=edit.field==='interestsText'
+          ? {...profile,interests:v.split(',').map(s=>s.trim()).filter(Boolean).slice(0,20)}
+          : {...profile,[edit.field]:v};
+        if (!commitProfile(next)) return;
+      } else if (edit.scope==='skill-add') {
+        const n=String(edit.value.name||'').trim();
+        if (!n || n.length>80) {error='Enter a skill name up to 80 characters.';render();return;}
+        if (profile.skills.some(x=>x.name.toLocaleLowerCase()===n.toLocaleLowerCase())) {error='This skill is already in your profile.';render();return;}
+        const id='skill_'+Date.now().toString(36);
+        if (!commitProfile({...profile,skills:[...profile.skills,{id,name:n,level:edit.value.level||'Learning',source:'self-reported'}]})) return;
+      } else if (edit.scope==='skill-level') {
+        if (!commitProfile({...profile,skills:profile.skills.map(x=>x.id===edit.field?{...x,level:edit.value}:x)})) return;
+      } else if (edit.scope==='record-add') {
+        const title=String(edit.value.title||'').trim();
+        if (!title || title.length>100) {error='Enter a title up to 100 characters.';render();return;}
+        const item={id:'rec_'+Date.now().toString(36),title,description:String(edit.value.description||'').trim(),createdAt:new Date().toISOString(),source:'user-entered'};
+        const rec={...profile.records,[edit.field]:[...profile.records[edit.field],item]};
+        if (!commitProfile({...profile,records:rec})) return;
+      }
+      edit=null; notify('Changes saved to this browser demo.');
+    }
+    function startSkillAdd() { edit={scope:'skill-add',field:'skills',original:{name:'',level:'Learning'},value:{name:'',level:'Learning'}};error='';render();requestAnimationFrame(()=>document.querySelector('[data-edit-name]')?.focus()); }
+    function startSkillLevel(id) { const s=profile.skills.find(x=>x.id===id);if(!s)return;edit={scope:'skill-level',field:id,original:s.level,value:s.level};error='';render(); }
+    function removeSkill(id) { const s=profile.skills.find(x=>x.id===id);if(!s)return;if(commitProfile({...profile,skills:profile.skills.filter(x=>x.id!==id)}))notify(`${s.name} removed from your skills.`); }
+    function startRecordAdd(type) { edit={scope:'record-add',field:type,original:{title:'',description:''},value:{title:'',description:''}};error='';render(); }
+    function discardAndNavigate() { const p=pendingRoute;edit=null;error='';modal=null;pendingRoute=null;go(p||defaultRoute()); }
+    function resetDemo() {
+      try { localStorage.removeItem(STORAGE_PROFILE);localStorage.removeItem(STORAGE_DRAFT); } catch {}
+      profile=null;draft=blankDraft();edit=null;modal=null;error='';pendingRoute=null;recordOpen='projects';go('profile/setup/situation');notify('Demo reset. You can start onboarding again.');
+    }
+    function renderSidebar() {
+      const name=profile?.displayName||ACCOUNT_DISPLAY_NAME;
+      const nav=[['Overview','grid','workspace'],['Explore','compass','explore/career-match'],['Minder Chat','chat','minder-chat'],['Mindbot','bot','mindbot'],['My profile','user','profile/overview']];
+      return `<aside class="sidebar" aria-label="Main navigation">
+        <div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="10"/><circle cx="17" cy="17" r="12" stroke="#fff" stroke-width="1.35"/><path d="M11 25c-5-5-3-15 4-18 5-2 11 2 11 8 0 7-5 13-13 12" stroke="#fff" stroke-width="1.25"/></svg></div><span class="brand-name">minder.</span></div>
+        <button class="new-conversation" type="button" data-route="minder-chat" aria-label="New conversation">${icon('plus')}<span>New conversation</span></button>
+        <nav><div class="nav-group"><div class="nav-caption">YOUR SPACE</div>${nav.map(([label,ic,where])=>`<button type="button" class="nav-item ${where==='profile/overview' && (route.startsWith('profile/'))?'active':''}" data-route="${where}" ${where==='profile/overview' && route.startsWith('profile/')?'aria-current="page"':''}>${icon(ic)}<span>${label}</span>${label==='Mindbot'?'<span class="status-on">ON</span>':''}</button>`).join('')}</div>
+        <div class="nav-group"><div class="nav-caption">KEEP MOVING</div><button type="button" class="nav-item" data-route="roadmap">${icon('target')}<span>My roadmap</span></button><button type="button" class="nav-item" data-route="tasks">${icon('check')}<span>My tasks</span></button></div></nav>
+        <div class="sidebar-spacer"></div><div class="motivation">${icon('sprout')}<strong>A little every day</strong><p>Build the skills, collect the evidence, and let your path take shape.</p><button type="button" data-route="roadmap">Continue roadmap ${icon('arrow',15)}</button></div>
+        <div class="sidebar-account"><div class="avatar-small">${esc(initials(name))}</div><div class="account-name-wrap"><div class="account-name">${esc(name)}</div><div class="account-subtitle">Personal workspace</div></div><button type="button" class="account-more" title="Demo account options" data-action="reset-confirm" aria-label="Demo account options">${icon('more')}</button></div>
+      </aside>`;
+    }
+    function renderTopbar() {
+      const name=profile?.displayName||ACCOUNT_DISPLAY_NAME;
+      return `<header class="topbar"><div class="breadcrumb"><span class="muted">Workspace</span>${icon('chevron',16)}<span>${route.startsWith('profile/')?'My profile':'Preview'}</span></div><div class="topbar-right"><div class="search-shell" aria-hidden="true">${icon('search')}<span>Search anything...</span></div><span class="top-divider"></span><button type="button" class="ask-minder" data-route="minder-chat">${icon('sparkle',19)} Ask Minder</button><span class="top-avatar" title="${esc(name)}">${esc(initials(name))}</span></div></header>`;
+    }
+    function renderIdentity() {
+      const name=profile.displayName;
+      const descr = profile.stage==='studying' ? ['Student',profile.context||'Exploring possibilities'].join(' · ') : [stageById(profile.stage)?.title.replace(/^I'm /,'')||'Exploring', profile.context].filter(Boolean).join(' · ');
+      return `<div class="profile-identity"><div class="identity-avatar" aria-label="Initials ${esc(initials(name))}">${esc(initials(name))}</div>
+      ${edit?.field==='displayName' ? `<div class="identity-form"><label class="sr-only" for="edit-name">Edit your display name</label><input id="edit-name" data-edit-value class="field-input" value="${esc(edit.value)}" maxlength="80"><button type="button" class="button outline sm" data-action="cancel-edit">Cancel</button><button type="button" class="button primary sm" data-action="save-edit">Save</button></div>` : `<div class="identity-name-row"><h2 class="identity-name">${esc(name)}</h2><button type="button" class="identity-edit" data-action="edit-field" data-field="displayName" title="Edit display name" aria-label="Edit display name">${icon('edit',16)}</button></div>`}
+      <p class="identity-description">${esc(descr)}</p></div>`;
+    }
+    function renderTabs(active) {
+      return `<div class="tabs-scroller" id="profile-tabs-scroller"><nav class="profile-tabs" aria-label="Profile sections" role="tablist">${sections.map(s=>`<button class="profile-tab ${s.id===active?'selected':''}" type="button" role="tab" aria-selected="${String(s.id===active)}" aria-controls="profile-content" data-route="profile/${s.id}">${icon(s.icon)}<span>${s.name}</span></button>`).join('')}</nav></div>`;
+    }
+    function profileHeading() { return `<h1 class="page-title">Your profile</h1><p class="page-subtitle">A starting point that grows with you.</p>`; }
+    function fieldValue(field) { return profile[field]==null?'':profile[field]; }
+    function renderInputFor(field) {
+      let opts=null;
+      if (field==='stage') opts=stages.map(x=>[x.id,x.title]);
+      if (field==='goal') opts=(profile.stage==='studying'?studentGoals:otherGoals).map(x=>[x.id,x.title]);
+      if (field==='educationLevel') opts=[['','Not added yet'],['Secondary school','Secondary school'],['Diploma','Diploma'],['Undergraduate degree','Undergraduate degree'],['Postgraduate degree','Postgraduate degree'],['Other','Other']];
+      if (opts) return `<select class="field-input" data-edit-value aria-label="Edit ${esc(field)}">${opts.map(([id,label])=>`<option value="${esc(id)}" ${edit.value===id?'selected':''}>${esc(label)}</option>`).join('')}</select>`;
+      return `<input class="field-input" data-edit-value aria-label="Edit ${esc(field)}" value="${esc(edit.value)}" maxlength="220">`;
+    }
+    function renderEditRow(label,hint,field,display) {
+      const active=edit?.scope==='profile'&&edit.field===field;
+      return `<div class="edit-row"><div class="row-label-wrap"><div class="row-label">${esc(label)}</div><div class="row-hint">${esc(hint)}</div></div>
+      ${active ? `<div class="row-editor">${renderInputFor(field)}<div class="edit-actions"><button type="button" class="button outline sm" data-action="cancel-edit">Cancel</button><button type="button" class="button primary sm" data-action="save-edit">Save changes</button></div></div>` : `<div class="row-value ${display?'':'empty'}">${esc(display||'Not added yet')}</div>`}
+      <button type="button" class="edit-icon" data-action="edit-field" data-field="${field}" aria-label="${display?'Edit':'Add'} ${esc(label)}" title="${display?'Edit':'Add'} ${esc(label)}">${icon(display?'edit':'plus',19)}</button></div>`;
+    }
+    function overviewPanel() {
+      const stage=stageById(profile.stage)?.title||'Not specified';
+      const focus=goalById(profile.goal,profile.stage)?.title||'Not specified';
+      const summary=[['Current stage',stage.replace(/^I'm /,'' )],['Focus',focus],['Education',profile.educationLevel],['Institution',profile.institution]];
+      return `<section class="profile-panel panel" id="profile-content" role="tabpanel"><header class="section-title compact"><h2>Overview</h2><p>Your profile at a glance</p></header>
+      <div class="fact-grid">${summary.map(([label,value])=>`<div class="fact"><div class="fact-label">${label}</div><div class="fact-value ${value?'':'missing'}">${esc(value||'Not added yet')}</div></div>`).join('')}</div>
+      <div class="callout"><span class="callout-icon">${icon('sparkle',33)}</span><div class="callout-copy"><h3>Ready to explore what fits?</h3><p>Start with career paths that align with your profile.</p></div><button type="button" class="button primary" data-route="explore/career-match">Explore Career Match ${icon('arrow',18)}</button></div>
+      <button type="button" class="panel-bottom-link" data-route="profile/background">${icon('edit',17)} Edit profile details</button></section>`;
+    }
+    function backgroundPanel() {
+      return `<section class="profile-panel panel" id="profile-content" role="tabpanel"><header class="section-title compact"><h2>Background</h2><p>Your current situation and education.</p></header><div class="row-list">
+      ${renderEditRow('Current stage','Where you are in your journey right now.','stage',stageById(profile.stage)?.title||'')}
+      ${renderEditRow(profile.stage==='studying'?'Field of study':'Current background','Your main area of study or focus.','context',profile.context)}
+      ${renderEditRow('Education level','Your highest or current level of education.','educationLevel',profile.educationLevel)}
+      ${renderEditRow('Institution','The school or university you attend.','institution',profile.institution)}
+      </div><div class="help-line">${icon('info',17)} Changes will appear across Minder.</div></section>`;
+    }
+    function goalsPanel() {
+      return `<section class="profile-panel panel" id="profile-content" role="tabpanel"><header class="section-title"><span class="section-icon">${icon('target',29)}</span><div><h2>Goals &amp; Preferences</h2><p>What you're working toward, at your own pace.</p></div></header><div class="row-list">
+      ${renderEditRow('Your current focus','What you want to focus on right now.','goal',goalById(profile.goal,profile.stage)?.title||'')}
+      ${renderEditRow('Career interests',"Areas, roles, or topics you're curious about.",'interestsText',(profile.interests||[]).join(', '))}
+      ${renderEditRow('Preferred work areas',"Types of work environments or industries you're open to.",'preferredWorkAreas',profile.preferredWorkAreas||'Open to exploring')}
+      </div><div class="plain-note">${icon('sparkle',23)}<div><strong>Career recommendations can evolve as your goals change.</strong><p>You can add practical constraints later, when building a plan.</p></div><button class="button text-only" type="button" data-route="explore/career-match">Explore career matches ${icon('arrow',16)}</button></div>
+      <button class="panel-bottom-link" type="button" data-action="drawer-help">${icon('info',17)} Why this matters</button></section>`;
+    }
+    function skillsPanel() {
+      const list=profile.skills||[];
+      return `<section class="profile-panel panel" id="profile-content" role="tabpanel"><header class="section-title"><span class="section-icon">${icon('bars',28)}</span><div><h2>Skills</h2><p>Keep track of what you can currently do.</p></div></header>
+      <div class="skill-section"><h3>Your skills</h3><p>Add and manage the skills you want to highlight.</p>${list.length?`<div class="tag-list">${list.map(s=>`<span class="skill-tag">${esc(s.name)}<button type="button" class="tag-remove" data-action="remove-skill" data-id="${esc(s.id)}" aria-label="Remove ${esc(s.name)}">${icon('x',14)}</button></span>`).join('')}</div>`:'<p class="empty-copy" style="margin:12px 0">You haven’t added any skills yet.</p>'}
+      ${edit?.scope==='skill-add'?`<div class="skill-inline-form"><input data-edit-name class="field-input" placeholder="e.g. Python" aria-label="Skill name" value="${esc(edit.value.name)}"><select data-edit-level class="field-input" aria-label="Skill confidence"><option ${edit.value.level==='Learning'?'selected':''}>Learning</option><option ${edit.value.level==='Practicing'?'selected':''}>Practicing</option><option ${edit.value.level==='Confident'?'selected':''}>Confident</option></select><button class="button outline sm" data-action="cancel-edit">Cancel</button><button class="button primary sm" data-action="save-edit">Add skill</button></div>`:`<button type="button" class="text-action" data-action="add-skill">${icon('plus',18)} Add a skill</button>`}</div>
+      <div class="skill-section"><h3>Skill confidence</h3><p>You can describe your level when adding or editing a skill. These are self-reported.</p>${list.map(s=>`<div class="skill-item"><span>${esc(s.name)}</span>${edit?.scope==='skill-level'&&edit.field===s.id?`<select data-edit-value class="field-input" aria-label="Confidence for ${esc(s.name)}">${['Learning','Practicing','Confident'].map(l=>`<option ${l===edit.value?'selected':''}>${l}</option>`).join('')}</select><span><button class="button outline sm" data-action="cancel-edit">Cancel</button> <button class="button primary sm" data-action="save-edit">Save</button></span>`:`<span class="level-tag">${esc(s.level)}</span><button class="edit-icon" data-action="edit-skill-level" data-id="${esc(s.id)}" aria-label="Edit ${esc(s.name)} confidence">${icon('edit',17)}</button>`}</div>`).join('')}${!list.length?'<p class="empty-copy" style="margin:13px 0">Add a skill to describe your confidence level.</p>':''}</div>
+      <div class="plain-note">${icon('sparkle',23)}<div><strong>Minder uses the skills you share as one input.</strong><p>Skill-gap analysis lives in Explore → Skills.</p></div><button type="button" class="button text-only" data-route="explore/skills">Explore skills ${icon('arrow',16)}</button></div></section>`;
+    }
+    function renderRecordBody(type) {
+      const entries=profile.records?.[type]||[];
+      if (recordOpen!==type) return '';
+      const singular=type==='projects'?'project':'achievement';
+      const prompt=type==='projects'?'Add a project, internship, or experience whenever you’re ready.':type==='achievements'?'Add an award, certificate, or milestone when you have one.':'Files are not stored by this local prototype. Real upload needs an authenticated storage API.';
+      return `<div class="record-body">${entries.length?entries.map(x=>`<div class="record-entry"><div><strong>${esc(x.title)}</strong><p>${esc(x.description)}</p></div><span style="color:var(--quiet);font-size:12px">User-entered</span></div>`).join(''):`<span class="record-empty-icon">${icon('document',23)}</span><strong>${type==='files'?'No supporting files yet':'Nothing here yet'}</strong><p>${prompt}</p>`}
+      ${type!=='files' ? edit?.scope==='record-add'&&edit.field===type?`<div class="record-form"><label for="new-record-title">${type==='projects'?'Project':'Achievement'} title</label><input id="new-record-title" class="field-input" data-record-title value="${esc(edit.value.title)}" placeholder="Enter a title"><label for="new-record-desc">Description (optional)</label><textarea id="new-record-desc" class="field-input" data-record-desc placeholder="What did you do?">${esc(edit.value.description)}</textarea><div class="edit-actions"><button class="button outline sm" data-action="cancel-edit">Cancel</button><button class="button primary sm" data-action="save-edit">Save ${singular}</button></div></div>`:`<button type="button" class="button outline sm" data-action="add-record" data-type="${type}">${icon('plus',18)} Add ${singular}</button>`:''}</div>`;
+    }
+    function recordPanel() {
+      const rows=[['projects','Projects & experience'],['achievements','Achievements & certificates'],['files','Supporting files']];
+      return `<section class="profile-panel panel" id="profile-content" role="tabpanel"><header class="section-title"><span class="section-icon">${icon('document',28)}</span><div><h2>My Record</h2><p>A place for your projects, achievements, and evidence.</p></div></header><div class="record-accordion">
+      ${rows.map(([id,label])=>`<button class="record-heading" type="button" data-action="record-toggle" data-type="${id}" aria-expanded="${recordOpen===id}"><span>${label}</span><span class="count">${profile.records?.[id]?.length||0} added</span><span class="chevron">${icon(recordOpen===id?'up':'chevron',18)}</span></button>${renderRecordBody(id)}`).join('')}
+      </div><div class="plain-note">${icon('sparkle',21)} You can build your record over time—it doesn’t need to be complete today.</div></section>`;
+    }
+    function renderProfile() {
+      const section=route.split('/')[1]||'overview';
+      const panel={overview:overviewPanel,background:backgroundPanel,goals:goalsPanel,skills:skillsPanel,record:recordPanel}[section]||overviewPanel;
+      return `<main class="page-main">${profileHeading()}${renderIdentity()}${renderTabs(section)}${error?`<div class="error-banner" role="alert">${esc(error)}</div>`:''}${panel()}<p class="demo-footnote">Interactive preview • Synthetic sample identity • Browser-local demo data</p></main>`;
+    }
+    function setupHeading(step) {
+      const specs={situation:['GETTING STARTED',"Let's get to know you",'Three quick questions help Minder make your path more relevant.'],objective:['YOUR DIRECTION','What brings you to Minder?',"We'll start with the kind of support that matters to you."],context:['YOUR BACKGROUND',"Tell us a little about yourself",'Just enough context to make your first exploration useful.'],optional:['OPTIONAL','Anything else you want to share?',"Your profile can grow over time. This step is optional."],review:['ALMOST THERE','Review your profile','Make sure these details look right before you continue.']};
+      const [over,title,sub]=specs[step]||specs.situation;
+      return `<header class="setup-heading"><div class="overline">${over}</div><h1 class="page-title">${title}</h1><p class="page-subtitle">${sub}</p></header>`;
+    }
+    function progress(step) {
+      const n=step==='situation'?1:step==='objective'?2:3;
+      const label=step==='optional'?'Optional enrichment':step==='review'?'Ready to finish':`Step ${n} of 3`;
+      return `<div class="setup-progress"><span>${label}</span><div class="progress-track" aria-label="Onboarding progress"><div class="progress-fill" style="width:${step==='review'?100:n/3*100}%"></div></div>${step==='review'?'':`<span class="time-pill">${icon('clock',15)} About 2 minutes</span>`}</div>`;
+    }
+    function choice(option,kind,one=false) {
+      const selected=(kind==='stage'?draft.stage:draft.goal)===option.id;
+      return `<button class="choice ${one?'one-col':''} ${selected?'chosen':''}" type="button" data-action="select-${kind}" data-id="${option.id}" aria-pressed="${selected}"><span class="choice-icon">${icon(option.icon,30)}</span><span class="choice-copy"><span class="choice-title">${esc(option.title)}</span><span class="choice-detail">${esc(option.desc)}</span></span><span class="selection-ring">${selected?icon('check',13):''}</span></button>`;
+    }
+    function setupFooter(step,primary='Continue',skippable=false) {
+      return `<div class="setup-footer"><button type="button" class="button outline" data-action="setup-back" ${step==='situation'?'disabled':''}>${icon('back',18)} Back</button><div class="setup-footer-right">${skippable?`<button type="button" class="button text-only" data-action="skip-optional">Skip for now</button>`:''}<button type="button" class="button primary" data-action="setup-next" data-step="${step}">${primary} ${icon('arrow',18)}</button></div></div>`;
+    }
+    function helpSidebar() {
+      return `<aside class="setup-help panel"><h3>Why we ask this</h3><div class="help-point"><span class="help-icon">${icon('target',26)}</span><div><strong>Relevant recommendations</strong><p>Your answers help us show more appropriate career paths and resources.</p></div></div><div class="help-point"><span class="help-icon">${icon('compass',26)}</span><div><strong>A clearer next step</strong><p>We can focus on what matters to you right now.</p></div></div><div class="help-point"><span class="help-icon">${icon('check',26)}</span><div><strong>You can always update this</strong><p>Your interests and circumstances may change; your profile can too.</p></div></div></aside>`;
+    }
+    function renderSituation() {return `<h2>Where are you in your journey?</h2><p class="question-desc">Choose what best describes you right now.</p><div class="choice-grid">${stages.map(o=>choice(o,'stage')).join('')}</div>${setupFooter('situation')}`;}
+    function renderObjective() {return `<h2>What would you like help with?</h2><p class="question-desc">You can explore other paths later.</p><div class="choice-grid one-col">${(draft.stage==='studying'?studentGoals:otherGoals).map(o=>choice(o,'goal',true)).join('')}</div>${setupFooter('objective')}`;}
+    function renderContext() {
+      const cfg=currentContext();
+      return `<h2>${esc(cfg.title)}</h2><p class="question-desc">${esc(cfg.desc)}</p><div class="form-field"><label for="setup-context">${esc(cfg.label)}</label><input class="field-input" id="setup-context" data-draft="context" maxlength="180" value="${esc(draft.context)}" placeholder="${esc(cfg.placeholder)}" list="study-suggestions"><datalist id="study-suggestions"><option value="Computer Science / Artificial Intelligence"><option value="Engineering"><option value="Business"><option value="Design"><option value="Mathematics"></datalist></div>
+      ${cfg.study?`<div class="form-field"><label for="setup-education">Education level <span class="optional">(optional)</span></label><select id="setup-education" data-draft="educationLevel" class="field-input"><option value="">Select your current level</option>${['Secondary school','Diploma','Undergraduate degree','Postgraduate degree','Other'].map(x=>`<option ${draft.educationLevel===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="form-field"><label for="setup-institution">Institution <span class="optional">(optional)</span></label><input id="setup-institution" class="field-input" maxlength="140" data-draft="institution" value="${esc(draft.institution)}" placeholder="Search or enter your institution"></div>`:''}
+      ${cfg.required?'<button class="text-action" type="button" data-action="undecided">I haven’t decided yet</button>':''}<div class="note-band">${icon('sparkle',25)}<div><strong>You can edit your profile at any time.</strong><p>These answers are a starting point, not a restriction.</p></div></div>${setupFooter('context','Continue')}`;
+    }
+    function renderOptional() {return `<h2>Anything else you'd like Minder to know?</h2><p class="question-desc">You can share interests, projects, or abilities you've tried. This is entirely optional.</p><div class="form-field"><label for="enrichment">Additional context <span class="optional">(optional)</span></label><textarea class="field-input" id="enrichment" rows="4" maxlength="400" data-draft="enrichment" placeholder="e.g. I enjoy Python and small robotics projects">${esc(draft.enrichment)}</textarea></div><div class="note-band">${icon('info',22)}<div><strong>You do not need a complete profile to begin.</strong><p>Constraints like available hours and budget come later, when relevant.</p></div></div>${setupFooter('optional','Continue to review',true)}`;}
+    function renderReview() {
+      const ctx=[draft.context,draft.educationLevel].filter(Boolean).join(' · ')||'Not specified yet';
+      const rows=[['Your journey',stageById(draft.stage)?.title||'Not specified','graduation','situation'],['What you want help with',goalById(draft.goal,draft.stage)?.title||'Not specified','target','objective'],['Your background',ctx,'compass','context']];
+      if (draft.enrichment.trim()) rows.push(['Additional context',draft.enrichment,'sparkle','optional']);
+      return `<h2>Almost ready to begin</h2><p class="question-desc">Confirm the details that Minder will use as your starting profile.</p><div class="review-rows">${rows.map(([label,value,ic,step])=>`<div class="review-row"><span class="review-icon">${icon(ic,27)}</span><div><strong>${esc(label)}</strong><p>${esc(value)}</p></div><button type="button" class="edit-icon" data-route="profile/setup/${step}" aria-label="Change ${esc(label)}">${icon('edit',20)}</button></div>`).join('')}</div><div class="note-band">${icon('sparkle',24)}<div><strong>You can update this anytime.</strong><p>Your goals and situation can change, and that's okay.</p></div></div><div class="setup-footer"><button class="button outline" type="button" data-action="setup-back">${icon('back',18)} Back</button><button class="button primary" type="button" data-action="create-profile">Create my profile ${icon('arrow',18)}</button></div>`;
+    }
+    function renderSetup() {
+      const step=route.split('/')[2]||'situation';
+      const info=step==='situation'||step==='objective';
+      const contents={situation:renderSituation,objective:renderObjective,context:renderContext,optional:renderOptional,review:renderReview};
+      return `<main class="page-main">${setupHeading(step)}<div class="setup-layout ${info?'':'no-help'}"><section class="setup-panel panel">${progress(step)}${error?`<div class="error-banner" role="alert">${esc(error)}</div>`:''}${(contents[step]||renderSituation)()}</section>${info?helpSidebar():''}</div><p class="demo-footnote">Three-question setup • Optional enrichment • Demo data stays in this browser</p></main>`;
+    }
+    function renderPlaceholder() {
+      const names={'explore/career-match':'Career Match','explore/skills':'Explore Skills','minder-chat':'Minder Chat','mindbot':'Mindbot','roadmap':'My roadmap','tasks':'My tasks','workspace':'Workspace Overview'};
+      const name=names[route]||'Destination';
+      return `<main class="page-main"><div class="placeholder-destination"><span class="big-graphic">${icon('compass',36)}</span><div class="overline">CONNECTED DESTINATION</div><h2>${name}</h2><p>This HTML preview focuses on User Profile. In the production Minder app, this action navigates to the real ${name} module. No career matching, AI results or backend operations are simulated here.</p><button type="button" class="button primary" data-route="${profile?'profile/overview':'profile/setup/situation'}">${icon('back',18)} Return to My profile</button></div></main>`;
+    }
+    function renderDrawer() {return drawer?`<div class="scrim" data-action="drawer-scrim"><aside class="drawer" role="dialog" aria-modal="true" aria-label="Why these details matter"><button type="button" class="button outline sm drawer-close" data-action="close-drawer">${icon('x',17)} Close</button><h2>Why these details matter</h2><p>Your goals and interests tell Minder what kind of guidance you want right now.</p><ul><li>Preferences help prioritize directions to explore; they should remain editable and reversible.</li><li>Missing information remains unknown and should not be filled with guesses.</li><li>Career Match may ask for one missing detail if it needs more evidence to produce a useful result.</li></ul><p>These profile values are not automatically evidence of skill mastery or job suitability.</p></aside></div>`:'';}
+    function renderModal() {
+      if (!modal) return '';
+      const reset=modal==='reset';
+      return `<div class="modal-scrim"><div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description"><h2 id="modal-title">${reset?'Reset the demo profile?':'Discard unsaved changes?'}</h2><p id="modal-description">${reset?'This will clear the sample profile and restart onboarding in this browser.':'You have unsaved edits. You can stay here and save them, or discard only the current unsaved changes.'}</p><div class="edit-actions"><button type="button" class="button outline" data-action="modal-stay">${reset?'Keep profile':'Stay here'}</button><button type="button" class="button primary" data-action="${reset?'reset-demodata':'modal-discard'}">${reset?'Reset demo':'Discard changes'}</button></div></div></div>`;
+    }
+    function render() {
+      const main=route.startsWith('profile/setup/')?renderSetup():route.startsWith('profile/')&&profile?renderProfile():renderPlaceholder();
+      document.getElementById('app').innerHTML=`<div class="app-shell">${renderSidebar()}<div class="workspace">${renderTopbar()}${main}</div></div>${renderDrawer()}${renderModal()}${toast?`<div class="toast" role="status" aria-live="polite">${esc(toast)}</div>`:''}`;
+      if (modal) requestAnimationFrame(()=>document.querySelector('[data-action="modal-stay"]')?.focus());
+      if (drawer) requestAnimationFrame(()=>document.querySelector('[data-action="close-drawer"]')?.focus());
+    }
+    document.addEventListener('click',e=>{
+      const b=e.target.closest('[data-action],[data-route]');if(!b)return;
+      if (b.hasAttribute('data-route')) {go(b.dataset.route);return;}
+      const a=b.dataset.action;
+      if (a==='select-stage') setStage(b.dataset.id);
+      if (a==='select-goal') setGoal(b.dataset.id);
+      if (a==='setup-next') nextSetup(b.dataset.step);
+      if (a==='setup-back') setupBack(route.split('/')[2]);
+      if (a==='skip-optional') {draft.enrichment='';draftSave();go('profile/setup/review');}
+      if (a==='undecided') {draft.context='Undecided';draftSave();render();}
+      if (a==='create-profile') createProfile();
+      if (a==='edit-field') {if(b.dataset.field==='interestsText'){const value=(profile.interests||[]).join(', ');edit={scope:'profile',field:'interestsText',original:value,value};error='';render();}else beginEdit(b.dataset.field);}
+      if (a==='cancel-edit') cancelEdit();
+      if (a==='save-edit') saveEdit();
+      if (a==='add-skill') startSkillAdd();
+      if (a==='edit-skill-level') startSkillLevel(b.dataset.id);
+      if (a==='remove-skill') removeSkill(b.dataset.id);
+      if (a==='record-toggle') {if(edit && isDirty()){error='Save or cancel the current edit before changing sections.';render();return;}recordOpen=recordOpen===b.dataset.type?'':b.dataset.type;edit=null;render();}
+      if (a==='add-record') startRecordAdd(b.dataset.type);
+      if (a==='drawer-help') {drawer=true;returnFocus=b;render();}
+      if (a==='close-drawer'||a==='drawer-scrim') {if(a==='drawer-scrim'&&e.target!==b)return;drawer=false;render();returnFocus?.focus();}
+      if (a==='reset-confirm') {modal='reset';render();}
+      if (a==='modal-stay') {modal=null;pendingRoute=null;render();}
+      if (a==='modal-discard') discardAndNavigate();
+      if (a==='reset-demodata') resetDemo();
+    });
+    document.addEventListener('input',e=>{
+      const t=e.target;
+      if (t.hasAttribute('data-draft')) {draft[t.dataset.draft]=t.value;draftSave();}
+      if (!edit) return;
+      if (t.hasAttribute('data-edit-value')) edit.value=t.value;
+      if (t.hasAttribute('data-edit-name')) edit.value.name=t.value;
+      if (t.hasAttribute('data-edit-level')) edit.value.level=t.value;
+      if (t.hasAttribute('data-record-title')) edit.value.title=t.value;
+      if (t.hasAttribute('data-record-desc')) edit.value.description=t.value;
+    });
+    document.addEventListener('change',e=>{const t=e.target;if(t.hasAttribute('data-draft')){draft[t.dataset.draft]=t.value;draftSave();}if(!edit)return;if(t.hasAttribute('data-edit-value'))edit.value=t.value;if(t.hasAttribute('data-edit-level'))edit.value.level=t.value;});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(modal){modal=null;pendingRoute=null;render();}else if(drawer){drawer=false;render();returnFocus?.focus();}}});
+    window.addEventListener('hashchange',()=>{const requested=normalizePath(hashPath());if(edit&&isDirty()&&requested!==route){history.replaceState(null,'','#/'+route);pendingRoute=requested;modal='discard';render();return;}if(edit&&requested!==route)edit=null;route=requested;error='';drawer=false;render();});
+    // Non-production QA helpers; never surface these as API behavior.
+    window.MinderPreview={getProfile:()=>structuredClone(profile),getDraft:()=>structuredClone(draft),reset:resetDemo,initials};
+    route=normalizePath(hashPath());history.replaceState(null,'','#/'+route);render();
+  </script>
+</body>
+</html>
