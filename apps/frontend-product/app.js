@@ -18,7 +18,7 @@ async function render(){
   const current=++generation;routeController?.abort();routeController=new AbortController();
   document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);
   const route=location.hash.slice(1)||'home', [page,...segments]=route.split('/'),tab=segments.join('/');
-  const sameModule=activeContext?.page===page,stage=view;stage.setAttribute('aria-busy','true');delete stage.dataset.rendered;if(!sameModule){stage.className='page-main product-page';stage.replaceChildren();stage.scrollTop=0;}
+  const sameModule=activeContext?.page===page,stage=view;stage.setAttribute('aria-busy','true');delete stage.dataset.rendered;stage.dataset.route=route;stage.tabIndex=-1;if(!sameModule){stage.className='page-main product-page';stage.replaceChildren();stage.scrollTop=0;}
   document.querySelector('#globalNewChat').hidden=false;document.querySelector('#pageTitle').textContent=({careers:'Careers','my-path':'My Path'}[page]||labels[page]||'Minder');document.querySelector('#error').hidden=true;
   document.querySelectorAll('.nav-link').forEach(a=>{const active=(a.hash||'').split('/')[0]==='#'+page;a.classList.toggle('active',active);a.setAttribute('aria-current',active?'page':'false');});
   if(sameModule&&leaving.tab!==tab&&['careers','my-path'].includes(page)){stage.querySelectorAll('.tabs a').forEach(a=>{const active=a.hash==='#'+page+'/'+tab;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});const body=stage.querySelector('#careerBody,#pathBody');if(body)body.innerHTML='<p role="status">Loading this section…</p>';}
@@ -28,7 +28,7 @@ async function render(){
   document.querySelector('#exploreToggle').classList.toggle('active',['careers','my-path'].includes(page));
   activeContext=ctx;
   ctx.refreshProfile=async()=>{ctx.profileStatus='loading';ctx.profileError=null;try{const profile=await optional('profile',{signal:ctx.signal});if(!ctx.isCurrent())return null;ctx.profile=profile;ctx.profileStatus='ready';setAccountName(profile?.career_context?.display_name||accountName());return profile;}catch(e){if(!ctx.isCurrent()||e.code==='request_cancelled')return null;ctx.profileError=e;ctx.profileStatus='error';if([401,403].includes(e.status))ctx.failAuth(e);return null;}finally{if(ctx.isCurrent())ctx.onProfileLoaded?.();}};
-  if(sameModule&&leaving.tab!==tab&&leaving.profileStatus==='ready'){ctx.profile=leaving.profile;ctx.profileStatus='ready';ctx.profileReady=Promise.resolve(ctx.profile);}else ctx.profileReady=ctx.refreshProfile();
+  ctx.profileReady=ctx.refreshProfile();
   if(!sameModule)stage.innerHTML='<p role="status">Loading your workspace…</p>';
   try{
     if(page==='home'||page==='overview')await home(ctx);else if(page==='minder')await minder(ctx,decodeURIComponent(tab));else if(page==='mindbots')await mindbots(ctx);
