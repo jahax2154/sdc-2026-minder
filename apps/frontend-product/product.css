@@ -42,3 +42,5 @@
 .chat-page .composer textarea,.agent-page .composer textarea{font-size:15px}
 @media(max-width:730px){.chat-page .user-message,.agent-page .user-message{font-size:14px}#exploreChildren{max-width:calc(100vw - 24px);left:12px!important;top:160px!important}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:0s!important;transition-duration:0s!important}}
+
+.panel-loading{display:block;font-size:12px;color:#727984;min-height:18px}.morning-explore .view[aria-busy=true]{cursor:progress}.morning-explore .view{animation:panel-arrive 150ms ease-out}@keyframes panel-arrive{from{opacity:.65}to{opacity:1}}
