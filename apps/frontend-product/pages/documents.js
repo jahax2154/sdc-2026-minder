@@ -43,11 +43,18 @@ export async function documents(ctx,root){
       }
       const draft=result.draft;
       if(draft.status==='reviewed'){review.innerHTML=card('Already reviewed','<p>You already reviewed this text. Edit your saved profile fields above if you want to correct them.</p>');return;}
-      review.innerHTML=card('Review extracted TXT context',`<p>${esc(draft.clarification)}</p><pre class="draft-text">${esc(draft.text)}</pre><form id="applyDocument"><label>Corrected experience<textarea id="documentExperience" maxlength="4000">${esc(draft.text.slice(0,4000))}</textarea></label><button type="submit">Save reviewed context to profile</button></form><p>This records your corrected self-report. It does not assess skills or certify mastery.</p>`);
+      review.innerHTML=card('Review extracted TXT context',`<p>${esc(draft.clarification)}</p><pre class="draft-text">${esc(draft.text)}</pre><form id="applyDocument"><label>Corrected experience<textarea id="documentExperience" maxlength="4000">${esc(draft.text.slice(0,4000))}</textarea></label><button type="submit">Save reviewed context to profile</button></form><p id="documentReviewStatus" role="status"></p><button class="button-outline" id="reloadDocumentReview" type="button" hidden>Reload saved profile before editing</button><p>This records your corrected self-report. It does not assess skills or certify mastery.</p>`);
       let exactBody=null;
       bind('applyDocument',async()=>{
         exactBody??={draft_id:draft.id,expected_profile_version:ctx.profile.version,profile:{career_context:{experience:document.querySelector('#documentExperience').value}},idempotency_key:key()};
-        await api('product/intake-correction',exactBody);await ctx.render();
+        const editor=document.querySelector('#documentExperience'),status=document.querySelector('#documentReviewStatus'),reload=document.querySelector('#reloadDocumentReview');
+        editor.readOnly=true;
+        try{await api('product/intake-correction',exactBody);await ctx.render();}
+        catch(e){
+          if([413,415,422].includes(e.status)){exactBody=null;editor.readOnly=false;status.textContent='The review was rejected. Correct your text before sending again.';}
+          else{status.textContent='This exact review was submitted; its outcome is not confirmed. The text is locked so a retry cannot silently send a different review. Retry the same review or reload the saved profile before editing.';document.querySelector('#applyDocument button').textContent='Retry this exact review';reload.hidden=false;reload.onclick=()=>ctx.render();}
+          throw e;
+        }
       });
     });
     bind('deleteDocument-'+i,async()=>{
