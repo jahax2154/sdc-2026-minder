@@ -121,6 +121,60 @@ def build_hosted(database):
     return app
 
 
+def build_replit(*, store=None, document_library=None):
+    """E's Replit entrypoint. D supplies PostgreSQL/private-object semantics.
+
+    No database URL is coerced to a path, SQLite fallback or volume claim. The
+    injection arguments are trusted server objects, never HTTP/user inputs.
+    """
+    import os
+    import sys
+    sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+    if (os.environ.get('MINDER_ENV') != 'production'
+            or os.environ.get('MINDER_AUTH_MODE') != 'managed'
+            or os.environ.get('MINDER_AUTH_PROVIDER') != 'clerk'
+            or os.environ.get('MINDER_DOCUMENT_STORAGE') != 'replit-app-storage'):
+        raise ValueError('replit_managed_auth_and_private_storage_required')
+    if store is None:
+        try:
+            from minder_app.postgres_store import PostgresStore
+        except ModuleNotFoundError as error:
+            if error.name != 'minder_app.postgres_store':raise
+            raise RuntimeError('D_postgresql_store_handoff_not_integrated') from None
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            raise ValueError('replit_database_url_required')
+        store = PostgresStore(database_url,schema=os.environ.get('MINDER_DB_SCHEMA','minder'))
+    if (getattr(store,'engine',None) != 'postgresql'
+            or getattr(store,'persistence_mode',None) != 'postgresql'):
+        raise ValueError('D_managed_postgresql_store_required')
+    from minder_app.config import load_provider_config
+    config = load_provider_config()
+    if config.model and config.model != MODEL:
+        raise ValueError('preserve_verified_Qwen_product_configuration')
+    from minder_app.model_gateway import CoordinatedGroq
+    provider = CoordinatedGroq(key=config.api_key,model=MODEL)
+    provider.daily_limit = config.daily_limit
+    from .integration_cli import application_for_store
+    app,_ = application_for_store(store,provider=provider)
+    from minder_app.provider_budget import BudgetedProvider
+    BudgetedProvider(store,'bootstrap-no-call',provider)
+    from minder_app.product_migrations import migrate
+    migrate(store)
+    if document_library is None:
+        from minder_app.documents import DocumentLibrary
+        document_library = DocumentLibrary.from_environment(store)
+    if (document_library.store is not store
+            or getattr(document_library.backend(),'mode',None) != 'replit-app-storage'):
+        raise ValueError('D_private_replit_document_backend_required')
+    app.document_library = document_library
+    app.managed_identity_required = True
+    app.runtime_revision = revision()
+    from minder_app.agents import Worker
+    app.scheduled_worker = Worker(store,app.actions,provider=provider,services=app.services)
+    return app
+
+
 class QuietHandler(WSGIRequestHandler):
     def log_message(self, *args):
         pass
