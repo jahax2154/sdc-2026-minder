@@ -259,7 +259,15 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
             code = str(error) if str(error) in ('duplicate_source_quote','unsupported_web_quantity','unexpected_web_url','unsupported_guarantee','unsupported_prediction_term','unsupported_web_intro_quantity') else 'web_schema_or_quote_reference_mismatch'
             provider = dict(provider, status='unavailable', code='public_web_explanation_not_verified', validation_code=code, invoked=True)
         if provider['status'] != 'available':
-            answer_text = 'I retrieved public pages, but could not validate a model explanation. The source links below are available; no unsupported answer is inferred.'
+            if provider.get('code') in ('provider_rate_limited','provider_queue_busy','provider_concurrency_limit','provider_daily_budget_exceeded'):
+                answer_text='I retrieved relevant public sources, but the language service is currently at its usage limit. '
+                if provider.get('retry_after_seconds'):
+                    answer_text+='Its reported retry window is about '+str(max(1,round(provider['retry_after_seconds'])))+' seconds. '
+                answer_text+='Your saved work is unchanged. The sources remain available below; no model answer is being substituted.'
+            elif provider.get('code') in ('public_web_explanation_not_verified','provider_tool_response_invalid'):
+                answer_text='I retrieved public pages, but could not validate the generated explanation. The source links below are available; no unsupported answer is inferred.'
+            else:
+                answer_text='I retrieved public pages, but the language service could not complete an explanation. The source links remain available below; your saved work is unchanged.'
     if retrieved.get('discovery'):
         if retrieved.get('mode')=='search_and_fetch':
             answer_text+='\n\nSource method: Mwmbl web search discovered pages that were fetched separately; predefined official context is labelled in the source details.'

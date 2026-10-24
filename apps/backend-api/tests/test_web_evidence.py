@@ -27,6 +27,18 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_quota_failure_is_not_misrepresented_as_rejected_evidence(self):
+        from minder_app.model_gateway import QuotaError
+        from unittest.mock import Mock
+        self.app.provider.complete_tool=Mock(side_effect=QuotaError('provider_rate_limited',retry_after=37,attempts=0))
+        result=self.app.dispatch('POST','/api/chat',dict(message='What do Malaysian job shortage sources say?'),self.token)
+        self.assertIn('usage limit',result['answer'])
+        self.assertIn('37 seconds',result['answer'])
+        self.assertNotIn('could not validate',result['answer'])
+        self.assertEqual(result['diagnostics']['validation']['status'],'not_run_provider_or_sources_unavailable')
+        self.assertFalse(result['provider']['invoked'])
+        self.assertTrue(result['sources'])
+
     def test_bad_optional_sentence_does_not_discard_supported_sentence(self):
         from minder_app.web_evidence import partial_findings
         kept='This source identifies occupation groups without counting available jobs.'
