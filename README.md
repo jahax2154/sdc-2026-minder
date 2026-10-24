@@ -1,15 +1,15 @@
 # Minder — SDC Hackathon 2026
 
-An AI-assisted career exploration and personalised reskilling platform that helps students, fresh graduates and early-career professionals understand their existing skills, explore career opportunities and get well-prepared dor future workforce changes.
+Minder is an AI-assisted career exploration and personalised reskilling platform that helps students, fresh graduates, and early-career professionals identify their strengths, explore career opportunities, and prepare for future workforce changes.
 
 ## Team Information
 | Field | Details |
 |-------|---------|
 | Team Name | AINewBee |
-| Team Domain | Domain 1 - The Aiversity Future-Ready Workforce Domain |
+| Team Domain | Domain 1 - The Aiversecity Future-Ready Workforce Domain |
 | SDG Track (1-17) | SDG 4 - Quality Education |
 | Team Leader | Lee Yi Cheng |
-| University | Asia Pacific University, University Technology Malaysia |
+| University | Asia Pacific University of Technology & Innovation (APU); Universiti Teknologi Malaysia (UTM) |
 | Number of Members | 3 |
 
 ## Links
@@ -31,7 +31,7 @@ Many career guidance resources provide general recommendations without clearly e
 
 ### Solution
 
-**Aiversecity Career Compass** is an AI-assisted career exploration and personalised reskilling platform designed to help users make informed decisions about their professional development.
+**Minder** is an AI-assisted career exploration and personalised reskilling platform designed to help users make informed decisions about their professional development.
 
 Users can upload a CV/resume or manually enter their skills and proficiency levels. The platform analyses their confirmed skills, recommends suitable career pathways, and identifies skills they may need to develop.
 
@@ -80,8 +80,8 @@ sdc-2026-minder/
 │   └── workflows/          # GitHub workflows
 │
 ├── apps/
-│   ├── web/                # Frontend application (pending merge) **
-│   └── api/                # Backend application (pending merge) **
+│   ├── web/                # Frontend application (pending merge) 
+│   └── api/                # Backend application (pending merge) 
 │
 ├── contracts/              # Shared API contracts
 │
@@ -101,7 +101,7 @@ sdc-2026-minder/
 
 ### Architecture
 
-Aiversecity Career Compass follows a modular full-stack architecture that connects the user interface, application logic, and machine-learning service.
+Minder follows a modular full-stack architecture that connects the user interface, application logic, and machine-learning service.
 
 ```text
                   USER
@@ -141,7 +141,7 @@ Aiversecity Career Compass follows a modular full-stack architecture that connec
                      |
                      v
        +---------------------------+
-       | Career Compass Results    |
+       | Minder Results    |
        |                           |
        | - Career Recommendations  |
        | - Future Skill Gaps       |
@@ -172,7 +172,7 @@ Aiversecity Career Compass follows a modular full-stack architecture that connec
 
 ## How to Run
 
-Aiversecity Career Compass is developed and deployed using Replit. The application consists of a React frontend, an Express backend, and an integrated machine-learning service hosted on RunPod.
+Minder is developed and deployed using Replit. The application consists of a React frontend, an Express backend, and an integrated machine-learning service hosted on RunPod.
 
 ### Option 1 — Run on Replit (Recommended)
 
@@ -182,7 +182,7 @@ The easiest way to access the application is through our deployed prototype:
 
 To run the application in the Replit development environment:
 
-1. Open the Aiversecity Career Compass project in Replit.
+1. Open the Minder project in Replit.
 2. Ensure the required environment variables are configured securely using Replit Secrets.
 3. Start the project's existing development workflow using the **Run** button.
 4. Open the **Preview** panel to access the application.
@@ -202,7 +202,7 @@ After the frontend and backend development branch has been merged into `main`, t
 
 ```bash
 # 1. Clone the GitHub repository
-git clone <https://github.com/jahax2154/sdc-2026-minder>
+git clone https://github.com/jahax2154/sdc-2026-minder
 
 # 2. Enter the project folder
 cd sdc-2026-minder
@@ -241,7 +241,7 @@ pnpm --filter @workspace/career-compass run build
 
 ## How We Use Replit
 
-Replit serves as the primary development and hosting platform for the Aiversecity Career Compass web application. Our team used Replit to develop, test, refine, and deploy the frontend and backend components.
+Replit serves as the primary development and hosting platform for the Minder web application. Our team used Replit to develop, test, refine, and deploy the frontend and backend components.
 
 ### Development
 
@@ -264,7 +264,7 @@ Replit was used to run and verify the application during development, including:
 
 ### Hosting and Deployment
 
-Aiversecity Career Compass is deployed using Replit.
+Minder is deployed using Replit.
 
 **Live Prototype:** https://aiversecity-career-compass.replit.app
 
@@ -285,7 +285,7 @@ Evidence of Replit usage is included in the submission documentation.
 
 ## How We Use RunPod
 
-RunPod is used as the cloud computing platform for the machine-learning component of Aiversecity Career Compass. It supports AI-powered career guidance and skill analysis through a model service integrated with our Replit application.
+RunPod is used as the cloud computing platform for the machine-learning component of Minder. It supports AI-powered career guidance and skill analysis through a model service integrated with our Replit application.
 
 ### Machine Learning Workload
 
@@ -327,7 +327,7 @@ RunPod ML Service
 AI-generated analysis
   |
   v
-Career Compass Dashboard
+Minder Dashboard
 ```
 
 The frontend communicates with the Express backend, which sends structured requests to the RunPod-hosted model service and processes the returned responses.
@@ -376,7 +376,7 @@ Evidence of RunPod usage is included in the submission documentation.
 
 ## Challenges & Learnings
 
-During the development of Aiversecity Career Compass, our team encountered several challenges involving system integration, user experience design, data reliability, and project coordination.
+During the development of Minder, our team encountered several challenges involving system integration, user experience design, data reliability, and project coordination.
 
 ### 1. Integrating Frontend, Backend, and Machine Learning
 
@@ -420,7 +420,7 @@ Maintaining compatible interfaces and coordinating code changes required careful
 
 ## Future Improvements
 
-Although Aiversecity Career Compass provides a functional prototype, several improvements could enhance its capabilities and user experience in future versions.
+Although Minder provides a functional prototype, several improvements could enhance its capabilities and user experience in future versions.
 
 - [ ] **Expanded Career Database** — Support a wider range of industries, occupations, and career pathways.
 - [ ] **Improved Labour-Market Intelligence** — Integrate additional reliable job-market datasets to strengthen future skill recommendations.
@@ -431,13 +431,13 @@ Although Aiversecity Career Compass provides a functional prototype, several imp
 
 ## Team
 
-Our team consists of three members working collaboratively on the design, development, documentation, and integration of Aiversecity Career Compass.
+Our team consists of three members working collaboratively on the design, development, documentation, and integration of Minder.
 
 | Name | Role | GitHub |
 |---|---|---|
-| [Lee Yi Cheng] | **Full-Stack Developer** — Replit frontend and backend development, UI/UX design, API integration, and deployment | [@yicheng-0612](https://github.com/yicheng-0612) |
-| [Phuah Jun Hong] | **Machine Learning Engineer** — ML model development, training, evaluation, and RunPod integration | [@jahax2154](https://github.com/jahax2154) |
-| [Lau Wen Le] | **Documentation & Project Coordinator** — Technical documentation, project proposal, presentation materials, submission preparation, and team coordination | [@WenLe0317](https://github.com/WenLe0317) |
+| Lee Yi Cheng | **Full-Stack Developer** — Replit frontend and backend development, UI/UX design, API integration, and deployment | [@yicheng-0612](https://github.com/yicheng-0612) |
+| Phuah Jun Hong | **Machine Learning Engineer** — ML model development, training, evaluation, and RunPod integration | [@jahax2154](https://github.com/jahax2154) |
+| Lau Wen Le | **Documentation & Project Coordinator** — Technical documentation, project proposal, presentation materials, submission preparation, and team coordination | [@WenLe0317](https://github.com/WenLe0317) |
 
 ## Submission Checklist
 
@@ -448,8 +448,8 @@ Our team consists of three members working collaboratively on the design, develo
 - [ ] Demo video link has been added.
 - [ ] Replit proof of use is included in `submission/`.
 - [ ] RunPod proof of use is included in `submission/`.
-- [ ] Preliminary submission document is completed (`SDC2026_TeamName_Preliminary.pdf`).
-- [ ] Technical & Tools Declaration is completed (`SDC2026_TeamName_TechDeclaration.pdf`).
+- [ ] Preliminary submission document is completed (`SDC2026_AINewBee_Preliminary.pdf`).
+- [ ] Technical & Tools Declaration is completed (`SDC2026_AINewBee_TechDeclaration.pdf`).
 - [X] All submission documents use the registered team name.
 - [ ] Frontend, backend, and ML source code are available in the final repository.
 - [X] Installation and testing instructions have been verified.
