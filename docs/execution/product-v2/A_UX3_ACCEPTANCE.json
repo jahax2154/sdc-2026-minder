@@ -1,0 +1,284 @@
+{
+  "phase": "A-UX3",
+  "status": "core_local_integration_verified_two_F_owned_edge_checks_open",
+  "functional_runtime_revision": "b8d4b495dd8d9b9e9f7cfbc0716a301f868e66b4",
+  "model": "qwen/qwen3.8-27b",
+  "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+  "producer_revisions": {
+    "B": "939dcd2a819248d67476dc01a789504b4cbdfa07",
+    "C": "362316351ebe90b31c533eb75cff46a851808314",
+    "D": "d734d95cf68cb4945562bd9166714798edc2fb23",
+    "E": "1669142ade6ac1e8f9790633e3b9e125c97a7aa1",
+    "F": "739a6c3bf62775bee5729e0bd135c3e15bb15a74",
+    "F_functional_code": "f3ea83ba490f57d96de91418a35e13319a5b55e7"
+  },
+  "actual_A": {
+    "core_home_sidebar_identity": {
+      "runtime_revision": "b8d4b495dd8d9b9e9f7cfbc0716a301f868e66b4",
+      "actual_A_browser": true,
+      "synthetic_canonical_plan_fixture": true,
+      "model_generation_claimed": false,
+      "home_first_partial_chosen_active_states": true,
+      "canonical_next_task_progress_and_completion": true,
+      "identity_save_cancel_surfaces": true,
+      "singleton_profile_schedule_preserved": true,
+      "sidebar_20_plus5_search_open_delete": true,
+      "new_chat_empty_no_record_and_old_draft_retained": true,
+      "mobile_home_scroll_and_sidebar_Escape": true,
+      "provider_turns": 0,
+      "identity_writes": 1,
+      "page_errors": []
+    },
+    "Qwen_roadmap_followup": {
+      "actual_A_browser": true,
+      "actual_Qwen": true,
+      "runtime_revision": "b8d4b495dd8d9b9e9f7cfbc0716a301f868e66b4",
+      "model": "qwen/qwen3.8-27b",
+      "screenshot_roadmap_ms": 1376,
+      "unseen_followup_ms": 1276,
+      "same_saved_conversation": true,
+      "stored_messages": 4,
+      "plans_created": 0,
+      "profile_unchanged": true,
+      "message_content_search": true,
+      "refresh_provider_requests": 0,
+      "explicit_acceptance_gap_seconds": 50,
+      "provider_calls": 2,
+      "fonts": {
+        ".answer-text": {
+          "size": "16px",
+          "family": "Inter, ui-sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Arial, sans-serif"
+        },
+        ".user-message": {
+          "size": "16px",
+          "family": "Inter, ui-sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Arial, sans-serif"
+        },
+        "#minderInput": {
+          "size": "15px",
+          "family": "Inter, ui-sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Arial, sans-serif"
+        }
+      },
+      "page_errors": []
+    },
+    "Qwen_action_exact_receipt": {
+      "real_backend": true,
+      "real_provider": true,
+      "deliberate_response_loss": true,
+      "action_status": "applied",
+      "provider": "available",
+      "identical_retry_body": true,
+      "canonical_version_unchanged": true,
+      "action_history_records": 1,
+      "refresh_added_turns": 0
+    },
+    "action_provider_metadata": {
+      "provider": {
+        "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "request_id": "req_01m5pmvsp2e2qsn6vyy9exptsn",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "d77t9temz",
+          "name": "propose_guidance"
+        },
+        "usage": {
+          "completion_tokens": 272,
+          "prompt_tokens": 2859,
+          "total_tokens": 3131
+        }
+      },
+      "diagnostics": {
+        "context_ms": 2.889,
+        "evidence_count": 0,
+        "intent": "typed_guidance",
+        "ledger_ms": 0.0,
+        "model": "qwen/qwen3.8-27b",
+        "provider_invoked": true,
+        "provider_ms": 1030.128,
+        "reason_codes": [
+          "validated_generated_advice"
+        ],
+        "request_id": "b8aab3d1-9c6f-4825-9b63-3314bed1c96d",
+        "total_ms": 1033.069
+      },
+      "action_status": "applied"
+    },
+    "backend_tests": {
+      "passed": 162,
+      "skipped": 0,
+      "seconds": 7.314
+    },
+    "deployment_packaging_checks": {
+      "passed": 4,
+      "evidence": "Earlier final packaging run reused; packaging unchanged by generation-only refinements, not a Linux build"
+    },
+    "canonical_zero_model_browser_suites": [
+      "layout20viewport/routes",
+      "partial slow/rapid/refresh focus/caret trace",
+      "history25/pagination/search/delete",
+      "identity save/cancel/conflict/isolation",
+      "Home5real persisted states",
+      "actual Chromium200percent zoom full Profile/create and page end access"
+    ],
+    "B_publication_snapshot_checks": {
+      "snapshot": "939dcd2a819248d67476dc01a789504b4cbdfa07",
+      "passed": 17,
+      "seconds": 0.63,
+      "scope": "Exact tracked B snapshot/private index, software mocks and COPY manifest; no native build/GPU fitting"
+    }
+  },
+  "open_findings": [
+    {
+      "id": "F-UX3-R01",
+      "owner": "F",
+      "status": "failed_actual_browser",
+      "detail": "Exhausted-page Load more has hidden=true but computed display:flex,height38px,renderedvisible=true",
+      "next": "Bounded hidden-state CSS/control fix; rerun rendered invisibility after one-result/end/no-match"
+    },
+    {
+      "id": "F-UX5-R01",
+      "owner": "F",
+      "status": "failed_explicit_read_fixture",
+      "detail": "Undated legacy notice labelled latest; no date inferred",
+      "next": "Generic saved-update label when valid date absent; preserve actual known-date order"
+    }
+  ],
+  "original_failures_retained": [
+    "Naive notice IDs initially happened to be ordered; adversarial IDs/offsets reproduced defect then passed actual time order repair",
+    "Home draft assertion initially raced incomplete render; completed-render synchronization retains assertion and passes",
+    "Initial fixed-delay zoom bounding check failed; unchanged diagnostic and fresh standalone committed test passed, original log retained, no claimed CSS repair",
+    "Real provider valid proposed80/20 data partition rejected by blanket percent guard; observed direct/antecedent/introduction variants drove linked versioned refinements",
+    "Unrequested mixed-language actual diagnostic remains correctly rejected; no weakening of language/scoring/source guards",
+    "B tests in evolving A tree fail3frozen-source checks as required; exact B snapshot17pass, initial archive-only ls-files harness corrected with private index"
+  ],
+  "provider_call_accounting": {
+    "final_A_acceptance_new_model_calls": 3,
+    "final_A_receipt_HTTP_retry_new_model_calls": 0,
+    "additional_A_prior_browser_attempts": 5,
+    "additional_A_no_action_diagnostic_calls": 3,
+    "F_reported_actual_calls": 3,
+    "scope": "These named tests/diagnostics only, not an account-wide billing/provider total; no real calls repeated for CSS alone"
+  },
+  "release": {
+    "PR": "https://github.com/jahax2154/sdc-2026-minder/pull/1",
+    "keep_draft": true,
+    "deployed": false,
+    "public_judge_URL": null,
+    "live_Clerk_two_accounts": "pending provisioning",
+    "Railway_existing_service_volume_access": "pending",
+    "actual_Linux_image_hosted_restart_daily_check": "not verified",
+    "B_native_build_and_GPU_fit": "publication unblocked; B next preflight/execution; not reported complete",
+    "main_merged": false,
+    "tag_created": false
+  },
+  "evidence_files": [
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-home-last/integration.json",
+      "sha256": "2d8a998d895446d7c239a60ece3d1a334d0dc9167ceab7762bed6cb703ed979e",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-provider-final/integration.json",
+      "sha256": "ef31503a7fe34753ae7b01540f299b891c09b510bbc4cf9943de1d718dd323cc",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-action-last/action-retry.json",
+      "sha256": "e052dbad3805a03cdf7453f1a75a6f83a6d54f36150a7b2fe18d3e13724659dd",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-action-last/provider-metadata.json",
+      "sha256": "07927129ee6f8cf854dd4f1cba4f32716462892e51db7b5c67f2d7d33fd38e1b",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/layout/ux1-layout.json",
+      "sha256": "7488cb876536a7b8d4fd76fa5bd554646456ab310cfeec4da493fbf8866bb661",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/partial/ux2-partial-trace.zip",
+      "sha256": "654627a85d3e20cc1e49d8effa466c805fcf32337592c528114a3d406a863e5b",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/history/run.log",
+      "sha256": "66f9bb98bf0e71b0e09afe5d68392742bedd05d19b9e3a5819492d94dad2310d",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/identity/run.log",
+      "sha256": "477996069779faec13efc4e7ca1cb5551a70f251cbbacb28155e60e345c6a354",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/home/run.log",
+      "sha256": "1d5ec3ee9cee1f1d5d7e57591d37da4f3c9c31a1878a1c520707588a9241b794",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/zoom/run.log",
+      "sha256": "060fef7e819d7d3efd54adc783972ed80278a66aa5e4c2c50810bf24cac509de",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-canonical-final/zoom-repeat/ux6-real-zoom.json",
+      "sha256": "f4677b78417365fdcbb5a7f9235cf81899df2afdd516d7c0e9287a42fda95d90",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-zoom-diagnostic/step.json",
+      "sha256": "58ed3ee2ea9ec93193491c0c00fe14552128cc8ad0772a2a6350a7ba567d542c",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-visibility/visibility.json",
+      "sha256": "742bc8802557157e2caf475d70dd743bd6bc61d0ca80abc710667d63d3104a57",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-notice-order-failure.json",
+      "sha256": "5d581b254a841ff915dc64029ed64cf6607852735c960d9c00dc475a9874ab5e",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-notice-order-pass.json",
+      "sha256": "dd1e66f773aedfbd20dde1cf7dbbb9cfb9dd79e5a12b603b885c0df8b9b3f1c3",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-backend-guard-v12.log",
+      "sha256": "8a1062bba856128c1498351c3966fdb50d85fb3c96a22a1affd914861890e53c",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-deploy-final.log",
+      "sha256": "2ea5d6531bdc2cd7e32723c2bdb3f16e75e6a51a076f87a91cede9b1b5eb5706",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/b-native-publication-snapshot-check.log",
+      "sha256": "a95dc5d950319c589e04502b19d362ac37605c439df595cfca343e85a0c7f8b2",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-provider-final/before-repair-attempts.json",
+      "sha256": "40b8da07325fac341446514e4c9173900e3b4360a7921cbad974ce5d7c82680d",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-provider-final/before-reference-refinement-attempts.json",
+      "sha256": "9168011d7fe8cfcdc0b72e194fdf291c9e5a0165be4fa4039288252bda602051",
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/ux-provider-final/before-field-refinement-attempts.json",
+      "sha256": "d8c0fb54671d0efecda9ab53527c61f5b12f56a10bad63772855d1ae96f3b346",
+      "private_local_only": true
+    }
+  ],
+  "private_state": "No raw profiles/conversations, DB/uploads, provider secrets, browser traces/images/profiles or source inputs committed. Hashes are local evidence references, not backups. Original source inputs remain read-only/untracked."
+}

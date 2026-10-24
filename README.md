@@ -4,9 +4,15 @@ Career decision-support prototype for SDC Hackathon 2026. Minder is the provisio
 
 The integrated prototype now includes the Python API, approved product frontend,
 persisted profiles/conversations/CVs, backend recommendations, real Qwen guidance
-and validated actions. **Local acceptance is verified; judge hosting, live managed
-login and the compulsory GPU experiment remain blocked on account/access setup.**
+and validated actions. **Local core acceptance is verified; the full frontend gate,
+hosted login/durability and compulsory GPU execution remain incomplete.**
 There is no accepted public demo URL yet.
+
+Latest [Home/chat integration and acceptance](docs/execution/product-v2/A_UX3_CURRENT_HANDOFF.md)
+includes saved bot customization and owned history search. Core local journeys and
+real Qwen roadmap/follow-up/actions pass; two small F-owned pagination/undated-label
+checks remain open. B's native-build source is now published; actual GPU fitting is
+still pending. Keep these local results separate from hosted/login acceptance.
 
 ## Run the existing isolated A prototype
 
