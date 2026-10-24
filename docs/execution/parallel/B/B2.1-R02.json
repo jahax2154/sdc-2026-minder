@@ -1,0 +1,39 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Audit current 155-ad snapshot and preserve its stock-versus-flow distinction",
+    "Include pinned 35-observation official role-label source and 69024-ad original corpus in eligibility report",
+    "Record source-specific unit, completeness, classification and availability exclusions",
+    "Refresh immutable dataset and serving checksum while keeping approved target rows empty"
+  ],
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting test_market_service.PublishedServiceTests",
+      "log_sha256": "6fa456bb76879cc94a981ed21a8edfc22ce74129384db55a15e4eabc153b748c",
+      "result": "................\n----------------------------------------------------------------------\nRan 16 tests in 0.138s\n\nOK"
+    },
+    {
+      "command": "market_training audit against packaged acquired sources",
+      "result": "All acquired source families audited; zero supported approved-target rows; no fits"
+    }
+  ],
+  "coverage": {
+    "eligible_quarterly_series": 0,
+    "employer_ads": 155,
+    "frozen_corpus_ads": 69024,
+    "published_role_observations": 35,
+    "real_training_fits": 0
+  },
+  "defect": "Original eligibility summary referred only to initial sources and described the employer sample as incomplete after full-feed acquisition",
+  "limitations": [
+    "This eligibility/refinement check passed; original training requirement remains limited by data",
+    "No accuracy or publication-aware historical evaluation inferred from descriptive corpus counts"
+  ],
+  "next_eligible": "B2.2-R01 execute immutable updated eligibility runner and publish final costs/handoff",
+  "objective": "Refresh eligibility auditing against all actually acquired sources without silently changing the forecast target",
+  "owner": "B",
+  "phase_id": "B2.1-R02",
+  "refines": "B2.1",
+  "status": "passed"
+}

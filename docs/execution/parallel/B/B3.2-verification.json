@@ -1,0 +1,96 @@
+{
+  "phase_id": "B3.2",
+  "checked_at": "2026-10-22T18:09:58.945773+00:00",
+  "branch": "session/b-market",
+  "bootstrap_ancestor_verified": true,
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service test_forecasting test_service_contracts",
+      "result": "35 passed in 22.126 seconds",
+      "log_sha256": "4824e59a0821a9848e7cc507826fb8de80be19758febb8d3085beccb4e6a0d3a"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "13 bootstrap source input SHA-256 and read-only mode verification",
+      "result": "13 matched; no input changed"
+    },
+    {
+      "command": "ownership.v1.json B path check over bootstrap..HEAD",
+      "result": "27 changed paths all B-owned before final documentation checkpoint"
+    }
+  ],
+  "current_coverage": {
+    "accepted_ads": 39,
+    "complete_feed": false,
+    "detail_cap": 40,
+    "detail_responses": 40,
+    "listing_rows": 40,
+    "rejections": [
+      {
+        "ad_id": "744000154953713",
+        "reason": "duplicate_ad_or_repost"
+      }
+    ],
+    "reported_feed_total": 155,
+    "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+  },
+  "model_status": {
+    "baseline": "implemented, synthetic machinery exercised; no real evaluation",
+    "ridge": "implemented, synthetic machinery fit; no real training/evaluation",
+    "gradient_boosting": "implemented, synthetic machinery fit; no real training/evaluation",
+    "selected_for_application": 0,
+    "role_forecast": "unavailable",
+    "skill_forecast": "unavailable"
+  },
+  "costs": {
+    "session_actual_usd": 0,
+    "paid_jobs": 0,
+    "account_balance_usd": null
+  },
+  "checkpoint_shas": {
+    "B2.1-R01": "514f0e23448f9e1e275f0cfb41e8908df252cc03",
+    "B3.1": "ba5d9a234cac334e7ba7b4a650b07e922fcaaccf",
+    "B2.2": "9dd5f5f615a840a47d5dfccc537995efd6873bdb",
+    "B1.1-R01": "44e07abee156944194593e3c1fc0dca397ad7eab",
+    "B2.1": "bb408ece9b6c7b86de452536324bda1162f5f982",
+    "B1.2": "0b61ede1cb596cff6a0110d80c2a8769e385bd7e",
+    "B1.1": "53d493e79c66f37b00f11b0608022761a725e86e"
+  },
+  "not_claimed": [
+    "No live RunPod request or balance verification",
+    "No real forecast training/backtest or accuracy",
+    "No forecast model promotion",
+    "No app deployment or push",
+    "No human data-label approval"
+  ],
+  "excluded_local_state": [
+    {
+      "path": "ml/minder_ml_starter/raw and derived",
+      "status": "13 read-only manifest-pinned hardlinks preserved; excluded from commits",
+      "backup": "Existing G0 shared physical snapshot remains; no new external backup created"
+    },
+    {
+      "path": "ml/artifacts/session-b/acquisition",
+      "status": "43 files, 771662 bytes; raw employer descriptions and source documents, ignored/uncommitted",
+      "backup": "Local only; derived facts, URLs and hashes committed; no raw-copy backup created"
+    },
+    {
+      "path": "ml/artifacts/session-b/news",
+      "status": "1 raw underlying MIDA document, 312032 bytes, ignored/uncommitted",
+      "backup": "Local only; derived event and source hash committed"
+    },
+    {
+      "path": "ml/artifacts/session-b local run/log/audit files",
+      "status": "Ignored local source eligibility result/logs; no trained weights",
+      "backup": "Results and verification summaries committed; raw logs local only"
+    },
+    {
+      "path": ".env.local and Python caches",
+      "status": "Bootstrap non-secret reservations and generated caches remain ignored; interpreter reused read-only",
+      "backup": "No new backup; no credentials configured/copied/committed"
+    }
+  ]
+}

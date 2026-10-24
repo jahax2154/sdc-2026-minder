@@ -1,0 +1,277 @@
+{
+  "version": "product-v2-ownership-frontend-home-gate-v1",
+  "base": "12856703ef187b09cbcb857b85923890fef331c4",
+  "lanes": {
+    "A": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-a",
+      "branch": "session/a-personal-integration",
+      "namespace": "session-a",
+      "api_port": 8111,
+      "ui_port": 9111,
+      "database": "ml/artifacts/session-a/product/runtime.sqlite3",
+      "outputs": "ml/artifacts/session-a/product",
+      "uploads": "ml/artifacts/session-a/product/uploads",
+      "worker_state": "same isolated DB; no worker auto-start",
+      "provider": "verified Qwen backend only",
+      "prompt": "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1/02_A_BOOTSTRAP.md"
+    },
+    "D": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-d",
+      "branch": "session/d-profile-state",
+      "namespace": "session-d",
+      "api_port": 8104,
+      "ui_port": 9104,
+      "database": "ml/artifacts/session-d/product/runtime.sqlite3",
+      "outputs": "ml/artifacts/session-d/product",
+      "uploads": "ml/artifacts/session-d/product/uploads",
+      "worker_state": "same isolated DB; no worker auto-start",
+      "provider": "disabled by default, real source/scoring reads remain",
+      "prompt": "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1/03_D_STATE_BACKEND.md"
+    },
+    "E": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-e",
+      "branch": "session/e-explore-resources",
+      "namespace": "session-e",
+      "api_port": 8105,
+      "ui_port": 9105,
+      "database": "ml/artifacts/session-e/product/runtime.sqlite3",
+      "outputs": "ml/artifacts/session-e/product",
+      "uploads": "ml/artifacts/session-e/product/uploads",
+      "worker_state": "same isolated DB; no worker auto-start",
+      "provider": "disabled by default, real source/scoring reads remain",
+      "prompt": "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1/04_E_EXPLORE_AND_RESOURCES.md"
+    },
+    "F": {
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-f",
+      "branch": "session/f-product-frontend",
+      "namespace": "session-f",
+      "api_port": 8106,
+      "ui_port": 9106,
+      "database": "ml/artifacts/session-f/product/runtime.sqlite3",
+      "outputs": "ml/artifacts/session-f/product",
+      "uploads": "ml/artifacts/session-f/product/uploads",
+      "worker_state": "same isolated DB; no worker auto-start",
+      "provider": "verified Qwen backend only",
+      "prompt": "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1/05_F_PRODUCT_FRONTEND.md"
+    }
+  },
+  "owners": {
+    "A": {
+      "allowed": [
+        "docs/execution/product-v2/**",
+        "docs/Minder_Profile_Explore_Parallel_Execution_Pack_v1/**",
+        "docs/Minder_Three_Hour_Prototype_Launch.md",
+        "docs/minder-ui-html-previews/**",
+        "contracts/**",
+        "ml/configs/**",
+        "ml/src/minder_ml/intelligence/integration_cli.py",
+        "ml/src/minder_ml/intelligence/product_runtime.py",
+        "apps/backend-api/minder_app/api.py",
+        "apps/backend-api/minder_app/product_routes.py",
+        "AGENTS.md",
+        "package.json",
+        "package-lock.json",
+        "pnpm-lock.yaml",
+        "yarn.lock",
+        "ml/requirements-foundation.txt",
+        "apps/backend-api/minder_app/chat.py",
+        "apps/backend-api/minder_app/conversation.py",
+        "apps/backend-api/data/conversation-policy.v1.json",
+        "apps/backend-api/tests/test_conversation.py",
+        "apps/backend-api/tests/test_product_concurrency.py",
+        "docs/execution/product/llm/frontend-envelope.schema.json",
+        "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+        "apps/backend-api/minder_app/generation.py",
+        "apps/backend-api/minder_app/generation_schemas.py",
+        "apps/backend-api/minder_app/message_orchestrator.py",
+        "apps/backend-api/minder_app/identity_boundary.py",
+        "apps/backend-api/minder_app/actions.py",
+        "apps/backend-api/minder_app/agents.py",
+        "apps/backend-api/minder_app/worker.py",
+        "apps/backend-api/tests/test_generation.py",
+        "apps/backend-api/tests/test_message_orchestrator.py",
+        "apps/backend-api/tests/test_identity_boundary.py",
+        "docs/Minder_Morning_Completion_Runbook_2026-10-24.md",
+        "docs/minder-approved-product-designs/**",
+        "docs/Minder_Frontend_Final_Repair_and_Home_Gate.md",
+        "docs/Minder_Home_Package/**",
+        "apps/backend-api/minder_app/role_display.py",
+        "apps/backend-api/tests/test_role_display.py",
+        "ml/src/minder_ml/intelligence/app_context.py",
+        "apps/backend-api/minder_app/starter.py",
+        "apps/backend-api/minder_app/public_retrieval.py",
+        "apps/backend-api/minder_app/web_evidence.py",
+        "apps/backend-api/minder_app/handoffs.py",
+        "apps/backend-api/minder_app/model_gateway.py",
+        "apps/backend-api/tests/test_starter.py",
+        "apps/backend-api/tests/test_public_retrieval.py",
+        "apps/backend-api/tests/test_web_evidence.py",
+        "apps/backend-api/tests/test_handoffs.py",
+        "apps/backend-api/tests/test_model_gateway.py",
+        "apps/backend-api/tests/test_replit_factory.py",
+        ".replit",
+        "replit.nix",
+        "apps/backend-api/minder_app/web_search.py",
+        "apps/backend-api/tests/test_web_search.py",
+        "pyproject.toml",
+        "uv.lock",
+        ".gitignore"
+      ],
+      "forbidden": [
+        "other lanes active files except committed integration",
+        "private config/database/source input commits"
+      ]
+    },
+    "D": {
+      "allowed": [
+        "apps/backend-api/minder_app/product_state.py",
+        "apps/backend-api/minder_app/product_migrations.py",
+        "apps/backend-api/minder_app/product_state_schemas.py",
+        "apps/backend-api/minder_app/profiles.py",
+        "apps/backend-api/minder_app/plans.py",
+        "apps/backend-api/tests/test_product_state.py",
+        "apps/backend-api/tests/test_product_migrations.py",
+        "apps/backend-api/tests/test_profiles.py",
+        "apps/backend-api/tests/test_plans.py",
+        "docs/execution/product-v2/D/**",
+        "apps/backend-api/minder_app/documents.py",
+        "apps/backend-api/minder_app/document_storage.py",
+        "apps/backend-api/tests/test_documents.py",
+        "apps/backend-api/tests/test_document_storage.py",
+        "apps/backend-api/minder_app/store.py",
+        "apps/backend-api/minder_app/conversations.py",
+        "apps/backend-api/minder_app/conversation_schemas.py",
+        "apps/backend-api/minder_app/identity_store.py",
+        "apps/backend-api/minder_app/postgres_store.py",
+        "apps/backend-api/tests/test_conversations.py",
+        "apps/backend-api/tests/test_identity_store.py",
+        "apps/backend-api/tests/test_postgres_store.py",
+        "apps/backend-api/minder_app/automation_state.py",
+        "apps/backend-api/minder_app/generation_state.py",
+        "apps/backend-api/tests/test_automation_state.py",
+        "apps/backend-api/tests/test_generation_state.py",
+        "apps/backend-api/minder_app/bot_preferences.py",
+        "apps/backend-api/tests/test_bot_preferences.py",
+        "apps/backend-api/minder_app/replit_document_storage.py",
+        "apps/backend-api/tests/test_replit_document_storage.py",
+        "apps/backend-api/tests/test_replit_storage.py"
+      ],
+      "forbidden": [
+        "api.py/product_routes.py central registration",
+        "E product_views/product_content",
+        "all frontend",
+        "root contracts/config/scoring without A handoff",
+        "A actions/agents/worker/provider orchestration; E auth adapter; F frontend"
+      ]
+    },
+    "E": {
+      "allowed": [
+        "apps/backend-api/minder_app/product_views.py",
+        "apps/backend-api/minder_app/product_content.py",
+        "apps/backend-api/minder_app/product_view_schemas.py",
+        "apps/backend-api/data/product-resources.v1.json",
+        "apps/backend-api/tests/test_product_views.py",
+        "apps/backend-api/tests/test_product_content.py",
+        "docs/execution/product-v2/E/**",
+        "apps/backend-api/minder_app/auth_adapter.py",
+        "apps/backend-api/minder_app/hosted_worker.py",
+        "apps/backend-api/tests/test_auth_adapter.py",
+        "apps/backend-api/tests/test_hosted_worker.py",
+        "deploy/**"
+      ],
+      "forbidden": [
+        "all migrations/SQL/state writers",
+        "api.py/product_routes.py",
+        "profiles.py/plans.py",
+        "B acquisition/scoring/model files",
+        "C provider/grounder",
+        "frontend",
+        "shared contracts without A publication"
+      ]
+    },
+    "F": {
+      "allowed": [
+        "apps/frontend-product/**",
+        "docs/execution/product-v2/F/**"
+      ],
+      "forbidden": [
+        "apps/frontend-web acceptance UI",
+        "backend/ML/scoring/migrations",
+        "root package/lock/config files",
+        "approved source design files except import into owned root",
+        "D/E state/view modules"
+      ]
+    },
+    "C": {
+      "allowed": [
+        "apps/backend-api/minder_app/grounding.py",
+        "apps/backend-api/minder_app/config.py",
+        "apps/backend-api/minder_app/provider_access.py",
+        "apps/backend-api/minder_app/provider_budget.py",
+        "ml/src/minder_ml/intelligence/groq_adapter.py",
+        "docs/execution/parallel/C/**"
+      ],
+      "forbidden": [
+        "D transferred profile/plans/new product migrations",
+        "F frontend-product",
+        "A central registration",
+        "chat.py temporarily delegated to A by current targeted repair brief; no concurrent writer"
+      ]
+    },
+    "G": {
+      "active": false,
+      "allowed": [],
+      "activation": "Only after committed F0.2 stable client/components and A/F explicit exclusive page-file transfer; no worktree or writer yet"
+    }
+  },
+  "exclusive_writers": {
+    "backend_registration": "A",
+    "public_contracts": "A",
+    "new_product_migrations": "D",
+    "product_frontend_shell_client_styles_routes_and_package": "F",
+    "root_dependencies": "A",
+    "provider_grounder_actions": "C factual grounding/provider configuration retained; A model/action orchestration actions/agents/worker; no overlapping writer",
+    "identity_and_conversation_storage": "D",
+    "isolated_auth_adapter_and_host_worker": "E"
+  },
+  "state_transfer": {
+    "authority": "Current user invokes D shared-state scope and existing pack; C final committed362316351ebe90b31c533eb75cff46a851808314 is the inspected clean boundary",
+    "from_owner": "C",
+    "to_owner": "D",
+    "paths": [
+      "apps/backend-api/minder_app/product_state.py",
+      "apps/backend-api/minder_app/product_migrations.py",
+      "apps/backend-api/minder_app/product_state_schemas.py",
+      "apps/backend-api/minder_app/profiles.py",
+      "apps/backend-api/minder_app/plans.py"
+    ],
+    "preserve": "Legacy migrations1-4 and existing Store/actions/agents/provider controls; D new migration chain starts5, one writer, own DB only"
+  },
+  "handoffs": "Owner commits/pushes only its assigned branch; A integrates captured full SHAs, never active worktree files. A does not publish D/E/F branches absent a specific transfer.",
+  "existing_reservations": {
+    "A": "8101/9101 closure runtime preserved",
+    "B": "8102/9102",
+    "C": "8103/9103"
+  },
+  "runtime": "No config/DB copied; A/F may read authorised server-only config, never put keys in frontend. All source imports resolve current worktree; same interpreter may be reused read-only.",
+  "repair_transfer": {
+    "authority": "Current user explicitly assigns A-R1/A-R2/A-R3 backend chat/orchestration/runtime; brief section3 A scope, C clean committed boundary362316351ebe90b31c533eb75cff46a851808314",
+    "from": "C legacy chat file owner",
+    "to": "A bounded repair owner",
+    "paths": [
+      "apps/backend-api/minder_app/chat.py",
+      "apps/backend-api/minder_app/conversation.py",
+      "apps/backend-api/data/conversation-policy.v1.json",
+      "apps/backend-api/tests/test_conversation.py",
+      "apps/backend-api/tests/test_product_concurrency.py"
+    ],
+    "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer",
+    "status": "Active A bounded chat repair ownership; C original allowlist entry removed to enforce one writer"
+  },
+  "morning_r3": "Current user Revision3 supersedes older deferral/no-deploy text. D sole persistence/migration writer including Store; E auth/host wrapper; A central routes/model/actions; F entire frontend. New dependencies requested to A; no other working directory edits.",
+  "frontend_home_gate": "A imports approved sources and registers exact additive bot-preferences/search contracts; D alone implements persisted bot preferences/conversation search; F alone changes frontend shell/client/pages. No migration or another database required merely for display identity. Existing singleton/schedules/profile remain separate.",
+  "career_explanations": "A integration transfer N01-R1 already reserves app_context.py in parallel ownership. Current bounded presentation-only repair retains C source grounder/provider and all numerical policies.",
+  "mandatory_product_continuation": "User current task from c795: A owns new starter/live retrieval/handoff/gateway modules and routes; F sole UI, E host, D canonical persistence modules and migrations, C original provider files remain reserved. Reuse existing D transaction-aware operations.",
+  "replit_port_handoff": "A_REPLIT_BASE_AND_FACTORY_CONTRACT.md; D PostgreSQL and private storage, E deps/Replit wrapper/access, A common composition, F frontend unchanged; no live shared DB writes or blanket resource upgrades.",
+  "managed_python_root": "A alone installs the exact E4b53fd8 provider manifest at root, generates uv.lock, and reconciles .replit/generated-environment ignore. E owns deploy scripts/templates; no source/raw-input ignore additions. Existing A runtime/ML/B training environments remain unchanged."
+}

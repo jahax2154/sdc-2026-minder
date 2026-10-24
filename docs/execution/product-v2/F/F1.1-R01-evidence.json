@@ -1,0 +1,16 @@
+{
+  "phase": "F1.1-R01",
+  "mode": "real_local_api_synthetic_files_no_provider",
+  "checks": {
+    "upload_without_profile_apply": true,
+    "attachment_bytes_exact": true,
+    "explicit_review_no_mastery": true,
+    "pdf_stored_extraction_unavailable": true,
+    "delete_preserves_applied_profile": true,
+    "delete_library_empty": true,
+    "refresh_persistence": true,
+    "size_limit_visible": true,
+    "mobile_documents": true,
+    "page_errors": []
+  }
+}

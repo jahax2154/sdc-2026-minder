@@ -1,0 +1,11 @@
+{
+  "actual_two_local_owners": true,
+  "controlled_credential_provider": true,
+  "fresh_credential_reads": 9,
+  "deliberately_held_prior_identity_response": true,
+  "late_response_cannot_restore_prior_profile": true,
+  "actual_401_clears_private_ui_and_credential": true,
+  "logout_during_dirty_guard_cannot_restore_prior_route": true,
+  "live_clerk_claimed": false,
+  "page_errors": []
+}

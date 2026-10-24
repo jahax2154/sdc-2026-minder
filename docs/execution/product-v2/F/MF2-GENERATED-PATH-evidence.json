@@ -1,0 +1,21 @@
+{
+  "real_backend": true,
+  "real_qwen_generation": true,
+  "generation_ms": 2055,
+  "provider": "available",
+  "stored_generation_version": true,
+  "unsaved_until_accept": true,
+  "accept_response_loss_injected": true,
+  "exact_accept_retry": true,
+  "one_canonical_plan": true,
+  "separate_explicit_activation": true,
+  "generated_phases_in_roadmap": true,
+  "no_refresh_generation": true,
+  "same_mindbot_history": true,
+  "inline_mindbot_saved_plan_review": true,
+  "real_contextual_followup": true,
+  "followup_does_not_mutate_saved_plan": true,
+  "automation_create_scope_timezone_pause_resume_cancel_persisted": true,
+  "scheduler_execution_claimed": false,
+  "page_errors": []
+}

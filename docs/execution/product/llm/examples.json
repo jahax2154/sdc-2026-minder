@@ -1,0 +1,1005 @@
+{
+  "backend_commit": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+  "synthetic_user": true,
+  "provider": "mock-selection; not a live provider check",
+  "profile": {
+    "profile_id": "5f564d1e-2958-4c33-9fa7-91a515e12066",
+    "profile_group_id": "5f564d1e-2958-4c33-9fa7-91a515e12066",
+    "version": "b84ba71d-635a-4c3a-9b65-bcb0ad28df10",
+    "synthetic": true,
+    "evidence": [],
+    "preferences": [],
+    "current_fields": [],
+    "constraints": [],
+    "timezone": "Asia/Kuala_Lumpur"
+  },
+  "chat_request": {
+    "message": "Explain the source scope, with no forecast inferred.",
+    "expected_profile_version": "b84ba71d-635a-4c3a-9b65-bcb0ad28df10",
+    "selected_role_ids": [
+      "onet:15-1252.00"
+    ]
+  },
+  "chat_response": {
+    "statements": [
+      {
+        "category": "calculated_assessment",
+        "evidence_ids": [
+          "ev-ea54652501984fc75b46fb74"
+        ],
+        "id": "ev-ea54652501984fc75b46fb74",
+        "text": "Assessments use backend policy and stated evidence limits. Ordinary internal ranking values are not displayed here.",
+        "sources": []
+      },
+      {
+        "category": "proposed_action",
+        "evidence_ids": [
+          "ev-9bc2c9d65cb90f9b90d84f6a"
+        ],
+        "id": "ev-9bc2c9d65cb90f9b90d84f6a",
+        "text": "Any suggested change is a proposal, not an executed action. This chat has made no profile, roadmap or progress change.",
+        "sources": []
+      },
+      {
+        "category": "limitation",
+        "evidence_ids": [
+          "ev-72a5bb55828047b654097f3e"
+        ],
+        "id": "ev-72a5bb55828047b654097f3e",
+        "text": "Only the supplied backend records are verified here. Other claims are unsupported; clarify the role, period or source you want checked.",
+        "sources": []
+      },
+      {
+        "category": "calculated_assessment",
+        "evidence_ids": [
+          "ev-35c0715d165d479edc009574"
+        ],
+        "id": "ev-35c0715d165d479edc009574",
+        "kind": "personal_assessment",
+        "text": "Occupation onet:15-1252.00: personal assessment needs more compatible skill evidence. This is not verified competence, company qualification or hiring probability.",
+        "sources": []
+      },
+      {
+        "category": "external_fact",
+        "evidence_ids": [
+          "ev-fb5a1055abf89051f1bc1f5a"
+        ],
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "evidence_schema_version": "minder-evidence-passage-v1",
+        "geography": "MY",
+        "id": "ev-fb5a1055abf89051f1bc1f5a",
+        "kind": "market_evidence",
+        "limitations": [
+          "5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage."
+        ],
+        "mapping": {
+          "mapping_id": "link:87f27988dd77f8613316",
+          "relation": "native_identity",
+          "scope": "Exact native O*NET identity accepted by B title mapping; inspected employer feed only.",
+          "version": "my-market-applicability-v2"
+        },
+        "measurement_type": "employer_observation",
+        "period": {
+          "end": "2026-10-23",
+          "start": "2026-10-23"
+        },
+        "published_at": "2026-10-23T06:13:31.947075+00:00",
+        "source_entity_id": "onet:15-1252.00",
+        "status": "available",
+        "text": "Employer observation: 5 advertisements for source entity onet:15-1252.00, period/edition 2026-10-23 to 2026-10-23. Publication date 2026-10-23T06:13:31.947075+00:00; available 2026-10-23T06:13:31.947075+00:00. Applicability to onet:15-1252.00: Exact native O*NET identity accepted by B title mapping; inspected employer feed only. 5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.",
+        "unit": "advertisements",
+        "sources": [
+          {
+            "available_at": "2026-10-23T06:13:31.947075+00:00",
+            "evidence_type": "source-derived",
+            "geography": "MY",
+            "sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+            "source_id": "bosch-smartrecruiters-my",
+            "uri": "https://www.bosch.com.my/careers/",
+            "version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e"
+          }
+        ]
+      },
+      {
+        "category": "external_fact",
+        "evidence_ids": [
+          "ev-a8397c5b21b1e15788fc4d04"
+        ],
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "evidence_schema_version": "minder-evidence-passage-v1",
+        "geography": "MY",
+        "id": "ev-a8397c5b21b1e15788fc4d04",
+        "kind": "market_evidence",
+        "limitations": [
+          "Source-category offering activity, not dedup-verified unique ads, vacancies or verified hiring.",
+          "Latest comparable source period required; older categories remain dated context."
+        ],
+        "mapping": {
+          "mapping_id": "link:8064530b6822f894c90c",
+          "relation": "source_label_equivalence",
+          "scope": "Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy.",
+          "version": "my-market-applicability-v2"
+        },
+        "measurement_type": "published_offering_activity",
+        "period": {
+          "end": "2026-06-30",
+          "start": "2026-04-01"
+        },
+        "published_at": "2026-08-18T23:59:59+08:00",
+        "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+        "status": "available",
+        "text": "Published offering activity: 19899 published job offerings for source entity dosm:jmi:published-role-label:software-developers, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T23:59:59+08:00; available 2026-10-23T06:24:22.876178+00:00. Applicability to onet:15-1252.00: Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy. Source-category offering activity, not dedup-verified unique ads, vacancies or verified hiring. Latest comparable source period required; older categories remain dated context.",
+        "unit": "published job offerings",
+        "sources": [
+          {
+            "available_at": "2026-10-23T06:24:22.876178+00:00",
+            "evidence_type": "source-derived",
+            "geography": "MY",
+            "sha256": "a82b04f6357e10d9520dee5e0a912213c1cec1844ee84d8c5092908eb60868db",
+            "source_id": "dosm-release-2026-q2",
+            "uri": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+            "version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219"
+          }
+        ]
+      },
+      {
+        "category": "external_fact",
+        "evidence_ids": [
+          "ev-3f7e4878f0c97e8fc97b05c0"
+        ],
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "evidence_schema_version": "minder-evidence-passage-v1",
+        "geography": "MY",
+        "id": "ev-3f7e4878f0c97e8fc97b05c0",
+        "kind": "market_evidence",
+        "limitations": [
+          "Related source group designation only; not proof the entire O*NET role or every six-digit child is critical.",
+          "Edition scope is not an October 2026 measurement; publication and continuous fieldwork dates unverified.",
+          "Positive designation indicator is not an ad count, hiring probability or personal competence."
+        ],
+        "mapping": {
+          "bridge": {
+            "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf",
+            "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+            "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+            "data_row_index": 613,
+            "isco_label": "Software developers",
+            "isco_uri": "http://data.europa.eu/esco/isco/C2512",
+            "masco_code": "2512",
+            "masco_label": "Software Developers",
+            "masco_system": "MASCO",
+            "masco_version": "2020",
+            "match_type": "exactISCO",
+            "row_sha256": "d303faa1e8afe9cfb331230ccb8a8fd8103346ef19663fff90d7dae13fcccb53"
+          },
+          "mapping_id": "link:05cecbecbbea923436e8",
+          "relation": "code_bridge_context",
+          "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+          "version": "my-market-applicability-v2"
+        },
+        "measurement_type": "occupation_shortage",
+        "period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "published_at": null,
+        "source_entity_id": "mycol:2024-2025:masco2020:2512",
+        "status": "available",
+        "text": "Occupation shortage: a listed related source-group designation, not an ad count for source entity mycol:2024-2025:masco2020:2512, period/edition MyCOL 2024/2025 edition. Publication date not verified; available 2026-10-23T09:09:55.576473+00:00. Applicability to onet:15-1252.00: Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical. Related source group designation only; not proof the entire O*NET role or every six-digit child is critical. Edition scope is not an October 2026 measurement; publication and continuous fieldwork dates unverified. Positive designation indicator is not an ad count, hiring probability or personal competence.",
+        "unit": "designation_not_advertisement_count",
+        "sources": [
+          {
+            "available_at": "2026-10-23T09:09:55.576473+00:00",
+            "evidence_type": "source-derived",
+            "geography": "MY",
+            "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+            "source_id": "talentcorp-mycol-2024-2025",
+            "uri": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+            "version": "current-public-market-evidence-v1:0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8"
+          }
+        ]
+      },
+      {
+        "category": "external_fact",
+        "evidence_ids": [
+          "ev-34b5e14fca43afa618d8b894"
+        ],
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "evidence_schema_version": "minder-evidence-passage-v1",
+        "geography": "MY",
+        "id": "ev-34b5e14fca43afa618d8b894",
+        "kind": "market_evidence",
+        "limitations": [
+          "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+        ],
+        "mapping": {
+          "mapping_id": "link:405f255c409335d4ecd0",
+          "relation": "industry_related_context",
+          "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate.",
+          "version": "my-market-applicability-v2"
+        },
+        "measurement_type": "sector_context",
+        "period": {
+          "end": "2026-06-30",
+          "start": "2026-04-01"
+        },
+        "published_at": "2026-08-18T00:00:00+00:00",
+        "source_entity_id": "dosm:sector:Financial and insurance/ takaful activities",
+        "status": "available",
+        "text": "Sector context: 20593 published sector job offerings for source entity dosm:sector:Financial and insurance/ takaful activities, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T00:00:00+00:00; available 2026-10-20T10:09:55.962156+00:00. Applicability to onet:15-1252.00: Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate. Broad section context via US industry relationship; no narrow-role allocation or ranking contribution.",
+        "unit": "published sector job offerings",
+        "sources": [
+          {
+            "available_at": "2026-10-20T10:09:55.962156+00:00",
+            "evidence_type": "source-derived",
+            "geography": "MY",
+            "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "source_id": "dosm_jmi_q2_2026_data",
+            "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+            "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+          }
+        ]
+      },
+      {
+        "category": "external_fact",
+        "evidence_ids": [
+          "ev-82e928a579edc11fd43e2301"
+        ],
+        "id": "ev-82e928a579edc11fd43e2301",
+        "kind": "current",
+        "period": {
+          "end": "2026-10-23",
+          "start": "2026-10-23"
+        },
+        "published_at": "2026-10-23T06:13:31.947075+00:00",
+        "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+        "status": "available",
+        "support_kind": "derived_measurement_not_webpage_quote",
+        "text": "Current observation for role onet:15-1252.00: 5 advertisements in the bounded Bosch Malaysia source snapshot observed 2026-10-23. Coverage: 155 inspected advertisements; not all Malaysian jobs. This is a derived count of listed ads, not national jobs, hires or quarterly inflow. Current vacancy and hiring status is unverified.",
+        "sources": [
+          {
+            "available_at": "2026-10-23T06:13:31.947075+00:00",
+            "evidence_type": "source-derived",
+            "geography": "MY",
+            "sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+            "source_id": "bosch-smartrecruiters-my",
+            "uri": "https://www.bosch.com.my/careers/",
+            "version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e"
+          }
+        ]
+      },
+      {
+        "category": "limitation",
+        "evidence_ids": [
+          "ev-b6b82c1cd365c00b017edade"
+        ],
+        "id": "ev-b6b82c1cd365c00b017edade",
+        "issued_at": "2026-10-23T14:21:29.714104+00:00",
+        "kind": "forecast",
+        "period": {
+          "end": "2027-03-31",
+          "start": "2027-01-01"
+        },
+        "status": "unavailable",
+        "text": "Next-quarter forecast for role onet:15-1252.00 unavailable: comparable supporting data is missing. Target 2027-01-01 to 2027-03-31. No value is inferred.",
+        "sources": []
+      }
+    ],
+    "provider": {
+      "status": "available",
+      "model": "mock-selection"
+    },
+    "integration_mode": "local_source_services",
+    "context_version": "9d331379-fd8f-40f7-ae0c-16e919554b6e",
+    "profile_version": "b84ba71d-635a-4c3a-9b65-bcb0ad28df10",
+    "behaviour_policy_version": "minder-grounding-privacy-v1",
+    "action_status": "no_mutation_requested_or_executed"
+  },
+  "role_evidence": {
+    "policy_version": "personal-current-evidence-v2.1",
+    "records": [
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "employer_observation",
+        "source_entity_id": "onet:15-1252.00",
+        "status": "available",
+        "value": 5,
+        "unit": "advertisements",
+        "geography": "MY",
+        "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+        "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+        "observation_period": {
+          "start": "2026-10-23",
+          "end": "2026-10-23"
+        },
+        "published_at": "2026-10-23T06:13:31.947075+00:00",
+        "available_at": "2026-10-23T06:13:31.947075+00:00",
+        "source": {
+          "source_id": "bosch-smartrecruiters-my",
+          "version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+          "sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+          "uri": "https://www.bosch.com.my/careers/",
+          "geography": "MY",
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:87f27988dd77f8613316",
+          "version": "my-market-applicability-v2",
+          "relation": "native_identity",
+          "scope": "Exact native O*NET identity accepted by B title mapping; inspected employer feed only."
+        },
+        "ranking_eligibility": "employer_comparable",
+        "missing_reasons": [],
+        "limitations": [
+          "5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "derived-snapshot:bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+          "ad:744000154949620",
+          "ad:744000154953713",
+          "ad:744000127346459",
+          "ad:744000025430664",
+          "ad:744000009799617"
+        ],
+        "source_value": 5,
+        "evidence_id": "market-evidence:0b7199c2d145ae0beea6ff3d01056854b595072072537e272ca7c6e14794d0a4"
+      },
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "published_offering_activity",
+        "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+        "status": "available",
+        "value": 19899,
+        "unit": "published job offerings",
+        "geography": "MY",
+        "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+        "cohort_version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+        "observation_period": {
+          "end": "2026-06-30",
+          "start": "2026-04-01"
+        },
+        "published_at": "2026-08-18T23:59:59+08:00",
+        "available_at": "2026-10-23T06:24:22.876178+00:00",
+        "source": {
+          "source_id": "dosm-release-2026-q2",
+          "version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+          "sha256": "a82b04f6357e10d9520dee5e0a912213c1cec1844ee84d8c5092908eb60868db",
+          "uri": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+          "geography": "MY",
+          "available_at": "2026-10-23T06:24:22.876178+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:8064530b6822f894c90c",
+          "version": "my-market-applicability-v2",
+          "relation": "source_label_equivalence",
+          "scope": "Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy."
+        },
+        "ranking_eligibility": "published_comparable",
+        "missing_reasons": [],
+        "limitations": [
+          "Source-category offering activity, not dedup-verified unique ads, vacancies or verified hiring.",
+          "Latest comparable source period required; older categories remain dated context."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "dosm-release-2026-q2:dosm:jmi:published-role-label:software-developers:2026-06-30"
+        ],
+        "source_value": 19899,
+        "evidence_id": "market-evidence:8069ab4bf99a1f22c30dc1c940dec881e4c300d8ea9f801f1b48a06e1ee4e992"
+      },
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "occupation_shortage",
+        "source_entity_id": "mycol:2024-2025:masco2020:2512",
+        "status": "available",
+        "value": 1,
+        "unit": "designation_not_advertisement_count",
+        "geography": "MY",
+        "source_universe_id": "talentcorp-mycol-2024-2025-national-groups",
+        "cohort_version": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+        "observation_period": {
+          "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+          "end": null,
+          "label": "MyCOL 2024/2025 edition",
+          "start": null
+        },
+        "published_at": null,
+        "available_at": "2026-10-23T09:09:55.576473+00:00",
+        "source": {
+          "source_id": "talentcorp-mycol-2024-2025",
+          "version": "current-public-market-evidence-v1:0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+          "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+          "uri": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+          "geography": "MY",
+          "available_at": "2026-10-23T09:09:55.576473+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:05cecbecbbea923436e8",
+          "version": "my-market-applicability-v2",
+          "relation": "code_bridge_context",
+          "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+          "bridge": {
+            "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+            "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+            "data_row_index": 613,
+            "row_sha256": "d303faa1e8afe9cfb331230ccb8a8fd8103346ef19663fff90d7dae13fcccb53",
+            "match_type": "exactISCO",
+            "isco_uri": "http://data.europa.eu/esco/isco/C2512",
+            "isco_label": "Software developers",
+            "masco_system": "MASCO",
+            "masco_version": "2020",
+            "masco_code": "2512",
+            "masco_label": "Software Developers",
+            "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+          }
+        },
+        "ranking_eligibility": "shortage_context_adjustment",
+        "missing_reasons": [],
+        "limitations": [
+          "Related source group designation only; not proof the entire O*NET role or every six-digit child is critical.",
+          "Edition scope is not an October 2026 measurement; publication and continuous fieldwork dates unverified.",
+          "Positive designation indicator is not an ad count, hiring probability or personal competence."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "mycol:2024-2025:masco2020:2512",
+          "pdf-page:44",
+          "crosswalk-row:613"
+        ],
+        "source_value": "listed_in_national_MyCOL",
+        "source_scope": {
+          "occupation_system": "MASCO",
+          "occupation_version": "2020",
+          "occupation_code": "2512",
+          "occupation_level": 4,
+          "applies_to_all_children": false,
+          "explicit_six_digit_codes": [
+            "2512-01",
+            "2512-04",
+            "2512-19",
+            "2512-23",
+            "2512-39",
+            "2512-47",
+            "2512-49"
+          ],
+          "six_digit_scope_pdf_page": 125,
+          "nominated_title_limit": "Only source nominated job titles; no individual code-to-title pairing or unlisted-child inference."
+        },
+        "evidence_id": "market-evidence:f633b3d90a46d70969d39b7b895fc41b29ee22bbe91594e71ea1c3efff2bb43b"
+      },
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "sector_context",
+        "source_entity_id": "dosm:sector:Financial and insurance/ takaful activities",
+        "status": "available",
+        "value": 20593,
+        "unit": "published sector job offerings",
+        "geography": "MY",
+        "source_universe_id": "dosm-jmi-economic-activity-marginals",
+        "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+        "observation_period": {
+          "start": "2026-04-01",
+          "end": "2026-06-30"
+        },
+        "published_at": "2026-08-18T00:00:00+00:00",
+        "available_at": "2026-10-20T10:09:55.962156+00:00",
+        "source": {
+          "source_id": "dosm_jmi_q2_2026_data",
+          "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+          "geography": "MY",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:405f255c409335d4ecd0",
+          "version": "my-market-applicability-v2",
+          "relation": "industry_related_context",
+          "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+        },
+        "ranking_eligibility": "context_only",
+        "missing_reasons": [],
+        "limitations": [
+          "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "c022105c58882e533f817ec8cb9755b8bf6dcf3ffe6a2f7788691ab3702d5d01",
+          "e2-Summary Table BI:AL16"
+        ],
+        "source_value": 20593,
+        "evidence_id": "market-evidence:852be01661d803262386ab67849616adeede9b1116a10ee736309cc08eb41339"
+      },
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "sector_context",
+        "source_entity_id": "dosm:sector:Information and communication",
+        "status": "available",
+        "value": 13960,
+        "unit": "published sector job offerings",
+        "geography": "MY",
+        "source_universe_id": "dosm-jmi-economic-activity-marginals",
+        "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+        "observation_period": {
+          "start": "2026-04-01",
+          "end": "2026-06-30"
+        },
+        "published_at": "2026-08-18T00:00:00+00:00",
+        "available_at": "2026-10-20T10:09:55.962156+00:00",
+        "source": {
+          "source_id": "dosm_jmi_q2_2026_data",
+          "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+          "geography": "MY",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:6e88fcc40fdc70b7ede7",
+          "version": "my-market-applicability-v2",
+          "relation": "industry_related_context",
+          "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+        },
+        "ranking_eligibility": "context_only",
+        "missing_reasons": [],
+        "limitations": [
+          "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "e49f476bf17d400e95b2fecbd3a3de16ca1aa736ae63dda1934c1eaed6e74b43",
+          "e2-Summary Table BI:AL15"
+        ],
+        "source_value": 13960,
+        "evidence_id": "market-evidence:a871966910a12d5a667922fde5f0bb707b7e6834359d3f24f65b5b761b6a4fa6"
+      },
+      {
+        "role_id": "onet:15-1252.00",
+        "measurement_type": "sector_context",
+        "source_entity_id": "dosm:sector:Professional, scientific and technical activities",
+        "status": "available",
+        "value": 32127,
+        "unit": "published sector job offerings",
+        "geography": "MY",
+        "source_universe_id": "dosm-jmi-economic-activity-marginals",
+        "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+        "observation_period": {
+          "start": "2026-04-01",
+          "end": "2026-06-30"
+        },
+        "published_at": "2026-08-18T00:00:00+00:00",
+        "available_at": "2026-10-20T10:09:55.962156+00:00",
+        "source": {
+          "source_id": "dosm_jmi_q2_2026_data",
+          "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+          "geography": "MY",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "evidence_type": "source-derived"
+        },
+        "mapping": {
+          "mapping_id": "link:eacff23bed8f4eada470",
+          "version": "my-market-applicability-v2",
+          "relation": "industry_related_context",
+          "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+        },
+        "ranking_eligibility": "context_only",
+        "missing_reasons": [],
+        "limitations": [
+          "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+        ],
+        "as_of": "2026-10-23T14:21:29.864283+00:00",
+        "source_record_refs": [
+          "bea7fc456aa56546a64cad07512f4369f2a57a0f43dac1bb38de2fffe50b5435",
+          "e2-Summary Table BI:AL18"
+        ],
+        "source_value": 32127,
+        "evidence_id": "market-evidence:d53a496147bcb0cfb27da7049903fba7e5c557e10e7442ccf64b192f0dda8a01"
+      }
+    ],
+    "passages": [
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:0b7199c2d145ae0beea6ff3d01056854b595072072537e272ca7c6e14794d0a4",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "employer_observation",
+          "source_entity_id": "onet:15-1252.00",
+          "status": "available",
+          "value": 5,
+          "unit": "advertisements",
+          "geography": "MY",
+          "source_universe_id": "bosch-my-inspected-native-requisitions-v2",
+          "cohort_version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+          "observation_period": {
+            "start": "2026-10-23",
+            "end": "2026-10-23"
+          },
+          "published_at": "2026-10-23T06:13:31.947075+00:00",
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "source": {
+            "source_id": "bosch-smartrecruiters-my",
+            "version": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+            "sha256": "bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+            "uri": "https://www.bosch.com.my/careers/",
+            "geography": "MY",
+            "available_at": "2026-10-23T06:13:31.947075+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:87f27988dd77f8613316",
+            "version": "my-market-applicability-v2",
+            "relation": "native_identity",
+            "scope": "Exact native O*NET identity accepted by B title mapping; inspected employer feed only."
+          },
+          "ranking_eligibility": "employer_comparable",
+          "missing_reasons": [],
+          "limitations": [
+            "5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "derived-snapshot:bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+            "ad:744000154949620",
+            "ad:744000154953713",
+            "ad:744000127346459",
+            "ad:744000025430664",
+            "ad:744000009799617"
+          ],
+          "source_value": 5,
+          "evidence_id": "market-evidence:0b7199c2d145ae0beea6ff3d01056854b595072072537e272ca7c6e14794d0a4"
+        },
+        "canonical_passage": "Employer observation: 5 advertisements for source entity onet:15-1252.00, period/edition 2026-10-23 to 2026-10-23. Publication date 2026-10-23T06:13:31.947075+00:00; available 2026-10-23T06:13:31.947075+00:00. Applicability to onet:15-1252.00: Exact native O*NET identity accepted by B title mapping; inspected employer feed only. 5 unique inspected advertisements mapped to this occupation in a 155-ad Bosch Malaysia inspected population observed on 2026-10-23. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial; old release dates remain visible in source facts. Missing qualifications are excluded from skill coverage.",
+        "passage_sha256": "6a803f0428368d35c9361850a5b5d18cd3a55d568eb68f798bb202e8b8241759",
+        "source_record_refs": [
+          "derived-snapshot:bf3a8c73d73bfd014ce9eff3ab6510be6de7c29d6017663dbf9704db267b522e",
+          "ad:744000154949620",
+          "ad:744000154953713",
+          "ad:744000127346459",
+          "ad:744000025430664",
+          "ad:744000009799617"
+        ]
+      },
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:8069ab4bf99a1f22c30dc1c940dec881e4c300d8ea9f801f1b48a06e1ee4e992",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "published_offering_activity",
+          "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+          "status": "available",
+          "value": 19899,
+          "unit": "published job offerings",
+          "geography": "MY",
+          "source_universe_id": "dosm-jmi-published-top-occupation-labels",
+          "cohort_version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+          "observation_period": {
+            "end": "2026-06-30",
+            "start": "2026-04-01"
+          },
+          "published_at": "2026-08-18T23:59:59+08:00",
+          "available_at": "2026-10-23T06:24:22.876178+00:00",
+          "source": {
+            "source_id": "dosm-release-2026-q2",
+            "version": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+            "sha256": "a82b04f6357e10d9520dee5e0a912213c1cec1844ee84d8c5092908eb60868db",
+            "uri": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026",
+            "geography": "MY",
+            "available_at": "2026-10-23T06:24:22.876178+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:8064530b6822f894c90c",
+            "version": "my-market-applicability-v2",
+            "relation": "source_label_equivalence",
+            "scope": "Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy."
+          },
+          "ranking_eligibility": "published_comparable",
+          "missing_reasons": [],
+          "limitations": [
+            "Source-category offering activity, not dedup-verified unique ads, vacancies or verified hiring.",
+            "Latest comparable source period required; older categories remain dated context."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "dosm-release-2026-q2:dosm:jmi:published-role-label:software-developers:2026-06-30"
+          ],
+          "source_value": 19899,
+          "evidence_id": "market-evidence:8069ab4bf99a1f22c30dc1c940dec881e4c300d8ea9f801f1b48a06e1ee4e992"
+        },
+        "canonical_passage": "Published offering activity: 19899 published job offerings for source entity dosm:jmi:published-role-label:software-developers, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T23:59:59+08:00; available 2026-10-23T06:24:22.876178+00:00. Applicability to onet:15-1252.00: Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy. Source-category offering activity, not dedup-verified unique ads, vacancies or verified hiring. Latest comparable source period required; older categories remain dated context.",
+        "passage_sha256": "7522aedf8b9a731edb2ccb10a3eac3fce6541d9263d81a3a15a1d909df2012f9",
+        "source_record_refs": [
+          "dosm-release-2026-q2:dosm:jmi:published-role-label:software-developers:2026-06-30"
+        ]
+      },
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:f633b3d90a46d70969d39b7b895fc41b29ee22bbe91594e71ea1c3efff2bb43b",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "occupation_shortage",
+          "source_entity_id": "mycol:2024-2025:masco2020:2512",
+          "status": "available",
+          "value": 1,
+          "unit": "designation_not_advertisement_count",
+          "geography": "MY",
+          "source_universe_id": "talentcorp-mycol-2024-2025-national-groups",
+          "cohort_version": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+          "observation_period": {
+            "basis": "edition, not a verified continuous fieldwork or calendar-flow window",
+            "end": null,
+            "label": "MyCOL 2024/2025 edition",
+            "start": null
+          },
+          "published_at": null,
+          "available_at": "2026-10-23T09:09:55.576473+00:00",
+          "source": {
+            "source_id": "talentcorp-mycol-2024-2025",
+            "version": "current-public-market-evidence-v1:0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+            "sha256": "bada182b399ee9944231102402f5f5ce3a23c8328d99abb22ead6e1f8ec20937",
+            "uri": "https://www.talentcorp.com.my/images/uploads/publication/204/MyMahir-Malaysia-Critical-Occupations-List-MyCOL20242025-1773385490.pdf",
+            "geography": "MY",
+            "available_at": "2026-10-23T09:09:55.576473+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:05cecbecbbea923436e8",
+            "version": "my-market-applicability-v2",
+            "relation": "code_bridge_context",
+            "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+            "bridge": {
+              "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+              "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+              "data_row_index": 613,
+              "row_sha256": "d303faa1e8afe9cfb331230ccb8a8fd8103346ef19663fff90d7dae13fcccb53",
+              "match_type": "exactISCO",
+              "isco_uri": "http://data.europa.eu/esco/isco/C2512",
+              "isco_label": "Software developers",
+              "masco_system": "MASCO",
+              "masco_version": "2020",
+              "masco_code": "2512",
+              "masco_label": "Software Developers",
+              "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+            }
+          },
+          "ranking_eligibility": "shortage_context_adjustment",
+          "missing_reasons": [],
+          "limitations": [
+            "Related source group designation only; not proof the entire O*NET role or every six-digit child is critical.",
+            "Edition scope is not an October 2026 measurement; publication and continuous fieldwork dates unverified.",
+            "Positive designation indicator is not an ad count, hiring probability or personal competence."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "mycol:2024-2025:masco2020:2512",
+            "pdf-page:44",
+            "crosswalk-row:613"
+          ],
+          "source_value": "listed_in_national_MyCOL",
+          "source_scope": {
+            "occupation_system": "MASCO",
+            "occupation_version": "2020",
+            "occupation_code": "2512",
+            "occupation_level": 4,
+            "applies_to_all_children": false,
+            "explicit_six_digit_codes": [
+              "2512-01",
+              "2512-04",
+              "2512-19",
+              "2512-23",
+              "2512-39",
+              "2512-47",
+              "2512-49"
+            ],
+            "six_digit_scope_pdf_page": 125,
+            "nominated_title_limit": "Only source nominated job titles; no individual code-to-title pairing or unlisted-child inference."
+          },
+          "evidence_id": "market-evidence:f633b3d90a46d70969d39b7b895fc41b29ee22bbe91594e71ea1c3efff2bb43b"
+        },
+        "canonical_passage": "Occupation shortage: a listed related source-group designation, not an ad count for source entity mycol:2024-2025:masco2020:2512, period/edition MyCOL 2024/2025 edition. Publication date not verified; available 2026-10-23T09:09:55.576473+00:00. Applicability to onet:15-1252.00: Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical. Related source group designation only; not proof the entire O*NET role or every six-digit child is critical. Edition scope is not an October 2026 measurement; publication and continuous fieldwork dates unverified. Positive designation indicator is not an ad count, hiring probability or personal competence.",
+        "passage_sha256": "aca6722125861c6c697820cc73dfdbd00a590b3520d0ddef3625fa3cdae39e0b",
+        "source_record_refs": [
+          "mycol:2024-2025:masco2020:2512",
+          "pdf-page:44",
+          "crosswalk-row:613"
+        ]
+      },
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:852be01661d803262386ab67849616adeede9b1116a10ee736309cc08eb41339",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "sector_context",
+          "source_entity_id": "dosm:sector:Financial and insurance/ takaful activities",
+          "status": "available",
+          "value": 20593,
+          "unit": "published sector job offerings",
+          "geography": "MY",
+          "source_universe_id": "dosm-jmi-economic-activity-marginals",
+          "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "observation_period": {
+            "start": "2026-04-01",
+            "end": "2026-06-30"
+          },
+          "published_at": "2026-08-18T00:00:00+00:00",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "source": {
+            "source_id": "dosm_jmi_q2_2026_data",
+            "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+            "geography": "MY",
+            "available_at": "2026-10-20T10:09:55.962156+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:405f255c409335d4ecd0",
+            "version": "my-market-applicability-v2",
+            "relation": "industry_related_context",
+            "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+          },
+          "ranking_eligibility": "context_only",
+          "missing_reasons": [],
+          "limitations": [
+            "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "c022105c58882e533f817ec8cb9755b8bf6dcf3ffe6a2f7788691ab3702d5d01",
+            "e2-Summary Table BI:AL16"
+          ],
+          "source_value": 20593,
+          "evidence_id": "market-evidence:852be01661d803262386ab67849616adeede9b1116a10ee736309cc08eb41339"
+        },
+        "canonical_passage": "Sector context: 20593 published sector job offerings for source entity dosm:sector:Financial and insurance/ takaful activities, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T00:00:00+00:00; available 2026-10-20T10:09:55.962156+00:00. Applicability to onet:15-1252.00: Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate. Broad section context via US industry relationship; no narrow-role allocation or ranking contribution.",
+        "passage_sha256": "da59c8b33ebed776f5c06bf961da617c8c139920bba031947bf3a03e4bdedeeb",
+        "source_record_refs": [
+          "c022105c58882e533f817ec8cb9755b8bf6dcf3ffe6a2f7788691ab3702d5d01",
+          "e2-Summary Table BI:AL16"
+        ]
+      },
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:a871966910a12d5a667922fde5f0bb707b7e6834359d3f24f65b5b761b6a4fa6",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "sector_context",
+          "source_entity_id": "dosm:sector:Information and communication",
+          "status": "available",
+          "value": 13960,
+          "unit": "published sector job offerings",
+          "geography": "MY",
+          "source_universe_id": "dosm-jmi-economic-activity-marginals",
+          "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "observation_period": {
+            "start": "2026-04-01",
+            "end": "2026-06-30"
+          },
+          "published_at": "2026-08-18T00:00:00+00:00",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "source": {
+            "source_id": "dosm_jmi_q2_2026_data",
+            "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+            "geography": "MY",
+            "available_at": "2026-10-20T10:09:55.962156+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:6e88fcc40fdc70b7ede7",
+            "version": "my-market-applicability-v2",
+            "relation": "industry_related_context",
+            "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+          },
+          "ranking_eligibility": "context_only",
+          "missing_reasons": [],
+          "limitations": [
+            "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "e49f476bf17d400e95b2fecbd3a3de16ca1aa736ae63dda1934c1eaed6e74b43",
+            "e2-Summary Table BI:AL15"
+          ],
+          "source_value": 13960,
+          "evidence_id": "market-evidence:a871966910a12d5a667922fde5f0bb707b7e6834359d3f24f65b5b761b6a4fa6"
+        },
+        "canonical_passage": "Sector context: 13960 published sector job offerings for source entity dosm:sector:Information and communication, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T00:00:00+00:00; available 2026-10-20T10:09:55.962156+00:00. Applicability to onet:15-1252.00: Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate. Broad section context via US industry relationship; no narrow-role allocation or ranking contribution.",
+        "passage_sha256": "d50856b346cd5878939890fd1654149e7e4aa90e4dd76da13f54f0028a15bb8f",
+        "source_record_refs": [
+          "e49f476bf17d400e95b2fecbd3a3de16ca1aa736ae63dda1934c1eaed6e74b43",
+          "e2-Summary Table BI:AL15"
+        ]
+      },
+      {
+        "schema_version": "minder-evidence-passage-v1",
+        "evidence_policy_id": "personal-current-evidence-v2.1",
+        "derivation_method": "typed-source-record-recomputation-v1",
+        "evidence_id": "market-evidence:d53a496147bcb0cfb27da7049903fba7e5c557e10e7442ccf64b192f0dda8a01",
+        "record": {
+          "role_id": "onet:15-1252.00",
+          "measurement_type": "sector_context",
+          "source_entity_id": "dosm:sector:Professional, scientific and technical activities",
+          "status": "available",
+          "value": 32127,
+          "unit": "published sector job offerings",
+          "geography": "MY",
+          "source_universe_id": "dosm-jmi-economic-activity-marginals",
+          "cohort_version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+          "observation_period": {
+            "start": "2026-04-01",
+            "end": "2026-06-30"
+          },
+          "published_at": "2026-08-18T00:00:00+00:00",
+          "available_at": "2026-10-20T10:09:55.962156+00:00",
+          "source": {
+            "source_id": "dosm_jmi_q2_2026_data",
+            "version": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+            "uri": "https://www.dosm.gov.my/uploads/release-content/file_20260818075331.xlsx",
+            "geography": "MY",
+            "available_at": "2026-10-20T10:09:55.962156+00:00",
+            "evidence_type": "source-derived"
+          },
+          "mapping": {
+            "mapping_id": "link:eacff23bed8f4eada470",
+            "version": "my-market-applicability-v2",
+            "relation": "industry_related_context",
+            "scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate."
+          },
+          "ranking_eligibility": "context_only",
+          "missing_reasons": [],
+          "limitations": [
+            "Broad section context via US industry relationship; no narrow-role allocation or ranking contribution."
+          ],
+          "as_of": "2026-10-23T14:21:29.864283+00:00",
+          "source_record_refs": [
+            "bea7fc456aa56546a64cad07512f4369f2a57a0f43dac1bb38de2fffe50b5435",
+            "e2-Summary Table BI:AL18"
+          ],
+          "source_value": 32127,
+          "evidence_id": "market-evidence:d53a496147bcb0cfb27da7049903fba7e5c557e10e7442ccf64b192f0dda8a01"
+        },
+        "canonical_passage": "Sector context: 32127 published sector job offerings for source entity dosm:sector:Professional, scientific and technical activities, period/edition 2026-04-01 to 2026-06-30. Publication date 2026-08-18T00:00:00+00:00; available 2026-10-20T10:09:55.962156+00:00. Applicability to onet:15-1252.00: Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate. Broad section context via US industry relationship; no narrow-role allocation or ranking contribution.",
+        "passage_sha256": "c6d93ee00903d94a4ef4c7eecc372951a0f46da0a3cc1791a1eefd2290a2e1b0",
+        "source_record_refs": [
+          "bea7fc456aa56546a64cad07512f4369f2a57a0f43dac1bb38de2fffe50b5435",
+          "e2-Summary Table BI:AL18"
+        ]
+      }
+    ],
+    "limitation": "Source facts retain their measurement and mapping scope. Context is not a narrow-role quantity."
+  },
+  "proposals": {
+    "proposals": []
+  },
+  "action_history": {
+    "history": []
+  },
+  "agents": {
+    "events": [],
+    "notices": [],
+    "deployment_scheduler_verified": false
+  }
+}

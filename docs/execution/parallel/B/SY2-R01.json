@@ -1,0 +1,27 @@
+{
+  "phase_id": "SY2-R01",
+  "refines": "SY2",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "base_sha": "e2561ff2430eb317ae8cbe547c6c913246c0cd32",
+  "checkpoint": "commit containing this record",
+  "defect": "SY3 clean-checkout inspection showed the lab preservation hash check required all 13 untracked real-source inputs, despite the generator never using them.",
+  "root_cause": "The unchanged-observation audit assumed the lane bootstrap source files were present in every environment.",
+  "change": "Explicit absent-not-required audit markers for missing raw source inputs; present inputs still hashed; generation and estimator logic unchanged. No source files copied or removed.",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting",
+      "result": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.213s\n\nOK",
+      "log_sha256": "82dd9dfc328cfb2a1f49e0e037b7d33d749abffc7b8a206d00a6e6f162514b98"
+    },
+    {
+      "regression": "Temporary empty source root yields exactly 13 explicit absence markers while existing packaged data still hashes."
+    }
+  ],
+  "limitations": [
+    "This portability fix does not validate Linux numerical equivalence or authorize a paid launch.",
+    "Local source inputs remain present/read-only and will be rechecked in SY3."
+  ],
+  "next_eligible": "SY3 clean code-export replay, data/model card and bounded RunPod job specification"
+}

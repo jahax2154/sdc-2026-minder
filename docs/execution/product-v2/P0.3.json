@@ -1,0 +1,166 @@
+{
+  "phase_id": "P0.3",
+  "status": "verified_launch_resources_pending_final_ff_and_publication",
+  "dependency": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+  "worktrees": [
+    {
+      "lane": "D",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-d",
+      "branch": "session/d-profile-state",
+      "initial_base": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "current_sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "provisioning": {
+        "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+        "input_count": 13,
+        "copied": 13,
+        "preserved_existing": 0,
+        "all_hashes_verified": true,
+        "all_destinations_read_only": true,
+        "public_download_or_upload": false,
+        "git_staging": false
+      },
+      "runtime_check": {
+        "lane": "D",
+        "health": {
+          "status": "ok",
+          "integration_mode": "local_source_services"
+        },
+        "model": "qwen/qwen3.8-27b",
+        "provider_configured": false,
+        "api_port": 8104,
+        "ui_port": 9104,
+        "namespace": "session-d",
+        "deployment": false
+      },
+      "secret_values_copied": false,
+      "private_config_ignored": true
+    },
+    {
+      "lane": "E",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-e",
+      "branch": "session/e-explore-resources",
+      "initial_base": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "current_sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "provisioning": {
+        "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+        "input_count": 13,
+        "copied": 13,
+        "preserved_existing": 0,
+        "all_hashes_verified": true,
+        "all_destinations_read_only": true,
+        "public_download_or_upload": false,
+        "git_staging": false
+      },
+      "runtime_check": {
+        "lane": "E",
+        "health": {
+          "status": "ok",
+          "integration_mode": "local_source_services"
+        },
+        "model": "qwen/qwen3.8-27b",
+        "provider_configured": false,
+        "api_port": 8105,
+        "ui_port": 9105,
+        "namespace": "session-e",
+        "deployment": false
+      },
+      "secret_values_copied": false,
+      "private_config_ignored": true
+    },
+    {
+      "lane": "F",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-f",
+      "branch": "session/f-product-frontend",
+      "initial_base": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "current_sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "provisioning": {
+        "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+        "input_count": 13,
+        "copied": 13,
+        "preserved_existing": 0,
+        "all_hashes_verified": true,
+        "all_destinations_read_only": true,
+        "public_download_or_upload": false,
+        "git_staging": false
+      },
+      "runtime_check": {
+        "lane": "F",
+        "health": {
+          "status": "ok",
+          "integration_mode": "local_source_services"
+        },
+        "model": "qwen/qwen3.8-27b",
+        "provider_configured": true,
+        "api_port": 8106,
+        "ui_port": 9106,
+        "namespace": "session-f",
+        "deployment": false
+      },
+      "secret_values_copied": false,
+      "private_config_ignored": true
+    }
+  ],
+  "port_smoke": [
+    {
+      "lane": "D",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-d",
+      "branch": "session/d-profile-state",
+      "sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "api_port": 8104,
+      "ui_port": 9104,
+      "api_health": 200,
+      "same_origin_health": 200,
+      "private_route_without_token": 401,
+      "frontend_not_yet_implemented": 503,
+      "provider_requests": 0,
+      "deployment": false
+    },
+    {
+      "lane": "E",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-e",
+      "branch": "session/e-explore-resources",
+      "sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "api_port": 8105,
+      "ui_port": 9105,
+      "api_health": 200,
+      "same_origin_health": 200,
+      "private_route_without_token": 401,
+      "frontend_not_yet_implemented": 503,
+      "provider_requests": 0,
+      "deployment": false
+    },
+    {
+      "lane": "F",
+      "directory": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-f",
+      "branch": "session/f-product-frontend",
+      "sha": "ad1c17e78370cb81fdfcfcb2c6285dfe59451d24",
+      "api_port": 8106,
+      "ui_port": 9106,
+      "api_health": 200,
+      "same_origin_health": 200,
+      "private_route_without_token": 401,
+      "frontend_not_yet_implemented": 503,
+      "provider_requests": 0,
+      "deployment": false
+    }
+  ],
+  "final_starting_sha": "Reported after this commit is fast-forwarded into clean D/E/F; no circular self hash",
+  "verification": {
+    "fresh_databases": "Separate namespaces and existing migrations1-4 initialized; D new chain starts5",
+    "source_inputs": "13 per lane, all hashes verified and readonly, never staged",
+    "provider": "F privately binds existing authorised config; D/E disabled; zero new requests",
+    "ports": "All six reserved D/E/F ports passed real loopback TCP/auth smoke",
+    "frontend": "503 explicitly unavailable until F implements product root"
+  },
+  "evidence": {
+    "new-worktree-checks.json": "1b3b7fbb7c0a36e87b328ea18d2efc4797ef66bd97094b7d2476fca23b09410f",
+    "port-smoke.json": "b7850dea4bee5f685dd248b306b239cc416a2898d8cea84f28cc69394687b9b0"
+  },
+  "publication": "A designated integration branch only; D/E/F owners publish assigned branches",
+  "remaining": [
+    "Final FF/readability/remote SHA checks after commit",
+    "D state, E views/resources and F product UI implementation remain producer work",
+    "Combined new-product acceptance reserved for final50minutes"
+  ],
+  "deployment": false
+}

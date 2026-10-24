@@ -1,0 +1,117 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "Versioned latest handoff to A with all continuation SHAs and callable examples",
+    "Preserve earlier reports as historical records; new coverage explicitly supersedes the initial cap",
+    "Separate actual current evidence, native published role facts, frozen-corpus compilation, target eligibility, training, evaluation and selection"
+  ],
+  "checked_at": "2026-10-23T06:58:13.224228+00:00",
+  "checkpoint": "commit containing this record and HANDOFF.v2.md",
+  "checkpoint_shas": {
+    "B1.1-R02": "b8478a32ec57b31bcc5928d72c93a61b750eb951",
+    "B1.1-R03": "ee4096cffd2811dc3d1e56273dacd05cbc1c6e4a",
+    "B1.2-R01": "653bb6775e70df75edcbe79412e14911fcf1bfa0",
+    "B2.1-R02": "db06fedf593d3e448d1e2c9a3d77b52703bb0e06",
+    "B2.2-R01": "ff4036eaef04a9164afb936784ba682c69d018be"
+  },
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service test_forecasting test_service_contracts",
+      "log_sha256": "ea3ba3fa293c1d2da9200c56ff7528d018f30d39d347049265799e43e09734c9",
+      "result": "...........................................\n----------------------------------------------------------------------\nRan 43 tests in 22.504s\n\nOK"
+    },
+    {
+      "command": "13 original input SHA-256/read-only-mode checks",
+      "result": "13 matched and read-only; no original raw/derived input mutated"
+    },
+    {
+      "command": "ownership manifest check over prior handoff..HEAD",
+      "result": "31 changed paths all B-owned before final documentation checkpoint"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "current_coverage": {
+    "observed_qualification_sections": 154,
+    "software_developer_ads": 5,
+    "source_native_employer_requisitions": 155,
+    "technology_requests": {
+      "C++": 8,
+      "Excel": 27,
+      "Java": 4,
+      "Python": 6,
+      "SQL": 11
+    }
+  },
+  "excluded_local_state": [
+    {
+      "bytes": 77265983,
+      "files": 25,
+      "path": "ml/artifacts/session-b/investigation",
+      "state": "Ignored local raw CSV/ZIP/HTML/metadata only; not committed or externally backed up; compact hashes/audits/counts committed"
+    },
+    {
+      "bytes": 2805672,
+      "files": 4,
+      "path": "ml/artifacts/session-b/current-expansion",
+      "state": "Ignored acquired/replayed intermediate snapshots and log; final serving facts committed"
+    },
+    {
+      "bytes": 2358217,
+      "files": 162,
+      "path": "ml/artifacts/session-b/acquisition",
+      "state": "Ignored original plus expanded raw employer/source responses; no raw job descriptions staged"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw and derived",
+      "state": "13 untracked read-only G0 source inputs preserved in existing shared snapshot; no new recovery/backup performed"
+    }
+  ],
+  "historical_coverage": {
+    "approved_comparable_quarterly_series": 0,
+    "official_missing_cells": 42,
+    "official_published_role_observations": 35,
+    "populated_corpus_quarters": 8,
+    "raw_corpus_unique_ads": 69024,
+    "source_endpoint_attempts": 33
+  },
+  "limitations": [
+    "This publication/refinement phase passed; the market training workstream remains limited/deferred_dependency",
+    "Current feed observations and official role offerings are not the entire Malaysian employment market",
+    "No source/evaluation approval, push, deployment, production data write or paid execution inferred"
+  ],
+  "model_result": {
+    "different_target_research_model_runs": 0,
+    "empirical_evaluations": 0,
+    "implementation": [
+      "no_change",
+      "seasonal",
+      "ridge",
+      "gradient_boosting"
+    ],
+    "real_fits": 0,
+    "research_output": "Descriptive real frozen-corpus counts only; no forecast/accuracy claim",
+    "selected_models": 0
+  },
+  "next_eligible": "A integrate final B commits and use actual current issue timestamps; B retains source-investigation/adapter ownership. No dataset research assigned to user.",
+  "objective": "Publish expanded-source current-market integration handoff, actual history audit and exact unresolved target dependencies",
+  "owner": "B",
+  "phase_id": "B3.2-R01",
+  "refines": "B3.2",
+  "remaining_dependencies": [
+    "Complete comparable quarterly role-ad and per-skill request collection windows including expired ads",
+    "Historical data/feature publication vintages and enough time-ordered examples",
+    "Supported source/canonical classification mapping before any new recommendation use",
+    "RunPod verified access/balance/stop controls before any future paid execution"
+  ],
+  "resources": {
+    "A_paid_request": "A-002 USD0; no launch requested",
+    "paid_jobs": 0,
+    "remaining_account_credit_usd": null,
+    "runpod_access": "not_configured",
+    "session_spend_usd": 0
+  },
+  "status": "passed"
+}

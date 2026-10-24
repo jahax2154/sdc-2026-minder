@@ -1,0 +1,44 @@
+{
+  "phase": "A-R3",
+  "status": "controlled_HTTP_checks_pass",
+  "dependency": "fddeb24fae8dd6b125705fc45e6d7178935ecda9",
+  "implementation": "16 bounded request workers on both product API/UI listeners;45s socket bound, correct WSGI multithread flag; existing2-slot provider gate and atomic SQLite actions retained",
+  "measurements": {
+    "environment": "Local real HTTP/SQLite; explicit0.4s software-provider delay, not real Groq timing",
+    "samples": {
+      "serial_before": {
+        "n": 3,
+        "read_ms": [
+          413.144,
+          415.341,
+          411.949
+        ],
+        "median_ms": 413.144
+      },
+      "bounded_threaded_after": {
+        "n": 3,
+        "read_ms": [
+          3.299,
+          2.933,
+          2.865
+        ],
+        "median_ms": 2.933
+      }
+    },
+    "scope": "Saved GET agents while same-server chat provider pending; fresh fixture each sample, not process-cold market benchmark",
+    "workers": 16,
+    "provider_slots": 2,
+    "socket_seconds": 45,
+    "unsafe_write_retries_added": false
+  },
+  "verification": {
+    "targeted": "3 passed2.726s: serial delay, threaded saved reads, concurrent duplicate direct action exactly once and owner isolation",
+    "real_provider": "Combined real Groq/browser check follows; controlled delay is explicitly not Groq evidence"
+  },
+  "evidence": {
+    "product-concurrency.log": "50178f29cfa1d11edfb6d2470fbdab3c06f3351fc35d79de849aa2c3d113bb40",
+    "concurrency-measurements.json": "21791b6f12a16de0cc44d330a8177f78ca3699a1d6f4cd7ab987ef9b644c86dd"
+  },
+  "scope": "No automatic read/write retry, provider/model switch, migration, scheduler or deployment",
+  "deployment": false
+}

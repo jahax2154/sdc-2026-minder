@@ -1,0 +1,108 @@
+{
+  "version": "B-synthetic-GPU-preparation-v2",
+  "synthetic": true,
+  "normal_serving_eligible": false,
+  "phase": "MB1-PREP",
+  "existing_handoff": "SYNTHETIC_HANDOFF.v1.md",
+  "unchanged_runner_sha256": "d20ea421410e453cee1a444dc530e86ef3d94f2caf3635b2b6e3a87ade6a5b0b",
+  "unchanged_dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+  "image": {
+    "platform": "linux/amd64",
+    "python": "Ubuntu22.04 distribution CPython3.10; exact installed patch/packages must be captured from final image",
+    "cuda_base": {
+      "url": "https://hub.docker.com/v2/repositories/nvidia/cuda/tags/12.4.1-runtime-ubuntu22.04",
+      "sha256": "3bdcf5a68bfd751327790cd3fd68377b783b269900a6d8c127ef45f0a610e573",
+      "image": "nvidia/cuda",
+      "tag": "12.4.1-runtime-ubuntu22.04",
+      "amd64_digest": "sha256:cff3a0d82d2c2b47bab252d67fa9b34a20ef4c50781d98501b5c7367ea9afd10"
+    },
+    "xgboost_wheel": {
+      "url": "https://pypi.org/pypi/xgboost/2.1.4/json",
+      "metadata_sha256": "1bf8df703789726ec7c61875c1583277a731db2db2d145d39ed58648d9b28d7e",
+      "gpu_compatible_glibc_228_linux_x86_64_wheel": {
+        "filename": "xgboost-2.1.4-py3-none-manylinux_2_28_x86_64.whl",
+        "sha256": "8df6da72963969ab2bf49a520c3e147b1e15cbeddd3aa0e3e039b3532c739339",
+        "bytes": 223642416
+      },
+      "wheel_downloaded": false
+    },
+    "SDK": {
+      "url": "https://pypi.org/pypi/runpod/1.7.13/json",
+      "sha256": "f317a038cc034aa7be043a33b7c1bbc716acc39a35752f20174a6c13deeb3cc2",
+      "version": "1.7.13",
+      "requires_python": ">=3.8"
+    },
+    "final_custom_image": null,
+    "built_image_pull_verified": false,
+    "Dockerfile": "checks/GPU.Dockerfile",
+    "credential_free_context_builder": "checks/build_gpu_context.py",
+    "native_Dockerfile": "checks/GPU.native.Dockerfile",
+    "runtime_source_manifest": "gpu-runtime-source-manifest.v1.json",
+    "build_route": "RunPod native GitHub build and registry after account repository consent"
+  },
+  "endpoint": {
+    "name": "minder-b-gpu-once-20261024",
+    "type": "QB candidate; finite provider retries permitted only within verified total cost/time bounds",
+    "active_workers": 0,
+    "maximum_workers": 1,
+    "gpus_per_worker": 1,
+    "idle_timeout_seconds": 5,
+    "execution_timeout_ms": 180000,
+    "job_ttl_ms": 300000,
+    "flashboot": "disable for bounded one-shot; exact live setting pending",
+    "persistent_volume": false,
+    "provider_attempt_ceiling_required": null,
+    "provider_attempt_ceiling_verified": false,
+    "provider_billing_hard_bound_verified": false,
+    "provider_attempt_policy": "positive finite actual ceiling verified at live preflight, with all retries included in total billable duration"
+  },
+  "worker": {
+    "entry_command": "python3 -u docs/execution/parallel/B/checks/gpu_worker.py",
+    "subprocess_timeout_seconds": 120,
+    "fit_cap": 12,
+    "expected_GPU_fits": 5,
+    "expected_CPU_fits": 7,
+    "GPU_proof": "XGBoost USE_CUDA build, successful fit, effective cuda device plus GPU updater and48boostedrounds; per-fit training IDs/configs/checksums plusUBJ models",
+    "CPU_methods": [
+      "no_change",
+      "seasonal",
+      "ridge"
+    ],
+    "selection": "previous SY2 validation-selected seasonal methods retained; GPU diagnostics/unfavorable errors are reported without promotion"
+  },
+  "artifacts": {
+    "transport": "inline base64ZIP returned to RunPod job result before worker cleanup; controller retrieves/checksums/extracts under ignored gpu-live/artifacts",
+    "maximum_archive_bytes": 2097152,
+    "maximum_expanded_bytes": 10485760,
+    "retention": "retrieve immediately within configured TTL; no network volume or S3 key needed",
+    "private_credentials_in_worker": false
+  },
+  "budget": {
+    "total_max_usd": 2,
+    "topup": false,
+    "billing_upgrade": false,
+    "automatic_client_retries": 0,
+    "submission_limit": 1,
+    "receipt": "fixed ignored gpu-live/submission-intent.json created exclusively before network I/O; unknown POST outcome blocks repeats",
+    "quote_or_actual_cost_usd": null,
+    "live_gate": "Every requested bound must be verified before submit; not a sleeping-Mac watchdog",
+    "initialization_test_jobs_and_provider_retries_included": true
+  },
+  "pending": [
+    "A publishes exact native-build refinement SHA",
+    "Verify native build Testing cost/control and final built image identifier",
+    "Configure dedicated zero-active endpoint; obtain actual endpoint ID and scoped key grant if needed",
+    "Verify rate, total-time/retry/startup/storage/cleanup charge bound withinUSD2",
+    "Submit once, prove CUDA fit, retrieve evidence and reconcile actual cost/shutdown"
+  ],
+  "continuation": "MB1-R01; confirmed credits/key; native GitHub build",
+  "account_verified": {
+    "balance_usd": 25,
+    "current_spend_per_hour": 0,
+    "github_connected": true,
+    "automatic_payment_enabled": false,
+    "endpoint_count": 0,
+    "pod_count": 0,
+    "dedicated_endpoints": []
+  }
+}

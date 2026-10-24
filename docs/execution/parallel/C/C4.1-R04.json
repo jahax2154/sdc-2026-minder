@@ -1,0 +1,80 @@
+{
+  "phase_id": "C4.1-R04",
+  "owner": "C",
+  "branch": "session/c-app-agents",
+  "status": "passed",
+  "scope": "One bounded grounding/privacy refinement and truthful local-frontend verification; separate intended frontend remains unavailable",
+  "policy_id": "minder-grounding-privacy-v1",
+  "changes": [
+    "apps/backend-api/data/llm-behaviour.v1.json",
+    "apps/backend-api/minder_app/grounding.py",
+    "apps/backend-api/minder_app/chat.py",
+    "apps/backend-api/minder_app/agents.py",
+    "apps/backend-api/minder_app/store.py",
+    "apps/backend-api/tests/test_chat.py",
+    "apps/backend-api/tests/test_grounding_privacy.py",
+    "apps/frontend-web/app.js",
+    "apps/frontend-web/README.md",
+    "apps/frontend-web/tests/grounding_privacy_acceptance.cjs",
+    "docs/execution/parallel/C/GROUNDING_PRIVACY_FRONTEND_REFINEMENT.md",
+    "docs/execution/parallel/C/requests/C-006-GROUNDING-INTERFACES.md",
+    "docs/execution/parallel/C/C4.1-R04.json",
+    "docs/execution/parallel/C/requests/C-007-GROUNDING-PRIVACY-HANDOFF.md"
+  ],
+  "verification": {
+    "backend_tests_passed": 42,
+    "new_adversarial_privacy_cases": 13,
+    "reused_backend_controls": 29,
+    "provider_transport_mock_tests_passed": 7,
+    "app_context_tests_passed": 1,
+    "js_syntax_passed": true,
+    "diff_check_passed": true,
+    "real_frontend_provider_evidence": {
+      "frontend_kind": "local acceptance/product prototype; separate intended frontend unavailable",
+      "entry_url": "http://127.0.0.1:9103/",
+      "backend_url": "http://127.0.0.1:9103/api/",
+      "separate_api_listener": "http://127.0.0.1:8103",
+      "intended_frontend_verified": false,
+      "mocked_network": false,
+      "synthetic_user": true,
+      "checks": {
+        "ordinary_ranking_values_hidden_in_actual_scored_view": true,
+        "real_native_evidence_id_selection_and_server_citations": true,
+        "unavailable_forecast_and_source_scope_visible": true,
+        "no_false_action_success_or_profile_change": true,
+        "no_page_errors": true
+      },
+      "provider_request_success": true,
+      "recorded_at": "2026-10-23T08:55:17.644Z"
+    },
+    "evidence_sha256": "bf54955dd8aeb12a3f1194cdc97d059d4293b9d513a3a5dd90ec2887feff44ea",
+    "db_permissions": {
+      "dev.sqlite3": "0o600",
+      "dev.sqlite3-wal": "0o600",
+      "dev.sqlite3-shm": "0o600"
+    }
+  },
+  "retained_controls": [
+    "Existing user-isolation/scoped authority/action schemas",
+    "Direct user instruction and exact proactive-preview approval; no document-granted permission",
+    "Existing native function allowlist, argument validation, bounded retries and quota",
+    "Backend scoring/order/grouping unchanged; UI ordinary values omitted"
+  ],
+  "limits": [
+    "Local prototype/acceptance UI verified, not separate intended product frontend; exact connection work in refinement document",
+    "Closed claim/template and structured derivation checking; not arbitrary prose entailment, source truth/freshness or career validity",
+    "Question regex minimisation is not complete anonymisation/DLP",
+    "Plaintext local SQLite has no auto expiry/purge; existing historical data preserved; current files restricted to owner",
+    "Provider account privacy/data-control/region/legal settings unverified; no compliance inference",
+    "Shared personal numeric API DTO fields remain A-owned; UI/chat projection hidden, request C-006 records future coordination"
+  ],
+  "artifacts_excluded": [
+    "Private configuration",
+    "SQLite/WAL/SHM and old context ledgers",
+    "New synthetic profile, screenshot and raw verification JSON under C artifacts",
+    "Existing raw/derived read-only source inputs and temporary browser tooling"
+  ],
+  "checkpoint": "commit containing this phase record and C-007 handoff",
+  "recorded_at": "2026-10-23T08:58:07.438528+00:00",
+  "push_status": "not pushed; no deployment"
+}

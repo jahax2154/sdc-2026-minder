@@ -1,0 +1,75 @@
+{
+  "schema_version": "g1ar-batch-decision-v1",
+  "batch_id": "g1ar-three-role-initial-v1",
+  "batch_sha256": "a7d41f3799a0010df0d5aa17954183f92fa0affc6f66791b58488577621783b3",
+  "status": "pending",
+  "decision_id": null,
+  "reviewer_id": null,
+  "decided_at": null,
+  "rationale": null,
+  "accepted_effort_method_id": null,
+  "task_effort_estimates": [
+    {
+      "task_id": "sw-requirements:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    },
+    {
+      "task_id": "sw-debugging:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    },
+    {
+      "task_id": "ds-statistics:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    },
+    {
+      "task_id": "ds-evaluation:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    },
+    {
+      "task_id": "sec-policy:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    },
+    {
+      "task_id": "sec-risk:work",
+      "low": null,
+      "high": null,
+      "unit": "hours",
+      "basis": null,
+      "evidence_ids": [],
+      "basis_kind": null
+    }
+  ],
+  "assessment_instance_ids": [
+    "sw-requirements-scenario-v1",
+    "sw-debugging-scenario-v1",
+    "ds-statistics-scenario-v1",
+    "ds-evaluation-scenario-v1",
+    "sec-policy-scenario-v1",
+    "sec-risk-scenario-v1"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "phase_id": "B1.2",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "objective": "Credible-event pipeline and current/forecast callable adapter",
+  "inputs": [
+    "B1.1 53d493e79c66f37b00f11b0608022761a725e86e",
+    "minder-parallel-v1",
+    "market-approved-sources-v1"
+  ],
+  "changes": [
+    "MarketEvidenceService.current/forecast obey shared MarketResult with explicit canonical-to-source aliases",
+    "Derived count publication timestamps separated from original ad publication in source_facts",
+    "One underlying MIDA announcement retrieved and content-anchor checked, event dedup/source exclusions and coverage-normalised auxiliary attention implemented",
+    "No new market index arithmetic or personal/current/forecast blend activated"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service.CurrentTests test_market_service.NewsTests",
+      "result": "7 passed"
+    },
+    {
+      "command": "python -m minder_ml.intelligence.news",
+      "result": "1 real underlying MIDA document, HTTP 200, 1 announcement event; no verified hiring outcome"
+    }
+  ],
+  "coverage": {
+    "current_role_source_ids": 4,
+    "current_skill_source_terms": 5,
+    "nonzero_role_ids": 1,
+    "nonzero_skill_terms": 5,
+    "current_zero_values": "Known zero within inspected sample, never national absence",
+    "forecast_families": [
+      "role",
+      "skill"
+    ],
+    "actual_forecasts": 0,
+    "events": 1
+  },
+  "limitations": [
+    "Partial source/title/dictionary coverage; no national demand score",
+    "News attention unavailable: complete feed denominators absent",
+    "No historical news-enabled evaluation",
+    "Canonical IDs require A alias map; role/skill forecast histories missing"
+  ],
+  "dependency_ids": [
+    "B1.1"
+  ],
+  "next_eligible": "B2.1",
+  "checkpoint": "commit containing this record"
+}

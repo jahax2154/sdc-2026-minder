@@ -1,0 +1,49 @@
+{
+  "phase_id": "B2.2",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "blocked_external",
+  "objective": "Run eligible bounded backtests and queued A jobs; preserve actual costs/results",
+  "inputs": [
+    "B2.1 bb408ece9b6c7b86de452536324bda1162f5f982",
+    "forecast-dataset.v1.json",
+    "committed A-002 request"
+  ],
+  "checks": [
+    {
+      "command": "python -m minder_ml.intelligence.market_training run --dataset ml/data/market/forecast-dataset.v1.json --expected-sha256 c4ffeb1ae53e5456ad05324f2188ebafee3b2fac3e446d2c97c7e6fbf2cd5aa9 --code-commit bb408ece9b6c7b86de452536324bda1162f5f982 --output-dir ml/artifacts/session-b/b22-local-run",
+      "result": "Exit 0, status unavailable_data; real source audit/eligibility runner only, zero actual training fits and zero empirical evaluations"
+    },
+    {
+      "command": "read-only environment/config presence and committed A request inspection",
+      "result": "RunPod key/config absent; balance/prior account jobs unverifiable; A explicitly requests no paid launch, USD0 cap"
+    }
+  ],
+  "coverage": {
+    "eligible_real_series": 0,
+    "eligible_examples": 0,
+    "real_fits": 0,
+    "real_evaluations": 0,
+    "selected_for_application": 0,
+    "paid_jobs": 0,
+    "session_cost_usd": 0,
+    "remaining_account_credits": "unknown"
+  },
+  "model_results": {
+    "no_change": "implemented; not evaluated on eligible real data",
+    "seasonal": "implemented; not evaluated on eligible real data",
+    "ridge": "implemented; synthetic smoke fit only; no actual target training",
+    "gradient_boosting": "implemented; synthetic smoke fit only; no actual target training",
+    "news_ablation": "not run, no archived compatible contexts"
+  },
+  "limitations": [
+    "No successful forecasting training/evaluation claimed",
+    "No account access/balance or historical job inspection; USD25 is reported allowance, not observed balance"
+  ],
+  "dependency_ids": [
+    "RUNPOD_ACCESS",
+    "COMPARABLE_ROLE_AND_SKILL_QUARTERLY_HISTORY"
+  ],
+  "next_eligible": "B3.1 artifact/status serving; no paid job launched",
+  "checkpoint": "commit containing this record"
+}

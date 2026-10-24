@@ -1,0 +1,37 @@
+{
+  "coverage": {
+    "role": "unavailable_no_comparable_quarterly_history",
+    "skill": "unavailable_no_comparable_quarterly_history"
+  },
+  "created_at": "2026-10-22T17:59:42.423062+00:00",
+  "current_snapshot_sha256": "1a5d6e05721428ba2281a9c13551b96013b2cd5baafa9def9decaf1fedec16b3",
+  "dataset": {
+    "file": "forecast-dataset.v1.json",
+    "sha256": "63eed17c6c09ab2f8b74bbd2c417a7894cf08760cdf982901b052ff5ada6f965"
+  },
+  "environment": {},
+  "features": [
+    "latest_count",
+    "lag1",
+    "lag2",
+    "lag3",
+    "mean4",
+    "recent_change",
+    "target_quarter_sin",
+    "target_quarter_cos",
+    "lead_quarters"
+  ],
+  "forecast_spec": "my-quarterly-unique-ads-v1",
+  "limitations": [
+    "No trained forecast artifacts selected; empty model list is intentional.",
+    "Current snapshot and historical dataset are distinct versioned inputs; metadata correction B1.1-R01 changed mapping metadata only.",
+    "When models are selected, transfer all checksummed artifacts to injected artifact_root; never use a sibling worktree absolute path."
+  ],
+  "models": [],
+  "promotion_rule_version": "quarter-count-promotion-v1",
+  "public_context_snapshot_sha256": "0d6d7768442a4f0e457c8fd4f5e1b20868eaf16213ca37203d96289ef47189b8",
+  "published_role_snapshot_sha256": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+  "selection_status": "unavailable_data",
+  "synthetic": false,
+  "version": "market-serving-registry-v1"
+}

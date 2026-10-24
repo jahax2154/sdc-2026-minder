@@ -1,0 +1,49 @@
+{
+  "phase_id": "A1.3",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Scoped feedback state/reset and explicit reversible view filters",
+  "inputs": [
+    "A1.2",
+    "minder-parallel-v1",
+    "N01 pending"
+  ],
+  "changes": [
+    "Version-checked pure preference update for C transactional persistence",
+    "Same-state action returns identical profile/version; reset removes scoped preference only",
+    "Explicit SearchFilter DTO plus visible applied filter/exclusions/unknown mappings; no preference-based exclusion"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "8 passed; includes feedback idempotence/reset/scoping/stale versions, filter reversal, many-to-many links and market-period invariance with unavailable fixture"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "before/not_interested/reset real service calls on onet:15-1252.00",
+      "result": "same candidate retained; explicit label changes/reset; no numeric scores"
+    }
+  ],
+  "evidence_path": "ml/artifacts/session-a/a1.3-feedback-v1/service_calls.json",
+  "coverage": {
+    "candidates_before": 1,
+    "candidates_after": 1,
+    "candidates_reset": 1,
+    "numeric_scores": 0
+  },
+  "limitations": [
+    "Numerical decrease/monotonicity deferred to N01; no preference arithmetic executed",
+    "Pure update returns new DTO; C owns actual persistence/idempotent request execution",
+    "Market invariance test uses named unavailable fixture, not B live evidence"
+  ],
+  "dependencies": [
+    "N01",
+    "C persistence integration"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "I1 early committed C integration and A2.1 learner machinery"
+}

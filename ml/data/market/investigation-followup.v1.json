@@ -1,0 +1,52 @@
+{
+  "sources": [
+    {
+      "source_id": "jobstreet-research-records",
+      "url": "https://raw.githubusercontent.com/maanajipriyanshu/malaysia-job-market-analysis/main/data/cleaned/jobstreet_cleaned.csv",
+      "kind": "csv",
+      "geography": "MY claimed; audit locations",
+      "measurement": "Job advertisement records in research mirror",
+      "access_conditions": "Public CSV 14.3MB; raw local only; trace original Apache 2.0 dataset metadata"
+    },
+    {
+      "source_id": "jobstreet-original-file-index",
+      "url": "https://www.kaggle.com/api/v1/datasets/list/azraimohamad/jobstreet-all-job-dataset",
+      "kind": "json",
+      "geography": "MY claimed",
+      "measurement": "Original dataset file metadata and sizes",
+      "access_conditions": "Public API; inspect individual file downloads instead of repeating whole >30MB download"
+    },
+    {
+      "source_id": "dosm-jmi-2026q1-page",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q12026",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "2026Q1 published advertisement counts and data links",
+      "access_conditions": "Official release published 2026-06-25; raw HTML local"
+    },
+    {
+      "source_id": "dosm-jmi-2021q34-page",
+      "url": "https://www.dosm.gov.my/portal-main/release-content/job-vacancies-landscape-in-malaysia-third-and-fourth-quarter-of-2021",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Historical native occupational and skill reporting, method notes",
+      "access_conditions": "Official release published 2022-02-28; raw HTML local"
+    },
+    {
+      "source_id": "perkeso-lmx-official-entry",
+      "url": "https://myfuturejobs.gov.my/labour-market-exchange/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Actual official LMX links and export surfaces",
+      "access_conditions": "Correct official entry after nonexistent guessed subdomain; no bypass"
+    },
+    {
+      "source_id": "dosm-jmi-legacy-entry",
+      "url": "https://www.dosm.gov.my/bda-jmi",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Official historic JMI dashboard link from release",
+      "access_conditions": "Public link, inspect redirect and available exports"
+    }
+  ]
+}

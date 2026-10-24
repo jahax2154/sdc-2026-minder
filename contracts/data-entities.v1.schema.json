@@ -1,0 +1,1410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:minder:data-entities:v1",
+  "title": "Minder phase 2 canonical entities; schema approval does not approve records",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/UserProfile"
+    },
+    {
+      "$ref": "#/$defs/RoleDefinition"
+    },
+    {
+      "$ref": "#/$defs/PersonalFitAnnotation"
+    },
+    {
+      "$ref": "#/$defs/MarketObservation"
+    },
+    {
+      "$ref": "#/$defs/RoleMarketCrosswalk"
+    },
+    {
+      "$ref": "#/$defs/SkillTaxonomyCrosswalk"
+    }
+  ],
+  "$defs": {
+    "Review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "disputed"
+          ]
+        },
+        "reviewer_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "reviewer_id",
+        "rationale",
+        "reviewed_at"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reviewer_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewed_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TaxonomyIdentifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "system",
+        "version",
+        "code",
+        "label"
+      ]
+    },
+    "SourceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source_id",
+        "source_version",
+        "record_id"
+      ]
+    },
+    "UserProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "UserProfile"
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_class": {
+          "enum": [
+            "synthetic",
+            "private"
+          ]
+        },
+        "profile_family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "career_goal": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "country_region_preference": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "country_code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "region_code": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "country_code",
+                "region_code"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "planning_horizon": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "weeks": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
+            "weeks"
+          ]
+        },
+        "hours_per_week": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "skill_observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "skill_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "criterion_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "role_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "state": {
+                "enum": [
+                  "assessed",
+                  "self_reported",
+                  "demonstrated",
+                  "unknown"
+                ]
+              },
+              "demonstrated_fraction": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "review": {
+                "$ref": "#/$defs/Review"
+              }
+            },
+            "required": [
+              "skill_id",
+              "criterion_id",
+              "role_id",
+              "state",
+              "demonstrated_fraction",
+              "evidence_ids",
+              "review"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "state": {
+                      "const": "unknown"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "demonstrated_fraction": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "interests": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "projects_achievements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "required": [
+              "description",
+              "evidence_ids"
+            ]
+          }
+        },
+        "education_experience": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "education": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "experience": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "education",
+            "experience"
+          ]
+        },
+        "work_preferences": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "access_budget_constraints": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "resources": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "budget_amount": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "constraints": {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "resources",
+            "budget_amount",
+            "currency",
+            "constraints"
+          ]
+        },
+        "role_alignments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "role_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "interest_alignment": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "resource_feasibility": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "work_style_alignment": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "review": {
+                "$ref": "#/$defs/Review"
+              }
+            },
+            "required": [
+              "role_id",
+              "interest_alignment",
+              "resource_feasibility",
+              "work_style_alignment",
+              "evidence_ids",
+              "review"
+            ]
+          }
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "profile_id",
+        "version",
+        "data_class",
+        "profile_family_id",
+        "career_goal",
+        "country_region_preference",
+        "planning_horizon",
+        "hours_per_week",
+        "skill_observations",
+        "interests",
+        "projects_achievements",
+        "education_experience",
+        "work_preferences",
+        "access_budget_constraints",
+        "role_alignments",
+        "review"
+      ]
+    },
+    "RoleDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "RoleDefinition"
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preparation_milestone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "task_interest_tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "criterion_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "skill_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "skill_taxonomy": {
+                "$ref": "#/$defs/TaxonomyIdentifier"
+              },
+              "requirement_weight": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "importance": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "importance_scale": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "observable_evidence_rule": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/SourceReference"
+                }
+              },
+              "review": {
+                "$ref": "#/$defs/Review"
+              }
+            },
+            "required": [
+              "criterion_id",
+              "skill_id",
+              "skill_taxonomy",
+              "requirement_weight",
+              "importance",
+              "importance_scale",
+              "observable_evidence_rule",
+              "sources",
+              "review"
+            ]
+          }
+        },
+        "occupation_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "identifier": {
+                "$ref": "#/$defs/TaxonomyIdentifier"
+              },
+              "mapping_type": {
+                "enum": [
+                  "exact",
+                  "close",
+                  "broad",
+                  "narrow",
+                  "unmapped"
+                ]
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/SourceReference"
+                }
+              },
+              "review": {
+                "$ref": "#/$defs/Review"
+              }
+            },
+            "required": [
+              "identifier",
+              "mapping_type",
+              "scope",
+              "sources",
+              "review"
+            ]
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceReference"
+          }
+        },
+        "feature_rubrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "interest_alignment": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "definition": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "evidence_rule": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "review": {
+                  "$ref": "#/$defs/Review"
+                }
+              },
+              "required": [
+                "definition",
+                "evidence_rule",
+                "review"
+              ]
+            },
+            "resource_feasibility": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "definition": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "evidence_rule": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "review": {
+                  "$ref": "#/$defs/Review"
+                }
+              },
+              "required": [
+                "definition",
+                "evidence_rule",
+                "review"
+              ]
+            },
+            "work_style_alignment": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "definition": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "evidence_rule": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                },
+                "review": {
+                  "$ref": "#/$defs/Review"
+                }
+              },
+              "required": [
+                "definition",
+                "evidence_rule",
+                "review"
+              ]
+            }
+          },
+          "required": [
+            "interest_alignment",
+            "resource_feasibility",
+            "work_style_alignment"
+          ]
+        },
+        "remaining_effort": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hours_used": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "low_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "high_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "basis": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "review": {
+              "$ref": "#/$defs/Review"
+            }
+          },
+          "required": [
+            "hours_used",
+            "low_hours",
+            "high_hours",
+            "basis",
+            "review"
+          ]
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "role_id",
+        "version",
+        "title",
+        "preparation_milestone",
+        "task_interest_tags",
+        "criteria",
+        "occupation_identifiers",
+        "sources",
+        "feature_rubrics",
+        "remaining_effort",
+        "review"
+      ]
+    },
+    "PersonalFitAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "PersonalFitAnnotation"
+        },
+        "annotation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pair_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rubric_version": {
+          "const": "personal-preparation-grades-v1"
+        },
+        "feature_schema_version": {
+          "const": "personal-preparation-features-v1"
+        },
+        "preparation_horizon": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "grade": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 2
+        },
+        "reviewer_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "review_status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected",
+            "disputed"
+          ]
+        },
+        "reviewed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profile_family_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label_source": {
+          "enum": [
+            "human_reviewed",
+            "weak_auto_proposal",
+            null
+          ]
+        },
+        "independent_review": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "rubric_ambiguity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "annotation_id",
+        "pair_id",
+        "profile_id",
+        "profile_version",
+        "role_id",
+        "role_version",
+        "rubric_version",
+        "feature_schema_version",
+        "preparation_horizon",
+        "grade",
+        "reviewer_id",
+        "rationale",
+        "review_status",
+        "reviewed_at",
+        "profile_family_id",
+        "label_source",
+        "independent_review",
+        "rubric_ambiguity"
+      ]
+    },
+    "MarketObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "MarketObservation"
+        },
+        "observation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "indicator_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "denominator": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "meaning": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "observation_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "meaning",
+                "observation_id"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "geography_code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geography_level": {
+          "enum": [
+            "country",
+            "region",
+            "city"
+          ]
+        },
+        "region_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "period_start": {
+          "type": "string",
+          "format": "date"
+        },
+        "period_end": {
+          "type": "string",
+          "format": "date"
+        },
+        "frequency": {
+          "enum": [
+            "quarterly",
+            "annual",
+            "monthly"
+          ]
+        },
+        "available_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "string",
+              "format": "date-time"
+            }
+          ]
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "taxonomy_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taxonomy_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "occupation_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "occupation_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "skill_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "employer_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "industry_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "industry_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "dimension_scope": {
+          "enum": [
+            "occupation",
+            "industry",
+            "skill",
+            "employer"
+          ]
+        },
+        "group_kind": {
+          "enum": [
+            "overall",
+            "category",
+            "unclassified"
+          ]
+        },
+        "population_coverage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_coverage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "methodology_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "measurement_kind": {
+          "enum": [
+            "observed",
+            "estimate",
+            "scenario",
+            "forecast"
+          ]
+        },
+        "data_quality_status": {
+          "enum": [
+            "valid",
+            "missing",
+            "review_required",
+            "invalid"
+          ]
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "source_record": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sheet": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "cell": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "raw_value": {
+              "type": [
+                "string",
+                "number",
+                "null"
+              ]
+            },
+            "value_status": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "sheet",
+            "cell",
+            "raw_value",
+            "value_status"
+          ]
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "observation_id",
+        "source_id",
+        "source_version",
+        "indicator_id",
+        "value",
+        "unit",
+        "denominator",
+        "geography_code",
+        "geography_level",
+        "region_code",
+        "period_start",
+        "period_end",
+        "frequency",
+        "available_at",
+        "published_at",
+        "retrieved_at",
+        "taxonomy_system",
+        "taxonomy_version",
+        "occupation_code",
+        "occupation_label",
+        "skill_id",
+        "employer_id",
+        "industry_id",
+        "industry_label",
+        "dimension_scope",
+        "group_kind",
+        "population_coverage",
+        "source_coverage",
+        "measurement_method",
+        "methodology_version",
+        "measurement_kind",
+        "data_quality_status",
+        "quality_flags",
+        "source_record"
+      ]
+    },
+    "RoleMarketCrosswalk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "RoleMarketCrosswalk"
+        },
+        "mapping_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from_identifier": {
+          "$ref": "#/$defs/TaxonomyIdentifier"
+        },
+        "to_identifier": {
+          "$ref": "#/$defs/TaxonomyIdentifier"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapping_type": {
+          "enum": [
+            "exact",
+            "close",
+            "broad",
+            "narrow",
+            "unmapped"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/SourceReference"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "mapping_id",
+        "from_identifier",
+        "to_identifier",
+        "scope",
+        "mapping_type",
+        "source",
+        "review"
+      ]
+    },
+    "SkillTaxonomyCrosswalk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-data-v1"
+        },
+        "entity_type": {
+          "const": "SkillTaxonomyCrosswalk"
+        },
+        "mapping_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from_identifier": {
+          "$ref": "#/$defs/TaxonomyIdentifier"
+        },
+        "to_identifier": {
+          "$ref": "#/$defs/TaxonomyIdentifier"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapping_type": {
+          "enum": [
+            "exact",
+            "close",
+            "broad",
+            "narrow",
+            "unmapped"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/SourceReference"
+        },
+        "review": {
+          "$ref": "#/$defs/Review"
+        }
+      },
+      "required": [
+        "schema_version",
+        "entity_type",
+        "mapping_id",
+        "from_identifier",
+        "to_identifier",
+        "scope",
+        "mapping_type",
+        "source",
+        "review"
+      ]
+    }
+  }
+}

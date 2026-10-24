@@ -1,0 +1,1158 @@
+{
+  "export_version": "minder-r0-context-v1",
+  "created_at_utc": "2026-10-22T07:22:36.978884+00:00",
+  "code_checkpoint_sha": "8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f",
+  "branch": "recovery/r0-20261022-accumulated-work",
+  "purpose": "Sanitized architecture-reset context; not a source archive to commit or a claim of passing gates",
+  "file_count": 116,
+  "included_source_files": 114,
+  "source_checkpoint_file_count": 179,
+  "checkpoint_files_omitted_from_context": [
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/workflows/.gitkeep",
+    "AGENTS copy.md",
+    "README copy.md",
+    "apps/backend-api/.gitkeep",
+    "apps/backend-api/src/modules/dashboard/.gitkeep",
+    "apps/backend-api/src/modules/explorer/.gitkeep",
+    "apps/backend-api/src/modules/llm-chat/.gitkeep",
+    "apps/backend-api/src/modules/matching/.gitkeep",
+    "apps/backend-api/src/modules/personal-bots/.gitkeep",
+    "apps/backend-api/src/modules/profiles/.gitkeep",
+    "apps/backend-api/src/modules/progress/.gitkeep",
+    "apps/backend-api/src/modules/roadmaps/.gitkeep",
+    "apps/backend-api/src/modules/trends/.gitkeep",
+    "apps/frontend-web/.gitkeep",
+    "apps/frontend-web/src/features/career-explorer/.gitkeep",
+    "apps/frontend-web/src/features/dashboard/.gitkeep",
+    "apps/frontend-web/src/features/llm-chat/.gitkeep",
+    "apps/frontend-web/src/features/personal-bots/.gitkeep",
+    "apps/frontend-web/src/features/user-profile/.gitkeep",
+    "contracts/.gitkeep",
+    "docs/execution/gates/G1A_R_authorization.json",
+    "docs/execution/gates/G1A_R_checks.txt",
+    "docs/execution/gates/G1A_R_git_status.txt",
+    "docs/execution/gates/G1A_R_service_demo.json",
+    "docs/execution/gates/G1A_authorization.json",
+    "docs/execution/gates/G1A_checks.txt",
+    "docs/execution/gates/G1A_git_status.txt",
+    "docs/execution/gates/G1A_service_demo.json",
+    "docs/execution/gates/G1A_v2_authorization.json",
+    "docs/execution/gates/G1A_v2_checks.txt",
+    "docs/execution/gates/G1A_v2_git_status.txt",
+    "docs/execution/gates/G1A_v2_instruction.txt",
+    "docs/execution/gates/G1A_v2_service_demo.json",
+    "docs/execution/gates/G3_authorization.json",
+    "docs/execution/gates/G3_checks.txt",
+    "docs/execution/gates/G3_coverage.json",
+    "docs/execution/gates/G3_execution.json",
+    "docs/execution/gates/G3_git_status.txt",
+    "docs/execution/gates/G3_instruction.txt",
+    "docs/execution/gates/G3_profile_readiness.json",
+    "docs/execution/gates/G3_service_checks.json",
+    "ml/configs/.gitkeep",
+    "ml/data/.gitkeep",
+    "ml/data/README.md",
+    "ml/data/annotations/personal_fit_annotations.csv",
+    "ml/data/reference/README.md",
+    "ml/data/review/GRADER_INSTRUCTIONS.md",
+    "ml/data/review/README.md",
+    "ml/data/review/annotation_intake.pending.csv",
+    "ml/data/review/blind_grading_packet.pending.json",
+    "ml/data/review/phase2/calibration-v1/approval_report.md",
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.csv",
+    "ml/data/review/phase2/calibration-v1/blind_grading_sheet.md",
+    "ml/data/review/phase2/calibration-v1/blind_packet.json",
+    "ml/data/review/phase2/calibration-v1/profiles.synthetic.json",
+    "ml/data/review/phase2/calibration-v1/responses.pending.json",
+    "ml/data/review/phase2/profile_generation_template.json",
+    "ml/data/review/phase2/role_market_crosswalks.pending.json",
+    "ml/data/review/phase2/skill_taxonomy_crosswalks.pending.json",
+    "ml/data/review/profile_intake.pending.json",
+    "ml/evaluation/.gitkeep",
+    "ml/experiments/.gitkeep",
+    "ml/minder_ml_starter/math_checks.json",
+    "ml/minder_ml_starter/templates/personal_fit_annotations.csv",
+    "ml/minder_ml_starter/templates/personal_fit_record.schema.json",
+    "ml/src/minder_ml/.gitkeep",
+    "ml/tests/.gitkeep",
+    "packages/career-engine/.gitkeep",
+    "packages/career-engine/README.md",
+    "scripts/.gitkeep",
+    "scripts/README.md",
+    "tests/README.md",
+    "tests/contracts/.gitkeep",
+    "tests/e2e/.gitkeep"
+  ],
+  "local_manifest_files_included": [
+    "ml/data/snapshots/b98b3798cd3034e4c5f41637/quality.json",
+    "ml/data/snapshots/b98b3798cd3034e4c5f41637/snapshot.json",
+    "ml/data/snapshots/b98b3798cd3034e4c5f41637/source_manifest.json",
+    "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/quality.json",
+    "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/snapshot.json",
+    "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/source_manifest.json",
+    "ml/artifacts/phase2/calibration-v1/export/review_manifest.json",
+    "ml/artifacts/phase2/calibration-v1/pending-import/readiness.json",
+    "ml/artifacts/phase2/review-import-v1/readiness.json",
+    "ml/artifacts/phase2/review-v1/review_manifest.json"
+  ],
+  "absent_requested_files": [
+    "docs/intelligence/README.md",
+    "docs/execution/gates/G1B_report.md",
+    "docs/execution/gates/G2_report.md",
+    "package.json",
+    "apps/backend-api/package.json",
+    "apps/frontend-web/package.json"
+  ],
+  "completed_role_inventory": "No fully approved milestone inventory; existing source-native/reference and pending-role projections included.",
+  "files": [
+    {
+      "path": ".editorconfig",
+      "source": "code_checkpoint",
+      "source_sha256": "d06b751c6b163f551c0614f72e5d184c443872655af6055dc888d1d7ccd39858",
+      "export_sha256": "d06b751c6b163f551c0614f72e5d184c443872655af6055dc888d1d7ccd39858",
+      "bytes": 171,
+      "sanitized": false
+    },
+    {
+      "path": ".env.example",
+      "source": "code_checkpoint",
+      "source_sha256": "98598af2046cabd98db4dbf8a5777dbc9d207e053deee0975fa2ed5ee0f30db3",
+      "export_sha256": "98598af2046cabd98db4dbf8a5777dbc9d207e053deee0975fa2ed5ee0f30db3",
+      "bytes": 136,
+      "sanitized": false
+    },
+    {
+      "path": ".gitignore",
+      "source": "code_checkpoint",
+      "source_sha256": "8827d9fcff8d6a40e8b9e6cda0d807cd8bc976fdcfec6aac16bff06c1d72bef0",
+      "export_sha256": "8827d9fcff8d6a40e8b9e6cda0d807cd8bc976fdcfec6aac16bff06c1d72bef0",
+      "bytes": 837,
+      "sanitized": false
+    },
+    {
+      "path": "AGENTS.md",
+      "source": "code_checkpoint",
+      "source_sha256": "24f16ef224eadf41890decd1954d0a54c4092d6b71784e6012ac4b9bcd6a074f",
+      "export_sha256": "24f16ef224eadf41890decd1954d0a54c4092d6b71784e6012ac4b9bcd6a074f",
+      "bytes": 2732,
+      "sanitized": false
+    },
+    {
+      "path": "ML_DESIGN.md",
+      "source": "code_checkpoint",
+      "source_sha256": "ed44e5ad6bf06278a7759a42139a76946539f3ff1fe6046d60df1b024bb72290",
+      "export_sha256": "ed44e5ad6bf06278a7759a42139a76946539f3ff1fe6046d60df1b024bb72290",
+      "bytes": 9540,
+      "sanitized": false
+    },
+    {
+      "path": "PRD.md",
+      "source": "code_checkpoint",
+      "source_sha256": "84a5476e09e0bd014326d35a499b09f715375882e0d1b3d30276f20e200b20f3",
+      "export_sha256": "84a5476e09e0bd014326d35a499b09f715375882e0d1b3d30276f20e200b20f3",
+      "bytes": 11677,
+      "sanitized": false
+    },
+    {
+      "path": "README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "736d5ae551cb9cce74d2dbe414cadc2c90a41fd9a6d6bb3b299a679edb088895",
+      "export_sha256": "736d5ae551cb9cce74d2dbe414cadc2c90a41fd9a6d6bb3b299a679edb088895",
+      "bytes": 1351,
+      "sanitized": false
+    },
+    {
+      "path": "apps/backend-api/README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "dc4736b45b49e8ed44df2bb8c72198d03dff63def181de55d59f2b9bc1be5fa3",
+      "export_sha256": "dc4736b45b49e8ed44df2bb8c72198d03dff63def181de55d59f2b9bc1be5fa3",
+      "bytes": 229,
+      "sanitized": false
+    },
+    {
+      "path": "apps/frontend-web/README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "e835bf02c7c59f804e83ea51dd54126b8594bc1e82435521bab63a1b2640f555",
+      "export_sha256": "e835bf02c7c59f804e83ea51dd54126b8594bc1e82435521bab63a1b2640f555",
+      "bytes": 186,
+      "sanitized": false
+    },
+    {
+      "path": "contracts/README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "79268fbd40e3a1fb7ecbb123c5e8d5a089e33d34613d308fdf545a7714fe54fd",
+      "export_sha256": "79268fbd40e3a1fb7ecbb123c5e8d5a089e33d34613d308fdf545a7714fe54fd",
+      "bytes": 537,
+      "sanitized": false
+    },
+    {
+      "path": "contracts/data-entities.v1.schema.json",
+      "source": "code_checkpoint",
+      "source_sha256": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d",
+      "export_sha256": "aff92127bf0f8e55732a23150ae8c81a90da625bc05385028245dcbdcde9ed7d",
+      "bytes": 32926,
+      "sanitized": false
+    },
+    {
+      "path": "contracts/personal-fit-annotation.v1.schema.json",
+      "source": "code_checkpoint",
+      "source_sha256": "ad3aeb01abc077470614f8156ba74c7a19ae9699bc7b152ee5a11d75031608d9",
+      "export_sha256": "ad3aeb01abc077470614f8156ba74c7a19ae9699bc7b152ee5a11d75031608d9",
+      "bytes": 4154,
+      "sanitized": false
+    },
+    {
+      "path": "contracts/policy-recommendation.g1a.v1.schema.json",
+      "source": "code_checkpoint",
+      "source_sha256": "e8b72f7f635d572582d612af65aa83c47274ca821a6f4ef3d38471674f84427f",
+      "export_sha256": "e8b72f7f635d572582d612af65aa83c47274ca821a6f4ef3d38471674f84427f",
+      "bytes": 16235,
+      "sanitized": false
+    },
+    {
+      "path": "contracts/recommendation-result.v1.schema.json",
+      "source": "code_checkpoint",
+      "source_sha256": "67f236384b1874ad72896db378c3ebb5b6d1cc046ed9f9bc603799ae7d0934a7",
+      "export_sha256": "67f236384b1874ad72896db378c3ebb5b6d1cc046ed9f9bc603799ae7d0934a7",
+      "bytes": 12293,
+      "sanitized": false
+    },
+    {
+      "path": "docs/API_CONTRACT_DRAFT.md",
+      "source": "code_checkpoint",
+      "source_sha256": "c5cc346a83a66bd253892214c42720425ba1739aec832c4376eda8512535507f",
+      "export_sha256": "c5cc346a83a66bd253892214c42720425ba1739aec832c4376eda8512535507f",
+      "bytes": 1566,
+      "sanitized": false
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9cbce2d36277e2ded74fa72bdbe34d4de45ddad91dc92dc6570e4d0e14c4c392",
+      "export_sha256": "9cbce2d36277e2ded74fa72bdbe34d4de45ddad91dc92dc6570e4d0e14c4c392",
+      "bytes": 11626,
+      "sanitized": false
+    },
+    {
+      "path": "docs/DECISION_LOG.md",
+      "source": "code_checkpoint",
+      "source_sha256": "668b79404968821ffabf9ee494aae344033a46e81e7e1f28ffc691649dc46300",
+      "export_sha256": "668b79404968821ffabf9ee494aae344033a46e81e7e1f28ffc691649dc46300",
+      "bytes": 1776,
+      "sanitized": false
+    },
+    {
+      "path": "docs/DEVELOPMENT_WORKFLOW.md",
+      "source": "code_checkpoint",
+      "source_sha256": "69e53c820222bad942c51ccd0f033f271ea933f4ffda1069060f8ede42bd633b",
+      "export_sha256": "69e53c820222bad942c51ccd0f033f271ea933f4ffda1069060f8ede42bd633b",
+      "bytes": 2179,
+      "sanitized": false
+    },
+    {
+      "path": "docs/FEATURE_SCOPE.md",
+      "source": "code_checkpoint",
+      "source_sha256": "c2057bf8587fa39269e648a153151ee2bb74fb496d26c0213cde9e87a05d816a",
+      "export_sha256": "c2057bf8587fa39269e648a153151ee2bb74fb496d26c0213cde9e87a05d816a",
+      "bytes": 1967,
+      "sanitized": false
+    },
+    {
+      "path": "docs/ML_SPEC_DRAFT.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9518d6805ca742fac30f99af2033abb50fda84b71a45f5aa52dd36a256e5e9ca",
+      "export_sha256": "9518d6805ca742fac30f99af2033abb50fda84b71a45f5aa52dd36a256e5e9ca",
+      "bytes": 1467,
+      "sanitized": false
+    },
+    {
+      "path": "docs/MOCKUP_REVIEW.md",
+      "source": "code_checkpoint",
+      "source_sha256": "aea82597bc91a86384da20e6bc730b9f9f10c21cf6fbecf7c7283eb019457fd1",
+      "export_sha256": "aea82597bc91a86384da20e6bc730b9f9f10c21cf6fbecf7c7283eb019457fd1",
+      "bytes": 1255,
+      "sanitized": false
+    },
+    {
+      "path": "docs/README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "03a25e6e539f401778995008a56eb3ee67f5cab9d3819eddaf7d6fb0e2e5f0d6",
+      "export_sha256": "03a25e6e539f401778995008a56eb3ee67f5cab9d3819eddaf7d6fb0e2e5f0d6",
+      "bytes": 197,
+      "sanitized": false
+    },
+    {
+      "path": "docs/TECH_STACK_DECISIONS.md",
+      "source": "code_checkpoint",
+      "source_sha256": "8aea967390a95f7218afd7199c3dcf48dca2676937d50cb31eeb35b846cbe912",
+      "export_sha256": "8aea967390a95f7218afd7199c3dcf48dca2676937d50cb31eeb35b846cbe912",
+      "bytes": 1357,
+      "sanitized": false
+    },
+    {
+      "path": "docs/execution/gates/G1A_R_evidence.json",
+      "source": "code_checkpoint",
+      "source_sha256": "da98d5d9d2c1c1b9290c5fd98acf01d9fddef5b18eb74be0ed34d5fb316a5d9c",
+      "export_sha256": "8916d923936df70941d9cc5addc44358fda80f578df667c34c528f5b8c9a47f8",
+      "bytes": 36976,
+      "sanitized": true
+    },
+    {
+      "path": "docs/execution/gates/G1A_R_report.md",
+      "source": "code_checkpoint",
+      "source_sha256": "961af93e002fa2c70d680a6438b26ce502a4869eb62abc541975a7c937c738fd",
+      "export_sha256": "961af93e002fa2c70d680a6438b26ce502a4869eb62abc541975a7c937c738fd",
+      "bytes": 12558,
+      "sanitized": false
+    },
+    {
+      "path": "docs/execution/gates/G1A_evidence.json",
+      "source": "code_checkpoint",
+      "source_sha256": "057d18c98187b2b69913a4c24e0a764395514a0dc9303e8089cd5c8c06889961",
+      "export_sha256": "a1baa9753843a014a55359b846d86008432987fcda2a2055435c7537452c0a84",
+      "bytes": 9990,
+      "sanitized": true
+    },
+    {
+      "path": "docs/execution/gates/G1A_report.md",
+      "source": "code_checkpoint",
+      "source_sha256": "03ae5651c4bd2ee15377b8d66428ddad6eb39dbb65af26103ea81c2eca48e01b",
+      "export_sha256": "03ae5651c4bd2ee15377b8d66428ddad6eb39dbb65af26103ea81c2eca48e01b",
+      "bytes": 10327,
+      "sanitized": false
+    },
+    {
+      "path": "docs/execution/gates/G1A_v2_evidence.json",
+      "source": "code_checkpoint",
+      "source_sha256": "a6a21f97687b410bb7a8615e1e11bd6da4bf1df2f75f663eb1ab0f6e643fec97",
+      "export_sha256": "21c1cdca7a3f18e5a70880f143f15a966da2ae8fc2b99edeec5b6223e89d88cd",
+      "bytes": 13775,
+      "sanitized": true
+    },
+    {
+      "path": "docs/execution/gates/G1A_v2_report.md",
+      "source": "code_checkpoint",
+      "source_sha256": "04975a00a9711f74481be1ae189c1d3dc6f1313e1f913ced7fcf322d3cde87c5",
+      "export_sha256": "04975a00a9711f74481be1ae189c1d3dc6f1313e1f913ced7fcf322d3cde87c5",
+      "bytes": 9857,
+      "sanitized": false
+    },
+    {
+      "path": "docs/execution/gates/G3_evidence.json",
+      "source": "code_checkpoint",
+      "source_sha256": "78c2ada3f41bc04a5804732b2193340607dd10fb205221663170d6df56c94247",
+      "export_sha256": "47087920cb63a12d68ed77fedaca033254fe52c670a2035d1ec3587ea4899a96",
+      "bytes": 16128,
+      "sanitized": true
+    },
+    {
+      "path": "docs/execution/gates/G3_report.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9a0c1e0399b8b6f5743471798a2d33ff86dff40c502ef7dc614ad60ab776d312",
+      "export_sha256": "9a0c1e0399b8b6f5743471798a2d33ff86dff40c502ef7dc614ad60ab776d312",
+      "bytes": 13956,
+      "sanitized": false
+    },
+    {
+      "path": "docs/execution/recovery/R0_checkpoint_note.md",
+      "source": "code_checkpoint",
+      "source_sha256": "7c2359f6b8adfcc0e60a3418feddd01cd7656496a79532e89f97312899300e6b",
+      "export_sha256": "7c2359f6b8adfcc0e60a3418feddd01cd7656496a79532e89f97312899300e6b",
+      "bytes": 2517,
+      "sanitized": false
+    },
+    {
+      "path": "docs/ml-foundation.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9d75bef7844b25495d21e30ce1ee8abe0f6dd320ef6d2a61450f90d8fd96245e",
+      "export_sha256": "9d75bef7844b25495d21e30ce1ee8abe0f6dd320ef6d2a61450f90d8fd96245e",
+      "bytes": 21179,
+      "sanitized": false
+    },
+    {
+      "path": "ml/README.md",
+      "source": "code_checkpoint",
+      "source_sha256": "8ab0dc0b8f0e95e29532f0f2db1606916879d0263740401d65c1301b196e5278",
+      "export_sha256": "8ab0dc0b8f0e95e29532f0f2db1606916879d0263740401d65c1301b196e5278",
+      "bytes": 868,
+      "sanitized": false
+    },
+    {
+      "path": "ml/configs/intelligence/measurement_sources.v1.json",
+      "source": "code_checkpoint",
+      "source_sha256": "5cde5c6748a53841df7f6ece027a79f0d148c8dddaf829983a75673328468098",
+      "export_sha256": "5cde5c6748a53841df7f6ece027a79f0d148c8dddaf829983a75673328468098",
+      "bytes": 584,
+      "sanitized": false
+    },
+    {
+      "path": "ml/configs/intelligence/policy.v1.json",
+      "source": "code_checkpoint",
+      "source_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+      "export_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+      "bytes": 7830,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-r-v1/BATCH_REVIEW.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9524a9bffe7e8d026dc963289dea536e7c01e6201eb29de723a5c8399bf8050e",
+      "export_sha256": "9524a9bffe7e8d026dc963289dea536e7c01e6201eb29de723a5c8399bf8050e",
+      "bytes": 10991,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-r-v1/batch_decision.pending.json",
+      "source": "code_checkpoint",
+      "source_sha256": "907d95adb1c277d4d6702de4cc7d4df5f8b8e2cabaa121a7af169914a1f657fe",
+      "export_sha256": "907d95adb1c277d4d6702de4cc7d4df5f8b8e2cabaa121a7af169914a1f657fe",
+      "bytes": 1696,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-r-v1/catalogue.reference-repaired.json",
+      "source": "code_checkpoint",
+      "source_sha256": "de36e10285f145e18240e5306ddeca267294ffa68cc82a37048db01beb69286e",
+      "export_sha256": "de36e10285f145e18240e5306ddeca267294ffa68cc82a37048db01beb69286e",
+      "bytes": 56142,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-r-v1/milestone_batch.proposed.json",
+      "source": "code_checkpoint",
+      "source_sha256": "a7d41f3799a0010df0d5aa17954183f92fa0affc6f66791b58488577621783b3",
+      "export_sha256": "a7d41f3799a0010df0d5aa17954183f92fa0affc6f66791b58488577621783b3",
+      "bytes": 22843,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-r-v1/source_facts.json",
+      "source": "code_checkpoint",
+      "source_sha256": "5a2c54c7cd9cfe1ce8041e2ef1accd14b429958ed42718ce995ca42be9a64faa",
+      "export_sha256": "5a2c54c7cd9cfe1ce8041e2ef1accd14b429958ed42718ce995ca42be9a64faa",
+      "bytes": 6227,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-v1.1/catalogue.policy-accepted.json",
+      "source": "code_checkpoint",
+      "source_sha256": "7e7dfec105128f87c9a607aeeae5a86eac938afd01728397b88e528486114306",
+      "export_sha256": "7e7dfec105128f87c9a607aeeae5a86eac938afd01728397b88e528486114306",
+      "bytes": 51869,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/g1a-v1/catalogue.policy-accepted.json",
+      "source": "code_checkpoint",
+      "source_sha256": "c1ced3a1dbf9d4778c67c5aeea9f548ecf1e4fa5f83c300e16a5ee84432b4292",
+      "export_sha256": "c1ced3a1dbf9d4778c67c5aeea9f548ecf1e4fa5f83c300e16a5ee84432b4292",
+      "bytes": 51828,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/phase2/roles.pending.json",
+      "source": "code_checkpoint",
+      "source_sha256": "50fe14ce7a0e6138d948666fb8ee32f8825a3f8836a791394d4783bfd282fb8a",
+      "export_sha256": "50fe14ce7a0e6138d948666fb8ee32f8825a3f8836a791394d4783bfd282fb8a",
+      "bytes": 13705,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/role_requirements_worksheet.csv",
+      "source": "code_checkpoint",
+      "source_sha256": "73c90773de40f1c58f366566f1327d5e4d896448026760c6141b3643d41910b2",
+      "export_sha256": "73c90773de40f1c58f366566f1327d5e4d896448026760c6141b3643d41910b2",
+      "bytes": 1317,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/source_mappings.pending.json",
+      "source": "code_checkpoint",
+      "source_sha256": "fc83b0ac475efba7c9921d8e5dd537cfb857cbb652b479ee2566033d203a37cc",
+      "export_sha256": "fc83b0ac475efba7c9921d8e5dd537cfb857cbb652b479ee2566033d203a37cc",
+      "bytes": 9602,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/source_references.json",
+      "source": "code_checkpoint",
+      "source_sha256": "81275122e3b799e1b66dccbda64c49dfb16897a80265c1327afc1c748cdccc1c",
+      "export_sha256": "81275122e3b799e1b66dccbda64c49dfb16897a80265c1327afc1c748cdccc1c",
+      "bytes": 1796,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/review/three_roles.pending.json",
+      "source": "code_checkpoint",
+      "source_sha256": "dc8f1233d0659834b36e675d51da57766ca3d380c1ad0f87773990c74d4fab4f",
+      "export_sha256": "dc8f1233d0659834b36e675d51da57766ca3d380c1ad0f87773990c74d4fab4f",
+      "bytes": 15361,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/01_G1A_POLICY_AND_FEATURES.md",
+      "source": "code_checkpoint",
+      "source_sha256": "5b6ab54c139571f8687661688b4b80c8989b4fc90878ba5cc1fe4a57cd421752",
+      "export_sha256": "5b6ab54c139571f8687661688b4b80c8989b4fc90878ba5cc1fe4a57cd421752",
+      "bytes": 5638,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/G1A_R_CATALOGUE_READINESS_REPAIR.md",
+      "source": "code_checkpoint",
+      "source_sha256": "54be9c588ad7ef5c0742031e871c4e38bf3cbf94ec2df948e332d5f726727062",
+      "export_sha256": "54be9c588ad7ef5c0742031e871c4e38bf3cbf94ec2df948e332d5f726727062",
+      "bytes": 6002,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/G2_PARALLEL_GROQ_IMPLEMENTATION.md",
+      "source": "code_checkpoint",
+      "source_sha256": "788aedbda20bf921d5dc38180125c5cc7e3a4d3cbd2909753dea7cf0e96e7b53",
+      "export_sha256": "788aedbda20bf921d5dc38180125c5cc7e3a4d3cbd2909753dea7cf0e96e7b53",
+      "bytes": 6420,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/MINDER_APPROVAL_SUMMARY_v1.md",
+      "source": "code_checkpoint",
+      "source_sha256": "d13ddd5cfff237f48290269aa125287861b5dd1f92d49fa816a18a77042fc6fc",
+      "export_sha256": "d13ddd5cfff237f48290269aa125287861b5dd1f92d49fa816a18a77042fc6fc",
+      "bytes": 7422,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/MINDER_ML_FOUNDATION_CODEX_TASK.txt",
+      "source": "code_checkpoint",
+      "source_sha256": "de3d9821d4fc49a717ed515c1e2831b9cea655a03514ebcd59ee35a58fa28d87",
+      "export_sha256": "de3d9821d4fc49a717ed515c1e2831b9cea655a03514ebcd59ee35a58fa28d87",
+      "bytes": 20481,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/MINDER_POLICY_REVIEW_v1.md",
+      "source": "code_checkpoint",
+      "source_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+      "export_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+      "bytes": 91012,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/phase2-engineering-gate.md",
+      "source": "code_checkpoint",
+      "source_sha256": "3a5fd0f0b2ff57a8227ddbd172fbebd3fc37f868b84f1bcd8f19dcc1614fbbda",
+      "export_sha256": "3a5fd0f0b2ff57a8227ddbd172fbebd3fc37f868b84f1bcd8f19dcc1614fbbda",
+      "bytes": 11182,
+      "sanitized": false
+    },
+    {
+      "path": "ml/docs/phase2-engineering-report.md",
+      "source": "code_checkpoint",
+      "source_sha256": "830b1769e80bf3f9881e0dde1d5c8ad026d0100c4407e5a872a09da6dccd21e9",
+      "export_sha256": "830b1769e80bf3f9881e0dde1d5c8ad026d0100c4407e5a872a09da6dccd21e9",
+      "bytes": 11650,
+      "sanitized": false
+    },
+    {
+      "path": "ml/evaluation/calibration_v1_checks.json",
+      "source": "code_checkpoint",
+      "source_sha256": "7395fa23ff7b5db2a530b5e171555a32ff45cd13beb56bd1a8539a0d8ec73934",
+      "export_sha256": "7395fa23ff7b5db2a530b5e171555a32ff45cd13beb56bd1a8539a0d8ec73934",
+      "bytes": 13362,
+      "sanitized": false
+    },
+    {
+      "path": "ml/evaluation/continuation_checks.json",
+      "source": "code_checkpoint",
+      "source_sha256": "c6b098b20f9f1d68d044c277a2b923f2e37ebcd120f4ad62f667f97dd96d79be",
+      "export_sha256": "69e78a5cdf029ad7faf4b5e0cc16e27bdb4f281e936191bf77956570c8ce3d0e",
+      "bytes": 17389,
+      "sanitized": true
+    },
+    {
+      "path": "ml/evaluation/foundation_checks.json",
+      "source": "code_checkpoint",
+      "source_sha256": "402e5ea5387950fed543e9eb082a58db946e904716ec39bebecaee32c3454256",
+      "export_sha256": "35aa211030bae79429b2ef8aad54ae83ece53abac4bda4f11725450099ad4120",
+      "bytes": 19292,
+      "sanitized": true
+    },
+    {
+      "path": "ml/evaluation/phase2_checks.json",
+      "source": "code_checkpoint",
+      "source_sha256": "7053f767c829d339f3d6da930d9938eefe663b68927e5836c13e88606859f5d3",
+      "export_sha256": "6f1a05570330c7974b07da2dd6d3b1958bea6e0bd8de4580f2cd6dda68da973d",
+      "bytes": 51468,
+      "sanitized": true
+    },
+    {
+      "path": "ml/minder_ml_starter/START_HERE.md",
+      "source": "code_checkpoint",
+      "source_sha256": "86e4c6cc2ddbf4cea07aa37aecc2067bcc35922ca0e2a08d09be6bccf558bd62",
+      "export_sha256": "86e4c6cc2ddbf4cea07aa37aecc2067bcc35922ca0e2a08d09be6bccf558bd62",
+      "bytes": 6799,
+      "sanitized": false
+    },
+    {
+      "path": "ml/minder_ml_starter/scoring_spec.json",
+      "source": "code_checkpoint",
+      "source_sha256": "f356fde8297c5168a0249107a4551cd05ef6482b6a73009a179132719616b3d4",
+      "export_sha256": "f356fde8297c5168a0249107a4551cd05ef6482b6a73009a179132719616b3d4",
+      "bytes": 6277,
+      "sanitized": false
+    },
+    {
+      "path": "ml/minder_ml_starter/sources_manifest.json",
+      "source": "code_checkpoint",
+      "source_sha256": "fb7475afa540fffad3515034decf5f377d7bed9f69018b032ff29fd46c76109d",
+      "export_sha256": "fb7475afa540fffad3515034decf5f377d7bed9f69018b032ff29fd46c76109d",
+      "bytes": 25504,
+      "sanitized": false
+    },
+    {
+      "path": "ml/requirements-foundation.txt",
+      "source": "code_checkpoint",
+      "source_sha256": "02e6a5cfe20695415e49df55926233b1849915f9046121713a7befcc1c649726",
+      "export_sha256": "02e6a5cfe20695415e49df55926233b1849915f9046121713a7befcc1c649726",
+      "bytes": 204,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/__init__.py",
+      "source": "code_checkpoint",
+      "source_sha256": "9249e1410500fb1a352bc328eae00c4f629168a52908e527305b84c3f70f93fb",
+      "export_sha256": "9249e1410500fb1a352bc328eae00c4f629168a52908e527305b84c3f70f93fb",
+      "bytes": 60,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/algorithm.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/gradient-boosting.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/__init__.py",
+      "source": "code_checkpoint",
+      "source_sha256": "1a6b652fc490b3b27856f9aef2297ab4c7b4f2474d30ec9332f25d044117c292",
+      "export_sha256": "1a6b652fc490b3b27856f9aef2297ab4c7b4f2474d30ec9332f25d044117c292",
+      "bytes": 139,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/__main__.py",
+      "source": "code_checkpoint",
+      "source_sha256": "8d459b64f1c33239d62d0da9f875b4c91175447f35cc21e35c024d10d94dbbd0",
+      "export_sha256": "8d459b64f1c33239d62d0da9f875b4c91175447f35cc21e35c024d10d94dbbd0",
+      "bytes": 4682,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/annotation_io.py",
+      "source": "code_checkpoint",
+      "source_sha256": "7a3d527e7cb8c7f682a290cdb5ccd25ff56388a311817d69b313f1d2d1696e99",
+      "export_sha256": "7a3d527e7cb8c7f682a290cdb5ccd25ff56388a311817d69b313f1d2d1696e99",
+      "bytes": 12029,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/artifacts.py",
+      "source": "code_checkpoint",
+      "source_sha256": "8ef729ff21bb725c0f03c6b8c8ac36329300ea65d815b00c6dc0e4907e332db0",
+      "export_sha256": "8ef729ff21bb725c0f03c6b8c8ac36329300ea65d815b00c6dc0e4907e332db0",
+      "bytes": 10301,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/catalogue_repair.py",
+      "source": "code_checkpoint",
+      "source_sha256": "df8f716d38545a5ff2808a0b9ea92616de8d88c5a1fc4a0473d9262daedf0b4b",
+      "export_sha256": "df8f716d38545a5ff2808a0b9ea92616de8d88c5a1fc4a0473d9262daedf0b4b",
+      "bytes": 13788,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/catalogue_repair_cli.py",
+      "source": "code_checkpoint",
+      "source_sha256": "c455c0fa50e2014dcb6a859775da692286f27200d6a19efbc3632c6b0ef56a05",
+      "export_sha256": "c455c0fa50e2014dcb6a859775da692286f27200d6a19efbc3632c6b0ef56a05",
+      "bytes": 5843,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/data_adapters.py",
+      "source": "code_checkpoint",
+      "source_sha256": "4dbf34b5f438152fcd90fcfb57d8b84c129e257bdb1065a5cef6904dac85e5e1",
+      "export_sha256": "4dbf34b5f438152fcd90fcfb57d8b84c129e257bdb1065a5cef6904dac85e5e1",
+      "bytes": 6777,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/data_cli.py",
+      "source": "code_checkpoint",
+      "source_sha256": "879b47e060ae82345617d97e468955e2b1cfbedf35d5aec56b5807e4809379cf",
+      "export_sha256": "879b47e060ae82345617d97e468955e2b1cfbedf35d5aec56b5807e4809379cf",
+      "bytes": 6071,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/data_pipeline.py",
+      "source": "code_checkpoint",
+      "source_sha256": "26494ffb2679c3ffba659d10f48d85b49723829c1d6b24b2ae44fd37a9aa8167",
+      "export_sha256": "26494ffb2679c3ffba659d10f48d85b49723829c1d6b24b2ae44fd37a9aa8167",
+      "bytes": 13092,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/data_schemas.py",
+      "source": "code_checkpoint",
+      "source_sha256": "373d09d4a6958fc640e9b1c591ac7879db6832200c352e56f31c4019747677b7",
+      "export_sha256": "373d09d4a6958fc640e9b1c591ac7879db6832200c352e56f31c4019747677b7",
+      "bytes": 5602,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/estimators.py",
+      "source": "code_checkpoint",
+      "source_sha256": "c7e46b24f186bdb15d189020725005892896d0044747aba142d7f2765880539f",
+      "export_sha256": "c7e46b24f186bdb15d189020725005892896d0044747aba142d7f2765880539f",
+      "bytes": 1228,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/evaluation.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e019058264cad55a5461f925e620316c90e7b9677993e8fe48c5a58945ca49fc",
+      "export_sha256": "e019058264cad55a5461f925e620316c90e7b9677993e8fe48c5a58945ca49fc",
+      "bytes": 10023,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/features.py",
+      "source": "code_checkpoint",
+      "source_sha256": "182fe7447f501ac93eaa3cb1679dbc7f60346b1df6cd9550327e4d96f6229cc2",
+      "export_sha256": "182fe7447f501ac93eaa3cb1679dbc7f60346b1df6cd9550327e4d96f6229cc2",
+      "bytes": 3805,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/g1a_cli.py",
+      "source": "code_checkpoint",
+      "source_sha256": "be211c2f6f670ad662b4048940ba0bc47285f52e3a20ef9ad9a2b29a228c26de",
+      "export_sha256": "be211c2f6f670ad662b4048940ba0bc47285f52e3a20ef9ad9a2b29a228c26de",
+      "bytes": 3696,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/g3.py",
+      "source": "code_checkpoint",
+      "source_sha256": "ce9d77c80d2b6a977031d2004509c55f70047ddc0a311f46fdb05a60b2393c6a",
+      "export_sha256": "ce9d77c80d2b6a977031d2004509c55f70047ddc0a311f46fdb05a60b2393c6a",
+      "bytes": 9760,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/inference.py",
+      "source": "code_checkpoint",
+      "source_sha256": "51cfc915b9edbeb3e9048fbf8730b632a9c2b1ec153b4e47a3dc4317fb44bf98",
+      "export_sha256": "51cfc915b9edbeb3e9048fbf8730b632a9c2b1ec153b4e47a3dc4317fb44bf98",
+      "bytes": 7696,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/llm.py",
+      "source": "code_checkpoint",
+      "source_sha256": "a4adb7bc3ab675ff49cbf5ccb475a4d4b99436f4c2a93a7ea28d0891fc5ba64f",
+      "export_sha256": "a4adb7bc3ab675ff49cbf5ccb475a4d4b99436f4c2a93a7ea28d0891fc5ba64f",
+      "bytes": 854,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/market.py",
+      "source": "code_checkpoint",
+      "source_sha256": "ddc914c43a45f62095d608a9c22e14c0ca295ff5671272a97739c91856d2dc31",
+      "export_sha256": "ddc914c43a45f62095d608a9c22e14c0ca295ff5671272a97739c91856d2dc31",
+      "bytes": 7797,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/market_indexes.py",
+      "source": "code_checkpoint",
+      "source_sha256": "8973fa7d64c8a3eed9d0b3ef173ed7c225139e50a190c20f480f7b3ca1b33e6c",
+      "export_sha256": "8973fa7d64c8a3eed9d0b3ef173ed7c225139e50a190c20f480f7b3ca1b33e6c",
+      "bytes": 6791,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/policy.py",
+      "source": "code_checkpoint",
+      "source_sha256": "b674cb6f10d44e670e5533497239e66cb9b2b41156302a65d383a371fb2cf352",
+      "export_sha256": "b674cb6f10d44e670e5533497239e66cb9b2b41156302a65d383a371fb2cf352",
+      "bytes": 2904,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/policy_features.py",
+      "source": "code_checkpoint",
+      "source_sha256": "7e4fd015266049daee55601b2816568602e557bbd82ce355b3f296389a07b073",
+      "export_sha256": "7e4fd015266049daee55601b2816568602e557bbd82ce355b3f296389a07b073",
+      "bytes": 18617,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/policy_sources.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e5c0eab04cd3be7b1541c4ffab2503f89aefcda0fd01468cc4135b03c906e5a0",
+      "export_sha256": "e5c0eab04cd3be7b1541c4ffab2503f89aefcda0fd01468cc4135b03c906e5a0",
+      "bytes": 6083,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/review.py",
+      "source": "code_checkpoint",
+      "source_sha256": "c404eb16e636e2f1feb25b344418a3266acc23d36cba179df3bcc8c3c4f06583",
+      "export_sha256": "c404eb16e636e2f1feb25b344418a3266acc23d36cba179df3bcc8c3c4f06583",
+      "bytes": 5822,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/schemas.py",
+      "source": "code_checkpoint",
+      "source_sha256": "56ec2602a229c454ae10f546fa9eba7f233f9e63400379ff8995e6fe2046e55d",
+      "export_sha256": "56ec2602a229c454ae10f546fa9eba7f233f9e63400379ff8995e6fe2046e55d",
+      "bytes": 6292,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/scoring.py",
+      "source": "code_checkpoint",
+      "source_sha256": "a945fa5e1d2f1570c7625ec9259698701114c635c57227eab65159b36c7bbdab",
+      "export_sha256": "a945fa5e1d2f1570c7625ec9259698701114c635c57227eab65159b36c7bbdab",
+      "bytes": 1296,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/intelligence/training.py",
+      "source": "code_checkpoint",
+      "source_sha256": "abd2c9521c0fcb3e4eb4b37488dee9397dece42fc3f6cdf91afe2c268128f114",
+      "export_sha256": "abd2c9521c0fcb3e4eb4b37488dee9397dece42fc3f6cdf91afe2c268128f114",
+      "bytes": 16834,
+      "sanitized": false
+    },
+    {
+      "path": "ml/src/minder_ml/ridge-regression.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "export_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/fixtures/example_request.json",
+      "source": "code_checkpoint",
+      "source_sha256": "fce546da2c6f7f7149982cb2c530d0481d0f76f10ba272599f2e413d4250e0e8",
+      "export_sha256": "fce546da2c6f7f7149982cb2c530d0481d0f76f10ba272599f2e413d4250e0e8",
+      "bytes": 672,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/fixtures/g1a_contract.synthetic.json",
+      "source": "code_checkpoint",
+      "source_sha256": "1e1bc30af52685d4ba2babd1baf89e4d6b4506f1cb9b626bb0e7823bfcc06911",
+      "export_sha256": "1e1bc30af52685d4ba2babd1baf89e4d6b4506f1cb9b626bb0e7823bfcc06911",
+      "bytes": 2971,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/fixtures/phase2_profile.synthetic.json",
+      "source": "code_checkpoint",
+      "source_sha256": "a15fd2042491ab878291cbb629948ee30b859b994ba10be0b5e209c68896e6f1",
+      "export_sha256": "a15fd2042491ab878291cbb629948ee30b859b994ba10be0b5e209c68896e6f1",
+      "bytes": 1305,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/fixtures/synthetic_math.json",
+      "source": "code_checkpoint",
+      "source_sha256": "766fc0f139277d72543562cf4a18f8028632712dff1efbb98cfb925e54249692",
+      "export_sha256": "766fc0f139277d72543562cf4a18f8028632712dff1efbb98cfb925e54249692",
+      "bytes": 3376,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_catalogue_repair.py",
+      "source": "code_checkpoint",
+      "source_sha256": "de729cdb229e9179f76c9826a47ec287ec590e5a69d1940c685cde2e25f54ff6",
+      "export_sha256": "de729cdb229e9179f76c9826a47ec287ec590e5a69d1940c685cde2e25f54ff6",
+      "bytes": 9197,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_foundation.py",
+      "source": "code_checkpoint",
+      "source_sha256": "7a0dce760db0b33df2dd675b7b47be7eb1d7491c0648115e27698d6f5fc63a1d",
+      "export_sha256": "7a0dce760db0b33df2dd675b7b47be7eb1d7491c0648115e27698d6f5fc63a1d",
+      "bytes": 19449,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_g1a.py",
+      "source": "code_checkpoint",
+      "source_sha256": "ba5519d7b15ca54448293f96f35d69670ce85a238e83fa0d42d6169c608f9b24",
+      "export_sha256": "ba5519d7b15ca54448293f96f35d69670ce85a238e83fa0d42d6169c608f9b24",
+      "bytes": 17197,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_g3.py",
+      "source": "code_checkpoint",
+      "source_sha256": "e9bd2bce1e2bf601f8cb7dcdfb78536a897f912c5f5910ca0b2aac613cc56bed",
+      "export_sha256": "e9bd2bce1e2bf601f8cb7dcdfb78536a897f912c5f5910ca0b2aac613cc56bed",
+      "bytes": 9867,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_phase2.py",
+      "source": "code_checkpoint",
+      "source_sha256": "6106679be204d45492ea2dcd42c24709b3d913ecaf389ab62ec86fd877d5e51d",
+      "export_sha256": "6106679be204d45492ea2dcd42c24709b3d913ecaf389ab62ec86fd877d5e51d",
+      "bytes": 15965,
+      "sanitized": false
+    },
+    {
+      "path": "ml/tests/test_review.py",
+      "source": "code_checkpoint",
+      "source_sha256": "3fea278100c9dfdffe5c9812171fbdba4363e5045eb16b2c5ab850d2f3fb7d6d",
+      "export_sha256": "3fea278100c9dfdffe5c9812171fbdba4363e5045eb16b2c5ab850d2f3fb7d6d",
+      "bytes": 8693,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/b98b3798cd3034e4c5f41637/quality.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "dda22fe08dcdf84993cc132d4b8dd64608c8fa1fe894356bde2cc5c202b59a36",
+      "export_sha256": "dda22fe08dcdf84993cc132d4b8dd64608c8fa1fe894356bde2cc5c202b59a36",
+      "bytes": 1904,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/b98b3798cd3034e4c5f41637/snapshot.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "a7de3a8c16df00b026b71870b3284ae02469953a076cbcbce2de06b064b1d6f0",
+      "export_sha256": "a7de3a8c16df00b026b71870b3284ae02469953a076cbcbce2de06b064b1d6f0",
+      "bytes": 1038,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/b98b3798cd3034e4c5f41637/source_manifest.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+      "export_sha256": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+      "bytes": 4436,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/quality.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "86c936f549f5b5e9e2d3e88952201f022f74156251d413ce8b77843086191f7a",
+      "export_sha256": "86c936f549f5b5e9e2d3e88952201f022f74156251d413ce8b77843086191f7a",
+      "bytes": 1262,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/snapshot.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "6e2191ba26d3b0a65344c4f6ad83f1831c4e1ea8b8a54623c70257731889328b",
+      "export_sha256": "6e2191ba26d3b0a65344c4f6ad83f1831c4e1ea8b8a54623c70257731889328b",
+      "bytes": 1036,
+      "sanitized": false
+    },
+    {
+      "path": "ml/data/snapshots/eb070bc2aa7f87c6a4082a59/source_manifest.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+      "export_sha256": "6f2a0cdea5a0d41be1636b8fadefd5801e5ae807fe395045f5de9ebd5a06a0c0",
+      "bytes": 4436,
+      "sanitized": false
+    },
+    {
+      "path": "ml/artifacts/phase2/calibration-v1/export/review_manifest.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "acf1ccaf6c493d06a898e463e0e83e4509fbe65ca2d41cd9f3b422617f307865",
+      "export_sha256": "acf1ccaf6c493d06a898e463e0e83e4509fbe65ca2d41cd9f3b422617f307865",
+      "bytes": 2998,
+      "sanitized": false
+    },
+    {
+      "path": "ml/artifacts/phase2/calibration-v1/pending-import/readiness.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "419469807095c91a2eff092e13fc2d43e9d2f1d06da4aade01abe40311df3151",
+      "export_sha256": "419469807095c91a2eff092e13fc2d43e9d2f1d06da4aade01abe40311df3151",
+      "bytes": 3979,
+      "sanitized": false
+    },
+    {
+      "path": "ml/artifacts/phase2/review-import-v1/readiness.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "d225ae973785dafe816f87fc7ed669c64fdb12fb00d2e0bb23855a5fd9a7699d",
+      "export_sha256": "d225ae973785dafe816f87fc7ed669c64fdb12fb00d2e0bb23855a5fd9a7699d",
+      "bytes": 1312,
+      "sanitized": false
+    },
+    {
+      "path": "ml/artifacts/phase2/review-v1/review_manifest.json",
+      "source": "existing_ignored_manifest_not_in_checkpoint",
+      "source_sha256": "c7772e86eb774dff31a5ebde09fae187d26e5aac5a2a8bdb6597e58419bb438f",
+      "export_sha256": "c7772e86eb774dff31a5ebde09fae187d26e5aac5a2a8bdb6597e58419bb438f",
+      "bytes": 1688,
+      "sanitized": false
+    }
+  ],
+  "redaction_policy": [
+    "Replace absolute checkout/home/temp paths in copies",
+    "Remove credential-bearing URL userinfo and recognized secret query parameters",
+    "Redact sensitive credential keys from ignored JSON manifests",
+    "Reject high-confidence token/private-key patterns; do not alter originals"
+  ],
+  "excluded_local_state": [
+    {
+      "path": "docs/execution/gates/G3_market_indexes.json",
+      "reason": "large_generated_artifact_left_local",
+      "bytes": 1439230,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/derived/dosm_jmi_quarterly_long.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 192634,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/derived/ilo_genai_occupation_2025.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 43892,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/dosm_jmi_q2_2026_data.xlsx",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 349834,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/dosm_lfs_qtr_state.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 32248,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/dosm_wages_occupation.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 20786,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/dosm_wages_state.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 34565,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/esco_onet_occupations_crosswalk.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 2986823,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/ilo_genai_2025_task_scores.xlsx",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 2598951,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/ilo_genai_data_dictionary.md",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 4819,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 2328135,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 268030,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/onet_31_0_scales_reference.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 1006,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "ml/minder_ml_starter/raw/onet_31_0_software_skills.csv",
+      "reason": "bulk_public_source_data_left_local",
+      "bytes": 3557545,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "submission/AI_Newbee_declaration_tools.pdf",
+      "reason": "submission_binary_or_placeholder_left_local",
+      "bytes": 0,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "submission/AI_Newbee_submission.pdf",
+      "reason": "submission_binary_or_placeholder_left_local",
+      "bytes": 1,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "submission/Proof_replit.pdf",
+      "reason": "submission_binary_or_placeholder_left_local",
+      "bytes": 0,
+      "status": "present_local_not_copied_not_committed"
+    },
+    {
+      "path": "submission/Proof_runpod.pdf",
+      "reason": "submission_binary_or_placeholder_left_local",
+      "bytes": 0,
+      "status": "present_local_not_copied_not_committed"
+    }
+  ],
+  "excluded_ignored_groups": {
+    "other_ignored_local_state": {
+      "file_count": 2,
+      "bytes": 12296,
+      "retrieval_status": "left_in_place_not_backed_up_by_R0"
+    },
+    "local_environment": {
+      "file_count": 4070,
+      "bytes": 167195180,
+      "retrieval_status": "left_in_place_not_backed_up_by_R0"
+    },
+    "generated_artifacts": {
+      "file_count": 32,
+      "bytes": 4779381,
+      "retrieval_status": "left_in_place_not_backed_up_by_R0"
+    }
+  },
+  "no_real_profiles_or_CVs_included": true,
+  "no_dependencies_or_bulky_data_included": true,
+  "validation_limitations": "Source review, synthetic markers and scoped patterns; not a complete secret-detection guarantee."
+}

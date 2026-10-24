@@ -1,0 +1,88 @@
+{
+  "phase_id": "SY1",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "passed",
+  "base_sha": "020bbcf8511aa89064b7f232723afa01cf99a427",
+  "checkpoint": "commit containing this record",
+  "pack_read_location": "/Users/phuahjunhong/sdc-2026-minder/docs/Minder_LLM_Frontend_and_ML_Closure_Pack_v1",
+  "pack_hashes": {
+    "04_SESSION_B_SYNTHETIC_EXPERIMENT.md": "61a8d9386ba47c5a1d7d72260f406542956f085aaf8e8bd4d3c23d69542ae48c",
+    "05_SYNTHETIC_DATA_POLICY.md": "b6aac611ec2a2ebff460df64b169eb162935b3faaa8e317da18259b8a10104d7",
+    "06_CHECKPOINT_PUSH_AND_ACCEPTANCE.md": "027b4a6cccfad68a5f7b3c165dbc5d7111fc4371d80b9f6eb71d8bf28f502b3a"
+  },
+  "audit": {
+    "existing_tests": "ml/tests/test_forecasting.py; 13 existing tests passed in 0.099s",
+    "reused": [
+      "Quarter calendar and publication-delay scaffold from synthetic_rows test generator",
+      "feature_vector/history_as_of and existing baseline prediction functions",
+      "fit_candidate/predict/count_metrics: train-only StandardScaler+Ridge(SVD), bounded CPU XGBoost",
+      "existing normal-runner/registry synthetic rejection, publication embargo and leakage tests"
+    ],
+    "missing_questions": {
+      "stable": "Does persistence match stationary assumed counts?",
+      "rising_and_falling": "Does a learned lag transform extrapolate fixed trend assumptions?",
+      "seasonal": "How does the seasonal baseline compare on held-out cyclic assumptions?",
+      "abrupt": "How brittle are models under unseen level shifts?",
+      "sparse": "Are actual generated zeros retained and WAPE defined appropriately?",
+      "missing": "Are missing targets/history rejected without zero fill?",
+      "coverage_change": "Does history avoid crossing source-universe/denominator changes?",
+      "correlated_pair": "Do role and skill variants remain in one family/source group?",
+      "damped_cycle": "How do frozen models behave under a wholly unused robustness family?"
+    }
+  },
+  "generation": {
+    "actual_simulated_zeros": 72,
+    "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+    "example_splits": {
+      "robustness": 14,
+      "test": 34,
+      "train": 156,
+      "validation": 24
+    },
+    "excluded": {
+      "at_least_four_contiguous_quarters_required": 60,
+      "missing_or_invalid_counts": 30,
+      "missing_target_not_zero": 8,
+      "no_target_in_same_coverage_epoch": 40,
+      "outside_prespecified_group_time_split": 498
+    },
+    "generator": "fictional-market-scenarios-v1",
+    "generator_sha256": "bbf74696abcb143ec28544d6c0049011961927fe6d548ef37b86572a152852af",
+    "groups": 9,
+    "isolation": {
+      "normal_market_service": "service requires explicitly real evidence",
+      "normal_registry": "incompatible_or_synthetic_forecast_registry",
+      "observed_training_runner": "synthetic_or_unspecified_data_cannot_be_real_experiment_evidence"
+    },
+    "missing_values": 8,
+    "normal_serving_eligible": false,
+    "observed_before_after_identical": true,
+    "records": 864,
+    "series": 18,
+    "spec_sha256": "f2ade9c8990917410f00fe77fa89268fbd0c296a4a16141cf85bad5a3031c29f",
+    "synthetic": true
+  },
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting",
+      "result": "................\n----------------------------------------------------------------------\nRan 16 tests in 0.197s\n\nOK",
+      "sha256": "e008849835788bf43b00e086db185e3e2b8d004b87c648bed70d9ce54d95048c"
+    },
+    {
+      "command": "synthetic_market_experiment.py generate",
+      "result": "deterministic dataset; 3 normal-runtime rejection boundaries; observed hashes unchanged"
+    },
+    {
+      "check": "Initial isolation assertion matched the wrong error-message wording",
+      "resolution": "Normal service already rejected synthetic input; fixed the lab assertion to accept its existing explicitly-real-evidence error. Rerun passed."
+    }
+  ],
+  "limitations": [
+    "No real anchors/records used; generator equations are assumed worlds",
+    "Role/skill are fictional aggregate families without canonical real-role identities",
+    "Actual dataset and intermediate examples are ignored local artifacts, reproducible from committed spec/code; examples/hashes committed",
+    "No new observed source coverage, forecast activation or paid execution"
+  ],
+  "next_eligible": "SY2 bounded local pilot and frozen split comparison"
+}

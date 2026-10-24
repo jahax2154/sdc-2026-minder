@@ -1,0 +1,2651 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:minder:parallel:v1",
+  "title": "Additive G0 service DTOs; does not approve pending numeric policy",
+  "$defs": {
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geography": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_type": {
+          "enum": [
+            "source-derived",
+            "policy-derived",
+            "llm-proposed",
+            "human-reviewed",
+            "explicit-user",
+            "document-claim",
+            "synthetic-fixture"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "Optional source-backed display title; does not replace the stable source_id."
+        }
+      },
+      "required": [
+        "source_id",
+        "version",
+        "sha256",
+        "uri",
+        "geography",
+        "available_at",
+        "evidence_type"
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subject_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "known",
+            "unknown"
+          ]
+        },
+        "provenance": {
+          "$ref": "#/$defs/Source"
+        },
+        "method_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "assessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "self_report",
+                "documented_demonstration",
+                "reviewed_assessment",
+                "transferable_background",
+                "work_style_preference"
+              ]
+            },
+            "statement": {
+              "type": "string",
+              "minLength": 20
+            },
+            "rubric_version": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "statement",
+            "rubric_version"
+          ]
+        }
+      },
+      "required": [
+        "evidence_id",
+        "subject_id",
+        "value",
+        "unit",
+        "state",
+        "provenance",
+        "method_id"
+      ]
+    },
+    "Preference": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "enum": [
+            "role",
+            "industry"
+          ]
+        },
+        "entity_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "interested",
+            "not_interested",
+            "unknown",
+            "neutral"
+          ]
+        },
+        "authorizing_request_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "entity_type",
+        "entity_id",
+        "state",
+        "authorizing_request_id"
+      ]
+    },
+    "Constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "constraint_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hard": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "constraint_id",
+        "scope",
+        "hard",
+        "value",
+        "unit",
+        "evidence_id"
+      ]
+    },
+    "Profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_group_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "synthetic": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "uniqueItems": true
+        },
+        "preferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Preference"
+          },
+          "uniqueItems": true
+        },
+        "current_fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "field_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "field_type": {
+                "enum": [
+                  "industry",
+                  "study",
+                  "work"
+                ]
+              },
+              "state": {
+                "enum": [
+                  "known",
+                  "none_yet",
+                  "unknown",
+                  "want_to_leave"
+                ]
+              },
+              "evidence_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "field_id",
+              "field_type",
+              "state",
+              "evidence_ids"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Constraint"
+          },
+          "uniqueItems": true
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "career_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "display_name": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "education": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "experience": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "goals": {
+              "type": "string",
+              "maxLength": 4000
+            }
+          },
+          "description": "Optional explicitly user-reported context, not competence or scoring evidence; does not select direction or mutate plans."
+        },
+        "onboarding": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Explicit user reports; never competence. May inform separately labelled starter exploration and pathway feasibility without changing assessed scoring.",
+          "properties": {
+            "stage": {
+              "enum": [
+                "studying",
+                "entering",
+                "working",
+                "changing",
+                "between",
+                "other"
+              ]
+            },
+            "objective": {
+              "enum": [
+                "fit",
+                "internship",
+                "path",
+                "future",
+                "unsure"
+              ]
+            },
+            "context": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "education_level": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "institution": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "interests": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "work_areas": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "optional_enrichment": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "self_reported_skills": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "experience_state": {
+              "enum": [
+                "none_yet",
+                "provided",
+                "uncertain"
+              ]
+            },
+            "experience_summary": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "interests_uncertain": {
+              "type": "boolean"
+            },
+            "weekly_study_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 80
+            }
+          }
+        }
+      },
+      "required": [
+        "profile_id",
+        "profile_group_id",
+        "version",
+        "synthetic",
+        "evidence",
+        "preferences",
+        "current_fields",
+        "constraints",
+        "timezone"
+      ]
+    },
+    "Mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "relation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "source_accepted",
+            "policy_accepted",
+            "pending"
+          ]
+        }
+      },
+      "required": [
+        "target_id",
+        "source",
+        "relation",
+        "status"
+      ]
+    },
+    "Role": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taxonomy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "taxonomy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "database_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "eligibility": {
+          "enum": [
+            "supported",
+            "partial",
+            "invalid"
+          ]
+        },
+        "industry_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mapping"
+          },
+          "uniqueItems": true
+        },
+        "skill_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mapping"
+          },
+          "uniqueItems": true
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "uniqueItems": true
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "work_style_mappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Mapping"
+          },
+          "uniqueItems": true
+        },
+        "assessment_scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "role_id",
+        "taxonomy_id",
+        "taxonomy_version",
+        "database_version",
+        "version",
+        "label",
+        "source",
+        "eligibility",
+        "industry_mappings",
+        "skill_mappings",
+        "requirements",
+        "missing_reasons"
+      ]
+    },
+    "Component": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "component_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "unit": {
+          "const": "fraction_0_1"
+        },
+        "weight": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "contribution_points": {
+          "type": "number",
+          "minimum": -5,
+          "maximum": 80
+        }
+      },
+      "required": [
+        "component_id",
+        "value",
+        "unit",
+        "weight",
+        "rule_id",
+        "evidence_ids",
+        "missing_reasons"
+      ]
+    },
+    "Industry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "industry_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "background": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "preference_utility": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "assessment": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "preference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Preference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "background_fields": {
+          "$ref": "#/$defs/Profile/properties/current_fields"
+        },
+        "role_mapping_status": {
+          "enum": [
+            "supported",
+            "unknown"
+          ]
+        },
+        "adjustment_points": {
+          "type": "number",
+          "minimum": -5,
+          "maximum": 10
+        },
+        "selected_path": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "industry_id",
+        "background",
+        "preference_utility",
+        "assessment",
+        "rule_id",
+        "evidence_ids",
+        "missing_reasons"
+      ]
+    },
+    "Gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criterion_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "met",
+            "gap",
+            "unknown"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "criterion_id",
+        "state",
+        "evidence_ids",
+        "reason"
+      ]
+    },
+    "PersonalAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_status": {
+          "enum": [
+            "accepted",
+            "pending",
+            "provisional"
+          ]
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scorer_kind": {
+          "enum": [
+            "baseline",
+            "ridge",
+            "xgboost"
+          ]
+        },
+        "score_status": {
+          "enum": [
+            "scored",
+            "insufficient_information",
+            "policy_pending",
+            "model_not_ready",
+            "constraint_excluded"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "measurement": {
+          "enum": [
+            "personal_role_fit",
+            "legacy_preparation_fit",
+            "personal_role_evidence_fit_v3"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Component"
+          },
+          "uniqueItems": true
+        },
+        "industry_contributions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Industry"
+          },
+          "uniqueItems": true
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Gap"
+          },
+          "uniqueItems": true
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "targeted_questions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "trace_rule_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "role_preference": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Preference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "profile_fields": {
+          "$ref": "#/$defs/Profile/properties/current_fields"
+        },
+        "unresolved_constraints": {
+          "$ref": "#/$defs/Profile/properties/constraints"
+        },
+        "assessment_coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "assessed_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "required_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "fraction": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minimum_met": {
+              "type": "boolean"
+            },
+            "minimum_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minimum_fraction": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "assessed_count",
+            "required_count",
+            "fraction",
+            "minimum_met",
+            "minimum_count",
+            "minimum_fraction"
+          ]
+        },
+        "evidence_kinds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "self_report": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "documented_demonstration": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "reviewed_assessment": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "self_report",
+            "documented_demonstration",
+            "reviewed_assessment"
+          ]
+        },
+        "unclipped_score": {
+          "type": "number"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "profile_id",
+        "profile_version",
+        "role_id",
+        "role_version",
+        "policy_version",
+        "policy_status",
+        "model_version",
+        "scorer_kind",
+        "score_status",
+        "score",
+        "measurement",
+        "components",
+        "industry_contributions",
+        "gaps",
+        "prerequisites",
+        "evidence_ids",
+        "unknowns",
+        "targeted_questions",
+        "trace_rule_ids"
+      ]
+    },
+    "Period": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date"
+        },
+        "end": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "MarketResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entity_type": {
+          "enum": [
+            "industry",
+            "role",
+            "skill"
+          ]
+        },
+        "entity_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "current",
+            "forecast"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        },
+        "geography": {
+          "const": "MY"
+        },
+        "source_universe_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cohort_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "denominator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observation_period": {
+          "$ref": "#/$defs/Period"
+        },
+        "published_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "available_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "ingested_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "issued_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "target_period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Period"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "horizon": {
+          "enum": [
+            "observed",
+            "next_full_calendar_quarter"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "internal_index": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "uncertainty": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "lower": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "upper": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "method": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "lower",
+            "upper",
+            "method"
+          ]
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "entity_type",
+        "entity_id",
+        "kind",
+        "status",
+        "geography",
+        "source_universe_id",
+        "cohort_version",
+        "measurement",
+        "unit",
+        "denominator",
+        "observation_period",
+        "published_at",
+        "available_at",
+        "ingested_at",
+        "issued_at",
+        "target_period",
+        "horizon",
+        "value",
+        "internal_index",
+        "uncertainty",
+        "missing_reasons",
+        "source_ids",
+        "model_version",
+        "explanation"
+      ]
+    },
+    "PublicOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rank": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "personal_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "score_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "ranking_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ranking_basis": {
+          "enum": [
+            "unassessed",
+            "personal_and_comparable_current",
+            "personal_only_market_unsupported",
+            "personal_and_published_offerings",
+            "personal_with_shortage_context"
+          ]
+        },
+        "evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "role_id",
+        "rank",
+        "personal_score",
+        "score_status",
+        "explanation",
+        "source_ids",
+        "unknowns"
+      ]
+    },
+    "PublicRecommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "minder-parallel-v1"
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "candidate_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "market_period_policy_key": {
+          "enum": [
+            "personal_only_pending_market_policy",
+            "current_only",
+            "next_calendar_quarter",
+            "personal-current-cohort-v1",
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "partial",
+            "policy_pending",
+            "unavailable"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PublicOption"
+          },
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "ranking_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "group_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basis": {
+                "enum": [
+                  "personal_and_comparable_current",
+                  "personal_only_market_unsupported",
+                  "personal_and_published_offerings",
+                  "personal_with_shortage_context"
+                ]
+              },
+              "role_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "limitation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "group_id",
+              "basis",
+              "role_ids",
+              "limitation"
+            ]
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "considered_eligible": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "candidates": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "assessed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "excluded": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "current_available": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "current_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "personal_only_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "insufficient_evidence": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "employer_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "published_offering_comparable_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "published_offering_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_adjusted_ranked": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "sector_context_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_context_supported": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "shortage_exact_role_supported": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "considered_eligible",
+            "candidates",
+            "assessed",
+            "excluded",
+            "current_available",
+            "current_comparable_ranked",
+            "personal_only_ranked",
+            "insufficient_evidence"
+          ]
+        },
+        "ordering_scope": {
+          "const": "within_groups_only"
+        },
+        "overall_ranking_complete": {
+          "type": "boolean"
+        },
+        "targeted_questions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "contract_version",
+        "profile_id",
+        "profile_version",
+        "policy_version",
+        "model_version",
+        "candidate_ids",
+        "market_period_policy_key",
+        "status",
+        "options",
+        "limitations"
+      ]
+    },
+    "Recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "public": {
+          "$ref": "#/$defs/PublicRecommendation"
+        },
+        "internal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "personal_assessments": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/PersonalAssessment"
+              },
+              "uniqueItems": true
+            },
+            "current_market": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/MarketResult"
+              },
+              "uniqueItems": true
+            },
+            "forecast_market": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/MarketResult"
+              },
+              "uniqueItems": true
+            },
+            "combined_score_policy_version": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "combined_scores": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "role_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "score": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                },
+                "required": [
+                  "role_id",
+                  "score"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "market_comparison": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "role_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "group_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "personal_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "current_support_index": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "sample_size": {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  "observed_count": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "final_score": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "policy_id": {
+                    "const": "personal-current-cohort-v1"
+                  }
+                },
+                "required": [
+                  "role_id",
+                  "group_id",
+                  "personal_score",
+                  "current_support_index",
+                  "sample_size",
+                  "observed_count",
+                  "final_score",
+                  "policy_id"
+                ]
+              }
+            },
+            "evidence_records": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/MarketEvidence"
+              }
+            },
+            "recommendation_traces": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/RecommendationTrace"
+              }
+            }
+          },
+          "required": [
+            "personal_assessments",
+            "current_market",
+            "forecast_market",
+            "combined_score_policy_version",
+            "combined_scores"
+          ]
+        }
+      },
+      "required": [
+        "public",
+        "internal"
+      ]
+    },
+    "CompanyRoleResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "employer_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "employer_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "found",
+            "no_role_found_in_checked_sources",
+            "requirements_unavailable"
+          ]
+        },
+        "searched_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "official_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "uniqueItems": true
+        },
+        "matching_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "unknown_requirements": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "preparation_suggestions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "explanation": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "employer_id",
+        "employer_name",
+        "location",
+        "role_id",
+        "status",
+        "searched_scope",
+        "checked_at",
+        "official_evidence",
+        "matching_requirements",
+        "unknown_requirements",
+        "preparation_suggestions",
+        "explanation"
+      ]
+    },
+    "Task": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "proposed",
+            "scheduled",
+            "completed",
+            "cancelled"
+          ]
+        },
+        "activity_completion": {
+          "type": "boolean"
+        },
+        "mastery_verified": {
+          "type": "boolean"
+        },
+        "prerequisite_task_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "locked": {
+          "type": "boolean"
+        },
+        "scheduled_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "estimated_hours": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "resource_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "skill_ids": {
+          "type": "array",
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "task_id",
+        "state",
+        "activity_completion",
+        "mastery_verified",
+        "prerequisite_task_ids",
+        "locked",
+        "scheduled_at",
+        "estimated_hours",
+        "evidence_ids"
+      ]
+    },
+    "PlanProgress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selected_role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previous_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "task_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Task"
+          },
+          "uniqueItems": true
+        },
+        "progress_event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Constraint"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "plan_id",
+        "profile_id",
+        "selected_role_id",
+        "state_version",
+        "previous_version",
+        "task_ids",
+        "tasks",
+        "progress_event_ids",
+        "constraints"
+      ]
+    },
+    "ActionDiff": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "before": {
+          "anyOf": [
+            {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            },
+            {
+              "$ref": "#/$defs/AutomationScope"
+            },
+            {
+              "$ref": "#/$defs/Constraint"
+            }
+          ]
+        },
+        "after": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/Task"
+                }
+              ]
+            },
+            {
+              "$ref": "#/$defs/AutomationScope"
+            },
+            {
+              "$ref": "#/$defs/Constraint"
+            }
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "before",
+        "after"
+      ]
+    },
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "reschedule_task",
+            "update_profile",
+            "replace_plan",
+            "complete_task",
+            "change_goal",
+            "create_task",
+            "edit_task",
+            "schedule_task",
+            "configure_automation"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "direct_request",
+            "inferred",
+            "scheduled",
+            "market_event"
+          ]
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authorizing_request_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "proposal_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "approval_state": {
+          "enum": [
+            "not_required_direct",
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        },
+        "approved_proposal_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "diff": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ActionDiff"
+          },
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "execution_status": {
+          "enum": [
+            "not_executed",
+            "applied",
+            "stale",
+            "failed",
+            "rejected"
+          ]
+        },
+        "resulting_state_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "failure_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "action_id",
+        "kind",
+        "origin",
+        "expected_state_version",
+        "idempotency_key",
+        "authorizing_request_id",
+        "proposal_id",
+        "approval_state",
+        "approved_proposal_id",
+        "diff",
+        "reason",
+        "evidence_ids",
+        "execution_status",
+        "resulting_state_version",
+        "failure_reason"
+      ]
+    },
+    "SearchFilter": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role_ids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "industry_ids": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "query": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authorizing_request_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "role_ids",
+        "industry_ids",
+        "query",
+        "authorizing_request_id"
+      ]
+    },
+    "MarketEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measurement_type": {
+          "enum": [
+            "employer_observation",
+            "published_offering_activity",
+            "occupation_shortage",
+            "sector_context"
+          ]
+        },
+        "source_entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geography": {
+          "const": "MY"
+        },
+        "source_universe_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cohort_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "observation_period": {
+          "$ref": "#/$defs/EvidencePeriod"
+        },
+        "published_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "available_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Source"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mapping_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "relation": {
+              "enum": [
+                "native_identity",
+                "source_label_equivalence",
+                "source_label_proxy",
+                "broader_category_context",
+                "industry_related_context",
+                "unmapped",
+                "code_bridge_context"
+              ]
+            },
+            "scope": {
+              "type": "string",
+              "minLength": 1
+            },
+            "bridge": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "crosswalk_source": {
+                  "type": "string"
+                },
+                "crosswalk_sha256": {
+                  "type": "string"
+                },
+                "data_row_index": {
+                  "type": "integer"
+                },
+                "row_sha256": {
+                  "type": "string"
+                },
+                "match_type": {
+                  "type": "string"
+                },
+                "isco_uri": {
+                  "type": "string"
+                },
+                "isco_label": {
+                  "type": "string"
+                },
+                "masco_system": {
+                  "type": "string"
+                },
+                "masco_version": {
+                  "type": "string"
+                },
+                "masco_code": {
+                  "type": "string"
+                },
+                "masco_label": {
+                  "type": "string"
+                },
+                "classification_reference": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "mapping_id",
+            "version",
+            "relation",
+            "scope"
+          ]
+        },
+        "ranking_eligibility": {
+          "enum": [
+            "employer_comparable",
+            "published_comparable",
+            "shortage_adjustment",
+            "context_only",
+            "unsupported",
+            "shortage_context_adjustment"
+          ]
+        },
+        "missing_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source_record_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "source_value": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "source_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "occupation_system": {
+              "type": "string"
+            },
+            "occupation_version": {
+              "type": "string"
+            },
+            "occupation_code": {
+              "type": "string"
+            },
+            "occupation_level": {
+              "type": "integer"
+            },
+            "applies_to_all_children": {
+              "type": "boolean"
+            },
+            "explicit_six_digit_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            },
+            "six_digit_scope_pdf_page": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "nominated_title_limit": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "evidence_id",
+        "role_id",
+        "measurement_type",
+        "source_entity_id",
+        "status",
+        "value",
+        "unit",
+        "geography",
+        "source_universe_id",
+        "cohort_version",
+        "observation_period",
+        "published_at",
+        "available_at",
+        "source",
+        "mapping",
+        "ranking_eligibility",
+        "missing_reasons",
+        "limitations",
+        "as_of"
+      ]
+    },
+    "RecommendationTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_version": {
+          "enum": [
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
+          ]
+        },
+        "personal_score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "score_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "personal_evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "rank": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "ranking_group": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "ranking_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_measurement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization_denominator": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "current_index": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "current_points": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "shortage_points": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "final_internal_score": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "trace_id",
+        "role_id",
+        "policy_version",
+        "personal_score",
+        "score_status",
+        "personal_evidence_coverage",
+        "evidence_ids",
+        "rank",
+        "ranking_group",
+        "ranking_basis",
+        "current_measurement",
+        "normalization",
+        "normalization_denominator",
+        "current_index",
+        "current_points",
+        "shortage_points",
+        "final_internal_score",
+        "unknowns"
+      ]
+    },
+    "EvidencePeriod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "start": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "end": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "basis": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "EvidencePassage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "minder-evidence-passage-v1"
+        },
+        "evidence_policy_id": {
+          "enum": [
+            "personal-current-evidence-v2",
+            "personal-current-evidence-v2.1"
+          ]
+        },
+        "derivation_method": {
+          "const": "typed-source-record-recomputation-v1"
+        },
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record": {
+          "$ref": "#/$defs/MarketEvidence"
+        },
+        "canonical_passage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "passage_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_record_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schema_version",
+        "evidence_policy_id",
+        "derivation_method",
+        "evidence_id",
+        "record",
+        "canonical_passage",
+        "passage_sha256",
+        "source_record_refs"
+      ]
+    },
+    "AutomationScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_ids"
+      ],
+      "properties": {
+        "plan_ids": {
+          "type": "array",
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Profile"
+    },
+    {
+      "$ref": "#/$defs/Role"
+    },
+    {
+      "$ref": "#/$defs/PersonalAssessment"
+    },
+    {
+      "$ref": "#/$defs/MarketResult"
+    },
+    {
+      "$ref": "#/$defs/Recommendation"
+    },
+    {
+      "$ref": "#/$defs/CompanyRoleResult"
+    },
+    {
+      "$ref": "#/$defs/PlanProgress"
+    },
+    {
+      "$ref": "#/$defs/Action"
+    }
+  ]
+}

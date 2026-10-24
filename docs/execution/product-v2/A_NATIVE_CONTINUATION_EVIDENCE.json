@@ -1,0 +1,578 @@
+{
+  "scope": "actual Qwen/canonical dispatch, not browser or hosted",
+  "complete_gate_passed": false,
+  "runs": [
+    {
+      "artifact": "ml/artifacts/session-a/product/morning/native-candidate-1792851734/next-native-journey-summary.json",
+      "sha256": "4d18259f1db05b2be2c7dd2ae66c97deadb08316cf5c4930aee4e8f2f3e71cb4",
+      "steps": [
+        {
+          "name": "normal short intake without CV or anchored rubric",
+          "status": "pass"
+        },
+        {
+          "name": "real structured proposed plan",
+          "status": "pass"
+        },
+        {
+          "name": "accept saves one canonical plan",
+          "status": "pass"
+        },
+        {
+          "name": "canonical distinct view data (browser separate)",
+          "status": "pass"
+        },
+        {
+          "name": "task completion persists after app reconstruction",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 1",
+          "status": "fail"
+        },
+        {
+          "name": "ordinary consecutive guidance 2",
+          "status": "fail"
+        },
+        {
+          "name": "ordinary consecutive guidance 3",
+          "status": "pass"
+        },
+        {
+          "name": "Minder creates one approval-only singleton proposal",
+          "status": "fail"
+        }
+      ],
+      "turns": [
+        {
+          "key": "plan",
+          "elapsed_ms": 1848.869,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 715,
+              "prompt_tokens": 1855,
+              "total_tokens": 2570
+            },
+            "queue_ms": 0.224,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-0",
+          "elapsed_ms": 187.427,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 0.055,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 1000,
+              "period": "minute",
+              "requested": 333,
+              "resource": "tokens",
+              "used": 987
+            },
+            "retry_after_seconds": 19.999
+          }
+        },
+        {
+          "key": "ordinary-1",
+          "elapsed_ms": 18170.95,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 17968.989,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 1000,
+              "period": "minute",
+              "requested": 384,
+              "resource": "tokens",
+              "used": 651
+            },
+            "retry_after_seconds": 2.998
+          }
+        },
+        {
+          "key": "ordinary-2",
+          "elapsed_ms": 1611.565,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 158,
+              "prompt_tokens": 687,
+              "total_tokens": 845
+            },
+            "queue_ms": 964.084,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-reject",
+          "elapsed_ms": 210.0,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 0.169,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 1000,
+              "period": "minute",
+              "requested": 715,
+              "resource": "tokens",
+              "used": 746
+            },
+            "retry_after_seconds": 27.999
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "ml/artifacts/session-a/product/morning/native-candidate-1792851916/next-native-journey-summary.json",
+      "sha256": "7587e4348914995d61b33482624d8ebe3b1c68a3a459d4e1fef5ec3b64f5741f",
+      "steps": [
+        {
+          "name": "normal short intake without CV or anchored rubric",
+          "status": "pass"
+        },
+        {
+          "name": "real structured proposed plan",
+          "status": "pass"
+        },
+        {
+          "name": "accept saves one canonical plan",
+          "status": "pass"
+        },
+        {
+          "name": "canonical distinct view data (browser separate)",
+          "status": "pass"
+        },
+        {
+          "name": "task completion persists after app reconstruction",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 1",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 2",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 3",
+          "status": "pass"
+        },
+        {
+          "name": "Minder creates one approval-only singleton proposal",
+          "status": "fail"
+        },
+        {
+          "name": "actual no-profile public-page answer",
+          "status": "fail"
+        }
+      ],
+      "turns": [
+        {
+          "key": "plan",
+          "elapsed_ms": 1269.988,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 381,
+              "prompt_tokens": 1887,
+              "total_tokens": 2268
+            },
+            "queue_ms": 0.248,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-0",
+          "elapsed_ms": 994.979,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 572,
+              "total_tokens": 697
+            },
+            "queue_ms": 0.051,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-1",
+          "elapsed_ms": 574.437,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 121,
+              "prompt_tokens": 686,
+              "total_tokens": 807
+            },
+            "queue_ms": 0.19,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-2",
+          "elapsed_ms": 924.505,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 796,
+              "total_tokens": 921
+            },
+            "queue_ms": 0.207,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-reject",
+          "elapsed_ms": 816.446,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 211,
+              "prompt_tokens": 752,
+              "total_tokens": 963
+            },
+            "queue_ms": 0.166,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "web",
+          "elapsed_ms": 8294.913,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 0.459,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 1000,
+              "period": "minute",
+              "requested": 512,
+              "resource": "tokens",
+              "used": 682
+            },
+            "retry_after_seconds": 11.998
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "ml/artifacts/session-a/product/morning/native-candidate-1792852106/next-native-journey-summary.json",
+      "sha256": "b38e097466f93329ec2145eeab697178b3ebb159afccffb67497f5fdbc49590a",
+      "steps": [
+        {
+          "name": "normal short intake without CV or anchored rubric",
+          "status": "pass"
+        },
+        {
+          "name": "real structured proposed plan",
+          "status": "pass"
+        },
+        {
+          "name": "accept saves one canonical plan",
+          "status": "pass"
+        },
+        {
+          "name": "canonical distinct view data (browser separate)",
+          "status": "pass"
+        },
+        {
+          "name": "task completion persists after app reconstruction",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 1",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 2",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 3",
+          "status": "pass"
+        },
+        {
+          "name": "Minder creates one approval-only singleton proposal",
+          "status": "pass"
+        },
+        {
+          "name": "rejection changes no plan",
+          "status": "pass"
+        },
+        {
+          "name": "actual no-profile public-page answer",
+          "status": "pass"
+        }
+      ],
+      "turns": [
+        {
+          "key": "plan",
+          "elapsed_ms": 1426.385,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 399,
+              "prompt_tokens": 1927,
+              "total_tokens": 2326
+            },
+            "queue_ms": 0.363,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-0",
+          "elapsed_ms": 532.905,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 572,
+              "total_tokens": 697
+            },
+            "queue_ms": 0.139,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-1",
+          "elapsed_ms": 605.088,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 121,
+              "prompt_tokens": 686,
+              "total_tokens": 807
+            },
+            "queue_ms": 0.314,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-2",
+          "elapsed_ms": 600.218,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 796,
+              "total_tokens": 921
+            },
+            "queue_ms": 0.502,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-reject",
+          "elapsed_ms": 748.054,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 210,
+              "prompt_tokens": 761,
+              "total_tokens": 971
+            },
+            "queue_ms": 0.262,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-approve",
+          "elapsed_ms": 5822.338,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 5620.127,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 1000,
+              "period": "minute",
+              "requested": 256,
+              "resource": "tokens",
+              "used": 751
+            },
+            "retry_after_seconds": 0.997
+          }
+        },
+        {
+          "key": "web",
+          "elapsed_ms": 8809.771,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 188,
+              "prompt_tokens": 1260,
+              "total_tokens": 1448
+            },
+            "queue_ms": 0.64,
+            "transport_attempts": 1
+          }
+        }
+      ]
+    },
+    {
+      "artifact": "ml/artifacts/session-a/product/morning/native-candidate-1792852210/next-native-journey-summary.json",
+      "sha256": "1f8364f233c4b56d0ec220e90028516d22eb232d85f7b205591f8718453cca0e",
+      "steps": [
+        {
+          "name": "normal short intake without CV or anchored rubric",
+          "status": "pass"
+        },
+        {
+          "name": "real structured proposed plan",
+          "status": "pass"
+        },
+        {
+          "name": "accept saves one canonical plan",
+          "status": "pass"
+        },
+        {
+          "name": "canonical distinct view data (browser separate)",
+          "status": "pass"
+        },
+        {
+          "name": "task completion persists after app reconstruction",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 1",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 2",
+          "status": "pass"
+        },
+        {
+          "name": "ordinary consecutive guidance 3",
+          "status": "pass"
+        },
+        {
+          "name": "Minder creates one approval-only singleton proposal",
+          "status": "pass"
+        },
+        {
+          "name": "rejection changes no plan",
+          "status": "pass"
+        },
+        {
+          "name": "second explicit request produces an approval preview",
+          "status": "fail"
+        },
+        {
+          "name": "actual no-profile public-page answer",
+          "status": "fail"
+        }
+      ],
+      "turns": [
+        {
+          "key": "plan",
+          "elapsed_ms": 1357.155,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 399,
+              "prompt_tokens": 1927,
+              "total_tokens": 2326
+            },
+            "queue_ms": 0.297,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-0",
+          "elapsed_ms": 540.264,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 572,
+              "total_tokens": 697
+            },
+            "queue_ms": 0.133,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-1",
+          "elapsed_ms": 585.609,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 121,
+              "prompt_tokens": 686,
+              "total_tokens": 807
+            },
+            "queue_ms": 0.41,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "ordinary-2",
+          "elapsed_ms": 593.659,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 125,
+              "prompt_tokens": 796,
+              "total_tokens": 921
+            },
+            "queue_ms": 0.472,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-reject",
+          "elapsed_ms": 790.577,
+          "provider": {
+            "status": "available",
+            "usage": {
+              "completion_tokens": 217,
+              "prompt_tokens": 751,
+              "total_tokens": 968
+            },
+            "queue_ms": 0.344,
+            "transport_attempts": 1
+          }
+        },
+        {
+          "key": "schedule-approve",
+          "elapsed_ms": 10224.247,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 10013.765,
+            "transport_attempts": 1,
+            "limit_details": {
+              "limit": 200000,
+              "period": "day",
+              "requested": 1007,
+              "resource": "tokens",
+              "used": 199549
+            },
+            "retry_after_seconds": 240.998
+          }
+        },
+        {
+          "key": "web",
+          "elapsed_ms": 8546.196,
+          "provider": {
+            "status": "unavailable",
+            "code": "provider_rate_limited",
+            "queue_ms": 0.336,
+            "transport_attempts": 0,
+            "limit_details": null,
+            "retry_after_seconds": 232.435
+          }
+        }
+      ]
+    }
+  ]
+}

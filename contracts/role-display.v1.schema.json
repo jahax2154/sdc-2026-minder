@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:minder:role-display:v1",
+  "title": "Additive source presentation; does not change scoring or canonical Role",
+  "allOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "const": "role-display-v1"
+        },
+        "role_id": {
+          "type": "string"
+        },
+        "role_label": {
+          "type": "string"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "subject_id": {
+                "type": "string"
+              },
+              "label": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "label_status": {
+                "enum": [
+                  "available",
+                  "unavailable"
+                ]
+              },
+              "label_source": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Source"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "measurements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "evidence_id": {
+                      "type": "string"
+                    },
+                    "unit": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "explanation": {
+                      "type": "string"
+                    },
+                    "value": {},
+                    "availability": {
+                      "enum": [
+                        "available",
+                        "unavailable"
+                      ]
+                    },
+                    "source": {
+                      "$ref": "#/$defs/Source"
+                    }
+                  },
+                  "required": [
+                    "evidence_id",
+                    "unit",
+                    "label",
+                    "explanation",
+                    "value",
+                    "availability",
+                    "source"
+                  ]
+                }
+              },
+              "personal_evidence": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "not_assessed",
+                      "recorded_unassessed",
+                      "anchored_evidence_recorded",
+                      "needs_clarification"
+                    ]
+                  },
+                  "recorded_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "anchored_count": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "assessment_kinds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "evidence_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "explanation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "status",
+                  "recorded_count",
+                  "anchored_count",
+                  "assessment_kinds",
+                  "evidence_ids",
+                  "explanation"
+                ]
+              }
+            },
+            "required": [
+              "subject_id",
+              "label",
+              "label_status",
+              "label_source",
+              "measurements",
+              "personal_evidence"
+            ]
+          }
+        },
+        "source_record_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skill_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "measurement_rule": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "role_id",
+        "role_label",
+        "skills",
+        "source_record_count",
+        "skill_count",
+        "explanation",
+        "measurement_rule"
+      ]
+    }
+  ],
+  "$defs": {
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "geography": {
+          "type": "string",
+          "minLength": 1
+        },
+        "available_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_type": {
+          "enum": [
+            "source-derived",
+            "policy-derived",
+            "llm-proposed",
+            "human-reviewed",
+            "explicit-user",
+            "document-claim",
+            "synthetic-fixture"
+          ]
+        }
+      },
+      "required": [
+        "source_id",
+        "version",
+        "sha256",
+        "uri",
+        "geography",
+        "available_at",
+        "evidence_type"
+      ]
+    }
+  }
+}

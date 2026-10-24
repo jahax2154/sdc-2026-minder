@@ -1,0 +1,47 @@
+{
+  "actual_series": 0,
+  "code_commit": "bb408ece9b6c7b86de452536324bda1162f5f982",
+  "data_sha256": "f9e34e9d132c25d59dc700d833166936fc19a65a13f5fa68be92d1f6613b6266",
+  "dataset_file_sha256": "c4ffeb1ae53e5456ad05324f2188ebafee3b2fac3e446d2c97c7e6fbf2cd5aa9",
+  "elapsed_seconds": 0.003099874999999974,
+  "eligible_examples": 0,
+  "environment": {
+    "joblib": "1.5.3",
+    "numpy": "2.0.2",
+    "scikit-learn": "1.6.1",
+    "xgboost": "2.1.4"
+  },
+  "evaluation_as_of": "2026-10-22T17:54:45.265666+00:00",
+  "execution_location": "local_cpu",
+  "fits": 0,
+  "implementation": {
+    "gradient_boosting": "implemented",
+    "no_change": "implemented",
+    "ridge": "implemented",
+    "seasonal": "implemented"
+  },
+  "news_comparison": "unavailable_no_archived_features",
+  "paid_cost_usd": 0,
+  "promotion_rule": {
+    "holdout_MAE_must_not_exceed_best_baseline": true,
+    "minimum_holdout_origins": 2,
+    "minimum_train_examples": 8,
+    "minimum_validation_gain_vs_best_baseline": 0.05,
+    "minimum_validation_origins": 2,
+    "require_actual_publication_aware_labels": true,
+    "require_same_source_universe_and_lead_quarters": true,
+    "selection": "lowest_validation_MAE_then_simpler_method; freeze_before_holdout",
+    "synthetic_or_revised_vintage_only_backtests_promotable": false,
+    "uncertainty": "validation_absolute_residual_range_not_calibrated",
+    "version": "quarter-count-promotion-v1"
+  },
+  "ranking_metrics": null,
+  "ranking_reason": "No cross-series ranking is used; independent count forecasts only.",
+  "run_id": "market-2026-10-22T17-54-45.265666+00-00",
+  "selected_models": [],
+  "series_results": [],
+  "status": "unavailable_data",
+  "synthetic": false,
+  "training": "not_run",
+  "version": "my-quarterly-unique-ads-v1"
+}

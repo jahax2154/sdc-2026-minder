@@ -1,0 +1,84 @@
+{
+  "phase_id": "I2.2",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Exercise actual source-service user flows through local HTTP and preserve bounded failures",
+  "inputs": [
+    "I2.1 dc1a4e4",
+    "A/B/C committed implementation",
+    "Explicit synthetic profiles and task-plan fixture"
+  ],
+  "changes": [
+    "Reusable actual loopback HTTP acceptance runner; ephemeral listener shuts down on success/failure",
+    "Uses A full catalogue/B actual sample/C actual HTTP, SQLite, company, pathway, action/proposal boundaries",
+    "No fixture service/provider or production database"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.integration_cli acceptance --output ml/artifacts/session-a/i2.2-http-v4",
+      "result": {
+        "student_no_industry_broad_source_candidates": 910,
+        "career_switcher_cross_industry_candidates_retained": "passed",
+        "feedback_persisted_retry_reset_market_and_evidence_unchanged": "passed",
+        "current_sources_and_next_quarter_unavailable_without_raw_matrix": "passed",
+        "company_source_scope_and_generic_assessment_without_vacancy_claim": "passed",
+        "ambiguous_chat_draft_then_explicit_profile_evidence_update": "passed",
+        "real_role_requirements_feed_unknown_effort_pathway_preview": "passed",
+        "direct_task_move_persists_once_without_approval": "passed",
+        "proposal_no_mutation_reject_exact_approve_and_stale_conflict": "passed",
+        "completion_preserves_mastery_distinction_and_history": "passed",
+        "failed_write_is_conflict": "stale_state_version",
+        "actual_provider_state": {
+          "status": "unavailable",
+          "code": "provider_model_not_configured",
+          "request_id": "a3fc5471-5a46-4bd2-a1f4-f3e0c35de5f6"
+        }
+      }
+    },
+    {
+      "command": "ml unittest discovery and backend unittest discovery",
+      "result": "147 ML tests plus 17 distinct backend tests passed; full suite evidence in I2.1"
+    }
+  ],
+  "acceptance_mapping": {
+    "1_student_no_industry": "910 supported candidates over real source catalogue",
+    "2_switcher": "cross-industry candidates preserved; industry context in A service tests",
+    "3_feedback": "HTTP scoped persisted action, retry idempotence, reset, same market/evidence",
+    "4_complete_synthetic_profile": "A1.2 five D02 demonstrations; numerical scores deferred by N01, not a full pass",
+    "5_current": "source-linked sample observation, no internal market score serialization",
+    "6_forecast": "next full Jan-Mar 2027 quarter explicit unavailable; no observed substitution",
+    "7_company": "Bosch official/ATS snapshot, generic role assessment distinct from missing company criteria",
+    "8_intake": "ambiguous text draft then explicit saved evidence, no inferred mastery",
+    "9_direct_action": "persisted move executes once, not_required_direct",
+    "10_proactive": "pending proposal leaves state, reject leaves state, exact approve and stale conflict; C worker tests simulate temporal/events",
+    "11_progress": "completion persists without mastery and completed task preserved",
+    "12_failure": "HTTP stale write 409; real provider unavailable; A2 model target/schema guards before load"
+  },
+  "artifact": {
+    "path": "ml/artifacts/session-a/i2.2-http-v4/evidence.json",
+    "sha256": "cbfc03056a5477c5baf278ab725a55ef17c42c2918d5b481392895b9897a3c93"
+  },
+  "implementation_repairs": [
+    "Before checkpoint: corrected test assumption that explicit view order equals catalogue order; no ranking implied.",
+    "First sandbox bind denied; authorised retry used loopback. Failed evidence directories preserved."
+  ],
+  "limitations": [
+    "N01 pending: complete synthetic evidence does not yield numeric scores.",
+    "No empirical personal-fit/forecast accuracy, live Groq success or deployed scheduler claimed.",
+    "Company-specific requirements unavailable; generic occupational assessment remains separate.",
+    "Agent temporal/event simulations covered in C tests; this HTTP run exercises persisted proposal/actions.",
+    "Model incompatibility guarded in A2 tests; no production model load is attempted here.",
+    "No browser UI/deployed check; C4.1 not yet committed",
+    "No human/empirical personal-fit validation; no real forecast backtest"
+  ],
+  "dependencies": [
+    "N01",
+    "GROQ_API_KEY/GROQ_MODEL",
+    "C4.1",
+    "B3.1",
+    "deployment access/authorization"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "I2.3 reproducible local release preparation; final committed owner handoffs"
+}

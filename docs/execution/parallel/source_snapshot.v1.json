@@ -1,0 +1,63 @@
+{
+  "snapshot": "/Users/phuahjunhong/sdc-2026-minder-worktrees/shared-sources/af783e257ba50873",
+  "snapshot_id": "af783e257ba50873db50b3ad672a93477b478462113ee5be61b4402005ce8aa2",
+  "file_count": 13,
+  "hashes_verified": true,
+  "files_read_only": true,
+  "source_files": [
+    {
+      "path": "raw/dosm_lfs_qtr_state.csv",
+      "sha256": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1"
+    },
+    {
+      "path": "raw/dosm_wages_occupation.csv",
+      "sha256": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17"
+    },
+    {
+      "path": "raw/dosm_wages_state.csv",
+      "sha256": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea"
+    },
+    {
+      "path": "raw/esco_onet_occupations_crosswalk.csv",
+      "sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620"
+    },
+    {
+      "path": "raw/ilo_genai_2025_task_scores.xlsx",
+      "sha256": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a"
+    },
+    {
+      "path": "raw/ilo_genai_data_dictionary.md",
+      "sha256": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c"
+    },
+    {
+      "path": "raw/onet_31_0_essential_skills.csv",
+      "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7"
+    },
+    {
+      "path": "raw/onet_31_0_occupation_data.csv",
+      "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02"
+    },
+    {
+      "path": "raw/onet_31_0_scales_reference.csv",
+      "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9"
+    },
+    {
+      "path": "raw/onet_31_0_software_skills.csv",
+      "sha256": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016"
+    },
+    {
+      "path": "raw/dosm_jmi_q2_2026_data.xlsx",
+      "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+    },
+    {
+      "path": "derived/ilo_genai_occupation_2025.csv",
+      "sha256": "b331fa8bf4452f6df0737d7201cc529a892c1a12dbdf013f60cee6cef8e7250e"
+    },
+    {
+      "path": "derived/dosm_jmi_quarterly_long.csv",
+      "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b"
+    }
+  ],
+  "lane_runtime": "three distinct ignored .env.local and artifact runtime directories; 13 read-only hardlinks per worktree into pinned shared physical data; no databases created; no credentials copied",
+  "symlink_probe": "existing policy_features path containment rejected external-resolving symlinks; guard preserved; replaced only newly created links with contained read-only hardlinks before final verification"
+}

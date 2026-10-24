@@ -1,0 +1,546 @@
+{
+  "phase_id": "N3.1",
+  "owner": "A",
+  "status": "implemented_verified_local_with_explicit_market_and_external_limits",
+  "branch": "session/a-personal-integration",
+  "parent_revision": "9a41a4c6e34859c2b480550be9f60af8c4d7ab85",
+  "policy_id": "personal-role-fit-v3-provisional",
+  "reference_version": "role-reference-v3.2",
+  "market_policy": "personal-current-cohort-v1",
+  "phases": [
+    {
+      "phase": "N1.1",
+      "status": "passed",
+      "checkpoint_sha": "b417a553a16cc6dcdc79959df71fbe7770879320"
+    },
+    {
+      "phase": "N1.2",
+      "status": "passed",
+      "checkpoint_sha": "5f8fb31bd322ca0d8d2f6ecb75411cda4e07f81e"
+    },
+    {
+      "phase": "N1.3",
+      "status": "passed_local_application",
+      "checkpoint_sha": "664b8264d3d229f39beb141329107fd5bef0a1e9"
+    },
+    {
+      "phase": "N1.1-R01",
+      "status": "passed",
+      "checkpoint_sha": "8011c34fd12062ef90a55505f591aa4c0b3d3886"
+    },
+    {
+      "phase": "N2.1",
+      "status": "passed_provisional_control_only",
+      "checkpoint_sha": "a5835097e314a805c37a1e275ccca17e29ffceb8"
+    }
+  ],
+  "integrations": [
+    {
+      "phase": "I3.1",
+      "handoff": "b8478a32ec57b31bcc5928d72c93a61b750eb951",
+      "merge": "4ea7968e291e331756c37de0fe2aac947bca69b3"
+    },
+    {
+      "phase": "I3.2",
+      "handoff": "d3d5274fe2488b4ea4b04aeedd187fdeb9e05fa4",
+      "merge": "34429e97c8843d3a313e5ea439b64fbe5f93b173"
+    },
+    {
+      "phase": "I3.1-R01",
+      "handoff": "ee4096cffd2811dc3d1e56273dacd05cbc1c6e4a",
+      "merge": "e65e8596acd50cfbfd9a963816a84d1c3286ae2c"
+    },
+    {
+      "phase": "I3.2-R01",
+      "handoff": "bab8e50375a7c4f8d13d671e8a473226dddf44f2",
+      "merge": "9a41a4c6e34859c2b480550be9f60af8c4d7ab85"
+    }
+  ],
+  "original_requested_handoffs": "63b45ab4ce572b2cf750ed9f527f33b1f7b94a21 and c5de33bcd2f27a537ca57b30e1e4cba859098e80 were already ancestors; no duplicate integration",
+  "actual_coverage": {
+    "revision": "9a41a4c6e34859c2b480550be9f60af8c4d7ab85",
+    "as_of": "2026-10-23T06:41:47.985585+00:00",
+    "policy_id": "personal-role-fit-v3-provisional",
+    "reference_version": "role-reference-v3.2",
+    "catalogue": {
+      "references": 1016,
+      "eligible": 910,
+      "partial": 106,
+      "eligible_industry_mapped": 907,
+      "eligible_work_style_mapped": 878
+    },
+    "profiles": [
+      {
+        "kind": "original-synthetic-calibration",
+        "profile_id": "calibration-profile-01",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Reading Comprehension.",
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      },
+      {
+        "kind": "original-synthetic-calibration",
+        "profile_id": "calibration-profile-02",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Reading Comprehension.",
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      },
+      {
+        "kind": "original-synthetic-calibration",
+        "profile_id": "calibration-profile-03",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Reading Comprehension.",
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      },
+      {
+        "kind": "original-synthetic-calibration",
+        "profile_id": "calibration-profile-04",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Reading Comprehension.",
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      },
+      {
+        "kind": "original-synthetic-calibration",
+        "profile_id": "calibration-profile-05",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Reading Comprehension.",
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      },
+      {
+        "kind": "new-anchored-fresh-graduate",
+        "profile_id": "demo-fresh_graduate",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 910,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 4,
+          "personal_only_ranked": 906,
+          "insufficient_evidence": 0
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": []
+      },
+      {
+        "kind": "incomplete-one-anchored-skill",
+        "profile_id": "demo-incomplete",
+        "synthetic": true,
+        "coverage": {
+          "considered_eligible": 910,
+          "candidates": 910,
+          "assessed": 0,
+          "excluded": 0,
+          "current_available": 4,
+          "current_comparable_ranked": 0,
+          "personal_only_ranked": 0,
+          "insufficient_evidence": 910
+        },
+        "status": "partial",
+        "overall_ranking_complete": false,
+        "targeted_questions": [
+          "Provide an anchored activity level and evidence description for Active Listening.",
+          "Provide an anchored activity level and evidence description for Writing."
+        ]
+      }
+    ],
+    "current_market": {
+      "roles": [
+        {
+          "role_id": "onet:13-2011.00",
+          "count": 0,
+          "status": "available",
+          "period": {
+            "start": "2026-10-23",
+            "end": "2026-10-23"
+          },
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "source_ids": [
+            "bosch-smartrecruiters-my"
+          ]
+        },
+        {
+          "role_id": "onet:15-1252.00",
+          "count": 5,
+          "status": "available",
+          "period": {
+            "start": "2026-10-23",
+            "end": "2026-10-23"
+          },
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "source_ids": [
+            "bosch-smartrecruiters-my"
+          ]
+        },
+        {
+          "role_id": "onet:15-2051.00",
+          "count": 0,
+          "status": "available",
+          "period": {
+            "start": "2026-10-23",
+            "end": "2026-10-23"
+          },
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "source_ids": [
+            "bosch-smartrecruiters-my"
+          ]
+        },
+        {
+          "role_id": "onet:17-2112.00",
+          "count": 0,
+          "status": "available",
+          "period": {
+            "start": "2026-10-23",
+            "end": "2026-10-23"
+          },
+          "available_at": "2026-10-23T06:13:31.947075+00:00",
+          "source_ids": [
+            "bosch-smartrecruiters-my"
+          ]
+        }
+      ],
+      "role_forecasts_available": 0,
+      "skills": [
+        {
+          "skill_id": "source-term:python",
+          "count": 6,
+          "status": "available",
+          "forecast_status": "unavailable",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          }
+        },
+        {
+          "skill_id": "source-term:sql",
+          "count": 11,
+          "status": "available",
+          "forecast_status": "unavailable",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          }
+        },
+        {
+          "skill_id": "source-term:excel",
+          "count": 27,
+          "status": "available",
+          "forecast_status": "unavailable",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          }
+        },
+        {
+          "skill_id": "source-term:java",
+          "count": 4,
+          "status": "available",
+          "forecast_status": "unavailable",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          }
+        },
+        {
+          "skill_id": "source-term:cpp",
+          "count": 8,
+          "status": "available",
+          "forecast_status": "unavailable",
+          "target_period": {
+            "start": "2027-01-01",
+            "end": "2027-03-31"
+          }
+        }
+      ],
+      "inspected_ads": 155,
+      "qualifications_observed": 154,
+      "source_universe": "bosch-my-inspected-native-requisitions-v2",
+      "scope": "Observed employer feed; not national demand, verified active hiring or quarterly inflow."
+    },
+    "bootstrap_inputs": {
+      "count": 13,
+      "all_preserved": true,
+      "files": [
+        {
+          "path": "raw/dosm_lfs_qtr_state.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/dosm_wages_occupation.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/dosm_wages_state.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/esco_onet_occupations_crosswalk.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/ilo_genai_2025_task_scores.xlsx",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/ilo_genai_data_dictionary.md",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/onet_31_0_essential_skills.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/onet_31_0_occupation_data.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/onet_31_0_scales_reference.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/onet_31_0_software_skills.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "raw/dosm_jmi_q2_2026_data.xlsx",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "derived/ilo_genai_occupation_2025.csv",
+          "hash_matches": true,
+          "read_only": true
+        },
+        {
+          "path": "derived/dosm_jmi_quarterly_long.csv",
+          "hash_matches": true,
+          "read_only": true
+        }
+      ],
+      "backup": "Existing G0 read-only shared snapshot; no new external backup or input staging."
+    },
+    "independent_labels": 0,
+    "original_profiles_sha256": "a84cf863cba9f784d6ed84e9ee9de3db570312da0a4dc0b88e176898da695435",
+    "limitations": [
+      "Partial essential-skill evidence fit, not qualification or independent accuracy.",
+      "No original calibration skill claims reinterpreted as the new anchored rubric.",
+      "Unmatched industry/style evidence remains unknown and never fabricates an adjustment.",
+      "No forecasts manufactured from new broad/censored/frozen-corpus research quantities."
+    ]
+  },
+  "career_switcher_actual_HTTP_coverage": {
+    "assessed": 910,
+    "current_comparable_ranked": 4,
+    "personal_only_ranked": 906,
+    "evidence": "N1.3.json"
+  },
+  "worked_example": {
+    "role": "onet:15-1252.00",
+    "fictional_observed_native_levels": [
+      2,
+      4,
+      4
+    ],
+    "occupational_levels": [
+      4.25,
+      3.88,
+      3.62
+    ],
+    "C": 0.823529411764706,
+    "F": 65.88235294117648,
+    "current_observed_ads": 5,
+    "inspected_ads": 155,
+    "M": 35.48139722510539,
+    "S": 61.32220958376581,
+    "not_interested_F": 60.88235294117648,
+    "not_interested_S": 57.07220958376581,
+    "reset_F": 65.88235294117648,
+    "interpretation": "Partial essential-skill evidence compatibility and within-source comparison, not qualification/hiring probability. Raw market indices remain internal to the ordinary product UI."
+  },
+  "ranking_sensitivity": "Actual service check with explicitly fictional compatible counts reversed Software Developers and Data Scientists ordering; constant personal evidence, forecasts unavailable. Factual market bytes untouched.",
+  "learners": {
+    "provenance": "provisional_policy_distillation_0_100",
+    "independent_labels": 0,
+    "group_counts": {
+      "train": 32,
+      "validation": 8,
+      "holdout": 8
+    },
+    "row_counts": {
+      "train": 378,
+      "validation": 95,
+      "holdout": 96
+    },
+    "bounded_fits": 4,
+    "paid_cost_usd": 0,
+    "holdout_teacher_MAE": {
+      "ridge": 0.0021013099846967274,
+      "xgboost": 3.683204465613098,
+      "baseline": 2.400178259846323e-09
+    },
+    "active": "baseline",
+    "reason": "Teacher agreement is not independent empirical quality; transparent exact policy retained."
+  },
+  "checks": [
+    {
+      "check": "full ML suite at N1.3",
+      "result": "165 passed"
+    },
+    {
+      "check": "backend suite",
+      "result": "28 passed"
+    },
+    {
+      "check": "real HTTP plus C and A Chromium cases",
+      "result": "passed; no fetch mocks, no page errors, no mobile overflow"
+    },
+    {
+      "check": "N1.1-R01 source refinement",
+      "result": "32 passed; unchanged numerical source projections"
+    },
+    {
+      "check": "latest B/C integration including new B source tests",
+      "result": "49 passed in 23.874s"
+    },
+    {
+      "check": "final coverage audit",
+      "result": "7 synthetic profiles assessed; original five unchanged, new anchored and incomplete cases verified; all 13 read-only input hashes preserved"
+    }
+  ],
+  "provider": {
+    "api_key_present": false,
+    "model_configured": false,
+    "actual_request_success": false,
+    "software_mocks": "passed separately; never called live provider acceptance"
+  },
+  "remaining_changes": [
+    "No unfinished numerical coefficient choice or tracked implementation edit",
+    "C-owned company generic assessment caller/startup wording cleanup requested through committed A handoff; main recommendation uses v3",
+    "Ignored local evidence/models/databases remain uncommitted; 13 original source inputs remain preserved and untracked"
+  ],
+  "blockers": [
+    {
+      "id": "ACCESS-GROQ",
+      "effect": "No successful real provider/native-function or upcoming-minute scheduled-provider acceptance",
+      "next": "Configure own A provider access privately; verify entitled model and run actual grounded calls/scheduled acceptance"
+    },
+    {
+      "id": "DATA-MARKET-COVERAGE",
+      "effect": "Only four of 910 supported roles can receive comparable current-market ordering; 906 personal-only roles are explicitly partial",
+      "next": "B acquires and hands off reviewed, comparable broader current source coverage"
+    },
+    {
+      "id": "DATA-FORECAST-HISTORY",
+      "effect": "No available next-quarter role/skill forecast; approved compatible historical target absent",
+      "next": "B continues actual source work without changing target or laundering broad/censored/frozen-corpus counts"
+    },
+    {
+      "id": "EVALUATION-INDEPENDENT",
+      "effect": "No independently measured personal-fit validity or learned promotion evidence",
+      "next": "Evaluate against genuinely separate compatible outcomes/labels when acquired; not a new gate for the delegated provisional baseline"
+    }
+  ],
+  "next_runnable_work": [
+    "Use the prototype now with focused structured intake; reset/negative feedback/market groups are implemented",
+    "C consumes A committed contract handoff and returns its owned consumer cleanup as a focused commit",
+    "B continues historical/current evidence work and sends committed handoffs; no paid A job is queued"
+  ],
+  "constraints_observed": [
+    "No push/deployment/rebuild/production mutation/history rewriting",
+    "No sibling worktree edits or concurrent owner-module rewrites",
+    "Legacy baseline/Ridge/XGBoost source and targets retained; original N01 still pending/inactive"
+  ],
+  "evidence": {
+    "coverage_path": "ml/artifacts/session-a/n3.1-final-coverage-v1/coverage.json",
+    "coverage_sha256": "5d70993f504db38b0213f43c339c9016d51f836745131979557f40b45b6c337d",
+    "latest_checks_sha256": "288daf16987a2753c9f0eeebe066bffe087f8e4fcb5cb66431f8166bcf337387"
+  },
+  "excluded_state": "Original 13 source inputs preserved in existing G0 shared snapshot; ignored A source downloads, logs, model pipelines, synthetic SQLite/screenshot evidence and browser binaries local only, no new external backup.",
+  "push_status": "not pushed"
+}

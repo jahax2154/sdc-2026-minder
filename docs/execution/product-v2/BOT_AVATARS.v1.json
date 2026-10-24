@@ -1,0 +1,133 @@
+{
+  "version": "bot-avatars-v1",
+  "default_avatar_id": "nimo-blue",
+  "default_display_name": "My Bot",
+  "avatars": [
+    {
+      "avatar_id": "frog-blue",
+      "source_path": "docs/minder-ui-html-previews/assets/frog-blue.svg",
+      "sha256": "85d0f3e571ceb78248fe21960f8e234cf90852f0b5bb50939c3a3b9eeaedd761"
+    },
+    {
+      "avatar_id": "frog-lavender",
+      "source_path": "docs/minder-ui-html-previews/assets/frog-lavender.svg",
+      "sha256": "a0b3076b5c12d33c6cf51b0dac4b559326ef17de5e577356ed2dc0875353d51c"
+    },
+    {
+      "avatar_id": "frog-lime",
+      "source_path": "docs/minder-ui-html-previews/assets/frog-lime.svg",
+      "sha256": "54d49ba3a3ca82f248581631d79e3234215936053ebc803d5d050d9bc44b2209"
+    },
+    {
+      "avatar_id": "frog-rose",
+      "source_path": "docs/minder-ui-html-previews/assets/frog-rose.svg",
+      "sha256": "bda43ce186637e27c9a631797d745784ef651dc562023e90c76a6164b3cf0962"
+    },
+    {
+      "avatar_id": "frog-yellow",
+      "source_path": "docs/minder-ui-html-previews/assets/frog-yellow.svg",
+      "sha256": "0a890c94e492aa609611c6b11fd4f8abd00e133a5bd0bec13d77babd80e9c74e"
+    },
+    {
+      "avatar_id": "heart-blue",
+      "source_path": "docs/minder-ui-html-previews/assets/heart-blue.svg",
+      "sha256": "845fdaac5e2221ec7bd24060ffc0ff543e71c4e86c5d4fda52e92c66eb7024a0"
+    },
+    {
+      "avatar_id": "heart-lavender",
+      "source_path": "docs/minder-ui-html-previews/assets/heart-lavender.svg",
+      "sha256": "2c7a69b4da8e124c1761f1ecc650474e187d1a64b7b09c41583a7ae2f3a76250"
+    },
+    {
+      "avatar_id": "heart-lime",
+      "source_path": "docs/minder-ui-html-previews/assets/heart-lime.svg",
+      "sha256": "2045a8ceb0c9d72ffa86a4684001f5ae0921537675143bb5ba473e0fc96a02c0"
+    },
+    {
+      "avatar_id": "heart-rose",
+      "source_path": "docs/minder-ui-html-previews/assets/heart-rose.svg",
+      "sha256": "c2afd888558e9cb470575097d920fbddfa8460c3be5cd4050522ae76165c0b7e"
+    },
+    {
+      "avatar_id": "heart-yellow",
+      "source_path": "docs/minder-ui-html-previews/assets/heart-yellow.svg",
+      "sha256": "9439806701c5a3d4c343300ad88b58cb921abad36dd00e6d29eaf9bd0d39760d"
+    },
+    {
+      "avatar_id": "nimo-blue",
+      "source_path": "docs/minder-ui-html-previews/assets/nimo-blue.png",
+      "sha256": "3305611317dab3763e079479ef76d9b95bf9772c8d34bb86c3ba88e9ae746d4c"
+    },
+    {
+      "avatar_id": "nimo-lavender",
+      "source_path": "docs/minder-ui-html-previews/assets/nimo-lavender.png",
+      "sha256": "b364971ca275519717c3ffc41fb07a7ffd874b9f5d277e3485b817a620e07114"
+    },
+    {
+      "avatar_id": "nimo-lime",
+      "source_path": "docs/minder-ui-html-previews/assets/nimo-lime.png",
+      "sha256": "970ae294f115527fc08d82896431ed68f3215424d1583cbf4b9a3c8b68f65679"
+    },
+    {
+      "avatar_id": "nimo-rose",
+      "source_path": "docs/minder-ui-html-previews/assets/nimo-rose.png",
+      "sha256": "0810277f1c1b7143f095e6d88d2c544b513029980738ffdb9e259d5ed9365228"
+    },
+    {
+      "avatar_id": "nimo-yellow",
+      "source_path": "docs/minder-ui-html-previews/assets/nimo-yellow.png",
+      "sha256": "cbb394f2a9d4089d8ad9d0139196920f6e141a25a78744928bebc0affc061326"
+    },
+    {
+      "avatar_id": "puff-blue",
+      "source_path": "docs/minder-ui-html-previews/assets/puff-blue.svg",
+      "sha256": "4e7081308e307426bc5e6d4031991f961ba5fe98395ca46d563f285472f2afb0"
+    },
+    {
+      "avatar_id": "puff-lavender",
+      "source_path": "docs/minder-ui-html-previews/assets/puff-lavender.svg",
+      "sha256": "e84c66500c90e725d1f600350b0bed0f27522ecabf21466aab1b87dd6f12b14b"
+    },
+    {
+      "avatar_id": "puff-lime",
+      "source_path": "docs/minder-ui-html-previews/assets/puff-lime.svg",
+      "sha256": "a7fd70439a493b3fea3d56b938018bc56390970f5d2fee4a98c7a437ed15c1e2"
+    },
+    {
+      "avatar_id": "puff-rose",
+      "source_path": "docs/minder-ui-html-previews/assets/puff-rose.svg",
+      "sha256": "99802f650ae59f5253e11bbf50a37d3b5d91d027ce3cc2f1db8318849e0f4085"
+    },
+    {
+      "avatar_id": "puff-yellow",
+      "source_path": "docs/minder-ui-html-previews/assets/puff-yellow.svg",
+      "sha256": "1ead0ed98a6f9c1e2feb74e051b228a5f448581375c2c14dcc02b743744ab3e8"
+    },
+    {
+      "avatar_id": "star-blue",
+      "source_path": "docs/minder-ui-html-previews/assets/star-blue.svg",
+      "sha256": "d2eb44eb4092d406f6ccd1ae3a2b63fc7cc74e63bc8eb747ddc522522e296f7c"
+    },
+    {
+      "avatar_id": "star-lavender",
+      "source_path": "docs/minder-ui-html-previews/assets/star-lavender.svg",
+      "sha256": "e1bd9142fa246d140877c49d30571216a6c1beb12eb79d6750ffcdb33cd5088e"
+    },
+    {
+      "avatar_id": "star-lime",
+      "source_path": "docs/minder-ui-html-previews/assets/star-lime.svg",
+      "sha256": "0298f5f5096edb44d3332520fe4264082bf4e6ed51f62206c11fe21083a9b489"
+    },
+    {
+      "avatar_id": "star-rose",
+      "source_path": "docs/minder-ui-html-previews/assets/star-rose.svg",
+      "sha256": "ca64c677657f1c91804a6ed21d0b447dda37402282a8dafc6b35e2dfcd9d6984"
+    },
+    {
+      "avatar_id": "star-yellow",
+      "source_path": "docs/minder-ui-html-previews/assets/star-yellow.svg",
+      "sha256": "b7cfdba1252a0bfbcb26ce1d5890096d6b31c23b5ebb7f354d407db20832ab89"
+    }
+  ],
+  "boundary": "Approved visual identifiers only; custom identity is untrusted display data, not provider/system instructions, auth or new bot identity."
+}

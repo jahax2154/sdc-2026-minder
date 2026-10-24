@@ -1,0 +1,102 @@
+{
+  "phase_id": "I2.1-R02",
+  "original_phase": "I2.1",
+  "original_checkpoint": "dc1a4e42ba36b24225b27a5b2e3ada1fe4138edf",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "passed",
+  "objective": "Integrate only missing requested B/C handoff commits and verify contracts, migrations and artifact access",
+  "starting_head": "b2a147bc2dd9df88762d3b714005984906a69e0c",
+  "inputs": {
+    "B": "63b45ab4ce572b2cf750ed9f527f33b1f7b94a21",
+    "C": "c5de33bcd2f27a537ca57b30e1e4cba859098e80"
+  },
+  "prior_integrated": {
+    "B": "ba5d9a234cac334e7ba7b4a650b07e922fcaaccf",
+    "C": "8cb2acbcce2714b2c0c40b095d967e8420926148"
+  },
+  "new_owner_commits": {
+    "B": [
+      "514f0e23448f9e1e275f0cfb41e8908df252cc03",
+      "63b45ab4ce572b2cf750ed9f527f33b1f7b94a21"
+    ],
+    "C": [
+      "badae3681ceaf63b0b0f7e399bc922f28eeeb3c0",
+      "ee9ec7b522ba4ccd7ffb328d1805b4f1c594492e",
+      "e2a69d5ee25aaa7b1c0a3e283c5ae5ee8851416b",
+      "0966d5cefd1be775a6d461d7cf0efd4af7c90fea",
+      "c5de33bcd2f27a537ca57b30e1e4cba859098e80"
+    ]
+  },
+  "merge_commits": [
+    "58ae7872058991372924a2ef6f5541e4c6fe1ff6",
+    "10c8c3a8fd64899c2139837235880b86b591ae3f"
+  ],
+  "changes": [
+    "Preserved owner histories; no cherry-pick replay, squash, source copies or owner-directory edits",
+    "Reviewed B/HANDOFF.md and C/requests/C-002-HANDOFF.md; migration 4 additive, contract minder-parallel-v1 retained",
+    "Located existing N01 proposal and recorded review without editing canonical proposal/config or legacy numerical policy"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -v > ml/artifacts/session-a/resume-ml-tests.log 2>&1",
+      "result": "152 passed in 133.455s; includes mock provider tests and synthetic forecast learner controls"
+    },
+    {
+      "command": "source .env.local; PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m unittest discover -s apps/backend-api/tests -v > ml/artifacts/session-a/resume-backend-tests.log 2>&1",
+      "result": "20 distinct tests passed in 0.698s"
+    },
+    {
+      "command": "node --check apps/frontend-web/app.js",
+      "result": "passed; no build run"
+    },
+    {
+      "command": "actual A synthetic DB migration query, source hashes, A/C namespace guards, packaged registry and real provider probe",
+      "result": {
+        "migrations": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "provider_budget_rows": 0,
+        "namespace_guards": "A and C guards preserved; no sibling DB opened",
+        "source_integrity": "13 pinned inputs hash-match and read-only",
+        "N01": {
+          "policy_id": "personal-role-fit-v2-proposal",
+          "status": "pending",
+          "active": false,
+          "sha256": "70ab3eb062e68d67dcdf5117feccf352e6812e98ec9e1837a757a617fcf91d99"
+        },
+        "provider_probe": {
+          "status": "unavailable",
+          "code": "provider_credentials_missing",
+          "request_id": "f9acbaa5-6599-46b0-b38e-916fb0622a01"
+        },
+        "forecast_models_selected": 0,
+        "artifact_access": "packaged snapshot/dataset/registry validate within A; empty model registry requires no B artifact access",
+        "source_imports": {
+          "integration": "ml/src/minder_ml/intelligence/integration_cli.py",
+          "C_runtime": "apps/backend-api/minder_app/runtime.py"
+        }
+      }
+    }
+  ],
+  "artifact": {
+    "path": "ml/artifacts/session-a/resume-i2.2-r01-v1/compatibility-evidence.json",
+    "sha256": "af42955d32a663f47b0dfde446226fdd83ab4c5761448c4149e46567604eaab6"
+  },
+  "limitations": [
+    "Pass covers bounded module/schema/migration/artifact compatibility; overall product remains limited",
+    "N01 pending, compatible personal rubrics/targets absent, Groq unavailable, no selected real forecasts",
+    "No deployment, application rebuild or remote push"
+  ],
+  "dependencies": [
+    "N01",
+    "compatible occupational evidence/rubrics/targets",
+    "GROQ_API_KEY/GROQ_MODEL",
+    "quarterly role/skill history"
+  ],
+  "checkpoint": "commit containing this phase record",
+  "next_eligible_work": "I2.2-R01 actual A HTTP/browser verification checkpoint"
+}

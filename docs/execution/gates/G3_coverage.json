@@ -1,0 +1,677 @@
+{
+  "coverage_schema_version": "minder-coverage-g3-v1",
+  "criterion_coverage": [
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "sw-requirements",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-1252.00",
+      "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+      "source_skill_id": "onet:2.A.1.a"
+    },
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "sw-debugging",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-1252.00",
+      "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+      "source_skill_id": "onet:2.A.2.a"
+    },
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "ds-statistics",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-2051.00",
+      "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+      "source_skill_id": "onet:2.A.1.e"
+    },
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "ds-evaluation",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-2051.00",
+      "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+      "source_skill_id": "onet:2.A.2.a"
+    },
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "sec-policy",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-1212.00",
+      "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+      "source_skill_id": "onet:2.A.1.a"
+    },
+    {
+      "accepted_milestone": false,
+      "anchored_known_profile_assessments": 0,
+      "candidate_profile_pairs": 6,
+      "criterion_id": "sec-risk",
+      "milestone_id": null,
+      "milestone_status": "pending_batch_decision",
+      "role_id": "15-1212.00",
+      "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+      "source_skill_id": "onet:2.A.2.a"
+    }
+  ],
+  "data_modes": {
+    "independent_empirical": "not_evaluated_no_eligible_independent_labels",
+    "policy_distillation": "not_run_no_G1B_proposal_targets_supplied",
+    "synthetic_math_fixture": "32 continuous mathematical controls, not rubric labels"
+  },
+  "family_counts": {
+    "distinct_declared_synthetic_family_ids": 6,
+    "independently_labeled_groups": 0,
+    "notice": "Distinct synthetic family IDs do not establish independent reviewer evidence."
+  },
+  "independent_label_report": {
+    "candidate_coverage_by_profile": {},
+    "eligible_reviewed_groups": 0,
+    "eligible_reviewed_rows": 0,
+    "empirical_status": "not_evaluated",
+    "errors": [],
+    "missing_columns": [],
+    "pending_rows": 0,
+    "profile_count": 0,
+    "profile_group_count": 0,
+    "rows": 0
+  },
+  "market_dimensions": [
+    {
+      "dimension": "industry",
+      "evidence_type": "observed provider aggregate; not independent personal-fit labels",
+      "geographies": [
+        "MYS"
+      ],
+      "measurement_grain": "country \u00d7 quarter \u00d7 source-native published marginal label",
+      "missing": 5,
+      "numeric": 639,
+      "periods": [
+        "2019-07-01",
+        "2019-10-01",
+        "2020-01-01",
+        "2020-04-01",
+        "2020-07-01",
+        "2020-10-01",
+        "2021-01-01",
+        "2021-04-01",
+        "2021-07-01",
+        "2021-10-01",
+        "2022-01-01",
+        "2022-04-01",
+        "2022-07-01",
+        "2022-10-01",
+        "2023-01-01",
+        "2023-04-01",
+        "2023-07-01",
+        "2023-10-01",
+        "2024-01-01",
+        "2024-04-01",
+        "2024-07-01",
+        "2024-10-01",
+        "2025-01-01",
+        "2025-04-01",
+        "2025-07-01",
+        "2025-10-01",
+        "2026-01-01",
+        "2026-04-01"
+      ],
+      "published_entity_labels": [
+        "Accommodation and food service activities",
+        "Activities of extraterritorial organizations and bodies",
+        "Activities of households as employers",
+        "Administrative and support service activities",
+        "Agriculture, forestry and fishing",
+        "Arts, entertainment and recreation",
+        "Construction",
+        "Education",
+        "Electricity, gas, steam and air conditioning supply",
+        "Financial and insurance/ takaful activities",
+        "Human health and social work activities",
+        "Information and communication",
+        "Jumlah",
+        "Manufacturing",
+        "Mining and quarrying",
+        "Other service activities",
+        "Professional, scientific and technical activities",
+        "Public administration and defence; compulsory social security",
+        "Real estate activities",
+        "Transportation and storage",
+        "Unclassified",
+        "Water supply, sewerage, waste management and remediation activities",
+        "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+      ],
+      "rows": 644
+    },
+    {
+      "dimension": "occupation",
+      "evidence_type": "observed provider aggregate; not independent personal-fit labels",
+      "geographies": [
+        "MYS"
+      ],
+      "measurement_grain": "country \u00d7 quarter \u00d7 source-native published marginal label",
+      "missing": 26,
+      "numeric": 282,
+      "periods": [
+        "2019-07-01",
+        "2019-10-01",
+        "2020-01-01",
+        "2020-04-01",
+        "2020-07-01",
+        "2020-10-01",
+        "2021-01-01",
+        "2021-04-01",
+        "2021-07-01",
+        "2021-10-01",
+        "2022-01-01",
+        "2022-04-01",
+        "2022-07-01",
+        "2022-10-01",
+        "2023-01-01",
+        "2023-04-01",
+        "2023-07-01",
+        "2023-10-01",
+        "2024-01-01",
+        "2024-04-01",
+        "2024-07-01",
+        "2024-10-01",
+        "2025-01-01",
+        "2025-04-01",
+        "2025-07-01",
+        "2025-10-01",
+        "2026-01-01",
+        "2026-04-01"
+      ],
+      "published_entity_labels": [
+        "Clerical support workers",
+        "Craft and related trades workers",
+        "Elementary Occupations",
+        "Jumlah",
+        "Managers",
+        "Plant and machine operators and assemblers",
+        "Professionals",
+        "Service and sales workers",
+        "Skilled agricultural, forestry, livestock and fishery workers",
+        "Technicians and associate professionals",
+        "Unclassified"
+      ],
+      "rows": 308
+    }
+  ],
+  "market_quality": {
+    "classification_coverage_diagnostic": {
+      "interpretation": "Observed classification share shift; cause/methodological continuity not established. Industry YoY involving flagged quarter is withheld.",
+      "observations": [
+        {
+          "period_start": "2026-01-01",
+          "published_total": 626861,
+          "unclassified_observed_count": 49549,
+          "unclassified_share": 0.07904304143980882
+        },
+        {
+          "period_start": "2026-04-01",
+          "published_total": 555509,
+          "unclassified_observed_count": 273024,
+          "unclassified_share": 0.4914843863915796
+        }
+      ],
+      "status": "requires_review"
+    },
+    "exceptions": [
+      "Formatted workbook dimensions 974x131 are not the observation count; only42rows contain data/text.",
+      "Annual2026 column is partial-year and futurequarter/monthheaders are empty placeholders.",
+      "No detailedoccupation or state-by-role table is present in this attachment.",
+      "Source dash and blank statuses preserved as missing; numerical0preserved as0.",
+      "Economic-activity unclassified count changes sharply across quarters; investigate classification/coverage stability before interpreting sector growth.",
+      "Historical columns are in a2026release vintage, not an archive of what was available at every historicalforecastorigin.",
+      "Online job offering counts are not all vacancies or realizedhires.",
+      "Taxonomy and methodology versions are not supplied: comparability is restricted to the same release and published labels.",
+      "Missing source dates/quarters are not interpolated; skill and employer dimensions remain null."
+    ],
+    "flagged_classification_rows": 23,
+    "input_rows": 952,
+    "missing_rows": 31,
+    "observed_numeric_rows": 921,
+    "period_max": "2026-06-30",
+    "period_min": "2019-07-01",
+    "rejected_rows": 0,
+    "rejections": [],
+    "source_cell_round_trip_rows": 952,
+    "validated_rows": 952
+  },
+  "pending_template_count": 3,
+  "profile_circumstances": [
+    {
+      "career_goal": "Explore an initial career-preparation milestone in a software smoke test only",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": null,
+        "experience": null
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 4,
+      "independent_label_count": 0,
+      "interests": [
+        "Structured problem solving; fictional test input"
+      ],
+      "profile_family_id": "software-smoke-family-001",
+      "profile_id": "software-smoke-profile-001",
+      "profile_version": "synthetic-smoke-v1",
+      "resources_and_constraints": {
+        "budget_amount": 0,
+        "constraints": [
+          "Software test only; not a real person"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Computer",
+          "Internet access"
+        ]
+      },
+      "skill_evidence_states": {},
+      "work_preferences": [
+        "Structured tasks; fictional test input"
+      ]
+    },
+    {
+      "career_goal": "Explore building small applications that simplify everyday workflows.",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": [
+          "Fictional introductory computing course; no assessed qualification claimed"
+        ],
+        "experience": [
+          "Fictional beginner with no professional technology experience"
+        ]
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 6,
+      "independent_label_count": 0,
+      "interests": [
+        "Building simple tools",
+        "Understanding how programs behave"
+      ],
+      "profile_family_id": "calibration-family-01",
+      "profile_id": "calibration-profile-01",
+      "profile_version": "calibration-synthetic-v1",
+      "resources_and_constraints": {
+        "budget_amount": 0,
+        "constraints": [
+          "Laptop access limited to evenings",
+          "Use free learning resources"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Shared laptop on evenings",
+          "Home internet"
+        ]
+      },
+      "skill_evidence_states": {
+        "self_reported": 1
+      },
+      "work_preferences": [
+        "Small clearly defined tasks",
+        "Regular feedback"
+      ]
+    },
+    {
+      "career_goal": "Explore moving from spreadsheet reports toward reproducible data analysis.",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": [
+          "Fictional business diploma with an introductory statistics module"
+        ],
+        "experience": [
+          "Three fictional years preparing operational spreadsheet reports; no reviewed data-science competence"
+        ]
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 5,
+      "independent_label_count": 0,
+      "interests": [
+        "Explaining patterns in tables",
+        "Checking data quality"
+      ],
+      "profile_family_id": "calibration-family-02",
+      "profile_id": "calibration-profile-02",
+      "profile_version": "calibration-synthetic-v1",
+      "resources_and_constraints": {
+        "budget_amount": 40,
+        "constraints": [
+          "Preparation happens in short evening sessions"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Personal laptop",
+          "Internet",
+          "Spreadsheet software"
+        ]
+      },
+      "skill_evidence_states": {
+        "self_reported": 1
+      },
+      "work_preferences": [
+        "Written explanations",
+        "Predictable study sessions"
+      ]
+    },
+    {
+      "career_goal": "Explore an initial information-security preparation milestone grounded in support work.",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": [
+          "Fictional IT support certificate; competence not independently assessed"
+        ],
+        "experience": [
+          "Two fictional years handling support tickets and account-access requests"
+        ]
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 8,
+      "independent_label_count": 0,
+      "interests": [
+        "Access controls",
+        "Investigating system problems"
+      ],
+      "profile_family_id": "calibration-family-03",
+      "profile_id": "calibration-profile-03",
+      "profile_version": "calibration-synthetic-v1",
+      "resources_and_constraints": {
+        "budget_amount": 100,
+        "constraints": [
+          "Use only an isolated authorized lab; no access to real systems is implied"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Personal laptop",
+          "Internet",
+          "Local virtual-machine lab"
+        ]
+      },
+      "skill_evidence_states": {
+        "self_reported": 2
+      },
+      "work_preferences": [
+        "Practical troubleshooting",
+        "Documented procedures"
+      ]
+    },
+    {
+      "career_goal": "Compare further application development, analytical work and security preparation without assuming a preferred answer.",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": [
+          "Fictional computing degree; no assessed criterion fractions supplied"
+        ],
+        "experience": [
+          "Three fictional years contributing to small application projects"
+        ]
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 10,
+      "independent_label_count": 0,
+      "interests": [
+        "Reproducible experiments",
+        "Building and testing small tools"
+      ],
+      "profile_family_id": "calibration-family-04",
+      "profile_id": "calibration-profile-04",
+      "profile_version": "calibration-synthetic-v1",
+      "resources_and_constraints": {
+        "budget_amount": 150,
+        "constraints": [
+          "No prior approved statistics or security assessment supplied"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Personal laptop",
+          "Internet",
+          "Local development tools"
+        ]
+      },
+      "skill_evidence_states": {
+        "self_reported": 2
+      },
+      "work_preferences": [
+        "Focused individual work",
+        "Occasional peer review"
+      ]
+    },
+    {
+      "career_goal": "Explore which initial technology pathway is plausible while career interests remain undecided.",
+      "country_region": {
+        "country_code": "MYS",
+        "region_code": null
+      },
+      "data_class": "synthetic",
+      "education_experience": {
+        "education": [
+          "Fictional secondary education; no technology training claimed"
+        ],
+        "experience": [
+          "Four fictional years coordinating routine operations and updating paper/digital checklists"
+        ]
+      },
+      "horizon_weeks": 12,
+      "hours_per_week": 2,
+      "independent_label_count": 0,
+      "interests": null,
+      "profile_family_id": "calibration-family-05",
+      "profile_id": "calibration-profile-05",
+      "profile_version": "calibration-synthetic-v1",
+      "resources_and_constraints": {
+        "budget_amount": 0,
+        "constraints": [
+          "No personal laptop",
+          "At most two preparation hours per week",
+          "Interests need clarification; do not replace unknown with neutral alignment"
+        ],
+        "currency": "MYR",
+        "resources": [
+          "Phone with intermittent internet",
+          "Library computer for a booked weekly session"
+        ]
+      },
+      "skill_evidence_states": {
+        "self_reported": 1
+      },
+      "work_preferences": [
+        "Step-by-step written instructions",
+        "Predictable daytime tasks"
+      ]
+    }
+  ],
+  "source_checks": [
+    {
+      "relative_path": "raw/dosm_jmi_q2_2026_data.xlsx",
+      "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764"
+    },
+    {
+      "relative_path": "derived/dosm_jmi_quarterly_long.csv",
+      "sha256": "0c82e184e67090b941a8921d9c3604fd291e6cc9c51ea48827c57dc9891ef41b"
+    }
+  ],
+  "source_inventory": [
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0",
+      "manifest_hash_matches": true,
+      "scope": "Malaysia states; whole labour force",
+      "sha256": "e69b08f55916ff86e2376fd8c4b221be6bd037969f2229f5bcee379eb50898f1",
+      "source_id": "dosm_lfs_qtr_state",
+      "unit": {
+        "lf": "thousand persons",
+        "lf_employed": "thousand persons",
+        "lf_outside": "thousand persons",
+        "lf_unemployed": "thousand persons",
+        "p_rate": "percent",
+        "u_rate": "percent"
+      },
+      "version": "2026-Q2"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0",
+      "manifest_hash_matches": true,
+      "scope": "Malaysia; occupation major group by sex",
+      "sha256": "615220aad522475f4cc3897a158171ba93a209842802e97fd639d1b067cf9f17",
+      "source_id": "dosm_wages_occupation",
+      "unit": {
+        "recipients": "thousand employees",
+        "wages_mean": "RM per month, nominal",
+        "wages_median": "RM per month, nominal"
+      },
+      "version": "2025"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0",
+      "manifest_hash_matches": true,
+      "scope": "Malaysia and states; all occupations by sex",
+      "sha256": "5cbb63c087f077ba1030cfc46d27134b7651ed79ac87621c2def45866f017dea",
+      "source_id": "dosm_wages_state",
+      "unit": {
+        "recipients": "thousand employees",
+        "wages_mean": "RM per month, nominal",
+        "wages_median": "RM per month, nominal"
+      },
+      "version": "2025"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "Not independently verified for this specific file; consult source legal notice",
+      "manifest_hash_matches": true,
+      "scope": "ESCO to O*NET occupation mappings",
+      "sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+      "source_id": "esco_onet_crosswalk",
+      "unit": null,
+      "version": null
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0",
+      "manifest_hash_matches": true,
+      "scope": "Global ISCO-08 task and occupation exposure",
+      "sha256": "c1940b87e7293b1eb95b530b6d3da7cd806b61d217c4bff1e69372b2cff5c90a",
+      "source_id": "ilo_genai_2025_task_scores",
+      "unit": null,
+      "version": "2025"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0",
+      "manifest_hash_matches": true,
+      "scope": "ILO GenAI workbook variables",
+      "sha256": "2295712957d541d0063953062537c930a93bbf2eeabff907af88c9537aeeb38c",
+      "source_id": "ilo_genai_dictionary",
+      "unit": null,
+      "version": null
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "manifest_hash_matches": true,
+      "scope": "U.S. occupations by essential skill and measurement scale",
+      "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+      "source_id": "onet_essential_skills",
+      "unit": null,
+      "version": "31.0"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "manifest_hash_matches": true,
+      "scope": "U.S. O*NET-SOC occupations",
+      "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+      "source_id": "onet_occupation_data",
+      "unit": null,
+      "version": "31.0"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "manifest_hash_matches": true,
+      "scope": "O*NET measurement scale definitions",
+      "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+      "source_id": "onet_scales_reference",
+      "unit": null,
+      "version": "31.0"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "CC BY 4.0; attribution and changes notice required",
+      "manifest_hash_matches": true,
+      "scope": "U.S. occupations by software example",
+      "sha256": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016",
+      "source_id": "onet_software_skills",
+      "unit": null,
+      "version": "31.0"
+    },
+    {
+      "is_user_role_label_source": false,
+      "license": "Not independently verified for this specific attachment; consult source terms",
+      "manifest_hash_matches": true,
+      "scope": "Malaysia national: economic activities and occupation major groups; separate marginal tables",
+      "sha256": "965f2f20bcb33425eb43eac7f9edfcff186e7fa92048b8b26f8ee8bbe5d25764",
+      "source_id": "dosm_jmi_q2_2026_data",
+      "unit": null,
+      "version": "2026-Q2"
+    }
+  ],
+  "top_missing_slices": [
+    {
+      "decision_affected": "Whether any of the 18 actual profile-role pairs can receive F.",
+      "factor": "Accepted bounded milestones, estimates and anchored profile measurements"
+    },
+    {
+      "decision_affected": "Whether Ridge/XGBoost quality can be compared and a candidate recommended.",
+      "factor": "Compatible independent user-role labels spanning profile families"
+    },
+    {
+      "decision_affected": "Whether D and combined S can be shown for the actual three O*NET roles.",
+      "factor": "Fine-grained Malaysian role demand with defensible occupation mappings"
+    },
+    {
+      "decision_affected": "Whether skill demand/employer views can contain measured counts or indexes.",
+      "factor": "Skill-tagged and employer-resolved observed activity"
+    },
+    {
+      "decision_affected": "Whether industry YoY/current indexes or cross-slice comparisons are defensible.",
+      "factor": "Industry continuity at 2026-Q2 and observed joint/regional/international slices"
+    }
+  ]
+}

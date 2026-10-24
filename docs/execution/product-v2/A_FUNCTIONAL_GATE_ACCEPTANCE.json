@@ -1,0 +1,317 @@
+{
+  "version": "minder-functional-gate-v1",
+  "local_status": "passed_scoped_functional_gate",
+  "runtime": {
+    "base_url": "http://127.0.0.1:9111",
+    "api_url": "http://127.0.0.1:8111/api/",
+    "backend_revision": "fc329349778cdcaf0be00d2967240e6c9ad57192",
+    "frontend_revision": "62fb94ffa8d2ad51f1415fa8b55cc9b70509a501",
+    "model": "qwen/qwen3.8-27b",
+    "managed_login": false,
+    "deployed": false
+  },
+  "combined": {
+    "fresh_initial_UI_onboarding": true,
+    "seeded_profile_or_plan": false,
+    "steps": [
+      {
+        "name": "actual fresh onboarding",
+        "status": "pass"
+      },
+      {
+        "name": "incomplete profile asks focused missing evidence",
+        "status": "pass"
+      },
+      {
+        "name": "three source anchored self reports entered through UI",
+        "status": "pass"
+      },
+      {
+        "name": "ordinary confidence and project notes stay separate from anchored ability",
+        "status": "pass"
+      },
+      {
+        "name": "matching from actual newly entered evidence",
+        "status": "pass"
+      },
+      {
+        "name": "CV upload extract review download through UI",
+        "status": "pass"
+      },
+      {
+        "name": "choose Software Developers through catalogue UI",
+        "status": "pass"
+      },
+      {
+        "name": "real Qwen generation explicit save and activate",
+        "status": "pass"
+      },
+      {
+        "name": "scoped backend reads retain saved career when ID omitted",
+        "status": "pass"
+      },
+      {
+        "name": "Compare source labels and distinct measures visible",
+        "status": "pass"
+      },
+      {
+        "name": "four My Path tabs use same accepted plan and distinct content",
+        "status": "pass"
+      },
+      {
+        "name": "task completion updates actual progress without replacing roadmap",
+        "status": "pass"
+      },
+      {
+        "name": "Home canonical progress and next task",
+        "status": "pass"
+      },
+      {
+        "name": "Home skill label and shared career navigation refresh",
+        "status": "pass"
+      },
+      {
+        "name": "real Minder guidance unseen followup navigation and saved history",
+        "status": "pass"
+      },
+      {
+        "name": "real Mindbot own channel action persists once",
+        "status": "pass"
+      },
+      {
+        "name": "daily automation visible create pause resume cancel persists",
+        "status": "pass"
+      },
+      {
+        "name": "private CV deletion keeps reviewed profile",
+        "status": "pass"
+      }
+    ],
+    "page_errors": [],
+    "logical_model_invocations": 4,
+    "acceptance_only_model_spacing_ms": 65000,
+    "real_provider_metadata": {
+      "actual_Qwen": true,
+      "logical_calls": 4,
+      "responses": [
+        {
+          "created_at": "2026-10-24T12:31:13.035143Z",
+          "provider": {
+            "status": "available",
+            "model": "qwen/qwen3.8-27b",
+            "invoked": true
+          },
+          "provider_ms": 1704.037,
+          "guidance_stage_ms": 1707.992,
+          "action_status": "no_mutation_requested_or_executed"
+        },
+        {
+          "created_at": "2026-10-24T12:32:17.583208Z",
+          "provider": {
+            "status": "available",
+            "model": "qwen/qwen3.8-27b",
+            "invoked": true
+          },
+          "provider_ms": 1224.524,
+          "guidance_stage_ms": 1227.334,
+          "action_status": "no_mutation_requested_or_executed"
+        },
+        {
+          "created_at": "2026-10-24T12:33:23.154093Z",
+          "provider": {
+            "status": "available",
+            "model": "qwen/qwen3.8-27b",
+            "invoked": true
+          },
+          "provider_ms": 1768.729,
+          "guidance_stage_ms": 1774.427,
+          "action_status": "no_mutation_requested_or_executed"
+        },
+        {
+          "created_at": "2026-10-24T12:34:28.897924Z",
+          "provider": {
+            "status": "available",
+            "model": "qwen/qwen3.8-27b",
+            "invoked": true
+          },
+          "provider_ms": 1089.481,
+          "guidance_stage_ms": 1269.66,
+          "action_status": "applied"
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "considered_eligible": 910,
+    "candidates": 910,
+    "assessed": 910,
+    "excluded": 0,
+    "current_available": 4,
+    "current_comparable_ranked": 5,
+    "personal_only_ranked": 900,
+    "insufficient_evidence": 0,
+    "employer_comparable_ranked": 2,
+    "published_offering_comparable_ranked": 3,
+    "published_offering_supported": 7,
+    "shortage_supported": 7,
+    "shortage_adjusted_ranked": 7,
+    "shortage_context_supported": 7,
+    "shortage_exact_role_supported": 0,
+    "sector_context_supported": 907
+  },
+  "verification": {
+    "backend": {
+      "tests": 170,
+      "failures": 0,
+      "skips": 0,
+      "seconds": 8.626
+    },
+    "policy_contract_context": {
+      "tests": 46,
+      "failures": 0,
+      "seconds": 3.668
+    },
+    "additional_actual_browser_suites": [
+      "functional_preferences",
+      "functional_connections",
+      "functional_action_recovery",
+      "check_ux_visibility",
+      "morning_profile",
+      "morning_structured_proposals (base URL adapter + own test schedule pause)",
+      "check_profile_optional",
+      "final_ux_history",
+      "final_ux_identity"
+    ],
+    "deployment_preparation": {
+      "tests": 9,
+      "failures": 0,
+      "seconds": 0.136,
+      "live_deployment": false
+    },
+    "exact_B_archive_preparation": {
+      "tests": 19,
+      "failures": 0,
+      "seconds": 0.659,
+      "GPU_job": false
+    }
+  },
+  "preserved_failures": {
+    "initial_CV_wrong_test_route": "harness corrected; original report preserved",
+    "PDF_fixture_missing": "harness prepared synthetic text/image-only PDFs; original failure log preserved",
+    "Compare_empty_after_one_result_search": "repaired by F and verified",
+    "Skills_raw_repeated_IDs": "repaired by F and verified",
+    "Open_My_Path_same_hash": "F real-provider journey exposed; F repaired; A final journey verified",
+    "unpaced_native_provider": {
+      "logical_invocations": 4,
+      "available": 2,
+      "rate_limited": 2,
+      "mutations_from_failed_calls": 0,
+      "report": "functional-combined/initial.json"
+    }
+  },
+  "fixture_distinctions": [
+    "Combined profile, skills and accepted plan were entered/generated/accepted through actual UI.",
+    "CV lost-response check forwards one real write then deliberately aborts its HTTP response.",
+    "Undated notice is a controlled agents READ fixture.",
+    "Concurrent-write/subset/preference/proposal regressions use explicitly fictional canonical fixtures.",
+    "Image-only synthetic PDF is a scan analogue; no OCR is implemented or claimed.",
+    "Provider-limit replay regression uses a declared software provider, separate from native failures."
+  ],
+  "limits": [
+    "Rapid native model requests actually encountered provider rate limits; no quota or retry control bypassed.",
+    "Missing current market evidence is not zero demand. Personal-only ranks remain incomplete market comparison.",
+    "No validated future forecast, replacement probability or independently demonstrated predictive accuracy.",
+    "Local anonymous identities are not hosted managed login. Clerk/Railway/volume/access and actual hosted two-account/history/CV/restart/daily acceptance remain pending."
+  ],
+  "artifacts": [
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final/initial.json",
+      "sha256": "085f78c64ee3366f9987dbc9c04a14d6e2b512ff170f45512710d2575dfd9225"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final/provider-outcomes.json",
+      "sha256": "65289890f714a363bf441a32b35b64809be633884a0eaf6697c59d439c5c5906"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-combined/initial.json",
+      "sha256": "0035815ab41aba56b577bf5cd4942b9fabfacb9fb43a85246d29f1c5448cdb0d"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-combined/provider-outcomes.json",
+      "sha256": "0f19ea9c7748424ae71c0349f6a70c84443479a517866c8150c5f274a055ae87"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-backend-final.log",
+      "sha256": "7e54e748c6042e2c38de3a53cb1c54b938ecfcc9313dc3f71dfde5831dcada00"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-policy-fg4.log",
+      "sha256": "e125e26f0c866bdb88e62e998f2a4b15226457508c05065281d72e82250c7f16"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-regressions/functional_preferences/functional-preferences.json",
+      "sha256": "9601bee21d4c38c0d5313f4be359cf21744c8c24365a118fc9f71973ba149847"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-regressions/functional_connections/functional-connections.json",
+      "sha256": "f22abb5281cabb32f280aed1f57e7fe2f28347af353862d68408079651de116e"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-regressions/functional_action_recovery/functional-action-recovery.json",
+      "sha256": "34aee3a5c6ac0d15636d89decb777fa3e2faa4f32d081de0dae781f3911e3066"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-regressions/check_ux_visibility/visibility.json",
+      "sha256": "c3625c4c053af1aafc742435d7c2cc5eb53d1be0c107dbe7c6b3d1fac2a63d5d"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-extra/profile-ready/profile.json",
+      "sha256": "0ce65520a7fb360da72bac0fad311f5758ed183de0387d2445635f285a2b3313"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-extra/structured-proposals/structured-proposals.json",
+      "sha256": "e35dec5fd706d48ca6df35b0630060f6ce38a9ad71dac5fca4560e08c7fbba71"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-extra/adapter.json",
+      "sha256": "a8395a8151b6e819cc08ea42885e3c93b1f8d050f94c008bc41119e281605352"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-actions/check_profile_optional/optional-profile.json",
+      "sha256": "bbc94e46e894de196e4aad480cbaf3c25c8ddedfb81e9b128ddf34d717c0df5d"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-deploy-final.log",
+      "sha256": "209409f293cb0385dca0a122a837ca5559edad17880d74bf55e6fc6fc15df367"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-B4668-frozen.log",
+      "sha256": "e25529677aee0570fd2467c45100182d843ad9a11ef90fe4b9881d3fe86fadf9"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-actions/check_profile_optional/optional-profile-v2.json",
+      "sha256": "bbe1bd0e36b675681c133ab60de50b46a17744bd3f6fbe721d7ab7892df02087"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-actions/final_ux_history.log",
+      "sha256": "66f9bb98bf0e71b0e09afe5d68392742bedd05d19b9e3a5819492d94dad2310d"
+    },
+    {
+      "private_path": "ml/artifacts/session-a/product/morning/functional-final-actions/final_ux_identity.log",
+      "sha256": "477996069779faec13efc4e7ca1cb5551a70f251cbbacb28155e60e345c6a354"
+    }
+  ],
+  "approved_integrated_source": "40d55c22b87b5e67ea1d32a1801b83e3527f2c2d",
+  "integration_handoffs": {
+    "F": "62fb94ffa8d2ad51f1415fa8b55cc9b70509a501",
+    "B": "4668be8196215d7aa8fe73e47c8756c4b81f7092",
+    "E": "2d1bccb72971aa5d2dff601319e9d1e76c14b00a"
+  },
+  "deployment_approval": {
+    "approved_by": "A",
+    "approved_for": "judge_deployment",
+    "approved_sha": "40d55c22b87b5e67ea1d32a1801b83e3527f2c2d",
+    "approval_reference": "docs/execution/product-v2/A_FUNCTIONAL_GATE_STATUS.md#judge-deployment-approval-and-e-handoff",
+    "scope": "existing resources, exact committed archive, real managed preview allowed; no main merge or upgrade"
+  }
+}

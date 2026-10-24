@@ -1,0 +1,130 @@
+{
+  "phase_id": "MB1-PREP",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "local_preparation_ready": true,
+  "local_checks": "passed",
+  "live_GPU_proof": false,
+  "checked_at": "2026-10-24T06:22:50.159450+00:00",
+  "base_sha": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+  "checkpoint": "commit containing MB1-PREP.json and GPU_PRIVATE_SETUP.v1.md",
+  "runbook": {
+    "path": "/Users/phuahjunhong/sdc-2026-minder/docs/Minder_Morning_Completion_Runbook_2026-10-24.md",
+    "revision": 3,
+    "sha256": "887cfe128b34dd6be1ac5ce622529788f605a6b3500ae0b0e321b11672bcc088"
+  },
+  "objective": "Prepare the compulsory, single bounded RunPod GPU execution of the existing declared synthetic experiment without provisioning while credit/key confirmation is pending",
+  "changes": [
+    "Reuse all55original launcher input hashes and the immutable synthetic runner/data/splits; add only GPU execution profile",
+    "CUDA12.4.1 Ubuntu22.04 amd64 base digest and XGBoost2.1.4Linux GPU wheel metadata verified; Dockerfile/context prepared",
+    "Five required actual CUDA XGBoost fits in the12-fit experiment; CPU baselines/Ridge labelled; CPU fallback fails",
+    "Prior SY2 validation selections authoritative; GPU numerical/validation differences diagnostic and unfavorable outcomes preserved",
+    "Strict immutable handler/payload, bounded process, local receipt, inline artifact transport and safe retrieval checks",
+    "Single client submission intent before network I/O; fail closed on unknown outcome, quote/control checks and cleanup commands",
+    "Ignored mode600 private key template and exact setup/permission guide"
+  ],
+  "verification": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src $MINDER_PYTHON docs/execution/parallel/B/checks/test_gpu_preparation.py",
+      "result": "..............\n----------------------------------------------------------------------\nRan 14 tests in 0.653s\n\nOK",
+      "log_sha256": "0c2f4f5c6532a4bbc81162a0d36b2daacdc0b1a99f1f61f42bfbd6fce29513b9",
+      "evidence_class": "local software/mocks; no actual GPU fitting"
+    },
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_forecasting test_service_contracts",
+      "result": ".............................\n----------------------------------------------------------------------\nRan 29 tests in 0.359s\n\nOK",
+      "log_sha256": "3dc145c26be04f03e57d2a28be553ab9f2984090a06cf57f11d50077cb67ff93"
+    },
+    {
+      "command": "build_gpu_context.py --local-preparation-check",
+      "result": "66 allowlisted runtime files; no raw sources, credentials or environments; no Docker build executed"
+    },
+    {
+      "command": "Immutable launcher inputs/source read-only checks and secret template ignore/mode verification",
+      "result": {
+        "original_launch_contract_hashes_matched": 55,
+        "source_inputs_matched_and_read_only": 13,
+        "context_files": 66,
+        "private_or_raw_inputs_in_context": false,
+        "secret_template_mode": "0600",
+        "secret_template_ignored": true,
+        "key_value_not_read_or_logged": true,
+        "GPU_training_executed": false,
+        "Docker_build_executed": false,
+        "account_calls_or_resources_created": false,
+        "live_spend_usd": 0
+      }
+    },
+    {
+      "command": "Public Docker Hub/PyPI GET metadata only",
+      "result": "Verified base/platform digest, runpod1.7.13 metadata and LinuxXGBoost2.1.4wheel SHA; no image or account resource created"
+    }
+  ],
+  "scope_preserved": {
+    "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+    "runner_sha256": "d20ea421410e453cee1a444dc530e86ef3d94f2caf3635b2b6e3a87ade6a5b0b",
+    "record_count": 864,
+    "splits": {
+      "train": 156,
+      "validation": 24,
+      "test": 34,
+      "robustness": 14
+    },
+    "observed_coverage_increase": 0,
+    "real_forecasts": "unavailable",
+    "normal_runtime_promotion": false,
+    "new_real_model_training": false,
+    "actual_GPU_jobs": 0,
+    "actual_GPU_fits": 0,
+    "actual_paid_cost_usd": 0
+  },
+  "private_setup": {
+    "file": "/Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/.env.runpod.local",
+    "git_ignored": true,
+    "mode": "0600",
+    "variable_names": [
+      "RUNPOD_API_KEY",
+      "RUNPOD_ENDPOINT_ID",
+      "RUNPOD_IMAGE"
+    ],
+    "user_fills_initially": "RUNPOD_API_KEY only; B fills endpoint/image after confirmation",
+    "key_values_never_recorded": true
+  },
+  "live_phase_status": {
+    "MB1": "blocked_external",
+    "MB2": "deferred_dependency; compulsory_submission_work_not_completed"
+  },
+  "exact_blockers": [
+    "User has not yet confirmed redeemed credits visible and key saved; no authenticated access/balance/prior-jobs proof",
+    "Docker executable/daemon absent locally; no Docker-capable builder/registry selected, final custom image built or image pull verified",
+    "Queue-based RunPod endpoints document automatic retries; no verified one-attempt provider ceiling or total startup/idle/retry/billing hard-stop proof yet",
+    "Live quoted total incl ancillary charges must fitUSD2; current pricing and totalbound unknown"
+  ],
+  "conditional_authority": {
+    "activated": false,
+    "trigger": "User confirms credits visible and key saved",
+    "one_GPU_experiment_total_cap_usd": 2,
+    "topup": false,
+    "billing_upgrade": false,
+    "extra_campaign_or_automatic_retry": false,
+    "note": "Do not provision workers before confirmation or if any live safety/budget condition fails."
+  },
+  "sources": [
+    "https://docs.runpod.io/get-started/credentials",
+    "https://www.runpod.io/blog/scoped-api-keys-runpod",
+    "https://docs.runpod.io/serverless/endpoints/endpoint-configurations",
+    "https://docs.runpod.io/serverless/endpoints/send-requests",
+    "https://docs.runpod.io/sdks/graphql/manage-endpoints",
+    "https://xgboost.readthedocs.io/en/release_2.1.0/gpu/index.html",
+    "https://xgboost.readthedocs.io/en/release_2.1.0/install.html"
+  ],
+  "excluded_local_state": [
+    ".env.runpod.local blankprivate template: ignoredmode600; no secret value printed/staged",
+    "13original read-only pinned raw/derived files remain untracked",
+    "GPUcontext/publicmetadata/rawtestlogs under ignored artifacts; localonly, noexternalbackup",
+    "No sourcecorpora, modelweights, environments, databases or credentials staged"
+  ],
+  "publication": "A coordinates exact named B snapshot; B has not pushed or deployed",
+  "next_eligible": "After userconfirmation, verify account/credit/quote and build/pull image using availablebuilder; verify hardcontrols before anypaid action. Then execute exactlyoneGPUexperiment, retrieve evidence, reconcilecost/shutdown and commitMB2 separately."
+}

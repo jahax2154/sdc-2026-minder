@@ -1,0 +1,21 @@
+{
+  "gate": "G1A-R",
+  "version": "g1ar-execution-v1",
+  "authority": "Current user explicitly requested execution of the existing G1A-R task",
+  "actual_task_path": "ml/docs/G1A_R_CATALOGUE_READINESS_REPAIR.md",
+  "actual_task_sha256": "54be9c588ad7ef5c0742031e871c4e38bf3cbf94ec2df948e332d5f726727062",
+  "requested_location": "ml/data/docs (absent); matching task found at ml/docs",
+  "scope": "ML catalogue/reference/preparation data, compatible adapters, checks and gate report only",
+  "not_authorized": [
+    "template approval manufactured by agent",
+    "gold labels",
+    "training",
+    "Groq/chat/frontend changes",
+    "recommendation contract changes",
+    "root dependency locks",
+    "commit",
+    "push",
+    "publishing",
+    "new spending"
+  ]
+}

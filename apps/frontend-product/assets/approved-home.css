@@ -1,0 +1,250 @@
+/* Generated from docs/Minder_Home_Package/assets/styles.css. */
+.morning-home{--ink:#111815;--muted:#727984;--forest:#36584b;--forest-hover:#284438;--sage:#edf2ed;--sage-deep:#dfe8df;--line:#e5e8e6;--paper:#fff;--sidebar:#fafbf9;--radius:12px;--sidebar-w:238px;--font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.morning-home *{box-sizing:border-box}
+.morning-home{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+.morning-home button,.morning-home input,.morning-home textarea,.morning-home select{font:inherit}
+.morning-home button,.morning-home a{touch-action:manipulation}
+.morning-home button{cursor:pointer;color:inherit}
+.morning-home button:disabled{cursor:not-allowed;opacity:.43}
+.morning-home a{color:inherit;text-decoration:none}
+.morning-home button:focus-visible,.morning-home a:focus-visible,.morning-home input:focus-visible,.morning-home textarea:focus-visible,.morning-home select:focus-visible{outline:3px solid #8bab98;outline-offset:3px}
+.morning-home button,.morning-home input,.morning-home textarea,.morning-home select{-webkit-tap-highlight-color:transparent}
+.morning-home h1,.morning-home h2,.morning-home h3,.morning-home p{margin:0}
+.morning-home h1,.morning-home h2,.morning-home h3{letter-spacing:-.035em;line-height:1.2}
+.morning-home h1{font-size:40px;font-weight:720}
+.morning-home h2{font-size:25px;font-weight:670}
+.morning-home h3{font-size:18px;font-weight:650}
+.morning-home .icon{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.morning-home .muted{color:var(--muted)}
+.morning-home .small{font-size:12px}
+.morning-home .eyebrow{font-size:10px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.morning-home .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.morning-home .skip{position:fixed;left:15px;top:-60px;background:white;padding:10px;z-index:100}
+.morning-home .skip:focus{top:10px}
+.morning-home [hidden]{display:none!important}
+.morning-home .sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-w);background:var(--sidebar);border-right:1px solid var(--line);padding:24px 18px 16px;display:flex;flex-direction:column;z-index:20;overflow-y:auto}
+.morning-home .brand{display:flex;gap:12px;align-items:center;padding:0 10px 29px;font-size:29px;letter-spacing:-1.2px;font-weight:750}
+.morning-home .brand-mark{background:var(--forest);width:33px;height:33px;border-radius:9px;display:grid;place-items:center}
+.morning-home .brand-mark span{width:23px;height:25px;border:1.5px solid white;border-radius:50% 44% 48% 40%;position:relative;transform:rotate(-9deg)}
+.morning-home .brand-mark span:after{content:"";position:absolute;inset:2px;border:1px solid white;border-radius:45%}
+.morning-home .new-chat{display:flex;align-items:center;justify-content:center;gap:11px;background:#fff;border:1px solid var(--line);border-radius:9px;min-height:44px;font-size:14px;font-weight:600;margin-bottom:30px}
+.morning-home .nav-label{font-size:10px;letter-spacing:.15em;color:var(--muted);font-weight:700;padding:0 12px;margin:0 0 11px}
+.morning-home .nav-item{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:13px;padding:10px 12px;border-radius:8px;text-align:left;color:#59616c;min-height:43px;font-size:14px}
+.morning-home .nav-item:hover,.morning-home .subnav button:hover{background:#f0f3ef}
+.morning-home .nav-item.active{color:var(--forest);font-weight:650;background:var(--sage)}
+.morning-home .nav-item .chev{margin-left:auto;width:15px;height:15px}
+.morning-home .nav-item[aria-expanded=true] .chev{transform:rotate(90deg)}
+.morning-home .tag-on{font-size:9px;letter-spacing:.06em;padding:2px 6px;border:1px solid var(--line);border-radius:5px;margin-left:auto;color:var(--forest)}
+.morning-home .subnav{border-left:1px solid #d9e2da;margin:7px 0 10px 23px;padding-left:15px}
+.morning-home .subnav button{display:block;width:100%;text-align:left;font-size:14px;color:var(--muted);padding:8px 12px;border:0;background:none;border-radius:7px}
+.morning-home .keep-moving{margin-top:29px}
+.morning-home .account{display:flex;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:17px;margin-top:auto;font-size:11px}
+.morning-home .account strong{font-size:12px}
+.morning-home .avatar{width:38px;height:38px;border-radius:50%;background:var(--sage-deep);display:grid;place-items:center;font-size:12px;font-weight:650;flex:none}
+.morning-home .account-more{margin-left:auto;background:none;border:0;color:var(--muted)}
+.morning-home .shell{margin-left:var(--sidebar-w)}
+.morning-home .topbar{height:73px;padding:0 40px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.morning-home .breadcrumbs{display:flex;gap:13px;align-items:center;font-size:12px;color:var(--muted)}
+.morning-home .breadcrumbs .icon{width:14px;height:14px}
+.morning-home .breadcrumbs strong{color:var(--ink);font-weight:600}
+.morning-home .top-actions{display:flex;align-items:center;gap:22px}
+.morning-home .search{border:0;background:none;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;padding:8px 0}
+.morning-home .search .icon{width:18px}
+.morning-home .ask{border:0;background:var(--sage);padding:10px 14px;border-radius:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:650}
+.morning-home .ask .icon{width:17px}
+.morning-home .mobile-menu{display:none;background:none;border:0}
+.morning-home .scrim{display:none}
+.morning-home{max-width:1560px;margin:auto;padding:35px 40px 24px}
+.morning-home .page-heading{margin-bottom:27px}
+.morning-home .page-heading p{font-size:17px;color:var(--muted);margin-top:8px}
+.morning-home .panel{border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.morning-home .profile-panel{min-height:130px;padding:24px 27px;display:flex;align-items:center;gap:23px;margin-bottom:18px}
+.morning-home .profile-panel .avatar,.morning-home .round-icon{width:60px;height:60px;border-radius:50%;background:var(--sage);color:var(--forest);display:grid;place-items:center;flex:none}
+.morning-home .profile-panel .avatar{font-size:22px;color:var(--ink);background:var(--sage-deep)}
+.morning-home .round-icon .icon{width:28px;height:28px}
+.morning-home .profile-copy{flex:1;min-width:0}
+.morning-home .profile-copy h2{font-size:21px;margin-bottom:6px}
+.morning-home .profile-copy p{color:var(--muted);font-size:14px}
+.morning-home .profile-line{margin:3px 0;font-size:16px;letter-spacing:-.02em}
+.morning-home .profile-line strong{color:var(--ink)}
+.morning-home .profile-line span{color:#59616c}
+.morning-home .pill{display:inline-flex;align-items:center;gap:7px;border-radius:30px;background:var(--sage);color:var(--forest);font-size:11px;font-weight:500;padding:5px 11px;white-space:nowrap}
+.morning-home .pill .icon{width:14px;height:14px}
+.morning-home .dot{width:6px;height:6px;background:#548261;border-radius:50%}
+.morning-home .profile-actions{display:flex;align-items:center;gap:22px}
+.morning-home .btn{border:1px solid var(--line);background:#fff;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:11px 17px;font-size:13px;font-weight:600;min-height:42px;text-align:center}
+.morning-home .btn .icon{width:17px;height:17px}
+.morning-home .btn:hover{background:#f7f9f6}
+.morning-home .btn.primary{background:var(--forest);color:white;border-color:var(--forest)}
+.morning-home .btn.primary:hover{background:var(--forest-hover)}
+.morning-home .btn:disabled:hover{background:var(--forest)}
+.morning-home .text-button{display:inline-flex;align-items:center;gap:9px;background:none;border:0;padding:4px 0;color:var(--forest);font-size:12px;font-weight:600;text-align:left}
+.morning-home .text-button:hover{text-decoration:underline}
+.morning-home .text-button .icon{width:16px;height:16px}
+.morning-home .direction-panel{min-height:165px;padding:24px 27px;display:flex;align-items:center;gap:24px;margin-bottom:18px}
+.morning-home .direction-copy{flex:1;min-width:0}
+.morning-home .direction-copy .eyebrow{margin-bottom:11px}
+.morning-home .direction-copy h2{font-size:26px;margin-bottom:8px}
+.morning-home .direction-copy p{font-size:14px;color:var(--muted)}
+.morning-home .direction-copy .hint{font-size:12px;margin-top:9px}
+.morning-home .direction-actions{display:flex;align-items:center;flex-direction:column;gap:12px;flex:none}
+.morning-home .lower-grid{display:grid;grid-template-columns:minmax(0,1.48fr) minmax(0,1fr);gap:18px}
+.morning-home .next-panel,.morning-home .bot-panel{padding:23px 25px;min-height:365px;display:flex;flex-direction:column}
+.morning-home .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.morning-home .section-head h2{font-size:21px;white-space:nowrap}
+.morning-home .tabs{border:1px solid var(--line);border-radius:50px;padding:4px;display:flex;align-items:center;flex:1;max-width:470px;gap:2px}
+.morning-home .tabs button{flex:1;border:0;background:none;padding:8px 9px;border-radius:40px;font-size:12px;min-height:34px}
+.morning-home .tabs button[aria-selected=true]{background:var(--sage);color:var(--forest);font-weight:650}
+.morning-home .tab-content{display:flex;flex-direction:column;flex:1;min-height:255px}
+.morning-home .empty{display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;flex:1;padding:12px 0}
+.morning-home .empty .round-icon{margin-bottom:18px}
+.morning-home .empty h3{font-size:20px;margin-bottom:10px}
+.morning-home .empty p{color:var(--muted);font-size:14px;line-height:1.6;max-width:375px}
+.morning-home .empty .btn,.morning-home .empty .text-button{margin-top:20px}
+.morning-home .task-feature{border-radius:9px;background:var(--sage);padding:22px 20px;display:flex;gap:17px;align-items:center}
+.morning-home .task-feature>.icon{color:var(--forest);width:24px;height:24px}
+.morning-home .task-copy{flex:1}
+.morning-home .task-copy .eyebrow{color:var(--forest);margin-bottom:9px}
+.morning-home .task-copy h3{font-size:18px;margin-bottom:6px}
+.morning-home .task-copy p{font-size:12px;color:var(--muted)}
+.morning-home .task-copy .meta{margin-top:10px;font-size:11px}
+.morning-home .task-feature .btn{font-size:12px;padding:9px 12px;white-space:nowrap}
+.morning-home .after-title{font-size:14px;margin:18px 0 6px}
+.morning-home .task-row{display:flex;align-items:center;gap:11px;padding:10px 0;font-size:13px}
+.morning-home .task-row .icon{width:18px;color:var(--muted)}
+.morning-home .task-row .duration{margin-left:auto;white-space:nowrap;color:var(--muted);font-size:11px}
+.morning-home .section-footer{border-top:1px solid var(--line);padding-top:13px;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.morning-home .skill-focus h3{font-size:23px;margin:4px 0 10px}
+.morning-home .skill-focus p{font-size:14px;color:var(--muted);margin-bottom:15px}
+.morning-home .skill-focus>.btn{margin:21px 0 25px;align-self:flex-start}
+.morning-home .skill-focus{display:flex;align-items:flex-start;flex-direction:column}
+.morning-home .progress-text{font-size:17px;font-weight:600;margin:2px 0 7px}
+.morning-home .progress-track{height:7px;background:#edf0ec;border-radius:10px;overflow:hidden;margin:13px 0 14px}
+.morning-home .progress-track span{display:block;height:100%;background:var(--forest);border-radius:10px}
+.morning-home .activity{display:flex;gap:12px;align-items:center;margin:15px 0;font-size:13px}
+.morning-home .activity>.icon{color:var(--forest)}
+.morning-home .activity small{display:block;color:var(--muted);margin-top:3px}
+.morning-home .bot-panel .section-head{margin-bottom:20px}
+.morning-home .bot-identity{display:flex;align-items:center;gap:12px;font-size:12px;margin-bottom:17px}
+.morning-home .bot-identity .round-icon{height:43px;width:43px}
+.morning-home .bot-identity .icon{width:23px;height:23px}
+.morning-home .bot-identity span{color:var(--muted)}
+.morning-home .bot-message{border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:14px}
+.morning-home .bot-message h3{font-size:17px;margin-bottom:8px}
+.morning-home .bot-message p,.morning-home .quiet-copy{font-size:13px;color:var(--muted);line-height:1.65}
+.morning-home .bot-message .pill{margin:13px 0}
+.morning-home .pill.review{background:#fbf3df;color:#80631f}
+.morning-home .bot-message .btn{display:flex;width:100%;margin-top:1px}
+.morning-home .bot-panel>.text-button{margin-top:auto}
+.morning-home .quiet-heading{font-size:24px;margin-bottom:9px}
+.morning-home .quick-prompts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px 0 15px}
+.morning-home .quick-prompts .btn{font-size:11px;padding:10px 8px;font-weight:400;color:#59616c;gap:6px}
+.morning-home .message-entry{width:100%;display:flex;align-items:center;gap:11px;background:white;border:1px solid var(--line);border-radius:9px;color:var(--muted);padding:12px 13px;font-size:13px;text-align:left;margin-top:auto}
+.morning-home .message-entry .send{margin-left:auto;padding:5px;border-radius:6px;background:var(--sage);display:grid;place-items:center}
+.morning-home .preview-footer{display:flex;justify-content:flex-end;align-items:center;gap:17px;color:#929993;font-size:10px;margin-top:22px}
+.morning-home .preview-footer button{border:0;background:none;color:inherit;font-size:10px;text-decoration:underline;padding:4px}
+.morning-home .notice{margin:10px 0 0;color:var(--muted);font-size:12px}
+.morning-home .dialog{width:min(550px,calc(100vw - 32px));max-height:90vh;overflow:auto;border:1px solid var(--line);border-radius:14px;padding:26px;color:var(--ink);box-shadow:0 20px 70px #10221822}
+.morning-home .dialog::backdrop{background:#14291f35}
+.morning-home .dialog-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+.morning-home .dialog-head h2{font-size:24px}
+.morning-home .icon-button{background:none;border:0;padding:5px;display:grid;place-items:center}
+.morning-home .dialog p{color:var(--muted);font-size:14px;line-height:1.6;margin:10px 0}
+.morning-home .dialog label.field-label{display:block;font-size:13px;font-weight:600;margin:16px 0 7px}
+.morning-home .dialog input:not([type=checkbox]),.morning-home .dialog textarea,.morning-home .dialog select{width:100%;border:1px solid #d7ded7;border-radius:7px;padding:10px 12px;background:#fff;color:var(--ink)}
+.morning-home .dialog textarea{min-height:95px;resize:vertical}
+.morning-home .dialog .actions{display:flex;justify-content:flex-end;gap:10px;margin-top:23px;flex-wrap:wrap}
+.morning-home .dialog .check{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:14px}
+.morning-home .dialog input[type=checkbox]{accent-color:var(--forest);width:17px;height:17px}
+.morning-home .disclaimer{font-size:12px!important;background:var(--sage);border-radius:7px;padding:12px}
+.morning-home .choice-list{display:grid;gap:10px}
+.morning-home .choice{border:1px solid var(--line);border-radius:8px;background:white;padding:14px;text-align:left}
+.morning-home .choice strong{display:block;font-size:14px}
+.morning-home .choice span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.morning-home .choice:hover{background:var(--sage)}
+.morning-home .task-list{padding:0;list-style:none}
+.morning-home .task-list li{display:flex;justify-content:space-between;gap:15px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.morning-home .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 20px;border-radius:9px;background:var(--forest);color:#fff;z-index:100;font-size:13px;max-width:90vw;box-shadow:0 3px 16px #1232}
+.morning-home .preview-choices{display:grid;gap:8px}
+.morning-home .preview-choices .btn{justify-content:flex-start}
+.morning-home .dialog hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.morning-home .evidence{padding:12px;background:var(--sage);border-radius:7px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+@media(min-width:1550px){.morning-home{padding-top:42px}
+.morning-home .next-panel,.morning-home .bot-panel{min-height:390px}
+.morning-home .profile-panel{min-height:138px}
+.morning-home .direction-panel{min-height:175px}}
+@media(max-width:1250px){.morning-home{--sidebar-w:220px}
+.morning-home{padding:30px 28px}
+.morning-home .topbar{padding:0 28px}
+.morning-home .section-head{flex-wrap:wrap}
+.morning-home .next-panel .tabs{min-width:100%;max-width:none}
+.morning-home .task-feature{flex-wrap:wrap}
+.morning-home .task-feature .btn{margin-left:40px}
+.morning-home .profile-actions{gap:12px}
+.morning-home .lower-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.morning-home .next-panel,.morning-home .bot-panel{padding:22px}
+.morning-home .quick-prompts{grid-template-columns:1fr}
+.morning-home .quiet-heading{font-size:21px}}
+@media(max-width:900px){.morning-home{--sidebar-w:0px}
+.morning-home .sidebar{width:238px;transform:translateX(-100%)}
+.morning-home .sidebar.visible{transform:translateX(0)}
+.morning-home .scrim.visible{display:block;position:fixed;inset:0;border:0;background:#14291f40;z-index:19}
+.morning-home .mobile-menu{display:grid;padding:5px}
+.morning-home .topbar{padding:0 20px;height:65px}
+.morning-home .breadcrumbs{margin-right:auto}
+.morning-home .top-actions{gap:12px}
+.morning-home .search{display:none}
+.morning-home .ask span{display:none}
+.morning-home .ask{padding:9px}
+.morning-home .top-actions>.avatar{width:32px;height:32px}
+.morning-home{padding:28px 22px}
+.morning-home .profile-actions>.pill{display:none}
+.morning-home .direction-copy h2{font-size:24px}
+.morning-home .lower-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
+@media(max-width:650px){.morning-home h1{font-size:31px}
+.morning-home .page-heading p{font-size:15px}
+.morning-home .page-heading{margin-bottom:22px}
+.morning-home .profile-panel{padding:21px;gap:15px;flex-wrap:wrap}
+.morning-home .profile-panel .avatar,.morning-home .profile-panel>.round-icon{width:45px;height:45px;font-size:18px}
+.morning-home .profile-copy{flex-basis:calc(100% - 65px)}
+.morning-home .profile-copy h2{font-size:19px}
+.morning-home .profile-copy p{font-size:12px}
+.morning-home .profile-line{font-size:14px}
+.morning-home .profile-actions{margin-left:60px}
+.morning-home .direction-panel{padding:22px;flex-wrap:wrap;gap:16px}
+.morning-home .direction-panel>.round-icon{display:none}
+.morning-home .direction-copy{flex-basis:100%}
+.morning-home .direction-actions{flex-direction:row;align-items:center;flex-wrap:wrap;gap:17px}
+.morning-home .direction-copy h2{font-size:22px}
+.morning-home .lower-grid{grid-template-columns:1fr}
+.morning-home .next-panel,.morning-home .bot-panel{min-height:350px}
+.morning-home .next-panel .section-head{flex-wrap:nowrap}
+.morning-home .next-panel .tabs{min-width:0}
+.morning-home .section-head h2{font-size:19px}
+.morning-home .tabs button{padding:8px;font-size:11px}
+.morning-home .quick-prompts{grid-template-columns:1fr 1fr}
+.morning-home .task-feature{padding:18px;gap:12px}
+.morning-home .task-feature .btn{margin-left:35px}
+.morning-home .bot-panel{min-height:330px}
+.morning-home .preview-footer{flex-wrap:wrap;font-size:9px}
+.morning-home .dialog{padding:21px}
+.morning-home .topbar{gap:12px}}
+@media(prefers-reduced-motion:reduce){.morning-home *,.morning-home *:before,.morning-home *:after{animation:none!important;transition:none!important}}
+@media print{.morning-home .sidebar,.morning-home .topbar,.morning-home .preview-footer{display:none}
+.morning-home .shell{margin:0}
+.morning-home{padding:0}
+.morning-home .panel{break-inside:avoid}}
+.morning-home body.reference-capture{zoom:.94}
+.morning-home .profile-copy,.morning-home .direction-copy,.morning-home .task-copy{overflow-wrap:anywhere}
+@media(max-width:650px){.morning-home .direction-actions{width:100%;min-width:0;align-items:flex-start;flex-direction:column}
+.morning-home .next-panel .section-head{flex-wrap:wrap}
+.morning-home .next-panel .tabs{width:100%;max-width:none}
+.morning-home .quick-prompts{grid-template-columns:1fr}
+.morning-home .profile-panel>.avatar{align-self:flex-start}}
+@media(max-width:900px){.morning-home .scrim.visible{left:238px}}
+@media(max-width:650px){.morning-home .next-panel .tabs{flex:1 0 100%}
+.morning-home .task-feature{display:grid;grid-template-columns:24px minmax(0,1fr)}
+.morning-home .task-feature>.icon{grid-column:1}
+.morning-home .task-copy{grid-column:2;min-width:0}
+.morning-home .task-feature .btn{grid-column:2;margin-left:0;justify-self:start}
+.morning-home .task-copy .eyebrow{overflow-wrap:normal}}

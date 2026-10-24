@@ -1,0 +1,74 @@
+{
+  "phase_id": "I1.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Early persisted profile to source-backed personal assessment to public API/chat slice",
+  "inputs": [
+    "A1.1/A1.2/A1.3/A1.2-R01",
+    "C1.1 a9329d6",
+    "C1.2 5c78d50",
+    "C1.3 b758563",
+    "B1.1 53d493e"
+  ],
+  "integration_merges": [
+    "aa1c0356067094d8148c7ee2b68f4174a6f3a387",
+    "fef4019a8416bf0b874f4e1267052036e8d113d5"
+  ],
+  "changes": [
+    "Reviewed and locally merged C provider/persistence/chat and B acquisition; histories retained",
+    "A-owned isolated app binding with actual catalogue, service/source registry, no fixture provider",
+    "Committed exact role aliases and cross-lane constructor/coverage response A-001"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.integration_cli smoke --output ml/artifacts/session-a/i1.1-local-v1",
+      "result": {
+        "saved_profile_to_real_source_candidates": "passed",
+        "public_market_matrix_exclusion": "passed",
+        "explicit_preference_persisted_across_restart": "passed",
+        "negative_feedback_preserves_candidates": "passed",
+        "actual_chat_boundary_with_provider_availability": "unavailable"
+      }
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_market_service.py",
+      "result": "3 passed"
+    }
+  ],
+  "coverage": {
+    "runtime_roles": 1016,
+    "source_supported_roles": 910,
+    "explicit_smoke_view_roles": 2,
+    "numeric_scores": 0,
+    "provider": {
+      "status": "unavailable",
+      "code": "provider_model_not_configured",
+      "request_id": "f9b056d3-acc5-426b-b6cb-0179c566059a"
+    }
+  },
+  "transport": "actual WSGI request/response, no TCP listener",
+  "artifact": {
+    "path": "ml/artifacts/session-a/i1.1-local-v1/evidence.json",
+    "sha256": "e83b5849e2e5464ea9acb0616f5fbaf7fb2563c3c425e691f5f36bbd96e605c7"
+  },
+  "limitations": [
+    "No live-provider success implied by bounded unavailable response.",
+    "B market service not yet connected.",
+    "N01 pending: zero numeric role-fit scores.",
+    "Local WSGI evidence is not a deployed or TCP HTTP check.",
+    "B1.1 data merged; B callable market service still missing at this checkpoint",
+    "No full integration pass claimed"
+  ],
+  "dependencies": [
+    "B1.2 service handoff",
+    "Groq credentials/model",
+    "N01",
+    "remaining C/B phases"
+  ],
+  "refinements": [
+    "A1.2-R01"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "A2.1/A2.2; consume later committed B/C handoffs as available"
+}

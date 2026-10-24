@@ -1,0 +1,50 @@
+{
+  "rows": [
+    {
+      "f": 20,
+      "d": 20,
+      "s_alpha_05": 20,
+      "s_alpha_07": 20
+    },
+    {
+      "f": 90,
+      "d": 90,
+      "s_alpha_05": 90,
+      "s_alpha_07": 90
+    },
+    {
+      "f": 90,
+      "d": 10,
+      "s_alpha_05": 50,
+      "s_alpha_07": 66
+    },
+    {
+      "f": 10,
+      "d": 90,
+      "s_alpha_05": 50,
+      "s_alpha_07": 34
+    },
+    {
+      "f": 50,
+      "d": 50,
+      "s_alpha_05": 50,
+      "s_alpha_07": 50
+    },
+    {
+      "f": 80,
+      "d": 20,
+      "s_alpha_05": 50,
+      "s_alpha_07": 62
+    },
+    {
+      "f": 50,
+      "d": 90,
+      "s_alpha_05": 70,
+      "s_alpha_07": 62
+    }
+  ],
+  "grid_cases": 1030301,
+  "bounds_failures": 0,
+  "description": "Arithmetic validation of convex score bounds on integer input scores 0..100 and alpha in 0.01 steps; not empirical validation of career predictions."
+}
+

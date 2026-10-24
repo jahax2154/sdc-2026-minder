@@ -1,0 +1,79 @@
+{
+  "version": "R0-recovery-evidence-v1",
+  "authorization": "User R0 \u2014 Recover checkpoints and establish traceable work; present-time checkpoint and backup push explicitly authorized; supersedes conflicting prior no-commit/no-push execution restrictions only.",
+  "code_checkpoint_sha": "8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f",
+  "branch": "recovery/r0-20261022-accumulated-work",
+  "official_remote": {
+    "name": "origin",
+    "repository": "jahax2154/sdc-2026-minder",
+    "private": true,
+    "push_access_verified": true,
+    "code_push": "observed_success",
+    "observed_remote_code_sha": "8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f",
+    "observed_remote_main": "c9c5f8539d2b0315d710e23a1c9dd036a6b2fdd7"
+  },
+  "initial_state": {
+    "branch": "main",
+    "head": "24dc298f1c8ab08a1d119432d329a668e595711b",
+    "staged_paths": 0,
+    "worktrees": 1,
+    "external_checkout_writers": "unknown; no coordination channel; first of at most three hash snapshot attempts stable",
+    "local_only_commit": "24dc298f1c8ab08a1d119432d329a668e595711b"
+  },
+  "private_backup": "/Users/phuahjunhong/minder-recovery/R0-20261022T071505Z/attempt-1",
+  "snapshot": {
+    "reviewed_paths": 181,
+    "actual_files": 179,
+    "tracked_deletions": 2,
+    "staged_changed_paths": 152,
+    "original_index_and_binary_diffs_preserved": true,
+    "before_after_hashes": "matched",
+    "staged_blob_hashes": "matched reviewed files",
+    "scoped_secret_findings": 0,
+    "real_profile_json_findings": 0
+  },
+  "export": {
+    "export_path": "/Users/phuahjunhong/minder-recovery/R0-20261022T071505Z/current-context",
+    "archive_path": "/Users/phuahjunhong/minder-recovery/R0-20261022T071505Z/minder-r0-current-context.tar.gz",
+    "archive_sha256": "1beea3a9f508f951c7511f2d4cd9a724786c30c52bd1818836eb67297a24a967",
+    "manifest_sha256": "6caa5193fb28142096adc23248d50a82dc4f962dffb5a75ba18cf616d6be6f4b",
+    "included_files": 116,
+    "included_source_files": 114,
+    "context_omitted_checkpoint_files": 75,
+    "excluded_visible_files": 18,
+    "excluded_ignored_files": 4104,
+    "local_manifests_included": 10,
+    "absent_requested_files": [
+      "docs/intelligence/README.md",
+      "docs/execution/gates/G1B_report.md",
+      "docs/execution/gates/G2_report.md",
+      "package.json",
+      "apps/backend-api/package.json",
+      "apps/frontend-web/package.json"
+    ],
+    "sanitized_files": 7,
+    "sensitive_content_checks": "passed scoped checks",
+    "code_sha": "8fbff9521ef3f48d3ac1eddbdddd3ed25f67a15f"
+  },
+  "checks": {
+    "git_diff_cached_check": "failed: inherited EOF blank lines in five files and trailing whitespace in training.py:18; preserved unchanged",
+    "archive_structure_and_hashes": "passed",
+    "scoped_sensitive_content_checks": "passed; not exhaustive guarantee",
+    "application_tests": "not_run_for_recovery; historical gate logs preserved, not revalidated"
+  },
+  "remaining_state": {
+    "tracked_changes_after_code_checkpoint": 0,
+    "untracked_files": 18,
+    "ignored_files_excluded_from_full_backup": 4104,
+    "details": "R0_export_manifest.json contains paths, counts and actual backup status; ten small ignored metadata manifests included in export only"
+  },
+  "unchanged_scope": [
+    "scoring",
+    "training",
+    "historical reports",
+    "repository visibility",
+    "local main",
+    "remote main"
+  ],
+  "evidence_commit_reference": "This document is committed after code_checkpoint_sha. Its actual commit SHA and final observed remote head are returned in the completion report; no self-referential SHA is fabricated."
+}

@@ -1,0 +1,2 @@
+# Hosted identity SDK: Python3.12; existing local3.9 environment unchanged.
+clerk-backend-api==7.0.0

@@ -1,0 +1,68 @@
+{
+  "access_conditions": "Public documented ATS API; no auth, paid calls or bypass; raw descriptions local only",
+  "coverage": {
+    "accepted_ads": 155,
+    "complete_detail_collection": true,
+    "complete_feed": true,
+    "complete_listing": true,
+    "detail_cap": 160,
+    "detail_responses": 155,
+    "limit_explanation": "40 was a collector-selected initial request cap, not an API/access limit; expansion cap is explicit.",
+    "listing_ids": 155,
+    "listing_rows": 155,
+    "new_detail_requests": 115,
+    "qualification_missing_ads": 1,
+    "qualification_observed_ads": 154,
+    "rejections": [],
+    "release_date_range": {
+      "max": "2026-10-22T07:38:23.655Z",
+      "min": "2020-02-10T07:45:24.000Z"
+    },
+    "release_year_counts": {
+      "2020": 1,
+      "2021": 6,
+      "2022": 4,
+      "2023": 8,
+      "2024": 8,
+      "2025": 5,
+      "2026": 123
+    },
+    "reported_feed_total": 155,
+    "request_failures": [],
+    "reused_verified_details": 40,
+    "same_template_distinct_requisitions": 5,
+    "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+  },
+  "current_nonzero_roles": {
+    "onet:15-1252.00": 5
+  },
+  "current_skill_ad_counts": {
+    "source-term:cpp": 8,
+    "source-term:excel": 27,
+    "source-term:java": 4,
+    "source-term:python": 6,
+    "source-term:sql": 11
+  },
+  "derived_available_at": "2026-10-23T06:13:31.947075+00:00",
+  "geography": "MY, Bosch employer feed only",
+  "limitations": [
+    "Employer sample is not the Malaysian labour market.",
+    "No historical employer snapshots or quarterly skill targets.",
+    "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+    "Source-native role mappings require A canonical-ID translation.",
+    "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+    "Raw job descriptions retained locally; redistribution licence not established.",
+    "155 listed source-native requisitions were inspected; current feed membership was rechecked. Old release dates are not newly observed posting flows.",
+    "Same text across distinct native requisitions is flagged, not proof of a repost; only repeated native requisition identity is deduplicated.",
+    "Missing qualification sections remain unknown and are excluded from skill-count denominator, not dropped from role evidence."
+  ],
+  "measurement": "Distinct source-native listed requisitions at collection, not quarterly inflows or national employment",
+  "missingness": "One ad has no qualification section. It remains in role denominator 155; skill denominator is 154, not fabricated zero skills.",
+  "observation_at": "2026-10-23T06:08:42.362418+00:00",
+  "official_entry": "https://www.bosch.com.my/careers/",
+  "refinement_id": "B1.1-R02",
+  "role_classification": "Conservative title patterns -> O*NET-SOC 2019 native codes, database 31.0; A aliases onet:<code>",
+  "skill_classification": "Literal positive qualification requests, five source-term technology IDs; preferred/negated clauses excluded",
+  "snapshot_sha256": "1a5d6e05721428ba2281a9c13551b96013b2cd5baafa9def9decaf1fedec16b3",
+  "source_url": "https://api.smartrecruiters.com/v1/companies/BoschGroup/postings?country=my&limit=100&offset=0"
+}

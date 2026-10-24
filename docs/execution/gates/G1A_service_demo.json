@@ -1,0 +1,3633 @@
+{
+  "accepted_native_projection": [
+    {
+      "identifier": {
+        "code": "15-1252.00",
+        "database_version": "31.0",
+        "system": "O*NET-SOC",
+        "taxonomy_edition": null
+      },
+      "milestone": null,
+      "milestone_exception": "Draft task criteria have no content anchors, task DAG, effort basis, interest/resource/work-style definitions.",
+      "occupation_reference": {
+        "Description": "Research, design, and develop computer and network software or specialized utility programs. Analyze user needs and develop software solutions, applying principles and techniques of computer science, engineering, and mathematical analysis. Update software or enhance existing software capabilities. May work with computer hardware engineers to integrate hardware and software systems, and develop specifications and performance requirements. May maintain databases within an application area, working individually or coordinating database development as part of a team.",
+        "O*NET-SOC Code": "15-1252.00",
+        "Title": "Software Developers"
+      },
+      "occupation_skills": [
+        {
+          "Data Value": "3.50",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1890",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2282"
+        },
+        {
+          "Data Value": "4.25",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "3.7600",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2500",
+          "Title": "Software Developers",
+          "Upper CI Bound": "4.7400",
+          "evidence_id": "onet31:skills:2283"
+        },
+        {
+          "Data Value": "3.38",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.0164",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1830",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.7336",
+          "evidence_id": "onet31:skills:2284"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.4309",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2266",
+          "Title": "Software Developers",
+          "Upper CI Bound": "4.3191",
+          "evidence_id": "onet31:skills:2285"
+        },
+        {
+          "Data Value": "3.25",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "2.9292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.5708",
+          "evidence_id": "onet31:skills:2286"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "3.2664",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1830",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.9836",
+          "evidence_id": "onet31:skills:2287"
+        },
+        {
+          "Data Value": "3.12",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "2.8800",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1250",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.3700",
+          "evidence_id": "onet31:skills:2288"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "3.2664",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1830",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.9836",
+          "evidence_id": "onet31:skills:2289"
+        },
+        {
+          "Data Value": "2.75",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "2.2600",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2500",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.2400",
+          "evidence_id": "onet31:skills:2290"
+        },
+        {
+          "Data Value": "3.25",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "2.6358",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.3134",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.8642",
+          "evidence_id": "onet31:skills:2291"
+        },
+        {
+          "Data Value": "2.12",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "1.3447",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.3981",
+          "Title": "Software Developers",
+          "Upper CI Bound": "2.9053",
+          "evidence_id": "onet31:skills:2292"
+        },
+        {
+          "Data Value": "1.88",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "0.6783",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "Y",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.6105",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.0717",
+          "evidence_id": "onet31:skills:2293"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "3.4309",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2266",
+          "Title": "Software Developers",
+          "Upper CI Bound": "4.3191",
+          "evidence_id": "onet31:skills:2294"
+        },
+        {
+          "Data Value": "4.12",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "3.6809",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2266",
+          "Title": "Software Developers",
+          "Upper CI Bound": "4.5691",
+          "evidence_id": "onet31:skills:2295"
+        },
+        {
+          "Data Value": "3.50",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1890",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2296"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "3.1094",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2631",
+          "Title": "Software Developers",
+          "Upper CI Bound": "4.1406",
+          "evidence_id": "onet31:skills:2297"
+        },
+        {
+          "Data Value": "2.62",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.2664",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1830",
+          "Title": "Software Developers",
+          "Upper CI Bound": "2.9836",
+          "evidence_id": "onet31:skills:2298"
+        },
+        {
+          "Data Value": "3.12",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.8800",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.3700",
+          "evidence_id": "onet31:skills:2299"
+        },
+        {
+          "Data Value": "3.00",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "3.0000",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.0000",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.0000",
+          "evidence_id": "onet31:skills:2300"
+        },
+        {
+          "Data Value": "3.50",
+          "Date": "08/2025",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1252.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1890",
+          "Title": "Software Developers",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2301"
+        }
+      ],
+      "optional_crosswalk_status": "quarantined_not_needed_for_native_identity",
+      "original_draft_path": "ml/data/review/phase2/roles.pending.json",
+      "original_draft_version": "three-role-proposal-v1",
+      "pending_criteria": [
+        {
+          "criterion_id": "sw-requirements",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.1.a",
+          "skill_taxonomy": {
+            "code": "2.A.1.a",
+            "label": "Reading Comprehension",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-1252.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        },
+        {
+          "criterion_id": "sw-debugging",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.2.a",
+          "skill_taxonomy": {
+            "code": "2.A.2.a",
+            "label": "Critical Thinking",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-1252.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        }
+      ],
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "provenance_class": "source-derived",
+      "role_id": "15-1252.00",
+      "rule_ids": [
+        "AUTO-01",
+        "FIT-02"
+      ],
+      "sources": [
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+          "scope": "U.S. O*NET-SOC occupations",
+          "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+          "source_id": "onet_occupation_data",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv"
+        },
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+          "scope": "U.S. occupations by essential skill and measurement scale",
+          "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+          "source_id": "onet_essential_skills",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv"
+        }
+      ],
+      "status": "policy_accepted",
+      "title": "Software Developers",
+      "version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e"
+    },
+    {
+      "identifier": {
+        "code": "15-2051.00",
+        "database_version": "31.0",
+        "system": "O*NET-SOC",
+        "taxonomy_edition": null
+      },
+      "milestone": null,
+      "milestone_exception": "Draft task criteria have no content anchors, task DAG, effort basis, interest/resource/work-style definitions.",
+      "occupation_reference": {
+        "Description": "Develop and implement a set of techniques or analytics applications to transform raw data into meaningful information using data-oriented programming languages and visualization software. Apply data mining, data modeling, natural language processing, and machine learning to extract and analyze information from large structured and unstructured datasets. Visualize, interpret, and report data findings. May create dynamic data reports.",
+        "O*NET-SOC Code": "15-2051.00",
+        "Title": "Data Scientists"
+      },
+      "occupation_skills": [
+        {
+          "Data Value": "3.88",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "3.6300",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1250",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.1200",
+          "evidence_id": "onet31:skills:2662"
+        },
+        {
+          "Data Value": "4.62",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "4.1094",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2631",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "5.1406",
+          "evidence_id": "onet31:skills:2663"
+        },
+        {
+          "Data Value": "3.50",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1890",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2664"
+        },
+        {
+          "Data Value": "3.75",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.2600",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2500",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.2400",
+          "evidence_id": "onet31:skills:2665"
+        },
+        {
+          "Data Value": "3.50",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1890",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2666"
+        },
+        {
+          "Data Value": "4.12",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "3.6809",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2266",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.5691",
+          "evidence_id": "onet31:skills:2667"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "3.2664",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1830",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.9836",
+          "evidence_id": "onet31:skills:2668"
+        },
+        {
+          "Data Value": "3.75",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "3.4292",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1637",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.0708",
+          "evidence_id": "onet31:skills:2669"
+        },
+        {
+          "Data Value": "4.38",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "3.8594",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2631",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.8906",
+          "evidence_id": "onet31:skills:2670"
+        },
+        {
+          "Data Value": "5.00",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "4.1717",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.4226",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "5.8283",
+          "evidence_id": "onet31:skills:2671"
+        },
+        {
+          "Data Value": "2.50",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "1.6717",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.4226",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.3283",
+          "evidence_id": "onet31:skills:2672"
+        },
+        {
+          "Data Value": "2.12",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "1.1148",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "Y",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.5154",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.1352",
+          "evidence_id": "onet31:skills:2673"
+        },
+        {
+          "Data Value": "4.25",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "3.9292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.5708",
+          "evidence_id": "onet31:skills:2674"
+        },
+        {
+          "Data Value": "4.62",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "4.2664",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1830",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.9836",
+          "evidence_id": "onet31:skills:2675"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "3.1094",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2631",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.1406",
+          "evidence_id": "onet31:skills:2676"
+        },
+        {
+          "Data Value": "4.38",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "3.6400",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.3750",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "5.1100",
+          "evidence_id": "onet31:skills:2677"
+        },
+        {
+          "Data Value": "2.75",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.2600",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2500",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.2400",
+          "evidence_id": "onet31:skills:2678"
+        },
+        {
+          "Data Value": "3.00",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.3584",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.3273",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.6416",
+          "evidence_id": "onet31:skills:2679"
+        },
+        {
+          "Data Value": "3.25",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "2.9292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "3.5708",
+          "evidence_id": "onet31:skills:2680"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2026",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "2.8900",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-2051.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.3750",
+          "Title": "Data Scientists",
+          "Upper CI Bound": "4.3600",
+          "evidence_id": "onet31:skills:2681"
+        }
+      ],
+      "optional_crosswalk_status": "quarantined_not_needed_for_native_identity",
+      "original_draft_path": "ml/data/review/phase2/roles.pending.json",
+      "original_draft_version": "three-role-proposal-v1",
+      "pending_criteria": [
+        {
+          "criterion_id": "ds-statistics",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.1.e",
+          "skill_taxonomy": {
+            "code": "2.A.1.e",
+            "label": "Mathematics",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-2051.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        },
+        {
+          "criterion_id": "ds-evaluation",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.2.a",
+          "skill_taxonomy": {
+            "code": "2.A.2.a",
+            "label": "Critical Thinking",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-2051.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        }
+      ],
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "provenance_class": "source-derived",
+      "role_id": "15-2051.00",
+      "rule_ids": [
+        "AUTO-01",
+        "FIT-02"
+      ],
+      "sources": [
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+          "scope": "U.S. O*NET-SOC occupations",
+          "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+          "source_id": "onet_occupation_data",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv"
+        },
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+          "scope": "U.S. occupations by essential skill and measurement scale",
+          "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+          "source_id": "onet_essential_skills",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv"
+        }
+      ],
+      "status": "policy_accepted",
+      "title": "Data Scientists",
+      "version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c"
+    },
+    {
+      "identifier": {
+        "code": "15-1212.00",
+        "database_version": "31.0",
+        "system": "O*NET-SOC",
+        "taxonomy_edition": null
+      },
+      "milestone": null,
+      "milestone_exception": "Draft task criteria have no content anchors, task DAG, effort basis, interest/resource/work-style definitions.",
+      "occupation_reference": {
+        "Description": "Plan, implement, upgrade, or monitor security measures for the protection of computer networks and information. Assess system vulnerabilities for security risks and propose and implement risk mitigation strategies. May ensure appropriate security controls are in place that will safeguard digital files and vital electronic infrastructure. May respond to computer security breaches and viruses.",
+        "O*NET-SOC Code": "15-1212.00",
+        "Title": "Information Security Analysts"
+      },
+      "occupation_skills": [
+        {
+          "Data Value": "4.00",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "4.0000",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.0000",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.0000",
+          "evidence_id": "onet31:skills:2062"
+        },
+        {
+          "Data Value": "4.12",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.a",
+          "Element Name": "Reading Comprehension",
+          "Lower CI Bound": "3.8800",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.3700",
+          "evidence_id": "onet31:skills:2063"
+        },
+        {
+          "Data Value": "3.75",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.4292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.0708",
+          "evidence_id": "onet31:skills:2064"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.b",
+          "Element Name": "Active Listening",
+          "Lower CI Bound": "3.6300",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.1200",
+          "evidence_id": "onet31:skills:2065"
+        },
+        {
+          "Data Value": "3.50",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "3.1296",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1890",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.8704",
+          "evidence_id": "onet31:skills:2066"
+        },
+        {
+          "Data Value": "3.75",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.c",
+          "Element Name": "Writing",
+          "Lower CI Bound": "3.4292",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1637",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.0708",
+          "evidence_id": "onet31:skills:2067"
+        },
+        {
+          "Data Value": "3.62",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "3.2664",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1830",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.9836",
+          "evidence_id": "onet31:skills:2068"
+        },
+        {
+          "Data Value": "3.75",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.d",
+          "Element Name": "Speaking",
+          "Lower CI Bound": "3.4292",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1637",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.0708",
+          "evidence_id": "onet31:skills:2069"
+        },
+        {
+          "Data Value": "2.25",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "1.9292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "2.5708",
+          "evidence_id": "onet31:skills:2070"
+        },
+        {
+          "Data Value": "2.38",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.e",
+          "Element Name": "Mathematics",
+          "Lower CI Bound": "1.8594",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2631",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "2.8906",
+          "evidence_id": "onet31:skills:2071"
+        },
+        {
+          "Data Value": "1.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "1.4309",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.2266",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "2.3191",
+          "evidence_id": "onet31:skills:2072"
+        },
+        {
+          "Data Value": "1.62",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.1.f",
+          "Element Name": "Science",
+          "Lower CI Bound": "0.8900",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.3750",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "2.3600",
+          "evidence_id": "onet31:skills:2073"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "3.6300",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.1200",
+          "evidence_id": "onet31:skills:2074"
+        },
+        {
+          "Data Value": "4.12",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.a",
+          "Element Name": "Critical Thinking",
+          "Lower CI Bound": "3.8800",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.3700",
+          "evidence_id": "onet31:skills:2075"
+        },
+        {
+          "Data Value": "3.25",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "2.9292",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1637",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.5708",
+          "evidence_id": "onet31:skills:2076"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.b",
+          "Element Name": "Active Learning",
+          "Lower CI Bound": "3.6300",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.1200",
+          "evidence_id": "onet31:skills:2077"
+        },
+        {
+          "Data Value": "2.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.6300",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.1200",
+          "evidence_id": "onet31:skills:2078"
+        },
+        {
+          "Data Value": "3.12",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.c",
+          "Element Name": "Learning Strategies",
+          "Lower CI Bound": "2.8800",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.1250",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.3700",
+          "evidence_id": "onet31:skills:2079"
+        },
+        {
+          "Data Value": "3.38",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "3.0164",
+          "N": "8",
+          "Not Relevant": "",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "IM",
+          "Scale Name": "Importance",
+          "Standard Error": "0.1830",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "3.7336",
+          "evidence_id": "onet31:skills:2080"
+        },
+        {
+          "Data Value": "3.88",
+          "Date": "08/2018",
+          "Domain Source": "Analyst",
+          "Element ID": "2.A.2.d",
+          "Element Name": "Monitoring",
+          "Lower CI Bound": "3.4309",
+          "N": "8",
+          "Not Relevant": "N",
+          "O*NET-SOC Code": "15-1212.00",
+          "Recommend Suppress": "N",
+          "Scale ID": "LV",
+          "Scale Name": "Level",
+          "Standard Error": "0.2266",
+          "Title": "Information Security Analysts",
+          "Upper CI Bound": "4.3191",
+          "evidence_id": "onet31:skills:2081"
+        }
+      ],
+      "optional_crosswalk_status": "quarantined_not_needed_for_native_identity",
+      "original_draft_path": "ml/data/review/phase2/roles.pending.json",
+      "original_draft_version": "three-role-proposal-v1",
+      "pending_criteria": [
+        {
+          "criterion_id": "sec-policy",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a fictional access policy, explain who may access each example resource and why.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.1.a",
+          "skill_taxonomy": {
+            "code": "2.A.1.a",
+            "label": "Reading Comprehension",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-1212.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        },
+        {
+          "criterion_id": "sec-risk",
+          "importance": null,
+          "importance_scale": null,
+          "observable_evidence_rule": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+          "requirement_weight": null,
+          "review": {
+            "rationale": null,
+            "reviewed_at": null,
+            "reviewer_id": null,
+            "status": "pending"
+          },
+          "skill_id": "onet:2.A.2.a",
+          "skill_taxonomy": {
+            "code": "2.A.2.a",
+            "label": "Critical Thinking",
+            "system": "O*NET essential skills",
+            "version": "31.0"
+          },
+          "sources": [
+            {
+              "record_id": "15-1212.00",
+              "source_id": "onet_occupation_data",
+              "source_version": "O*NET 31.0"
+            }
+          ]
+        }
+      ],
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "provenance_class": "source-derived",
+      "role_id": "15-1212.00",
+      "rule_ids": [
+        "AUTO-01",
+        "FIT-02"
+      ],
+      "sources": [
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_occupation_data.csv",
+          "scope": "U.S. O*NET-SOC occupations",
+          "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+          "source_id": "onet_occupation_data",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv"
+        },
+        {
+          "database_version": "31.0",
+          "license": "CC BY 4.0; attribution and changes notice required",
+          "path": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+          "scope": "U.S. occupations by essential skill and measurement scale",
+          "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+          "source_id": "onet_essential_skills",
+          "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv"
+        }
+      ],
+      "status": "policy_accepted",
+      "title": "Information Security Analysts",
+      "version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc"
+    }
+  ],
+  "actual_profiles": [
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "5b32f7d984f131c40a70be70ab20879e62f23668f498460213fdad2acd4c66ef",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "25252c9d733160aedd816d78cd44d8f6cf810d319727914efed54dd8db6c9496",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "318a50232142bca281a79b3f9220d6ca9de7b23f1d397e43b12ff71b7bef1e6c",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "1f6fcf86b58fe39ee4ed17014056a808c246f92e87a6d2281e9e9df36c2cfc3a",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "software-smoke-profile-001",
+      "recommendation": {
+        "evidence_snapshot_id": "1f6fcf86b58fe39ee4ed17014056a808c246f92e87a6d2281e9e9df36c2cfc3a",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "synthetic-smoke-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "c3c111c4a163a8bfa474cf33307965fd75e4d9dba037154b4f2f60eb65e7a0a7",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "7355da147b1d71ba7b31ffaec0d05abd9e1118f92ef67ca4564f23050f83a0fe",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "c78c5a63170b1e5c65145d330ad90b648ac5bd425e768fee212be36c35d3f12d",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "5738084930a72d8677357349c9aa1f24e23d617736dc1f625630e06c66e0d9c7",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-01",
+      "recommendation": {
+        "evidence_snapshot_id": "5738084930a72d8677357349c9aa1f24e23d617736dc1f625630e06c66e0d9c7",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "d5524dc79cfb88aef7f6b399d971ef4e05ef3cc7c2141d953816004da4f7c9ee",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "8baba36ad5ef4491b5400d9389f601f978b1b81cc1dcb8a57e74e7677663c95a",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "91bcee7d7fbf6c106ad4773af913270c6d687d348bd6ea121327a1f5ea44c74a",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "323a6de675edb186a66267c380207231731b5f692428f588b9515cab720209ed",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-02",
+      "recommendation": {
+        "evidence_snapshot_id": "323a6de675edb186a66267c380207231731b5f692428f588b9515cab720209ed",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "7d526335f2b47e5c4b5c0fbe145c68710f2a603a70fe32d6a55042aeda9e7a21",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "badd8b29232d2665471e3294e9f17aa4e7ce7ebcf6f3efe078af572357f7be5a",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "57b2ca4bcafb779202b5a0a2b445b33f14defa58b2fa2e90410b55ce1ba54341",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "72facf129bc48291b7fe9ceec4ed12ac0b7056bb6cd7b57879fb6287df7067e7",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-03",
+      "recommendation": {
+        "evidence_snapshot_id": "72facf129bc48291b7fe9ceec4ed12ac0b7056bb6cd7b57879fb6287df7067e7",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "cd7363e491d606ebb6965b77c95633e66c1bc2788895e89c5bed8e2c15cc7391",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "28e45414f6f43323635d22510ae4f7973c8568e6ef88f15393875597cdaf98df",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "2d013e89546d346de9c745a1a14433014ac53762102e53ddbd6d87cec784d247",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "3fce61b1ed57d39fcd0835380e683652e737cb169e3c74d814aaae5e81c0ccc5",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-04",
+      "recommendation": {
+        "evidence_snapshot_id": "3fce61b1ed57d39fcd0835380e683652e737cb169e3c74d814aaae5e81c0ccc5",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "87b1ac2f1cfc3ed34672707637a8972892b99c51441f28d0a75e9fef2538363d",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "native-g1a-v1:bac2d2d722ce8faa5236e615b39e7b9f74c71ce8141c3e6278842abffb8d770e",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "0af33e93fda365eab4e762ca4f2ad932c5b82dca2674a7324eb54081f5968a7b",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "native-g1a-v1:80ae73a9d6426522f0e91ebe2595fd435af099b82f48569aabbcb5a12eda757c",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "e00edf93e6e593d6c9294f434c32e0fb665ad7ad0af8ebcaeaba344fc3938217",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+              "path": "docs/execution/gates/G1A_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-2026-10-21-v1"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "native-g1a-v1:d3d84a9fac7fd7c18e86cbdfdddc63f7a10a55bb3dcceb77f9fbf5b9e8af1dcc",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "6f736f0745c2cfbb4ae7493c11e402eb69fb8f8c997c65032fc01af30bd0e9c1",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+          "path": "docs/execution/gates/G1A_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-2026-10-21-v1"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-05",
+      "recommendation": {
+        "evidence_snapshot_id": "6f736f0745c2cfbb4ae7493c11e402eb69fb8f8c997c65032fc01af30bd0e9c1",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:713e18eacde078c33a39358d36bb7a9acf2133e7ccb5a5798ad6f15bae23ab79",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    }
+  ],
+  "catalogue_readiness": "partial",
+  "catalogue_readiness_rule": "P2-4-policy-acceptance-g1a-v2",
+  "deduplicated_exceptions": [
+    {
+      "affected_profile_ids": [
+        "calibration-profile-01",
+        "calibration-profile-02",
+        "calibration-profile-03",
+        "calibration-profile-04",
+        "calibration-profile-05",
+        "software-smoke-profile-001"
+      ],
+      "affected_role_ids": [
+        "15-1212.00",
+        "15-1252.00",
+        "15-2051.00"
+      ],
+      "effect": "No score for affected pair; catalogue incompleteness is not user inability.",
+      "next_action": "Supply a source-backed bounded template and explicit version-bound profile measurements.",
+      "reason": "milestone_definition_missing"
+    },
+    {
+      "affected_records": 24,
+      "effect": "Does not block native O*NET identity; cannot support ESCO or Malaysian narrow-role demand.",
+      "next_action": "Resolve 2019 taxonomy versus database-release scope and crosswalk reuse terms before using the bridge.",
+      "reason": "optional_crosswalk_scope_unresolved"
+    },
+    {
+      "effect": "No empirical metrics or learner comparison; policy acceptance is not gold.",
+      "next_action": "Independent blind grading after usable milestone/profile inputs exist; outside G1A.",
+      "reason": "independent_labels_absent"
+    }
+  ],
+  "empirical_readiness": "not_evaluated_no_independent_labels",
+  "historical_checks": "ml/evaluation/phase2_checks.json",
+  "live_service_readiness": {
+    "frontend": "not_implemented",
+    "http_endpoint": "not_implemented",
+    "python_callable": "exercised"
+  },
+  "meaningful_baseline_data_gate": "blocked",
+  "native_occupations_accepted": 3,
+  "real_pairs_scored": 0,
+  "real_role_milestones_accepted": 0,
+  "synthetic_contract_fixture_only": {
+    "derivations": [
+      {
+        "acceptance": {
+          "record_id": "synthetic-only",
+          "record_sha256": "08a90f206c7ba2770645525960f6507cfaff5ddbd384027090826a11a9ddc22e",
+          "rule_id": "AUTO-01",
+          "sha256": "1e1bc30af52685d4ba2babd1baf89e4d6b4506f1cb9b626bb0e7823bfcc06911",
+          "source_id": "synthetic-contract-test",
+          "source_path": "ml/tests/fixtures/g1a_contract.synthetic.json",
+          "source_version": "test-v1"
+        },
+        "assessed_requirement_fraction": 1.0,
+        "catalogue_status": "policy_accepted",
+        "constraint_status": "clear",
+        "criterion_gaps": [
+          {
+            "assessment_state": "assessed",
+            "criterion_id": "c",
+            "demonstrated_fraction": 0,
+            "remaining_fraction": 1,
+            "requirement_weight": 1,
+            "weighted_remaining_fraction": 1.0
+          }
+        ],
+        "eligible": true,
+        "evidence_ids": [
+          "policy:fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+          "synthetic-answer",
+          "synthetic-definition",
+          "synthetic-estimate",
+          "template:08a90f206c7ba2770645525960f6507cfaff5ddbd384027090826a11a9ddc22e"
+        ],
+        "exceptions": [],
+        "feature_components": {
+          "interest_alignment": 1.0,
+          "resource_feasibility": 1.0,
+          "skill_coverage": 0.0,
+          "time_feasibility": 0.5,
+          "work_style_alignment": 0.5
+        },
+        "input_fingerprint": "e22c8a2ea29921e4cec2f1236f4a5c7c6135f13de6193dfd8bac95d91131f2af",
+        "milestone_version": "test-v1",
+        "pipeline_version": "policy-feature-pipeline-g1a-v1",
+        "policy": {
+          "authorization": {
+            "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+            "path": "docs/execution/gates/G1A_authorization.json",
+            "scope": "G1A deterministic feature/policy implementation and local verification only",
+            "version": "G1A-current-user-2026-10-21-v1"
+          },
+          "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+          "historical_approval": {
+            "approval_message_ref": null,
+            "approved_at": null,
+            "approved_manifest_sha256": null,
+            "reviewer_id": null,
+            "status": "proposed_for_batch_review"
+          },
+          "policy_id": "minder-intelligence-v1",
+          "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+          "policy_version": "1.0.0"
+        },
+        "profile_version": "test-v1",
+        "provenance_class": "policy-derived",
+        "questions": [],
+        "role_id": "synthetic-role",
+        "role_version": "test-v1",
+        "traces": {
+          "C": {
+            "criteria": [
+              {
+                "anchor": "unmet",
+                "basis": "anchored_self_report",
+                "criterion_id": "c",
+                "definition_evidence_ids": [
+                  "synthetic-definition"
+                ],
+                "evidence_ids": [
+                  "synthetic-answer"
+                ],
+                "rule_id": "FIT-04",
+                "value": 0
+              }
+            ],
+            "rule_id": "FIT-04"
+          },
+          "I": {
+            "rule_id": "FIT-05",
+            "tags": [
+              {
+                "definition_evidence_ids": [
+                  "synthetic-definition"
+                ],
+                "evidence_ids": [
+                  "synthetic-answer"
+                ],
+                "tag_id": "i",
+                "value": 1
+              }
+            ]
+          },
+          "R": {
+            "groups": [],
+            "rule_id": "FIT-07"
+          },
+          "T": {
+            "T_high": 1.0,
+            "T_low": 0.5,
+            "effort_high": 24.0,
+            "effort_low": 12.0,
+            "horizon_weeks": 12,
+            "hours_per_week": 1,
+            "rule_id": "FIT-06",
+            "tasks": [
+              {
+                "completed": false,
+                "effort": {
+                  "basis": "synthetic test estimate",
+                  "evidence_ids": [
+                    "synthetic-estimate"
+                  ],
+                  "high": 12,
+                  "low": 6,
+                  "unit": "hours"
+                },
+                "rule_id": "FIT-06",
+                "task_id": "prereq"
+              },
+              {
+                "completed": false,
+                "effort": {
+                  "basis": "synthetic test estimate",
+                  "evidence_ids": [
+                    "synthetic-estimate"
+                  ],
+                  "high": 12,
+                  "low": 6,
+                  "unit": "hours"
+                },
+                "rule_id": "FIT-06",
+                "task_id": "main"
+              }
+            ]
+          },
+          "W": {
+            "rule_id": "FIT-08",
+            "tags": [
+              {
+                "definition_evidence_ids": [
+                  "synthetic-definition"
+                ],
+                "evidence_ids": [
+                  "synthetic-answer"
+                ],
+                "tag_id": "w",
+                "value": 0.5
+              }
+            ]
+          },
+          "baseline": {
+            "contributions": {
+              "interest_alignment": 20.0,
+              "resource_feasibility": 10.0,
+              "skill_coverage": 0.0,
+              "time_feasibility": 10.0,
+              "work_style_alignment": 5.0
+            },
+            "rule_id": "FIT-10"
+          },
+          "constraints": {
+            "checks": [],
+            "rule_id": "FIT-09"
+          }
+        }
+      }
+    ],
+    "exceptions": [],
+    "input_fingerprint": "688ef95a10da0630d7d55f6968de31edc09f45f9b63962416f7c558dc5c2ed08",
+    "pipeline_version": "policy-feature-pipeline-g1a-v1",
+    "policy": {
+      "authorization": {
+        "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+        "path": "docs/execution/gates/G1A_authorization.json",
+        "scope": "G1A deterministic feature/policy implementation and local verification only",
+        "version": "G1A-current-user-2026-10-21-v1"
+      },
+      "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+      "historical_approval": {
+        "approval_message_ref": null,
+        "approved_at": null,
+        "approved_manifest_sha256": null,
+        "reviewer_id": null,
+        "status": "proposed_for_batch_review"
+      },
+      "policy_id": "minder-intelligence-v1",
+      "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+      "policy_version": "1.0.0"
+    },
+    "profile_id": "synthetic-contract-only",
+    "recommendation": {
+      "evidence_snapshot_id": "688ef95a10da0630d7d55f6968de31edc09f45f9b63962416f7c558dc5c2ed08",
+      "feature_schema_version": "personal-preparation-features-v1",
+      "fit_weight": 0.7,
+      "model_version": "fixed-baseline-v1",
+      "options": [
+        {
+          "evidence_coverage": 1.0,
+          "evidence_ids": [
+            "policy:fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "synthetic-answer",
+            "synthetic-definition",
+            "synthetic-estimate",
+            "template:08a90f206c7ba2770645525960f6507cfaff5ddbd384027090826a11a9ddc22e"
+          ],
+          "feature_components": {
+            "interest_alignment": 1.0,
+            "resource_feasibility": 1.0,
+            "skill_coverage": 0.0,
+            "time_feasibility": 0.5,
+            "work_style_alignment": 0.5
+          },
+          "market_assessment_index": null,
+          "overall_match_index": null,
+          "personal_fit_index": 45.0,
+          "preparation_evidence": {
+            "effort_high_hours": 24.0,
+            "effort_hours_used": 24.0,
+            "effort_low_hours": 12.0,
+            "hours_per_week": 1
+          },
+          "raw_grade_prediction": 0.9,
+          "reason": null,
+          "role_id": "synthetic-role"
+        }
+      ],
+      "preparation_horizon_weeks": 12,
+      "profile_version": "test-v1",
+      "ranking_mode": "personal_fit_only",
+      "ranking_policy_version": "personal-fit-role-id-v1",
+      "result_kind": "completed",
+      "result_schema_version": "minder-recommendation-v1",
+      "role_catalogue_version": "g1a:cd12b32041d677ac95fd18a3593b8ad23f07d8283da0148c16ddc77ee6552b60",
+      "score_mapping_version": "grade-to-index-v1",
+      "scorer_kind": "baseline",
+      "unscored_roles": [],
+      "warnings": [
+        "Only 1 roles scored; insufficient complete eligible inputs or model unavailable.",
+        "No comparable market index supplied; D and S are null for the entire set."
+      ]
+    },
+    "service_schema_version": "minder-policy-recommendation-g1a-v1"
+  }
+}

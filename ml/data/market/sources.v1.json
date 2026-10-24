@@ -1,0 +1,10 @@
+{
+  "version": "market-approved-sources-v1",
+  "sources": [
+    {"source_id": "dosm_jmi_q2_2026_data", "publisher": "Department of Statistics Malaysia", "host": "www.dosm.gov.my", "claim_types": ["measured_outcome"], "geography": "MY", "uri": "https://www.dosm.gov.my/portal-main/release-content/big-data-analytics-job-market-insights-q22026", "licence": "Attachment-specific redistribution not independently verified; pinned local input reused, raw workbook not redistributed"},
+    {"source_id": "bosch-smartrecruiters-my", "publisher": "Bosch Group via SmartRecruiters", "host": "api.smartrecruiters.com", "claim_types": ["hiring_advertisement"], "geography": "MY", "uri": "https://www.bosch.com.my/careers/", "api_documentation": "https://developers.smartrecruiters.com/docs/posting-api", "official_link_evidence": "Bosch careers FAQ identifies SmartRecruiters as its official ATS: https://www.bosch.com/careers/faq/", "licence": "Public posting API for job advertising; broad redistribution rights not asserted. Retain raw descriptions locally; export derived counts, IDs and source links only."},
+    {"source_id": "mida-official", "publisher": "Malaysian Investment Development Authority", "host": "www.mida.gov.my", "claim_types": ["announcement", "investment", "adoption", "hiring", "layoffs", "measured_outcome"], "geography": "MY", "uri": "https://www.mida.gov.my/", "licence": "Derived event facts and source links only; preserve announcement/outcome distinction"}
+  ],
+  "excluded": ["anonymous comments", "personal posts", "engagement counts", "search snippets without underlying documents"],
+  "collection_limits": {"employers": 1, "detail_requests_maximum": 160, "default_detail_requests": 160, "http_timeout_seconds": 20, "automatic_retries": 0, "bytes_per_response": 5000000}
+}

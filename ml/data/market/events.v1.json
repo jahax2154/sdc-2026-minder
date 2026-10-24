@@ -1,0 +1,48 @@
+{
+  "attention_status": "unavailable_without_complete_feed_denominators",
+  "collection_attempts": [
+    {
+      "bytes": 312032,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "resolved_url": "https://www.mida.gov.my/media-release/mida-positions-talent-at-the-centre-of-malaysias-semiconductor-growth/",
+      "retrieved_at": "2026-10-22T17:43:55.101776+00:00",
+      "sha256": "aab3ce32fffe3f00ce86a81de0bffb197bf1b3cb12cfbe6389ef2a4401cf8e14",
+      "url": "https://www.mida.gov.my/media-release/mida-positions-talent-at-the-centre-of-malaysias-semiconductor-growth/"
+    }
+  ],
+  "coverage": [],
+  "events": [
+    {
+      "available_at": "2026-10-22T17:43:55.101776+00:00",
+      "claim_type": "announcement",
+      "direction": "ambiguous",
+      "document_urls": [
+        "https://www.mida.gov.my/media-release/mida-positions-talent-at-the-centre-of-malaysias-semiconductor-growth/"
+      ],
+      "event_key": "mida-semicon-talent-2026-05-07",
+      "evidence_kind": "underlying_document",
+      "full_document_sha256": "aab3ce32fffe3f00ce86a81de0bffb197bf1b3cb12cfbe6389ef2a4401cf8e14",
+      "geography": "MY",
+      "outcome_verified": false,
+      "publication_precision": "date_only_conservative_end_of_day",
+      "published_at": "2026-05-07T23:59:59+08:00",
+      "role_ids": [],
+      "skill_ids": [],
+      "source_id": "mida-official",
+      "source_ids": [
+        "mida-official"
+      ],
+      "summary": "MIDA announced semiconductor talent and supply-chain initiatives. This does not establish realised hiring or occupation-specific advertisement demand.",
+      "topics": [
+        "semiconductors",
+        "talent-development"
+      ],
+      "url": "https://www.mida.gov.my/media-release/mida-positions-talent-at-the-centre-of-malaysias-semiconductor-growth/"
+    }
+  ],
+  "historical_news_evaluation": "not_run_no_archived_as_of_corpus",
+  "rejected": [],
+  "synthetic": false,
+  "version": "credible-events-v1"
+}

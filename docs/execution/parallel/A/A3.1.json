@@ -1,0 +1,145 @@
+{
+  "phase_id": "A3.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Culminating personal-service handoff with exact phase/refinement and readiness evidence",
+  "inputs": [
+    "A1/A2 phase records",
+    "PERSONAL_SERVICE_HANDOFF.md",
+    "Committed B1/C1 integration"
+  ],
+  "phases": [
+    {
+      "phase_id": "A1.1",
+      "status": "passed",
+      "checkpoint_sha": "915779f7badfb4e919ce3b097151309866ddd5e6",
+      "record": "A1.1.json"
+    },
+    {
+      "phase_id": "A1.2",
+      "status": "limited",
+      "checkpoint_sha": "5ee8acda17d4c9438f33bd2b0c4ead98c92c5c6e",
+      "record": "A1.2.json"
+    },
+    {
+      "phase_id": "A1.3",
+      "status": "limited",
+      "checkpoint_sha": "be60d34b1567e033caea0ec730c78c683777add3",
+      "record": "A1.3.json"
+    },
+    {
+      "phase_id": "A2.1",
+      "status": "limited",
+      "checkpoint_sha": "745f6af6d5951e756fbd4b8e295b94a12bb459c2",
+      "record": "A2.1.json"
+    },
+    {
+      "phase_id": "A2.2",
+      "status": "limited",
+      "checkpoint_sha": "0c3272d92ea1be6e983fc2beea92c92a73387eb8",
+      "record": "A2.2.json"
+    }
+  ],
+  "refinements": [
+    {
+      "id": "A1.2-R01",
+      "checkpoint_sha": "64dedd86b9c6086f3c67ca33da6433a4dbbc1663",
+      "purpose": "Bridge C pending token to canonical inactive policy"
+    }
+  ],
+  "actual_delivered_behaviour": [
+    "Source-grounded runtime catalogue loads 1016 native occupations, 910 with usable measurement support, 106 partial browseable references",
+    "Real PersonalService over saved Profile DTO; skill gaps/industry history/intent/preference and unknowns retained; no mandatory roadmap",
+    "Explicit typed feedback/reset and view filters; C persistence integrated through owned boundaries",
+    "Baseline/Ridge/XGBoost reusable machinery executed locally on named mathematical control; artifacts cannot serve personal role fit",
+    "B current evidence and unavailable quarter forecasts consume exact role aliases; no arbitrary skill crosswalk"
+  ],
+  "coverage": {
+    "raw_occupations": 1016,
+    "normalized_occupations": 1016,
+    "runtime_occupations": 1016,
+    "eligible_occupations": 910,
+    "partial_occupations": 106,
+    "original_synthetic_profiles": 5,
+    "original_legacy_scored_each": 0,
+    "original_new_candidates_each": 910,
+    "original_new_scored_each": 0,
+    "synthetic_audience_demonstrations": 5,
+    "synthetic_numeric_scores": 0,
+    "compatible_initial_fit_labels": 0
+  },
+  "verification": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "11 passed"
+    },
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "result": "12 passed"
+    },
+    {
+      "command": "personal_cli --output ml/artifacts/session-a/a1.2-service-v1",
+      "result": "10 real service runs against source catalogue; synthetic inputs clearly labelled"
+    },
+    {
+      "command": "personal_training smoke --output ml/artifacts/session-a/a2.2-local-math-v1",
+      "result": "all methods fit/save/reload/predict; 24 development/8 holdout rows, no promotion"
+    },
+    {
+      "command": "integration_cli smoke --output ml/artifacts/session-a/i1.1-b-connected-v2",
+      "result": "real C persistence/WSGI + A/B source services; provider unavailable"
+    }
+  ],
+  "readiness": {
+    "personal_service_implementation": "callable and integrated locally",
+    "numerical_role_fit": "inactive: N01 pending",
+    "industry_stage": "qualitative context preserved; no unsupported numeric mapping",
+    "models": {
+      "baseline": "mathematical control only; legacy F0 unchanged",
+      "ridge": "actual local math smoke; not selected/active",
+      "xgboost": "actual local math smoke; not selected/active"
+    },
+    "empirical_validity": "not established",
+    "paid_training": "none; B request A-002 has USD0 cap",
+    "deployment": "not performed or authorised by this task"
+  },
+  "blockers": [
+    {
+      "id": "N01",
+      "impact": "Numeric industry/personal fit/preference contribution and compatible target definition",
+      "resolution": "Resolve existing NUMERICAL_POLICY_MAP proposal; then implement an explicit versioned migration, never activate by flag alone"
+    },
+    {
+      "id": "occupational_to_person_rubric",
+      "impact": "Source ratings cannot establish met/gap/mastery",
+      "resolution": "Supply compatible anchored assessment/evidence mapping; source-native occupation references remain usable"
+    },
+    {
+      "id": "personal_fit_targets",
+      "impact": "No empirical model training/selection",
+      "resolution": "Use legitimate target labels with declared provenance after measurement is settled; no legacy conversion"
+    }
+  ],
+  "excluded_state": [
+    {
+      "path": "ml/minder_ml_starter/raw and derived (13 files)",
+      "status": "preserved read-only/untracked; pinned local G0 shared snapshot exists; no new remote backup"
+    },
+    {
+      "path": "ml/artifacts/session-a",
+      "status": "ignored generated service evidence, math weights and synthetic test databases; not committed or externally backed up"
+    },
+    {
+      "path": ".env.local",
+      "status": "ignored non-secret reservations reused; not committed or newly backed up"
+    },
+    {
+      "path": "existing external ml/.venv",
+      "status": "reused interpreter read-only; no installs or environment changes"
+    }
+  ],
+  "checkpoint": "commit containing this record",
+  "next_runnable_work": "I2.1/I2.2 integration/HTTP verification; consume later committed B3/C4 handoffs",
+  "push_status": "not pushed \u2014 awaiting explicit instruction"
+}

@@ -1,0 +1,102 @@
+{
+  "phase_id": "AC2",
+  "refines": "I4.2.0",
+  "status": "passed_real_A_provider_tool_wall_clock_and_privacy",
+  "base_sha": "f181accd92abc3cc2c775a1b0d508b9a5db8bfb4",
+  "credential_binding": {
+    "authority": "Current user/closureAC2 explicitly authorises reuse of existing C credential",
+    "method": "C shared owner-only literal loader read with explicit C path and empty inherited environment; only key/model written to A ignored owner-only file, verified in memory",
+    "copied_fields": [
+      "GROQ_API_KEY",
+      "GROQ_MODEL"
+    ],
+    "A_presence": {
+      "api_key_present": true,
+      "model_configured": true
+    },
+    "config_mode": "0600",
+    "ignored": true,
+    "tracked": false,
+    "C_file_modified": false,
+    "C_ports_database_runtime_copied": false,
+    "values_or_headers_logged": false,
+    "runtime_guard": "A runtime still rejects arbitrary B/C secret-file paths before read; protected binding is a one-time explicitly authorised transfer",
+    "loader_repair": "none required; existing safe loader retained"
+  },
+  "runtime": {
+    "model": "openai/gpt-oss-20b",
+    "model_provenance": "Noncredential public model ID from A own newly verified discovery/chat/native-tool selection; no C model-selection file copied",
+    "personal_policy": "personal-role-fit-v3-provisional",
+    "market_policy": "personal-current-evidence-v2.1",
+    "grounding_policy": "minder-grounding-privacy-v1",
+    "api_port": 8101,
+    "UI_port": 9101,
+    "database": "isolated synthetic SQLite under ml/artifacts/session-a/ac2-live-v1",
+    "actual_A_model_access": {
+      "api_key_present": true,
+      "model_accessible": true,
+      "discovery_request_success": true,
+      "chat_request_success": true,
+      "tool_request_success": true,
+      "verified_selection_saved": true
+    }
+  },
+  "checks": {
+    "app_chat_request_success": true,
+    "native_tool_request_success": true,
+    "direct_change_request_success": true,
+    "proactive_preview_no_mutation": true,
+    "rejection_request_success": true,
+    "approval_request_success": true,
+    "persistence_check_success": true,
+    "actual_scheduled_event_success": true,
+    "scheduled_native_tool_request_success": true,
+    "company_evidence_request_success": true,
+    "learning_source_request_success": true
+  },
+  "privacy_browser": {
+    "frontend_kind": "local acceptance/product prototype; separate intended frontend unavailable",
+    "entry_url": "http://127.0.0.1:9101/",
+    "backend_url": "http://127.0.0.1:9101/api/",
+    "separate_api_listener": "http://127.0.0.1:8101",
+    "intended_frontend_verified": false,
+    "mocked_network": false,
+    "synthetic_user": true,
+    "checks": {
+      "ordinary_ranking_values_hidden_in_actual_scored_view": true,
+      "real_native_evidence_id_selection_and_server_citations": true,
+      "unavailable_forecast_and_source_scope_visible": true,
+      "no_false_action_success_or_profile_change": true,
+      "no_page_errors": true
+    },
+    "provider_request_success": true,
+    "recorded_at": "2026-10-23T13:44:34.428Z"
+  },
+  "software_checks": {
+    "runtime_guards": "3 passed; arbitrary sibling config/DB and missing owner refused before use",
+    "scoped_runner": "New --privacy-only implies real-provider requirement; executes unchanged committed C privacy case with only A namespace/paths adapted",
+    "unchanged_coverage": "Reuse I4.4-R01 200 ML/42 backend/full HTTP/Chromium; no scorer/source change"
+  },
+  "evidence": {
+    "ml/artifacts/session-a/ac2-live-v1/evidence.json": "813b21f05340a7afc5f4a3aab8bcc6a1a7bcc2df141211d7e8d1d7e2ef4c3fd2",
+    "ml/artifacts/session-a/ac2-live-v1/live-checks.json": "d862f60b3988beb6d79419b943855e42c8fd19e8f5cff9684d58e5e708936c1d",
+    "ml/artifacts/session-a/ac2-privacy-v1/integration-evidence.json": "fc26d333a8551839e2715d4e0cac4ea8e8e3518e09005206188ee390b6d61b94",
+    "ml/artifacts/session-a/ac2-privacy-v1/grounding-frontend-evidence.json": "d2fc239193122bdb4a7dac8e5ee431c991b9d21815dcba6507360811c4d9fbbf",
+    "ml/artifacts/session-a/ac2-privacy-v1/grounding-refinement-ui.png": "8ead799d2f2e136c4f90b4e179bf7371886768fca47a9e43d9b979e5b78be2b7",
+    "ml/artifacts/session-a/ac2-runtime-guards.log": "7d59a8fbca92ef540f42b6883247c3844892d23f501b6cf2621d0e535813fb81"
+  },
+  "implementation": "A binding and missing real checks complete; current C Bosch grounder retained",
+  "empirical": "Actual provider transport/tool selection and one local wall-clock event verified. Synthetic user/source tests do not establish career accuracy or national forecast quality.",
+  "deployment": {
+    "verified": false,
+    "performed": false,
+    "hosted_scheduler_verified": false
+  },
+  "remaining": [
+    "C CL1-CL3 new typed-source grounder/contract handoff not yet present at fe78c84; not claimed integrated",
+    "Current-market evidence still partial; real forecasts unavailable; no training or numerical policy change",
+    "Product frontend F separate from repository acceptance prototype"
+  ],
+  "preservation": "No credentials, config/model-selection files, DBs/WAL, logs, screenshots or source inputs staged. Existing13 raw/derived inputs remain read-only/untracked.",
+  "publication": "Task-scoped followup authorised under closure file06; actual commit/remote SHA reported after checkpoint push"
+}

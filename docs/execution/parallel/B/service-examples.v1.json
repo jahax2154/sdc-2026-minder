@@ -1,0 +1,366 @@
+{
+  "role": {
+    "current": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "1 unique inspected advertisements mapped to this occupation in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v1",
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": "2026-10-22T17:39:23.585614+00:00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "available",
+      "target_period": null,
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": 1
+    },
+    "forecast": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "onet:15-1252.00",
+      "entity_type": "role",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical role advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [
+        "no_comparable_quarterly_unique_ad_history_for_role",
+        "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
+        "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
+      ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": null,
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
+    },
+    "source_facts": {
+      "collected_at": "2026-10-22T17:39:23.585614+00:00",
+      "coverage": {
+        "accepted_ads": 39,
+        "complete_feed": false,
+        "detail_cap": 40,
+        "detail_responses": 40,
+        "listing_rows": 40,
+        "rejections": [
+          {
+            "ad_id": "744000154953713",
+            "reason": "duplicate_ad_or_repost"
+          }
+        ],
+        "reported_feed_total": 155,
+        "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+      },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established."
+      ],
+      "snapshot_sha256": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "sources": [
+        {
+          "source_id": "bosch-smartrecruiters-my",
+          "url": "https://www.bosch.com.my/careers/"
+        }
+      ],
+      "supporting_ads": [
+        {
+          "ad_id": "744000154949620",
+          "available_at": "2026-10-22T17:39:23.585614+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "e71123c095e593d09f5f05e141243e181e331ab65c8aa1c960b270542fbac768",
+          "country": "MY",
+          "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+          "published_at": "2026-10-12T08:33:42.848Z",
+          "requisition_id": "REF298250J",
+          "role_ids": [
+            "15-1252.00"
+          ],
+          "skill_ids": [
+            "source-term:cpp",
+            "source-term:java",
+            "source-term:python"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:python"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:java"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:cpp"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "title": "Senior / Staff Embedded Software Engineer - Hardware Solution Product",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000154949620",
+          "validity": "listed_in_employer_feed_at_collection"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "current": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "4 unique inspected advertisements requesting this technology in a 39-ad Bosch Malaysia sample observed on 2026-10-22. This is an active-ad snapshot, not a quarter inflow or a national employment count. Dictionary/title coverage is partial.",
+      "geography": "MY",
+      "horizon": "observed",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "current",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [],
+      "model_version": "observed-ad-count-v1",
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": "2026-10-22T17:39:23.585614+00:00",
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "available",
+      "target_period": null,
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": 4
+    },
+    "forecast": {
+      "available_at": "2026-10-22T17:39:23.585614+00:00",
+      "cohort_version": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "denominator": "bounded inspected employer sample; not all Malaysian jobs",
+      "entity_id": "source-term:sql",
+      "entity_type": "skill",
+      "explanation": "Next-quarter forecast unavailable: insufficient comparable historical skill advertisement counts. Target 2027-01-01 to 2027-03-31. No selected model or forecast accuracy is claimed.",
+      "geography": "MY",
+      "horizon": "next_full_calendar_quarter",
+      "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+      "internal_index": null,
+      "issued_at": "2026-10-22T17:39:23.585614+00:00",
+      "kind": "forecast",
+      "measurement": "unique_valid_inspected_advertisements",
+      "missing_reasons": [
+        "no_comparable_quarterly_unique_ad_history_for_skill",
+        "active_ad_snapshot_is_not_quarterly_advertisement_inflow",
+        "dosm_broad_aggregates_cannot_be_allocated_to_specific_roles_or_skills"
+      ],
+      "model_version": null,
+      "observation_period": {
+        "end": "2026-10-22",
+        "start": "2026-10-22"
+      },
+      "published_at": null,
+      "source_ids": [
+        "bosch-smartrecruiters-my"
+      ],
+      "source_universe_id": "bosch-my-bounded-inspected-ads-v1",
+      "status": "unavailable",
+      "target_period": {
+        "end": "2027-03-31",
+        "start": "2027-01-01"
+      },
+      "uncertainty": {
+        "lower": null,
+        "method": null,
+        "upper": null
+      },
+      "unit": "advertisements",
+      "value": null
+    },
+    "source_facts": {
+      "collected_at": "2026-10-22T17:39:23.585614+00:00",
+      "coverage": {
+        "accepted_ads": 39,
+        "complete_feed": false,
+        "detail_cap": 40,
+        "detail_responses": 40,
+        "listing_rows": 40,
+        "rejections": [
+          {
+            "ad_id": "744000154953713",
+            "reason": "duplicate_ad_or_repost"
+          }
+        ],
+        "reported_feed_total": 155,
+        "window_kind": "observed_active_snapshot_not_quarterly_inflow"
+      },
+      "limitations": [
+        "Employer sample is not the Malaysian labour market.",
+        "No historical employer snapshots or quarterly skill targets.",
+        "DOSM historical cells are one 2026 vintage, not archived historical availability.",
+        "Source-native role mappings require A canonical-ID translation.",
+        "Skill counts exclude preferred/negated mentions; dictionary coverage is partial.",
+        "Raw job descriptions retained locally; redistribution licence not established."
+      ],
+      "snapshot_sha256": "138b9411e8be975fcb416b5e56c61eefaf86c740436719b09d19b9e06cd2ffe6",
+      "sources": [
+        {
+          "source_id": "bosch-smartrecruiters-my",
+          "url": "https://www.bosch.com.my/careers/"
+        }
+      ],
+      "supporting_ads": [
+        {
+          "ad_id": "744000156772019",
+          "available_at": "2026-10-22T17:39:23.585614+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "74d6f67fcf8acd2448d4702952ba371ea0e7d5eb9ed53f23aa40cdfeffa4bf16",
+          "country": "MY",
+          "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+          "published_at": "2026-10-21T10:59:01.609Z",
+          "requisition_id": "REF295430V",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            },
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "title": "Senior Data Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000156772019",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000153438592",
+          "available_at": "2026-10-22T17:39:23.585614+00:00",
+          "city": "Batu Kawan",
+          "content_sha256": "ddbac66d4f059453fe295393a3986d77912b57e73f69e5f12355d696a425ef42",
+          "country": "MY",
+          "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+          "published_at": "2026-10-05T08:58:04.495Z",
+          "requisition_id": "REF278102F",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "title": "IT Solution Developer (Semiconductor)",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000153438592",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000153092139",
+          "available_at": "2026-10-22T17:39:23.585614+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "f0bd6c3c71cb1ac66c3a6fd882d86f367646c740419fb0bf1a9e87f38750b6f3",
+          "country": "MY",
+          "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+          "published_at": "2026-10-02T04:25:27.156Z",
+          "requisition_id": "REF297601G",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "title": "MES Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000153092139",
+          "validity": "listed_in_employer_feed_at_collection"
+        },
+        {
+          "ad_id": "744000152596879",
+          "available_at": "2026-10-22T17:39:23.585614+00:00",
+          "city": "Bayan Lepas",
+          "content_sha256": "abee42d9686b997d18d8751d4770d6cdb40c81de489b1bb3722e0d66761c0432",
+          "country": "MY",
+          "ingested_at": "2026-10-22T17:39:23.585614+00:00",
+          "published_at": "2026-09-30T06:14:28.126Z",
+          "requisition_id": "REF297386Y",
+          "role_ids": [],
+          "skill_ids": [
+            "source-term:sql"
+          ],
+          "skill_mentions": [
+            {
+              "kind": "requested",
+              "skill_id": "source-term:sql"
+            }
+          ],
+          "source_id": "bosch-smartrecruiters-my",
+          "title": "MES/IAS Lead Engineer",
+          "url": "https://jobs.smartrecruiters.com/BoschGroup/744000152596879",
+          "validity": "listed_in_employer_feed_at_collection"
+        }
+      ]
+    }
+  }
+}

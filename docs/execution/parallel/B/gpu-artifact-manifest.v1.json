@@ -1,0 +1,169 @@
+{
+  "synthetic": true,
+  "job_id": "d7731076-6f21-47a0-a217-04eb0769ac96-e1",
+  "archive_sha256": "e138ab157a819fdd3d97392accef07f15c88f6051f7999de3f76f56565e626e8",
+  "files": [
+    {
+      "path": "dataset.json",
+      "bytes": 659824,
+      "sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b"
+    },
+    {
+      "path": "examples.json",
+      "bytes": 287214,
+      "sha256": "0691ee510660d66e1d8fa350a82df965a908289ae2792b965eb46f8dc4048776"
+    },
+    {
+      "path": "execution.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "frozen-selection.json",
+      "bytes": 574,
+      "sha256": "71a11545114d86069a7ba8bc49348063282da17e93c8c4eff11fe21481109723"
+    },
+    {
+      "path": "generation-manifest.json",
+      "bytes": 4680,
+      "sha256": "4cc3c84fea017fb3ce437041c78dff36fc6a250cb3f34157020c84cb00a9b0b6"
+    },
+    {
+      "path": "gpu-fit-proofs.json",
+      "bytes": 41100,
+      "sha256": "0587da6470ecffa9a3162587371070f51365e5dd0c0fc06ac20f6cb77fb9890f"
+    },
+    {
+      "path": "gpu-frozen-selection-diagnostic.json",
+      "bytes": 681,
+      "sha256": "761a39b7654ab8e5d5f652b2e6c68cc08bc669a168ffa833d6fa1658873aa05b"
+    },
+    {
+      "path": "job-record.json",
+      "bytes": 8801,
+      "sha256": "d6550c7afc6ce7e9dc7f7e1cd3b8b9845ead357d62439aef28863d7612b6f302"
+    },
+    {
+      "path": "models/role-gradient_boosting.joblib",
+      "bytes": 56432,
+      "sha256": "c4577ee9176725d0ff6a62884bcebfa95f5861a501d3f4907a98887812500776"
+    },
+    {
+      "path": "models/role-gradient_boosting.metadata.json",
+      "bytes": 6679,
+      "sha256": "9b3fcf9abe3aac1476575f713985ba49f71ac8df841e11eaca3c35336660dafd"
+    },
+    {
+      "path": "models/role-gradient_boosting.ubj",
+      "bytes": 53130,
+      "sha256": "fbb113879614243bedb615954fd61e74d40a3d92c9fb04811ef599100636313b"
+    },
+    {
+      "path": "models/role-no_change.joblib",
+      "bytes": 4,
+      "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+    },
+    {
+      "path": "models/role-no_change.metadata.json",
+      "bytes": 6663,
+      "sha256": "c9a4e635fad5b8844648e33bab364ee08058382f513330ac7ba5d6b6025dd3e7"
+    },
+    {
+      "path": "models/role-ridge.joblib",
+      "bytes": 1296,
+      "sha256": "34394f5d43e8279b47a433a20690794c70df3b2ff57a21da6e507c7ddbdbff7b"
+    },
+    {
+      "path": "models/role-ridge.metadata.json",
+      "bytes": 6654,
+      "sha256": "9b488d25a1e0d3df6580c56d269691d57aa7938e1adf1658f6553837ca5ad6ab"
+    },
+    {
+      "path": "models/role-seasonal.joblib",
+      "bytes": 4,
+      "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+    },
+    {
+      "path": "models/role-seasonal.metadata.json",
+      "bytes": 6661,
+      "sha256": "9717e06f639a695375747e397d5f60755aed830d575a88fbd531fd26a51baa93"
+    },
+    {
+      "path": "models/skill-gradient_boosting.joblib",
+      "bytes": 56228,
+      "sha256": "68bee7046b4c98cd71a3aada70966515bd7cc075962cdc674360d5cc2b207ecc"
+    },
+    {
+      "path": "models/skill-gradient_boosting.metadata.json",
+      "bytes": 6681,
+      "sha256": "8e2061feaac03ffe83a32bdf76926ec90a511544156c86ce162fe5b4b3026a0b"
+    },
+    {
+      "path": "models/skill-gradient_boosting.ubj",
+      "bytes": 52926,
+      "sha256": "c7b0c6d7eb45911f185ad9ea4481207e6a1858a9718fed50312b1fa4954ba90e"
+    },
+    {
+      "path": "models/skill-no_change.joblib",
+      "bytes": 4,
+      "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+    },
+    {
+      "path": "models/skill-no_change.metadata.json",
+      "bytes": 6665,
+      "sha256": "2df01a4e9def50d6e3c0f1370d8ebecd0d5d9bdd93197bcb5743139387864495"
+    },
+    {
+      "path": "models/skill-ridge.joblib",
+      "bytes": 1296,
+      "sha256": "571900d3022aeb4f698317000dff2498289001df94d965f4381de40487fe07c9"
+    },
+    {
+      "path": "models/skill-ridge.metadata.json",
+      "bytes": 6656,
+      "sha256": "619385db221990dca52f764aace7a4a03bfe8434b75dea5e5b71594e0a5f923b"
+    },
+    {
+      "path": "models/skill-seasonal.joblib",
+      "bytes": 4,
+      "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+    },
+    {
+      "path": "models/skill-seasonal.metadata.json",
+      "bytes": 6663,
+      "sha256": "93655997a54266bc66e5d25a0d90bbe3a486edd7f90b7c75087d6aa502d3bb13"
+    },
+    {
+      "path": "predictions.json",
+      "bytes": 354841,
+      "sha256": "e7712f68b7d0d3f6f2f966d571886414b292e335cbf6e563c167fe1976fb0e58"
+    },
+    {
+      "path": "previous-frozen-selection.json",
+      "bytes": 558,
+      "sha256": "503159e625ce478b90489046ba8657b49dc22975dcb17324803a7af0c1c9c280"
+    },
+    {
+      "path": "results.json",
+      "bytes": 155393,
+      "sha256": "0a84ef2e520a015ed976a8a552923498aa7e368cbefed2bb7044cf7dd84edb2a"
+    },
+    {
+      "path": "retrieved-archive.zip",
+      "bytes": 190139,
+      "sha256": "e138ab157a819fdd3d97392accef07f15c88f6051f7999de3f76f56565e626e8"
+    },
+    {
+      "path": "started.receipt",
+      "bytes": 39,
+      "sha256": "383f7df2e205299666b8876b5ef196b04f0a8afee43624447975f6e2e8634685"
+    },
+    {
+      "path": "synthetic-serving-denied.json",
+      "bytes": 1489,
+      "sha256": "659be3d34cf82fdbd2008b4b920bf6397ac94a28a8e6eed555f15bab95c68be2"
+    }
+  ],
+  "location": "ignored ml/artifacts/session-b/gpu-live/artifacts; models/generated rows excluded from Git",
+  "external_backup": "none newly created; committed source/report/manifest provide reproducibility and integrity evidence"
+}

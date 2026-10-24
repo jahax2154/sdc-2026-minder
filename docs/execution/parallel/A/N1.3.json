@@ -1,0 +1,92 @@
+{
+  "phase_id": "N1.3",
+  "owner": "A",
+  "status": "passed_local_application",
+  "policy_id": "personal-role-fit-v3-provisional",
+  "changes": [
+    "Default current service and A/C application consumer migration; explicit old requests retain original pending semantics",
+    "Structured source-anchor intake plus independent optional industry background/interests/work style",
+    "Public independent rank groups and per-role personal component/path evidence; no raw market matrices",
+    "A-scoped worker adapter reuses C shared worker without weakening C database guard",
+    "Secure provider loader integrated; no secrets copied or printed"
+  ],
+  "checks": [
+    {
+      "command": "unittest discover -s ml/tests",
+      "result": "165 passed in 140.007s"
+    },
+    {
+      "command": "backend unittest discover",
+      "result": "28 passed in .519s"
+    },
+    {
+      "command": "test_role_fit_v3 test_personal_service test_app_context test_service_contracts",
+      "result": "33 passed in 3.557s"
+    },
+    {
+      "command": "integration_cli verify-recommendations --output ml/artifacts/session-a/n1.3-http-v2",
+      "result": "real HTTP cases passed"
+    },
+    {
+      "command": "integration_cli verify-web --output ml/artifacts/session-a/n1.3-web-v2 with existing Playwright/Chromium",
+      "result": "C HTTP, C Chromium, A recommendation Chromium passed; no mocked fetch/provider or application build"
+    },
+    {
+      "command": "node syntax / git diff --check / screenshot inspection",
+      "result": "passed"
+    }
+  ],
+  "measured_coverage": {
+    "fresh_graduate": {
+      "assessed": 910,
+      "current_comparable_ranked": 4,
+      "personal_only_ranked": 906
+    },
+    "career_switcher": {
+      "assessed": 910,
+      "current_comparable_ranked": 4,
+      "personal_only_ranked": 906
+    },
+    "incomplete": {
+      "assessed": 0,
+      "targeted_input_requested": true
+    }
+  },
+  "worked_feedback": {
+    "role": "onet:15-1252.00",
+    "before": 65.88235294,
+    "not_interested": 60.88235294,
+    "reset": 65.88235294,
+    "idempotent": true,
+    "skill_and_market_unchanged": true
+  },
+  "market_sensitivity": "Two actually supported role identities; explicitly fictional compatible counts reversed ordering with unchanged personal evidence and unavailable forecasts. Factual snapshot untouched.",
+  "defects_resolved_before_checkpoint": [
+    "Sandbox loopback binding unavailable: reran authorized local check outside sandbox using isolated A database",
+    "Rapid UI save race fixed by disabling form controls while saving and waiting for refreshed observations",
+    "Industry context now commits background/history/preferences together in one profile save"
+  ],
+  "provider": {
+    "actual_request_success": false,
+    "status": "unavailable",
+    "mock_success_not_real_success": true
+  },
+  "limitations": [
+    "MY market covers only four mapped roles in 155-inspected-ad employer feed; no national demand inference",
+    "No independent personal-fit labels or empirical validity; partial evidence-fit only",
+    "Role/skill forecasts unavailable; no next-quarter history; zero forecast contribution",
+    "Company explorer explicit historical pending generic API remains isolated from current recommendation; no company-specific score claimed",
+    "No deployment, application build or push"
+  ],
+  "evidence": {
+    "n1.3-http-v2/evidence.json": "13670658d40bcb939ea7fc098b956466773d0e836d2561c4c7dc340b62f9b621",
+    "n1.3-web-v2/integration-evidence.json": "b7754469a5eea9030416414f76bc6d5dd2034130218cce247671f9e4094888f4",
+    "n1.3-web-v2/recommendation-browser.json": "53af02acb7c6f4778c8232f1ccee4cd97851bba5f8f6d1f8240e75f6dfe53b9a",
+    "n1.3-web-v2/recommendation-ui.png": "92eb1ce621f4499edf2c3180713b6c7dcace36aeecf0210287465ced560f8c85",
+    "n1-complete-ml-tests.log": "41c57e4fa84b860e74a181a1965ea512bfd1e71243e0136f8c280c5416cc01c2",
+    "n1.3-backend-tests.log": "a090e356c7755be2951ca7923c933df4544ebf6cf90eb7f9998a93eccf60872d",
+    "n1.3-tests-final.log": "36d70fff905f95c7101b26e7dbc6331ecf9974caee5fbf4a1f264eb8c50023bd"
+  },
+  "excluded_state": "13 read-only source inputs plus ignored A source downloads/logs/SQLite/browser images; no new external backup",
+  "push_status": "not pushed"
+}

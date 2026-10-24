@@ -1,0 +1,213 @@
+{
+  "phase_id": "A2.2",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Execute agreed candidate machinery and record honest empirical selection status",
+  "inputs": [
+    "A2.1 745f6af6d5951e756fbd4b8e295b94a12bb459c2",
+    "A2.1-plan.json",
+    "synthetic_math_only"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m minder_ml.intelligence.personal_training smoke --output ml/artifacts/session-a/a2.2-local-math-v1",
+      "result": "all three fit/predict/persist/reload succeeded; 24 development rows/8 holdout rows; group-disjoint split, scaler fit only on development"
+    },
+    {
+      "command": "load_machinery_candidate with incompatible target/schema while joblib.load patched",
+      "result": {
+        "target": "target incompatible: mathematical controls cannot serve personal role fit",
+        "schema": "incompatible feature schema or package versions"
+      }
+    }
+  ],
+  "results": {
+    "status": "synthetic_machinery_only",
+    "empirical_personal_fit": "not_evaluated",
+    "development_rows": 24,
+    "holdout_rows": 8,
+    "candidates": {
+      "baseline": {
+        "fit": "succeeded",
+        "evaluated": "mathematical holdout only",
+        "selected": false,
+        "active": false,
+        "reload_max_absolute_difference": 0.0,
+        "mae": 0.26374074999999997,
+        "rmse": 0.29136527574155624,
+        "predictions": [
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001,
+          0.7507536250000001
+        ],
+        "pipeline_sha256": "89f94c1b1b2a8791fdf5bd26c641d47d3c49442a371de57df741c68cf3672e70"
+      },
+      "ridge": {
+        "fit": "succeeded",
+        "evaluated": "mathematical holdout only",
+        "selected": false,
+        "active": false,
+        "reload_max_absolute_difference": 0.0,
+        "mae": 0.056071704240114574,
+        "rmse": 0.0645212421241584,
+        "predictions": [
+          1.1411508503861325,
+          1.1177686264624087,
+          0.6817087302448892,
+          0.6781775789288665,
+          0.8675086515390873,
+          0.49892034416827413,
+          0.8550580507368468,
+          0.39350185662518755
+        ],
+        "pipeline_sha256": "9473c2dedf9fc8b0f08f68c0d856c3dc2e67fae31790c00350b28b4fbb6ce60e"
+      },
+      "xgboost": {
+        "fit": "succeeded",
+        "evaluated": "mathematical holdout only",
+        "selected": false,
+        "active": false,
+        "reload_max_absolute_difference": 0.0,
+        "mae": 0.18860658441495895,
+        "rmse": 0.22860352422785885,
+        "predictions": [
+          0.7290685176849365,
+          0.8654639720916748,
+          0.7231237292289734,
+          0.7316645383834839,
+          0.7879328727722168,
+          0.5272481441497803,
+          0.7042751312255859,
+          0.5036307573318481
+        ],
+        "pipeline_sha256": "9e97d83ff7d0f91d8ee0397c66d2d21dcf4f358a82d832fa9871da8c3796c59c"
+      }
+    },
+    "selected_personal_model": null,
+    "active_personal_model": null,
+    "live_selection": "none: N01 and compatible labels absent"
+  },
+  "environment": {
+    "package_versions": {
+      "python": "3.9.6",
+      "numpy": "2.0.2",
+      "scipy": "1.13.1",
+      "scikit-learn": "1.6.1",
+      "xgboost": "2.1.4",
+      "joblib": "1.5.3",
+      "threadpoolctl": "3.7.0"
+    },
+    "execution_location": "local_cpu_smoke",
+    "paid_usage_usd": 0,
+    "training_timings": {
+      "baseline": {
+        "fit_wall_seconds": 0.0003337919999999994,
+        "fit_process_cpu_seconds": 0.00022599999999994846,
+        "resolved_threadpools": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libopenblas",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/scipy/.dylibs/libopenblas.0.dylib",
+            "version": "0.3.27",
+            "threading_layer": "pthreads",
+            "architecture": "neoversen1"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libomp",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/sklearn/.dylibs/libomp.dylib",
+            "version": null
+          }
+        ]
+      },
+      "ridge": {
+        "fit_wall_seconds": 0.0024604999999999766,
+        "fit_process_cpu_seconds": 0.0012830000000000341,
+        "resolved_threadpools": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libopenblas",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/scipy/.dylibs/libopenblas.0.dylib",
+            "version": "0.3.27",
+            "threading_layer": "pthreads",
+            "architecture": "neoversen1"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libomp",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/sklearn/.dylibs/libomp.dylib",
+            "version": null
+          }
+        ]
+      },
+      "xgboost": {
+        "fit_wall_seconds": 0.013733749999999989,
+        "fit_process_cpu_seconds": 0.012932000000000055,
+        "resolved_threadpools": [
+          {
+            "user_api": "blas",
+            "internal_api": "openblas",
+            "num_threads": 2,
+            "prefix": "libopenblas",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/scipy/.dylibs/libopenblas.0.dylib",
+            "version": "0.3.27",
+            "threading_layer": "pthreads",
+            "architecture": "neoversen1"
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libomp",
+            "filepath": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/lib/python3.9/site-packages/sklearn/.dylibs/libomp.dylib",
+            "version": null
+          },
+          {
+            "user_api": "openmp",
+            "internal_api": "openmp",
+            "num_threads": 2,
+            "prefix": "libomp",
+            "filepath": "/opt/homebrew/Cellar/libomp/23.1.3/lib/libomp.dylib",
+            "version": null
+          }
+        ]
+      }
+    }
+  },
+  "artifacts": {
+    "directory": "ml/artifacts/session-a/a2.2-local-math-v1",
+    "committed": "metadata/metrics evidence only; model weights remain ignored local artifacts"
+  },
+  "empirical_status": "blocked_decision",
+  "model_selection": {
+    "personal_role_fit": "no trained model or numeric baseline active; N01 pending",
+    "legacy_preparation": "unchanged fixed F0",
+    "mathematical_control": "none promoted; no hyperparameter/holdout selection"
+  },
+  "limitations": [
+    "MAE/RMSE describe only agreement with the deterministic mathematical fixture; not personal-fit validity",
+    "No actual role-fit training, reviewed/provisional role-fit teacher labels, hiring probability or paid RunPod run",
+    "N01 and compatible targets/rubrics unresolved; no legitimate empirical personal-fit experiment can run"
+  ],
+  "dependencies": [
+    "N01",
+    "compatible_target_and_evidence_rubric"
+  ],
+  "checkpoint": "commit containing this record",
+  "refinements": [],
+  "next_eligible_work": "A3.1 personal-service handoff; I1/I2 committed B/C integration"
+}

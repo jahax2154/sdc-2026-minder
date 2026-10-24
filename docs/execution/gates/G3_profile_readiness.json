@@ -1,0 +1,1888 @@
+{
+  "actual_pairs": 18,
+  "actual_profiles": 6,
+  "elapsed_seconds": 0.023503416,
+  "execution_location": "local CPU; no fitting",
+  "results": [
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "d9d3d9cfa76ef15ea3a3d0ec1f0357adf6551ef3bf45e3ae233b7ac14b93c73d",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "68dd4d1e775d7d5c9382460f2c561501435a38213c92ea133149e1631cb4396d",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "f0714a1ef57473256cc3881fb64a0c9df325ce56d08bf38336faaa75cfffacf1",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 4
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "synthetic-smoke-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "2733b48b77b3d388944b0a9ad9deb70aa8aa414e5043f09883ad08076c832e40",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "software-smoke-profile-001",
+      "recommendation": {
+        "evidence_snapshot_id": "2733b48b77b3d388944b0a9ad9deb70aa8aa414e5043f09883ad08076c832e40",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "synthetic-smoke-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "909685b39d2e40e10fe9d31d87e7763f8f5882c71f01bde776368ceb063d3d8a",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "fa3a672e6a83c52b5e66a8234f69d1c583f835dcb73efa29eb644f3fc781d19c",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "f6a7a7904c00f5da249b0d47066c6e8d9ea84c3fc25a76b590cf7033e7508b21",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 6
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "de04999f26c6850d03ef07fbd2de2f74c39e1cbd1d23ac69cbf213641ce627aa",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-01",
+      "recommendation": {
+        "evidence_snapshot_id": "de04999f26c6850d03ef07fbd2de2f74c39e1cbd1d23ac69cbf213641ce627aa",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "e199b963c687d38bb2e337f5653ea67c66ce12b51d039f16ecd3d799f87c4dc6",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "d689a85e4b3479ef2119dea5803ba843c3b251edbe92edc8397884e5be50e8f4",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "000dd17162f2535578486559f9f208f6340ed132f5517d3584803ab4d16207bb",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 5
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "0c6d53be1629825953f15e5817a7ab45cbb7e3b6682c707f169a5db0c616209b",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-02",
+      "recommendation": {
+        "evidence_snapshot_id": "0c6d53be1629825953f15e5817a7ab45cbb7e3b6682c707f169a5db0c616209b",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "000467e8895bb0d116e475da0e195444984476a139fc49fdb7a1866d28ddd487",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "d92e832c9f4545ebb919fff05b7cf5949f759bcc5550ea2a8307033179cca761",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "9cc4c85ad87915b2b4ad5c60888da81491b14dfbaf4565333f1ca37d7df4fff7",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 8
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "b177b58aae3c94d483c4a6742c7974d4a554cfeedba3983cfa65d5072e2f79ff",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-03",
+      "recommendation": {
+        "evidence_snapshot_id": "b177b58aae3c94d483c4a6742c7974d4a554cfeedba3983cfa65d5072e2f79ff",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "bec247457363b41c468b8862639fe71809dfe331d1d962fe47787cd957b69ca5",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "9bb032a0d1b3be755b8b1d4615ec71ed9d274866c8e66a8d697eb5fe27fbcb03",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "0f06c20fa6f752ee52b345105d131889d7b6e8b279e882958d3c93bd9605c227",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 10
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "75857ceb75c58517d274694db2662bdc7f1810c2334508a8cc337b66f4152c0e",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-04",
+      "recommendation": {
+        "evidence_snapshot_id": "75857ceb75c58517d274694db2662bdc7f1810c2334508a8cc337b66f4152c0e",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    },
+    {
+      "derivations": [
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "4de5b7376a37408be873e8572dfd5b285fd795788ee1698383c9e81bf710aaca",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sw-requirements",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sw-debugging",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1252.00",
+          "role_version": "g1ar-reference-v1:2f81df14fe9f962445691efa533aa702ec5afbc4e2ae48df2e206dd625a24f25",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "9193f798cfcf66618598b99a065a7d0e15c528b88a2340394a3d648cd634804f",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "ds-statistics",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "ds-evaluation",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-2051.00",
+          "role_version": "g1ar-reference-v1:582ecc5e10fe6b0ce8af0175587c5de02807d934aeadfa7c87d09151300a76f1",
+          "traces": {}
+        },
+        {
+          "assessed_requirement_fraction": null,
+          "catalogue_status": "invalid_catalogue",
+          "constraint_status": "needs_check",
+          "criterion_gaps": [],
+          "eligible": false,
+          "evidence_ids": [],
+          "exceptions": [
+            "milestone_definition_missing"
+          ],
+          "feature_components": {
+            "interest_alignment": null,
+            "resource_feasibility": null,
+            "skill_coverage": null,
+            "time_feasibility": null,
+            "work_style_alignment": null
+          },
+          "input_fingerprint": "2faeb7a7d320392fe3fd75b7f104572c65a6c6c7a6a11052c58ff74c1dde2a9d",
+          "known_inputs": {
+            "horizon_weeks": 12,
+            "hours_per_week": 2
+          },
+          "missing_evidence": {
+            "criteria": [
+              {
+                "criterion_id": "sec-policy",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              },
+              {
+                "criterion_id": "sec-risk",
+                "missing": [
+                  "content_anchors_0_0.5_1",
+                  "anchor_version",
+                  "accepted_task_template"
+                ]
+              }
+            ],
+            "milestone": [
+              "target_artifact",
+              "task_prerequisite_graph",
+              "sourced_effort_hours",
+              "explicit_interest_tags",
+              "resource_alternative_groups",
+              "sourced_work_style_tags",
+              "explicit_hard_requirements_or_confirmed_empty_list"
+            ],
+            "profile_measurements": [
+              "version_bound_criterion_answers",
+              "interest_tag_answers",
+              "resource_access_and_compatible_budget",
+              "work_style_utilities"
+            ]
+          },
+          "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+          "policy": {
+            "authorization": {
+              "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+              "path": "docs/execution/gates/G1A_v2_authorization.json",
+              "scope": "G1A deterministic feature/policy implementation and local verification only",
+              "version": "G1A-current-user-reexecution-v2"
+            },
+            "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+            "historical_approval": {
+              "approval_message_ref": null,
+              "approved_at": null,
+              "approved_manifest_sha256": null,
+              "reviewer_id": null,
+              "status": "proposed_for_batch_review"
+            },
+            "policy_id": "minder-intelligence-v1",
+            "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+            "policy_version": "1.0.0"
+          },
+          "profile_version": "calibration-synthetic-v1",
+          "questions": [
+            "Supply a bounded milestone with anchored criteria, sourced task effort, interest tags, resource groups and work-style tags."
+          ],
+          "role_id": "15-1212.00",
+          "role_version": "g1ar-reference-v1:87d7b5e1a7499367e48be6ddb8ef871d24fdb6ccd74313f2ed47262fd4e87e10",
+          "traces": {}
+        }
+      ],
+      "exceptions": [
+        {
+          "affected_roles": [
+            "15-1252.00",
+            "15-2051.00",
+            "15-1212.00"
+          ],
+          "reason": "milestone_definition_missing"
+        }
+      ],
+      "input_fingerprint": "444df703e6d4d7d90fed01d09e86e31773bdb940af611715ebc96385b1a2738c",
+      "pipeline_version": "policy-feature-pipeline-g1a-v1.1",
+      "policy": {
+        "authorization": {
+          "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+          "path": "docs/execution/gates/G1A_v2_authorization.json",
+          "scope": "G1A deterministic feature/policy implementation and local verification only",
+          "version": "G1A-current-user-reexecution-v2"
+        },
+        "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+        "historical_approval": {
+          "approval_message_ref": null,
+          "approved_at": null,
+          "approved_manifest_sha256": null,
+          "reviewer_id": null,
+          "status": "proposed_for_batch_review"
+        },
+        "policy_id": "minder-intelligence-v1",
+        "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+        "policy_version": "1.0.0"
+      },
+      "profile_id": "calibration-profile-05",
+      "recommendation": {
+        "evidence_snapshot_id": "444df703e6d4d7d90fed01d09e86e31773bdb940af611715ebc96385b1a2738c",
+        "feature_schema_version": "personal-preparation-features-v1",
+        "fit_weight": 0.7,
+        "model_version": "fixed-baseline-v1",
+        "options": [],
+        "preparation_horizon_weeks": 12,
+        "profile_version": "calibration-synthetic-v1",
+        "ranking_mode": "personal_fit_only",
+        "ranking_policy_version": "personal-fit-role-id-v1",
+        "result_kind": "insufficient_information",
+        "result_schema_version": "minder-recommendation-v1",
+        "role_catalogue_version": "g1a:e2574c6900340c63e4e1188a5aaa78fefe64eea8858813c2b18f88e031405894",
+        "score_mapping_version": "grade-to-index-v1",
+        "scorer_kind": "baseline",
+        "unscored_roles": [],
+        "warnings": [
+          "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+          "No comparable market index supplied; D and S are null for the entire set."
+        ]
+      },
+      "service_schema_version": "minder-policy-recommendation-g1a-v1"
+    }
+  ],
+  "schema_version": "g3-profile-readiness-v1",
+  "scored_pairs": 0
+}

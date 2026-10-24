@@ -1,0 +1,28 @@
+{
+  "template_version": "profile-generation-template-v1",
+  "entity_schema": "contracts/data-entities.v1.schema.json#/$defs/UserProfile",
+  "data_class": "synthetic",
+  "review_status": "pending",
+  "initial_calibration_plan": {
+    "profile_families": 5,
+    "roles_per_profile": 3,
+    "status": "planning_target_only"
+  },
+  "expansion_plan": {
+    "profile_families": 25,
+    "roles_per_profile": 8,
+    "status": "subject_to_review_capacity"
+  },
+  "vary_explicit_inputs": [
+    "career goal",
+    "known/unknown assessed criterion evidence",
+    "weekly hours",
+    "preparation horizon",
+    "stated interests",
+    "resources/budget/access",
+    "work preferences",
+    "education/experience"
+  ],
+  "family_rule": "Keep related variants in one profile_family_id. Independent families require meaningfully different origins, not renaming near duplicates.",
+  "label_rule": "Generate no reviewed grades. Role acceptance is not a positive label. Synthetic drafts do not constitute gold labels."
+}

@@ -1,0 +1,166 @@
+{
+  "refinement_id": "N1.1-R01",
+  "parent_checkpoint": "b417a553a16cc6dcdc79959df71fbe7770879320",
+  "status": "passed",
+  "reason": "Correct source-gap diagnostics: 12 source aggregate industry rows have no native code, not renamed occupations. Preserve their labels and explicitly enumerate 24 native roles with no exact join; 3 are assessment-eligible.",
+  "reference_version": "role-reference-v3.2",
+  "source_and_numerical_effect": "Original hashes, all skill rubrics, 992 accepted industry relationships and 891 style sets unchanged; no score/coefficient change. Role versions correctly track refined reference version.",
+  "checks": [
+    {
+      "command": "test_personal_service test_role_fit_v3 test_service_contracts",
+      "result": "32 passed"
+    },
+    {
+      "command": "compare prior and refined source/rubric/mapping projections",
+      "result": "identical scoring inputs"
+    }
+  ],
+  "policy_document": "Clarify compatibility industry display index (path_points+5)/15; contributions still use declared path points exactly once.",
+  "source_gaps": [
+    {
+      "eligibility": "partial",
+      "label": "Legislators",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:11-1031.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Designers, All Other",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:27-1029.00"
+    },
+    {
+      "eligibility": "supported",
+      "label": "Writers and Authors",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:27-3043.00"
+    },
+    {
+      "eligibility": "supported",
+      "label": "Poets, Lyricists and Creative Writers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:27-3043.05"
+    },
+    {
+      "eligibility": "supported",
+      "label": "Door-to-Door Sales Workers, News and Street Vendors, and Related Workers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:41-9091.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Air Crew Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1011.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Aircraft Launch and Recovery Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1012.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Armored Assault Vehicle Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1013.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Artillery and Missile Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1014.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Command and Control Center Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1015.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Infantry Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1016.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Special Forces Officers",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1017.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Military Officer Special and Tactical Operations Leaders, All Other",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-1019.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "First-Line Supervisors of Air Crew Members",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-2011.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "First-Line Supervisors of Weapons Specialists/Crew Members",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-2012.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "First-Line Supervisors of All Other Tactical Operations Specialists",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-2013.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Air Crew Members",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3011.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Aircraft Launch and Recovery Specialists",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3012.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Armored Assault Vehicle Crew Members",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3013.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Artillery and Missile Crew Members",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3014.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Command and Control Center Specialists",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3015.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Infantry",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3016.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Special Forces",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3018.00"
+    },
+    {
+      "eligibility": "partial",
+      "label": "Military Enlisted Tactical Operations and Air/Weapons Specialists and Crew Members, All Other",
+      "reason": "no_exact_native_code_title_industry_relationship",
+      "role_id": "onet:55-3019.00"
+    }
+  ],
+  "push_status": "not pushed"
+}

@@ -1,0 +1,30 @@
+{
+  "fixture_id": "approval_required",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "Action",
+  "payload": {
+    "action_id": "synthetic-action",
+    "kind": "reschedule_task",
+    "origin": "scheduled",
+    "expected_state_version": "v1",
+    "idempotency_key": "synthetic-key",
+    "authorizing_request_id": null,
+    "proposal_id": "synthetic-proposal",
+    "approval_state": "pending",
+    "approved_proposal_id": null,
+    "diff": [
+      {
+        "path": "tasks/synthetic-task/scheduled_at",
+        "before": "2026-10-24T11:00:00Z",
+        "after": "2026-10-25T11:00:00Z"
+      }
+    ],
+    "reason": "Daily check proposes; no write authorized",
+    "evidence_ids": [],
+    "execution_status": "not_executed",
+    "resulting_state_version": null,
+    "failure_reason": null
+  }
+}

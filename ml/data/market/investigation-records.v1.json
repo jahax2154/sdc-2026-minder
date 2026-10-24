@@ -1,0 +1,61 @@
+{
+  "sources": [
+    {
+      "source_id": "jobstreet-original-records",
+      "url": "https://www.kaggle.com/api/v1/datasets/download/azraimohamad/jobstreet-all-job-dataset",
+      "kind": "zip",
+      "max_download_bytes": 80000000,
+      "geography": "MY claimed; inspect original rows",
+      "measurement": "Original advertisement records, not the cleaned mirror",
+      "access_conditions": "Public download; metadata establishes one 166519093-byte raw CSV. Prior 30MB compressed cap caused failure; explicitly allow 80MB compressed / 250MB uncompressed once, raw local only"
+    },
+    {
+      "source_id": "jobstreet-original-description",
+      "url": "https://www.kaggle.com/api/v1/datasets/view/azraimohamad/jobstreet-all-job-dataset",
+      "kind": "json",
+      "geography": "MY claimed",
+      "measurement": "Uploader collection methodology and licence metadata",
+      "access_conditions": "Public API metadata; no credentials"
+    },
+    {
+      "source_id": "dosm-jmi-2026q1-workbook",
+      "url": "https://www.dosm.gov.my/portal-main/release-document-log?release_document_id=19819",
+      "kind": "xlsx",
+      "geography": "MY",
+      "measurement": "Native-grain published offering count history, actual prior release vintage",
+      "access_conditions": "Official 2026-06-25 data attachment; raw local"
+    },
+    {
+      "source_id": "perkeso-lmx-statistics",
+      "url": "https://lmx.perkeso.gov.my/statistics/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Official statistics surface; inspect actual count/export links",
+      "access_conditions": "Correct hostname linked from MYFutureJobs; public entry only"
+    },
+    {
+      "source_id": "perkeso-lmx-dashboard",
+      "url": "https://lmx.perkeso.gov.my/visualisation-dashboard/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Official dashboard and data-export surface",
+      "access_conditions": "Public data interface; no authentication bypass"
+    },
+    {
+      "source_id": "perkeso-lmx-publications",
+      "url": "https://lmx.perkeso.gov.my/publication/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Published dated labour market reports; inspect count tables",
+      "access_conditions": "Public publication list"
+    },
+    {
+      "source_id": "dosm-myjobprofile-documented-http",
+      "url": "http://myjobprofile.dosm.gov.my/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Documented public portal URL from official release",
+      "access_conditions": "Public HTTP URL linked by DOSM; HTTPS failed certificate validation in Python and curl; no certificate verification disabled"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "refinement": "A-R1-R01",
+  "status": "verified_single_writer_manifest",
+  "change": "Remove legacy C chat.py allowlist entry after explicit current-user A repair assignment; preserve transfer history and C factual grounder/actions/worker ownership",
+  "verification": "Parsed manifest; chat.py has exactly one explicit owner A; F frontend and D migrations unchanged",
+  "deployment": false
+}

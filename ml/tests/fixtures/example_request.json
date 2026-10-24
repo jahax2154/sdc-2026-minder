@@ -1,0 +1,24 @@
+{
+  "profile_version": "synthetic-profile-v1",
+  "evidence_snapshot_id": "synthetic-fixture-v1",
+  "role_catalogue_version": "synthetic-catalogue-v1",
+  "preparation_horizon_weeks": 12,
+  "roles": [
+    {
+      "role_id": "synthetic-role-A",
+      "features": {
+        "skill_coverage": 0.6,
+        "interest_alignment": 0.8,
+        "time_feasibility": 0.5,
+        "resource_feasibility": 1,
+        "work_style_alignment": 0.7,
+        "assessed_requirement_fraction": 1,
+        "feature_schema_version": "personal-preparation-features-v1",
+        "preparation_horizon_weeks": 12
+      },
+      "evidence_ids": [
+        "synthetic-criterion-A"
+      ]
+    }
+  ]
+}

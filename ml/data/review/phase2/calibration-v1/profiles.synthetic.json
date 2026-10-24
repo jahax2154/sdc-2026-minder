@@ -1,0 +1,422 @@
+[
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "UserProfile",
+    "profile_id": "calibration-profile-01",
+    "version": "calibration-synthetic-v1",
+    "data_class": "synthetic",
+    "profile_family_id": "calibration-family-01",
+    "career_goal": "Explore building small applications that simplify everyday workflows.",
+    "country_region_preference": {
+      "country_code": "MYS",
+      "region_code": null
+    },
+    "planning_horizon": {
+      "weeks": 12
+    },
+    "hours_per_week": 6,
+    "skill_observations": [
+      {
+        "skill_id": "unmapped-draft:introductory-programming",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-01-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "interests": [
+      "Building simple tools",
+      "Understanding how programs behave"
+    ],
+    "projects_achievements": [
+      {
+        "description": "Fictional tutorial exercise: adapted a short command-line to-do list; no independent assessment.",
+        "evidence_ids": [
+          "synthetic-scenario-01-project"
+        ]
+      }
+    ],
+    "education_experience": {
+      "education": [
+        "Fictional introductory computing course; no assessed qualification claimed"
+      ],
+      "experience": [
+        "Fictional beginner with no professional technology experience"
+      ]
+    },
+    "work_preferences": [
+      "Small clearly defined tasks",
+      "Regular feedback"
+    ],
+    "access_budget_constraints": {
+      "resources": [
+        "Shared laptop on evenings",
+        "Home internet"
+      ],
+      "budget_amount": 0,
+      "currency": "MYR",
+      "constraints": [
+        "Laptop access limited to evenings",
+        "Use free learning resources"
+      ]
+    },
+    "role_alignments": [],
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "UserProfile",
+    "profile_id": "calibration-profile-02",
+    "version": "calibration-synthetic-v1",
+    "data_class": "synthetic",
+    "profile_family_id": "calibration-family-02",
+    "career_goal": "Explore moving from spreadsheet reports toward reproducible data analysis.",
+    "country_region_preference": {
+      "country_code": "MYS",
+      "region_code": null
+    },
+    "planning_horizon": {
+      "weeks": 12
+    },
+    "hours_per_week": 5,
+    "skill_observations": [
+      {
+        "skill_id": "unmapped-draft:spreadsheet-reporting",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-02-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "interests": [
+      "Explaining patterns in tables",
+      "Checking data quality"
+    ],
+    "projects_achievements": [
+      {
+        "description": "Fictional work sample: a spreadsheet summarizing monthly service volumes with missing entries noted.",
+        "evidence_ids": [
+          "synthetic-scenario-02-project"
+        ]
+      }
+    ],
+    "education_experience": {
+      "education": [
+        "Fictional business diploma with an introductory statistics module"
+      ],
+      "experience": [
+        "Three fictional years preparing operational spreadsheet reports; no reviewed data-science competence"
+      ]
+    },
+    "work_preferences": [
+      "Written explanations",
+      "Predictable study sessions"
+    ],
+    "access_budget_constraints": {
+      "resources": [
+        "Personal laptop",
+        "Internet",
+        "Spreadsheet software"
+      ],
+      "budget_amount": 40,
+      "currency": "MYR",
+      "constraints": [
+        "Preparation happens in short evening sessions"
+      ]
+    },
+    "role_alignments": [],
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "UserProfile",
+    "profile_id": "calibration-profile-03",
+    "version": "calibration-synthetic-v1",
+    "data_class": "synthetic",
+    "profile_family_id": "calibration-family-03",
+    "career_goal": "Explore an initial information-security preparation milestone grounded in support work.",
+    "country_region_preference": {
+      "country_code": "MYS",
+      "region_code": null
+    },
+    "planning_horizon": {
+      "weeks": 12
+    },
+    "hours_per_week": 8,
+    "skill_observations": [
+      {
+        "skill_id": "unmapped-draft:support-troubleshooting",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-03-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      {
+        "skill_id": "unmapped-draft:account-administration",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-03-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "interests": [
+      "Access controls",
+      "Investigating system problems"
+    ],
+    "projects_achievements": [
+      {
+        "description": "Fictional home-lab note: documented account permissions and a routine troubleshooting checklist.",
+        "evidence_ids": [
+          "synthetic-scenario-03-project"
+        ]
+      }
+    ],
+    "education_experience": {
+      "education": [
+        "Fictional IT support certificate; competence not independently assessed"
+      ],
+      "experience": [
+        "Two fictional years handling support tickets and account-access requests"
+      ]
+    },
+    "work_preferences": [
+      "Practical troubleshooting",
+      "Documented procedures"
+    ],
+    "access_budget_constraints": {
+      "resources": [
+        "Personal laptop",
+        "Internet",
+        "Local virtual-machine lab"
+      ],
+      "budget_amount": 100,
+      "currency": "MYR",
+      "constraints": [
+        "Use only an isolated authorized lab; no access to real systems is implied"
+      ]
+    },
+    "role_alignments": [],
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "UserProfile",
+    "profile_id": "calibration-profile-04",
+    "version": "calibration-synthetic-v1",
+    "data_class": "synthetic",
+    "profile_family_id": "calibration-family-04",
+    "career_goal": "Compare further application development, analytical work and security preparation without assuming a preferred answer.",
+    "country_region_preference": {
+      "country_code": "MYS",
+      "region_code": null
+    },
+    "planning_horizon": {
+      "weeks": 12
+    },
+    "hours_per_week": 10,
+    "skill_observations": [
+      {
+        "skill_id": "unmapped-draft:python-scripting",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-04-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      {
+        "skill_id": "unmapped-draft:automated-testing",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-04-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "interests": [
+      "Reproducible experiments",
+      "Building and testing small tools"
+    ],
+    "projects_achievements": [
+      {
+        "description": "Fictional portfolio description: a small Python program with automated tests; no independently reviewed artifact is supplied.",
+        "evidence_ids": [
+          "synthetic-scenario-04-project"
+        ]
+      }
+    ],
+    "education_experience": {
+      "education": [
+        "Fictional computing degree; no assessed criterion fractions supplied"
+      ],
+      "experience": [
+        "Three fictional years contributing to small application projects"
+      ]
+    },
+    "work_preferences": [
+      "Focused individual work",
+      "Occasional peer review"
+    ],
+    "access_budget_constraints": {
+      "resources": [
+        "Personal laptop",
+        "Internet",
+        "Local development tools"
+      ],
+      "budget_amount": 150,
+      "currency": "MYR",
+      "constraints": [
+        "No prior approved statistics or security assessment supplied"
+      ]
+    },
+    "role_alignments": [],
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "UserProfile",
+    "profile_id": "calibration-profile-05",
+    "version": "calibration-synthetic-v1",
+    "data_class": "synthetic",
+    "profile_family_id": "calibration-family-05",
+    "career_goal": "Explore which initial technology pathway is plausible while career interests remain undecided.",
+    "country_region_preference": {
+      "country_code": "MYS",
+      "region_code": null
+    },
+    "planning_horizon": {
+      "weeks": 12
+    },
+    "hours_per_week": 2,
+    "skill_observations": [
+      {
+        "skill_id": "unmapped-draft:process-documentation",
+        "criterion_id": null,
+        "role_id": null,
+        "state": "self_reported",
+        "demonstrated_fraction": null,
+        "evidence_ids": [
+          "synthetic-scenario-05-self-report"
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "interests": null,
+    "projects_achievements": [
+      {
+        "description": "Fictional process note: reorganized a recurring operations checklist; no technical skill mastery inferred.",
+        "evidence_ids": [
+          "synthetic-scenario-05-project"
+        ]
+      }
+    ],
+    "education_experience": {
+      "education": [
+        "Fictional secondary education; no technology training claimed"
+      ],
+      "experience": [
+        "Four fictional years coordinating routine operations and updating paper/digital checklists"
+      ]
+    },
+    "work_preferences": [
+      "Step-by-step written instructions",
+      "Predictable daytime tasks"
+    ],
+    "access_budget_constraints": {
+      "resources": [
+        "Phone with intermittent internet",
+        "Library computer for a booked weekly session"
+      ],
+      "budget_amount": 0,
+      "currency": "MYR",
+      "constraints": [
+        "No personal laptop",
+        "At most two preparation hours per week",
+        "Interests need clarification; do not replace unknown with neutral alignment"
+      ]
+    },
+    "role_alignments": [],
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  }
+]

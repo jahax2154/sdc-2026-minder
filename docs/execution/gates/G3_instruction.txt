@@ -1,0 +1,101 @@
+GATE G3 — VERIFY COVERAGE AND COMPLETE THE BOUNDED LEARNER EXPERIMENT
+
+Execute only the gate below in the existing Minder repository. This is an
+implementation task: inspect, change code, run relevant checks, and return
+execution evidence. Stop after this gate's completion report; I will issue the
+next task separately.
+
+Read applicable AGENTS.md, the actual repository layout/dependencies/contracts,
+docs/intelligence/README.md and the relevant policy sections. If the supplied
+Minder_Intelligence_Policy_Pack_v1 is still extracted separately, merge its
+repo_overlay paths deliberately into existing conventions. Reuse
+ml/src/minder_ml/intelligence/ and the actual backend/frontend modules; do not
+recreate the monorepo or add another scoring engine. Package paths are discovery
+clues if the repository differs.
+
+Use the supplied policy for this requested implementation, record the actual
+execution instruction/version/hash as its authorization, and reuse approvals
+already present. Do not manufacture historical approval or human reviewer data.
+No per-role, per-mapping or per-file permission loop. Do all unblocked work;
+isolate unresolved source/data exceptions and explain their effect. Keep demo
+profiles synthetic, source facts traceable and secrets out of files/logs. No
+commit, push, publishing, unapproved spend or unrelated refactor.
+
+Preserve existing baseline weights [0.40,0.20,0.20,0.10,0.10], feature order
+[C,I,T,R,W], horizon semantics, explicit scorer selection and typed result
+contract unless this gate explicitly requires a documented compatible migration.
+Generated judgments remain provisional. Independently reviewed labels require
+actual blind review; no automatic conversion to gold.
+
+Write a concise report and structured evidence using existing conventions, or
+docs/execution/gates/<GATE_ID>_report.md and <GATE_ID>_evidence.json. Include actual
+paths, commands/check results, changed behavior, implementation status, separate
+data/empirical/live-service readiness, remaining exceptions and the next usable
+interface. Missing labels/credentials do not justify leaving unrelated code
+unfinished. Do not report unrun checks or unresolved readiness as passed.
+
+FINAL OUTPUT
+A measured coverage inventory, supported observed market indexes, executable
+versioned baseline/Ridge/XGBoost inference paths and an honest comparison report.
+A trained candidate is selected only when the available evidence supports it;
+more complex architecture is not a required outcome.
+
+PREREQUISITE
+Read actual prior gate reports, the foundation training/evaluation code, acquired
+source manifests, current label provenance and environment configuration. Keep
+G2 operational; this gate must not rewrite its interface or block chat service.
+
+IMPLEMENT
+1. Produce coverage by actual role/milestone criterion, profile circumstances,
+   independent family, geography/industry/time, measurement grain and evidence
+   type. Distinguish numeric market rows from user-role labels. List at most the
+   five highest-impact missing factors/slices with the decision each affects.
+   Do not start broad scraping or expand to arbitrary industries in this gate.
+2. Reuse Phase 2 observations and comparability checks. Compute declared raw
+   indicators and market indexes only for eligible cohorts with valid mappings,
+   denominators and history. Preserve fixed-cohort normalization and the common
+   personal-fit-only fallback. Skill/employer views stay unavailable without
+   the corresponding observed data. Do not train market forecasts here.
+3. Reuse the existing shared featurizer and exact five-feature target. Verify
+   baseline, StandardScaler+Ridge and bounded CPU XGBoost fit/predict/save/reload
+   through the same inference interface. Honor configured RunPod training and
+   resource/credit rules; never describe local checks as sponsor-run training.
+   Missing funded runner access blocks that fitting run, not code completion.
+4. Keep data modes separate. Synthetic mathematical fixtures test machinery.
+   Optional fitting to G1B proposals is a separately named policy_distillation
+   experiment with its own non-promotable artifacts and agreement report.
+   It cannot satisfy the independent empirical evaluation gate.
+5. When compatible independent labels exist, run the established supervised
+   protocol: split by profile_group_id, keep family variants/duplicates together,
+   fit preprocessing on training groups only, use grouped development validation
+   and a frozen holdout when feasible. Never tune from the holdout. If data is
+   too small, report exploratory grouped results with actual counts or
+   not_evaluated; do not substitute random row splits or invent sample adequacy.
+6. Use the same eligible candidates for all comparisons. Report linear-gain
+   NDCG@3, served-score MAE, all-weak/undefined cases, clipping/ties, missing-data
+   behavior and policy-conformance checks. Run one bounded existing configuration
+   per learner first. Do not add algorithms or a hyperparameter search without
+   a concrete observed failure and a bounded justification.
+7. Persist complete pipeline artifacts and metadata: versions/hashes, profile
+   partitions, provenance mode, estimator settings, actual environment/timing,
+   metrics and predictions. Explicitly requested incompatible/unavailable
+   learners return model_not_ready; never silently execute another scorer.
+
+ACCEPTANCE
+- Reproducible compatible artifacts reload with prediction parity within the
+  established tolerance, with measured execution location and bounded resources.
+- No provisional labels enter the independent empirical dataset; no profile
+  families cross evaluation partitions. Synthetic/distillation artifacts remain
+  distinct and cannot silently become the active recommendation model.
+- Report which market dimensions/indexes are genuinely supported and why others
+  are unavailable. Report label counts/groups and real comparison limitations.
+- Keep baseline active unless an explicit evidence-backed model selection is
+  authorized. Return a recommended selection and its evidence for inspection;
+  do not promise a learner will outperform baseline.
+
+STOP CONDITION
+Finish all available implementation, contract and execution checks. Report CPU
+machinery, RunPod execution, provisional distillation and independent quality as
+separate statuses. Missing labels -> independent quality not_evaluated, not an
+invented successful evaluation. No architecture rebuild, outcome-accuracy claim,
+per-industry model proliferation or automatic production model switch.

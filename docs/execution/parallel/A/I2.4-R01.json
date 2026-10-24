@@ -1,0 +1,187 @@
+{
+  "phase_id": "I2.4-R01",
+  "original_phase": "I2.4",
+  "original_checkpoint": "b2a147bc2dd9df88762d3b714005984906a69e0c",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Current integration handoff after exact completed B/C checkpoints and N01 discovery review",
+  "checkpoint": "commit containing this record; actual SHA reported after commit",
+  "code_parent_revision": "5d5d07921add44439a912fcc9fcb0003bcebbc7d",
+  "integrated_owner_revisions": {
+    "B": "63b45ab4ce572b2cf750ed9f527f33b1f7b94a21",
+    "C": "c5de33bcd2f27a537ca57b30e1e4cba859098e80"
+  },
+  "missing_owner_commits_integrated": {
+    "B": 2,
+    "C": 5
+  },
+  "merge_commits": [
+    "58ae7872058991372924a2ef6f5541e4c6fe1ff6",
+    "10c8c3a8fd64899c2139837235880b86b591ae3f"
+  ],
+  "refinement_checkpoints": {
+    "I2.1-R02": "56b306e5afd6d9bc749dbc17a48687123512903b",
+    "I2.2-R01": "d001c716aa640df518d5b7decc6f1aea0af4c998",
+    "I2.3-R01": "5d5d07921add44439a912fcc9fcb0003bcebbc7d"
+  },
+  "N01_review": {
+    "canonical_file": "docs/execution/parallel/NUMERICAL_POLICY_MAP.md:19",
+    "machine_projection": "ml/configs/intelligence/role-fit.v2.proposed.json",
+    "version": "personal-role-fit-v2-proposal",
+    "status": "pending",
+    "active": false,
+    "sha256": "70ab3eb062e68d67dcdf5117feccf352e6812e98ec9e1837a757a617fcf91d99",
+    "review": "docs/execution/parallel/A/N01_REVIEW.md",
+    "human_decision": "Accept or revise the proposed initial-role-fit index and conservative unknown-required-input -> no-score behaviour; no coefficient-by-coefficient questionnaire",
+    "recommendation": "Provisional versioned evidence-complete baseline only if no-score behaviour is accepted; do not manufacture missing evidence or activate by flag alone",
+    "decision_recorded": false
+  },
+  "verification": {
+    "ML": "152 passed in 133.455s",
+    "backend": "20 distinct tests passed in 0.698s",
+    "JavaScript_syntax": "node --check apps/frontend-web/app.js passed",
+    "actual_HTTP": {
+      "transport": "real TCP HTTP on reserved localhost 8101/9101",
+      "synthetic_user": true,
+      "provider": {
+        "status": "unavailable",
+        "code": "provider_model_not_configured",
+        "request_id": "93b16855-dba1-44c8-94b2-09a620a33627"
+      },
+      "integration_mode": "local_source_services",
+      "catalogue_references": 1016,
+      "unranked_candidates": 910,
+      "numeric_personal_scores": 0,
+      "checks": {
+        "reserved_api_ui_http_assets": "passed",
+        "saved_intake_auth_isolation_stale": "passed",
+        "full_actual_catalogue_unranked_pending_N01": "passed",
+        "real_A_B_role_skill_current_forecast_separation_sources": "passed",
+        "actual_chat_provider_availability": "unavailable",
+        "ambiguous_intake_staged_without_profile_mutation": "passed",
+        "pathway_persisted_direct_completion_exactly_once_no_mastery": "passed",
+        "actual_worker_pending_reject_approve_exact_once_cross_user": "passed",
+        "reversible_schedule_undo_retains_history": "passed",
+        "real_company_snapshot_explicit_missing_criteria_separate_main_matches": "passed"
+      },
+      "browser_interaction": "separate Chromium evidence in c4.1-browser-evidence.json",
+      "deployment_scheduler_verified": false,
+      "recorded_at": "2026-10-22T18:55:08.126832+00:00"
+    },
+    "actual_Chromium": {
+      "browser": "156.0.8078.4",
+      "transport": "real Chromium UI to localhost 9101 API, actual A/B services",
+      "synthetic_user": true,
+      "mocked_network": false,
+      "live_provider": "unavailable",
+      "checks": {
+        "profile_and_statement_handlers_persist": "passed",
+        "cv_draft_without_mutation": "passed",
+        "real_catalogue_selection_preference_and_reset": "passed",
+        "roadmap_task_progress_actual_persistence": "passed",
+        "future_current_separation_and_unavailable": "passed",
+        "actual_chat_with_honest_provider_unavailable": "passed",
+        "worker_preview_and_browser_exact_approval": "passed",
+        "mobile_layout_no_horizontal_overflow": "passed"
+      },
+      "page_errors": [],
+      "deployment_scheduler_verified": false,
+      "recorded_at": "2026-10-22T18:55:12.011Z"
+    },
+    "visual_inspection": "A screenshot inspected; no layout defect observed",
+    "compatibility": {
+      "migrations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "provider_budget_rows": 0,
+      "namespace_guards": "A and C guards preserved; no sibling DB opened",
+      "source_integrity": "13 pinned inputs hash-match and read-only",
+      "N01": {
+        "policy_id": "personal-role-fit-v2-proposal",
+        "status": "pending",
+        "active": false,
+        "sha256": "70ab3eb062e68d67dcdf5117feccf352e6812e98ec9e1837a757a617fcf91d99"
+      },
+      "provider_probe": {
+        "status": "unavailable",
+        "code": "provider_credentials_missing",
+        "request_id": "f9acbaa5-6599-46b0-b38e-916fb0622a01"
+      },
+      "forecast_models_selected": 0,
+      "artifact_access": "packaged snapshot/dataset/registry validate within A; empty model registry requires no B artifact access",
+      "source_imports": {
+        "integration": "ml/src/minder_ml/intelligence/integration_cli.py",
+        "C_runtime": "apps/backend-api/minder_app/runtime.py"
+      }
+    }
+  },
+  "classification": {
+    "unranked_matching": "real A source catalogue/service plus C persisted profile/API/UI: 1016 references, 910 supported candidates, 0 numerical scores",
+    "real_provider": "no successful response; actual credential probe missing, actual chat model not configured",
+    "unavailable_forecasts": "real B source/registry service returns unavailable for role and skill, target Jan-Mar 2027; zero real forecast models selected",
+    "mocked_checks": "Groq transport/selection quota mocks and synthetic forecast learner/loader controls are software evidence only",
+    "worker": "actual bounded subprocess and persisted proposal/UI approval verified; deployed unattended scheduling remains unverified"
+  },
+  "cleared_dependencies": [
+    "B final handoff committed and integrated",
+    "C final UI/runtime handoff committed and integrated",
+    "A API/UI namespace binding verified; C DB guard preserved",
+    "Migration 4 and packaged empty-model artifact registry verified in A"
+  ],
+  "remaining_blockers": [
+    {
+      "id": "N01",
+      "state": "blocked_decision",
+      "impact": "new numeric personal/industry/preference arithmetic and compatible target meaning"
+    },
+    {
+      "id": "occupational_rubrics_mappings_targets",
+      "state": "deferred_dependency",
+      "impact": "source ratings are not person competence; approval alone cannot supply measurements or empirical labels"
+    },
+    {
+      "id": "Groq_access",
+      "state": "blocked_external",
+      "impact": "GROQ_API_KEY/GROQ_MODEL missing, no real grounded provider success"
+    },
+    {
+      "id": "quarterly_role_skill_history",
+      "state": "blocked_external",
+      "impact": "no real forecast fitting/backtesting; current snapshot cannot reconstruct quarterly flows"
+    },
+    {
+      "id": "RunPod_access",
+      "state": "blocked_external",
+      "impact": "B-only paid execution unavailable; no eligible paid job/request or spend in this task"
+    },
+    {
+      "id": "company_criteria_pathway_resources",
+      "state": "limited",
+      "impact": "generic occupational assessments/unknown effort and resources remain explicitly separate from employer-specific requirements/mastery"
+    }
+  ],
+  "unchanged_boundaries": [
+    "No new numerical approval, scorer activation or policy/config change",
+    "No B/C working-directory edits or owner-module rewrites; owner changes arrived through committed handoffs",
+    "No app rebuild, dependency install, paid job, deployment, remote push, source-input regeneration or production write"
+  ],
+  "remaining_changes": {
+    "tracked": "none expected after checkpoint",
+    "untracked_preserved": "13 pinned raw/derived files; still read-only and hash-matched",
+    "ignored": "A synthetic SQLite/evidence/screenshots/generated namespace replay tests and logs; not committed or newly backed up",
+    "temporary_dependencies": "Reused existing /private/tmp Playwright/browser; no installation or export"
+  },
+  "next_runnable_work": [
+    "Obtain explicit N01 decision on current measurement/no-score semantics, then implement only accepted versioned migration with real source/rubric support",
+    "When Groq is privately configured, perform real grounded chat and agent-selection acceptance while preserving budgets/authority",
+    "B can resume empirical forecasting only with compatible historical series and applicable verified execution access",
+    "Any later B/C repairs must be reviewed committed handoffs; no concurrent owner rewrites"
+  ],
+  "push_status": "not pushed \u2014 latest instruction prohibits push",
+  "deployment_status": "not deployed",
+  "application_rebuild": "not performed"
+}

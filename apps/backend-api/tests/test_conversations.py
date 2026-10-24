@@ -1,0 +1,189 @@
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event
+from unittest.mock import Mock
+import json
+from support import AppCase
+from minder_app.conversations import Conversations, dispatch
+from minder_app.store import AppError, Store
+
+
+class ConversationStoreTests(AppCase):
+    def setUp(self):
+        super().setUp()
+        self.service = Conversations(self.store)
+        self.owner = self.session["profile_id"]
+
+    def create(self, key="first"):
+        return self.service.create(self.owner, {"idempotency_key":key})["conversation"]
+
+    def body(self, conversation, key="message", message="Fictional planning question"):
+        return dict(conversation_id=conversation["conversation_id"], message=message,
+                    idempotency_key=key, expected_profile_version=None)
+
+    def test_minder_multiple_open_pagination_restart_delete_and_isolation(self):
+        first, second = self.create(), self.create("second")
+        self.assertNotEqual(first["conversation_id"], second["conversation_id"])
+        handler = Mock(return_value={"answer":"Fictional server-visible reply", "statements":[]})
+        body = self.body(first)
+        result = self.service.continue_turn(self.owner, body, handler)
+        self.assertEqual(result, self.service.continue_turn(self.owner, body, handler))
+        self.assertEqual(handler.call_count, 1)
+        restarted = Conversations(Store(self.store.path))
+        page = restarted.open(self.owner, {"conversation_id":first["conversation_id"], "limit":1})
+        self.assertTrue(page["has_more"])
+        self.assertEqual(page["messages"][0]["role"], "user")
+        page2 = restarted.open(self.owner, {"conversation_id":first["conversation_id"], "after_sequence":page["next_after_sequence"]})
+        self.assertEqual(page2["messages"][0]["role"], "assistant")
+        self.assertEqual(handler.call_count, 1) # Opening history never executes actions/provider.
+        other = self.store.session()["profile_id"]
+        self.assertEqual(restarted.list(other)["conversations"], [])
+        with self.assertRaises(AppError):
+            restarted.open(other, {"conversation_id":first["conversation_id"]})
+        deletion = {"conversation_id":first["conversation_id"], "idempotency_key":"delete"}
+        self.assertEqual(restarted.delete(self.owner,deletion), restarted.delete(self.owner,deletion))
+        self.assertEqual(len(restarted.list(self.owner)["conversations"]),1)
+        with self.assertRaises(AppError):
+            restarted.open(self.owner,{"conversation_id":first["conversation_id"]})
+        self.assertEqual(self.store.list(self.owner,"plan"), [])
+
+    def test_mindbot_singleton_under_concurrent_creation_and_no_delete_or_branch(self):
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            ids = list(pool.map(lambda _: self.service.mindbot(self.owner)["conversation"]["conversation_id"], range(24)))
+        self.assertEqual(len(set(ids)),1)
+        self.assertEqual(self.service.list(self.owner)["conversations"], [])
+        with self.assertRaises(AppError) as error:
+            self.service.delete(self.owner,{"conversation_id":ids[0], "idempotency_key":"delete"})
+        self.assertEqual(error.exception.code,"mindbot_single_history_cannot_be_deleted")
+        from jsonschema.exceptions import ValidationError
+        with self.assertRaises(ValidationError):
+            self.service.create(self.owner,{"channel":"mindbot", "idempotency_key":"branch"})
+        other = self.store.session()["profile_id"]
+        self.assertNotEqual(self.service.mindbot(other)["conversation"]["conversation_id"], ids[0])
+
+    def test_provider_call_holds_no_transaction_pending_retries_do_not_execute(self):
+        conversation = self.create()
+        entered, release = Event(), Event()
+        def slow(owner, channel, message, history, request_id, body):
+            entered.set()
+            self.assertTrue(release.wait(3))
+            return {"answer":"Finished server response", "statements":[]}
+        body = self.body(conversation)
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            future = pool.submit(self.service.continue_turn,self.owner,body,slow)
+            self.assertTrue(entered.wait(2))
+            # This real SQLite write would block/time out if the provider held a write transaction.
+            self.store.put(self.owner,"test_marker","parallel",{"completed":True},None)
+            pending = self.service.continue_turn(self.owner,body,lambda *args:self.fail("duplicate handler"))
+            self.assertEqual(pending["turn"]["status"],"processing")
+            with self.assertRaises(AppError):
+                self.service.continue_turn(self.owner,self.body(conversation,key="another"),slow)
+            release.set()
+            completed = future.result(timeout=3)
+        self.assertEqual(completed["turn"]["status"],"completed")
+        self.assertEqual(len(self.service.open(self.owner,{"conversation_id":conversation["conversation_id"]})["messages"]),2)
+
+    def test_server_owned_outcomes_context_bounded_stale_and_failure(self):
+        conversation = self.create()
+        handler = Mock(return_value={"answer":"Server answer", "statements":[]})
+        first = self.body(conversation)
+        self.service.continue_turn(self.owner,first,handler)
+        second = self.body(conversation,"followup","Fictional follow-up")
+        self.service.continue_turn(self.owner,second,handler)
+        self.assertEqual([item["role"] for item in handler.call_args.args[3]], ["user","assistant"])
+        with self.assertRaises(AppError) as error:
+            self.service.continue_turn(self.owner,dict(first,message="changed scope"),handler)
+        self.assertEqual(error.exception.code,"idempotency_scope_conflict")
+        saved = self.save()
+        with self.assertRaises(AppError) as error:
+            self.service.continue_turn(self.owner,self.body(conversation,"stale"),handler)
+        self.assertEqual(error.exception.status,409)
+        failbody = dict(self.body(conversation,"failure"),expected_profile_version=saved["version"])
+        failed = self.service.continue_turn(self.owner,failbody,Mock(side_effect=RuntimeError("private provider detail")))
+        self.assertEqual(failed["turn"]["status"],"failed")
+        self.assertNotIn("private provider detail",str(failed))
+        self.assertEqual(failed,self.service.continue_turn(self.owner,failbody,Mock(side_effect=AssertionError("must not replay"))))
+        hidden = dict(self.body(conversation,"hidden"),expected_profile_version=saved["version"])
+        self.assertEqual(self.service.continue_turn(self.owner,hidden,lambda *args:{"answer":"Visible", "reasoning":"hidden"})["turn"]["status"],"failed")
+
+    def test_scheduled_notice_appends_once_to_existing_mindbot(self):
+        conversation = self.service.mindbot(self.owner)["conversation"]
+        with self.store.transaction() as db:
+            db.execute("INSERT INTO notices VALUES(?,?,?)",(self.owner,"daily:fictional",json.dumps({"summary":"Recorded fictional activity", "sources":[]})))
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            results=list(pool.map(lambda _: self.service.append_notice(self.owner,"daily:fictional"),range(8)))
+        self.assertTrue(all(r["conversation_id"]==conversation["conversation_id"] for r in results))
+        messages=self.service.mindbot(self.owner)["messages"]
+        self.assertEqual(len(messages),1)
+        self.assertEqual(messages[0]["response"]["diagnostics"]["event_id"],"daily:fictional")
+        with self.assertRaises(AppError):
+            self.service.append_notice(self.store.session()["profile_id"],"daily:fictional")
+
+    def test_inline_notice_hook_and_restart_reconciliation_never_rerun_jobs(self):
+        from minder_app.conversations import append_notice, reconcile_notices
+        with self.store.transaction() as db:
+            for event in ("first","second"):
+                db.execute("INSERT INTO notices VALUES(?,?,?)",(self.owner,event,json.dumps({"summary":"Fictional daily result"})))
+            # This uses the same active transaction without attempting nested migration.
+            append_notice(self.store,self.owner,"first",db=db)
+        reconciled = reconcile_notices(Store(self.store.path),limit=50)
+        self.assertEqual(reconciled,{"checked":1,"appended":1})
+        self.assertEqual(reconcile_notices(self.store),{"checked":0,"appended":0})
+        self.assertEqual(len(self.service.mindbot(self.owner)["messages"]),2)
+
+    def test_server_search_titles_messages_unicode_and_stable_pagination(self):
+        first=self.service.create(self.owner,{"idempotency_key":"search-title","title":"Résumé planning"})["conversation"]
+        second=self.service.create(self.owner,{"idempotency_key":"search-message","title":"Other chat"})["conversation"]
+        handler=Mock(return_value={"answer":"The Straße practice route is a fictional response.","statements":[]})
+        self.service.continue_turn(self.owner,self.body(first,"search1","A resume discussion"),handler)
+        self.service.continue_turn(self.owner,self.body(second,"search2","Another resume discussion"),handler)
+        self.assertEqual(self.service.search(self.owner,{"query":"RÉSUMÉ"})["conversations"][0]["conversation_id"],first["conversation_id"])
+        found=self.service.search(self.owner,{"query":"STRASSE","limit":1})
+        self.assertEqual(len(found["conversations"]),1);self.assertTrue(found["has_more"])
+        self.assertEqual(found["next_offset"],1)
+        page2=self.service.search(self.owner,{"query":"strasse","limit":1,"offset":1})
+        self.assertNotEqual(page2["conversations"][0]["conversation_id"],found["conversations"][0]["conversation_id"])
+        self.assertFalse(page2["has_more"])
+        self.assertEqual(len(self.service.search(self.owner,{"query":"  resume  "})["conversations"]),2)
+        self.assertEqual(handler.call_count,2) # Searching has no callback/action replay.
+
+    def test_search_is_owner_scoped_minder_only_and_hides_deleted_and_internal_data(self):
+        first=self.create()
+        bot=self.service.mindbot(self.owner)["conversation"]
+        handler=lambda *args:{"answer":"visible needle","statements":[],"status":"internal-only-value"}
+        self.service.continue_turn(self.owner,self.body(first,"minder-needle","Find needle"),handler)
+        self.service.continue_turn(self.owner,self.body(bot,"bot-needle","Find needle"),handler)
+        other=self.store.session()["profile_id"]
+        self.assertEqual(self.service.search(other,{"query":"needle"})["conversations"],[])
+        self.assertEqual(len(self.service.search(self.owner,{"query":"needle"})["conversations"]),1)
+        self.assertEqual(self.service.search(self.owner,{"query":"internal-only-value"})["conversations"],[])
+        self.service.delete(self.owner,{"conversation_id":first["conversation_id"],"idempotency_key":"delete-search"})
+        self.assertEqual(self.service.search(self.owner,{"query":"needle"})["conversations"],[])
+
+    def test_search_literal_wildcards_clear_and_invalid_query(self):
+        from jsonschema.exceptions import ValidationError
+        self.service.create(self.owner,{"idempotency_key":"literal","title":"100%_literal"})
+        self.assertEqual(len(self.service.search(self.owner,{"query":"%_"})["conversations"]),1)
+        self.assertEqual(self.service.search(self.owner,{"query":"%' OR 1=1 --"})["conversations"],[])
+        self.assertEqual(len(self.service.search(self.owner,{"query":" "})["conversations"]),1)
+        for body in ({"query":"x"*201},{"query":"x","owner":"other"},{"query":"x","limit":0},{"query":"x","offset":-1}):
+            with self.assertRaises(ValidationError):
+                self.service.search(self.owner,body)
+
+    def test_registered_search_finds_visible_statements_and_old_messages_beyond_open_page(self):
+        conversation=self.create()
+        # Search the actual persisted older message, not only the current history page.
+        with self.store.transaction() as db:
+            for index in range(105):
+                self.service._append(db,self.owner,conversation["conversation_id"],"user",
+                    {"text":"olderneedle" if index==0 else "Later visible text"},"fixture-"+str(index),"accepted")
+            self.service._append(db,self.owner,conversation["conversation_id"],"assistant",
+                {"answer":"Visible answer","statements":[{"text":"A visible citationneedle quotation"}]},"source-fixture","completed")
+        opened=self.service.open(self.owner,{"conversation_id":conversation["conversation_id"],"after_sequence":5})
+        self.assertNotIn("olderneedle",str(opened["messages"]))
+        for query in ("olderneedle","citationneedle"):
+            result=self.app.dispatch("POST","/api/product/conversations-search",{"query":query},self.token)
+            self.assertEqual([row["conversation_id"] for row in result["conversations"]],[conversation["conversation_id"]])
+            self.assertEqual(result["contract_version"],"conversation-search-v1")
+            self.assertEqual(result["search_scope"],"title_and_visible_messages")
+            self.assertNotIn("messages",result)
+            self.assertIsNone(result["next_offset"])

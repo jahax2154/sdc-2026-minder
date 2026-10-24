@@ -1,0 +1,273 @@
+{
+  "version": "my-market-applicability-v2",
+  "authority": "A engineering applicability links under current typed-evidence integration instruction; not a full national occupation crosswalk",
+  "published_roles": [
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:software-developers",
+      "role_id": "onet:15-1252.00",
+      "relation": "source_label_equivalence",
+      "ranking": true,
+      "scope": "Same named Software Developers category; classification edition/equivalence unverified, so count remains a DOSM source-category proxy."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:accountants-and-auditors",
+      "role_id": "onet:13-2011.00",
+      "relation": "source_label_equivalence",
+      "ranking": true,
+      "scope": "Same named Accountants and Auditors category; not a certified whole-taxonomy MASCO/O*NET crosswalk."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:managing-directors-and-chief-executives",
+      "role_id": "onet:11-1011.00",
+      "relation": "source_label_proxy",
+      "ranking": true,
+      "scope": "Top executive direction/policy scope overlaps the O*NET Chief Executives definition. Published count retains combined Managing Directors and Chief Executives scope; limited engineering proxy, not an exact native-code measurement."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:public-relations-professionals",
+      "role_id": "onet:27-3031.00",
+      "relation": "source_label_proxy",
+      "ranking": true,
+      "scope": "Public-relations professional/specialist function link. Older source periods remain dated context, not latest-period ranking."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:11-2011.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:11-2021.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    },
+    {
+      "source_entity_id": "dosm:jmi:published-role-label:advertising-and-marketing-professionals",
+      "role_id": "onet:13-1161.00",
+      "relation": "broader_category_context",
+      "ranking": false,
+      "scope": "Published advertising/marketing professional aggregate is broader than this narrow role; context only, no count allocation."
+    }
+  ],
+  "unresolved_published_labels": [
+    "Administrative Professionals",
+    "Administrative Associate Professionals"
+  ],
+  "shortage_roles": [
+    {
+      "role_id": "onet:11-3031.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:1211",
+      "occupation_code": "1211",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 72,
+        "row_sha256": "a652da74e01606f0150febe5b4b6c3ed713ac06d6c06868a8ec7327873a1eed5",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C1211",
+        "isco_label": "Finance managers",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "1211",
+        "masco_label": "Finance Managers",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:15-1252.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:2512",
+      "occupation_code": "2512",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 613,
+        "row_sha256": "d303faa1e8afe9cfb331230ccb8a8fd8103346ef19663fff90d7dae13fcccb53",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C2512",
+        "isco_label": "Software developers",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "2512",
+        "masco_label": "Software Developers",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:17-2112.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:2141",
+      "occupation_code": "2141",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 790,
+        "row_sha256": "6008e058d5554a4e4c86d209514b1e5859252345719300ebfb1a4c7d320eace7",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C2141",
+        "isco_label": "Industrial and production engineers",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "2141",
+        "masco_label": "Industrial and Production Engineers",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:29-1051.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:2262",
+      "occupation_code": "2262",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 1861,
+        "row_sha256": "aaa63aa2ae17e1f922c1d339129a5529f8278f82043ddc828573a90f0f16ea01",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C2262",
+        "isco_label": "Pharmacists",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "2262",
+        "masco_label": "Pharmacists",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:29-1171.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:2221",
+      "occupation_code": "2221",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 1933,
+        "row_sha256": "7753a2ad81d1dfa14ae6a24c1b2c0290aaf421d22a3ce45c6f21994723b46572",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C2221",
+        "isco_label": "Nursing professionals",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "2221",
+        "masco_label": "Nursing Professionals",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:49-9081.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:7412",
+      "occupation_code": "7412",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 3310,
+        "row_sha256": "5f9da696d5f48d2f12625f4140196172b4818a167e854c99a59167ad522a2d44",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C7412",
+        "isco_label": "Electrical mechanics and fitters",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "7412",
+        "masco_label": "Electrical Mechanics and Fitters",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    },
+    {
+      "role_id": "onet:53-3032.00",
+      "source_entity_id": "mycol:2024-2025:masco2020:8332",
+      "occupation_code": "8332",
+      "relation": "code_bridge_context",
+      "scope": "Existing O*NET-SOC 2019 to ISCO-08 exactISCO source link, same MASCO 2020 four-digit code and agreeing group label. Related group context only: national adaptations and nominated-title restrictions remain; not proof this whole O*NET role or every six-digit child is critical.",
+      "bridge": {
+        "crosswalk_source": "esco_onet_occupations_crosswalk.csv",
+        "crosswalk_sha256": "82179a0a3340da97b63df90134d8d941ec3c2c478334d855b69e4dd57a91b620",
+        "data_row_index": 4098,
+        "row_sha256": "9a8f37a9123be4001a590787b5dd8af7376dbac54c1c5956c88002b3b96b1c26",
+        "match_type": "exactISCO",
+        "isco_uri": "http://data.europa.eu/esco/isco/C8332",
+        "isco_label": "Heavy truck and lorry drivers",
+        "masco_system": "MASCO",
+        "masco_version": "2020",
+        "masco_code": "8332",
+        "masco_label": "Heavy Truck and Lorry Drivers",
+        "classification_reference": "https://emasco.mohr.gov.my/system-api/storage/uploads/masco_2020_en.pdf"
+      }
+    }
+  ],
+  "shortage_status": "Seven code-backed related-group context paths; no full-role or inferred six-digit critical designation. Original 66 source groups and 43 enumerated memberships stay distinct.",
+  "industry_to_sector": {
+    "industry:accommodation-and-food-services": [
+      "Accommodation and food service activities"
+    ],
+    "industry:administrative-and-support-services": [
+      "Administrative and support service activities"
+    ],
+    "industry:agriculture-forestry-fishing-and-hunting": [
+      "Agriculture, forestry and fishing"
+    ],
+    "industry:arts-entertainment-and-recreation": [
+      "Arts, entertainment and recreation"
+    ],
+    "industry:construction": [
+      "Construction"
+    ],
+    "industry:educational-services": [
+      "Education"
+    ],
+    "industry:finance-and-insurance": [
+      "Financial and insurance/ takaful activities"
+    ],
+    "industry:government": [
+      "Public administration and defence; compulsory social security"
+    ],
+    "industry:health-care-and-social-assistance": [
+      "Human health and social work activities"
+    ],
+    "industry:information": [
+      "Information and communication"
+    ],
+    "industry:manufacturing": [
+      "Manufacturing"
+    ],
+    "industry:mining-quarrying-and-oil-and-gas-extraction": [
+      "Mining and quarrying"
+    ],
+    "industry:other-services-except-public-administration": [
+      "Other service activities"
+    ],
+    "industry:professional-scientific-and-technical-services": [
+      "Professional, scientific and technical activities"
+    ],
+    "industry:real-estate-and-rental-and-leasing": [
+      "Real estate activities"
+    ],
+    "industry:retail-trade": [
+      "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+    ],
+    "industry:transportation-and-warehousing": [
+      "Transportation and storage"
+    ],
+    "industry:utilities": [
+      "Electricity, gas, steam and air conditioning supply",
+      "Water supply, sewerage, waste management and remediation activities"
+    ],
+    "industry:wholesale-trade": [
+      "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+    ]
+  },
+  "industry_scope": "Related broad economic-activity context only. US top-employment industry links and Malaysian section labels are different classifications; overlapping/partial semantic relationships are not role quantities or exact national crosswalks. Never sum or allocate.",
+  "unmapped_industries": [
+    "industry:management-of-companies-and-enterprises"
+  ]
+}

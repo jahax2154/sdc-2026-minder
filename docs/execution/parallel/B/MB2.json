@@ -1,0 +1,654 @@
+{
+  "phase_id": "MB2",
+  "owner": "B",
+  "status": "GPU_execution_artifacts_and_cleanup_passed; billing_settlement_pending",
+  "refines": "MB1-R05",
+  "preparation_checkpoint": "40e6a8e5ae20e64f0ca98e7276d1ac0907885a4f",
+  "UTC_recorded": "2026-10-24T13:32:32.599686+00:00",
+  "experiment": "existing frozen synthetic scenario; no new campaign",
+  "endpoint_id": "0387furb08gke2",
+  "template_id": "nre3pphy75",
+  "job": {
+    "delayTime": 10339,
+    "executionTime": 2529,
+    "id": "d7731076-6f21-47a0-a217-04eb0769ac96-e1",
+    "status": "COMPLETED",
+    "workerId": "foovsurpt6stj7"
+  },
+  "submission": {
+    "experiment_id": "minder-synthetic-gpu-20261024-once",
+    "cost_upper_usd": 0.645,
+    "UTC_submitted": "2026-10-24T13:26:17.326251+00:00",
+    "endpoint_id": "0387furb08gke2",
+    "image": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile@sha256:a7bc4356f2634105c183faa4d2356310b549be258205ce25574a4185d6e427cc",
+    "preflight_sha256": "db44d63ddd0f6d0d223cdc08915327e23d418a50ce805c578261f55b980809e2"
+  },
+  "native_build_id": "d443b1c9-aa7f-493d-b420-180c2cd5fa9d",
+  "native_source_commit": "4668be8196215d7aa8fe73e47c8756c4b81f7092",
+  "runtime_source_commit": "c8eb09921f6bf583ec30bca636f549628a575d69",
+  "image_identity": {
+    "native_tag": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:4668be819",
+    "worker_verified_content_identity": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile@sha256:a7bc4356f2634105c183faa4d2356310b549be258205ce25574a4185d6e427cc",
+    "caveat": "Native deployment retains provider tag tied to completed build; content digest taken from supported successful worker pull, not reconstructed from OCI build export."
+  },
+  "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+  "runner_sha256": "d20ea421410e453cee1a444dc530e86ef3d94f2caf3635b2b6e3a87ade6a5b0b",
+  "execution_window": {
+    "start": "2026-10-24T13:26:28.150825+00:00",
+    "end": "2026-10-24T13:26:30.385714+00:00",
+    "job_execution_ms": 2529,
+    "queue_delay_ms": 10339,
+    "experiment_elapsed_seconds": 0.694995003985241
+  },
+  "actual_device": "NVIDIA RTX A4500, GPU-e40186d4-eca7-b7ad-9043-07fabe8b54fc, 595.91.07, 20470 MiB",
+  "software": {
+    "joblib": "1.5.3",
+    "numpy": "2.0.2",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.13.1",
+    "threadpoolctl": "3.7.0",
+    "xgboost": "2.1.4"
+  },
+  "actual_fits": {
+    "total": 12,
+    "GPU_XGBoost": 5,
+    "CPU_Ridge": 7,
+    "baselines": "CPU no_change/seasonal; no learned fitting required",
+    "GPU_proof": "All5 fitted configs cuda:0/grow_gpu_hist/48boostedrounds, USE_CUDA true; config hashes and training IDs in gpu-results.v1.json; both final UBJ/joblib models retrieved"
+  },
+  "verification": {
+    "artifact_checksums": "dataset/predictions/ZIP verified",
+    "unchanged_split_ids": true,
+    "examples_by_split": {
+      "train": 156,
+      "validation": 24,
+      "test": 34,
+      "robustness": 14
+    },
+    "group_and_publication_date_checks": true,
+    "metrics_recomputed": 32,
+    "prediction_rows": 912,
+    "GPU_training_ids_train_only": true,
+    "actual_GPU_fits": 5,
+    "CPU_fits": 7,
+    "no_promotion_and_observed_hashes_unchanged": true,
+    "models_retrieved": [
+      {
+        "path": "models/role-gradient_boosting.joblib",
+        "bytes": 56432,
+        "sha256": "c4577ee9176725d0ff6a62884bcebfa95f5861a501d3f4907a98887812500776"
+      },
+      {
+        "path": "models/role-gradient_boosting.metadata.json",
+        "bytes": 6679,
+        "sha256": "9b3fcf9abe3aac1476575f713985ba49f71ac8df841e11eaca3c35336660dafd"
+      },
+      {
+        "path": "models/role-gradient_boosting.ubj",
+        "bytes": 53130,
+        "sha256": "fbb113879614243bedb615954fd61e74d40a3d92c9fb04811ef599100636313b"
+      },
+      {
+        "path": "models/role-no_change.joblib",
+        "bytes": 4,
+        "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+      },
+      {
+        "path": "models/role-no_change.metadata.json",
+        "bytes": 6663,
+        "sha256": "c9a4e635fad5b8844648e33bab364ee08058382f513330ac7ba5d6b6025dd3e7"
+      },
+      {
+        "path": "models/role-ridge.joblib",
+        "bytes": 1296,
+        "sha256": "34394f5d43e8279b47a433a20690794c70df3b2ff57a21da6e507c7ddbdbff7b"
+      },
+      {
+        "path": "models/role-ridge.metadata.json",
+        "bytes": 6654,
+        "sha256": "9b488d25a1e0d3df6580c56d269691d57aa7938e1adf1658f6553837ca5ad6ab"
+      },
+      {
+        "path": "models/role-seasonal.joblib",
+        "bytes": 4,
+        "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+      },
+      {
+        "path": "models/role-seasonal.metadata.json",
+        "bytes": 6661,
+        "sha256": "9717e06f639a695375747e397d5f60755aed830d575a88fbd531fd26a51baa93"
+      },
+      {
+        "path": "models/skill-gradient_boosting.joblib",
+        "bytes": 56228,
+        "sha256": "68bee7046b4c98cd71a3aada70966515bd7cc075962cdc674360d5cc2b207ecc"
+      },
+      {
+        "path": "models/skill-gradient_boosting.metadata.json",
+        "bytes": 6681,
+        "sha256": "8e2061feaac03ffe83a32bdf76926ec90a511544156c86ce162fe5b4b3026a0b"
+      },
+      {
+        "path": "models/skill-gradient_boosting.ubj",
+        "bytes": 52926,
+        "sha256": "c7b0c6d7eb45911f185ad9ea4481207e6a1858a9718fed50312b1fa4954ba90e"
+      },
+      {
+        "path": "models/skill-no_change.joblib",
+        "bytes": 4,
+        "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+      },
+      {
+        "path": "models/skill-no_change.metadata.json",
+        "bytes": 6665,
+        "sha256": "2df01a4e9def50d6e3c0f1370d8ebecd0d5d9bdd93197bcb5743139387864495"
+      },
+      {
+        "path": "models/skill-ridge.joblib",
+        "bytes": 1296,
+        "sha256": "571900d3022aeb4f698317000dff2498289001df94d965f4381de40487fe07c9"
+      },
+      {
+        "path": "models/skill-ridge.metadata.json",
+        "bytes": 6656,
+        "sha256": "619385db221990dca52f764aace7a4a03bfe8434b75dea5e5b71594e0a5f923b"
+      },
+      {
+        "path": "models/skill-seasonal.joblib",
+        "bytes": 4,
+        "sha256": "9c298d589a2158eb513cb52191144518a2acab2cb0c04f1df14fca0f712fa4a1"
+      },
+      {
+        "path": "models/skill-seasonal.metadata.json",
+        "bytes": 6663,
+        "sha256": "93655997a54266bc66e5d25a0d90bbe3a486edd7f90b7c75087d6aa502d3bb13"
+      }
+    ]
+  },
+  "metrics": {
+    "role": {
+      "robustness": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 6.329277038574219,
+          "mae_delta_vs_local_CPU_reference": 6.539481026912597e-06,
+          "n": 7,
+          "rmse": 6.825695846078506,
+          "wape": 0.08968611188263063,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 7.0,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 7,
+          "rmse": 7.7735816345215945,
+          "wape": 0.09919028340080972,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 7.156071408030428,
+          "mae_delta_vs_local_CPU_reference": -4.440892098500626e-15,
+          "n": 7,
+          "rmse": 8.742791278426209,
+          "wape": 0.10140182157128137,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 11.142857142857142,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 7,
+          "rmse": 13.169228201704586,
+          "wape": 0.15789473684210525,
+          "zero_targets": 0
+        }
+      },
+      "test": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 29.02500332103056,
+          "mae_delta_vs_local_CPU_reference": 1.7951516539937984e-06,
+          "n": 17,
+          "rmse": 31.698017977726558,
+          "wape": 0.2136964298213597,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 1.4705882352941178,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 17,
+          "rmse": 1.8942637868358374,
+          "wape": 0.010827197921177999,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 10.469243172455952,
+          "mae_delta_vs_local_CPU_reference": 4.796163466380676e-14,
+          "n": 17,
+          "rmse": 10.715703989665911,
+          "wape": 0.07707974618092299,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 2.176470588235294,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 17,
+          "rmse": 2.6009048199334286,
+          "wape": 0.01602425292334344,
+          "zero_targets": 0
+        }
+      },
+      "train": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 2.3046899942251353,
+          "mae_delta_vs_local_CPU_reference": 5.868765025063283e-07,
+          "n": 78,
+          "rmse": 3.060846363066971,
+          "wape": 0.031715917351722044,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 3.8461538461538463,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 78,
+          "rmse": 5.091470997960896,
+          "wape": 0.0529287226534933,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 2.4484523308401327,
+          "mae_delta_vs_local_CPU_reference": 4.440892098500626e-16,
+          "n": 78,
+          "rmse": 3.1799937690841316,
+          "wape": 0.03369429813082751,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 5.923076923076923,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 78,
+          "rmse": 6.922649559458931,
+          "wape": 0.08151023288637968,
+          "zero_targets": 0
+        }
+      },
+      "validation": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 23.036336263020832,
+          "mae_delta_vs_local_CPU_reference": 3.1789143868365954e-06,
+          "n": 12,
+          "rmse": 26.119720765887475,
+          "wape": 0.5957673171470905,
+          "zero_targets": 5
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 17.333333333333332,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 12,
+          "rmse": 28.245943661583222,
+          "wape": 0.4482758620689655,
+          "zero_targets": 5
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 15.394145627113204,
+          "mae_delta_vs_local_CPU_reference": 2.3092638912203256e-14,
+          "n": 12,
+          "rmse": 19.005733797040694,
+          "wape": 0.39812445587361733,
+          "zero_targets": 5
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 1.25,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 12,
+          "rmse": 1.7559422921421233,
+          "wape": 0.032327586206896554,
+          "zero_targets": 5
+        }
+      }
+    },
+    "skill": {
+      "robustness": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 3.6722913469587053,
+          "mae_delta_vs_local_CPU_reference": -1.6348702569501938e-06,
+          "n": 7,
+          "rmse": 4.301360108595791,
+          "wape": 0.09520755343967013,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 3.7142857142857144,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 7,
+          "rmse": 4.27617987059879,
+          "wape": 0.0962962962962963,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 4.170414273914505,
+          "mae_delta_vs_local_CPU_reference": 3.552713678800501e-15,
+          "n": 7,
+          "rmse": 5.017931580326085,
+          "wape": 0.10812185154593162,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 6.0,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 7,
+          "rmse": 7.3484692283495345,
+          "wape": 0.15555555555555556,
+          "zero_targets": 0
+        }
+      },
+      "test": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 15.713215098661536,
+          "mae_delta_vs_local_CPU_reference": 1.05465159698781e-05,
+          "n": 17,
+          "rmse": 17.408139221566206,
+          "wape": 0.20950953464882047,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 1.5294117647058822,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 17,
+          "rmse": 1.8786728732554485,
+          "wape": 0.0203921568627451,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 5.787942288217482,
+          "mae_delta_vs_local_CPU_reference": -2.3092638912203256e-14,
+          "n": 17,
+          "rmse": 6.068961389659659,
+          "wape": 0.07717256384289976,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 1.8823529411764706,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 17,
+          "rmse": 2.326319992151199,
+          "wape": 0.025098039215686273,
+          "zero_targets": 0
+        }
+      },
+      "train": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 1.3540874872452173,
+          "mae_delta_vs_local_CPU_reference": 1.4671912551555977e-07,
+          "n": 78,
+          "rmse": 1.7785110189216453,
+          "wape": 0.03379802368164062,
+          "zero_targets": 0
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 2.2948717948717947,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 78,
+          "rmse": 2.9764029228204905,
+          "wape": 0.05728,
+          "zero_targets": 0
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 1.5619031340306886,
+          "mae_delta_vs_local_CPU_reference": -4.440892098500626e-16,
+          "n": 78,
+          "rmse": 1.9653945830708908,
+          "wape": 0.03898510222540599,
+          "zero_targets": 0
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 3.358974358974359,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 78,
+          "rmse": 3.964586828151039,
+          "wape": 0.08384,
+          "zero_targets": 0
+        }
+      },
+      "validation": {
+        "gradient_boosting": {
+          "device": "cuda:0",
+          "mae": 13.213511149088541,
+          "mae_delta_vs_local_CPU_reference": -6.357828787884046e-07,
+          "n": 12,
+          "rmse": 14.869098241002249,
+          "wape": 0.631721648562002,
+          "zero_targets": 5
+        },
+        "no_change": {
+          "device": "cpu",
+          "mae": 9.333333333333334,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 12,
+          "rmse": 15.066519173319364,
+          "wape": 0.44621513944223107,
+          "zero_targets": 5
+        },
+        "ridge": {
+          "device": "cpu",
+          "mae": 8.521212919288995,
+          "mae_delta_vs_local_CPU_reference": -1.0658141036401503e-14,
+          "n": 12,
+          "rmse": 10.155321583213004,
+          "wape": 0.4073886654640157,
+          "zero_targets": 5
+        },
+        "seasonal": {
+          "device": "cpu",
+          "mae": 0.8333333333333334,
+          "mae_delta_vs_local_CPU_reference": 0.0,
+          "n": 12,
+          "rmse": 1.1547005383792515,
+          "wape": 0.0398406374501992,
+          "zero_targets": 5
+        }
+      }
+    }
+  },
+  "selection": {
+    "previous_SY2_validation_selection_preserved": true,
+    "role": "seasonal",
+    "skill": "seasonal",
+    "test_not_used_for_selection": true,
+    "normal_runtime_model": null,
+    "conclusion": "XGBoost test errors substantially worse than CPU baselines; no promotion or real-data accuracy claim"
+  },
+  "financial": {
+    "authorised_total_limit_usd": 2,
+    "conservative_preflight_upper_usd": 0.645,
+    "preflight": {
+      "user_confirmed_credits_and_key": true,
+      "balance_verified": true,
+      "image_pull_verified": true,
+      "endpoint_settings_verified": true,
+      "provider_attempt_bound_verified": true,
+      "provider_hard_stop_verified": true,
+      "artifact_roundtrip_verified": true,
+      "billable_bound_includes_initialization_test_retries_cleanup": true,
+      "automatic_topup": false,
+      "billing_upgrade": false,
+      "max_provider_attempts": null,
+      "retry_bound_mode": "shared_job_time_window",
+      "provider_job_ttl_verified": true,
+      "provider_worker_lifetime_verified": true,
+      "all_retries_share_single_job_TTL": true,
+      "job_ttl_seconds": 300,
+      "worker_timeout_seconds": 150,
+      "worker_kill_grace_seconds": 5,
+      "idle_timeout_seconds": 5,
+      "workers_min": 0,
+      "workers_max": 1,
+      "gpu_count": 1,
+      "balance_usd": 25,
+      "existing_billable_workers": 0,
+      "verified_rate_usd_per_second": 0.0001611111111111111,
+      "verified_total_billable_seconds_bound": 900,
+      "ancillary_and_billing_rounding_usd_bound": 0.5,
+      "verified_endpoint_id": "0387furb08gke2",
+      "verified_image_digest": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile@sha256:a7bc4356f2634105c183faa4d2356310b549be258205ce25574a4185d6e427cc",
+      "provider_template_tag": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:4668be819",
+      "provider_build_id": "d443b1c9-aa7f-493d-b420-180c2cd5fa9d",
+      "source_commit": "4668be8196215d7aa8fe73e47c8756c4b81f7092",
+      "UTC": "2026-10-24T13:21:00.535048+00:00",
+      "evidence_notes": {
+        "pull": "supported system logs and IDLE worker92ff41nk2xxwjq report same tag and actual registry digest; template retains provider-native tag; RUNPOD_IMAGE records its verified content identity",
+        "retry": "Provider docs shared total TTL covers queue/execution/everything between; no client retry and no claimed fixed provider retry count",
+        "hard_stop": "provider TTL300 + template GNU timeout150 killgrace5 + idle5; max1 concurrent; .50 reserve covers disk5GB billing5min intervals/rounding and startup observation beyond460second request-tail budget",
+        "artifact": "19 local controls pass including returned base64 ZIP hash/size/path roundtrip; actual remote roundtrip verified only after retrieval",
+        "sources": [
+          "https://docs.runpod.io/serverless/endpoints/send-requests",
+          "https://docs.runpod.io/serverless/pricing"
+        ]
+      },
+      "cost_upper_usd": 0.645
+    },
+    "billing_query": {
+      "HTTP": 200,
+      "data": {
+        "metadata": {
+          "query": {
+            "bucketSize": "hour",
+            "endTime": "2026-10-24T14:00:00Z",
+            "serverlessId": "0387furb08gke2",
+            "startTime": "2026-10-24T08:00:00Z"
+          },
+          "recordCount": 0,
+          "totals": {
+            "cpuAmount": 0,
+            "diskAmount": 0,
+            "feeAmount": 0,
+            "gpuAmount": 0,
+            "totalAmount": 0
+          },
+          "uniqueServerlessCount": 0
+        },
+        "records": []
+      },
+      "UTC": "2026-10-24T13:30:21.092588+00:00"
+    },
+    "posted_amount_at_query_usd": 0,
+    "final_settled_amount_usd": null,
+    "status": "No billing records posted yet; zero posted amount and unchanged balance do not establish final zero cost. Read-only reconciliation remains.",
+    "balance_at_final_read_usd": 25,
+    "current_spend_per_hour": 0
+  },
+  "cleanup": {
+    "scale_to_zero_response": {
+      "data": {
+        "saveEndpoint": {
+          "id": "0387furb08gke2",
+          "workersMin": 0,
+          "workersMax": 0,
+          "idleTimeout": 5
+        }
+      }
+    },
+    "fresh_health": {
+      "jobs": {
+        "completed": 1,
+        "failed": 0,
+        "inProgress": 0,
+        "inQueue": 0,
+        "retried": 0
+      },
+      "workers": {
+        "idle": 0,
+        "initializing": 0,
+        "ready": 0,
+        "running": 0,
+        "throttled": 0,
+        "unhealthy": 0
+      }
+    },
+    "worker_list": {
+      "endpointVersion": 6,
+      "summary": {
+        "idle": 0,
+        "initializing": 0,
+        "running": 0,
+        "throttled": 0,
+        "total": 0,
+        "unhealthy": 0
+      },
+      "workers": []
+    },
+    "account": {
+      "data": {
+        "myself": {
+          "clientBalance": 25,
+          "currentSpendPerHr": 0,
+          "isAutoPayEnabled": false,
+          "endpoint": {
+            "id": "0387furb08gke2",
+            "workersMin": 0,
+            "workersMax": 0,
+            "gpuCount": 1,
+            "idleTimeout": 5,
+            "activeBuildid": "d443b1c9-aa7f-493d-b420-180c2cd5fa9d",
+            "pods": []
+          },
+          "pods": []
+        }
+      }
+    },
+    "GPU_worker_terminated": true,
+    "queue_empty": true,
+    "no_network_volume": true,
+    "metadata_retained": "Dedicated endpoint/template/native image retained with max0; no active resources. No standalone Pod created."
+  },
+  "application": {
+    "synthetic_only": true,
+    "real_forecasts": "unavailable",
+    "observed_coverage_change": 0,
+    "runtime_promotion": false,
+    "real_holdout_accuracy": "unavailable"
+  },
+  "inputs_preserved": {
+    "original_readonly_source_files_hash_verified": 13,
+    "credentials": "only mode600 ignored .env.runpod.local; never logged/staged"
+  },
+  "remaining": [
+    "Final posted billing reconciliation only; no further paid experiment authorised",
+    "A coordinates publication of this checkpoint under closure file06; B has not pushed"
+  ],
+  "artifact_manifest": "gpu-artifact-manifest.v1.json",
+  "results": "gpu-results.v1.json",
+  "evidence_hashes": {
+    "live-preflight.json": "db44d63ddd0f6d0d223cdc08915327e23d418a50ce805c578261f55b980809e2",
+    "status-response.json": "94353d52631f3c3fbeeb47983937690dbe4e0f5d251b656dbd8b583a039d4cec",
+    "actual-final-verification.json": "d6fcada37a4f96f7ccb17b2caa0e3cae4246fae74361aaad4021812d1133f17b",
+    "actual-final-health-second.json": "eacbe1089c2d72070a9570d1555483e335ca1e8849c47e6cc3aa522ea26cc3b9",
+    "actual-endpoint-billing.json": "f2be9a8ee8e2ea68ed755916fadf04c2881e1ba5c0978218f4fcb1d8a9ce3961",
+    "post-retrieval-verification.json": "538f31436c34bdaad6134b11b0e3b4e4b48416e0c61ada1603b704c2b314f999"
+  }
+}

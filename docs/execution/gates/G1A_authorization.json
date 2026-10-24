@@ -1,0 +1,21 @@
+{
+  "version": "G1A-current-user-2026-10-21-v1",
+  "authority": "current explicit user execution instruction, not historical package or human-review approval",
+  "instruction_source_path": "ml/docs/01_G1A_POLICY_AND_FEATURES.md",
+  "instruction_source_file_sha256": "5b6ab54c139571f8687661688b4b80c8989b4fc90878ba5cc1fe4a57cd421752",
+  "instruction_core_sha256": "6896869890239f9f79bd0b294267a795b21db92d5b625a90bfe824e736dc4ca1",
+  "current_user_location_override": "The policy documents are already located at:\n- ml/docs/MINDER_POLICY_REVIEW_v1.md\n- ml/docs/MINDER_APPROVAL_SUMMARY_v1.md\n\nUse these existing locations instead of assuming docs/intelligence/.\nKeep one canonical policy source; avoid duplicating the documents.\n\nReuse policy.v1.json from the supplied package if available. Otherwise,\nextract its exact JSON section from MINDER_POLICY_REVIEW_v1.md into the\nrepository's appropriate configuration location, preserving all values.\n\nExecute G1A only and return its implementation report and evidence.",
+  "effective_instruction_sha256": "478ac79c68a4cee0253c9c248e80b60b79e45e63ef61e110dc17c98b8d5fbf75",
+  "hash_scope": "UTF-8 stored gate text followed by newline and verbatim location override; semantic execution record, not a transcript byte attestation",
+  "authorized_scope": "G1A deterministic feature/policy implementation and local verification only",
+  "not_authorized": [
+    "historical human approval",
+    "gold labels",
+    "training",
+    "G1B/G2 implementation",
+    "commit",
+    "push",
+    "publish",
+    "spend"
+  ]
+}

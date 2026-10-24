@@ -1,0 +1,77 @@
+{
+  "phase_id": "G0.2",
+  "owner": "A",
+  "branch": "bootstrap/g0-parallel-20261023",
+  "status": "passed",
+  "objective": "Freeze additive interfaces/ownership; isolate numerical migration pending N01",
+  "inputs": [
+    "G0.1 de89335",
+    "canonical context revision5",
+    "unchanged legacy policy/config/contracts"
+  ],
+  "changes": [
+    "contracts/parallel-services.v1.schema.json",
+    "contracts/fixtures/parallel-v1/ (10 synthetic fixtures)",
+    "ml/src/minder_ml/intelligence/service_contracts.py",
+    "ml/tests/test_service_contracts.py",
+    "ml/configs/intelligence/role-fit.v2.proposed.json",
+    "docs/execution/parallel/ownership.v1.json",
+    "docs/execution/parallel/NUMERICAL_POLICY_MAP.md",
+    "docs/execution/parallel/SHARED_INTERFACES.md"
+  ],
+  "checks": [
+    {
+      "command": "ml/.venv/bin/python -m unittest discover -s ml/tests -p test_foundation.py",
+      "result": "initial invocation failed import without PYTHONPATH; corrected below; no code defect"
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -p test_foundation.py",
+      "result": "35 passed, 1.298s"
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -p test_service_contracts.py",
+      "result": "12 passed, 0.043s; initial duplicate fixture caught by structural validator before semantic assertion, test refined to differing duplicate state"
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python - (legacy callable demonstration)",
+      "result": "calibration-profile-01 -> 3 actual roles; 0 scored; milestone_definition_missing for all, unchanged G1A envelope"
+    },
+    {
+      "command": "policy.load_policy() plus installed package metadata",
+      "result": "canonical JSON matches; policy SHA fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3; no installation"
+    }
+  ],
+  "coverage": {
+    "synthetic_fixtures": 10,
+    "new_contract_tests": 12,
+    "legacy_tests": 35,
+    "new_business_service_implementations": 0,
+    "http_frontend_provider_live": "not_exercised"
+  },
+  "limitations": [
+    "Protocols/DTO validation are integration boundaries, not implemented persistence, forecasting or new role-fit scoring",
+    "N01 is pending; affected numeric personal-role-fit/model-label outputs remain unavailable; independent phases may proceed",
+    "Credentials/account limits and participant compliance not reverified; no spend/deploy/push"
+  ],
+  "decision": {
+    "id": "N01",
+    "status": "blocked_decision",
+    "proposal": "NUMERICAL_POLICY_MAP.md and role-fit.v2.proposed.json",
+    "affected": [
+      "A1.2 numeric new-role ranking",
+      "A2 changed-target learning"
+    ],
+    "independent": [
+      "A1.1 catalogue",
+      "A1.3 typed feedback storage",
+      "B ingestion/series/backtests",
+      "C provider/intake/persistence/action execution"
+    ]
+  },
+  "dependency_ids": [
+    "G0.1"
+  ],
+  "next_eligible": "G0.3",
+  "checkpoint": "commit containing this phase record",
+  "refinement_ids": []
+}

@@ -1,0 +1,59 @@
+{
+  "policy_id": "personal-role-fit-v2-proposal",
+  "status": "pending",
+  "active": false,
+  "decision_id": "N01",
+  "canonical_product_context": "docs/MINDER_AI_ML_DECISION_CONTEXT.md",
+  "specification": "docs/execution/parallel/NUMERICAL_POLICY_MAP.md",
+  "target": "personal_role_fit",
+  "units": "index_0_100_not_probability",
+  "components": {
+    "C_role": {
+      "weight": 0.6,
+      "definition": "equal required occupational criterion coverage; anchored profile evidence; Q=1"
+    },
+    "P": {
+      "weight": 0.25,
+      "formula": ".5*U_role + .5*mean(A_industry)"
+    },
+    "W_role": {
+      "weight": 0.15,
+      "definition": "equal mapped occupational work-style utility mean"
+    }
+  },
+  "industry": {
+    "formula": "A_j=.5*E_j+.5*U_j",
+    "background": "anchored transferable evidence, not current employment requirement",
+    "mapping_aggregation": "equal mean over supported many-to-many industries",
+    "automatic_exclusion_threshold": null
+  },
+  "explicit_preference_utilities": {
+    "interested": 1,
+    "not_interested": 0,
+    "explicit_neutral": 0.5,
+    "unknown": null,
+    "reset": null
+  },
+  "missingness": "unknown required evidence/component -> no numeric score; no silent imputation/reweighting",
+  "negative_feedback": "state replacement, not cumulative click penalty; one preference path only",
+  "initial_matching_requires_milestone": false,
+  "plan_features_retained_separately": [
+    "time_feasibility",
+    "resource_feasibility"
+  ],
+  "market_period_policy_key": "personal_only_pending_market_policy",
+  "new_current_future_blend": null,
+  "label_migration": "incompatible with legacy personal_preparation_fit; no automatic conversion",
+  "synthetic_example": {
+    "C_role": 0.6,
+    "E_industry": 0.8,
+    "U_industry": 1,
+    "U_role": 1,
+    "W_role": 0.7,
+    "A_industry": 0.9,
+    "P": 0.95,
+    "proposed_F_role": 70.25,
+    "not_interested_proposed_F_role": 57.75
+  },
+  "authorization": "proposal only; user task authorizes bootstrap, not automatic substantive numerical approval"
+}

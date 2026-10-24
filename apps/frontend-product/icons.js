@@ -1,0 +1,47 @@
+const paths={
+ // Exact Home icon from docs/Minder_Home_Package/assets/app.js.
+ 'home':'m3 10 9-7 9 7v10H3z M9 20v-7h6v7',
+ // Back/document/info shapes match the approved profile/explore SVG assets.
+ 'arrow-left':'m15 18-6-6 6-6 M9 12h12','file':'M6 2h8l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M14 2v5h5 M8 12h8 M8 16h8','info':'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0 M12 11v6 M12 7h.01',
+ 'plus':'M12 5v14 M5 12h14','arrow-right':'M5 12h14 M13 6l6 6-6 6','arrow-up':'M12 19V5 M5 12l7-7 7 7',
+ 'chevron-right':'m9 18 6-6-6-6','chevron-left':'m15 18-6-6 6-6','x':'M18 6 6 18M6 6l12 12',
+ 'grid':'M3 3h7v7H3z M14 3h7v7h-7z M3 14h7v7H3z M14 14h7v7h-7z',
+ 'compass':'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M16 8l-2.7 5.3L8 16l2.7-5.3z',
+ 'message-circle':'M20 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-4-.9L3 21l1.9-4.5a9 9 0 0 1-.9-4A8.5 8.5 0 1 1 20 11.5z',
+ 'bot':'M12 2v4 M9 2h6 M5 9h14v11H5z M2 12v5M22 12v5 M9 13v1M15 13v1 M9 17h6',
+ 'user-round':'M20 21a8 8 0 0 0-16 0 M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+ 'target':'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',
+ 'circle-check':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M8 12l2.5 2.5 5-5',
+ 'sprout':'M12 21v-9 M12 13c0-5-4-7-9-7 0 6 4 8 9 7z M12 15c0-5 4-8 9-8 0 6-4 8-9 8z',
+ 'ellipsis':'M5 12h.01 M12 12h.01 M19 12h.01',
+ 'search':'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z m10 2-4.35-4.35',
+ 'sparkles':'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M20 18l.6 1.4L22 20l-1.4.6L20 22l-.6-1.4L18 20l1.4-.6z M4 2l.6 1.4L6 4l-1.4.6L4 6l-.6-1.4L2 4l1.4-.6z',
+ 'calendar-days':'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M7 14h2 M12 14h2 M17 14h0 M7 18h2 M12 18h2',
+ 'calendar-check':'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M8 15l3 3 5-5',
+ 'calendar-plus':'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2z M12 13v5 M9.5 15.5h5',
+ 'chart-no-axes-column':'M4 20V12h3v8 M10 20V7h3v13 M16 20V3h3v17',
+ 'list-checks':'M10 6h11 M10 12h11 M10 18h11 M3 6l2 2 3-4 M3 12l2 2 3-4 M3 18l2 2 3-4',
+ 'route':'M4 4h5v5H4z M15 15h5v5h-5z M9 6h4a5 5 0 0 1 5 5v4 M6 9v4a5 5 0 0 0 5 5h4',
+ 'panel-right':'M3 4h18v16H3z M15 4v16', 'square-pen':'M4 5v15h15 M6 11l10-8 4 4-10 8-5 1z',
+ 'briefcase-business':'M3 7h18v13H3z M8 7V4h8v3 M3 12h18',
+ 'layers':'m12 2 9 5-9 5-9-5 9-5z m-9 10 9 5 9-5 m-18 5 9 5 9-5',
+ 'map-pin':'M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+ 'clock':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6l4 2',
+ 'clock-3':'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M12 6v6h5',
+ 'book-open':'M12 6c-3-3-7-3-10-2v15c4-2 8-1 10 1 2-2 6-3 10-1V4c-3-1-7-1-10 2z M12 6v14',
+ 'triangle-alert':'M12 3 2 21h20z M12 9v5 M12 18h.01',
+ 'graduation-cap':'m2 10 10-5 10 5-10 5-10-5z M6 12v5c4 3 8 3 12 0v-5 M22 10v6',
+ 'file-text':'M6 2h9l5 5v15H6z M15 2v5h5 M9 12h8 M9 16h8',
+ 'database':'M4 6c0-5 16-5 16 0s-16 5-16 0z M4 6v12c0 5 16 5 16 0V6 M4 12c0 5 16 5 16 0',
+ 'sliders-horizontal':'M3 7h8 M15 7h6 M11 4v6 M3 17h2 M9 17h12 M7 14v6',
+ 'phone':'M5 3l4 4-2 3c1 3 5 7 8 8l3-2 4 4-2 3c-11 1-21-12-20-18z',
+ 'blocks':'M3 3h8v8H3z M13 3h8v8h-8z M3 13h8v8H3z M13 13h8v8h-8z',
+ 'slack':'M10 3v8 M6 7h8 M14 13v8 M10 17h8 M3 10h8 M7 14v7 M13 3h8 M17 7v8',
+ 'monitor':'M2 4h20v14H2z M8 22h8 M12 18v4','mic':'M9 4a3 3 0 0 1 6 0v8a3 3 0 0 1-6 0z M5 11a7 7 0 0 0 14 0 M12 18v4 M9 22h6',
+ 'check-square':'M4 4h16v16H4z M8 12l3 3 5-6','copy':'M8 8h12v13H8z M4 17H3V3h13v2','check':'M5 12l4 4L19 6',
+ 'refresh-cw':'M21 12a9 9 0 0 1-15.5 6.3 M3 12A9 9 0 0 1 18.5 5.7 M17 3l2 3 3-2 M2 20l3-2 2 3'
+};
+function svg(name){const d=paths[name]||paths['circle-check'];return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;}
+function hydrateIcons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=svg(el.dataset.icon);el.removeAttribute('data-icon');});}
+
+export {svg,hydrateIcons};

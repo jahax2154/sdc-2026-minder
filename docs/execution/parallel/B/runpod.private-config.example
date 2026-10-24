@@ -1,0 +1,5 @@
+# Save privately in /Users/phuahjunhong/sdc-2026-minder-worktrees/session-b/.env.runpod.local, mode600.
+RUNPOD_API_KEY=
+RUNPOD_ENDPOINT_ID=
+RUNPOD_IMAGE=
+# Junhong fills only RUNPOD_API_KEY initially; B configures the other two after live preflight.

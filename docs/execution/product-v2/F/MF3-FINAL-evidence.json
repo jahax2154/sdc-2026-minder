@@ -1,0 +1,172 @@
+{
+  "latest_real_provider_conversations": {
+    "real_backend": true,
+    "real_provider_requested": true,
+    "base": "http://127.0.0.1:9106",
+    "minder": {
+      "request": {
+        "message": "How can u help me minder?",
+        "expected_profile_version": null,
+        "channel_from_server": "minder"
+      },
+      "ms": 966,
+      "response_mode": "generated_guidance",
+      "provider": {
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "request_id": "req_01m5pb1hd8ef9bxzzs0fk42s4x",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "zpw6ra3f1",
+          "name": "propose_guidance"
+        },
+        "usage": {
+          "completion_tokens": 221,
+          "prompt_tokens": 1828,
+          "total_tokens": 2049
+        }
+      },
+      "answer": "Hi! I'm Minder, your career learning assistant. I can help you build a personalized learning plan, break down skills into practice tasks, and track your progress toward your career goals. What would you like to work on first?"
+    },
+    "mindbot": {
+      "ms": 1279,
+      "response_mode": "generated_guidance",
+      "provider": {
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "request_id": "req_01m5pb1jhfey1v4wmq88wff6z2",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "y349c904h",
+          "name": "propose_guidance"
+        },
+        "usage": {
+          "completion_tokens": 372,
+          "prompt_tokens": 1842,
+          "total_tokens": 2214
+        }
+      },
+      "answer": "Since you're just starting out, the most practical step is to build a small, shareable project that demonstrates a specific skill you're learning. This gives you something concrete to discuss in conversations and a foundation to build on. To tailor this, could you tell me: 1) What subject or skill are you currently studying or most interested in? 2) Roughly how many hours per week can you dedicate to this project?"
+    },
+    "refresh_no_replay": true,
+    "singleton_survives_minder_delete": true,
+    "logout_clears_private_state": true,
+    "page_errors": []
+  },
+  "profile_cv_pdf": {
+    "real_backend": true,
+    "adaptive_question_preserves_answer": true,
+    "onboarding_saved": true,
+    "five_tabs": true,
+    "dirty_stay_preserves_input": true,
+    "inline_save_survives_refresh": true,
+    "self_report_not_numerical_assessment": true,
+    "resume_purpose_saved": true,
+    "extraction_does_not_mutate_profile": true,
+    "explicit_review_saved": true,
+    "actual_pdf_text_extraction": true,
+    "scanned_pdf_truthful_manual_entry": true,
+    "mobile_no_document_overflow": true,
+    "page_errors": []
+  },
+  "proposal_response_loss": {
+    "real_backend": true,
+    "reject_preserves_target": true,
+    "approval_response_loss_injected": true,
+    "unknown_decision_requires_saved_reload": true,
+    "actual_applied_state_reconciled": true,
+    "decision_requests": 1,
+    "action_history_records": 1,
+    "canonical_version_unchanged_on_reload": true,
+    "page_errors": []
+  },
+  "actual_worker_controlled_clock": {
+    "actual_worker_http_browser": true,
+    "explicit_synthetic_due_clock": true,
+    "provider_deliberately_absent": true,
+    "browser_closed_during_tick": true,
+    "reopened_from_server_history": true,
+    "same_singleton_conversation": true,
+    "scheduled_messages_added": 1,
+    "last_result_matches_message": true,
+    "provider_failure_visible": true,
+    "worker_only_proposes_no_task_mutation": true,
+    "repeated_tick_added_messages": 0,
+    "continuous_worker_or_hosting_claimed": false,
+    "page_errors": []
+  },
+  "stop_waiting_exact_receipt": {
+    "real_provider": true,
+    "deliberately_held_response": true,
+    "stop_waiting_terminal_cleanup": true,
+    "uncertain_question_locked": true,
+    "history_read_does_not_guess_receipt": true,
+    "exact_retry_same_body": true,
+    "same_saved_provider_request": true,
+    "persisted_user_messages": 1
+  },
+  "actual_action_exact_retry": {
+    "real_backend": true,
+    "real_provider": true,
+    "deliberate_response_loss": true,
+    "action_status": "applied",
+    "provider": "available",
+    "identical_retry_body": true,
+    "canonical_version_unchanged": true,
+    "action_history_records": 1,
+    "refresh_added_turns": 0
+  },
+  "identity_client_controlled_credentials": {
+    "actual_two_local_owners": true,
+    "controlled_credential_provider": true,
+    "fresh_credential_reads": 9,
+    "deliberately_held_prior_identity_response": true,
+    "late_response_cannot_restore_prior_profile": true,
+    "actual_401_clears_private_ui_and_credential": true,
+    "logout_during_dirty_guard_cannot_restore_prior_route": true,
+    "live_clerk_claimed": false,
+    "page_errors": []
+  },
+  "cv_retry_fault_injection": {
+    "fault_injection": true,
+    "cv_library_read_retry": true,
+    "provider_calls": 0,
+    "real_first_commit": true,
+    "editor_and_submit_allowed_changed_text": false,
+    "correction_requests": 2,
+    "exact_retry_same_body_and_key": true,
+    "stale_review_replayed": false,
+    "original_profile_version_preserved": true,
+    "no_mastery_inference": true
+  },
+  "explicit_matching_open_backend_finding": {
+    "actual_backend_ml_request": true,
+    "explicit_find_matches": true,
+    "read_ms": 12600,
+    "scoped_error": true,
+    "catalogue_remains_available": true,
+    "profile_not_mutated": true,
+    "no_illustrative_score": true,
+    "no_automatic_lookup_on_refresh": true,
+    "provider_generation_calls": 0
+  },
+  "structured_proposal_review": {
+    "actual_backend_create_task_proposals": true,
+    "concrete_before_after_fields": true,
+    "complete_escaped_json": true,
+    "mobile_no_document_overflow": true,
+    "no_state_effect_until_decision": true,
+    "rejection_preserves_version": true,
+    "exact_approval_creates_one_task": true,
+    "unsupported_create_task_undo_hidden": true,
+    "canonical_task_edit_schedule_cancel_stays_in_mindbot": true,
+    "actual_scope_proposal_review": true,
+    "scope_has_no_effect_before_approval": true,
+    "approved_scope_reflected_in_daily_ui": true,
+    "unsupported_automation_undo_hidden": true,
+    "malicious_title_inert": true,
+    "page_errors": []
+  }
+}

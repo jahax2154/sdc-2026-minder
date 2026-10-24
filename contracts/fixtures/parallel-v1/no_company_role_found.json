@@ -1,0 +1,25 @@
+{
+  "fixture_id": "no_company_role_found",
+  "synthetic": true,
+  "empirical_evidence": false,
+  "contract_version": "minder-parallel-v1",
+  "kind": "CompanyRoleResult",
+  "payload": {
+    "employer_id": "synthetic-employer",
+    "employer_name": "Synthetic MNC",
+    "location": "MY",
+    "role_id": null,
+    "status": "no_role_found_in_checked_sources",
+    "searched_scope": [
+      "urn:minder:synthetic-official-careers-page"
+    ],
+    "checked_at": "2026-10-23T00:00:00Z",
+    "official_evidence": [],
+    "matching_requirements": [],
+    "unknown_requirements": [
+      "company_requirements_unavailable"
+    ],
+    "preparation_suggestions": [],
+    "explanation": "No matching role found in the sources checked; not proof of company-wide absence."
+  }
+}

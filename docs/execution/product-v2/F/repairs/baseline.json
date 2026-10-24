@@ -1,0 +1,293 @@
+{
+  "frontend_revision": "29281ec907ef031c1ec07be27c84e25aad69969e",
+  "url": "http://127.0.0.1:9106",
+  "synthetic": true,
+  "samples": [
+    {
+      "case": "empty_evidence_profile",
+      "request": {
+        "path": "/api/chat",
+        "body": {
+          "message": "How can u help me minder?",
+          "expected_profile_version": "0c66ce78-ac2d-456f-b409-dcefe7eddd91"
+        }
+      },
+      "response_status": 200,
+      "elapsed_ms": 15969,
+      "response": {
+        "statements": [
+          {
+            "category": "proposed_action",
+            "evidence_ids": [
+              "ev-01fff0a3bc18d184ac7fc73f"
+            ],
+            "id": "ev-01fff0a3bc18d184ac7fc73f",
+            "text": "Any suggested change is a proposal, not an executed action. This chat has made no profile, roadmap or progress change.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-ca81fae6c3c07f2702c77577"
+            ],
+            "id": "ev-ca81fae6c3c07f2702c77577",
+            "text": "Only the supplied backend records are verified here. Other claims are unsupported; clarify the role, period or source you want checked.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-3acbe7d3df2b41131029b427"
+            ],
+            "id": "ev-3acbe7d3df2b41131029b427",
+            "text": "Select up to three roles or supported skill topics for a focused evidence-backed explanation.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-9f21773c8877c58bcc16dd69"
+            ],
+            "id": "ev-9f21773c8877c58bcc16dd69",
+            "kind": "forecast",
+            "status": "unavailable",
+            "text": "Personal or market evidence is not connected for this view; no assessment or forecast is invented.",
+            "sources": []
+          }
+        ],
+        "provider": {
+          "status": "available",
+          "tool_call": {
+            "arguments_validated": true
+          }
+        },
+        "integration_mode": "local_source_services",
+        "context_version": "d9c75b44-e611-46a6-bb28-4ad00de0ca01",
+        "profile_version": "0c66ce78-ac2d-456f-b409-dcefe7eddd91",
+        "behaviour_policy_version": "minder-grounding-privacy-v1",
+        "action_status": "no_mutation_requested_or_executed",
+        "response_mode": null
+      },
+      "rendered_text": "Language-assisted answer\n\nSuggestion\n\nAny suggested change is a proposal, not an executed action. This chat has made no profile, roadmap or progress change.\n\nLimitations\n\nOnly the supplied backend records are verified here. Other claims are unsupported; clarify the role, period or source you want checked.\n\nLimitations\n\nSelect up to three roles or supported skill topics for a focused evidence-backed explanation.\n\nLimitations\n\nPersonal or market evidence is not connected for this view; no assessment or forecast is invented."
+    },
+    {
+      "case": "mindbots_during_chat",
+      "request": {
+        "path": "/api/chat",
+        "body": {
+          "message": "How can u help me minder?",
+          "expected_profile_version": "0c66ce78-ac2d-456f-b409-dcefe7eddd91"
+        }
+      },
+      "response_status": 200,
+      "elapsed_ms": 16561,
+      "response": {
+        "statements": [
+          {
+            "category": "proposed_action",
+            "evidence_ids": [
+              "ev-ea5f209c5d57c3ee85b14818"
+            ],
+            "id": "ev-ea5f209c5d57c3ee85b14818",
+            "text": "Any suggested change is a proposal, not an executed action. This chat has made no profile, roadmap or progress change.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-fb006d3e68e81a4d6d1e33b2"
+            ],
+            "id": "ev-fb006d3e68e81a4d6d1e33b2",
+            "text": "Only the supplied backend records are verified here. Other claims are unsupported; clarify the role, period or source you want checked.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-cc276d7fe966f290f7a1e003"
+            ],
+            "id": "ev-cc276d7fe966f290f7a1e003",
+            "text": "Select up to three roles or supported skill topics for a focused evidence-backed explanation.",
+            "sources": []
+          },
+          {
+            "category": "limitation",
+            "evidence_ids": [
+              "ev-4881b247a37d661381e86be1"
+            ],
+            "id": "ev-4881b247a37d661381e86be1",
+            "kind": "forecast",
+            "status": "unavailable",
+            "text": "Personal or market evidence is not connected for this view; no assessment or forecast is invented.",
+            "sources": []
+          }
+        ],
+        "provider": {
+          "status": "available",
+          "tool_call": {
+            "arguments_validated": true
+          }
+        },
+        "integration_mode": "local_source_services",
+        "context_version": "70eba84c-3c08-42f9-a48c-0eaf09b41eee",
+        "profile_version": "0c66ce78-ac2d-456f-b409-dcefe7eddd91",
+        "behaviour_policy_version": "minder-grounding-privacy-v1",
+        "action_status": "no_mutation_requested_or_executed",
+        "response_mode": null
+      },
+      "mindbots_usable_ms": 16595
+    },
+    {
+      "case": "mindbots_initial",
+      "elapsed_ms": 99
+    },
+    {
+      "case": "mindbots_warm",
+      "elapsed_ms": 111
+    }
+  ],
+  "waterfall": [
+    {
+      "path": "/api/session",
+      "method": "POST",
+      "status": 200,
+      "duration_ms": 5
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 404,
+      "duration_ms": 3
+    },
+    {
+      "path": "/api/profile",
+      "method": "PUT",
+      "status": 200,
+      "duration_ms": 5
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 1
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "duration_ms": 15949
+    },
+    {
+      "path": "/api/chat",
+      "method": "POST",
+      "status": 200,
+      "duration_ms": 16556
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 16519
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 4
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 7
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 8
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "duration_ms": 10
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 3
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 2
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 4
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 6
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "duration_ms": 7
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 2
+    },
+    {
+      "path": "/api/profile",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 3
+    },
+    {
+      "path": "/api/agents",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 3
+    },
+    {
+      "path": "/api/proposals",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 5
+    },
+    {
+      "path": "/api/action-history",
+      "method": "GET",
+      "status": 200,
+      "duration_ms": 7
+    },
+    {
+      "path": "/api/agent-settings",
+      "method": "GET",
+      "status": 404,
+      "duration_ms": 8
+    }
+  ],
+  "unsaved_profile": {
+    "chat_requests": 0,
+    "message": "Save a partial profile first so Minder can use its current context. Open My profile."
+  }
+}

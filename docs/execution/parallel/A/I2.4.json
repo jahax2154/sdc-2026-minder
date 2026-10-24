@@ -1,0 +1,184 @@
+{
+  "phase_id": "I2.4",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Freeze truthful implementation/evaluation handoff while unavailable dependencies remain",
+  "checkpoint": "commit containing this record; final response supplies actual SHA",
+  "code_parent_revision": "2bfb76f3b07bea967d598f15ca5c3e7b08c1807d",
+  "observed_owner_heads": {
+    "A": "2bfb76f3b07bea967d598f15ca5c3e7b08c1807d",
+    "B": "ba5d9a234cac334e7ba7b4a650b07e922fcaaccf",
+    "C": "8cb2acbcce2714b2c0c40b095d967e8420926148"
+  },
+  "phase_records": {
+    "A1.1": {
+      "status": "passed",
+      "record": "docs/execution/parallel/A/A1.1.json",
+      "sha256": "2d3d2865f4687f10688600a32c9aea2ba4749d7a0026ee7761da11e872946f1b"
+    },
+    "A1.2-R01": {
+      "status": "passed",
+      "record": "docs/execution/parallel/A/A1.2-R01.json",
+      "sha256": "715485e889df17c0e6198387e48784804a0019e5c7791edeac62e1e2eb64d63f"
+    },
+    "A1.2": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/A1.2.json",
+      "sha256": "aafbf01e5dcbdb239e82dad4ee182a238e3b12a2462479675dd07e6381b68e26"
+    },
+    "A1.3": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/A1.3.json",
+      "sha256": "11e2ecb286b335f483c3fcae8427df873693886f1ebc6b2f85ab6ade5f6219ac"
+    },
+    "A2.1": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/A2.1.json",
+      "sha256": "5c74df316b2ae48d32f8e520dae9d5c244c8f38e7442c195fff63261691cd487"
+    },
+    "A2.2": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/A2.2.json",
+      "sha256": "f52cd9855af3b90023647415715d1fd05a1cc369f313ec6322f3d6d6aa630c77"
+    },
+    "A3.1": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/A3.1.json",
+      "sha256": "874d7cb1a52d69bce8745bead8382cb43cf40f0523471ef53df8f6fe138fa34a"
+    },
+    "I1.1-R01": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I1.1-R01.json",
+      "sha256": "6062b9dfd955a878c2f8d385539594c5ef35d08aaafb358ff5318b0d53dbe4ff"
+    },
+    "I1.1": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I1.1.json",
+      "sha256": "bd8717c698e8ff8d8832217a0ce892502e85177908402d7b1ef1666d02b6d0a0"
+    },
+    "I2.1-R01": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I2.1-R01.json",
+      "sha256": "88c3ed45a427d8a7a2da93de3d558287ad17d539fc36bcb277b60da739e43bc3"
+    },
+    "I2.1": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I2.1.json",
+      "sha256": "dad293419b7edda4388493dc8cbc07db04cf8de9dbc2dda4b3d20bd21c99c0fa"
+    },
+    "I2.2": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I2.2.json",
+      "sha256": "1d83734e123124e1940c3f4a1b5829e26b9401a7baf1b0f596e6112badc317ed"
+    },
+    "I2.3": {
+      "status": "limited",
+      "record": "docs/execution/parallel/A/I2.3.json",
+      "sha256": "18193cf5675b04808ae396bd68a3744a265ab54207c55b22c53f03b6d5bdb26f"
+    }
+  },
+  "checkpoint_shas": {
+    "A1.1": "915779f7badfb4e919ce3b097151309866ddd5e6",
+    "A1.2": "5ee8acda17d4c9438f33bd2b0c4ead98c92c5c6e",
+    "A1.3": "be60d34b1567e033caea0ec730c78c683777add3",
+    "A2.1": "745f6af6d5951e756fbd4b8e295b94a12bb459c2",
+    "A2.2": "0c3272d92ea1be6e983fc2beea92c92a73387eb8",
+    "A3.1": "b6b36651bee03a73de4a154f8f9c83324ea36363",
+    "I1.1": "0cf746027188600447b3580d3cd6013415661590",
+    "I2.1": "dc1a4e42ba36b24225b27a5b2e3ada1fe4138edf",
+    "I2.2": "b9c4178dd08a0f4b7b137955737638952bb94767",
+    "I2.3": "991619d7a95a380a8db240fe559f1102a3719bad"
+  },
+  "refinement_shas": {
+    "A1.2-R01": "64dedd86b9c6086f3c67ca33da6433a4dbbc1663",
+    "I1.1-R01": "dd45420f9272319a6ccc4a4350e33af3026012ab",
+    "I2.1-R01": "2bfb76f3b07bea967d598f15ca5c3e7b08c1807d"
+  },
+  "integrated_owner_revisions": {
+    "B": "ba5d9a234cac334e7ba7b4a650b07e922fcaaccf",
+    "C": "8cb2acbcce2714b2c0c40b095d967e8420926148"
+  },
+  "actual_readiness": {
+    "personal": "callable catalogue/assessment/feedback/filter service; N01 inactive, no numeric ranking",
+    "catalogue": {
+      "raw": 1016,
+      "normalized": 1016,
+      "runtime": 1016,
+      "supported": 910,
+      "partial": 106
+    },
+    "coverage_on_original_profiles": "5 unchanged synthetic originals: 0 legacy scores, 910 new candidates, 0 new numeric scores each",
+    "synthetic_demonstrations": "5 D02 audience examples, 910 candidates and 0 scores each; no independent validity",
+    "personal_learners": "baseline/Ridge/XGBoost actual local mathematical smoke: 24 development/8 held-out rows, save/reload difference zero; none promoted",
+    "market_current": "39 valid inspected Bosch Malaysia ads, 4 mapped role IDs, 5 source technology terms; 1 software role ad and 4 SQL-requesting ads; not national demand",
+    "market_forecasts": "role and skill unavailable for next full quarter Jan-Mar 2027; 0 eligible historical series, 0 real runs/evaluations/selected models; chronological machinery and guarded registry implemented",
+    "app": "persisted actual HTTP source-matching/intake/pathway/company/actions/proposals verified; C UI/runtime handoff absent",
+    "provider": "Groq credential/model absent; bounded unavailability, no live response/model entitlement verified",
+    "agent_scheduler": "local tests/event simulation and idle --once tick; no deployed unattended scheduler",
+    "deployed": "none; explicit user no-deploy/no-push instruction"
+  },
+  "verification": {
+    "ml_full_suite": "147 passed in 135.732s (before later B3 change)",
+    "backend_suite": "17 distinct tests passed",
+    "post_B3_scoped_suite": "19 passed; loader and actual current/unavailable forecast smoke also passed",
+    "http_acceptance": "i2.2-http-v4 actual loopback source/profile/actions boundary passed with explicit provider unavailability",
+    "source_integrity": "13 hashes match G0 snapshot; all read-only",
+    "diff_check": "passed"
+  },
+  "open_dependencies": [
+    {
+      "id": "N01",
+      "state": "blocked_decision",
+      "affected": "numeric personal/industry/preference ranking and compatible target specification"
+    },
+    {
+      "id": "occupation_to_person_rubric_and_targets",
+      "state": "deferred_dependency",
+      "affected": "anchored competence gaps/empirical personal learner runs; do not reuse legacy milestone targets"
+    },
+    {
+      "id": "GROQ_API_KEY/GROQ_MODEL",
+      "state": "blocked_external",
+      "affected": "real grounded provider round trip"
+    },
+    {
+      "id": "comparable_quarterly_role_skill_history",
+      "state": "blocked_external",
+      "affected": "real forecast backtests/selection; current sample is snapshot stock"
+    },
+    {
+      "id": "RUNPOD_ACCESS",
+      "state": "blocked_external",
+      "affected": "paid training operations; B only; no current runnable paid job or spend authorisation"
+    },
+    {
+      "id": "C4.1",
+      "state": "deferred_dependency",
+      "affected": "UI/runtime final owner handoff not yet committed"
+    },
+    {
+      "id": "B3.2",
+      "state": "deferred_dependency",
+      "affected": "culminating owner handoff not yet committed"
+    },
+    {
+      "id": "deployment",
+      "state": "deferred_dependency",
+      "affected": "explicitly prohibited for current task; later instruction/access required"
+    }
+  ],
+  "remaining_uncommitted": {
+    "tracked": "none expected after this commit",
+    "untracked_preserved": "13 pinned raw/derived source files only; not staged",
+    "ignored": "A generated artifacts/math weights/synthetic SQLite and non-secret .env.local; no new external backup"
+  },
+  "next_runnable_work": [
+    "Review/merge committed C4.1 and B3.2 when published; run focused compatibility/browser/runtime checks and linked I2 refinements",
+    "After N01 resolution implement accepted versioned arithmetic/rubrics and legitimate target preparation; do not merely toggle active flag",
+    "With privately configured Groq model/access perform actual grounded round trip",
+    "Keep deployments, pushes and paid launches deferred to applicable explicit authorisation"
+  ],
+  "push_status": "not pushed \u2014 awaiting explicit instruction",
+  "no_complete_integration_claim": true
+}

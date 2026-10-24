@@ -1,0 +1,28 @@
+{
+  "version": "personal-machinery-v1",
+  "target": "synthetic_math_only",
+  "promotable": false,
+  "fixture_path": "ml/tests/fixtures/synthetic_math.json",
+  "fixture_sha256": "766fc0f139277d72543562cf4a18f8028632712dff1efbb98cfb925e54249692",
+  "feature_count": 5,
+  "feature_schema": {
+    "id": "synthetic-math-machinery-v1",
+    "names": [
+      "math_0",
+      "math_1",
+      "math_2",
+      "math_3",
+      "math_4"
+    ],
+    "meaning": "mathematical inputs only, not initial personal role-fit features"
+  },
+  "execution": {
+    "location": "local_cpu_smoke",
+    "threads": 2,
+    "max_rows": 64,
+    "estimated_seconds": 60,
+    "estimated_memory_mb": 256,
+    "estimate_notice": "resource estimate, not an observed duration or external budget approval",
+    "paid_jobs": "B only; no request to launch"
+  }
+}

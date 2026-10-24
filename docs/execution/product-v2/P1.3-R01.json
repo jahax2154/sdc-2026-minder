@@ -1,0 +1,29 @@
+{
+  "refinement_id": "P1.3-R01",
+  "status": "passed_final_D_document_handoff",
+  "integrated_D": "9f1f2eeabb8d5d8247fcc1b0353a8777d690d71e",
+  "included_D_refinement": "5c3886957f1f7b30e84a3f12743ef8fcb4648b93",
+  "A_dependency": "a8ff93869a6a636e27b3bdc5b1e6fba4616679bd",
+  "changes": [
+    "D consumes exact canonical A input definitions instead of duplicating schemas",
+    "Corrupted bytes cannot download or become a draft",
+    "D final synthetic examples, reproduction and hosting/deletion limits retained"
+  ],
+  "verification": {
+    "backend": "82 passed3.894s",
+    "A_transport": "3 passed0.033s",
+    "real_HTTP_file_checks": "Passed owner/retry/extraction/deletion/privacy and response-schema journey",
+    "provider_requests": 0
+  },
+  "evidence": {
+    "combined-documents-final-backend.log": "03813ec3561feae585b018a1b51ab910618848b155b0c0fc11f8c8b16532ca1a",
+    "combined-documents-final-transport.log": "102d82bd75fa942f58c38bfee252229e5d1a37ba9e4071a0af4aed321b40a656",
+    "documents-final-http.log": "783ab26c3bc8b7eefd90ce7d20b0db9afcc7513e48ef2bb23425602f755e5c49"
+  },
+  "remaining": [
+    "F final product/browser handoff",
+    "Explicit local-development configuration for active storage; default disabled",
+    "Verified durable hosting/private storage unavailable; no PDF extraction"
+  ],
+  "deployment": false
+}

@@ -1,0 +1,13 @@
+{
+  "holdout_MAE_must_not_exceed_best_baseline": true,
+  "minimum_holdout_origins": 2,
+  "minimum_train_examples": 8,
+  "minimum_validation_gain_vs_best_baseline": 0.05,
+  "minimum_validation_origins": 2,
+  "require_actual_publication_aware_labels": true,
+  "require_same_source_universe_and_lead_quarters": true,
+  "selection": "lowest_validation_MAE_then_simpler_method; freeze_before_holdout",
+  "synthetic_or_revised_vintage_only_backtests_promotable": false,
+  "uncertainty": "validation_absolute_residual_range_not_calibrated",
+  "version": "quarter-count-promotion-v1"
+}

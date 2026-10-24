@@ -1,0 +1,72 @@
+{
+  "phase_id": "I4.3",
+  "status": "passed_service_contract_layer_application_wiring_next",
+  "personal_policy": "personal-role-fit-v3-provisional unchanged",
+  "market_policy": "personal-current-evidence-v2",
+  "changes": [
+    "Four explicit measurement families and scoped/versioned applicability links",
+    "Latest published-category comparison priority; employer counts separate; no pooling or sector allocation",
+    "Source/ref/calculation trace with public projection excluding internal market arithmetic",
+    "No original N01 activation, learned promotion, forecast invention or source-missingness imputation"
+  ],
+  "before_after": {
+    "before": {
+      "considered_eligible": 910,
+      "candidates": 910,
+      "assessed": 910,
+      "excluded": 0,
+      "current_available": 4,
+      "current_comparable_ranked": 4,
+      "personal_only_ranked": 906,
+      "insufficient_evidence": 0
+    },
+    "after": {
+      "considered_eligible": 910,
+      "candidates": 910,
+      "assessed": 910,
+      "excluded": 0,
+      "current_available": 4,
+      "current_comparable_ranked": 5,
+      "personal_only_ranked": 905,
+      "insufficient_evidence": 0,
+      "employer_comparable_ranked": 2,
+      "published_offering_comparable_ranked": 3,
+      "published_offering_supported": 7,
+      "shortage_supported": 0,
+      "shortage_adjusted_ranked": 0,
+      "sector_context_supported": 907
+    },
+    "policy": "personal-current-evidence-v2",
+    "elapsed": 17.32400575
+  },
+  "source_scope": "5 comparison roles includes 3 declared DOSM occupation-category applicability proxies and 2 exact native employer primary comparisons; not five exact national occupation series",
+  "shortage": "No real input in consumed B handoff. Unavailable/null family; bounded +2 path tested only with explicitly fictional fixture pending real source/mapping handoff.",
+  "checks": [
+    {
+      "command": "test_market_evidence test_role_fit_v3 test_service_contracts",
+      "result": "33 passed in 3.583s"
+    },
+    {
+      "command": "actual full-catalogue v1/v2 before-after source probe",
+      "result": "910 assessed both; employer source facts/personal assessments unchanged, typed context coverage measured"
+    }
+  ],
+  "defects_fixed_before_checkpoint": [
+    "Reset changes profile version and trace identity even when preference effect resets; compare scores/order separately",
+    "Recompute partial/completion messages after treatment; do not keep stale v1 limitation in a fully supported scoped view",
+    "Old source periods retain context-only eligibility; compare actual timestamps with offsets",
+    "Use actual pinned source URI metadata instead of guessed URLs"
+  ],
+  "ownership": "New A module/test assigned before edits. B internals unchanged. C active dirty paths inspected read-only/no optional locks; frontend/chat/privacy ownership preserved, committed handoff awaited.",
+  "next": [
+    "Consume C committed bounded grounding/privacy handoff before overlapping UI/composition edits",
+    "Wire public evidence/trace endpoints and source grounding",
+    "Verify A real-provider flows when its private access is configured",
+    "Consume B subsequent supported shortage/current evidence handoff"
+  ],
+  "evidence": {
+    "coverage_sha256": "443523f3e9fbe703815e93db5cd9a2a01336f91f9bff3fcf2309db1c215048dd",
+    "tests_sha256": "ee776cc68be832156fa2dde4743665cf00331d3adf5340166a1bdba58663697e"
+  },
+  "push_status": "local only; outside P1.1 captured authorization"
+}

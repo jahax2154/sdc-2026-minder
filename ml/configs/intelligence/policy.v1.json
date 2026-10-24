@@ -1,0 +1,321 @@
+{
+  "policy_id": "minder-intelligence-v1",
+  "schema_version": "1.0.0",
+  "prepared_date": "2026-10-21",
+  "timezone": "Asia/Kuala_Lumpur",
+  "approval": {
+    "status": "proposed_for_batch_review",
+    "reviewer_id": null,
+    "approved_at": null,
+    "approval_message_ref": null,
+    "approved_manifest_sha256": null
+  },
+  "target": {
+    "name": "personal_preparation_fit",
+    "horizon_weeks_default": 12,
+    "milestone_required": true,
+    "is_hiring_probability": false,
+    "market_in_personal_target": false
+  },
+  "features": {
+    "order": [
+      "skill_coverage",
+      "interest_alignment",
+      "time_feasibility",
+      "resource_feasibility",
+      "work_style_alignment"
+    ],
+    "symbols": [
+      "C",
+      "I",
+      "T",
+      "R",
+      "W"
+    ],
+    "range": [
+      0,
+      1
+    ],
+    "weights": [
+      0.4,
+      0.2,
+      0.2,
+      0.1,
+      0.1
+    ],
+    "weight_sum_tolerance": 1e-09,
+    "assessment_completeness_required": 1.0,
+    "completeness_tolerance": 1e-09,
+    "unknown_policy": "return_insufficient_information",
+    "silent_imputation": false,
+    "silent_reweighting": false,
+    "criterion_anchor_values": [
+      0,
+      0.5,
+      1
+    ],
+    "interest_utility_values": [
+      0,
+      0.5,
+      1
+    ],
+    "required_criterion_weight_default": 1.0,
+    "interest_tag_weight_default": 1.0,
+    "resource_group_weight_default": 1.0,
+    "work_style_tag_weight_default": 1.0,
+    "optional_occupational_skills_in_milestone_by_default": false,
+    "weight_override_requires_named_accepted_policy": true,
+    "resource_group_values": [
+      0,
+      1
+    ],
+    "work_style_utility_values": [
+      0,
+      0.5,
+      1
+    ],
+    "effort_range_reference": "upper_bound",
+    "future_feature_expansion_requires_versioned_evaluation": true
+  },
+  "scoring": {
+    "default": "baseline",
+    "allowed": [
+      "baseline",
+      "ridge",
+      "xgboost"
+    ],
+    "baseline_formula": "100 * dot(weights, [C,I,T,R,W])",
+    "label_grades": [
+      0,
+      1,
+      2
+    ],
+    "learned_score_mapping": "100 * clip(raw_prediction / 2, 0, 1)",
+    "trained_model_unavailable": "model_not_ready",
+    "candidate_minmax": false,
+    "probability_softmax": false,
+    "fit_weight": 0.7,
+    "missing_or_incomparable_market": "personal_fit_only_for_entire_comparison_set",
+    "stable_tie_break": "role_id_ascending",
+    "illustrative_reference_features": [
+      0.6,
+      0.8,
+      0.5,
+      1,
+      0.7
+    ],
+    "illustrative_reference_score": 67.0
+  },
+  "market": {
+    "index_id": "observed-demand-v1",
+    "initial_geography": "MY",
+    "frequency": "quarter",
+    "role_dimension": true,
+    "skill_dimension_requires_observed_skill_data": true,
+    "employer_dimension_requires_observed_employer_data": true,
+    "joint_dimensions_require_joint_observations": true,
+    "indicators": [
+      "demand_share",
+      "yoy_growth"
+    ],
+    "weights": [
+      0.6,
+      0.4
+    ],
+    "index_families_separate": [
+      "role",
+      "industry",
+      "skill",
+      "employer"
+    ],
+    "normalization": "fixed_cohort_midrank_percentile",
+    "minimum_cohort_size": 5,
+    "minimum_cohort_size_is_product_guard_not_statistical_proof": true,
+    "yoy_quarter_lag": 4,
+    "zero_prior_growth": null,
+    "missing_policy": "no_index_no_weight_redistribution",
+    "activate_only_after_source_comparability_checks": true,
+    "cross_country_percentile_level_comparison": false,
+    "new_release_automatically_retrains_personal_fit": false,
+    "forecast_model_in_v1": false
+  },
+  "acceptance": {
+    "routine_records": "automatic_policy_validation",
+    "accepted_status": "policy_accepted",
+    "human_review_required_for_every_role": false,
+    "human_review_required_for_every_mapping": false,
+    "provenance_classes": [
+      "source-derived",
+      "policy-derived",
+      "llm-proposed",
+      "human-reviewed"
+    ],
+    "gold_labels_require_independent_review": true,
+    "machine_labels_are_gold": false,
+    "unresolved_policy": "quarantine_affected_records_and_continue",
+    "preserve_previous_reports": true
+  },
+  "evaluation": {
+    "split_group": "profile_group_id",
+    "never_random_row_split_related_profiles": true,
+    "preprocessing_fit_on_training_only": true,
+    "primary_metric": "linear_gain_ndcg_at_3",
+    "secondary_metric": "mae_served_F_div_50_vs_grade",
+    "all_zero_idcg": "report_separately",
+    "pilot_profile_families": 5,
+    "pilot_roles": 3,
+    "pilot_pairs": 15,
+    "pilot_is_adequacy_proof": false,
+    "default_learner_promotion": "retain_baseline_until_independent_evidence_and_conformance",
+    "sponsored_training_runner": "RunPod_when_funded_configured_and_authorized",
+    "no_labels_status": "not_evaluated"
+  },
+  "llm": {
+    "provider": "groq",
+    "model": "openai/gpt-oss-20b",
+    "base_url": "https://api.groq.com/openai/v1",
+    "secret_env": "GROQ_API_KEY",
+    "timeout_seconds": 20,
+    "max_transient_retries": 1,
+    "request_total_deadline_seconds": 45,
+    "max_output_tokens": 1500,
+    "max_schema_repair_attempts": 1,
+    "server_concurrency": 2,
+    "structured_final_response": true,
+    "tools_in_structured_final_request": false,
+    "canonical_scores_owner": "backend",
+    "training_dependency": false,
+    "real_demo_personal_data": false
+  },
+  "agent": {
+    "name": "Career Progress Coach",
+    "max_tool_calls_per_run": 4,
+    "max_llm_requests_per_run": 2,
+    "run_total_deadline_seconds": 60,
+    "idempotency_required": true,
+    "version_check_required": true,
+    "automatic_read_tools": [
+      "get_career_context",
+      "get_profile",
+      "get_recommendation",
+      "get_plan",
+      "get_progress",
+      "get_evidence"
+    ],
+    "automatic_write_tools": [
+      "save_agent_suggestion",
+      "record_agent_run"
+    ],
+    "autonomous_plan_replacement": false,
+    "autonomous_mastery_confirmation": false,
+    "autonomous_external_communication": false,
+    "constant_llm_loop": false
+  },
+  "execution": {
+    "priority": "fastest_correct_path_to_required_output",
+    "single_shared_policy_authority": true,
+    "gate_order": [
+      "G1_policy_integration",
+      "G2_grounded_chat",
+      "G3_coverage_and_learning",
+      "G4_bounded_coach"
+    ],
+    "G1_G2_may_proceed_independently": true,
+    "no_per_record_approval_loop": true,
+    "new_architecture_required": false,
+    "commit_push_publish_authorized_by_this_pack": false
+  },
+  "rule_ids": {
+    "definitions": [
+      "DEF-01",
+      "DEF-02",
+      "DEF-03",
+      "DEF-04",
+      "DEF-05",
+      "DEF-06",
+      "DEF-07",
+      "DEF-08",
+      "DEF-09",
+      "DEF-10",
+      "DEF-11",
+      "DEF-12"
+    ],
+    "personal_fit": [
+      "FIT-01",
+      "FIT-02",
+      "FIT-03",
+      "FIT-04",
+      "FIT-05",
+      "FIT-06",
+      "FIT-07",
+      "FIT-08",
+      "FIT-09",
+      "FIT-10",
+      "FIT-11",
+      "FIT-12"
+    ],
+    "market": [
+      "MKT-01",
+      "MKT-02",
+      "MKT-03",
+      "MKT-04",
+      "MKT-05",
+      "MKT-06",
+      "MKT-07",
+      "MKT-08"
+    ],
+    "automation": [
+      "AUTO-01",
+      "AUTO-02",
+      "AUTO-03"
+    ],
+    "evaluation": [
+      "EVAL-01",
+      "EVAL-02",
+      "EVAL-03",
+      "EVAL-04",
+      "EVAL-05",
+      "EVAL-06"
+    ],
+    "llm_agent": [
+      "LLM-01",
+      "LLM-02",
+      "LLM-03",
+      "LLM-04",
+      "LLM-05",
+      "LLM-06",
+      "LLM-07"
+    ],
+    "execution": [
+      "EXEC-01",
+      "EXEC-02",
+      "EXEC-03",
+      "EXEC-04",
+      "EXEC-05",
+      "EXEC-06",
+      "EXEC-07"
+    ],
+    "pathway": [
+      "PATH-01",
+      "PATH-02",
+      "PATH-03",
+      "PATH-04",
+      "PATH-05"
+    ],
+    "scenario": [
+      "SCN-01",
+      "SCN-02",
+      "SCN-03"
+    ],
+    "sdg": [
+      "SDG-01",
+      "SDG-02",
+      "SDG-03"
+    ],
+    "progress": [
+      "PROG-01",
+      "PROG-02",
+      "PROG-03"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "phase_id": "AC3.4",
+  "owner": "A",
+  "status": "passed_early_C_frontend_contract_acceptance",
+  "C_handoff": "ef4196b9856b9504eb1d719c955a67cc62d2d843",
+  "merge_sha": "f77e7ff158bb4ce9488a7b87012519c230f78591",
+  "contract": "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+  "example_backend_base": "8c77d69a1dfdb5f7807f9ec1c3947a2c9ba0181d",
+  "checks": {
+    "phase": "AC3.4",
+    "C_revision": "ef4196b9856b9504eb1d719c955a67cc62d2d843",
+    "backend_example_base": "8c77d69a1dfdb5f7807f9ec1c3947a2c9ba0181d",
+    "schema_valid": true,
+    "profile_valid": true,
+    "records": 6,
+    "passages": 6,
+    "provider_mocked": true,
+    "actual_source_records": true,
+    "new_typed_LLM_support": false,
+    "CL2_pending": true,
+    "public_contract": "docs/execution/product/llm/FRONTEND_CONTRACT.md",
+    "all_six_passages_recomputed_by_A": true
+  },
+  "implementation": "Actual frontend operation/schema/examples exported by C, accepted by A; no fabricated conversation/history/streaming/job endpoint",
+  "empirical": "Export provider selection mocked and labelled; actual source services/passages recomputed by A. AC2 actual provider checks are separate.",
+  "runtime": {
+    "personal_policy": "personal-role-fit-v3-provisional",
+    "market_policy": "personal-current-evidence-v2.1",
+    "shared": "minder-parallel-v1 with EvidencePassage v1",
+    "grounder": "minder-grounding-privacy-v1 current Bosch-only"
+  },
+  "product_frontend": "F owns intended frontend, same-origin proxy/client and acceptance; not claimed tested by A",
+  "remaining": "C CL2-CL3 typed-source consumer and real new-type output still pending; CL1 can be published independently now",
+  "evidence": {
+    "ml/artifacts/session-a/ac3-cl1-contract-validation.json": "48f71b4481b391282a988999244ddf2ea111317c27eac8d84b98f9d124979956"
+  },
+  "preservation": "No C working directory, secret/config/database or source input modified/staged; only committed C paths merged",
+  "deployment": false
+}

@@ -1,0 +1,111 @@
+{
+  "phase_id": "AC2-R01",
+  "refines": "AC2",
+  "status": "passed_real_A_typed_provider_and_actual_scheduled_flow",
+  "C_bridge": "2ebdfb65b5bf1f349c6b6425ece6070f754cff8d",
+  "C_bounded_output_refinement": "37d48be068d2b011afdbe3ce1ac1eee7824b3a54",
+  "changes": [
+    "A worker composition now passes actual A services into C Worker, retaining A DB/config/owner guards",
+    "Optional --require-typed-evidence verifies actual source-reconciled non-Bosch chat and all four persisted daily-event families",
+    "Safe public provider diagnostic added to original C replay without changing requests, assertions or authority",
+    "Only A private model selection changed after real candidate verification; no secret or C-owned configuration committed"
+  ],
+  "runtime": {
+    "provider": "Groq",
+    "selected_model": "qwen/qwen3.8-27b",
+    "selection_version": "A-typed-selection-v2",
+    "key": "Same existing authorised credential, unchanged; owner-only ignored A config",
+    "personal_policy": "personal-role-fit-v3-provisional",
+    "market_policy": "personal-current-evidence-v2.1",
+    "grounding": "minder-grounding-privacy-v1",
+    "evidence": "minder-evidence-passage-v1",
+    "max_native_output_tokens": 1024,
+    "context_budget_bytes": 32768,
+    "semantic_retries_added": false,
+    "call_limits_unchanged": true,
+    "C_private_configuration_changed": false,
+    "paid_jobs": 0,
+    "inference_cost": "not measured; no billing changes"
+  },
+  "engineering_choice": {
+    "reason": "Prior configured gpt-oss20b had intermittent typed-tool HTTP errors; C retained limited actual multi-family acceptance. Backend source validation and fallback stayed strict.",
+    "unavailable_old_preferences": [
+      "llama-3.3-70b-versatile",
+      "llama-3.1-8b-instant"
+    ],
+    "actual_accessible_candidate": "qwen/qwen3.8-27b",
+    "candidate_proof": "discovery/chat/native readiness and all four actual source selections passed before A private selection changed",
+    "primary_docs": [
+      "https://console.groq.com/docs/api-reference",
+      "https://console.groq.com/docs/tool-use/overview",
+      "https://console.groq.com/docs/deprecations"
+    ],
+    "meaning": "LLM technical selection only; no scoring coefficients, rankings, reference mappings or provider authority changed"
+  },
+  "real_checks": {
+    "app_chat_request_success": true,
+    "native_tool_request_success": true,
+    "direct_change_request_success": true,
+    "proactive_preview_no_mutation": true,
+    "rejection_request_success": true,
+    "approval_request_success": true,
+    "persistence_check_success": true,
+    "actual_scheduled_event_success": true,
+    "scheduled_native_tool_request_success": true,
+    "company_evidence_request_success": true,
+    "learning_source_request_success": true,
+    "app_new_types_grounded": true,
+    "scheduled_all_four_types_grounded": true
+  },
+  "typed_evidence": {
+    "app_new_types_grounded": true,
+    "scheduled_all_four_types_grounded": true,
+    "app_measurement_types": [
+      "employer_observation",
+      "occupation_shortage",
+      "published_offering_activity",
+      "sector_context"
+    ],
+    "scheduled_measurement_types": [
+      "employer_observation",
+      "published_offering_activity",
+      "occupation_shortage",
+      "sector_context"
+    ],
+    "citations_periods_units_scopes_recomputed": true,
+    "profile_unchanged": true,
+    "forecast_unavailable": true,
+    "raw_payload_exported": false
+  },
+  "software_checks": {
+    "namespace_guards": "3 passed in0.006s",
+    "native_transport": "7 passed in0.029s, including hard cap/explicit smaller budgets"
+  },
+  "earlier_failures": {
+    "preserved": true,
+    "pre_1024": "Two first-chat replay failures; captured public provider_http_error on second",
+    "after_1024": "All original11 checks passed, extended typed test failed with the old model; source/helper mock diagnostic passed and is explicitly not real-provider evidence",
+    "resolution": "Fresh final run after verified A model selection: all13 real checks passed. No old evidence overwritten or safe rejection bypassed."
+  },
+  "empirical": "Real provider/typed-source/action/scheduled scenario success with synthetic users and actual source services; not independent career-fit or forecasting accuracy.",
+  "deployment": {
+    "performed": false,
+    "verified": false,
+    "continuous_hosted_scheduler_verified": false
+  },
+  "evidence": {
+    "ml/artifacts/session-a/ac2-r01-typed-live-final/evidence.json": "afddb2939c1bfd054669ccaaaf986f40da7e2fb532f2e784fea4c52b9c73b2eb",
+    "ml/artifacts/session-a/ac2-r01-typed-live-final/live-checks.json": "d862f60b3988beb6d79419b943855e42c8fd19e8f5cff9684d58e5e708936c1d",
+    "ml/artifacts/session-a/ac2-r01-current-model-candidate/evidence.json": "ee196cebc5bd1f4cda143365d522e3c37e7fe1a54ad0e7a1cfc5614ffa0c2337",
+    "ml/artifacts/session-a/ac2-r01-final-guards.log": "27c4a39d34ece4cbc66cc59cb0870c7abe4cc0a5f009205bdd0ea06a93f8b3ac",
+    "ml/artifacts/session-a/ac3-cl2-r01-transport-tests.log": "5ededeb609c7acdc121da6c97b87fb419910252a11342b3ca610b5e13a673a89",
+    "ml/artifacts/session-a/ac2-r01-typed-live-v1/evidence.json": "7b2ed72333365805ba36b8f71e6ce1bc0d708f9b9c9b75e2c4d09c2b10a42654",
+    "ml/artifacts/session-a/ac2-r01-typed-live-v2/evidence.json": "8e131c0629b509a76d0a9dcfd28374bc8bf02c040994c56ae7f89bde1c6e61c6",
+    "ml/artifacts/session-a/ac2-r01-typed-live-v3/evidence.json": "9d6a3b9794ff1efa3ce0adc6187c5f624cc989fea254071be6c9814e9fbabd4f",
+    "ml/artifacts/session-a/ac2-r01-helper-diagnostic.json": "84421d2491a40e1a910fe77160cd193022f1edc5791fd6f66bb271e81d35b339",
+    "ml/artifacts/session-a/ac2-r01-alternative-model/evidence.json": "47723ecf91b401b686ba17f0984f79e985acf589f014e2ea1633b63b304523f7",
+    "ml/artifacts/session-a/ac2-r01-alternative-model-8b/evidence.json": "c00efbe1da63e17dd075123b79a131f7d0a64be5773216ec910b1c00b6cfee14"
+  },
+  "preservation": "Only A orchestration source and sanitized result staged; secret/model-selection files, DBs, logs, generated profiles and original source inputs excluded",
+  "next": "Run actual A HTTP multi-family and scoped privacy browser; publish final stable contract/base and closure snapshots"
+}

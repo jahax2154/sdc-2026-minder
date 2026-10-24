@@ -1,465 +1,149 @@
 # Minder — SDC Hackathon 2026
 
-Minder is an AI-assisted career exploration and personalised reskilling platform that helps students, fresh graduates, and early-career professionals identify their strengths, explore career opportunities, and prepare for future workforce changes.
+Minder is an AI-assisted career exploration and personalised reskilling prototype for students, fresh graduates and career switchers. It combines supported occupational requirements, scoped Malaysian market evidence and user-provided background with learning plans and conversational guidance.
 
-## Team Information
+## Team information
+
 | Field | Details |
-|-------|---------|
-| Team Name | AINewBee |
-| Team Domain | Domain 1 - The Aiversecity Future-Ready Workforce Domain |
-| SDG Track (1-17) | SDG 4 - Quality Education |
-| Team Leader | Lee Yi Cheng |
-| University | Asia Pacific University of Technology & Innovation (APU); Universiti Teknologi Malaysia (UTM) |
-| Number of Members | 3 |
+| --- | --- |
+| Team name | AINewBee |
+| Domain | Domain 1 — The Aiversecity Future-Ready Workforce Domain |
+| SDG track | SDG 4 — Quality Education |
+| Team leader | Lee Yi Cheng |
+| Universities | Asia Pacific University of Technology & Innovation (APU); Universiti Teknologi Malaysia (UTM) |
+| Members | 3 |
 
-## Links
+## Preview and submission links
+
 | Resource | Link |
-|-------|---------|
-| GitHub Repository | https://github.com/jahax2154/sdc-2026-minder |
-| Live Demo | https://aesthetic-baklava-2da854.netlify.app |
-| RunPod Endpoint | https://console.runpod.io/serverless/user/endpoint/0387furb08gke2 |
-| Slide Deck | https://canva.link/67te6g9azdjgt61 |
-| Demo Video | https://youtu.be/l9xjHBjcycM |
+| --- | --- |
+| GitHub repository | https://github.com/jahax2154/sdc-2026-minder |
+| Public **static interface preview** | https://aesthetic-baklava-2da854.netlify.app |
+| Slide deck | https://canva.link/67te6g9azdjgt61 |
+| Demo video | https://youtu.be/l9xjHBjcycM |
+| Submission document | [Uploaded submission template](submission/AI%20Newbee_Submission_Template.docx) |
+| Technical and tools declaration | [Uploaded declaration](submission/AI%20Newbee_Technical_Tools_Declaration_Review-2.docx) |
+| Replit proof of use | [Submitted PDF](submission/AINewBee_Replit_POU.pdf) |
+| RunPod proof of use | [Submitted PDF](submission/AINewBee_Runpod_POU.pdf) |
+| RunPod experiment console | https://console.runpod.io/serverless/user/endpoint/0387furb08gke2 |
 
-## Overview
+The Netlify URL serves the separate read-only export in `apps/frontend-product/netlify-drop/`. It shows explicitly labelled synthetic examples of the interface. Navigation and example views work; live AI, real login, CV uploads, saved profile/plan/task changes and scheduled actions are unavailable there. It neither hosts nor connects to the Python backend. The RunPod console link requires its owner's account; it is not a public career-chat endpoint.
 
-### Problem
+**The full application source is included in this repository. A public full-stack deployment has not passed acceptance.** Replit native builds and dependency checks passed, but the latest verified published startup failed its required-data inventory guard. Managed-user login, production persistence, restart and scheduled delivery remain unverified. Provider-side deployment experiments remain separate from the static preview and are not submission proof of a working backend.
 
-Rapid developments in artificial intelligence are changing the skills required across many industries. However, students, fresh graduates, and early-career professionals may struggle to identify which of their existing skills remain relevant, what career opportunities match their abilities, and which new skills they should develop.
+## What the full application implements
 
-Many career guidance resources provide general recommendations without clearly explaining skill gaps or helping users understand how different AI adoption scenarios could influence their future career pathways.
+- Short onboarding collects background, interests or uncertainty, and self-reported experience, including none. It can return up to five labelled provisional starting directions without requiring a CV or a complete competency rubric. Unknown competence is not a numerical zero.
+- The assessed recommendation policy retains separate demonstrated skills, transferable background, role/industry preferences and work-style evidence. Backend calculations determine rankings; comparable current market evidence has explicitly scoped influence. The model does not invent fit scores.
+- A selected direction can receive a real Qwen-generated structured plan. Explicit acceptance saves one canonical plan used by the distinct Skills, Next Steps, Roadmap and Progress views. Task completion records activity progress, not proven skill mastery.
+- Minder provides persisted conversation history and source-backed market/career answers. General search discovery, fetching predefined public sources and reading stored evidence remain distinct operations. Advice is distinguished from measured findings; supporting sources retain dates and geographic scope.
+- Minder change requests can produce one linked proposal in the user's single Mindbot conversation. Rejection preserves state; approval validates ownership/current versions and executes once. Questions alone do not modify records. Direct-action authority elsewhere remains scoped.
+- Profile/CV services support bounded PDF and UTF-8 TXT uploads, extraction review and private storage where configured. DOCX upload is not supported by this implementation. A CV is optional for initial directions.
+- The existing worker supports persisted in-app automation. Local service tests and hosted delivery acceptance are separate.
 
-### Solution
+Current Malaysian evidence has limited comparable role coverage. Occupational requirements are not proof of a user's proficiency or Malaysian hiring demand. Real next-quarter forecasts, AI-replacement probabilities and independently validated career-outcome accuracy are unavailable. Hypothetical/synthetic experiments are labelled accordingly.
 
-**Minder** is an AI-assisted career exploration and personalised reskilling platform designed to help users make informed decisions about their professional development.
+## Actual technology and source structure
 
-Users can upload a CV/resume or manually enter their skills and proficiency levels. The platform analyses their confirmed skills, recommends suitable career pathways, and identifies skills they may need to develop.
-
-It also incorporates updatable AI-related trend signals, explainable career matching, hypothetical AI-disruption scenarios, and personalised learning recommendations. These features help users explore career possibilities and prepare for changing workforce requirements.
-
-The platform also connects relevant careers and skills to the United Nations Sustainable Development Goals (SDGs), particularly **SDG 4 — Quality Education**, to promote lifelong learning and career readiness.
-
-### Key Features
-
-- **CV/Resume Skill Extraction** — Upload a PDF or DOCX resume to identify existing skills, with options to review and correct extracted information.
-- **Personalised Skills Profile** — Record skills, proficiency levels, learning preferences, and career interests.
-- **Explainable Career Matching** — Receive ranked career recommendations based on skill coverage, with clear explanations of matching skills and gaps.
-- **Future Skill-Gap Analysis** — Identify important skills to develop based on career requirements and documented scenario assumptions.
-- **AI and Workforce Trend Signals** — Explore updatable external information with visible sources, publication dates, and limitations.
-- **Personalised Learning Pathway** — Follow an ordered reskilling roadmap with estimated learning time and relevant educational resources.
-- **AI-Disruption Scenarios** — Compare career recommendations under Moderate and Fast AI Disruption assumptions.
-- **SDG Integration** — Understand how career development and relevant skills connect to the United Nations Sustainable Development Goals.
-- **AI Career Assistant** — Provides an interface for career-related questions through the project's AI service integration. Demo responses are identified separately from live model inference.
-
-### Tech Stack
-
-| Layer | Technology |
-|---|---|
-| **Frontend** | React, TypeScript, Vite, Tailwind CSS, shadcn/ui |
-| **Backend** | Node.js, Express, TypeScript |
-| **API Specification & Validation** | OpenAPI, Zod |
-| **CV Processing** | PDF.js, Mammoth |
-| **Career Recommendation** | Explainable weighted skill-coverage scoring, skill-gap analysis, and ML-assisted recommendations |
-| **Trend Data** | Public RSS feeds with source and date information |
-| **AI Integration** | Integrated ML service and AI career assistant |
-| **Machine Learning / GPU** | RunPod — ML model deployment and inference |
-| **Development & Hosting** | Replit |
-| **Database** | SQLite |
-
-
-## Project Structure
-
-The project follows a monorepo architecture that separates the frontend, backend, machine-learning components, and shared API contracts.
-
-**Repository Status:** The frontend and backend source code are currently maintained in a separate development branch. The project structure below will be verified and updated once the branch is merged into `main`.
+| Layer | Implementation in this release |
+| --- | --- |
+| Product frontend | Dependency-free JavaScript ES modules, HTML and CSS in `apps/frontend-product/` |
+| Backend | Python WSGI API and bounded concurrent server in `apps/backend-api/` and `ml/src/minder_ml/intelligence/` |
+| Contracts | JSON schemas and typed request/response validation in `contracts/` and backend schema modules |
+| Local state | Isolated SQLite databases; owner-scoped profiles, conversations, plans, tasks and document metadata |
+| Hosted adapters | Native PostgreSQL, Clerk verified identity and private Replit App Storage; hosted acceptance pending |
+| Model | Server-side Groq `qwen/qwen3.8-27b`, bounded shared usage and explicit failures |
+| Recommendations | Versioned assessed and starter policies, occupational mappings and typed market evidence |
+| Experiments | Baselines, Ridge and XGBoost; separate bounded RunPod CUDA experiment on synthetic targets |
 
 ```text
-sdc-2026-minder/
-│
-├── .github/
-│   └── workflows/          # GitHub workflows
-│
-├── apps/
-│   ├── web/                # Frontend application (pending merge) 
-│   └── api/                # Backend application (pending merge) 
-│
-├── contracts/              # Shared API contracts
-│
-├── ml/
-│   ├── configs/            # Machine learning configurations
-│   ├── experiments/        # Model experiments
-│   ├── src/
-│   │   └── minder_ml/      # Machine learning source directory
-│   └── tests/              # Machine learning tests
-│
-├── scripts/                # Project scripts
-├── tests/                  # Project-level tests
-├── .gitignore
-└── README.md
+apps/backend-api/                  Full Python API, services, state and tests
+apps/frontend-product/             Working full-app frontend and browser checks
+  netlify-drop/                    Separate read-only static preview export
+  tools/export_static_preview.py   Reproducible preview exporter
+apps/frontend-web/                 Earlier acceptance frontend, preserved
+contracts/                         Shared schemas and contracts
+ml/src/minder_ml/                  Scoring, catalogue, evidence and ML code
+ml/configs/                        Versioned policies and configuration
+ml/tests/                          ML and policy tests
+ml/minder_ml_starter/               Source manifest; licensed raw inputs supplied separately
+deploy/                            Hosting adapters, artifact provisioner and checks
+docs/execution/                    Phase history, handoffs and acceptance evidence
+submission/                        Teammate-uploaded submission and proof-of-use files
+pyproject.toml / uv.lock            Locked Python runtime dependencies
 ```
 
+The historical React/Express architecture proposals are retained in project history; they do not describe this released Python/ES-module implementation. The Netlify export does not replace any API, ML or full-app frontend source.
 
-### Architecture
+## Run the full application locally
 
-Minder follows a modular full-stack architecture that connects the user interface, application logic, and machine-learning service.
+Prerequisites: Git, Python **3.12**, and `uv`. Run these from a fresh clone of this repository. The UI needs no Node build. Use a private server-side Groq key for real model generation; keep the verified model ID. Without that credential, non-model functions remain usable and generation reports unavailable rather than fabricated success.
 
-```text
-                  USER
-                    |
-                    v
-       +---------------------------+
-       | React + TypeScript        |
-       | Frontend (Replit)         |
-       |                           |
-       | - CV Upload               |
-       | - Skills Profile          |
-       | - Career Dashboard        |
-       | - Learning Pathway        |
-       | - AI Career Chatbot       |
-       +---------------------------+
-                    |
-                    v
-       +---------------------------+
-       | Express + TypeScript      |
-       | Backend API (Replit)      |
-       |                           |
-       | - AI Service Adapter      |
-       | - API Validation          |
-       | - Trend Feed Integration  |
-       +---------------------------+
-              |             |
-              v             v
-     +----------------+  +-------------------+
-     | RunPod ML      |  | Public RSS        |
-     | Service        |  | Trend Sources     |
-     |                |  |                   |
-     | - ML Inference |  | - Trend Signals   |
-     | - AI Analysis  |  | - Source Metadata |
-     +----------------+  +-------------------+
-              |             |
-              +------+------+
-                     |
-                     v
-       +---------------------------+
-       | Minder Results    |
-       |                           |
-       | - Career Recommendations  |
-       | - Future Skill Gaps       |
-       | - AI Scenario Comparison  |
-       | - Reskilling Pathways     |
-       +---------------------------+
-                     |
-                     v
-                USER DASHBOARD
-```
-
-### How the System Works
-
-1. **User Profile:** Users upload a PDF/DOCX resume or manually enter their skills. Extracted skills are reviewed and confirmed before analysis.
-
-2. **Frontend Processing:** The React application manages the user interface, profile information, career exploration and learning pathway presentation.
-
-3. **Backend Communication:** The Express backend handles AI service requests, validates data and retrieves available trend signals.
-
-4. **Machine Learning Integration:** The backend communicates with the RunPod-hosted ML service to obtain AI-assisted analysis and recommendations.
-
-5. **Career and Skill Analysis:** The application combines explainable skill matching, skill-gap calculations, AI-assisted recommendations and scenario-based assessments.
-
-6. **Learning Recommendations:** Users receive personalised reskilling pathways with learning resources, estimated durations and relevant Sustainable Development Goal connections.
-
-7. **Result Presentation:** The dashboard presents recommendations and supporting explanations to help users make informed career-development decisions.
-
-
-## How to Run
-
-Minder is developed and deployed using Replit. The application consists of a React frontend, an Express backend, and an integrated machine-learning service hosted on RunPod.
-
-### Option 1 — Run on Replit (Recommended)
-
-The easiest way to access the application is through our deployed prototype:
-
-**Live Application:** https://aesthetic-baklava-2da854.netlify.app
-
-To run the application in the Replit development environment:
-
-1. Open the Minder project in Replit.
-2. Ensure the required environment variables are configured securely using Replit Secrets.
-3. Start the project's existing development workflow using the **Run** button.
-4. Open the **Preview** panel to access the application.
-5. Test the CV upload, career recommendations, skill-gap analysis, learning pathways, and AI career assistant.
-
-
-### Option 2 — Run Locally
-
-The application uses a Node.js and TypeScript workspace managed with pnpm.
-
-**Prerequisites:**
-- Node.js
-- pnpm
-- Git
-
-After the frontend and backend development branch has been merged into `main`, the local setup can be completed using the following workflow.
-
-```bash
-# 1. Clone the GitHub repository
-git clone https://github.com/jahax2154/sdc-2026-minder
-
-# 2. Enter the project folder
+```sh
+git clone https://github.com/jahax2154/sdc-2026-minder.git
 cd sdc-2026-minder
+uv sync --frozen --no-dev --python 3.12
+export PYTHONPATH=ml/src:apps/backend-api
 
-# 3. Install dependencies
-pnpm install
+# Fetch only four existing allowlisted, hash-pinned O*NET 31.0 public inputs.
+# Existing mismatched files are never overwritten; source bytes stay read-only.
+uv run --frozen --no-dev python -m deploy.artifacts fetch
 
-# 4. Run the application
-# Confirm the correct workspace command after the branch merge
+# Configure GROQ_API_KEY privately in the server environment, or in the
+# owner-only .env.groq.local file (chmod 600); never put it in frontend code.
+export GROQ_MODEL=qwen/qwen3.8-27b
+export MINDER_ENV=development
+export MINDER_DOCUMENT_STORAGE=local-development
+uv run --frozen --no-dev python -m minder_ml.intelligence.product_runtime --lane A --worker
 ```
 
-**Pending verification:** The final application startup commands, required Node.js and pnpm versions, and environment-variable names will be confirmed after the development branch is merged.
+Open **http://127.0.0.1:9111**; the private API is on **http://127.0.0.1:8111**, also proxied by the UI's same-origin `/api`. Lane A stores its SQLite database/uploads under ignored `ml/artifacts/session-a/product/`. Local sessions are development identities, not managed hosted accounts. Do not use another lane's database or expose this local mode publicly. Localhost is not a teammate's remote backend.
 
-Do not commit API keys, model credentials, or private configuration files to GitHub.
+For the existing Session A workstation, reuse its private environment with `source .env.local` and `PYTHONPATH=ml/src:apps/backend-api "$MINDER_PYTHON" -m minder_ml.intelligence.product_runtime --lane A --worker`; do not recreate its DB or copy credentials.
 
-### Run Tests
+The four public inputs can be reproduced through [the pinned provisioner](deploy/artifacts.py) and [attribution](deploy/ATTRIBUTION.md). Additional historical/training inputs, weights, real profiles/CVs, credentials and private databases are deliberately not distributed. Full historical input verification requires the authorised 13-input pack described in [the source handoff](docs/execution/parallel/A/checks/provision_dev_inputs.py); those extra inputs are not universal startup prerequisites.
 
-The Replit application includes frontend tests, API integration checks, and TypeScript validation.
+### Checks
 
-The following commands apply to the previously exported Replit workspace and must be verified against the final merged GitHub repository:
-
-```bash
-# Frontend tests
-pnpm --filter @workspace/career-compass run test
-
-# AI integration tests
-pnpm --filter @workspace/api-server run test:ai
-
-# TypeScript checks
-pnpm run typecheck
-
-# Frontend production build
-pnpm --filter @workspace/career-compass run build
+```sh
+export PYTHONPATH=ml/src:apps/backend-api
+uv run --frozen --no-dev python -m unittest discover -s apps/backend-api/tests
+uv run --frozen --no-dev python -m unittest discover -s deploy -p 'test_*.py'
+git diff --check
 ```
 
+Browser checks are in `apps/frontend-product/tests/` and `docs/execution/product-v2/checks/`. They require a separate Playwright/browser installation; some explicitly use fixtures and some make real provider calls. Read the named check before running it. Do not count fixture checks as real-provider or hosted acceptance.
 
-## How We Use Replit
+## Replit, RunPod and evidence
 
-Replit serves as the primary development and hosting platform for the Minder web application. Our team used Replit to develop, test, refine, and deploy the frontend and backend components.
+Replit was used for integration and native Linux build/runtime diagnosis. The retained [Replit guide](deploy/replit/README.md) and [latest release record](docs/execution/product-v2/RELEASE_MAIN_INTEGRATION.md) describe the actual boundaries. A passing build or preview health check is not a working public backend. This release does not request another deployment or billing change.
 
-### Development
+B completed one bounded RunPod CUDA experiment on an RTX A4500: five XGBoost fits used CUDA, while Ridge and baseline runs used CPU. The test targets were synthetic; XGBoost performed worse than the baselines and was not promoted into application ranking or real forecasts. Returned model weights remain outside Git; configuration, numerical results and hash manifests are included. Cleanup verified zero workers and no queued/running jobs. See [GPU handoff](docs/execution/parallel/B/GPU_HANDOFF.v1.md) and [observed credit reconciliation](docs/execution/parallel/B/MB2-R01.json). No rerun is required to start Minder.
 
-- **Frontend Development:** Developed the web application using React, TypeScript, Vite, Tailwind CSS, and shadcn/ui.
-- **Backend Development:** Implemented an Express and TypeScript backend to support API communication, external trend-data retrieval, and AI service integration.
-- **UI/UX Design:** Designed and refined the *Calm Horizon* interface, focusing on minimalist layouts, accessible navigation, and a comfortable learning experience.
-- **AI Integration:** Implemented an AI service adapter to communicate with the team's machine-learning service hosted through RunPod.
-- **AI-Assisted Development:** Used Replit Agent to assist with code generation, interface refinement, integration, and testing. Generated changes were reviewed and tested during development.
+Relevant acceptance records:
 
-### Testing
+- [Fresh normal-onboarding, real plan, canonical state and approval journey](docs/execution/product-v2/A_N9_3_COMBINED_JOURNEY.md)
+- [Real browser answer synthesis, dated sources and Qwen output](docs/execution/product-v2/A_N11_ACCEPTANCE_AND_E_HANDOFF.md)
+- [Actual native PostgreSQL/private-storage handoff](docs/execution/product-v2/D/REPLIT_PERSISTENCE_HANDOFF.md)
+- [Scoring/evidence pipeline and worked example](docs/execution/product-v2/PITCH_PIPELINE.md)
+- [Canonical decisions](docs/MINDER_AI_ML_DECISION_CONTEXT.md) and [current ownership](docs/execution/product-v2/OWNERSHIP.json)
 
-Replit was used to run and verify the application during development, including:
+Earlier reports remain chronological evidence. Their historical passing counts, pending gates or obsolete setup instructions should not override the latest release record.
 
-- Frontend component and functionality tests.
-- TypeScript type checking.
-- Production build verification.
-- API and AI integration tests.
-- Responsive interface checks across desktop, tablet, and mobile layouts.
-- Manual testing of CV uploads, career recommendations, skill-gap analysis, and learning pathways.
+## Team and lessons
 
-### Hosting and Deployment
+| Name | Contribution | GitHub |
+| --- | --- | --- |
+| Lee Yi Cheng | Full-stack development, interface design, API integration and deployment collaboration | [@yicheng-0612](https://github.com/yicheng-0612) |
+| Phuah Jun Hong | Machine learning, model experiments, evidence and application integration, RunPod work | [@jahax2154](https://github.com/jahax2154) |
+| Lau Wen Le | Documentation, project coordination, presentation and submission preparation | [@WenLe0317](https://github.com/WenLe0317) |
 
-Minder is deployed using Replit.
+The work reinforced the need for shared API contracts, explicit ownership, clear UI limitations and evidence-backed recommendations. Published programme descriptions, attention and synthetic targets cannot substitute for current hiring measurements. Future work includes broader comparable Malaysian evidence, independent evaluation, multilingual support and completing hosted authentication/durability/delivery acceptance.
 
-**Live Prototype:** https://aesthetic-baklava-2da854.netlify.app
+## Submission status
 
-The deployed application provides access to the career exploration platform, including the CV analysis interface, personalised career recommendations, learning pathways, AI scenarios, SDG connections, and the AI career assistant.
-
-### Credentials and Security
-
-Sensitive credentials, including external AI service authentication details, are configured through secure environment settings rather than being hardcoded into frontend source code.
-
-The application is designed to separate backend communication from client-side interactions when accessing external AI services.
-
-### Proof of Replit Usage
-
-Evidence of Replit usage is included in the submission documentation.
-
-**Proof of Use:** [Replit Proof of Use](submission/SDC2026_AINewBee_Replit_POU.pdf)
-
-
-## How We Use RunPod
-
-RunPod is used as the cloud computing platform for the machine-learning component of Minder. It supports AI-powered career guidance and skill analysis through a model service integrated with our Replit application.
-
-### Machine Learning Workload
-
-The machine-learning component supports the platform's AI-assisted features, including:
-
-- **Skill Analysis:** Analysing user skill profiles to support personalised career guidance.
-- **Future Skill Recommendations:** Generating suggestions about skills users may develop for their selected career pathways.
-- **AI Career Assistant:** Supporting career-related questions and explanations through the chatbot interface.
-
-The AI-generated recommendations complement the application's explainable skill-matching algorithm and scenario-based assessments.
-
-### RunPod Setup
-
-The team's machine-learning service is hosted using RunPod.
-
-- **Deployment Type:** [Specify GPU Pod or Serverless Endpoint]
-- **Model Name and Version:** [Enter the actual model used]
-- **GPU Type:** [Enter GPU model if using a GPU Pod]
-- **Model Framework:** [Enter actual framework, e.g. PyTorch or Transformers]
-- **Endpoint:** [Enter the deployed inference endpoint or state how the service is accessed]
-
-### Integration with Replit
-
-The application follows this communication flow:
-
-```text
-User
-  |
-  v
-Replit Frontend (React)
-  |
-  v
-Replit Backend (Express)
-  |
-  v
-RunPod ML Service
-  |
-  v
-AI-generated analysis
-  |
-  v
-Minder Dashboard
-```
-
-The frontend communicates with the Express backend, which sends structured requests to the RunPod-hosted model service and processes the returned responses.
-
-The platform also retains its existing explainable career-matching and learning-pathway functionality independently of the external AI service.
-
-### Example API Request
-
-The following is a conceptual example of an analysis request. The actual request format must follow the deployed model's API contract.
-
-```json
-{
-  "profile": {
-    "skills": [
-      {
-        "skillId": "python",
-        "level": 3
-      },
-      {
-        "skillId": "sql",
-        "level": 2
-      }
-    ]
-  },
-  "selectedCareerId": "data-analyst",
-  "scenario": "fast"
-}
-```
-
-The model service returns structured analysis that the application can use to present AI-assisted recommendations and explanations.
-
-### Responsible AI and Data Handling
-
-- Uploaded CVs are processed to identify relevant skills.
-- Users can review and correct extracted skills before analysis.
-- AI-generated recommendations are intended to support career decision-making, not guarantee future employment.
-- Model limitations and hypothetical scenario assumptions should be communicated clearly.
-- API credentials must be stored securely and excluded from the public repository.
-
-### Proof of RunPod Usage
-
-Evidence of RunPod usage is included in the submission documentation.
-
-**Proof of Use:** [RunPod Proof of Use](submission/SDC2026_AINewBee_Runpod_POU.pdf)
-
-
-## Challenges & Learnings
-
-During the development of Minder, our team encountered several challenges involving system integration, user experience design, data reliability, and project coordination.
-
-### 1. Integrating Frontend, Backend, and Machine Learning
-
-One of our main challenges was integrating the React frontend and Express backend with the machine-learning service developed separately by another team member.
-
-To address this, we adopted a modular architecture with defined API contracts, allowing the web application and ML components to be developed and tested independently.
-
-**What we learned:** Clear API specifications and communication between team members are essential when integrating independently developed software components.
-
-### 2. Designing an Accessible and User-Friendly Interface
-
-Our initial interface contained several information-heavy sections, making the platform potentially overwhelming for users who were unfamiliar with career analytics.
-
-We refined the design into **Calm Horizon**, a minimalist interface using sage-green accents, simplified navigation, spacious layouts, and clearer learning pathways.
-
-**What we learned:** Effective UI/UX design is not simply about visual appearance. Presenting information progressively can make complex features easier to understand and encourage users to continue learning.
-
-### 3. Providing Explainable Career Recommendations
-
-Career recommendation systems can become difficult for users to trust when they cannot understand how recommendations are generated.
-
-We addressed this by using transparent skill-coverage scoring, displaying relevant skill gaps, and explaining the assumptions behind future AI-disruption scenarios.
-
-**What we learned:** Explainability and transparency are important when building AI-assisted systems that support personal decisions.
-
-### 4. Managing External Trend Data
-
-Our platform incorporates external trend signals, which introduce challenges involving data availability, accuracy, and interpretation.
-
-We implemented source attribution, publication dates, refresh functionality, and appropriate error-handling mechanisms.
-
-**What we learned:** External information should be presented with its sources and limitations. Published attention or news coverage should not be misrepresented as actual hiring demand.
-
-### 5. Coordinating Development and Version Control
-
-Our team developed different system components across Replit, GitHub branches, and the ML development environment.
-
-Maintaining compatible interfaces and coordinating code changes required careful communication and task allocation.
-
-**What we learned:** Version control, modular development, and clearly assigned responsibilities help teams collaborate more effectively under time constraints.
-
-## Future Improvements
-
-Although Minder provides a functional prototype, several improvements could enhance its capabilities and user experience in future versions.
-
-- [ ] **Expanded Career Database** — Support a wider range of industries, occupations, and career pathways.
-- [ ] **Improved Labour-Market Intelligence** — Integrate additional reliable job-market datasets to strengthen future skill recommendations.
-- [ ] **Enhanced AI Recommendations** — Improve model evaluation and recommendation quality using appropriate datasets and testing methods.
-- [ ] **Multilingual Support** — Provide additional language options to improve accessibility for Malaysian users.
-- [ ] **Employer and Education Partnerships** — Explore collaboration with employers and training providers to improve the relevance of career and learning recommendations.
-
-
-## Team
-
-Our team consists of three members working collaboratively on the design, development, documentation, and integration of Minder.
-
-| Name | Role | GitHub |
-|---|---|---|
-| Lee Yi Cheng | **Full-Stack Developer** — Replit frontend and backend development, UI/UX design, API integration, and deployment | [@yicheng-0612](https://github.com/yicheng-0612) |
-| Phuah Jun Hong | **Machine Learning Engineer** — ML model development, training, evaluation, and RunPod integration | [@jahax2154](https://github.com/jahax2154) |
-| Lau Wen Le | **Documentation & Project Coordinator** — Technical documentation, project proposal, presentation materials, submission preparation, and team coordination | [@WenLe0317](https://github.com/WenLe0317) |
-
-## Submission Checklist
-
-- [X] Team name, Domain 1, and SDG 4 track are correctly stated.
-- [X] GitHub repository is publicly accessible to judges.
-- [ ] Live Replit application link is working.
-- [X] Presentation slide deck link has been added.
-- [ ] Demo video link has been added.
-- [X] Replit proof of use is included in `submission/`.
-- [X] RunPod proof of use is included in `submission/`.
-- [X] Preliminary submission document is completed (`SDC2026_AINewBee_Preliminary.pdf`).
-- [X] Technical & Tools Declaration is completed (`SDC2026_AINewBee_TechDeclaration.pdf`).
-- [X] All submission documents use the registered team name.
-- [X] Frontend, backend, and ML source code are available in the final repository.
-- [X] Installation and testing instructions have been verified.
-- [X] No API keys, passwords, or other secrets are committed to GitHub.
-- [X] Apache License 2.0 is included in the repository.
+The uploaded DOCX submission/declaration files and both proof-of-use PDFs are linked above and preserved as submitted. Slide and video links are retained from the team's latest README. A final preliminary PDF or declaration PDF is not present under the older README's proposed filenames; do not treat those missing exports as delivered. The confirmed public URL is the static preview only. Forecasting accuracy and a public full-stack backend remain limitations.
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE).
-
-
-
-
+[Apache License 2.0](LICENSE). Source data and imported assets retain their separately documented licences and attribution.

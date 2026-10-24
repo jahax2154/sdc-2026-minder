@@ -1,0 +1,972 @@
+{
+  "checkpoint": "A-N9.2",
+  "runtime": "http://127.0.0.1:9111",
+  "ordinary_pace_gate": "failed: actual shared Groq daily quota after first question",
+  "latest_results": {
+    "general_market": "passed on72afddf",
+    "software_market": "passed on31e85cb",
+    "software_skills": "passed on31e85cb after measured actual provider cooldown; not an ordinary-paced pass"
+  },
+  "observations": [
+    {
+      "run": "ordinary-three-question-run",
+      "question": "What are the market trends right now?",
+      "status": "answered",
+      "backend_revision": "72afddf3b368b31e4226fa106134384061cf57e7",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 5834,
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 0.702,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "6651",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "10.117s"
+        },
+        "request_id": "req_01m5qcynw7e3xs63f062cmhkdw",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "vxsfmw9ch",
+          "name": "explain_public_sources"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 253,
+          "prompt_tokens": 987,
+          "total_tokens": 1240
+        }
+      },
+      "validation": {
+        "accepted_findings": 2,
+        "failure_code": null,
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "passed"
+      },
+      "answer_introduction": "Latest Malaysian labour-market snapshot (DOSM, Aug 2026):",
+      "direct_question_relevance": true,
+      "operation_mode": "predefined_fetch_after_search",
+      "answer_source_origins": null,
+      "answer_uses_search_discovered_pages": null,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 788.925,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "Malaysia labour market",
+          "result_count": 43,
+          "searched_at": "2026-10-24T16:47:19.462878+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 261.613,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:47:20.523059+00:00",
+          "title": "DOSM Monthly Principal Labour Force Statistics",
+          "url": "https://storage.dosm.gov.my/labour/lfs_month.csv"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 261.613,
+          "geography": "MY",
+          "id": "dosm-monthly-live:4eb09ceda2462787",
+          "observation_period": "2026-08",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T16:47:20.523059+00:00",
+          "scope": "Live official DOSM Labour Force Survey CSV, last three months rendered with documented units. National persons/rates, not role vacancies. Observation month is not publication/retrieval time. Source metadata: https://data.gov.my/data-catalogue/lfs_month. Population basis changes in 2025; these comparisons stay within the same basis.",
+          "sha256": "4eb09ceda2462787cbb37644bd3010f8c7af5fb3954377033e5ce8d3cc87b175",
+          "title": "DOSM Monthly Principal Labour Force Statistics",
+          "url": "https://storage.dosm.gov.my/labour/lfs_month.csv"
+        }
+      ],
+      "source_failures": [
+        {
+          "code": "public_source_timeout",
+          "fetch_elapsed_ms": 4121.643,
+          "http_status": null,
+          "origin": "predefined_detail",
+          "source_url": "https://www.dosm.gov.my/portal-main/release-content/labour-market-review-lmr-q22026",
+          "status": "unavailable"
+        }
+      ],
+      "statement_support": [
+        {
+          "id": "web-finding-1",
+          "quote_sha256": "f2e74c92cba1ddb0820fc8856f00dc5833ac797bd55fe1c8c6caa2ccea3bf663",
+          "citation": {
+            "cache_status": "live_fetched",
+            "fetch_elapsed_ms": 261.613,
+            "geography": "MY",
+            "id": "dosm-monthly-live:4eb09ceda2462787",
+            "observation_period": "2026-08",
+            "origin": "predefined_detail",
+            "published_at": null,
+            "retrieved_at": "2026-10-24T16:47:20.523059+00:00",
+            "scope": "Live official DOSM Labour Force Survey CSV, last three months rendered with documented units. National persons/rates, not role vacancies. Observation month is not publication/retrieval time. Source metadata: https://data.gov.my/data-catalogue/lfs_month. Population basis changes in 2025; these comparisons stay within the same basis.",
+            "sha256": "4eb09ceda2462787cbb37644bd3010f8c7af5fb3954377033e5ce8d3cc87b175",
+            "title": "DOSM Monthly Principal Labour Force Statistics",
+            "url": "https://storage.dosm.gov.my/labour/lfs_month.csv"
+          },
+          "word_count": 16
+        },
+        {
+          "id": "web-finding-2",
+          "quote_sha256": "566c97391c3fb6ff5e8e9dccd3a1aaafd2ca7a8155c9e8e44e6056ed4b7f6d10",
+          "citation": {
+            "cache_status": "live_fetched",
+            "fetch_elapsed_ms": 261.613,
+            "geography": "MY",
+            "id": "dosm-monthly-live:4eb09ceda2462787",
+            "observation_period": "2026-08",
+            "origin": "predefined_detail",
+            "published_at": null,
+            "retrieved_at": "2026-10-24T16:47:20.523059+00:00",
+            "scope": "Live official DOSM Labour Force Survey CSV, last three months rendered with documented units. National persons/rates, not role vacancies. Observation month is not publication/retrieval time. Source metadata: https://data.gov.my/data-catalogue/lfs_month. Population basis changes in 2025; these comparisons stay within the same basis.",
+            "sha256": "4eb09ceda2462787cbb37644bd3010f8c7af5fb3954377033e5ce8d3cc87b175",
+            "title": "DOSM Monthly Principal Labour Force Statistics",
+            "url": "https://storage.dosm.gov.my/labour/lfs_month.csv"
+          },
+          "word_count": 16
+        }
+      ],
+      "rendered_source_links": [
+        "https://storage.dosm.gov.my/labour/lfs_month.csv",
+        "https://storage.dosm.gov.my/labour/lfs_month.csv",
+        "https://storage.dosm.gov.my/labour/lfs_month.csv"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "private_evidence_directory": "/private/tmp/minder-a-market-r05",
+      "model_answer": "Latest Malaysian labour-market snapshot (DOSM, Aug 2026):\n\nUnemployment edged down to 2.9% in Aug 2026 from 3.0% in Jul, with participation at 71.0% and 16.87m employed. This is a two-month national trend, not a sector or role-level signal. [1]\n\nThe July baseline (3.0% unemployment, 70.9% participation, 16.85m employed) shows the small month-on-month improvement, but only two months are available, so the direction is preliminary. [2]\n\nNational aggregate only; no sector, occupation or vacancy detail, and only two months are shown.\n\nPractical advice (not a measured market finding): Pair these headline rates with sector/occupation data before drawing hiring or skills conclusions.\n\nSource method: web search ran, but no usable discovered page was fetched. These links are predefined detail/reference pages fetched live or from the labelled recent cache.",
+      "displayed_answer_sha256": "a0e4d3e1a8bc9cb08eb8e65403f34dd4c1212d23c1dca7781c93ca09f994b175",
+      "displayed_intro_matches_model_answer": true
+    },
+    {
+      "run": "ordinary-three-question-run",
+      "question": "How is the software engineering job market now?",
+      "status": "blocked",
+      "backend_revision": "72afddf3b368b31e4226fa106134384061cf57e7",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 2160,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "limit_details": {
+          "limit": 200000,
+          "period": "day",
+          "requested": 1222,
+          "resource": "tokens",
+          "used": 199721
+        },
+        "queue_ms": 0.351,
+        "request_id": "c56f81dd-d8f9-449c-876c-d97fd80a3415",
+        "retry_after_seconds": 407.997,
+        "status": "unavailable",
+        "transport_attempts": 1
+      },
+      "validation": {
+        "accepted_findings": 0,
+        "failure_code": "provider_rate_limited",
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "not_run_provider_or_sources_unavailable"
+      },
+      "answer_introduction": "I retrieved relevant public sources, but the language service is currently at its usage limit. Its reported retry window is about 408 seconds. Your saved work is unchanged. The sources remain available below; no model answer is being substituted.",
+      "direct_question_relevance": false,
+      "operation_mode": "predefined_fetch_after_search",
+      "answer_source_origins": null,
+      "answer_uses_search_discovered_pages": null,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 588.885,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "Malaysia software engineer job market",
+          "result_count": 5,
+          "searched_at": "2026-10-24T16:47:27.357820+00:00",
+          "status": "available"
+        },
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 1094.982,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "Malaysia technology hiring",
+          "result_count": 9,
+          "searched_at": "2026-10-24T16:47:27.946740+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 239.317,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:47:29.289808+00:00",
+          "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+          "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 239.317,
+          "geography": "MY",
+          "id": "randstad-tech-detail:0fd6f67d9af9b523",
+          "origin": "predefined_detail",
+          "published_at": "2026-09-01",
+          "retrieved_at": "2026-10-24T16:47:29.289808+00:00",
+          "scope": "Recruitment firm observations and 2026 guide; employer context, not a national vacancy census or measured role growth rate.",
+          "sha256": "0fd6f67d9af9b5236fe5f9732edf013cec890f180e47dbec8b763dd0abc3de02",
+          "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+          "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+        }
+      ],
+      "source_failures": [
+        {
+          "code": "public_source_recently_unavailable",
+          "fetch_elapsed_ms": 1.637,
+          "http_status": null,
+          "origin": "predefined_detail",
+          "source_url": "https://www.dosm.gov.my/portal-main/release-content/labour-market-review-lmr-q22026",
+          "status": "unavailable"
+        }
+      ],
+      "statement_support": [],
+      "rendered_source_links": [
+        "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "private_evidence_directory": "/private/tmp/minder-a-market-r05"
+    },
+    {
+      "run": "ordinary-three-question-run",
+      "question": "What's the most relevant skills now to become a software engineer?",
+      "status": "blocked",
+      "backend_revision": "72afddf3b368b31e4226fa106134384061cf57e7",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 3982,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": false,
+        "limit_details": null,
+        "queue_ms": 0.148,
+        "request_id": "bb7e5831-4a14-4de2-95f6-bd16c8b33fdc",
+        "retry_after_seconds": 401.952,
+        "status": "unavailable",
+        "transport_attempts": 0
+      },
+      "validation": {
+        "accepted_findings": 0,
+        "failure_code": "provider_rate_limited",
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "not_run_provider_or_sources_unavailable"
+      },
+      "answer_introduction": "I retrieved relevant public sources, but the language service is currently at its usage limit. Its reported retry window is about 402 seconds. Your saved work is unchanged. The sources remain available below; no model answer is being substituted.",
+      "direct_question_relevance": false,
+      "operation_mode": "search_and_fetch",
+      "answer_source_origins": null,
+      "answer_uses_search_discovered_pages": null,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 866.954,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software engineer skills",
+          "result_count": 81,
+          "searched_at": "2026-10-24T16:47:31.564747+00:00",
+          "status": "available"
+        },
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 1023.087,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software development curriculum",
+          "result_count": 67,
+          "searched_at": "2026-10-24T16:47:32.431782+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2023.078,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:47:35.499144+00:00",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 194.751,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:47:33.671851+00:00",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 681.202,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T16:47:34.158157+00:00",
+          "title": "Broad vs. Narrow Skillsets: Software Engineering Skills Demystified | Toptal\u00ae",
+          "url": "https://www.toptal.com/developers/software/software-engineer-skills-and-skillsets"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 244.17,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T16:47:33.719963+00:00",
+          "title": "10+ In-Demand DevOps Engineer Skills to Master",
+          "url": "https://roadmap.sh/devops/skills"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2023.078,
+          "geography": "US",
+          "id": "onet-software-detail:16b7084c934f20d0",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T16:47:35.499144+00:00",
+          "scope": "US occupational tasks/skills reference. Not Malaysian hiring popularity, personal competence or a current Malaysian trend.",
+          "sha256": "16b7084c934f20d06f157c117b1854e44390df6b5c2e6416f696b86c0457c1fc",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 194.751,
+          "geography": "global",
+          "id": "mdn-curriculum-detail:5968f8f4bce775e5",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T16:47:33.671851+00:00",
+          "scope": "Primary technical curriculum for front-end web development, one software specialism. Foundational advice, not a Malaysian popularity ranking.",
+          "sha256": "5968f8f4bce775e50a931d381b0e1161a36e8e5253b27108d39d33891c562295",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        }
+      ],
+      "source_failures": [],
+      "statement_support": [],
+      "rendered_source_links": [
+        "https://www.onetonline.org/link/summary/15-1252.00",
+        "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "private_evidence_directory": "/private/tmp/minder-a-market-r05"
+    },
+    {
+      "run": "targeted-software-market",
+      "question": "How is the software engineering job market now?",
+      "status": "answered",
+      "backend_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 2980,
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 0.441,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "6742",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "9.435s"
+        },
+        "request_id": "req_01m5qde7t2e7t8ddxqqrmhnqhr",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "ab5h1j25g",
+          "name": "explain_public_sources"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 230,
+          "prompt_tokens": 969,
+          "total_tokens": 1199
+        }
+      },
+      "validation": {
+        "accepted_findings": 2,
+        "failure_code": null,
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "passed"
+      },
+      "answer_introduction": "Software engineering demand in Malaysia is tied to modernisation and scalable app needs.",
+      "direct_question_relevance": true,
+      "operation_mode": "predefined_fetch_after_search",
+      "answer_source_origins": [
+        "predefined_detail"
+      ],
+      "answer_uses_search_discovered_pages": false,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 652.04,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "Malaysia software engineer job market",
+          "result_count": 5,
+          "searched_at": "2026-10-24T16:55:52.124832+00:00",
+          "status": "available"
+        },
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 1191.339,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "Malaysia technology hiring",
+          "result_count": 9,
+          "searched_at": "2026-10-24T16:55:52.776914+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 272.731,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:55:54.248543+00:00",
+          "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+          "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 272.731,
+          "geography": "MY",
+          "id": "randstad-tech-detail:0fd6f67d9af9b523",
+          "origin": "predefined_detail",
+          "published_at": "2026-09-01",
+          "retrieved_at": "2026-10-24T16:55:54.248543+00:00",
+          "scope": "Recruitment firm observations and 2026 guide; employer context, not a national vacancy census or measured role growth rate.",
+          "sha256": "0fd6f67d9af9b5236fe5f9732edf013cec890f180e47dbec8b763dd0abc3de02",
+          "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+          "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+        }
+      ],
+      "source_failures": [],
+      "statement_support": [
+        {
+          "id": "web-finding-1",
+          "quote_sha256": "149fb8acda998397b8cb36ef339b4070e8ac28ecaa021303e059e8b89d780964",
+          "citation": {
+            "cache_status": "live_fetched",
+            "fetch_elapsed_ms": 272.731,
+            "geography": "MY",
+            "id": "randstad-tech-detail:0fd6f67d9af9b523",
+            "origin": "predefined_detail",
+            "published_at": "2026-09-01",
+            "retrieved_at": "2026-10-24T16:55:54.248543+00:00",
+            "scope": "Recruitment firm observations and 2026 guide; employer context, not a national vacancy census or measured role growth rate.",
+            "sha256": "0fd6f67d9af9b5236fe5f9732edf013cec890f180e47dbec8b763dd0abc3de02",
+            "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+            "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+          },
+          "word_count": 22
+        },
+        {
+          "id": "web-finding-2",
+          "quote_sha256": "92d4c2908af551359d7cac382ec2299e7365f77bf5fb47758bf7b0191f28ad50",
+          "citation": {
+            "cache_status": "live_fetched",
+            "fetch_elapsed_ms": 272.731,
+            "geography": "MY",
+            "id": "randstad-tech-detail:0fd6f67d9af9b523",
+            "origin": "predefined_detail",
+            "published_at": "2026-09-01",
+            "retrieved_at": "2026-10-24T16:55:54.248543+00:00",
+            "scope": "Recruitment firm observations and 2026 guide; employer context, not a national vacancy census or measured role growth rate.",
+            "sha256": "0fd6f67d9af9b5236fe5f9732edf013cec890f180e47dbec8b763dd0abc3de02",
+            "title": "most in-demand jobs in Malaysia: emerging technology career guide.",
+            "url": "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+          },
+          "word_count": 25
+        }
+      ],
+      "rendered_source_links": [
+        "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/",
+        "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/",
+        "https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "private_evidence_directory": "/private/tmp/minder-a-software-market-r07",
+      "model_answer": "Software engineering demand in Malaysia is tied to modernisation and scalable app needs.\n\nThe 2026 Malaysian guide says software engineering opportunities span full-stack, backend and frontend development, with demand linked to legacy-system modernisation and scalable consumer applications. It names financial services, telecommunications, software services, semiconductor and electronics as hiring sectors. [1]\n\nThe same guide says organisations are hiring software engineers to build scalable, low-latency applications, modernise technology systems and deliver software projects while meeting strict security requirements. [2]\n\nThis is a 2026 Malaysian recruitment-firm guide, not a national vacancy census or measured role growth rate.\n\nPractical advice (not a measured market finding): Focus on full-stack, backend/frontend, security and scalable-systems skills.\n\nSource method: web search ran, but no usable discovered page was fetched. These links are predefined detail/reference pages fetched live or from the labelled recent cache.",
+      "displayed_answer_sha256": "29e4d2362fe17b6c14e809298d6a4c357aedd53312144c5b27857b7a7315ec77",
+      "displayed_intro_matches_model_answer": true
+    },
+    {
+      "run": "targeted-software-skills-quota",
+      "question": "What's the most relevant skills now to become a software engineer?",
+      "status": "blocked",
+      "backend_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 4612,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "limit_details": {
+          "limit": 200000,
+          "period": "day",
+          "requested": 1285,
+          "resource": "tokens",
+          "used": 199482
+        },
+        "queue_ms": 1.357,
+        "request_id": "33c4a298-7336-4caf-a9d3-813b48e6f5d9",
+        "retry_after_seconds": 331.999,
+        "status": "unavailable",
+        "transport_attempts": 1
+      },
+      "validation": {
+        "accepted_findings": 0,
+        "failure_code": "provider_rate_limited",
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "not_run_provider_or_sources_unavailable"
+      },
+      "answer_introduction": "I retrieved relevant public sources, but the language service is currently at its usage limit. Its reported retry window is about 332 seconds. Your saved work is unchanged. The sources remain available below; no model answer is being substituted.",
+      "direct_question_relevance": false,
+      "operation_mode": "search_and_fetch",
+      "answer_source_origins": [
+        "predefined_detail",
+        "predefined_detail"
+      ],
+      "answer_uses_search_discovered_pages": false,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 759.395,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software engineer skills",
+          "result_count": 81,
+          "searched_at": "2026-10-24T16:57:46.279210+00:00",
+          "status": "available"
+        },
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 1115.705,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software development curriculum",
+          "result_count": 67,
+          "searched_at": "2026-10-24T16:57:47.038633+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2476.206,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:57:50.655751+00:00",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 188.1,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T16:57:48.365440+00:00",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 667.874,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T16:57:48.848318+00:00",
+          "title": "Broad vs. Narrow Skillsets: Software Engineering Skills Demystified | Toptal\u00ae",
+          "url": "https://www.toptal.com/developers/software/software-engineer-skills-and-skillsets"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 218.402,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T16:57:48.397123+00:00",
+          "title": "10+ In-Demand DevOps Engineer Skills to Master",
+          "url": "https://roadmap.sh/devops/skills"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2476.206,
+          "geography": "US",
+          "id": "onet-software-detail:16b7084c934f20d0",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T16:57:50.655751+00:00",
+          "scope": "US occupational tasks/skills reference. Not Malaysian hiring popularity, personal competence or a current Malaysian trend.",
+          "sha256": "16b7084c934f20d06f157c117b1854e44390df6b5c2e6416f696b86c0457c1fc",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 188.1,
+          "geography": "global",
+          "id": "mdn-curriculum-detail:5968f8f4bce775e5",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T16:57:48.365440+00:00",
+          "scope": "Primary technical curriculum for front-end web development, one software specialism. Foundational advice, not a Malaysian popularity ranking.",
+          "sha256": "5968f8f4bce775e50a931d381b0e1161a36e8e5253b27108d39d33891c562295",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        }
+      ],
+      "source_failures": [],
+      "statement_support": [],
+      "rendered_source_links": [
+        "https://www.onetonline.org/link/summary/15-1252.00",
+        "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "private_evidence_directory": "/private/tmp/minder-a-software-skills-r07"
+    },
+    {
+      "run": "targeted-software-skills-after-actual-cooldown",
+      "question": "What's the most relevant skills now to become a software engineer?",
+      "status": "answered",
+      "backend_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+      "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+      "request_path": "/api/product/conversation-turn",
+      "http_status": 200,
+      "elapsed_ms": 5148,
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 1.367,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "999",
+          "x-ratelimit-remaining-tokens": "6738",
+          "x-ratelimit-reset-requests": "1m26.4s",
+          "x-ratelimit-reset-tokens": "9.465s"
+        },
+        "request_id": "req_01m5qdw2b5ed4bv3zh1c11xys3",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "e7adjer3j",
+          "name": "explain_public_sources"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 212,
+          "prompt_tokens": 1055,
+          "total_tokens": 1267
+        }
+      },
+      "validation": {
+        "accepted_findings": 2,
+        "failure_code": null,
+        "omitted_claims": 0,
+        "rules": [],
+        "status": "passed"
+      },
+      "answer_introduction": "Relevant skills depend on the role; the passages point to core engineering and front-end foundations.",
+      "direct_question_relevance": true,
+      "operation_mode": "search_and_fetch",
+      "answer_source_origins": [
+        "predefined_detail",
+        "predefined_detail"
+      ],
+      "answer_uses_search_discovered_pages": false,
+      "stored_dataset_used": false,
+      "discovery": [
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 884.678,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software engineer skills",
+          "result_count": 81,
+          "searched_at": "2026-10-24T17:03:23.123162+00:00",
+          "status": "available"
+        },
+        {
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "elapsed_ms": 1077.095,
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "provider": "mwmbl",
+          "provider_monthly_limit": null,
+          "provider_monthly_usage": null,
+          "query": "software development curriculum",
+          "result_count": 67,
+          "searched_at": "2026-10-24T17:03:24.007941+00:00",
+          "status": "available"
+        }
+      ],
+      "retrieved_pages": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2343.476,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T17:03:27.428119+00:00",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 275.196,
+          "http_status": 200,
+          "origin": "predefined_detail",
+          "retrieved_at": "2026-10-24T17:03:25.360939+00:00",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 1447.487,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T17:03:26.532800+00:00",
+          "title": "Broad vs. Narrow Skillsets: Software Engineering Skills Demystified | Toptal\u00ae",
+          "url": "https://www.toptal.com/developers/software/software-engineer-skills-and-skillsets"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 272.857,
+          "http_status": 200,
+          "origin": "search_discovered",
+          "retrieved_at": "2026-10-24T17:03:25.350451+00:00",
+          "title": "10+ In-Demand DevOps Engineer Skills to Master",
+          "url": "https://roadmap.sh/devops/skills"
+        }
+      ],
+      "cited_sources": [
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 2343.476,
+          "geography": "US",
+          "id": "onet-software-detail:16b7084c934f20d0",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T17:03:27.428119+00:00",
+          "scope": "US occupational tasks/skills reference. Not Malaysian hiring popularity, personal competence or a current Malaysian trend.",
+          "sha256": "16b7084c934f20d06f157c117b1854e44390df6b5c2e6416f696b86c0457c1fc",
+          "title": "15-1252.00 - Software Developers",
+          "url": "https://www.onetonline.org/link/summary/15-1252.00"
+        },
+        {
+          "cache_status": "live_fetched",
+          "fetch_elapsed_ms": 275.196,
+          "geography": "global",
+          "id": "mdn-curriculum-detail:5968f8f4bce775e5",
+          "origin": "predefined_detail",
+          "published_at": null,
+          "retrieved_at": "2026-10-24T17:03:25.360939+00:00",
+          "scope": "Primary technical curriculum for front-end web development, one software specialism. Foundational advice, not a Malaysian popularity ranking.",
+          "sha256": "5968f8f4bce775e50a931d381b0e1161a36e8e5253b27108d39d33891c562295",
+          "title": "About Curriculum | MDN Curriculum",
+          "url": "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+        }
+      ],
+      "source_failures": [],
+      "rendered_source_links": [
+        "https://www.onetonline.org/link/summary/15-1252.00",
+        "https://developer.mozilla.org/en-US/curriculum/about-curriculum/",
+        "https://www.onetonline.org/link/summary/15-1252.00",
+        "https://developer.mozilla.org/en-US/curriculum/about-curriculum/"
+      ],
+      "no_profile_created": true,
+      "history_survives_refresh": true,
+      "retry_preflight": {
+        "reported_retry_seconds": 190.113,
+        "automatic_wait": true,
+        "scope": "Targeted retry after actual quota cooldown; not proof of ordinary consecutive-turn readiness"
+      },
+      "private_evidence_directory": "/private/tmp/minder-a-software-skills-r07-retry",
+      "model_answer": "Relevant skills depend on the role; the passages point to core engineering and front-end foundations.\n\nThe US occupational reference frames software work around testing/validation, programming, documentation, and analyzing user needs and requirements for feasibility within time and cost constraints. [1]\n\nFor front-end web development, the MDN curriculum highlights semantic HTML, CSS, and JavaScript fundamentals, while noting version control and testing can start with basics and grow over a career. [2]\n\nUS occupational reference and a global front-end curriculum; neither measures Malaysian demand or current hiring popularity.\n\nPractical advice (not a measured market finding): Practice building small projects that combine requirements analysis, coding, testing, and version control.\n\nSource method: web search found additional pages. This explanation cites predefined detail/reference pages fetched separately, not search snippets.",
+      "displayed_answer_sha256": "fa1d473978a9014ebc83a91f6698f9a43de0c5099cec25445234c4f1d6d1de12",
+      "displayed_intro_matches_model_answer": true
+    }
+  ],
+  "served_frontend_verification": {
+    "runtime": "http://127.0.0.1:9111",
+    "backend_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+    "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+    "public_static_files": [
+      {
+        "path": "app.js",
+        "sha256": "46b88f0de1164767fddb0c9b65d33e8a86349d02aebbc64a27f03bd46da1dd7c",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "client.js",
+        "sha256": "f35ce2c0876edf9742db7190168378910823c13267d08d4e7a964dfb74c0b9a8",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "chat-renderer.js",
+        "sha256": "d9e1249061478c87413bdd1ce1cd89187f64f390782ade60177ee2a9dc37455b",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/careers.js",
+        "sha256": "04a638a66d480883a7a4e11d860a93112a85403ba03a018b6b1e31bafc758cd0",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/profile.js",
+        "sha256": "03c3d82af17448f12b1a6d95df3112c20d4d37454fdb08d5c00c87e657e90e60",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/starter-matches.js",
+        "sha256": "a8967295c36ff36cb0f09a18dce5247aba5143aa519266bbfa40dde274e49123",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/minder.js",
+        "sha256": "19dc39a5a937600c063a4b4ae3a29f297d10f4e8133accec4fb501f025d63104",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/mindbots.js",
+        "sha256": "a75ea5c5bbaa1337e2b83e7ba47a2f12bfd58ad063af123aa688446433146881",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/my-path.js",
+        "sha256": "9a48dba4ed46009a23c50073e9076c4eb005813f46cb4f8bba56176da78939d2",
+        "matches_committed_handoff": true
+      },
+      {
+        "path": "pages/task-controls.js",
+        "sha256": "d81b403126235d6b8321a65e25da51049ed253cc0cae04f71cbe4c1671f7fa05",
+        "matches_committed_handoff": true
+      }
+    ],
+    "no_provider_call": true,
+    "no_authentication_or_profile_created": true
+  },
+  "native_success_usage": {
+    "prompt_tokens": 3011,
+    "completion_tokens": 695,
+    "total_tokens": 3706,
+    "outbound_attempts": 3
+  },
+  "core_checkpoint_reuse": {
+    "passed_revision": "0311821c06d11017190dee7fac726b3fa7af58f1",
+    "served_revision": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+    "core_api_state_generation_handoff_actions_and_frontend_changed_paths": [],
+    "additional_explore_schedule_visual_assertion": "not yet exercised; latest combined acceptance remains open"
+  },
+  "hosting": {
+    "application_first_loaded_revision": "27bc76094ae3cbdb29d12e14c001549850593d55",
+    "latest_reviewed_candidate": "31e85cbdae13ccdd30c2cc713550d0547dabf8f4",
+    "committed_e_handoff": "41aaf8430496a63ed2e863e427c65280f2d37767",
+    "linux_build": "E-reported actual48deps/fourinputs/CPUimport PASS",
+    "private_bucket": "E-reported put/get/delete/absence PASS; anonymous403",
+    "publication": "not published; automatic approval review rejected pending real startup/auth/origin/VM prerequisites",
+    "production_database_sequence": "created through provider publishing flow; development preview is not production durability proof"
+  }
+}

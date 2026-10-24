@@ -1,0 +1,25 @@
+{
+  "policy_id": "personal-current-evidence-v2",
+  "status": "delegated_provisional",
+  "active": true,
+  "personal_policy_id": "personal-role-fit-v3-provisional",
+  "authority": "Current user: integrate supported B shortage/published activity/employer/sector measurements and version new ranking treatments; keep working personal scorer",
+  "links_path": "ml/data/reference/market-evidence-links.v1.json",
+  "links_sha256": "46c097979d429ea23604b2406b7f9e5161169ab28cd5f91c7c168e8989f27525",
+  "personal_fraction": 0.85,
+  "current_fraction": 0.15,
+  "shortage_points": 2,
+  "primary_comparison_order": [
+    "published_offering_activity",
+    "employer_observation"
+  ],
+  "published_normalization": "100*log1p(source category count)/log1p(max count among all observed categories in same latest published source period); no missing-category zero imputation",
+  "employer_normalization": "100*log1p(role mapped requisitions)/log1p(inspected employer sample size)",
+  "source_precedence": "Latest-period named role-category applicability selected before narrow employer sample when supported; measurements remain separate and never summed",
+  "minimum_personally_assessed_per_comparison_group": 2,
+  "shortage_handling": "At most +2 for explicit positive latest acquired official shortage designation through a supported mapping; absence/unmapped is unknown, no adjustment. Dated signal, not hiring or ability probability.",
+  "sector_weight": 0,
+  "sector_handling": "Context only; no allocation of broad totals to detailed roles",
+  "future_forecast_weight": 0,
+  "missing_market": "Independent rank scopes; personal-only/shortage-context fallback never full comparable-market completion"
+}

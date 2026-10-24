@@ -1,0 +1,33 @@
+# Existing Minder Python runtime; secrets remain in provider environment.
+modules = ["python-3.12", "postgresql-16"]
+entrypoint = "deploy/replit_launch.py"
+run = ["bash", "deploy/replit/start.sh"]
+
+[nix]
+channel = "stable-25_05"
+
+[packager.features]
+# The explicit frozen uv build below owns dependency installation.
+enabledForHosting = false
+
+[deployment]
+deploymentTarget = "vm"
+build = ["bash", "deploy/replit/build.sh"]
+run = ["bash", "deploy/replit/start.sh"]
+ignorePorts = false
+
+[[ports]]
+localPort = 8080
+externalPort = 80
+
+[workflows]
+runButton = "Minder"
+
+[[workflows.workflow]]
+name = "Minder"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash deploy/replit/start.sh"
+waitForPort = 8080

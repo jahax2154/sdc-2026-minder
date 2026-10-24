@@ -1,0 +1,36 @@
+{
+  "phase_id": "AC3.3",
+  "owner": "A",
+  "status": "passed_B_final_SY3_handoff",
+  "B_handoff": "d9ffd4f3cc7625c736ea081c52da3c1122b21c08",
+  "merge_sha": "b5137f2d583786ed05921391986f1d0060267642",
+  "changes": "B final model/data card, exact replay evidence, bounded source-pinned launcher/spec and budget disclosure; no normal-runtime changes",
+  "checks": {
+    "immutable_inputs": 55,
+    "all_match_pinned_revisions": true,
+    "source_boundary": "55 input/code hashes validated from Bf627 Git objects; launcher from captured SY3d9ffd4. A integration source intentionally has additional shared changes.",
+    "owner_replay": "Reuse B SY3 committed clean-checkout, exact metrics/prediction replay and launcher verification. No duplicate A training/setup.",
+    "previous_A_checks": "AC3.2:43 service/forecast checks passed, deterministic A generator/isolation replay, no normal model promotion"
+  },
+  "implementation": "Local synthetic pipeline measured and reproducible; RunPod preparation only",
+  "empirical": "36 B experiment fits across3 local runs; fictional scenario performance only; zero real-target fits or independent real forecasting evidence",
+  "operational": {
+    "A_fits": 0,
+    "paid_jobs": 0,
+    "RunPod_execution": false,
+    "job_launcher_never_provisions": true,
+    "paid_authority": false,
+    "normal_forecasts": "unavailable",
+    "normal_model_count": 0,
+    "observed_source_increase": 0
+  },
+  "runtime": "personal-role-fit-v3-provisional / personal-current-evidence-v2.1 baseline unchanged",
+  "reproduction": "For the B-pinned job use published B SY3 checkpoint in its own clean permitted environment, not integrated A sources. No source13 upload is required for the fictional lab.",
+  "evidence": {
+    "ml/artifacts/session-a/ac3-sy3-pinned-inputs.json": "9aa2713d10cea68474d965c85ec0a76fd9b8feeaa1ff9f35847039775a656456",
+    "docs/execution/parallel/B/SY3.json": "acfadabb2d1a54494c3568928d43db57c047900fc637cfe27082e5db555c60d1"
+  },
+  "deployment": "none",
+  "remaining": "C CL1 export now arrived separately; CL2/CL3 new source grounder/real acceptance pending",
+  "preservation": "No sibling modifications, raw inputs, private data, model weights, environments or generated rows staged"
+}

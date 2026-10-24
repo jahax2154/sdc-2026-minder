@@ -1,0 +1,130 @@
+{
+  "baseline": {
+    "evidence_snapshot_id": "synthetic-vector-only",
+    "feature_schema_version": "personal-preparation-features-v1",
+    "fit_weight": 0.7,
+    "model_version": "fixed-baseline-v1",
+    "options": [
+      {
+        "evidence_coverage": 1,
+        "evidence_ids": [
+          "synthetic-mathematical-contract-only"
+        ],
+        "feature_components": {
+          "interest_alignment": 0.8,
+          "resource_feasibility": 1,
+          "skill_coverage": 0.6,
+          "time_feasibility": 0.5,
+          "work_style_alignment": 0.7
+        },
+        "market_assessment_index": null,
+        "overall_match_index": null,
+        "personal_fit_index": 67.0,
+        "preparation_evidence": null,
+        "raw_grade_prediction": 1.34,
+        "reason": null,
+        "role_id": "synthetic-contract-vector"
+      }
+    ],
+    "preparation_horizon_weeks": 12,
+    "profile_version": "synthetic-contract-v1",
+    "ranking_mode": "personal_fit_only",
+    "ranking_policy_version": "personal-fit-role-id-v1",
+    "result_kind": "completed",
+    "result_schema_version": "minder-recommendation-v1",
+    "role_catalogue_version": "synthetic-contract-only",
+    "score_mapping_version": "grade-to-index-v1",
+    "scorer_kind": "baseline",
+    "unscored_roles": [],
+    "warnings": [
+      "Only 1 roles scored; insufficient complete eligible inputs or model unavailable.",
+      "No comparable market index supplied; D and S are null for the entire set."
+    ]
+  },
+  "ridge": {
+    "evidence_snapshot_id": "synthetic-vector-only",
+    "feature_schema_version": "personal-preparation-features-v1",
+    "fit_weight": 0.7,
+    "model_version": "g3-no-compatible-artifact",
+    "options": [],
+    "preparation_horizon_weeks": 12,
+    "profile_version": "synthetic-contract-v1",
+    "ranking_mode": "personal_fit_only",
+    "ranking_policy_version": "personal-fit-role-id-v1",
+    "result_kind": "model_not_ready",
+    "result_schema_version": "minder-recommendation-v1",
+    "role_catalogue_version": "synthetic-contract-only",
+    "score_mapping_version": "grade-to-index-v1",
+    "scorer_kind": "ridge",
+    "unscored_roles": [
+      {
+        "evidence_coverage": 1,
+        "evidence_ids": [
+          "synthetic-mathematical-contract-only"
+        ],
+        "feature_components": {
+          "interest_alignment": 0.8,
+          "resource_feasibility": 1,
+          "skill_coverage": 0.6,
+          "time_feasibility": 0.5,
+          "work_style_alignment": 0.7
+        },
+        "market_assessment_index": null,
+        "overall_match_index": null,
+        "personal_fit_index": null,
+        "preparation_evidence": null,
+        "raw_grade_prediction": null,
+        "reason": "model_not_ready",
+        "role_id": "synthetic-contract-vector"
+      }
+    ],
+    "warnings": [
+      "Requested scorer has no compatible evaluated artifact.",
+      "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+      "No comparable market index supplied; D and S are null for the entire set."
+    ]
+  },
+  "xgboost": {
+    "evidence_snapshot_id": "synthetic-vector-only",
+    "feature_schema_version": "personal-preparation-features-v1",
+    "fit_weight": 0.7,
+    "model_version": "g3-no-compatible-artifact",
+    "options": [],
+    "preparation_horizon_weeks": 12,
+    "profile_version": "synthetic-contract-v1",
+    "ranking_mode": "personal_fit_only",
+    "ranking_policy_version": "personal-fit-role-id-v1",
+    "result_kind": "model_not_ready",
+    "result_schema_version": "minder-recommendation-v1",
+    "role_catalogue_version": "synthetic-contract-only",
+    "score_mapping_version": "grade-to-index-v1",
+    "scorer_kind": "xgboost",
+    "unscored_roles": [
+      {
+        "evidence_coverage": 1,
+        "evidence_ids": [
+          "synthetic-mathematical-contract-only"
+        ],
+        "feature_components": {
+          "interest_alignment": 0.8,
+          "resource_feasibility": 1,
+          "skill_coverage": 0.6,
+          "time_feasibility": 0.5,
+          "work_style_alignment": 0.7
+        },
+        "market_assessment_index": null,
+        "overall_match_index": null,
+        "personal_fit_index": null,
+        "preparation_evidence": null,
+        "raw_grade_prediction": null,
+        "reason": "model_not_ready",
+        "role_id": "synthetic-contract-vector"
+      }
+    ],
+    "warnings": [
+      "Requested scorer has no compatible evaluated artifact.",
+      "Only 0 roles scored; insufficient complete eligible inputs or model unavailable.",
+      "No comparable market index supplied; D and S are null for the entire set."
+    ]
+  }
+}

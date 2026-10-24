@@ -1,0 +1,127 @@
+{
+  "phase_id": "I4.6",
+  "linked_refinement": "I4.3-R01",
+  "status": "passed_source_contract_and_API_layer_final_browser_next",
+  "B_handoff": "020bbcf8511aa89064b7f232723afa01cf99a427",
+  "B_scope_checkpoint": "ba469e426284b1def8a95474e64c90b8aeb95f9a",
+  "B_merges": [
+    "4fb64aaee048408c6ee7141da9325dd06e3044aa",
+    "7c1c41840ec2c4d83d8ad7aef0ecf9d7bb708524"
+  ],
+  "personal_policy_unchanged": "personal-role-fit-v3-provisional",
+  "market_policy": "personal-current-evidence-v2.1",
+  "changes": [
+    "7 code-backed related-group context paths from pinned ESCO/O*NET exactISCO rows plus matching MASCO code/group label; no title-only critical-role assignment",
+    "At most +1 related-group context, no exact whole-role designation; actual raw source value/date/edition and nominated/child restrictions preserved",
+    "Coverage-first valid source-group selection fixes published-singleton stranding; unlike units never pooled",
+    "All 96 native B facts discoverable through bounded source-code/evidence-ID APIs without canonical inference or profile mutation",
+    "EvidencePassage v1 canonical renderer/source verifier with actual artifact/row integrity, source refs and closed passages; C adapter hook follows separately"
+  ],
+  "coverage": [
+    {
+      "policy": "personal-current-cohort-v1",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 4,
+        "personal_only_ranked": 906,
+        "insufficient_evidence": 0
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 6.132104458000001
+    },
+    {
+      "policy": "personal-current-evidence-v2",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 5,
+        "personal_only_ranked": 905,
+        "insufficient_evidence": 0,
+        "employer_comparable_ranked": 2,
+        "published_offering_comparable_ranked": 3,
+        "published_offering_supported": 7,
+        "shortage_supported": 0,
+        "shortage_adjusted_ranked": 0,
+        "shortage_context_supported": 0,
+        "shortage_exact_role_supported": 0,
+        "sector_context_supported": 907
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 11.006492584
+    },
+    {
+      "policy": "personal-current-evidence-v2.1",
+      "coverage": {
+        "considered_eligible": 910,
+        "candidates": 910,
+        "assessed": 910,
+        "excluded": 0,
+        "current_available": 4,
+        "current_comparable_ranked": 5,
+        "personal_only_ranked": 900,
+        "insufficient_evidence": 0,
+        "employer_comparable_ranked": 2,
+        "published_offering_comparable_ranked": 3,
+        "published_offering_supported": 7,
+        "shortage_supported": 7,
+        "shortage_adjusted_ranked": 7,
+        "shortage_context_supported": 7,
+        "shortage_exact_role_supported": 0,
+        "sector_context_supported": 907
+      },
+      "status": "partial",
+      "overall_ranking_complete": false,
+      "seconds": 11.062112291999998
+    }
+  ],
+  "native_source_coverage": {
+    "shortage_four_digit_groups": 66,
+    "explicit_six_digit_memberships": 43,
+    "membership_profiles": 4,
+    "sector_labels": 21,
+    "major_occupation_groups": 9,
+    "identified_employer_feeds": 1,
+    "galaxy_bulk_records_distributed": 0
+  },
+  "critical_scope": "7 related-group canonical links, zero exact whole-role designations. 2 linked roles already have activity comparisons; 5 remain context-adjusted exploration. Source and hierarchy counts overlap.",
+  "checks": [
+    {
+      "command": "test_market_evidence test_role_fit_v3 test_service_contracts",
+      "result": "42 passed in 5.283s"
+    },
+    {
+      "command": "checks/test_evidence_api.py including explicit native child/unknown queries",
+      "result": "4 passed in 3.627s"
+    },
+    {
+      "command": "B market service/forecasting after scope handoff",
+      "result": "39 passed in 22.008s"
+    },
+    {
+      "command": "actual full-catalogue three-policy source audit",
+      "result": "910 assessed unchanged; 4 -> 5 -> 5 activity comparisons; 0 -> 0 -> 7 related shortage contexts; 906 -> 905 -> 900 personal-only"
+    }
+  ],
+  "defects_fixed_before_checkpoint": [
+    "Preserve null source publication/continuous dates rather than inventing calendar windows",
+    "Use valid comparable groups before source priority so known employer cohorts are not stranded by published singletons",
+    "Per-role exploration basis reflects whether that individual has context, not merely its group membership",
+    "Source verifier rejects altered citation/quantity/scope/date/memory even with a good ID/hash; no arbitrary-claim fallback"
+  ],
+  "limits": [
+    "Related-group context is not critical membership for every linked role/child or proven current hiring",
+    "Sector context is not role demand; source category proxies are not exact national-code series",
+    "No forecast training/predictions or learned personal-model activation from context data",
+    "A real provider access still missing; C adapter integration/final combined browser next"
+  ],
+  "push_status": "local only; outside captured P1.1 snapshot"
+}

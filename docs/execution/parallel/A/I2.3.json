@@ -1,0 +1,76 @@
+{
+  "phase_id": "I2.3",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "limited",
+  "objective": "Prepare reproducible local release and record deployment boundary",
+  "inputs": [
+    "I2.1/I2.2",
+    "Explicit no-push/no-deploy user instruction",
+    "existing source/dependency manifests"
+  ],
+  "changes": [
+    "LOCAL_RELEASE.md gives concrete start, source restoration, HTTP acceptance, worker and later release prerequisites",
+    "Verified fresh real application construction/health, actual package versions and safe provider presence/use probe",
+    "No installation, hosting creation, deployment, remote update or production writes"
+  ],
+  "checks": [
+    {
+      "command": "application(A isolated fresh SQLite); GET /api/health; versions(); GroqAdapter().probe()",
+      "result": {
+        "package_versions": {
+          "python": "3.9.6",
+          "numpy": "2.0.2",
+          "scipy": "1.13.1",
+          "scikit-learn": "1.6.1",
+          "xgboost": "2.1.4",
+          "joblib": "1.5.3",
+          "threadpoolctl": "3.7.0"
+        },
+        "configured_presence": {
+          "GROQ_API_KEY": false,
+          "GROQ_MODEL": false,
+          "REPL_ID": false,
+          "REPLIT_DEPLOYMENT": false
+        },
+        "provider_probe": {
+          "status": "unavailable",
+          "code": "provider_credentials_missing",
+          "request_id": "37d80017-26e2-45d9-a211-03d225bff9b3"
+        },
+        "health": {
+          "status": "ok",
+          "integration_mode": "local_source_services"
+        },
+        "deployment_performed": false,
+        "process_and_database": "local fresh isolated A SQLite with C migrations"
+      }
+    },
+    {
+      "command": "MINDER_DB_PATH=ml/artifacts/session-a/i2.3-release-probe/runtime.sqlite3 PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m minder_app.worker --once",
+      "result": "status idle; empty synthetic database; no unattended deployment claim"
+    },
+    {
+      "command": "rg --files for Replit/runtime/dependency configuration",
+      "result": "Only existing ml/requirements-foundation.txt runtime manifest; no Replit config/deployed URL found"
+    }
+  ],
+  "artifact": {
+    "path": "ml/artifacts/session-a/i2.3-release-probe/evidence.json",
+    "sha256": "bfcb4f8648f9d660d9421ba6aab83ef7db361434f3ebde2eb216966b744e1bac"
+  },
+  "deployment_status": "deferred: explicit current user prohibits deployment",
+  "limitations": [
+    "Groq credentials/model missing; no live call/model entitlement verified",
+    "No hosted server, durable hosted DB, scheduler wake/sleep or frontend release evidence",
+    "C4.1 and B3.1 final committed handoffs still pending"
+  ],
+  "dependencies": [
+    "C4.1",
+    "B3.1",
+    "GROQ_API_KEY/GROQ_MODEL",
+    "later explicit deployment instruction and verified access"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "I2.4 truthful frozen handoff; integrate later committed owner outputs when ready"
+}

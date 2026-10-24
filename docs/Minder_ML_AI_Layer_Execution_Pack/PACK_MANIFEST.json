@@ -1,0 +1,89 @@
+{
+  "pack": "Minder AI/ML parallel execution",
+  "pack_revision": 2,
+  "prepared_date": "2026-10-22",
+  "timezone": "Asia/Kuala_Lumpur",
+  "context_content_revision": 5,
+  "default_sessions": 3,
+  "push_policy": "explicit user instruction required; local commits mandatory per phase",
+  "phase_ids": [
+    "G0.1",
+    "G0.2",
+    "G0.3",
+    "A1.1",
+    "A1.2",
+    "A1.3",
+    "A2.1",
+    "A2.2",
+    "A3.1",
+    "B1.1",
+    "B1.2",
+    "B2.1",
+    "B2.2",
+    "B3.1",
+    "B3.2",
+    "C1.1",
+    "C1.2",
+    "C1.3",
+    "C2.1",
+    "C2.2",
+    "C2.3",
+    "C3.1",
+    "C4.1",
+    "I1.1",
+    "I2.1",
+    "I2.2",
+    "I2.3",
+    "I2.4",
+    "D1.1",
+    "D1.2",
+    "D1.3"
+  ],
+  "files": [
+    {
+      "name": "00_EXECUTION_HANDBOOK.md",
+      "bytes": 11635,
+      "sha256": "dfc451a357bca6eee1b1e2f54447e31339b54a4268380a8e03f335482930f439"
+    },
+    {
+      "name": "01_BOOTSTRAP_CONTRACTS_AND_WORKTREES.md",
+      "bytes": 7947,
+      "sha256": "265658669f3c4285db19adab48cef337a1dc2f53e4934386c2a0f4a4f66f0a51"
+    },
+    {
+      "name": "02_SESSION_A_PERSONAL_MATCHING.md",
+      "bytes": 8305,
+      "sha256": "cc6d78e95bc7bef8f45147ded5a4a0ab1f3dbe5187cc030a7a281145416ec506"
+    },
+    {
+      "name": "03_SESSION_B_MARKET_FORECASTING.md",
+      "bytes": 8470,
+      "sha256": "a0257d215353c23753d4347932ad0c1f41992b41aa0186bf5666951b7021da9d"
+    },
+    {
+      "name": "04_SESSION_C_LLM_APP_AND_AGENTS.md",
+      "bytes": 10787,
+      "sha256": "ffe03f17d10df67941060a1ff4b20d17ca743c96c836822f06dab7c6d529f9c0"
+    },
+    {
+      "name": "05_INTEGRATION_AND_LIVE_ACCEPTANCE.md",
+      "bytes": 8173,
+      "sha256": "beaabec68524b6e98edf33beb6d463a75644938c62ae9bdcad662fd5875caa29"
+    },
+    {
+      "name": "06_OPTIONAL_SESSION_D_AGENT_WORKER.md",
+      "bytes": 4682,
+      "sha256": "201d6bd42e99a5995cb0ecbb9ddc3a9cc7da05028e4ece1725aceba45c257fc1"
+    },
+    {
+      "name": "07_PHASE_CHECKPOINT_RULES.md",
+      "bytes": 7858,
+      "sha256": "68d405371810b901bddb853e05dd07992aff6a9dfb7d6bbeb41a3aa325b84a86"
+    },
+    {
+      "name": "MINDER_AI_ML_DECISION_CONTEXT.md",
+      "bytes": 79658,
+      "sha256": "11f492d4f68bacd9ca4305fe4ef9ec37952a393d87e57b83b671ce76fa5b48f4"
+    }
+  ]
+}

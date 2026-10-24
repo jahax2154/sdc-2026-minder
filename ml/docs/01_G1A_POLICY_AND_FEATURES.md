@@ -1,0 +1,91 @@
+# G1A — Integrate definitions and deterministic measurements
+
+Copy the complete prompt below into the existing Minder Codex session.
+
+```text
+GATE G1A — INTEGRATE DEFINITIONS AND DETERMINISTIC MEASUREMENTS
+
+Execute only the gate below in the existing Minder repository. This is an
+implementation task: inspect, change code, run relevant checks, and return
+execution evidence. Stop after this gate's completion report; I will issue the
+next task separately.
+
+Read applicable AGENTS.md, the actual repository layout/dependencies/contracts,
+docs/intelligence/README.md and the relevant policy sections. If the supplied
+Minder_Intelligence_Policy_Pack_v1 is still extracted separately, merge its
+repo_overlay paths deliberately into existing conventions. Reuse
+ml/src/minder_ml/intelligence/ and the actual backend/frontend modules; do not
+recreate the monorepo or add another scoring engine. Package paths are discovery
+clues if the repository differs.
+
+Use the supplied policy for this requested implementation, record the actual
+execution instruction/version/hash as its authorization, and reuse approvals
+already present. Do not manufacture historical approval or human reviewer data.
+No per-role, per-mapping or per-file permission loop. Do all unblocked work;
+isolate unresolved source/data exceptions and explain their effect. Keep demo
+profiles synthetic, source facts traceable and secrets out of files/logs. No
+commit, push, publishing, unapproved spend or unrelated refactor.
+
+Preserve existing baseline weights [0.40,0.20,0.20,0.10,0.10], feature order
+[C,I,T,R,W], horizon semantics, explicit scorer selection and typed result
+contract unless this gate explicitly requires a documented compatible migration.
+Generated judgments remain provisional. Independently reviewed labels require
+actual blind review; no automatic conversion to gold.
+
+Write a concise report and structured evidence using existing conventions, or
+docs/execution/gates/<GATE_ID>_report.md and <GATE_ID>_evidence.json. Include actual
+paths, commands/check results, changed behavior, implementation status, separate
+data/empirical/live-service readiness, remaining exceptions and the next usable
+interface. Missing labels/credentials do not justify leaving unrelated code
+unfinished. Do not report unrun checks or unresolved readiness as passed.
+
+FINAL OUTPUT
+A versioned, reusable policy/feature pipeline that turns actual synthetic
+profiles and policy-accepted role milestones into traceable C/I/T/R/W features,
+or explicit missing-information results, through the existing service boundary.
+
+IMPLEMENT
+1. Read the Phase 2 report/checks, current review README, actual three role
+   drafts, criterion worksheets and mapping candidates. Map policy definitions
+   to current schemas and code. Preserve old reports and original pending
+   records as history; create versioned accepted projections where appropriate.
+2. Validate/load policy configuration once through existing configuration
+   mechanisms. Keep one root AGENTS.md pointer to docs/intelligence/README.md;
+   do not duplicate policies into replit.md. Record the active policy/version.
+3. Implement automatic acceptance of source-native records and deterministic
+   derivations with real source versions/hashes, criterion anchors and rule IDs.
+   Distinguish policy_accepted/source-derived/policy-derived from human-reviewed.
+   Check taxonomy and database versions on their actual identifiers/scope.
+   Use source-native records if an optional crosswalk remains unresolved.
+4. Implement/reconcile skill evidence coverage, explicit interest utilities,
+   remaining task effort, resource alternatives and work-style utilities under
+   FIT-01..FIT-12. Use the declared default equal criterion/tag/group weights.
+   Deduplicate prerequisite effort and preserve its source/estimate basis.
+   Do not invent skill assessments, milestone requirements or learning hours.
+5. Preserve Q=1 and complete positive-weight feature requirements for a scored
+   option. Unknown differs from zero. Return known components, reasons and
+   targeted questions when incomplete. Separate full occupation requirements
+   from the bounded initial preparation milestone. Enforce hard constraints
+   without incorrectly inferring requirements from occupation titles.
+6. Reuse the existing inference service to return baseline scores, rule/component
+   traces, gaps, unknowns, evidence IDs and versions. Version the P2-4 catalogue
+   readiness rule transparently; independent-label readiness remains separate.
+
+ACCEPTANCE
+- The foundation vector [0.6,0.8,0.5,1.0,0.7] still produces F0=67.
+- Relevant existing tests plus zero-versus-unknown, invalid catalogue, time/effort
+  boundaries, evidence completeness, constraint and service-contract checks pass.
+- Demonstrate the actual initial profile/role inputs through the service. Report
+  their real score eligibility; do not fill missing facts to force eligibility.
+- Repeated unchanged inputs preserve canonical values/versions. Required changes
+  invalidate affected cached features/results without training anything.
+- Return one deduplicated exception report, not individual approval worksheets.
+
+STOP CONDITION
+Finish the implementation and its tests. Report implementation pass/failed and
+catalogue readiness ready/partial/blocked separately. If no real pair can be
+scored, show the exact missing evidence and a clearly synthetic contract fixture;
+do not claim the meaningful-baseline data gate passed. No labeling, training or
+new LLM provider integration in this task. Next interface: shared feature builder
+and canonical recommendation result usable by G1B/G2.
+```

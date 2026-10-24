@@ -1,0 +1,240 @@
+{
+  "checkpoint": "A-N9.0",
+  "runtime": "http://127.0.0.1:9111",
+  "backend_revision": "0311821c06d11017190dee7fac726b3fa7af58f1",
+  "frontend_handoff": "0c74362344cc9a85044072b0b59085309f9744cf",
+  "identity_scope": "Fresh local anonymous browser; not hosted Clerk acceptance",
+  "onboarding": {
+    "normal_ui_only": true,
+    "CV": false,
+    "competency_evidence_count": 0,
+    "experience": "none_yet"
+  },
+  "starter": {
+    "status": "provisional",
+    "policy": "starter-exploration-v1",
+    "profile_version": "4e85b944-9744-4e0c-9173-ecc02f211b08",
+    "coverage": {
+      "supported_considered": 910,
+      "after_explicit_restrictions": 910,
+      "returned": 5,
+      "assessed_personal_scores": 0,
+      "returned_with_supported_market_comparison": 0
+    },
+    "rendered_cards": [
+      "Software Developers",
+      "Network and Computer Systems Administrators",
+      "Software Quality Assurance Analysts and Testers",
+      "Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors",
+      "Computer Programmers"
+    ],
+    "personal_assessment": null
+  },
+  "plan": {
+    "status": "passed",
+    "provider": {
+      "coordination_policy": "groq-shared-quota-v1",
+      "generation_protocol": "bounded-roadmap-guidance-v1.1",
+      "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+      "invoked": true,
+      "model": "qwen/qwen3.8-27b",
+      "queue_ms": 0.295,
+      "quota_header_scope": {
+        "requests": "requests_per_day",
+        "tokens": "tokens_per_minute"
+      },
+      "quota_headers": {
+        "x-ratelimit-limit-requests": "1000",
+        "x-ratelimit-limit-tokens": "8000",
+        "x-ratelimit-remaining-requests": "999",
+        "x-ratelimit-remaining-tokens": "6319",
+        "x-ratelimit-reset-requests": "1m26.4s",
+        "x-ratelimit-reset-tokens": "12.607s"
+      },
+      "request_id": "req_01m5qbjhyae1f97322e4fdqjnb",
+      "status": "available",
+      "tool_call": {
+        "arguments_validated": true,
+        "id": "bkc6mfymz",
+        "name": "propose_guidance"
+      },
+      "transport_attempts": 1,
+      "usage": {
+        "completion_tokens": 383,
+        "prompt_tokens": 1399,
+        "total_tokens": 1782
+      }
+    },
+    "elapsed_ms": 1513,
+    "stages": 2,
+    "accepted_once": true,
+    "explicit_save_separate_activation": true
+  },
+  "views": [
+    "skills",
+    "next",
+    "roadmap",
+    "progress"
+  ],
+  "completion": {
+    "before": 0,
+    "after": 1,
+    "denominator": 2,
+    "refresh_preserved": true
+  },
+  "cross_chat": [
+    {
+      "decision": "reject",
+      "elapsed_ms": 782,
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "generation_protocol": "bounded-schedule-proposal-v1",
+        "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 0.152,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "998",
+          "x-ratelimit-remaining-tokens": "5454",
+          "x-ratelimit-reset-requests": "2m52.8s",
+          "x-ratelimit-reset-tokens": "19.095s"
+        },
+        "request_id": "req_01m5qbjksxetsa0wrnjw3m1b5a",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "p54d29se6",
+          "name": "propose_schedule"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 215,
+          "prompt_tokens": 761,
+          "total_tokens": 976
+        }
+      },
+      "status": "passed",
+      "one_corresponding_message": true,
+      "exact_turn_replay_no_duplicate": true,
+      "target_changed": false
+    },
+    {
+      "decision": "approve",
+      "elapsed_ms": 897,
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "generation_protocol": "bounded-schedule-proposal-v1",
+        "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 0.168,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "997",
+          "x-ratelimit-remaining-tokens": "4609",
+          "x-ratelimit-reset-requests": "4m19.2s",
+          "x-ratelimit-reset-tokens": "48.48s"
+        },
+        "request_id": "req_01m5qbjms7e93v0ah5zvbhcpcv",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "nq2mh7wqa",
+          "name": "propose_schedule"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 215,
+          "prompt_tokens": 761,
+          "total_tokens": 976
+        }
+      },
+      "status": "passed",
+      "one_corresponding_message": true,
+      "exact_turn_replay_no_duplicate": true,
+      "target_changed": true
+    }
+  ],
+  "restart": {
+    "status": "passed",
+    "backend_revision": "0311821c06d11017190dee7fac726b3fa7af58f1",
+    "same_plan": true,
+    "same_progress": true,
+    "same_singleton_and_notice_count": true,
+    "approved_rejected_proposals_retained": true,
+    "unprofiled_market_history_retained": true
+  },
+  "market": [
+    {
+      "question": "What is happening in the Malaysian labour market now?",
+      "status": "blocked",
+      "elapsed_ms": 11739,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": true,
+        "limit_details": {
+          "limit": 200000,
+          "period": "day",
+          "requested": 1191,
+          "resource": "tokens",
+          "used": 199065
+        },
+        "queue_ms": 10279.46,
+        "request_id": "086cdaa8-31e8-4487-a941-a790a74c5856",
+        "retry_after_seconds": 110.998,
+        "status": "unavailable",
+        "transport_attempts": 1
+      }
+    },
+    {
+      "question": "Which skills should a data analyst learn for Malaysian jobs?",
+      "status": "blocked",
+      "elapsed_ms": 3571,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": false,
+        "limit_details": null,
+        "queue_ms": 0.19,
+        "request_id": "22895720-48fa-4818-bd13-ecd9701533b4",
+        "retry_after_seconds": 105.366,
+        "status": "unavailable",
+        "transport_attempts": 0
+      }
+    },
+    {
+      "question": "Are cybersecurity skills sought after in Malaysia, and what can the sources actually establish?",
+      "status": "blocked",
+      "elapsed_ms": 2012,
+      "provider": {
+        "code": "provider_rate_limited",
+        "coordination_policy": "groq-shared-quota-v1",
+        "invoked": false,
+        "limit_details": null,
+        "queue_ms": 0.219,
+        "request_id": "24f496b1-b20b-45a9-8abc-8a441c557dd7",
+        "retry_after_seconds": 101.312,
+        "status": "unavailable",
+        "transport_attempts": 0
+      }
+    }
+  ],
+  "scope_limits": [
+    "Explore task-detail schedule rendering was not asserted in this first run; now added as a targeted acceptance assertion.",
+    "Live discovery and links passed; generated market-answer gate failed on actual daily provider quota.",
+    "This report preserves the completed core flow, not a claim of full market or hosted readiness."
+  ],
+  "private_evidence_directory": "/private/tmp/minder-a-combined-n8-r03"
+}

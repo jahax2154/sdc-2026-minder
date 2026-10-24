@@ -1,0 +1,98 @@
+{
+  "phase_id": "A1.1",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "passed",
+  "objective": "Source-grounded broad catalogue ingestion and runtime loading",
+  "inputs": [
+    "G0.3",
+    "minder-parallel-v1",
+    "source_snapshot.v1.json"
+  ],
+  "changes": [
+    "Independent initial occupational catalogue; legacy three-role preparation loader preserved",
+    "All native identities loaded, partial records retained; no invented industry crosswalk",
+    "Reserved new A implementation/test paths in ownership manifest"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "2 passed"
+    },
+    {
+      "command": "OccupationalCatalogue(); validate Role for all catalogue.roles()",
+      "result": "1016 DTOs valid"
+    }
+  ],
+  "coverage": {
+    "catalogue_version": "onet31-initial-reference-v1",
+    "raw_rows": {
+      "onet_occupation_data": 1016,
+      "onet_essential_skills": 18200,
+      "onet_scales_reference": 33,
+      "onet_software_skills": 31821
+    },
+    "raw_unique_occupations": 1016,
+    "normalized_roles": 1016,
+    "runtime_roles": 1016,
+    "eligible_roles": 910,
+    "partial_roles": 106,
+    "roles_with_software": 923,
+    "rejected": [],
+    "sources": [
+      {
+        "source_id": "onet_occupation_data",
+        "version": "31.0",
+        "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:09.377847+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_essential_skills",
+        "version": "31.0",
+        "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:09.904185+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_scales_reference",
+        "version": "31.0",
+        "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:10.865829+00:00",
+        "evidence_type": "source-derived"
+      },
+      {
+        "source_id": "onet_software_skills",
+        "version": "31.0",
+        "sha256": "6aabb96b464288db849580e6510530efff3f80e25dde2bb23f1fc36bb526b016",
+        "uri": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/software_skills.csv",
+        "geography": "US",
+        "available_at": "2026-10-20T10:04:10.207871+00:00",
+        "evidence_type": "source-derived"
+      }
+    ],
+    "legacy_runtime_roles": 3,
+    "numerical_scored_roles": 0,
+    "limitations": [
+      "N01 pending; no numerical role-fit ranking",
+      "No accepted personal measurement rubric or industry crosswalk",
+      "Partial references remain browseable; no plan prerequisite"
+    ]
+  },
+  "limitations": [
+    "Initial scoreable coverage remains zero: N01 and accepted personal rubric absent",
+    "Only acquired essential skills/software; tasks/interests/work context not acquired",
+    "Source inputs remain read-only/untracked; preserved in G0 snapshot, not added to Git"
+  ],
+  "dependencies": [
+    "G0.3"
+  ],
+  "checkpoint": "commit containing this record",
+  "next_eligible_work": "A1.2 qualitative assessment boundary; numerical work deferred for N01"
+}

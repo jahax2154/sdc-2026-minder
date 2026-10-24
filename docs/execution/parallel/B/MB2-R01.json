@@ -1,0 +1,69 @@
+{
+  "phase_id": "MB2-R01",
+  "refines": "MB2",
+  "actual_execution_checkpoint": "2a3cd00533c25f0c6f4ef722c028854d609d76f5",
+  "status": "account_credit_decrease_verified; itemized_endpoint_billing_pending",
+  "job_id": "d7731076-6f21-47a0-a217-04eb0769ac96-e1",
+  "observed_credit_consumed_usd": "0.0029890944",
+  "comparison_start_balance_usd": 25,
+  "recheck": {
+    "UTC": "2026-10-24T14:12:34.991144+00:00",
+    "account": {
+      "data": {
+        "myself": {
+          "clientBalance": 24.9970109056,
+          "currentSpendPerHr": 0,
+          "isAutoPayEnabled": false,
+          "endpoint": {
+            "id": "0387furb08gke2",
+            "workersMin": 0,
+            "workersMax": 0,
+            "pods": []
+          }
+        }
+      }
+    },
+    "billing": {
+      "HTTP": 200,
+      "data": {
+        "metadata": {
+          "query": {
+            "bucketSize": "hour",
+            "endTime": "2026-10-24T15:00:00Z",
+            "serverlessId": "0387furb08gke2",
+            "startTime": "2026-10-23T15:00:00Z"
+          },
+          "recordCount": 0,
+          "totals": {
+            "cpuAmount": 0,
+            "diskAmount": 0,
+            "feeAmount": 0,
+            "gpuAmount": 0,
+            "totalAmount": 0
+          },
+          "uniqueServerlessCount": 0
+        },
+        "records": []
+      }
+    },
+    "health": {
+      "jobs": {
+        "completed": 1,
+        "failed": 0,
+        "inProgress": 0,
+        "inQueue": 0,
+        "retried": 0
+      },
+      "workers": {
+        "idle": 0,
+        "initializing": 0,
+        "ready": 0,
+        "running": 0,
+        "throttled": 0,
+        "unhealthy": 0
+      }
+    }
+  },
+  "interpretation": "Actual account balance decreased by about0.3US cents. Rounded console display can still show25. Endpoint billing HTTP200 still returns no records; do not call this a final itemized job charge or attribute individual compute/disk components.",
+  "limits": "USD2 unchanged; no new submissions; zero workers and queued/running jobs verified"
+}

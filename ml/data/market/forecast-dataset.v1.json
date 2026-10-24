@@ -1,0 +1,68 @@
+{
+  "coverage": {
+    "role": {
+      "eligible_quarterly_series": 0,
+      "reason": "No comparable quarterly unique-ad history; employer active-ad snapshot is not inflow."
+    },
+    "skill": {
+      "eligible_quarterly_series": 0,
+      "reason": "No comparable quarterly unique-ad history; employer active-ad snapshot is not inflow."
+    }
+  },
+  "excluded_source_targets": [
+    {
+      "reason": "Broad published offerings are not dedup-verified narrow-role/skill counts; no defensible allocation. These pinned cells are from the August 2026 vintage. Separately acquired prior releases and explicit role facts do not change the grain or availability of these pinned cells.",
+      "rows": 952,
+      "source": "DOSM JMI"
+    },
+    {
+      "reason": "One active-ad snapshot, not historical quarterly advertisement inflows. Completeness of the current native feed does not recover closed historical ads.",
+      "rows": 155,
+      "source": "Bosch MY"
+    },
+    {
+      "reason": "Different quantities, not advertisement targets.",
+      "source": "DOSM labour force/wages"
+    },
+    {
+      "approved_target_eligible": false,
+      "file_sha256": "798cbe8c357e586b5432e7bc14c49b2c4124b38a6ee24a834e83d5c732647219",
+      "historical_byte_vintages_independently_archived": false,
+      "max_numeric_points_per_series": 7,
+      "missing_cells": 42,
+      "observations": 35,
+      "quantity": "published_online_job_offerings_for_source_role_label",
+      "reason": "Published offering unit is not verified unique ads; top-list censoring, short numeric history, classification and original-byte availability limits remain.",
+      "source": "DOSM explicit published role facts",
+      "source_label_series": 7,
+      "unique_ad_dedup_verified": false
+    },
+    {
+      "approved_target_eligible": false,
+      "collection_windows_known": false,
+      "file_sha256": "58d22360637c1fbbc11eaa9b738e14dff7f30bd19948e9681b25b4ce1b77e1ba",
+      "historical_available_at_known": false,
+      "populated_listing_quarters": 8,
+      "quantity": "unique observed frozen-corpus ads grouped by original listing quarter; not complete quarterly source inflows",
+      "reason": "Dated surviving-corpus counts are not complete historical advertisement flows; missing collection/closed-ad coverage, historical availability and per-record geography remain.",
+      "rows": 69024,
+      "source": "JobStreet original frozen corpus",
+      "unique_job_ids": 69024
+    }
+  ],
+  "news_comparison": "unavailable_no_archived_publication_aware_news_features",
+  "provenance": {
+    "collected_at": "2026-10-23T06:08:42.362418+00:00",
+    "dosm_actual_vintage_dates": [
+      "2026-08-18"
+    ],
+    "dosm_observation_rows": 952,
+    "dosm_quarters": 28,
+    "employer_observed_ads": 155,
+    "snapshot_version": "market-snapshot-v1"
+  },
+  "rows": [],
+  "source_snapshot_sha256": "1a5d6e05721428ba2281a9c13551b96013b2cd5baafa9def9decaf1fedec16b3",
+  "synthetic": false,
+  "version": "my-quarterly-unique-ads-v1"
+}

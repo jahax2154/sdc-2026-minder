@@ -1,0 +1,38 @@
+{
+  "phase_id": "I4.1",
+  "status": "passed_local_compatibility",
+  "C_handoff": "144a10d54f5b632388c7a64a78e9faa08c4d70e5",
+  "C_merge": "f0690e860e3f4646c041b23a9df11692a3467968",
+  "B_handoff": "90ebdf1b0d3144cfd2467abe4b3f66693d7e2bc7",
+  "B_merge": "518821d58e80b790715e0cb0d6b9553b1611959e",
+  "changes": [
+    "C current generic company assessment and identified real Groq transport integrated",
+    "B official published role-label offerings callable separately from employer counts; updated eligibility results/registry integrated",
+    "No repeated earlier merges, no conflicts, no sibling worktree writes, no scorer changes or migrations"
+  ],
+  "checks": [
+    {
+      "command": "test_market_service test_forecasting test_service_contracts test_role_fit_v3 test_llm",
+      "result": "59 passed in 23.094s"
+    },
+    {
+      "command": "backend unittest discover",
+      "result": "29 passed in .662s"
+    }
+  ],
+  "A_provider_access": {
+    "own_private_config_initially_present": false,
+    "inherited_key_present": false,
+    "inherited_model_present": false,
+    "empty_template_created": true,
+    "regular_owner_only": true,
+    "ignored": true,
+    "tracked": false,
+    "waiting_for": "User to enter A-authorised private configuration and confirm; no copying C configuration or values in chat"
+  },
+  "limits": [
+    "C real-provider evidence remains C evidence; A has not yet made a successful real request",
+    "Published offering source labels are not automatically canonical crosswalks; only four native employer mappings currently enter v1 numerical ranking"
+  ],
+  "push_status": "local only; captured starting snapshots were pushed under P1.1"
+}

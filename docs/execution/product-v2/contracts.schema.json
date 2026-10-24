@@ -1,0 +1,924 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://minder.local/product-v2/bootstrap-v1",
+  "$defs": {
+    "DirectionWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role_id",
+        "expected_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "role_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "plan_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "TaskCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "expected_state_version",
+        "idempotency_key",
+        "task"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "task": {
+          "$ref": "urn:minder:parallel:v1#/$defs/Task"
+        }
+      }
+    },
+    "TaskAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "task_id",
+        "operation",
+        "expected_state_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "task_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "operation": {
+          "enum": [
+            "edit",
+            "reschedule",
+            "complete",
+            "undo",
+            "cancel"
+          ]
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "changes": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "scheduled_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "estimated_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "ResourceStateWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resource_id",
+        "saved",
+        "dismissed",
+        "expected_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "resource_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "dismissed": {
+          "type": "boolean"
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "ProductView": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "view",
+        "status",
+        "profile_version",
+        "data",
+        "limitations"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "product-v2-bootstrap-v1"
+        },
+        "view": {
+          "enum": [
+            "overview",
+            "career-match",
+            "roadmap",
+            "tasks",
+            "progress",
+            "news"
+          ]
+        },
+        "status": {
+          "enum": [
+            "available",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "profile_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data": {
+          "type": "object"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DocumentUpload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "filename",
+        "content_type",
+        "content_base64",
+        "idempotency_key",
+        "purpose"
+      ],
+      "properties": {
+        "filename": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "content_type": {
+          "enum": [
+            "text/plain",
+            "application/pdf"
+          ]
+        },
+        "content_base64": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 1398104
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "purpose": {
+          "enum": [
+            "cv",
+            "resume"
+          ]
+        }
+      }
+    },
+    "DocumentRead": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "DocumentDelete": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "expected_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "expected_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "DocumentMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "filename": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "content_type": {
+          "enum": [
+            "text/plain",
+            "application/pdf"
+          ]
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "status": {
+          "enum": [
+            "uploading",
+            "active",
+            "deleting"
+          ]
+        },
+        "extraction_status": {
+          "enum": [
+            "not_requested",
+            "review_available",
+            "unavailable"
+          ]
+        },
+        "purpose": {
+          "enum": [
+            "cv",
+            "resume",
+            "unclassified",
+            "legacy_unclassified"
+          ]
+        },
+        "purpose_basis": {
+          "const": "user_declared_not_independently_verified"
+        }
+      },
+      "required": [
+        "document_id",
+        "filename",
+        "content_type",
+        "size_bytes",
+        "sha256",
+        "created_at",
+        "version",
+        "status",
+        "extraction_status"
+      ]
+    },
+    "DocumentUploadResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/DocumentMetadata"
+        }
+      },
+      "required": [
+        "document"
+      ]
+    },
+    "DocumentDownloadResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/DocumentMetadata"
+        },
+        "content_base64": {
+          "type": "string",
+          "maxLength": 1398104
+        },
+        "download_content_type": {
+          "const": "application/octet-stream"
+        }
+      },
+      "required": [
+        "document",
+        "content_base64",
+        "download_content_type"
+      ]
+    },
+    "DocumentDeleted": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "status": {
+          "const": "deleted"
+        },
+        "deleted_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "document_id",
+        "status",
+        "deleted_at"
+      ]
+    },
+    "DocumentExtractResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "$ref": "#/$defs/DocumentMetadata"
+        },
+        "extraction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "review_available",
+                "unavailable"
+              ]
+            },
+            "manual_entry_available": {
+              "const": true
+            },
+            "reason": {
+              "enum": [
+                "pdf_text_extraction_not_supported",
+                "text_exceeds_reviewed_intake_limit",
+                "legacy_document_purpose_unclassified",
+                "pdf_extraction_busy",
+                "pdf_extraction_budget_or_parse_failed",
+                "pdf_extracted_text_too_large",
+                "pdf_extraction_unavailable",
+                "pdf_encrypted_not_supported",
+                "pdf_page_limit_exceeded",
+                "pdf_no_extractable_text",
+                "pdf_parse_failed"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "manual_entry_available"
+          ]
+        },
+        "draft": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "document",
+        "extraction",
+        "draft"
+      ]
+    },
+    "DocumentList": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "private-document-library-v1"
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DocumentMetadata"
+          }
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max_file_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1048576
+            },
+            "max_files": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "max_user_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 67108864
+            },
+            "upload_request_bytes": {
+              "type": "integer",
+              "minimum": 131072,
+              "maximum": 1402200
+            }
+          },
+          "required": [
+            "max_file_bytes",
+            "max_files",
+            "max_user_bytes",
+            "upload_request_bytes"
+          ]
+        },
+        "storage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "available",
+                "unavailable"
+              ]
+            },
+            "mode": {
+              "enum": [
+                "disabled",
+                "local-development",
+                "private-volume"
+              ]
+            },
+            "durable_hosting_verified": {
+              "const": false
+            },
+            "durability_status": {
+              "enum": [
+                "mount_verified_restart_pending",
+                "local_unverified",
+                "unavailable"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "mode",
+            "durable_hosting_verified"
+          ]
+        },
+        "usage": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "file_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "stored_or_reserved_bytes": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "file_count",
+            "stored_or_reserved_bytes"
+          ]
+        },
+        "extraction": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "supported_types": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "text/plain",
+                  "application/pdf"
+                ]
+              }
+            },
+            "max_text_bytes": {
+              "const": 65536
+            },
+            "pdf_status": {
+              "enum": [
+                "unavailable",
+                "supported_text_only"
+              ]
+            },
+            "automatic_profile_apply": {
+              "const": false
+            },
+            "max_pdf_pages": {
+              "const": 20
+            },
+            "purpose": {
+              "const": "user_declared_cv_or_resume"
+            }
+          },
+          "required": [
+            "supported_types",
+            "max_text_bytes",
+            "pdf_status",
+            "automatic_profile_apply"
+          ]
+        }
+      },
+      "required": [
+        "contract_version",
+        "documents",
+        "limits",
+        "storage",
+        "usage",
+        "extraction"
+      ]
+    },
+    "ResourceToPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_id",
+        "resource_id",
+        "expected_state_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "plan_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "resource_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "expected_state_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "IntakeCorrection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draft_id",
+        "profile",
+        "expected_profile_version",
+        "idempotency_key"
+      ],
+      "properties": {
+        "draft_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "profile": {
+          "type": "object"
+        },
+        "expected_profile_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "idempotency_key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "BotAvatarId": {
+      "type": "string",
+      "enum": [
+        "frog-blue",
+        "frog-lavender",
+        "frog-lime",
+        "frog-rose",
+        "frog-yellow",
+        "heart-blue",
+        "heart-lavender",
+        "heart-lime",
+        "heart-rose",
+        "heart-yellow",
+        "nimo-blue",
+        "nimo-lavender",
+        "nimo-lime",
+        "nimo-rose",
+        "nimo-yellow",
+        "puff-blue",
+        "puff-lavender",
+        "puff-lime",
+        "puff-rose",
+        "puff-yellow",
+        "star-blue",
+        "star-lavender",
+        "star-lime",
+        "star-rose",
+        "star-yellow"
+      ]
+    },
+    "BotPreferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "display_name",
+        "avatar_id",
+        "version"
+      ],
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^(?!.*[\\u0000-\\u001f\\u007f-\\u009f])\\S(?:[\\s\\S]*\\S)?$"
+        },
+        "avatar_id": {
+          "$ref": "#/$defs/BotAvatarId"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        }
+      }
+    },
+    "BotPreferencesWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "display_name",
+        "avatar_id",
+        "expected_version"
+      ],
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^(?!.*[\\u0000-\\u001f\\u007f-\\u009f])\\S(?:[\\s\\S]*\\S)?$"
+        },
+        "avatar_id": {
+          "$ref": "#/$defs/BotAvatarId"
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        }
+      }
+    },
+    "BotPreferencesResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "configured",
+        "preferences"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "bot-preferences-v1"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "preferences": {
+          "$ref": "#/$defs/BotPreferences"
+        }
+      }
+    },
+    "ConversationSearch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query"
+      ],
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000,
+          "default": 0
+        }
+      }
+    },
+    "ConversationMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversation_id",
+        "channel",
+        "title",
+        "version",
+        "created_at",
+        "updated_at",
+        "status",
+        "last_sequence"
+      ],
+      "properties": {
+        "conversation_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "channel": {
+          "const": "minder"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "status": {
+          "const": "active"
+        },
+        "last_sequence": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ConversationSearchResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "query",
+        "search_scope",
+        "conversations",
+        "offset",
+        "limit",
+        "has_more",
+        "next_offset"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "conversation-search-v1"
+        },
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "search_scope": {
+          "const": "title_and_visible_messages"
+        },
+        "conversations": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "#/$defs/ConversationMetadata"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

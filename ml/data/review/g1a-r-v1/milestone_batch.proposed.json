@@ -1,0 +1,515 @@
+{
+  "schema_version": "g1ar-milestone-batch-v1",
+  "batch_id": "g1ar-three-role-initial-v1",
+  "status": "pending",
+  "active": false,
+  "proposal_origin": "Codex-assisted design proposal; no human review or approval recorded",
+  "source_facts_path": "ml/data/review/g1a-r-v1/source_facts.json",
+  "source_facts_sha256": "5a2c54c7cd9cfe1ce8041e2ef1accd14b429958ed42718ce995ca42be9a64faa",
+  "original_role_drafts_path": "ml/data/review/three_roles.pending.json",
+  "original_role_drafts_sha256": "dc8f1233d0659834b36e675d51da57766ca3d380c1ad0f87773990c74d4fab4f",
+  "effort_method_proposal": {
+    "status": "pending",
+    "unit": "hours",
+    "range_low": null,
+    "range_high": null,
+    "method": "For each exact worksheet task, record setup, source reading, artifact work and checking. Use observed task times with provenance or an explicitly accepted named work-breakdown estimate. Store low/high, basis and evidence per task; E is the deduplicated sum of upper bounds. Do not substitute course duration or infer mastery.",
+    "unknown_policy": "No numerical hours are proposed without a defensible basis. Unknown bounds remain inactive and block T/score readiness."
+  },
+  "assessment_instances_pending": [],
+  "expected_effect": {
+    "on_source_identity_readiness": "No change: three native identities already accepted",
+    "on_existing_profiles": "No filled answers; all 18 pairs remain unscored until accepted definitions AND matching explicit profile measurements exist",
+    "on_catalogue_after_complete_real_decision": "Three bounded templates may become usable, with six effort estimates; no guarantee of scores or empirical quality"
+  },
+  "milestone_templates": [
+    {
+      "milestone_id": "g1ar-initial-15-1252.00",
+      "version": "g1ar-proposal-v1",
+      "role_id": "15-1252.00",
+      "scope": "initial_preparation",
+      "target_artifact": "A written brief-analysis and debugging worksheet for supplied fictional examples.",
+      "provenance_class": "llm-proposed",
+      "proposal_status": "pending",
+      "derivation_rule_id": null,
+      "criteria": [
+        {
+          "criterion_id": "sw-requirements",
+          "description": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Cannot identify the brief inputs or outputs.",
+            "0.5": "Identifies the inputs and outputs, but supplies fewer than two relevant acceptance checks.",
+            "1": "Identifies the inputs and outputs and gives two acceptance checks linked to the stated brief."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:sw-requirements"
+          ],
+          "source_skill_id": "2.A.1.a",
+          "context_reference_id": "govuk-requirements-reference"
+        },
+        {
+          "criterion_id": "sw-debugging",
+          "description": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Provides no plausible cause consistent with the supplied failure.",
+            "0.5": "Explains a plausible cause but provides no usable verification step.",
+            "1": "Explains a plausible cause and a verification step that could confirm or disconfirm it."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:sw-debugging"
+          ],
+          "source_skill_id": "2.A.2.a",
+          "context_reference_id": "python-errors-reference"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "sw-requirements:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "sw-requirements"
+          ],
+          "description": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:sw-requirements"
+          ]
+        },
+        {
+          "task_id": "sw-debugging:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "sw-debugging"
+          ],
+          "description": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:sw-debugging"
+          ]
+        }
+      ],
+      "interest_tags": [
+        {
+          "tag_id": "requirements-analysis",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:requirements-analysis"
+          ]
+        },
+        {
+          "tag_id": "debugging-explanation",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:debugging-explanation"
+          ]
+        }
+      ],
+      "work_style_tags": [
+        {
+          "tag_id": "structured-written-explanation",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-artifact:15-1252.00"
+          ]
+        }
+      ],
+      "resource_groups": [
+        {
+          "group_id": "reference-and-workbook-access",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal:15-1252.00",
+            "source-context:python-errors-reference"
+          ],
+          "alternatives": [
+            {
+              "alternative_id": "browser-and-local-written-workbook",
+              "description": "Proposed access to the public reference and supplied fictional worksheet, with ability to write responses; access must be explicitly confirmed by each profile."
+            }
+          ]
+        }
+      ],
+      "hard_requirements": [],
+      "pending_assumptions": [
+        "Selection of these two draft criteria as a bounded initial milestone, not full occupational competence",
+        "Specific partial/full anchors and supplied fictional assessment instances",
+        "Interest/work-style task mapping and resource group",
+        "Two independent worksheet tasks with no required prerequisite edges",
+        "No additional hard eligibility requirement for this local written exercise; not a statement about occupational eligibility"
+      ],
+      "source_context_evidence_ids": [
+        "proposal:15-1252.00",
+        "source-context:python-errors-reference"
+      ],
+      "limitations": [
+        "External references provide learning context, not validation of this role-specific rubric or effort.",
+        "No paid cloud signup or course completion is required by this proposed local written worksheet.",
+        "No skill assessment, resource access, preferences or completion is inferred for any existing profile."
+      ]
+    },
+    {
+      "milestone_id": "g1ar-initial-15-2051.00",
+      "version": "g1ar-proposal-v1",
+      "role_id": "15-2051.00",
+      "scope": "initial_preparation",
+      "target_artifact": "A written table-summary and toy-model evaluation worksheet using supplied synthetic examples.",
+      "provenance_class": "llm-proposed",
+      "proposal_status": "pending",
+      "derivation_rule_id": null,
+      "criteria": [
+        {
+          "criterion_id": "ds-statistics",
+          "description": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Provides no correct basic summary of the supplied table.",
+            "0.5": "Provides a correct summary but omits units or missingness.",
+            "1": "Computes and explains the agreed table summaries with units and missingness."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:ds-statistics"
+          ],
+          "source_skill_id": "2.A.1.e",
+          "context_reference_id": "learn-data-reference"
+        },
+        {
+          "criterion_id": "ds-evaluation",
+          "description": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Explains neither a baseline comparison nor a valid leakage example.",
+            "0.5": "Explains either a baseline comparison or a valid leakage example, but not both.",
+            "1": "Explains a baseline comparison and a valid leakage example in the supplied toy task."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:ds-evaluation"
+          ],
+          "source_skill_id": "2.A.2.a",
+          "context_reference_id": "sklearn-leakage-reference"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "ds-statistics:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "ds-statistics"
+          ],
+          "description": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:ds-statistics"
+          ]
+        },
+        {
+          "task_id": "ds-evaluation:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "ds-evaluation"
+          ],
+          "description": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:ds-evaluation"
+          ]
+        }
+      ],
+      "interest_tags": [
+        {
+          "tag_id": "table-analysis",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:table-analysis"
+          ]
+        },
+        {
+          "tag_id": "model-evaluation-reasoning",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:model-evaluation-reasoning"
+          ]
+        }
+      ],
+      "work_style_tags": [
+        {
+          "tag_id": "structured-written-explanation",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-artifact:15-2051.00"
+          ]
+        }
+      ],
+      "resource_groups": [
+        {
+          "group_id": "reference-and-workbook-access",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal:15-2051.00",
+            "source-context:learn-data-reference"
+          ],
+          "alternatives": [
+            {
+              "alternative_id": "browser-and-local-written-workbook",
+              "description": "Proposed access to the public reference and supplied fictional worksheet, with ability to write responses; access must be explicitly confirmed by each profile."
+            }
+          ]
+        }
+      ],
+      "hard_requirements": [],
+      "pending_assumptions": [
+        "Selection of these two draft criteria as a bounded initial milestone, not full occupational competence",
+        "Specific partial/full anchors and supplied fictional assessment instances",
+        "Interest/work-style task mapping and resource group",
+        "Two independent worksheet tasks with no required prerequisite edges",
+        "No additional hard eligibility requirement for this local written exercise; not a statement about occupational eligibility"
+      ],
+      "source_context_evidence_ids": [
+        "proposal:15-2051.00",
+        "source-context:learn-data-reference"
+      ],
+      "limitations": [
+        "External references provide learning context, not validation of this role-specific rubric or effort.",
+        "No paid cloud signup or course completion is required by this proposed local written worksheet.",
+        "No skill assessment, resource access, preferences or completion is inferred for any existing profile."
+      ]
+    },
+    {
+      "milestone_id": "g1ar-initial-15-1212.00",
+      "version": "g1ar-proposal-v1",
+      "role_id": "15-1212.00",
+      "scope": "initial_preparation",
+      "target_artifact": "A written fictional access-policy and risk-mitigation worksheet.",
+      "provenance_class": "llm-proposed",
+      "proposal_status": "pending",
+      "derivation_rule_id": null,
+      "criteria": [
+        {
+          "criterion_id": "sec-policy",
+          "description": "Given a fictional access policy, explain who may access each example resource and why.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Does not correctly apply the fictional access policy to an example.",
+            "0.5": "Correctly identifies access for some examples but leaves the rationale or remaining examples incomplete.",
+            "1": "Correctly identifies access for every supplied example and links each decision to the fictional policy."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:sec-policy"
+          ],
+          "source_skill_id": "2.A.1.a",
+          "context_reference_id": "owasp-authorization-reference"
+        },
+        {
+          "criterion_id": "sec-risk",
+          "description": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+          "weight": 1.0,
+          "weight_provenance": {
+            "status": "policy_accepted",
+            "class": "policy-derived",
+            "rule_id": "FIT-04"
+          },
+          "anchors": {
+            "0": "Identifies no plausible risk grounded in the fictional system.",
+            "0.5": "Identifies a plausible risk but does not justify a proportionate mitigation.",
+            "1": "Identifies a plausible risk and justifies a proportionate mitigation tied to that system."
+          },
+          "anchor_version": "g1ar-proposed-anchors-v1",
+          "anchor_status": "pending_batch_decision",
+          "evidence_ids": [
+            "draft-criterion:sec-risk"
+          ],
+          "source_skill_id": "2.A.2.a",
+          "context_reference_id": "learn-security-reference"
+        }
+      ],
+      "tasks": [
+        {
+          "task_id": "sec-policy:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "sec-policy"
+          ],
+          "description": "Given a fictional access policy, explain who may access each example resource and why.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:sec-policy"
+          ]
+        },
+        {
+          "task_id": "sec-risk:work",
+          "version": "g1ar-proposal-v1",
+          "prerequisites": [],
+          "criterion_ids": [
+            "sec-risk"
+          ],
+          "description": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+          "effort": null,
+          "evidence_ids": [
+            "draft-criterion:sec-risk"
+          ]
+        }
+      ],
+      "interest_tags": [
+        {
+          "tag_id": "access-policy-reasoning",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:access-policy-reasoning"
+          ]
+        },
+        {
+          "tag_id": "risk-mitigation-reasoning",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-activity:risk-mitigation-reasoning"
+          ]
+        }
+      ],
+      "work_style_tags": [
+        {
+          "tag_id": "structured-written-explanation",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal-artifact:15-1212.00"
+          ]
+        }
+      ],
+      "resource_groups": [
+        {
+          "group_id": "reference-and-workbook-access",
+          "weight": 1.0,
+          "evidence_ids": [
+            "proposal:15-1212.00",
+            "source-context:learn-security-reference"
+          ],
+          "alternatives": [
+            {
+              "alternative_id": "browser-and-local-written-workbook",
+              "description": "Proposed access to the public reference and supplied fictional worksheet, with ability to write responses; access must be explicitly confirmed by each profile."
+            }
+          ]
+        }
+      ],
+      "hard_requirements": [],
+      "pending_assumptions": [
+        "Selection of these two draft criteria as a bounded initial milestone, not full occupational competence",
+        "Specific partial/full anchors and supplied fictional assessment instances",
+        "Interest/work-style task mapping and resource group",
+        "Two independent worksheet tasks with no required prerequisite edges",
+        "No additional hard eligibility requirement for this local written exercise; not a statement about occupational eligibility"
+      ],
+      "source_context_evidence_ids": [
+        "proposal:15-1212.00",
+        "source-context:learn-security-reference"
+      ],
+      "limitations": [
+        "External references provide learning context, not validation of this role-specific rubric or effort.",
+        "No paid cloud signup or course completion is required by this proposed local written worksheet.",
+        "No skill assessment, resource access, preferences or completion is inferred for any existing profile."
+      ]
+    }
+  ],
+  "assessment_instances": [
+    {
+      "instance_id": "sw-requirements-scenario-v1",
+      "criterion_id": "sw-requirements",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "A fictional tool accepts two nonnegative item costs in MYR, displays their total to two decimal places, and rejects a negative input without displaying a total. Identify its inputs, outputs and two explicit acceptance checks.",
+      "expected_evidence": "Identify both costs as inputs, the formatted total or validation result as output, and give two concrete cases consistent with the brief.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    },
+    {
+      "instance_id": "sw-debugging-scenario-v1",
+      "criterion_id": "sw-debugging",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "Fictional Python function: def total(values): return values[0]. The test total([2, 3]) expects 5 but returns 2. Explain a plausible cause and one verification step.",
+      "expected_evidence": "Explain that only the first element is returned; verify a proposed correction against the two-element test and its stated expected total.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    },
+    {
+      "instance_id": "ds-statistics-scenario-v1",
+      "criterion_id": "ds-statistics",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "Synthetic table: record A=10 minutes, B=20 minutes, C=missing, D=30 minutes. Compute the mean of observed durations, state its units, and describe missingness.",
+      "expected_evidence": "The observed mean is 20 minutes; one of four records is missing. Explain that the missing value was not treated as zero.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    },
+    {
+      "instance_id": "ds-evaluation-scenario-v1",
+      "criterion_id": "ds-evaluation",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "A fictional model predicts course completion at enrollment. Explain a comparison with a rule that always predicts the training-set majority class on held-out cases. Would the eventual final-exam result be a valid enrollment-time feature?",
+      "expected_evidence": "Explain using the same held-out cases for the model and baseline. Identify the eventual exam result as unavailable at enrollment and therefore leakage.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    },
+    {
+      "instance_id": "sec-policy-scenario-v1",
+      "criterion_id": "sec-policy",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "Fictional policy: readers may read public files only; editors may read/write public and private files. Decide and justify: reader reads public; reader writes public; reader reads private; editor writes private.",
+      "expected_evidence": "The decisions are allow, deny, deny, allow respectively, each tied to a stated policy clause.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    },
+    {
+      "instance_id": "sec-risk-scenario-v1",
+      "criterion_id": "sec-risk",
+      "version": "g1ar-assessment-proposal-v1",
+      "data_class": "synthetic",
+      "status": "pending_batch_decision",
+      "prompt": "A fictional team keeps a shared API credential in a folder readable by every member and has no access log. Identify one plausible risk and justify one proportionate mitigation. Do not assume a breach occurred.",
+      "expected_evidence": "Describe a plausible unauthorized-use or disclosure risk and justify limiting credential access, moving it to controlled storage, or another proportionate mitigation. Do not claim an observed incident.",
+      "notice": "Proposed assessment key only; not an observation, user assessment, relevance annotation or gold label."
+    }
+  ]
+}

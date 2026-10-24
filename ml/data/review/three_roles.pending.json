@@ -1,0 +1,386 @@
+{
+  "catalogue_version": "three-role-proposal-v1",
+  "evidence_snapshot_id": "starter-2026-10-20-review-extract-v1",
+  "status": "pending",
+  "selection_status": "three source-backed candidates selected for review, not team-approved",
+  "roles": [
+    {
+      "role_id": "15-1252.00",
+      "title": "Software Developers",
+      "source_id": "onet_occupation_data",
+      "source_scope": "U.S. occupation reference, not Malaysian role demand",
+      "initial_milestone_status": "proposed_for_review",
+      "review_status": "pending",
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewed_at": null,
+      "mapping_reviewed": false,
+      "evidence_ids": [
+        "onet_occupation_data:15-1252.00"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "sw-requirements",
+          "description": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Reading Comprehension",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2282,
+              "onet_role_id": "15-1252.00",
+              "element_id": "2.A.1.a",
+              "scale_id": "IM",
+              "source_value": "3.50",
+              "measurement_date": "08/2025",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2283,
+              "onet_role_id": "15-1252.00",
+              "element_id": "2.A.1.a",
+              "scale_id": "LV",
+              "source_value": "4.25",
+              "measurement_date": "08/2025",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        },
+        {
+          "criterion_id": "sw-debugging",
+          "description": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Critical Thinking",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2294,
+              "onet_role_id": "15-1252.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "IM",
+              "source_value": "3.88",
+              "measurement_date": "08/2025",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2295,
+              "onet_role_id": "15-1252.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "LV",
+              "source_value": "4.12",
+              "measurement_date": "08/2025",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        }
+      ],
+      "feature_rubrics": {
+        "interest_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "resource_feasibility": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "work_style_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        }
+      },
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      }
+    },
+    {
+      "role_id": "15-2051.00",
+      "title": "Data Scientists",
+      "source_id": "onet_occupation_data",
+      "source_scope": "U.S. occupation reference, not Malaysian role demand",
+      "initial_milestone_status": "proposed_for_review",
+      "review_status": "pending",
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewed_at": null,
+      "mapping_reviewed": false,
+      "evidence_ids": [
+        "onet_occupation_data:15-2051.00"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "ds-statistics",
+          "description": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Mathematics",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2670,
+              "onet_role_id": "15-2051.00",
+              "element_id": "2.A.1.e",
+              "scale_id": "IM",
+              "source_value": "4.38",
+              "measurement_date": "08/2026",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2671,
+              "onet_role_id": "15-2051.00",
+              "element_id": "2.A.1.e",
+              "scale_id": "LV",
+              "source_value": "5.00",
+              "measurement_date": "08/2026",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        },
+        {
+          "criterion_id": "ds-evaluation",
+          "description": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Critical Thinking",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2674,
+              "onet_role_id": "15-2051.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "IM",
+              "source_value": "4.25",
+              "measurement_date": "08/2026",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2675,
+              "onet_role_id": "15-2051.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "LV",
+              "source_value": "4.62",
+              "measurement_date": "08/2026",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        }
+      ],
+      "feature_rubrics": {
+        "interest_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "resource_feasibility": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "work_style_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        }
+      },
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      }
+    },
+    {
+      "role_id": "15-1212.00",
+      "title": "Information Security Analysts",
+      "source_id": "onet_occupation_data",
+      "source_scope": "U.S. occupation reference, not Malaysian role demand",
+      "initial_milestone_status": "proposed_for_review",
+      "review_status": "pending",
+      "reviewer_id": null,
+      "review_reason": null,
+      "reviewed_at": null,
+      "mapping_reviewed": false,
+      "evidence_ids": [
+        "onet_occupation_data:15-1212.00"
+      ],
+      "criteria": [
+        {
+          "criterion_id": "sec-policy",
+          "description": "Given a fictional access policy, explain who may access each example resource and why.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Reading Comprehension",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2062,
+              "onet_role_id": "15-1212.00",
+              "element_id": "2.A.1.a",
+              "scale_id": "IM",
+              "source_value": "4.00",
+              "measurement_date": "08/2018",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2063,
+              "onet_role_id": "15-1212.00",
+              "element_id": "2.A.1.a",
+              "scale_id": "LV",
+              "source_value": "4.12",
+              "measurement_date": "08/2018",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        },
+        {
+          "criterion_id": "sec-risk",
+          "description": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+          "proposal_author": "Codex-assisted draft, not domain-reviewed",
+          "source_skill_name": "Critical Thinking",
+          "source_rows": [
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2074,
+              "onet_role_id": "15-1212.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "IM",
+              "source_value": "3.88",
+              "measurement_date": "08/2018",
+              "recommend_suppress": "N",
+              "not_relevant": ""
+            },
+            {
+              "source_id": "onet_essential_skills",
+              "file": "ml/minder_ml_starter/raw/onet_31_0_essential_skills.csv",
+              "row_1_based": 2075,
+              "onet_role_id": "15-1212.00",
+              "element_id": "2.A.2.a",
+              "scale_id": "LV",
+              "source_value": "4.12",
+              "measurement_date": "08/2018",
+              "recommend_suppress": "N",
+              "not_relevant": "N"
+            }
+          ],
+          "proposed_requirement_weight": 1,
+          "requirement_weight": null,
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null
+        }
+      ],
+      "feature_rubrics": {
+        "interest_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "resource_feasibility": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        },
+        "work_style_alignment": {
+          "review_status": "pending",
+          "reviewer_id": null,
+          "review_reason": null,
+          "reviewed_at": null,
+          "rubric": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist."
+        }
+      },
+      "effort_estimate": {
+        "review_status": "pending",
+        "reviewer_id": null,
+        "review_reason": null,
+        "reviewed_at": null,
+        "effort_hours_used": null,
+        "effort_low_hours": null,
+        "effort_high_hours": null,
+        "estimate_basis": null
+      }
+    }
+  ]
+}

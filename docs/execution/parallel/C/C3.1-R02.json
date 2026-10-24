@@ -1,0 +1,36 @@
+{
+  "phase_id": "C3.1-R02",
+  "original_phase": "C3.1",
+  "owner": "C",
+  "branch": "session/c-app-agents",
+  "status": "passed",
+  "objective": "Observe one actual wall-clock scheduled user check with real configured Groq/native function",
+  "evidence": {
+    "real_clock": true,
+    "injected_time": false,
+    "configured_at": "2026-10-23T07:29:00.441338Z",
+    "scheduled_local": "2026-10-23T15:30:00+08:00",
+    "notice_created_at": "2026-10-23T07:30:02.839078Z",
+    "processed": true,
+    "attempts": 1,
+    "native_request_success": true,
+    "notice_after_scheduled_time": true,
+    "target_mutation_before_approval": false
+  },
+  "evidence_sha256": "1f56a20906f97176653c94dbd21a1d25a9d24b53187d150b94d91e18dc9876b0",
+  "checks": [
+    "Started owner-scoped actual worker process with one-second bounded polling",
+    "Configured next real local-minute check through authenticated application API",
+    "No injected time/tick or manually enqueued daily event",
+    "Confirmed processed daily event/notice after due time and available native candidate selection",
+    "Verified saved plan unchanged before approval; stopped only the spawned test worker"
+  ],
+  "limits": [
+    "Local scheduled process evidence only; deployment scheduler/wake/sleep/production supervision unverified",
+    "Source-backed forecasts/competence/resource effort unknowns unchanged",
+    "Per-user quota and deterministic proposal/approval executor unchanged"
+  ],
+  "checkpoint": "commit containing this record",
+  "next": "Finish actual Chromium/HTTP acceptance and final A handoff",
+  "push_status": "not pushed"
+}

@@ -1,0 +1,31 @@
+{
+  "phase_id": "N1.2",
+  "owner": "A",
+  "status": "passed",
+  "policy_id": "personal-role-fit-v3-provisional",
+  "market_policy": "personal-current-cohort-v1",
+  "changes": [
+    "Executable anchored evidence minimum and separate optional components",
+    "Independent personal/current-market cohort ranks; partial coverage explicit; forecast failure independent",
+    "Baseline implementation enabled; Ridge/XGBoost live selection unavailable; legacy and original N01 unchanged"
+  ],
+  "checks": [
+    {
+      "command": "PYTHONPATH=ml/src:ml/tests python -m unittest test_role_fit_v3 test_service_contracts",
+      "result": "21 passed",
+      "log_sha256": "ee94d8d70bb16b883d0ff75b5cda1d2d2932511ceb964cf85c4c624180e19df5"
+    }
+  ],
+  "defects_fixed_before_checkpoint": [
+    "Use actually supported Data Scientists identity in current-market comparison fixture; Web Developers is unmapped"
+  ],
+  "limitations": [
+    "Not independently validated career accuracy; source anchors and employment links are US reference context",
+    "Application consumer migration follows in N1.3; personal-only coverage never full completion"
+  ],
+  "excluded_state": [
+    "13 untracked read-only bootstrap inputs preserved in existing snapshot; no new backup",
+    "Ignored source downloads, logs, databases and models local only"
+  ],
+  "push_status": "not pushed"
+}

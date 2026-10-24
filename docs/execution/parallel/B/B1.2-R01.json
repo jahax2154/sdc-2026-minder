@@ -1,0 +1,42 @@
+{
+  "branch": "session/b-market",
+  "changes": [
+    "MarketEvidenceService.current accepts explicit dosm:jmi:published-role-label:<slug> identifiers",
+    "Published quantity/unit/source universe and source period remain distinct from employer-ad counts",
+    "Checksummed supplemental role snapshot, source facts and publication/retrieval availability guards",
+    "published_role_observations(as_of=...) returns source-native history only",
+    "Official top-label counts cannot bypass approved unique-ad forecast target"
+  ],
+  "checkpoint": "commit containing this record",
+  "checks": [
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src:ml/tests $MINDER_PYTHON -m unittest test_market_service.CurrentTests test_market_service.PublishedServiceTests test_market_service.HistoricalSourceTests test_forecasting test_service_contracts",
+      "log_sha256": "35624c4d9bac23d97fc30882c4d8c713c14bcf2efc33b1489570f6c3dc33c85b",
+      "result": "...................................\n----------------------------------------------------------------------\nRan 35 tests in 0.228s\n\nOK"
+    }
+  ],
+  "coverage": {
+    "employer_distinct_requisitions": 155,
+    "employer_qualification_sections": 154,
+    "official_numeric_observations": 35,
+    "official_role_labels": 7,
+    "selected_forecasts": 0,
+    "software_developer_numeric_points": 2
+  },
+  "inputs": [
+    "B1.1-R02 b8478a32ec57b31bcc5928d72c93a61b750eb951",
+    "B1.1-R03 ee4096cffd2811dc3d1e56273dacd05cbc1c6e4a",
+    "minder-parallel-v1"
+  ],
+  "limitations": [
+    "Source-native labels are not a new canonical occupation catalogue or an accepted MASCO/O*NET crosswalk",
+    "19,899 published offerings and 5 employer ads are different source measurements and must not be summed or blended implicitly",
+    "No forecast training/evaluation success or new personal score claimed"
+  ],
+  "next_eligible": "B2.2-R01 refresh eligibility result/cost state and final A handoff",
+  "objective": "Expose real official source-native role facts without mixing them with employer unique-ad counts",
+  "owner": "B",
+  "phase_id": "B1.2-R01",
+  "refines": "B1.2",
+  "status": "passed"
+}

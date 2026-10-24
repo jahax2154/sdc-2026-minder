@@ -1,0 +1,443 @@
+[
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "RoleDefinition",
+    "role_id": "15-1252.00",
+    "version": "three-role-proposal-v1",
+    "title": "Software Developers",
+    "preparation_milestone": null,
+    "task_interest_tags": [],
+    "criteria": [
+      {
+        "criterion_id": "sw-requirements",
+        "skill_id": "onet:2.A.1.a",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.1.a",
+          "label": "Reading Comprehension"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a small fictional feature brief, identify its inputs, outputs and two explicit acceptance checks.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1252.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      {
+        "criterion_id": "sw-debugging",
+        "skill_id": "onet:2.A.2.a",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.2.a",
+          "label": "Critical Thinking"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a small fictional failing program and test output, explain a plausible cause and a verification step.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1252.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "occupation_identifiers": [
+      {
+        "identifier": {
+          "system": "O*NET-SOC",
+          "version": "31.0",
+          "code": "15-1252.00",
+          "label": "Software Developers"
+        },
+        "mapping_type": "exact",
+        "scope": "Source identity only; target-country/market use still pending",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1252.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "onet_occupation_data",
+        "source_version": "O*NET 31.0",
+        "record_id": "15-1252.00"
+      }
+    ],
+    "feature_rubrics": {
+      "interest_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "resource_feasibility": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "work_style_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    },
+    "remaining_effort": {
+      "hours_used": null,
+      "low_hours": null,
+      "high_hours": null,
+      "basis": null,
+      "review": {
+        "status": "pending",
+        "reviewer_id": null,
+        "rationale": null,
+        "reviewed_at": null
+      }
+    },
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "RoleDefinition",
+    "role_id": "15-2051.00",
+    "version": "three-role-proposal-v1",
+    "title": "Data Scientists",
+    "preparation_milestone": null,
+    "task_interest_tags": [],
+    "criteria": [
+      {
+        "criterion_id": "ds-statistics",
+        "skill_id": "onet:2.A.1.e",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.1.e",
+          "label": "Mathematics"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a small public or synthetic table, calculate and explain basic summaries, units and missingness.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-2051.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      {
+        "criterion_id": "ds-evaluation",
+        "skill_id": "onet:2.A.2.a",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.2.a",
+          "label": "Critical Thinking"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a toy prediction task, explain a baseline comparison and identify an example of data leakage.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-2051.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "occupation_identifiers": [
+      {
+        "identifier": {
+          "system": "O*NET-SOC",
+          "version": "31.0",
+          "code": "15-2051.00",
+          "label": "Data Scientists"
+        },
+        "mapping_type": "exact",
+        "scope": "Source identity only; target-country/market use still pending",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-2051.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "onet_occupation_data",
+        "source_version": "O*NET 31.0",
+        "record_id": "15-2051.00"
+      }
+    ],
+    "feature_rubrics": {
+      "interest_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "resource_feasibility": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "work_style_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    },
+    "remaining_effort": {
+      "hours_used": null,
+      "low_hours": null,
+      "high_hours": null,
+      "basis": null,
+      "review": {
+        "status": "pending",
+        "reviewer_id": null,
+        "rationale": null,
+        "reviewed_at": null
+      }
+    },
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  },
+  {
+    "schema_version": "minder-data-v1",
+    "entity_type": "RoleDefinition",
+    "role_id": "15-1212.00",
+    "version": "three-role-proposal-v1",
+    "title": "Information Security Analysts",
+    "preparation_milestone": null,
+    "task_interest_tags": [],
+    "criteria": [
+      {
+        "criterion_id": "sec-policy",
+        "skill_id": "onet:2.A.1.a",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.1.a",
+          "label": "Reading Comprehension"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a fictional access policy, explain who may access each example resource and why.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1212.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      {
+        "criterion_id": "sec-risk",
+        "skill_id": "onet:2.A.2.a",
+        "skill_taxonomy": {
+          "system": "O*NET essential skills",
+          "version": "31.0",
+          "code": "2.A.2.a",
+          "label": "Critical Thinking"
+        },
+        "requirement_weight": null,
+        "importance": null,
+        "importance_scale": null,
+        "observable_evidence_rule": "Given a fictional system description, identify a plausible risk and justify a proportionate mitigation.",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1212.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "occupation_identifiers": [
+      {
+        "identifier": {
+          "system": "O*NET-SOC",
+          "version": "31.0",
+          "code": "15-1212.00",
+          "label": "Information Security Analysts"
+        },
+        "mapping_type": "exact",
+        "scope": "Source identity only; target-country/market use still pending",
+        "sources": [
+          {
+            "source_id": "onet_occupation_data",
+            "source_version": "O*NET 31.0",
+            "record_id": "15-1212.00"
+          }
+        ],
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    ],
+    "sources": [
+      {
+        "source_id": "onet_occupation_data",
+        "source_version": "O*NET 31.0",
+        "record_id": "15-1212.00"
+      }
+    ],
+    "feature_rubrics": {
+      "interest_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "resource_feasibility": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      },
+      "work_style_alignment": {
+        "definition": "0 documented conflict/unavailable; 0.5 documented partial alignment/feasibility; 1 documented alignment/feasibility; unknown stays null. Review role-specific criteria and resource checklist.",
+        "evidence_rule": null,
+        "review": {
+          "status": "pending",
+          "reviewer_id": null,
+          "rationale": null,
+          "reviewed_at": null
+        }
+      }
+    },
+    "remaining_effort": {
+      "hours_used": null,
+      "low_hours": null,
+      "high_hours": null,
+      "basis": null,
+      "review": {
+        "status": "pending",
+        "reviewer_id": null,
+        "rationale": null,
+        "reviewed_at": null
+      }
+    },
+    "review": {
+      "status": "pending",
+      "reviewer_id": null,
+      "rationale": null,
+      "reviewed_at": null
+    }
+  }
+]

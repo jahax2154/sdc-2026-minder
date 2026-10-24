@@ -1,0 +1,359 @@
+MINDER — FIRST ML FOUNDATION EXECUTION TASK
+Prepared: 20 October 2026, Asia/Kuala_Lumpur
+Status: implementation handoff for Codex in the existing Minder repository
+
+OBJECTIVE
+
+Implement one small, testable intelligence module containing a fixed linear
+personal-fit baseline, a Ridge regressor, and one CPU XGBoost regressor. All
+three use the same five feature meanings and the same user-role target rubric.
+Build training, evaluation, artifact loading, and a stable result contract now.
+Keep the baseline as the default configured scorer. A trained scorer is an
+explicit configuration choice, never an unreported replacement or fallback.
+
+Complete this authorized foundation task. Missing reviewed labels blocks the
+empirical evaluation gate, not the unrelated implementation work. Do not invent
+reviewed labels or claim that a synthetic pipeline test validates career advice.
+
+1. INSPECT THE EXISTING REPOSITORY
+
+Read applicable AGENTS.md, relevant replit.md/context files, dependency files,
+existing Python package layout, API contracts, and test commands. Preserve the
+team's established stack and tooling. Use an isolated change if existing work
+requires it. Do not recreate the monorepo or create a second backend.
+
+Suggested placement is <existing_python_package>/intelligence/. If there is
+already a packages/intelligence package, extend it instead. The important
+requirement is one implementation of features and score mapping for training
+and inference. These example names are not permission to relocate existing code:
+
+If no Python package exists yet, create only a minimal package under the existing
+workspace conventions (for example packages/intelligence/src/minder_intelligence).
+Do not make the foundation depend on a new web framework or an unapproved stack.
+
+intelligence/schemas.py       input, feature, annotation, score/result schemas
+intelligence/features.py      shared validation and feature construction
+intelligence/scoring.py       fixed baseline, score mapping, combination policy
+intelligence/estimators.py    Ridge and XGBoost factories
+intelligence/training.py      bounded CPU CLI and dataset checks
+intelligence/evaluation.py    group splits, metrics, diagnostic report
+intelligence/inference.py     scorer selection and artifact loading
+intelligence/llm.py           explanation contract and explicit disabled adapter
+
+Use the existing API routes directory for a thin recommendation endpoint if
+the API skeleton is already present. Otherwise expose a callable service and
+JSON example; do not invent a second application bootstrap to make a route.
+Create a focused test module and docs/ml-foundation.md or their existing equivalents.
+
+Data locations, adapted to existing conventions:
+data/reference/       source manifest and reviewed role requirements
+data/annotations/     an empty template plus any legitimately supplied reviewed data
+tests/fixtures/       clearly synthetic mathematical and plumbing examples
+artifacts/intelligence/<run_id>/  generated runs, ignored by Git
+
+2. FEATURE AND TARGET CONTRACT
+
+The atomic candidate is a career role. The target is personal preparation
+relevance for a user-role pair under a documented preparation horizon.
+Market attractiveness is excluded from the personal-fit target.
+
+For user u and role r, use this exact feature order:
+x[u,r] = [C, I, T, R, W]
+
+C = skill_coverage: coverage of reviewed initial preparation criteria.
+I = interest_alignment: alignment with explicitly stated interests.
+T = time_feasibility: preparation capacity relative to reviewed effort.
+R = resource_feasibility: feasibility of required initial resources.
+W = work_style_alignment: alignment with explicitly stated work preferences.
+
+Each feature is a finite number in [0,1], or unknown before validation.
+Use explicit, documented rubrics for I, R and W; initial values may be provided
+by reviewed inputs. Do not invent an NLP/personality-inference subsystem.
+Identifiers, target grades, reviewer fields, market values and evidence quality
+are not automatically included as features just because they are numeric.
+
+Skill calculation for assessed requirements A within the full requirement set K:
+C_observed = sum(k in A, v[k] * c[k]) / sum(k in A, v[k])
+Q = sum(k in A, v[k]) / sum(k in K, v[k])
+
+v[k] is a reviewed nonnegative requirement weight; full weight sum must be positive.
+c[k] is the demonstrated fraction of reviewed criterion content in [0,1].
+Unknown criteria are not c=0. No assessed positive-weight criteria gives
+C_observed=null and Q=0. A missing or invalid requirement catalogue is a
+different validation problem and must not be reported as the user's inability.
+Do not divide ordinal skill-level labels and call that an established ratio scale.
+
+Deliberately conservative foundation policy: score only complete feature
+vectors, and use C=C_observed only when all positive-weight criteria in the
+small initial-preparation catalogue have been assessed (Q=1 within tolerance).
+Otherwise return insufficient_information, the known components, and Q.
+This is an implementation scope choice, not an empirical readiness threshold.
+Do not impute unknowns or silently reweight remaining features in this task.
+The catalogue refers to the initial preparation milestone, not every possible
+skill for a whole career. Future partial-evidence ranking is separate work.
+
+Time feature:
+T = min(1, h * H / E) when E > 0
+T = 1 when E is known to be 0
+T = null when required h, H or E is unknown
+
+h = available hours/week, nonnegative.
+H = preparation horizon in weeks, positive; initial configurable default 12.
+E = reviewed remaining effort estimate in hours, nonnegative.
+Preserve any low/high effort range separately; record which E was used.
+For positive E, h=0 yields T=0. Reject negative or nonfinite inputs.
+
+Annotation target y is one of {0,1,2}:
+0 = weak preparation relevance under the stated circumstances;
+1 = plausible preparation pathway;
+2 = strong preparation relevance.
+
+Equal spacing between these ordinal grades is a declared prototype assumption.
+The grades are not hiring outcomes or probabilities. If independent reviewers
+find the rubric ambiguous, flag that finding rather than inventing precision.
+
+Required annotation provenance:
+profile_id, profile_group_id, role_id, profile_is_synthetic,
+preparation_horizon_weeks, profile_version, role_catalogue_version,
+feature_schema_version, annotation_status, relevance_grade, reviewer_id,
+review_reason, and the named features plus assessed_requirement_fraction.
+Only independently reviewed rows with nonempty review provenance and complete
+eligible features may enter the empirical comparison. Blank/pending grades remain
+blank/pending. The empty template is an expected state when labels are unavailable.
+
+3. MATHEMATICAL SCORERS
+
+Fixed baseline:
+w = [0.40, 0.20, 0.20, 0.10, 0.10] in the feature order above.
+F0 = 100 * sum(j, w[j] * x[j])
+
+These are manually selected starting preferences, not learned optimal weights.
+Reject nonfinite/negative weights or a sum differing from 1 beyond a documented
+tolerance; do not silently normalize malformed configuration. Complete valid
+features imply 0 <= F0 <= 100, and increasing a feature cannot reduce F0.
+Golden example: x=[0.6,0.8,0.5,1.0,0.7] produces F0=67.
+
+Ridge candidate:
+Use a pipeline with StandardScaler followed by Ridge.
+z is x standardized using only the fitted training partition's statistics.
+y_hat = b + theta^T z
+Fit b,theta to minimize sum(i,(y[i]-b-theta^T z[i])^2)
+                        + ridge_l2 * ||theta||_2^2.
+b is an intercept and is not penalized in this expression.
+Start with ridge_l2=1.0. A bounded development-only comparison of {0.1,1,10}
+is permitted once the single-configuration path works. Use the library's
+handling for constant features; never fit the scaler on evaluation profiles.
+Keep fit_weight distinct from Ridge(alpha=...), which takes ridge_l2.
+
+XGBoost candidate:
+Use XGBRegressor for the same y, with objective='reg:squarederror'.
+Its conceptual form is y_hat=b0+eta*sum(m=1..M, tree_m(x)).
+Choose XGBoost, not both XGBoost and LightGBM. Starting configuration:
+tree_method='hist', device='cpu', n_jobs=2,
+n_estimators=100, max_depth=2, learning_rate=0.05,
+min_child_weight=5, reg_lambda=10,
+subsample=1.0, colsample_bytree=1.0, random_state=42.
+These are bounded engineering starting values, not claimed optimal settings.
+Use installed-version-compatible APIs and record actual resolved versions.
+Do not use the final holdout for early stopping or parameter selection.
+
+Shared learned-score mapping:
+F = 100 * clip(y_hat/2, 0, 1).
+Keep raw y_hat for diagnostics; report and evaluate the actual served F.
+Do not apply candidate-list min-max scaling or softmax hiring probabilities.
+Do not average Ridge and XGBoost into a new ensemble in this task.
+
+Optional combination policy, implemented as a separate pure function:
+S = fit_weight*F + (1-fit_weight)*D, with fit_weight in [0,1].
+D is a separately supplied, valid 0..100 market index with scope and evidence.
+The initial illustrative fit_weight is 0.7. This alpha is not ridge_l2.
+When F=67 and D=80, S=70.9. Synthetic D is allowed in labelled test fixtures only.
+Real D must not be fabricated from broad source statistics or LLM opinions.
+If comparable market assessments do not exist across the comparison set,
+rank the set by F and return ranking_mode='personal_fit_only', D=null, S=null.
+Keep observed market evidence independently visible if available.
+Scope includes geography, occupational mapping, observation period, horizon,
+scenario and index/policy version. The initial task builds no future-demand model.
+
+4. DATA USE
+
+The supplied minder_ml_starter_2026-10-20.zip contains official role/market
+references, provenance and an empty annotation template. Inspect it if it is
+actually available in this workspace; do not assume a ChatGPT sandbox path is
+present in the user's repository environment. Preserve source attribution.
+
+O*NET/DOSM/ILO rows do not supply reviewed personal user-role relevance grades.
+Do not feed an unrelated numeric column into y just to make fit() execute.
+Do not use F0-generated grades or unreviewed LLM-generated grades as independent
+validation labels. A deliberately synthetic mathematical target can test fit/
+predict machinery only, and must remain in a separate smoke-test report.
+
+If the reference pack or a reviewed role catalogue is absent, finish code,
+schemas, empty templates and explicit synthetic tests; report what is missing.
+Do not start a broad scraping/ETL project or fabricate a production catalogue.
+
+5. SHARED TRAINING AND EVALUATION
+
+Provide CLI modes for:
+a) mathematical/contract checks;
+b) CPU fit/predict/save/reload smoke tests for Ridge and XGBoost;
+c) reviewed-data validation and grouped development comparison;
+d) final evaluation of a development-selected candidate on frozen holdout groups;
+e) scoring an example through the same inference service used by the API.
+
+Use the same shared schema, column selector, feature builder and score mapper.
+Store and reuse validated feature snapshots and their schema version when
+training rows have already been constructed; do not recalculate their meaning
+differently during serving. Prevent target/provenance columns entering X.
+
+Proposed pilot size is 25 meaningfully varied profile groups and 8 roles per
+profile, with 20 groups for development and 5 untouched holdout groups. This is
+a planning target, not a mathematical threshold proving adequate sample size.
+Keep all related synthetic variants in one profile_group_id. Prefer a supplied
+split manifest; otherwise create one reproducibly before any model comparison.
+
+Use a consistent target rubric, preparation horizon, feature schema and role
+catalogue version within the first comparison run. Record compatibility in the
+artifact. A request outside that documented target horizon must not silently
+be presented as having been evaluated under the same conditions.
+
+Use GroupKFold on development groups only. Select parameters/candidate using
+development results, then evaluate the frozen choice and the predeclared
+baseline reference on holdout once. Never retune from the holdout result and
+call the same holdout independent again. If data is too small for this scheme,
+report exploratory grouped validation with its actual group count and scope,
+or not_evaluated. Do not quietly switch to a random row split.
+
+Report ranking quality per profile on the same eligible candidate set for every
+scorer. Include candidate count and coverage. Sorting uses descending served F
+and stable role_id tie-breaking. Use an explicitly documented linear-gain NDCG:
+DCG@3 = sum(j=1..min(3,n_roles), y[ranked_role_j] / log2(j+1)).
+IDCG@3 uses the ideal ordering of those same grades; NDCG@3=DCG/IDCG when IDCG>0.
+This formulation evaluates the actual served order, including deterministic ties.
+Report IDCG=0 profiles separately; do not turn that undefined ratio into a claim
+of successful matching. MAE on the served grade F/50 is a supporting metric.
+
+Include clipping rate, score ties, all-weak profiles, missing-input behavior,
+and bounded counterfactual checks. Baseline monotonicity is guaranteed by its
+weights; unconstrained Ridge/XGBoost do not automatically inherit it. Record
+learned counterfactual reversals and discuss whether a constraint or continued
+baseline use is warranted. Do not silently force learned coefficients into the
+baseline simplex. This first task does not tune monotonicity constraints.
+
+No outcome accuracy percentage, significance claim, or model-improvement claim
+may be invented. Tiny reviewed synthetic datasets measure rubric agreement,
+not employment success. Absence of independent labels yields not_evaluated for
+empirical quality, even if all mathematics and pipeline tests pass.
+
+6. CPU EXECUTION AND ARTIFACTS
+
+All estimators must be configured for CPU and bounded threads. Record actual
+CPU/platform information, thread settings, wall-clock fit duration, process CPU
+time, and a small repeated inference timing with a clearly stated batch size.
+Do not claim CPU percent, peak memory, or latency percentiles unless measured.
+Do not reserve or run five hours of training just to satisfy a duration target.
+
+Honor the existing sponsor instruction: recorded model training uses RunPod.
+Use a configured, credit-funded RunPod CPU environment when available and keep
+within the already agreed resource budget. Verify availability and the account's
+actual credit applicability. Local mathematical checks are independent of that
+training requirement. Clearly identify where each fitting run actually occurred;
+never describe a local fit as a RunPod run. If the required execution environment
+is unavailable, complete the code and all unblocked checks and provide the exact
+remaining CPU command. Do not invent completed training or silently spend beyond
+the agreed budget to clear an infrastructure gate.
+
+Persist a complete fitted preprocessing/estimator pipeline from this project
+plus metadata and evaluation results. Use existing artifact conventions or:
+artifacts/intelligence/<run_id>/<candidate>/pipeline.joblib
+artifacts/intelligence/<run_id>/metadata.json
+artifacts/intelligence/<run_id>/metrics.json
+artifacts/intelligence/<run_id>/heldout_predictions.csv (when evaluation exists)
+
+Metadata includes feature names/order, feature/rubric/score versions, role
+catalogue version, dataset hashes, profile split IDs, seed, hyperparameters,
+package versions, execution environment, actual timings, and evaluation status.
+Synthetic smoke artifacts remain separately labelled and are not selectable as
+empirically evaluated recommendation artifacts. Load only team-created artifacts
+from the controlled artifact path, with compatible dependencies. No model registry,
+ONNX conversion, remote model microservice or upload subsystem is needed here.
+
+7. ML / LLM / API BOUNDARY
+
+Expose one service entry that scores eligible roles and returns typed results.
+Model selection is explicit: baseline, ridge or xgboost. A requested trained
+scorer without a compatible artifact returns model_not_ready; it never silently
+pretends to have executed another algorithm. No API request starts model training.
+
+Example result fields:
+profile_version, feature_schema_version, scorer_kind, model_version,
+score_mapping_version, ranking_policy_version, evidence_snapshot_id,
+ranking_mode, fit_weight, preparation_horizon_weeks, result_kind,
+options[].role_id, options[].personal_fit_index,
+options[].market_assessment_index, options[].overall_match_index,
+options[].evidence_coverage, options[].feature_components,
+options[].evidence_ids, and explicit unscored roles/reasons if applicable.
+Use null rather than invented numeric values. No artificial top-score=100.
+Return fewer than three scored roles if fewer than three are eligible; explain why.
+Do not introduce an arbitrary hiring-probability or readiness cutoff in this task.
+
+Define an LLM explanation interface accepting a completed recommendation result
+and selected evidence records. Outputs are explanatory text, known evidence IDs
+and proposed typed changes. A disabled adapter is sufficient for this task; its
+status is explicit, and no hosted API key or network call is required to score.
+Keep numerical scores and canonical source URLs owned by the backend.
+The LLM cannot edit model artifacts or directly apply profile changes. Backend
+validation applies changes requested by the user and recomputes the appropriate
+features/plan. It does not retrain merely because weekly availability changed.
+Defer actual provider integration, LLM fine-tuning, agents, RAG infrastructure,
+future-demand forecasting, complete roadmaps and dashboard redesign.
+
+8. ACCEPTANCE GATES AND COMPLETION REPORT
+
+Gate A — Math/contracts:
+Valid scales and weights; baseline 0/100 extremes and the 67 example; baseline
+monotonicity; skill/time zero-versus-unknown handling; combination bounds;
+all-low roles do not become high scores; consistent missing-market ranking mode.
+
+Gate B — CPU machinery:
+Both learners fit/predict on explicit synthetic fixtures; preprocessing is shared
+with inference; save/reload preserves predictions within documented tolerance;
+CPU settings and actual execution location/timings are recorded. If the required
+runner is unavailable, report this gate pending while delivering its code.
+
+Gate C — Empirical label agreement:
+Reviewed labels and provenance exist; groups do not leak across partitions;
+development and holdout uses are distinct; actual ranking/error diagnostics are
+reported. This gate is not_evaluated when those labels do not exist. Do not
+interpret Gate A or B passing as Gate C passing.
+
+Gate D — Application boundary:
+Default baseline can return a versioned JSON result; explicit trained selection
+behaves correctly; unavailable LLM does not alter numerical results; missing
+information is visible; API integration reuses the same scoring implementation.
+
+Keep tests focused on these meaningful boundaries. Do not expand into unrelated
+frontend/auth/payment tests, giant parameter searches, or repetitive property sweeps.
+
+Finish with:
+1. Files changed and the actual repo layout used.
+2. Exact runnable commands for this repository's environment.
+3. Actual tests and failures, not an unexecuted checklist presented as success.
+4. A table of each gate: passed / failed / pending / not_evaluated, with evidence.
+5. Dataset rows and distinct profile groups, label provenance, and split counts.
+6. Per-candidate measured CPU timing and genuine metrics, or explicit missing status.
+7. Current default scorer and what further evidence is needed to choose a learner.
+
+The intended finish is baseline + two executable learner paths + shared
+evaluation + a stable backend contract. Real-world career effectiveness remains
+a later validation question even if tonight's software and pilot labels look good.
+
+PRIMARY IMPLEMENTATION REFERENCES
+
+Ridge: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html
+StandardScaler: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+GroupKFold: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html
+Leakage guidance: https://scikit-learn.org/stable/common_pitfalls.html
+XGBoost CPU/settings: https://xgboost.readthedocs.io/en/stable/parameter.html
+Persistence: https://scikit-learn.org/stable/model_persistence.html
+RunPod CPU support: https://docs.runpod.io/runpodctl/reference/runpodctl-pod

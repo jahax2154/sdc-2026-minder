@@ -1,0 +1,390 @@
+{
+  "G2_preservation": {
+    "chat_frontend_and_contract_files_unchanged": true,
+    "completion_report_found": false,
+    "interface": "Existing calls retain defaults and typed output; optional artifact_mode keyword is backward compatible",
+    "live_G2_exercised": false
+  },
+  "active_selection": "baseline",
+  "actual_fitting_performed": false,
+  "actual_trained_pipeline_artifacts": 0,
+  "additional_checks": [
+    {
+      "command": "35-test foundation discovery",
+      "log_at_execution": "/tmp/minder-g3-foundation.log",
+      "status": "pass"
+    },
+    {
+      "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m minder_ml.intelligence.g3",
+      "reports": [
+        "G3_coverage.json",
+        "G3_market_indexes.json",
+        "G3_execution.json"
+      ],
+      "status": "pass"
+    },
+    {
+      "command": "Current shared recommend contract checks",
+      "result": "baseline=67; explicit Ridge/XGBoost=model_not_ready; D/S=null",
+      "status": "pass"
+    },
+    {
+      "command": "Actual six-profile recommend_profile execution and schema validation",
+      "report": "G3_profile_readiness.json",
+      "result": "18 unscored pairs, missing catalogue evidence; no imputation",
+      "status": "pass"
+    },
+    {
+      "command": "Validate all 667 index formulas/ranges, cohort sizes/comparable indicators and immutable lookup projection",
+      "status": "pass"
+    },
+    {
+      "command": "New/modified AST, credential-pattern, NUL/binary and whitespace scan",
+      "limitations": "Pattern checks are not comprehensive secret detection",
+      "new_whitespace": [],
+      "preexisting_whitespace": [
+        "ml/src/minder_ml/intelligence/training.py:18"
+      ],
+      "status": "pass_with_preexisting_whitespace"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 2,
+      "output": "ml/src/minder_ml/intelligence/training.py:18: trailing whitespace.\n+def checked_rows(path): \n",
+      "status": "preexisting_failure"
+    },
+    {
+      "command": "git status --short",
+      "output": "docs/execution/gates/G3_git_status.txt",
+      "status": "recorded"
+    }
+  ],
+  "artifact_contract": {
+    "actual_execution_artifacts_created": false,
+    "default_mode": "independent_reviewed",
+    "independent_comparison_added_output": "development_predictions.json",
+    "legacy_unclassified_artifacts": "model_not_ready until provenance/compatibility review",
+    "research_modes": [
+      "synthetic_math_only",
+      "policy_distillation"
+    ],
+    "research_promotable": false,
+    "schema_version": "minder-learner-artifact-g3-v1",
+    "smoke_code_outputs": [
+      "complete pipeline.joblib",
+      "metadata.json",
+      "validated_fixture.json",
+      "fixture_predictions.json",
+      "service_results.json",
+      "metrics.json"
+    ]
+  },
+  "authorization": {
+    "authority": "Current explicit user request to execute G3 only",
+    "baseline_switch_authorized": false,
+    "canonical_policy": "ml/docs/MINDER_POLICY_REVIEW_v1.md",
+    "gate": "G3",
+    "hash_scope": "UTF-8 supplied instruction with one terminal newline",
+    "historical_approval_or_human_review_inferred": false,
+    "instruction_path": "docs/execution/gates/G3_instruction.txt",
+    "instruction_sha256": "fbccf57075bcf68cc38911ee1c56b3339f04c8ee5a671db85f8949344147c9a7",
+    "machine_policy_projection": "ml/configs/intelligence/policy.v1.json",
+    "scope": "Coverage, eligible observed indexes, bounded learner code and authorized verification",
+    "spend_authorized": false,
+    "version": "g3-execution-v1"
+  },
+  "comparison": {
+    "baseline": {
+      "MAE_served_grade": null,
+      "MAE_served_index": null,
+      "NDCG_at_3": null,
+      "status": "not_evaluated"
+    },
+    "real_frozen_partition": "not_created_no_labels",
+    "reload_tolerance_when_run": 1e-09,
+    "ridge": {
+      "MAE_served_grade": null,
+      "MAE_served_index": null,
+      "NDCG_at_3": null,
+      "fit_seconds": null,
+      "reload_max_abs_difference": null,
+      "status": "blocked"
+    },
+    "shared_independent_candidates": 0,
+    "xgboost": {
+      "MAE_served_grade": null,
+      "MAE_served_index": null,
+      "NDCG_at_3": null,
+      "fit_seconds": null,
+      "reload_max_abs_difference": null,
+      "status": "blocked"
+    }
+  },
+  "concurrent_additions_not_owned": [],
+  "coverage_summary": {
+    "actual_pairs_score_eligible": 0,
+    "actual_profile_role_pairs": 18,
+    "declared_synthetic_family_ids": 6,
+    "independent_labels": 0,
+    "independently_labeled_groups": 0,
+    "missing_market_rows": 31,
+    "numeric_market_rows": 921,
+    "pending_actual_criteria": 6,
+    "profiles": 6,
+    "rejected_market_rows": 0,
+    "source_files_verified": 11,
+    "validated_market_rows": 952
+  },
+  "cpu_preflight": {
+    "estimators": {
+      "ridge": {
+        "construction": "passed",
+        "estimator_settings": {
+          "estimator__alpha": "1.0",
+          "estimator__copy_X": "True",
+          "estimator__fit_intercept": "True",
+          "estimator__max_iter": "None",
+          "estimator__positive": "False",
+          "estimator__random_state": "None",
+          "estimator__solver": "svd",
+          "estimator__tol": "0.0001"
+        },
+        "steps": [
+          "scaler",
+          "estimator"
+        ]
+      },
+      "xgboost": {
+        "construction": "passed",
+        "estimator_settings": {
+          "estimator__base_score": "None",
+          "estimator__booster": "None",
+          "estimator__callbacks": "None",
+          "estimator__colsample_bylevel": "None",
+          "estimator__colsample_bynode": "None",
+          "estimator__colsample_bytree": "1.0",
+          "estimator__device": "cpu",
+          "estimator__early_stopping_rounds": "None",
+          "estimator__enable_categorical": "False",
+          "estimator__eval_metric": "None",
+          "estimator__feature_types": "None",
+          "estimator__gamma": "None",
+          "estimator__grow_policy": "None",
+          "estimator__importance_type": "None",
+          "estimator__interaction_constraints": "None",
+          "estimator__learning_rate": "0.05",
+          "estimator__max_bin": "None",
+          "estimator__max_cat_threshold": "None",
+          "estimator__max_cat_to_onehot": "None",
+          "estimator__max_delta_step": "None",
+          "estimator__max_depth": "2",
+          "estimator__max_leaves": "None",
+          "estimator__min_child_weight": "5",
+          "estimator__missing": "nan",
+          "estimator__monotone_constraints": "None",
+          "estimator__multi_strategy": "None",
+          "estimator__n_estimators": "100",
+          "estimator__n_jobs": "2",
+          "estimator__num_parallel_tree": "None",
+          "estimator__objective": "reg:squarederror",
+          "estimator__random_state": "42",
+          "estimator__reg_alpha": "None",
+          "estimator__reg_lambda": "10",
+          "estimator__sampling_method": "None",
+          "estimator__scale_pos_weight": "None",
+          "estimator__subsample": "1.0",
+          "estimator__tree_method": "hist",
+          "estimator__validate_parameters": "None",
+          "estimator__verbosity": "None"
+        },
+        "steps": [
+          "estimator"
+        ]
+      }
+    },
+    "fitting_performed": false,
+    "thread_limit": 2,
+    "versions": {
+      "joblib": "1.5.3",
+      "numpy": "2.0.2",
+      "python": "3.9.6",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.13.1",
+      "threadpoolctl": "3.7.0",
+      "xgboost": "2.1.4"
+    }
+  },
+  "data_readiness": "partial",
+  "environment": {
+    "executable": "/Users/phuahjunhong/sdc-2026-minder/ml/.venv/bin/python",
+    "execution_location": "local CPU",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "python": "3.9.6",
+    "thread_limit": 2
+  },
+  "execution_version": "g3-execution-v1",
+  "file_sha256": {
+    "docs/execution/gates/G3_authorization.json": "3a803323c6af9beb1116d3cd4e014da9c938371becefa8b00bc515bfa1a47fde",
+    "docs/execution/gates/G3_checks.txt": "d937b8df27215afe41a5a05b4168a484fb438d56290f59a74b3b44e02e3be1eb",
+    "docs/execution/gates/G3_coverage.json": "0cfdc3da7df8fb684d5d837587a65e78c7e57bf607e58a6224d19f58545060f5",
+    "docs/execution/gates/G3_execution.json": "5838a83012912b275993e5cf9d71d171b8f835c8d76b9fd64b8d8f081e5973af",
+    "docs/execution/gates/G3_git_status.txt": "e0d16d9a8bdde939618494d490756103d0b6441817f5bb042731a0ded404e0c3",
+    "docs/execution/gates/G3_instruction.txt": "fbccf57075bcf68cc38911ee1c56b3339f04c8ee5a671db85f8949344147c9a7",
+    "docs/execution/gates/G3_market_indexes.json": "5b49d5e7dec1182afe24d2fb9be827758b5a39e2f2abbd9ad9533987fac45502",
+    "docs/execution/gates/G3_profile_readiness.json": "0f6471f801280af1cb00b2381c6d7d33d9e361bb954f18ea44d5fc968e657ddd",
+    "docs/execution/gates/G3_report.md": "9a0c1e0399b8b6f5743471798a2d33ff86dff40c502ef7dc614ad60ab776d312",
+    "docs/execution/gates/G3_service_checks.json": "40a87db2f81aeab4ae0ec1665b1cbe0928a5fb26e14a3bd86b011f15186357bf",
+    "ml/src/minder_ml/intelligence/artifacts.py": "8ef729ff21bb725c0f03c6b8c8ac36329300ea65d815b00c6dc0e4907e332db0",
+    "ml/src/minder_ml/intelligence/evaluation.py": "e019058264cad55a5461f925e620316c90e7b9677993e8fe48c5a58945ca49fc",
+    "ml/src/minder_ml/intelligence/g3.py": "ce9d77c80d2b6a977031d2004509c55f70047ddc0a311f46fdb05a60b2393c6a",
+    "ml/src/minder_ml/intelligence/inference.py": "51cfc915b9edbeb3e9048fbf8730b632a9c2b1ec153b4e47a3dc4317fb44bf98",
+    "ml/src/minder_ml/intelligence/market_indexes.py": "8973fa7d64c8a3eed9d0b3ef173ed7c225139e50a190c20f480f7b3ca1b33e6c",
+    "ml/src/minder_ml/intelligence/training.py": "abd2c9521c0fcb3e4eb4b37488dee9397dece42fc3f6cdf91afe2c268128f114",
+    "ml/tests/test_g3.py": "e9bd2bce1e2bf601f8cb7dcdfb78536a897f912c5f5910ca0b2aac613cc56bed"
+  },
+  "gate": "G3",
+  "implementation_status": "pass",
+  "independent_quality": "not_evaluated",
+  "market_summary": {
+    "by_dimension": {
+      "industry": {
+        "index_values": 475,
+        "supported_cohorts": 23
+      },
+      "occupation": {
+        "index_values": 192,
+        "supported_cohorts": 24
+      }
+    },
+    "cohorts": 56,
+    "common_ranking_mode": "personal_fit_only",
+    "index_values": 667,
+    "latest_industry_2026_Q2": "unavailable_classification_continuity_review",
+    "latest_occupation_2026_Q2_cohort_size": 8,
+    "narrow_actual_role_D": null,
+    "no_index_cohorts": 9,
+    "skill_employer_joint_forecast": "unavailable",
+    "supported_cohorts": 47
+  },
+  "new_files_created": [
+    "docs/execution/gates/G3_authorization.json",
+    "docs/execution/gates/G3_checks.txt",
+    "docs/execution/gates/G3_coverage.json",
+    "docs/execution/gates/G3_evidence.json",
+    "docs/execution/gates/G3_execution.json",
+    "docs/execution/gates/G3_git_status.txt",
+    "docs/execution/gates/G3_instruction.txt",
+    "docs/execution/gates/G3_market_indexes.json",
+    "docs/execution/gates/G3_profile_readiness.json",
+    "docs/execution/gates/G3_report.md",
+    "docs/execution/gates/G3_service_checks.json",
+    "ml/src/minder_ml/intelligence/g3.py",
+    "ml/src/minder_ml/intelligence/market_indexes.py",
+    "ml/tests/test_g3.py"
+  ],
+  "next_interfaces": {
+    "funded_machinery": "existing smoke --run-id g3-synthetic-machinery --runner-evidence <actual private verification> on verified RunPod",
+    "independent_protocol": "existing baseline-evaluate / compare / final with genuine compatible independent labels",
+    "inventory": "python -m minder_ml.intelligence.g3",
+    "market": "market_indexes.build_indexes / project_index_rows"
+  },
+  "outputs": {
+    "coverage": "docs/execution/gates/G3_coverage.json",
+    "execution": "docs/execution/gates/G3_execution.json",
+    "indexes": "docs/execution/gates/G3_market_indexes.json",
+    "profile_readiness": "docs/execution/gates/G3_profile_readiness.json",
+    "report": "docs/execution/gates/G3_report.md",
+    "service": "docs/execution/gates/G3_service_checks.json"
+  },
+  "policy_context": {
+    "authorization": {
+      "effective_instruction_sha256": "e39dcd5450b47efe52872af828e509b098c91028d452ae7162d82b201acb4d6c",
+      "path": "docs/execution/gates/G1A_v2_authorization.json",
+      "scope": "G1A deterministic feature/policy implementation and local verification only",
+      "version": "G1A-current-user-reexecution-v2"
+    },
+    "canonical_document_sha256": "9b7a2cb4c4487cc0bf01a5f3844937a6f9665ff0355a6df9fd245262e51db4dc",
+    "historical_approval": {
+      "approval_message_ref": null,
+      "approved_at": null,
+      "approved_manifest_sha256": null,
+      "reviewer_id": null,
+      "status": "proposed_for_batch_review"
+    },
+    "policy_id": "minder-intelligence-v1",
+    "policy_sha256": "fd2c62f08d0dd09e8a4ef7b4cd4c3aa0c810be287ab3904657a7312e95e5dab3",
+    "policy_version": "1.0.0"
+  },
+  "preservation": {
+    "all_other_preexisting_files_preserved": true,
+    "dependencies_installed": false,
+    "modified_existing_files": [
+      "ml/src/minder_ml/intelligence/artifacts.py",
+      "ml/src/minder_ml/intelligence/evaluation.py",
+      "ml/src/minder_ml/intelligence/inference.py",
+      "ml/src/minder_ml/intelligence/training.py"
+    ],
+    "no_broad_scraping_or_per_industry_models": true,
+    "no_commit_push_publish_or_spend": true,
+    "policy_and_shared_contracts_preserved": true,
+    "removed_existing_files": [],
+    "source_data_and_annotations_preserved": true
+  },
+  "provisional_distillation": "not_run_no_compatible_G1B_targets",
+  "real_cpu_machinery_fit_reload": "blocked_unmeasured",
+  "recommended_selection": "baseline",
+  "remaining_execution_dependencies": [
+    "Verified funded/attested RunPod CPU target with actual budget and credit applicability",
+    "Compatible independent labels before empirical comparison",
+    "Accepted milestones and explicit profile measurements for real-role personal-fit inference",
+    "Defensible fine-grained local role mappings/observations and unresolved industry continuity"
+  ],
+  "runner": {
+    "agreed_budget": null,
+    "available_balance": null,
+    "credit_applicability": null,
+    "env_files_present": [],
+    "pod_target": null,
+    "reason": "No verified funded CPU runner attestation supplied; presence alone would not establish credit or spending authorization.",
+    "runpod_cli_present": false,
+    "runpod_config_present": false,
+    "runpod_variable_names_only": [],
+    "ssh_config_present": false,
+    "status": "not_verified"
+  },
+  "runpod_execution": "not_run_no_verified_funded_target",
+  "selection_evidence": "Zero independently reviewed rows/groups, no trained artifacts and no real learner run; complexity is unsupported.",
+  "tests": {
+    "command": "PYTHONPATH=ml/src ml/.venv/bin/python -m unittest discover -s ml/tests -v",
+    "exit_code": 0,
+    "log": "docs/execution/gates/G3_checks.txt",
+    "scope": "Includes real dependency construction, source/index conformance and controlled temporary stub pipeline workflow; no actual Ridge/XGBoost fit or sponsor access inferred",
+    "status": "pass",
+    "tests": 100,
+    "unittest_seconds": 110.355,
+    "wall_seconds": 110.47
+  },
+  "timestamp_utc": "2026-10-22T06:12:43.553307+00:00",
+  "top_five_missing_factors": [
+    {
+      "decision_affected": "Whether any of the 18 actual profile-role pairs can receive F.",
+      "factor": "Accepted bounded milestones, estimates and anchored profile measurements"
+    },
+    {
+      "decision_affected": "Whether Ridge/XGBoost quality can be compared and a candidate recommended.",
+      "factor": "Compatible independent user-role labels spanning profile families"
+    },
+    {
+      "decision_affected": "Whether D and combined S can be shown for the actual three O*NET roles.",
+      "factor": "Fine-grained Malaysian role demand with defensible occupation mappings"
+    },
+    {
+      "decision_affected": "Whether skill demand/employer views can contain measured counts or indexes.",
+      "factor": "Skill-tagged and employer-resolved observed activity"
+    },
+    {
+      "decision_affected": "Whether industry YoY/current indexes or cross-slice comparisons are defensible.",
+      "factor": "Industry continuity at 2026-Q2 and observed joint/regional/international slices"
+    }
+  ]
+}

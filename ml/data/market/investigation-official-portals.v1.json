@@ -1,0 +1,28 @@
+{
+  "sources": [
+    {
+      "source_id": "ilmia-myjobprofile-current-entry",
+      "url": "https://www.ilmia.gov.my/bda-myjobprofile/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Current official replacement MyJobProfile entry linked by DOSM; MASCO 2020 occupation/skill evidence",
+      "access_conditions": "Public official entry, correct alternative to certificate-broken old hostname"
+    },
+    {
+      "source_id": "ilmia-jmi-entry",
+      "url": "https://www.ilmia.gov.my/index.php/en/bda-jmi",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "Official JMI dashboard and data-export interface",
+      "access_conditions": "Official DOSM-linked page, public only"
+    },
+    {
+      "source_id": "talentcorp-mynsr",
+      "url": "https://mynsr.talentcorp.com.my/about-mynsr/",
+      "kind": "html",
+      "geography": "MY",
+      "measurement": "National skill framework; inspect whether observed ad counts or occupational references",
+      "access_conditions": "Public official institutional page"
+    }
+  ]
+}

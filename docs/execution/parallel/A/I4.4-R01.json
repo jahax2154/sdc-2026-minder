@@ -1,0 +1,188 @@
+{
+  "phase_id": "I4.4-R01",
+  "refines": [
+    "I4.4",
+    "I4.6"
+  ],
+  "status": "passed_local_current_policy_acceptance_real_provider_blocked",
+  "application_revision": "3b62a9a705d3a0a46cbc7d7b340702a312ee1a99",
+  "changes": [
+    "Update acceptance coverage to v2.1; exercise actual source-native UI scope and unknown child without profile mutation",
+    "Web report reads active policy instead of hard-coded v2",
+    "Repair sensitivity evidence export to retain new recommendation_traces instead of empty old market_comparison field; require nonempty calculations",
+    "Refresh final original/synthetic coverage audit; preserve original rubric incompatibility and all input hashes/modes"
+  ],
+  "checks": {
+    "ML": "200 passed in 142.097s; full application source at I4.6 plus initial acceptance instrumentation",
+    "backend": "42 passed in 1.362s; privacy/grounding/action unit checks, not external provider acceptance",
+    "A_runtime_binding": "3 passed in 0.005s",
+    "real_HTTP_Chromium": {
+      "http": 0,
+      "browser": 0,
+      "recommendation": 0
+    },
+    "recommendation_browser": {
+      "incomplete_profile_requests_focused_input": "passed",
+      "fresh_graduate_all_supported_roles_scoped_ranks_no_prior_job_or_ratings": "passed",
+      "native_source_context_and_unknown_child_preserve_profile": "passed",
+      "typed_source_units_and_owner_scoped_trace_visible": "passed",
+      "not_interested_lowers_preference_only_idempotent_and_reset_restores": "passed",
+      "career_switcher_context_trace_and_other_industries_retained": "passed",
+      "mobile_no_overflow_and_no_page_errors": "passed"
+    },
+    "actual_HTTP_recommendation": {
+      "actual_HTTP_intake_assessment_feedback_reset_market_and_provider_boundary": "passed",
+      "compatible_current_evidence_reverses_order_without_forecasts": "passed"
+    },
+    "syntax": "app.js and recommendation_browser.cjs Node checks; git diff --check passed",
+    "followup_export_check": "second recommendation run passed with nonempty current-policy calculations; no unnecessary full-suite repeat"
+  },
+  "coverage": {
+    "considered_eligible": 910,
+    "candidates": 910,
+    "assessed": 910,
+    "excluded": 0,
+    "current_available": 4,
+    "current_comparable_ranked": 5,
+    "personal_only_ranked": 900,
+    "insufficient_evidence": 0,
+    "employer_comparable_ranked": 2,
+    "published_offering_comparable_ranked": 3,
+    "published_offering_supported": 7,
+    "shortage_supported": 7,
+    "shortage_adjusted_ranked": 7,
+    "shortage_context_supported": 7,
+    "shortage_exact_role_supported": 0,
+    "sector_context_supported": 907
+  },
+  "original_profiles_assessed": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "incomplete_profile_assessed": 0,
+  "feedback": {
+    "before": 65.88235294,
+    "not_interested": 60.88235294,
+    "reset": 65.88235294,
+    "repeated_request_idempotent": true,
+    "skill_and_market_unchanged": true
+  },
+  "sensitivity": {
+    "fictional_counterfactual": true,
+    "factual_snapshot_unchanged": true,
+    "forecasts_unavailable": true,
+    "ordered": [
+      [
+        "onet:15-1252.00",
+        "onet:15-2051.00"
+      ],
+      [
+        "onet:15-2051.00",
+        "onet:15-1252.00"
+      ]
+    ],
+    "calculations_retained": true
+  },
+  "provider": {
+    "A_key_present": false,
+    "A_model_configured": false,
+    "actual_A_request_success": false,
+    "actual_A_native_tool_success": false,
+    "real_wall_clock_agent_acceptance": "not run; A access unavailable",
+    "privacy_live_browser": "not run; requires actual A provider",
+    "C_real_results": "owner-reported in committed C handoff; not A success"
+  },
+  "evidence": {
+    "ml/artifacts/session-a/i4.7-ml-full.log": "4c4bb2319e0d03ba69b963fa4afee20bcd00feb12b8af8fd4a122429fb20bbb9",
+    "ml/artifacts/session-a/i4.7-backend-full.log": "37b7f43e102d3f623629a5f6b59f63a4fa3e5b9fc797c9b8e6a9e14213d5b401",
+    "ml/artifacts/session-a/i4.7-binding.log": "5279d1fc9a1ced44f9c96da1414ef59e4676f963fbad52e7a1a2903538819b0d",
+    "ml/artifacts/session-a/i4.7-web-final-v1/integration-evidence.json": "2d6445c0b2712842f77863ccf41b6d93eb51b0d59f7be408f274d65e57aa5e31",
+    "ml/artifacts/session-a/i4.7-web-final-v1/recommendation-browser.json": "f4e4b1dfc7428775b5e5dfaaabc4b106533060e969c64a2d39bde77e8fb9287f",
+    "ml/artifacts/session-a/i4.7-web-final-v1/recommendation-ui.png": "5983becd40d6d2b0f93993739d5e169afc3808fa581a69490c57a96f5a8368c2",
+    "ml/artifacts/session-a/i4.7-recommendations-final-v2/evidence.json": "fa759e75595fad593483b2c21ade13cd298345ea07cfa2224d6b82959964f047",
+    "ml/artifacts/session-a/i4.7-coverage-final-v1/coverage.json": "ec82fb43d29f3c730aa4806a440dc836fbfcd4d8337db1ce5562b5e3eb233497",
+    "ml/artifacts/session-a/i4.7-preservation.json": "3e28e92a85fdc60cfca4b18f9684117f6a77daedc411b4a27bd53037a9be222e"
+  },
+  "limits": [
+    "Only repository local prototype tested; intended external product/Replit frontend unavailable",
+    "New published/shortage/sector backend and source UI supported; C closed model claim adapter not yet consuming EvidencePassage",
+    "Worker-once/scripted scheduling and mocked transport unit checks are distinct from real upcoming-minute/provider/deployed acceptance",
+    "No global comparable rank, independent personal-fit accuracy, fabricated forecasts or qualification assertion"
+  ],
+  "preservation": {
+    "count": 13,
+    "all_preserved": true,
+    "files": [
+      {
+        "path": "raw/dosm_lfs_qtr_state.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_wages_occupation.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_wages_state.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/esco_onet_occupations_crosswalk.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/ilo_genai_2025_task_scores.xlsx",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/ilo_genai_data_dictionary.md",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_essential_skills.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_occupation_data.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_scales_reference.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/onet_31_0_software_skills.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "raw/dosm_jmi_q2_2026_data.xlsx",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "derived/ilo_genai_occupation_2025.csv",
+        "hash_matches": true,
+        "read_only": true
+      },
+      {
+        "path": "derived/dosm_jmi_quarterly_long.csv",
+        "hash_matches": true,
+        "read_only": true
+      }
+    ],
+    "backup": "Existing G0 read-only shared snapshot; no new external backup or input staging."
+  },
+  "push_status": "local only; remote remains captured P1.1 snapshot"
+}

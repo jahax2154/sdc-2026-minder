@@ -1,0 +1,137 @@
+{
+  "question": "What are the market trends in Malaysia right now?",
+  "result": "passed_actual_browser",
+  "runtime": "http://127.0.0.1:9111",
+  "backend_revision": "a870fc9812664bbe94da33bd6ff515dd660f780b",
+  "frontend_revision": "0c74362344cc9a85044072b0b59085309f9744cf",
+  "request_path": "/api/product/conversation-turn",
+  "elapsed_ms": 5856,
+  "provider": {
+    "coordination_policy": "groq-shared-quota-v1",
+    "invoked": true,
+    "model": "qwen/qwen3.8-27b",
+    "queue_ms": 1.009,
+    "quota_header_scope": {
+      "requests": "requests_per_day",
+      "tokens": "tokens_per_minute"
+    },
+    "quota_headers": {
+      "x-ratelimit-limit-requests": "1000",
+      "x-ratelimit-limit-tokens": "8000",
+      "x-ratelimit-remaining-requests": "999",
+      "x-ratelimit-remaining-tokens": "6667",
+      "x-ratelimit-reset-requests": "1m26.4s",
+      "x-ratelimit-reset-tokens": "9.997s"
+    },
+    "request_id": "req_01m5qjxwd5eaj8zbjsgjez1x3f",
+    "status": "available",
+    "tool_call": {
+      "arguments_validated": true,
+      "id": "x4xhxxsjz",
+      "name": "explain_public_sources"
+    },
+    "transport_attempts": 1,
+    "usage": {
+      "completion_tokens": 264,
+      "prompt_tokens": 1069,
+      "total_tokens": 1333
+    }
+  },
+  "validation": {
+    "accepted_findings": 2,
+    "failure_code": null,
+    "omitted_claims": 0,
+    "rules": [],
+    "status": "passed"
+  },
+  "retrieved": [
+    {
+      "url": "https://storage.dosm.gov.my/labour/lfs_month.csv",
+      "title": "DOSM Monthly Principal Labour Force Statistics",
+      "published_at": null,
+      "observation_period": "2026-08",
+      "retrieved_at": "2026-10-24T18:31:45.991496+00:00",
+      "origin": "predefined_detail",
+      "cache_status": "live_fetched",
+      "fetch_elapsed_ms": 336.885
+    }
+  ],
+  "model_output": {
+    "advice": "Monitor subsequent DOSM releases to confirm whether this slight improvement is a sustained trend or a temporary fluctuation.",
+    "findings": [
+      {
+        "explanation": "The unemployment rate fell from 3.0% in July 2026 to 2.9% in August 2026, indicating a marginal improvement in the labour market over this one-month period.",
+        "quote_id": "q1"
+      },
+      {
+        "explanation": "The labour force participation rate rose slightly from 70.9% in July to 71.0% in August 2026, while the number of employed persons increased from 16,845.6 thousand to 16,874.4 thousand.",
+        "quote_id": "q2"
+      }
+    ],
+    "introduction": "Malaysia's labour market shows a slight improvement in August 2026, with unemployment dipping to 2.9%.",
+    "limitations": [
+      "These figures represent national aggregate labour force statistics, not sector-specific trends or job vacancy data."
+    ]
+  },
+  "rendered_main_answer": "Malaysia's labour market shows a slight improvement in August 2026, with unemployment dipping to 2.9%. [1, 2]\n\nThe unemployment rate fell from 3.0% in July 2026 to 2.9% in August 2026, indicating a marginal improvement in the labour market over this one-month period. [1]\n\nThe labour force participation rate rose slightly from 70.9% in July to 71.0% in August 2026, while the number of employed persons increased from 16,845.6 thousand to 16,874.4 thousand. [2]\n\nThese figures represent national aggregate labour force statistics, not sector-specific trends or job vacancy data.\n\nPractical advice: Monitor subsequent DOSM releases to confirm whether this slight improvement is a sustained trend or a temporary fluctuation.",
+  "source_links": [
+    "https://storage.dosm.gov.my/labour/lfs_month.csv",
+    "https://storage.dosm.gov.my/labour/lfs_month.csv",
+    "https://storage.dosm.gov.my/labour/lfs_month.csv"
+  ],
+  "source_diagnostics_hidden_from_main": true,
+  "source_diagnostics_visible_when_expanded": true,
+  "source_notes": [
+    "Source method: web search ran, but no usable discovered page was fetched. These links are predefined detail/reference pages fetched live or from the labelled recent cache."
+  ],
+  "source_failures": [
+    {
+      "code": "public_source_timeout",
+      "fetch_elapsed_ms": 4093.235,
+      "http_status": null,
+      "origin": "predefined_detail",
+      "source_url": "https://www.dosm.gov.my/portal-main/release-content/labour-market-review-lmr-q22026",
+      "status": "unavailable"
+    }
+  ],
+  "profile_required": false,
+  "plan_mutations": false,
+  "private_evidence_directory": "/private/tmp/minder-a-n11-quality-r01",
+  "evidence_gap": "National monthly changes are supported. Sector/occupation hiring findings are unavailable in this request; the Q2 detail page timed out. No extra findings were invented.",
+  "screenshots": {
+    "main": "/private/tmp/minder-a-n11-quality-r01/main-answer.png",
+    "expanded_sources": "/private/tmp/minder-a-n11-quality-r01/expanded-sources.png"
+  },
+  "earlier_measured_format_rejection": {
+    "backend_revision": "88e9201904818c4ae116c883b255c8184d4f65f9",
+    "rejected_claims": [
+      {
+        "claim": {
+          "explanation": "The labour force participation rate rose slightly from 70.9% in July to 71.0% in August 2026, while the number of employed persons increased from 16,845.6 thousand to 16,874.4 thousand.",
+          "quote_id": "q2"
+        },
+        "field": "findings.1",
+        "rule": "unsupported_web_quantity"
+      }
+    ],
+    "resolution": "Strict three-digit grouping normalization for existing typed official-source values; no new figures accepted"
+  },
+  "checks": {
+    "focused_web": {
+      "tests": 20,
+      "seconds": 0.096,
+      "status": "passed_declared_fixtures"
+    },
+    "full_backend": {
+      "tests": 229,
+      "seconds": 14.112,
+      "skips": 0,
+      "status": "passed_declared_fixtures"
+    },
+    "native_browser": {
+      "status": "passed_actual_Qwen_and_network",
+      "accepted_findings": 2,
+      "omitted_claims": 0
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "phase_id": "A1.2-R01",
+  "original_phase": "A1.2",
+  "original_checkpoint": "5ee8acda17d4c9438f33bd2b0c4ead98c92c5c6e",
+  "owner": "A",
+  "branch": "session/a-personal-integration",
+  "status": "passed",
+  "objective": "Repair committed C1.3/A1.2 policy token mismatch",
+  "defect_evidence": "C1.3 CareerServices calls policy_version=N01-pending; A1.2 accepted only the canonical proposal ID and would reject the actual composition.",
+  "root_cause": "Common Protocol did not freeze the concrete pending policy token.",
+  "change": "Recognize exactly N01-pending as a transition alias; always return the real personal-role-fit-v2-proposal ID. Pending/inactive config guard still enforced; arbitrary or active policies rejected.",
+  "inputs": [
+    "C1.3 b758563",
+    "A1.2",
+    "minder-parallel-v1"
+  ],
+  "checks": [
+    {
+      "command": "source .env.local; \"$MINDER_PYTHON\" -m unittest discover -s ml/tests -p test_personal_service.py",
+      "result": "9 passed; actual CareerServices + PersonalMatchingService composition regression"
+    },
+    {
+      "command": "source .env.local; PYTHONPATH=ml/src:apps/backend-api \"$MINDER_PYTHON\" -m unittest discover -s apps/backend-api/tests -v",
+      "result": "11 executions passed; inherited tests counted as executions"
+    }
+  ],
+  "coverage": "Actual committed C adapter calls A service over two real source roles.",
+  "limitations": [
+    "N01 inactive; no new numerical score",
+    "B/provider live integration still pending"
+  ],
+  "checkpoint": "commit containing this refinement",
+  "dependencies": [
+    "I1.1 initial C merge aa1c0356067094d8148c7ee2b68f4174a6f3a387"
+  ],
+  "next_eligible_work": "I1.1 persisted API smoke"
+}

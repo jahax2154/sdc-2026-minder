@@ -1,0 +1,50 @@
+{
+  "phase_id": "AC3.1",
+  "owner": "A",
+  "status": "passed_B_SY1_integration",
+  "handoff": "3dcc8e08fcfafc0c358aaf140063e929c2a752f7",
+  "merge_sha": "fd9e30129a5d3b9cf8a27b20612d0dafc0f3e812",
+  "phase": "B SY1",
+  "ownership": "Only committed B-owned docs/spec/test deltas merged; no sibling edits or synthetic normal-serving path",
+  "checks": {
+    "forecasting": "16 passed in 0.208s with RuntimeWarning treated as errors",
+    "A_replay": "generate only under A artifacts; deterministic dataset hash equals committed B manifest",
+    "rejection_boundaries": {
+      "normal_market_service": "service requires explicitly real evidence",
+      "normal_registry": "incompatible_or_synthetic_forecast_registry",
+      "observed_training_runner": "synthetic_or_unspecified_data_cannot_be_real_experiment_evidence"
+    },
+    "observed_before_after_identical": true
+  },
+  "generation": {
+    "generator": "fictional-market-scenarios-v1",
+    "dataset_sha256": "b7aa327d30220b27a2236476b5c51d45d04deb16d9bfb009cc2fcca81a01880b",
+    "records": 864,
+    "series": 18,
+    "groups": 9,
+    "example_splits": {
+      "robustness": 14,
+      "test": 34,
+      "train": 156,
+      "validation": 24
+    },
+    "missing_values": 8,
+    "actual_simulated_zeros": 72
+  },
+  "runtime": {
+    "active_scorer_unchanged": true,
+    "real_market_coverage_unchanged": true,
+    "default_forecast": "unavailable",
+    "normal_registry_models": 0,
+    "new_fits_in_A": 0,
+    "paid_jobs": 0
+  },
+  "evidence": {
+    "ml/artifacts/session-a/ac3-sy1-forecast-tests.log": "4d6d703844f14f52b37aa1d5e6fad4608fea3fb97c0c1dfc8e7be2caa79e3dee",
+    "ml/artifacts/session-a/ac3-sy1-replay/generation-manifest.json": "e2d62c73cdfa284834d4b65b3afcbc2f9c3cfc5c4a9978a627c307905a59194c"
+  },
+  "empirical": "Generated assumed worlds, no independent Malaysian-demand evidence or forecast accuracy",
+  "deployment": "none",
+  "remaining": "B SY2/SY3 later committed deltas and C CL1-CL3 still handled independently",
+  "exclusions": "Generated rows, registry rejection fixture, source inputs and models remain ignored/local; no private data staged"
+}

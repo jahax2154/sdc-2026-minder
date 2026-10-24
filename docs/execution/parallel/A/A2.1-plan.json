@@ -1,0 +1,475 @@
+{
+  "manifest_version": "personal-learner-machinery-v1",
+  "target": "synthetic_math_only",
+  "provenance": "deterministic mathematical fixture; not personal-fit labels",
+  "promotable": false,
+  "policy_id": null,
+  "feature_schema": {
+    "id": "synthetic-math-machinery-v1",
+    "names": [
+      "math_0",
+      "math_1",
+      "math_2",
+      "math_3",
+      "math_4"
+    ],
+    "meaning": "mathematical inputs only, not initial personal role-fit features"
+  },
+  "dataset_path": "ml/tests/fixtures/synthetic_math.json",
+  "dataset_sha256": "766fc0f139277d72543562cf4a18f8028632712dff1efbb98cfb925e54249692",
+  "split": {
+    "seed": 42,
+    "development": [
+      "math-family-0",
+      "math-family-1",
+      "math-family-10",
+      "math-family-11",
+      "math-family-12",
+      "math-family-2",
+      "math-family-4",
+      "math-family-5",
+      "math-family-6",
+      "math-family-7",
+      "math-family-8",
+      "math-family-9"
+    ],
+    "holdout": [
+      "math-family-13",
+      "math-family-14",
+      "math-family-15",
+      "math-family-3"
+    ],
+    "method": "group-disjoint deterministic shuffle; synthetic control only",
+    "preprocessing_fit": "development only",
+    "holdout_used_for_selection": false
+  },
+  "split_sha256": "6e5fbdee058653c67a968781197a7525a5fbf5fb873d3eb62af1ecbfdbbf4795",
+  "rows": [
+    {
+      "profile_id": "math-row-0",
+      "profile_group_id": "math-family-0",
+      "x": [
+        0.63943,
+        0.02501,
+        0.27503,
+        0.22321,
+        0.73647
+      ],
+      "y": 0.687715
+    },
+    {
+      "profile_id": "math-row-1",
+      "profile_group_id": "math-family-0",
+      "x": [
+        0.6767,
+        0.89218,
+        0.08694,
+        0.42192,
+        0.0298
+      ],
+      "y": 0.493605
+    },
+    {
+      "profile_id": "math-row-2",
+      "profile_group_id": "math-family-1",
+      "x": [
+        0.21864,
+        0.50536,
+        0.02654,
+        0.19884,
+        0.64988
+      ],
+      "y": 0.454968
+    },
+    {
+      "profile_id": "math-row-3",
+      "profile_group_id": "math-family-1",
+      "x": [
+        0.54494,
+        0.22044,
+        0.58927,
+        0.80943,
+        0.0065
+      ],
+      "y": 0.621394
+    },
+    {
+      "profile_id": "math-row-4",
+      "profile_group_id": "math-family-2",
+      "x": [
+        0.80582,
+        0.69814,
+        0.34025,
+        0.15548,
+        0.95721
+      ],
+      "y": 0.999789
+    },
+    {
+      "profile_id": "math-row-5",
+      "profile_group_id": "math-family-2",
+      "x": [
+        0.33659,
+        0.09275,
+        0.09672,
+        0.84749,
+        0.60373
+      ],
+      "y": 0.786742
+    },
+    {
+      "profile_id": "math-row-6",
+      "profile_group_id": "math-family-3",
+      "x": [
+        0.80713,
+        0.72973,
+        0.53623,
+        0.97312,
+        0.37853
+      ],
+      "y": 1.197206
+    },
+    {
+      "profile_id": "math-row-7",
+      "profile_group_id": "math-family-3",
+      "x": [
+        0.55204,
+        0.8294,
+        0.61852,
+        0.86171,
+        0.57735
+      ],
+      "y": 1.128404
+    },
+    {
+      "profile_id": "math-row-8",
+      "profile_group_id": "math-family-4",
+      "x": [
+        0.70457,
+        0.04582,
+        0.2279,
+        0.28939,
+        0.07979
+      ],
+      "y": 0.438021
+    },
+    {
+      "profile_id": "math-row-9",
+      "profile_group_id": "math-family-4",
+      "x": [
+        0.23279,
+        0.101,
+        0.27797,
+        0.63568,
+        0.36483
+      ],
+      "y": 0.541388
+    },
+    {
+      "profile_id": "math-row-10",
+      "profile_group_id": "math-family-5",
+      "x": [
+        0.37018,
+        0.20951,
+        0.26698,
+        0.93665,
+        0.64804
+      ],
+      "y": 0.888829
+    },
+    {
+      "profile_id": "math-row-11",
+      "profile_group_id": "math-family-5",
+      "x": [
+        0.60913,
+        0.17114,
+        0.72913,
+        0.1634,
+        0.37946
+      ],
+      "y": 0.519341
+    },
+    {
+      "profile_id": "math-row-12",
+      "profile_group_id": "math-family-6",
+      "x": [
+        0.98952,
+        0.64,
+        0.55695,
+        0.68461,
+        0.84285
+      ],
+      "y": 1.431529
+    },
+    {
+      "profile_id": "math-row-13",
+      "profile_group_id": "math-family-6",
+      "x": [
+        0.776,
+        0.22905,
+        0.0321,
+        0.31545,
+        0.26774
+      ],
+      "y": 0.596359
+    },
+    {
+      "profile_id": "math-row-14",
+      "profile_group_id": "math-family-7",
+      "x": [
+        0.21098,
+        0.94291,
+        0.87637,
+        0.31468,
+        0.65544
+      ],
+      "y": 0.920485
+    },
+    {
+      "profile_id": "math-row-15",
+      "profile_group_id": "math-family-7",
+      "x": [
+        0.39563,
+        0.91455,
+        0.45885,
+        0.26488,
+        0.24663
+      ],
+      "y": 0.543837
+    },
+    {
+      "profile_id": "math-row-16",
+      "profile_group_id": "math-family-8",
+      "x": [
+        0.56137,
+        0.26274,
+        0.58459,
+        0.89782,
+        0.3994
+      ],
+      "y": 0.882976
+    },
+    {
+      "profile_id": "math-row-17",
+      "profile_group_id": "math-family-8",
+      "x": [
+        0.21932,
+        0.99754,
+        0.50953,
+        0.09091,
+        0.04712
+      ],
+      "y": 0.347204
+    },
+    {
+      "profile_id": "math-row-18",
+      "profile_group_id": "math-family-9",
+      "x": [
+        0.10965,
+        0.62745,
+        0.79208,
+        0.42216,
+        0.06353
+      ],
+      "y": 0.497352
+    },
+    {
+      "profile_id": "math-row-19",
+      "profile_group_id": "math-family-9",
+      "x": [
+        0.38162,
+        0.99612,
+        0.52911,
+        0.97108,
+        0.86078
+      ],
+      "y": 1.252275
+    },
+    {
+      "profile_id": "math-row-20",
+      "profile_group_id": "math-family-10",
+      "x": [
+        0.01148,
+        0.72072,
+        0.68171,
+        0.53697,
+        0.26683
+      ],
+      "y": 0.647627
+    },
+    {
+      "profile_id": "math-row-21",
+      "profile_group_id": "math-family-10",
+      "x": [
+        0.64096,
+        0.11155,
+        0.43477,
+        0.45372,
+        0.95382
+      ],
+      "y": 0.933434
+    },
+    {
+      "profile_id": "math-row-22",
+      "profile_group_id": "math-family-11",
+      "x": [
+        0.87585,
+        0.26339,
+        0.50059,
+        0.17865,
+        0.91263
+      ],
+      "y": 0.995122
+    },
+    {
+      "profile_id": "math-row-23",
+      "profile_group_id": "math-family-11",
+      "x": [
+        0.87052,
+        0.29844,
+        0.63895,
+        0.60897,
+        0.15284
+      ],
+      "y": 0.855152
+    },
+    {
+      "profile_id": "math-row-24",
+      "profile_group_id": "math-family-12",
+      "x": [
+        0.76251,
+        0.53938,
+        0.77863,
+        0.53035,
+        0.00057
+      ],
+      "y": 0.766159
+    },
+    {
+      "profile_id": "math-row-25",
+      "profile_group_id": "math-family-12",
+      "x": [
+        0.32416,
+        0.01948,
+        0.9291,
+        0.87872,
+        0.83167
+      ],
+      "y": 0.916784
+    },
+    {
+      "profile_id": "math-row-26",
+      "profile_group_id": "math-family-13",
+      "x": [
+        0.30751,
+        0.05793,
+        0.87801,
+        0.94695,
+        0.08565
+      ],
+      "y": 0.589013
+    },
+    {
+      "profile_id": "math-row-27",
+      "profile_group_id": "math-family-13",
+      "x": [
+        0.48599,
+        0.06921,
+        0.7606,
+        0.76583,
+        0.12839
+      ],
+      "y": 0.591524
+    },
+    {
+      "profile_id": "math-row-28",
+      "profile_group_id": "math-family-14",
+      "x": [
+        0.47528,
+        0.5498,
+        0.26506,
+        0.87243,
+        0.42314
+      ],
+      "y": 0.833596
+    },
+    {
+      "profile_id": "math-row-29",
+      "profile_group_id": "math-family-14",
+      "x": [
+        0.2118,
+        0.5393,
+        0.72993,
+        0.20115,
+        0.31172
+      ],
+      "y": 0.47569
+    },
+    {
+      "profile_id": "math-row-30",
+      "profile_group_id": "math-family-15",
+      "x": [
+        0.99515,
+        0.64988,
+        0.4381,
+        0.51758,
+        0.121
+      ],
+      "y": 0.956808
+    },
+    {
+      "profile_id": "math-row-31",
+      "profile_group_id": "math-family-15",
+      "x": [
+        0.2247,
+        0.33809,
+        0.58831,
+        0.23011,
+        0.22022
+      ],
+      "y": 0.349861
+    }
+  ],
+  "methods": [
+    "baseline",
+    "ridge",
+    "xgboost"
+  ],
+  "baseline": "train-only constant-mean mathematical control; not a personal-fit formula",
+  "estimators": "existing estimators.make_estimator, ridge_l2=1; fixed parameters, no tuning",
+  "execution": {
+    "location": "local_cpu_smoke",
+    "threads": 2,
+    "max_rows": 64,
+    "estimated_seconds": 60,
+    "estimated_memory_mb": 256,
+    "estimate_notice": "resource estimate, not an observed duration or external budget approval",
+    "paid_jobs": "B only; no request to launch"
+  },
+  "budget_usd": 0,
+  "empirical_personal_fit": {
+    "legacy_annotation_path": "ml/data/annotations/personal_fit_annotations.csv",
+    "sha256": "fff69cfbc26ef8b14d7a79bea883503a603b89f2acd52e381c5afc57b75c9f88",
+    "legacy_annotation_report": {
+      "rows": 0,
+      "profile_count": 0,
+      "profile_group_count": 0,
+      "pending_rows": 0,
+      "eligible_reviewed_rows": 0,
+      "eligible_reviewed_groups": 0,
+      "missing_columns": [],
+      "errors": [],
+      "empirical_status": "not_evaluated",
+      "candidate_coverage_by_profile": {}
+    },
+    "intake_rows": 3,
+    "compatible_initial_role_fit_labels": 0,
+    "target_migration": "No accepted role-fit target/rubric; legacy milestone grades are incompatible.",
+    "status": "blocked_decision",
+    "blockers": [
+      "N01",
+      "compatible_target_and_evidence_rubric"
+    ],
+    "human_review_notice": "Independent review is not a launch prerequisite; generated labels remain provisional."
+  }
+}
