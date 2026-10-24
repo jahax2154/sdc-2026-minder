@@ -81,7 +81,13 @@ runtime.env.example. No additional Clerk tenant/Replit Auth provisioning.
 Provider production DATABASE_URL stays server-only. D requires explicit
 MINDER_DOCUMENT_STORAGE_BUCKET_ID and optional PREFIX=minder/private/. Bucket
 access must remain private and all downloads go through verified owner-bound
-backend routes. Development database presence is not production provisioning.
+backend routes. Replit creates the production database during first publication; Agent cannot
+directly edit production. Before first publish, verify managed preview startup
+against the development database and verify publishing settings. Then verify the
+published runtime receives its own production DATABASE_URL and applies the existing
+migrations. Do not copy a development DSN into published Secrets or claim workspace
+migrations prove production persistence. Official workflow:
+https://docs.replit.com/features/data-and-storage/development-and-production .
 MINDER_DB_SCHEMA defaults to minder; keep acceptance tests in a distinct owned
 schema and never point tests at shared app tables. File bytes never live on the
 published filesystem. DATABASE_URL must never become a Path/SQLite file.
