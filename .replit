@@ -1,10 +1,13 @@
-# Install as .replit in the actual imported release root, preserving existing
-# project history/config before replacement. This is a template, not a deploy.
-modules = ["python-3.12"]
-entrypoint = "deploy/replit_runtime.py"
+# Existing Minder Python runtime; secrets remain in provider environment.
+modules = ["python-3.12", "postgresql-16"]
+entrypoint = "deploy/replit_launch.py"
 run = ["bash", "deploy/replit/start.sh"]
 
+[nix]
+channel = "stable-25_05"
+
 [deployment]
+deploymentTarget = "vm"
 build = ["bash", "deploy/replit/build.sh"]
 run = ["bash", "deploy/replit/start.sh"]
 ignorePorts = false
@@ -12,3 +15,15 @@ ignorePorts = false
 [[ports]]
 localPort = 8080
 externalPort = 80
+
+[workflows]
+runButton = "Minder"
+
+[[workflows.workflow]]
+name = "Minder"
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "bash deploy/replit/start.sh"
+waitForPort = 8080

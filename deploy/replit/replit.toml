@@ -5,6 +5,7 @@ entrypoint = "deploy/replit_runtime.py"
 run = ["bash", "deploy/replit/start.sh"]
 
 [deployment]
+deploymentTarget = "vm"
 build = ["bash", "deploy/replit/build.sh"]
 run = ["bash", "deploy/replit/start.sh"]
 ignorePorts = false

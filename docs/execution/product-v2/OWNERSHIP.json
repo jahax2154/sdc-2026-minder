@@ -112,7 +112,10 @@
         ".replit",
         "replit.nix",
         "apps/backend-api/minder_app/web_search.py",
-        "apps/backend-api/tests/test_web_search.py"
+        "apps/backend-api/tests/test_web_search.py",
+        "pyproject.toml",
+        "uv.lock",
+        ".gitignore"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -269,5 +272,6 @@
   "frontend_home_gate": "A imports approved sources and registers exact additive bot-preferences/search contracts; D alone implements persisted bot preferences/conversation search; F alone changes frontend shell/client/pages. No migration or another database required merely for display identity. Existing singleton/schedules/profile remain separate.",
   "career_explanations": "A integration transfer N01-R1 already reserves app_context.py in parallel ownership. Current bounded presentation-only repair retains C source grounder/provider and all numerical policies.",
   "mandatory_product_continuation": "User current task from c795: A owns new starter/live retrieval/handoff/gateway modules and routes; F sole UI, E host, D canonical persistence modules and migrations, C original provider files remain reserved. Reuse existing D transaction-aware operations.",
-  "replit_port_handoff": "A_REPLIT_BASE_AND_FACTORY_CONTRACT.md; D PostgreSQL and private storage, E deps/Replit wrapper/access, A common composition, F frontend unchanged; no live shared DB writes or blanket resource upgrades."
+  "replit_port_handoff": "A_REPLIT_BASE_AND_FACTORY_CONTRACT.md; D PostgreSQL and private storage, E deps/Replit wrapper/access, A common composition, F frontend unchanged; no live shared DB writes or blanket resource upgrades.",
+  "managed_python_root": "A alone installs the exact E4b53fd8 provider manifest at root, generates uv.lock, and reconciles .replit/generated-environment ignore. E owns deploy scripts/templates; no source/raw-input ignore additions. Existing A runtime/ML/B training environments remain unchanged."
 }
