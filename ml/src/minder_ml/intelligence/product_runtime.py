@@ -15,6 +15,18 @@ from .groq_adapter import GroqAdapter
 MODEL = 'qwen/qwen3.8-27b'
 
 
+def revision():
+    import os,re,subprocess
+    value=os.environ.get('MINDER_RELEASE_SHA') or os.environ.get('RAILWAY_GIT_COMMIT_SHA')
+    if value and re.fullmatch('[0-9a-f]{40}',value):
+        return value
+    try:
+        value=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True,timeout=2,check=True).stdout.strip()
+        return value if re.fullmatch('[0-9a-f]{40}',value) else None
+    except (OSError,subprocess.SubprocessError):
+        return None
+
+
 class ProductServer(ThreadingMixIn, WSGIServer):
     """Bound local request workers; SQLite/action/provider limits remain authority."""
     daemon_threads = True
@@ -69,6 +81,7 @@ def build(lane, *, database=None, role_ids=None):
         provider = GroqAdapter(key=config.api_key, model=MODEL)
         provider.daily_limit = config.daily_limit
     app, catalogue = application(target, namespace=namespace, provider=provider, role_ids=role_ids)
+    app.runtime_revision=revision()
     # Reuse the existing lazy v4 initializer, with no network/quota call, before
     # D's sole new product migration chain starts at5.
     from minder_app.provider_budget import BudgetedProvider
@@ -95,6 +108,7 @@ def build_hosted(database):
     if not root:
         raise ValueError('MINDER_DATA_ROOT_required')
     app, _ = application(database, provider=provider, durable_root=root)
+    app.runtime_revision=revision()
     from minder_app.provider_budget import BudgetedProvider
     BudgetedProvider(app.store, 'bootstrap-no-call', provider)
     from minder_app.product_migrations import migrate
@@ -176,7 +190,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--lane', choices=('A', 'D', 'E', 'F'), required=True)
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--worker',action='store_true',help='Explicit A-only local daily worker; hosted wrapper owns hosted supervision')
     args = parser.parse_args()
+    if args.worker and args.lane!='A':
+        parser.error('--worker is reserved for the explicitly authorized A runtime')
     app, reservation = build(args.lane)
     if args.check:
         status, health = wsgi_request(app, 'GET', '/api/health')
@@ -189,11 +206,21 @@ def main():
         api = stack.enter_context(make_server('127.0.0.1', reservation['api_port'], app, handler_class=QuietHandler, server_class=ProductServer))
         ui = stack.enter_context(make_server('127.0.0.1', reservation['ui_port'], web_app(app), handler_class=QuietHandler, server_class=ProductServer))
         thread = threading.Thread(target=api.serve_forever, daemon=True);thread.start()
+        worker_stop=threading.Event();worker_thread=None
+        if args.worker:
+            from minder_app.agents import Worker
+            from minder_app.hosted_worker import run
+            worker=Worker(app.store,app.actions,provider=app.provider,services=app.services)
+            worker_thread=threading.Thread(target=run,kwargs=dict(app=app,worker=worker,stop_event=worker_stop),daemon=True)
+            app.local_worker_thread=worker_thread
+            worker_thread.start()
         print(json.dumps(dict(lane=args.lane, api_port=api.server_port, ui_port=ui.server_port,
-            model=MODEL, loopback_only=True, scheduler_autostarted=False, deployment=False)), flush=True)
+            model=MODEL, revision=app.runtime_revision, loopback_only=True, scheduler_autostarted=bool(worker_thread), deployment=False)), flush=True)
         try:
             ui.serve_forever()
         finally:
+            worker_stop.set()
+            if worker_thread:worker_thread.join(timeout=5)
             api.shutdown();thread.join(timeout=5)
 
 

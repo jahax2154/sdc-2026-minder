@@ -27,7 +27,10 @@ class Application:
 
     def dispatch(self, method, path, body, token, *, request_id=None, request_context=None):
         if path == "/api/health" and method == "GET":
-            return {"status": "ok", "integration_mode": self.services.mode}
+            result={"status": "ok", "integration_mode": self.services.mode}
+            if hasattr(self,'runtime_revision'):result['runtime_revision']=self.runtime_revision
+            if hasattr(self,'local_worker_thread'):result['local_worker_running']=self.local_worker_thread.is_alive()
+            return result
         from .identity_boundary import authenticated_owner, managed, public_configuration
         if path == '/api/auth/config' and method == 'GET':
             return public_configuration(self)
