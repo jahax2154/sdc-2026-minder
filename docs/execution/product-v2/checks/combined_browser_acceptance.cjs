@@ -97,5 +97,12 @@ const closing='finally{await browser.close();}';assert(source.includes(closing))
 if(process.env.MINDER_MARKET_ONLY==='1'){
  (async()=>{const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE);const browser=await chromium.launch({headless:true});const page=await browser.newPage();
  const api=async(p,endpoint,body,method)=>p.evaluate(async({endpoint,body,method})=>{const response=await fetch('/api/'+endpoint,{method:method||(body?'POST':'GET'),headers:{Authorization:'Bearer '+sessionStorage.getItem('minder-product-token'),'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});const value=await response.json();if(!response.ok)throw new Error(endpoint+': '+response.status);return value;},{endpoint,body,method});
- try{await page.goto(base+'/#minder');await page.waitForSelector('#minderInput');const health=await api(page,'health');await global.__minderMarketAndRestart({browser,page,evidence:{backend_revision:health.runtime_revision},api});}finally{await browser.close();if(trace.market_answer_gate!=='passed')process.exitCode=2;}})().catch(error=>{trace.failure=error.message;write();process.exitCode=1;});
+ try{await page.goto(base+'/#minder');await page.waitForSelector('#minderInput');const health=await api(page,'health');
+ if(process.env.MINDER_WAIT_PROVIDER_COOLDOWN==='1'){
+  const status=await api(page,'product/provider-status');const seconds=status.retry_after_seconds||0;
+  trace.targeted_retry_preflight={reported_retry_seconds:seconds,automatic_wait:true,scope:'Targeted retry after actual quota cooldown; not proof of ordinary consecutive-turn readiness'};write();
+  if(seconds>600)throw new Error('Actual provider retry window exceeds bounded acceptance wait');
+  const until=Date.now()+Math.ceil(seconds*1000)+150;while(Date.now()<until)await page.waitForTimeout(Math.min(1000,until-Date.now()));
+ }
+ await global.__minderMarketAndRestart({browser,page,evidence:{backend_revision:health.runtime_revision},api});}finally{await browser.close();if(trace.market_answer_gate!=='passed')process.exitCode=2;}})().catch(error=>{trace.failure=error.message;write();process.exitCode=1;});
 }else{const compiled=new Module(filename,module);compiled.filename=filename;compiled.paths=Module._nodeModulePaths(path.dirname(filename));compiled._compile(source,filename);}

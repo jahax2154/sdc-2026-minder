@@ -60,3 +60,11 @@ existing implementation. Report the remaining market-quality/provider and real
 hosted checks separately; this source disposition is not a false fully-integrated
 or hosted-acceptance claim. E retains auth/persistence/private-storage/resource
 controls and its existing publish responsibilities. Main merge is not authorized.
+
+## Later reviewed candidate — explicit handoff
+
+See A_E_DEPLOYMENT_CANDIDATE_31E85CB.md for the later reviewed application source
+31e85cbdae13ccdd30c2cc713550d0547dabf8f4 and actual live-answer evidence. The earlier
+27bc760 source disposition and its actual Replit first-load/config checkpoints
+above remain historical evidence. Preserve the provider launcher/config diff;
+no new source pin bypasses the current publish-review prerequisite rejection.
