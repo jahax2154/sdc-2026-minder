@@ -15,7 +15,7 @@ reported after GitHub merges and the remote ref is independently fetched/verifie
 | D — session/d-profile-state | d070a796d1cb4b1ae1e5ceb1ee5b9e21c642c450 | Canonical persistence, native PostgreSQL/private document adapter and tests |
 | E — session/e-explore-resources | 2b9dd856b5ed66de6d1bc6da75b3e28d9bef118d | Views/resources/auth/worker adapters and completed safe startup diagnostics; hosted acceptance pending |
 | F — session/f-product-frontend | a902a3afb25a3c65441474af2063a8c9985ab6e7 | Full frontend through0c743623 plus separate read-only Netlify export |
-| Teammate main | 755c295a813c26f8299529b8f147e0dd24bde1ec | Latest README team/slide/video/preview links, Apache licence and uploaded submission files |
+| Teammate main | 08f0f47179fdb761354d133e09b0c9684d93a064 | Latest README team/slide/video/preview links, Apache licence and uploaded submission files |
 
 All six handoffs were checked as ancestors after integrating only missing B/F
 commits. B's three new evidence checkpoints and F's export were merged with their
@@ -27,6 +27,10 @@ the actual Python/ES-module implementation and explicit preview/hosting limits.
 The final fetch caught main755c295 after the initial54a1f49 merge. Its only change,
 the updated slide URL https://canva.link/67te6g9azdjgt61, is retained in a further
 history-preserving README merge. No application code changed in either resolution.
+Main08f0f47 then replaced two remaining obsolete Career Compass links with the
+confirmed Netlify URL. RELEASE-R02 preserves that commit's history and its intended
+URL correction in the already-reconciled README, which accurately labels it a static
+preview. GitHub's conflict block was resolved locally, never overridden.
 
 All four uploaded submission files, LICENSE and submission-placeholders.md were
 verified byte-for-byte against the fetched main snapshot. Earlier renamed/deleted
