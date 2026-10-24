@@ -31,6 +31,19 @@ class AdviceProvider:
 
 
 class GenerationTests(AppCase):
+    def test_model_cannot_smuggle_task_operation_through_roadmap_only_tool(self):
+        self.make_plan()
+        message='Create a practical learning roadmap for my saved direction.'
+        self.app.provider=AdviceProvider(advice(operation=dict(kind='complete_task',task_id='synthetic-task',
+            scheduled_at=None,instruction_quote=message)))
+        result=self.app.dispatch('POST','/api/chat',dict(message=message,
+            expected_profile_version=self.profile['version']),self.token)
+        self.assertEqual(result['provider']['code'],'generated_guidance_validation_failed')
+        self.assertEqual(result['provider']['generation_protocol'],'bounded-roadmap-guidance-v1.1')
+        self.assertIsNone(result['generation'])
+        self.assertEqual(self.app.actions.history(self.profile['profile_id']),[])
+        self.assertEqual(self.store.list(self.profile['profile_id'],'plan')[0]['tasks'][0]['state'],'scheduled')
+
     def test_saved_normal_onboarding_notes_are_reused_without_skill_assessment(self):
         from minder_app.generation import private_context
         note='Basic Python practice; no paid experience yet.'
