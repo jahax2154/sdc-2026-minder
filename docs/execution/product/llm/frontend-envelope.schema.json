@@ -145,6 +145,24 @@
     },
     "action_error": {
       "type": "object"
+    },
+    "actions": {
+      "type": "array"
+    },
+    "action_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposal_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
     }
   }
 }

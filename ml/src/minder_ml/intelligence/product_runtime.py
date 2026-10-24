@@ -99,6 +99,9 @@ def build_hosted(database):
     BudgetedProvider(app.store, 'bootstrap-no-call', provider)
     from minder_app.product_migrations import migrate
     migrate(app.store)
+    app.managed_identity_required = True
+    from minder_app.agents import Worker
+    app.scheduled_worker = Worker(app.store, app.actions, provider=provider, services=app.services)
     return app
 
 

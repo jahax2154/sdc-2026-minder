@@ -32,7 +32,16 @@ def configure(store, owner, settings, expected):
     with store.transaction() as db:
         db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, uid(), json.dumps(dict(
             kind="explicit_agent_schedule_settings", settings=settings, expected=expected)), now()))
-        return store.put(owner, "agent_settings", owner, settings, expected, db=db)
+        saved = store.put(owner, "agent_settings", owner, settings, expected, db=db)
+        # Pausing prevents queued daily work as well as future enqueue. Other
+        # event triggers retain their independent scope. No action is retried.
+        if not settings['enabled']:
+            db.execute("UPDATE agent_events SET status='paused' WHERE owner=? AND kind='daily_check' "
+                       "AND status IN ('pending','retry')", (owner,))
+        else:
+            db.execute("UPDATE agent_events SET status='pending' WHERE owner=? AND kind='daily_check' "
+                       "AND status='paused'", (owner,))
+        return saved
 
 
 def market_event(store, owner, evidence_id, entity_ids, sources):
@@ -61,6 +70,8 @@ class Worker:
         self.store, self.executor, self.provider = store, executor, provider or GroqAdapter()
         self.services = services
         migrate(store)
+        from .conversations import Conversations
+        self.conversations = Conversations(store)
 
     def daily(self, at=None, *, owner=None):
         at = at or datetime.now(timezone.utc)
@@ -73,6 +84,11 @@ class Worker:
                     continue
                 profile = self.store.get(row["owner"], "profile", row["owner"], db=db)
                 local = at.astimezone(ZoneInfo(profile["timezone"]))
+                # A restart catches up today once, rather than replaying an
+                # unbounded backlog of daily summaries for missed dates.
+                db.execute("UPDATE agent_events SET status='superseded' WHERE owner=? AND kind='daily_check' "
+                           "AND status IN ('pending','retry','paused') AND id!=?",
+                           (row['owner'], 'daily:' + local.date().isoformat()))
                 if local.strftime("%H:%M") >= settings["check_time"]:
                     emit(db, row["owner"], "daily:" + local.date().isoformat(), "daily_check",
                          dict(local_date=local.date().isoformat(), timezone=profile["timezone"]))
@@ -101,6 +117,12 @@ class Worker:
                                      (event["owner"], event["id"])).fetchone()
                 if current[0] != "processing" or current[1] != event["lease"]:
                     raise AppError("event_claim_lost", 409)
+                if event['kind'] == 'daily_check':
+                    settings = self.store.get(event['owner'], 'agent_settings', event['owner'], db=db)
+                    if not settings['enabled']:
+                        db.execute("UPDATE agent_events SET status='paused',lease_until=NULL WHERE owner=? AND id=?",
+                                   (event['owner'],event['id']))
+                        return dict(status='paused', target_changed=False)
                 if analysis.get("candidate"):
                     try:
                         analysis["proposal"] = self.executor.propose(event["owner"], analysis.pop("candidate"),
@@ -111,6 +133,9 @@ class Worker:
                 notice = dict(event_id=event["id"], trigger=event["kind"], created_at=now(), **analysis)
                 db.execute("INSERT OR IGNORE INTO notices VALUES(?,?,?)", (
                     event["owner"], event["id"], json.dumps(notice)))
+                # D's bridge is idempotent, atomic with the actual notice. It
+                # appends to the user's one Mindbot thread without a new job.
+                self.conversations.append_notice(event['owner'], event['id'], db=db)
                 db.execute("UPDATE agent_events SET status='processed',result=?,lease_until=NULL WHERE owner=? AND id=?",
                     (json.dumps(notice), event["owner"], event["id"]))
             return dict(status="processed", event_id=event["id"], target_changed=False)

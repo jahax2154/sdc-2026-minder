@@ -65,10 +65,14 @@ def turn(app, owner, channel, message, history, request_id, body):
             result = app.actions.propose(owner, request)
             response['action_status'] = 'approval_required'
             response['answer'] = 'Here is the proposed task change. Review and approve it before it is applied.'
-        response['action_result'] = result
+        response['actions'] = [result]
+        if direct:
+            response['action_ids'] = [result['action']['action_id']]
+        else:
+            response['proposal_ids'] = [result['preview']['proposal_id']]
     except AppError as error:
         # Never claim a generated operation succeeded when validation rejected it.
         response['action_status'] = 'not_applied'
-        response['action_error'] = dict(code=error.code, status=error.status)
+        response['status'] = error.code
         response['answer'] = 'The task change was not applied (' + error.code + '). Your saved task remains unchanged.'
     return response

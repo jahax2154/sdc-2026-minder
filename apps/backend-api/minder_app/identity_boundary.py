@@ -19,7 +19,7 @@ def authenticated_owner(app, token, request_context=None):
     from .auth_adapter import verify_identity
     identity = verify_identity(token, request_context)
     try:
-        from .identity_store import resolve_owner
+        from .identity_store import owner_for_identity
     except ImportError:
         raise AppError('verified_identity_storage_unavailable', 503) from None
-    return resolve_owner(app.store, identity)
+    return owner_for_identity(app.store, identity)
