@@ -1,0 +1,48 @@
+{
+  "phase_id": "P1.3",
+  "status": "passed_integrated_document_service",
+  "integrated_D": "a526558ce79b98e073d7a3316c1a94ea1adcef81",
+  "dependency_A": "a1e9c7ff4a55e0e823b1d5b9312c95795a79b042",
+  "implementation": "D existing Store migration6, all5 document operations; A publishes actual response schemas",
+  "checks": {
+    "backend": "81 passed3.914s",
+    "A_transport": "3 passed0.037s",
+    "HTTP": {
+      "status": "passed",
+      "transport": "real loopback HTTP and real private local files",
+      "input": "fictional TXT and signature-only synthetic PDF; no real personal files",
+      "checks": {
+        "disabled_storage_explicit": true,
+        "owner_isolation": true,
+        "exact_upload_retry": true,
+        "metadata_without_private_text_or_paths": true,
+        "real_private_file_download": true,
+        "reviewed_text_only": true,
+        "repeated_extraction_one_draft": true,
+        "no_profile_or_skill_inference": true,
+        "pdf_storage_separate_from_unavailable_extraction": true,
+        "stale_delete_conflict": true,
+        "delete_retry_and_no_resurrection": true,
+        "linked_draft_cannot_apply_after_delete": true,
+        "upload_only_larger_transport_and_intake_limit_preserved": true,
+        "bytes_removed_before_success": true,
+        "response_schemas_validated": true
+      },
+      "provider_requests": 0,
+      "durable_hosting_verified": false,
+      "deployment": false
+    }
+  },
+  "evidence": {
+    "combined-documents-backend.log": "3122b41e8d1e55f12fe361d900b2e83a85e37a019ad5d4e4ccea9d0358fe67f6",
+    "combined-documents-transport.log": "34ff82c9bce649d67e370e561160edc2f3775cac5ecd696672dbfe5e853e07e8",
+    "documents-http.log": "783ab26c3bc8b7eefd90ce7d20b0db9afcc7513e48ef2bb23425602f755e5c49"
+  },
+  "storage": "Default disabled; isolated HTTP test explicitly used local-development private synthetic files, then cleaned its disposable database/files",
+  "remaining": [
+    "F document controls/Profile/Explore final handoff and combined browser acceptance",
+    "PDF extraction unavailable; hosted storage/access not provided",
+    "No account/WAL secure-erasure, asynchronous extraction or whole-document LLM call claimed"
+  ],
+  "deployment": false
+}

@@ -1,0 +1,27 @@
+{
+  "phase": "F1.2",
+  "owner": "F",
+  "mode": "real_same_origin_api_no_mocks_no_provider",
+  "checks": {
+    "partial_profile": true,
+    "evidence_attribution": true,
+    "explicit_zero_distinct_from_unknown": true,
+    "intake_review_persisted_without_mastery": true,
+    "profile_conflict_visible": true,
+    "dislike_reset": true,
+    "direction_persists": true,
+    "explicit_plan_and_active_selection": true,
+    "manual_task_persisted": true,
+    "task_complete_canonical_progress": true,
+    "refresh_progress_persists": true,
+    "task_undo_same_state": true,
+    "resource_saved_refresh": true,
+    "resource_to_same_plan": true,
+    "unsupported_content_honest": true,
+    "unavailable_forecast": true,
+    "cross_screen_settings": true,
+    "mobile_all_routes_no_overflow": true,
+    "session_isolation": true,
+    "page_errors": []
+  }
+}

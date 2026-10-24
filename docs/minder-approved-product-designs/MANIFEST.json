@@ -1,0 +1,220 @@
+{
+  "source": "User-approved Downloads packages; imported unchanged except excluded OS metadata",
+  "files": [
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/Minder_Explore_Preview.html",
+      "sha256": "40bfb3c04ce0883a8aa32b752c138574901cb3300fe4da538de6e53d1f9844a7",
+      "bytes": 62775
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/README.md",
+      "sha256": "240ee7bce28338d433d23ce04d302288b11a82a3302b5d15886c20436030f101",
+      "bytes": 4575
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/assets/app.js",
+      "sha256": "c5627bb1530d3c81b339b78e6872f2caaa65e18811bf604da6fda4dea67d6c34",
+      "bytes": 39771
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/assets/styles.css",
+      "sha256": "749fee3afa6484f87e6705150c5d4c65f13e3dd17f2a0b9c5e83af53ef53057d",
+      "bytes": 22550
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/careers.html",
+      "sha256": "9b77f35607c2effca4fb4791b3d573ff223e36890b50d739b01bbf74414ac09f",
+      "bytes": 563
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/docs/DESIGN_CONTEXT.md",
+      "sha256": "46b4fdb4dcee40478c504025c594f9b6d5ea939911735ea06875142cc345523d",
+      "bytes": 7709
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/docs/FRONTEND_LOGIC.md",
+      "sha256": "9140c5d982642a321886e0658694d68412201ed0f35b2dcf4bec220523f3d17f",
+      "bytes": 10559
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/docs/SCREEN_REFERENCE_INDEX.md",
+      "sha256": "b619c6cc2ac1b1409afba3161f76c9cd96e34394780672905734db79ac62be50",
+      "bytes": 744
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/index.html",
+      "sha256": "9b77f35607c2effca4fb4791b3d573ff223e36890b50d739b01bbf74414ac09f",
+      "bytes": 563
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/my-path.html",
+      "sha256": "dc2b1970a8b9847c581a47292b5d548f3bb63b0922a9b5a6cf2a2afd1005e6c5",
+      "bytes": 560
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/qa/VERIFICATION.md",
+      "sha256": "fc73c1c835526f74fb16827405d1e0542da7c0cde060f2341b009d0f5f937a07",
+      "bytes": 1345
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/01_careers_matches.jpg",
+      "sha256": "54d60aa3d9bae694d5d7af81db9be55033364f161bbdfb35b528677e6c60d358",
+      "bytes": 77665
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/02_careers_detail.jpg",
+      "sha256": "33e2db18f12f2aaa4c1f1c49078bf72b533359e5961620eb55ed2940c6cd94a8",
+      "bytes": 77621
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/03_careers_compare.jpg",
+      "sha256": "f44ddaee89a256a467cc5977b68d439d9f56936c189c85d7a1ab78f7ae92baf9",
+      "bytes": 79580
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/04_careers_outlook.jpg",
+      "sha256": "d2a0265b7fdf4f0de835e9c3a7fac9e44e04683e39d55d6ee16d9ca0fdfa0f17",
+      "bytes": 78992
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/05_my_path_next_steps.jpg",
+      "sha256": "64f6d8219316dea3da22e27323eab6a62d778de320e71001878d477ecd1dde03",
+      "bytes": 67146
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/06_my_path_task_detail.jpg",
+      "sha256": "74c5dbf78a1cbe7634fb89f16820a6dd9e4b52340d338c2cb3daad01eb9664fb",
+      "bytes": 72277
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/07_my_path_roadmap.jpg",
+      "sha256": "b03fa4398bdc19237c35f6dc1ca19f642a87315ca16917bc03f7af61afb1457f",
+      "bytes": 71424
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/08_my_path_skills.jpg",
+      "sha256": "11af3fb2be1409f81e87ef75c691fa6b9191c14b69fe70a43829d64327604db9",
+      "bytes": 72999
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/final/09_my_path_progress.jpg",
+      "sha256": "5ac1e317fcbeacf76bb18f8a64929cbfb969c491f86ad37ad10cc7c337c3e7ec",
+      "bytes": 74800
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/index.html",
+      "sha256": "d34788b7e2a02ef063babdaae8daa026fcedc67d774dccc0bc7f2000364bcf28",
+      "bytes": 1876
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/style/01_profile_goals_style.jpeg",
+      "sha256": "1be9390418e51cc5299af198f8638b65bfe0c04d2b2445c6f8a9ebb80418d89e",
+      "bytes": 221542
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/style/02_profile_overview_style.jpeg",
+      "sha256": "8c14f249c5cd9c586b99aa5c5e255b22225cf495eff6abfc0d7d58eb79fef514",
+      "bytes": 203062
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/style/03_chat_style.jpeg",
+      "sha256": "b7afaab35aa7d109cc3358d1ef1d0ecffe5e0c463a6133edfdf07f693d773d3c",
+      "bytes": 158641
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/style/04_mindbot_style.jpeg",
+      "sha256": "7f1f006b7b0ab788b06c0447a976810abd0bd533222634aeb9d668ae5a24b254",
+      "bytes": 203448
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/references/style/05_overview_style.jpeg",
+      "sha256": "d88bd795038330ed893bf67cbb4af6fb5b7790d5d37607ff22bd2fa37ef116ab",
+      "bytes": 253446
+    },
+    {
+      "path": "docs/minder-approved-product-designs/explore-v1/tools/build_preview.py",
+      "sha256": "af9e471db35109341a0fe3175602492ae878de82adeb4db346f76bd009e779ce",
+      "bytes": 1161
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/MINDER_USER_PROFILE_DESIGN_CONTEXT.md",
+      "sha256": "64d32892268e7b0b536805b805f949655341b8e36cc014579f0647546d986e2d",
+      "bytes": 27109
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/README.md",
+      "sha256": "a53bcc230943a3dacdf2ac7daf9f78f0b8af8e6f7fb173a73d09dc5a51d8b10b",
+      "bytes": 2440
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/00_original_minder_app_style.png",
+      "sha256": "0bbc6ca487e0ca74388b41acaeeea3a132118a7d7a78aed957061daae8325c8d",
+      "bytes": 337252
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/00_original_profile_style.png",
+      "sha256": "4a3591d2743dc73fb43d9ff8e341690e43a578c90360ca7b9b1c3bdc5ec16ef6",
+      "bytes": 921404
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/01_onboarding_situation.png",
+      "sha256": "0db0ca2e8c3265e85a8aedbbc359c9547093856a5bcd52e88f6e3972c20a92d3",
+      "bytes": 1255193
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/02_onboarding_objective.png",
+      "sha256": "72e6a01a93fec548c65c77251bb7604a6ef6cb390c3ccaeae1da84a334c59953",
+      "bytes": 1577234
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/03_onboarding_context.png",
+      "sha256": "39c4a1662fd4c6164d501d565eb9dacfbc86d855f0c534445dabe5e8976c7a51",
+      "bytes": 1141045
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/04_onboarding_review.png",
+      "sha256": "e5fc050746bd262e470a23ac468f2c025ad2fe3f4d23ae6e9acd29422f272e05",
+      "bytes": 1478640
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/05_profile_overview_centered_identity.png",
+      "sha256": "748b91d770eab4494a2a0f2ff90b9d0a6f9af4ca71d64091ce576f2e37af68ae",
+      "bytes": 1401880
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/06_profile_background_centered_identity.png",
+      "sha256": "c4a0fc09d65587e2c72afef82fccfcd7b31abe353c66d76e6392ac031325f892",
+      "bytes": 1316648
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/07_profile_goals_centered_identity.png",
+      "sha256": "e191b5e12334d2ece08e86e28613466bd1b407e682ae70bc26a02febb3bc66b9",
+      "bytes": 1553914
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/08_profile_skills_centered_identity.png",
+      "sha256": "defe32f5926eff3ed2955d640e2039d11d0942edb04ba32b9f5bf1ebb4f0899a",
+      "bytes": 1561886
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/design_references/09_profile_record_centered_identity.png",
+      "sha256": "9571286c19b44718074e25b36fdf7ce6dfd7353b9c325119f3aa6f336659c80f",
+      "bytes": 1404159
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/minder-user-profile-prototype-v2.html",
+      "sha256": "1304cd80d4367253423dd1bef45edbe1c9093474e49860e72575c8ed9a1a18db",
+      "bytes": 74794
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/minder-user-profile-v2-structural-test.mjs",
+      "sha256": "f5362f2a90a532a415c464a3095b46ad4a1f740817fe251d6b9b8bbc64c0bf5d",
+      "bytes": 4347
+    },
+    {
+      "path": "docs/minder-approved-product-designs/profile-v2/minder-user-profile-v2-test.mjs",
+      "sha256": "2ad5cbd0f3e7e6fad1c5dee4f722784fdc77abe0d43f5b66ddc58a8701561f1b",
+      "bytes": 7996
+    }
+  ]
+}

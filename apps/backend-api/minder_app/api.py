@@ -5,6 +5,7 @@ Production identity and durable hosting remain integration/deployment work.
 """
 import json
 import os
+import time
 from pathlib import Path
 import uuid
 from wsgiref.simple_server import make_server
@@ -22,7 +23,7 @@ class Application:
         from .agents import migrate
         migrate(store)
 
-    def dispatch(self, method, path, body, token):
+    def dispatch(self, method, path, body, token, *, request_id=None):
         if path == "/api/health" and method == "GET":
             return {"status": "ok", "integration_mode": self.services.mode}
         if path == "/api/session" and method == "POST":
@@ -115,8 +116,9 @@ class Application:
         if path == "/api/chat" and method == "POST":
             from .chat import chat
             return chat(self.store, self.services, self.provider, owner,
-                        body["message"], body["expected_profile_version"],
-                        body.get("selected_role_ids"), body.get("selected_skill_ids"))
+                        body["message"], body.get("expected_profile_version"),
+                        body.get("selected_role_ids"), body.get("selected_skill_ids"),
+                        body.get("previous_context_id"), request_id=request_id, app=self)
         if path == "/api/plans":
             from .plans import create_plan
             if method == "GET":
@@ -144,6 +146,7 @@ class Application:
 
     def __call__(self, environ, start_response):
         rid, status = str(uuid.uuid4()), 200
+        started = time.perf_counter()
         try:
             length = int(environ.get("CONTENT_LENGTH") or 0)
             from .product_routes import request_body_limit
@@ -156,7 +159,7 @@ class Application:
                 raise AppError("object_body_required")
             auth = environ.get("HTTP_AUTHORIZATION", "")
             token = auth[7:] if auth.startswith("Bearer ") else ""
-            result = self.dispatch(environ["REQUEST_METHOD"], environ["PATH_INFO"], body, token)
+            result = self.dispatch(environ["REQUEST_METHOD"], environ["PATH_INFO"], body, token, request_id=rid)
         except AppError as exc:
             status, result = exc.status, {"code": exc.code, "request_id": rid}
         except (ValueError, KeyError, TypeError, ValidationError):
@@ -167,7 +170,8 @@ class Application:
         start_response(str(status) + " " + {200: "OK", 401: "Unauthorized", 404: "Not Found",
             409: "Conflict", 413: "Too Large", 415: "Unsupported", 422: "Invalid", 500: "Error"}.get(status, "Error"),
             [("Content-Type", "application/json"), ("Cache-Control", "no-store"),
-             ("Content-Length", str(len(raw))), ("X-Content-Type-Options", "nosniff")])
+             ("Content-Length", str(len(raw))), ("X-Content-Type-Options", "nosniff"),
+             ("X-Request-ID", rid), ("Server-Timing", "application;dur=%.3f" % ((time.perf_counter()-started)*1000))])
         return [raw]
 
 

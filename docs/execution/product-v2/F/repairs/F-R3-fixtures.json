@@ -1,0 +1,13 @@
+{
+  "fixture_faults": true,
+  "provider_calls": 0,
+  "frame_with_rejected_read_ms": 69,
+  "independent_sections_without_model": true,
+  "manual_section_retry": true,
+  "saved_state_while_chat_transport_pending_ms": 49,
+  "no_late_chat_overwrite": true,
+  "auth_failure_masks_all_saved_data": true,
+  "read_deadline": "8s compressed to100ms, actionable section retry",
+  "unavailable_backend_has_startup_retry": true,
+  "page_errors": []
+}

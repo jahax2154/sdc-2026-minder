@@ -1,0 +1,45 @@
+{
+  "phase_id": "P1.5",
+  "status": "passed_document_lifecycle_cases_owner_refinement_open",
+  "integrated_F": "6f3fa4035cc0724a1e49e9351a59a95560fcfdae",
+  "dependency_A": "51589b8f8694bfda793b9463901f5020214a892b",
+  "checks": {
+    "local_development": {
+      "status": "passed",
+      "runner": "Unmodified F documents.cjs; environment base/output only",
+      "checks": {
+        "upload_without_profile_apply": true,
+        "attachment_bytes_exact": true,
+        "explicit_review_no_mastery": true,
+        "pdf_stored_extraction_unavailable": true,
+        "delete_preserves_applied_profile": true,
+        "delete_library_empty": true,
+        "refresh_persistence": true,
+        "size_limit_visible": true,
+        "mobile_documents": true,
+        "page_errors": []
+      },
+      "development_storage": "Explicit only in disposable A test server",
+      "persistent_runtime_config_changed": false,
+      "provider_calls": 0,
+      "durable_hosting_verified": false,
+      "deployment": false
+    },
+    "normal_runtime": {
+      "storage_unavailable_visible": true,
+      "upload_disabled": true
+    },
+    "syntax": "All frontend JS passed",
+    "backend": "82 passed at P1.3-R01; no backend code changed in this frontend slice"
+  },
+  "evidence": {
+    "document-browser.log": "1833859e4741ee9facab56bf00dd97fb8fec4806fb20a41e6a05a59d8140f6f9",
+    "document-browser-disabled.log": "0ca6ec7d1d5ade6f8aca1b3b9d79412c35c77f030d8f8c2cf8aba1715379daaa"
+  },
+  "remaining": [
+    "F-DOC-REVIEW-R01 source finding: pending editor can diverge from cached uncertain request; F owner repair requested, not browser-reproduced",
+    "F final combined shared/client acceptance handoff",
+    "Hosted private storage and PDF extraction unavailable"
+  ],
+  "deployment": false
+}

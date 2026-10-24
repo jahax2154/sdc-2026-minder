@@ -1,0 +1,39 @@
+{
+  "phase_id": "P1.2",
+  "status": "passed_local_chat_action_browser;combined_suite_repair_next",
+  "integrated_F": "470593946f63709ef256643c1a1477291a677c46",
+  "preserved_E2": "c2628eceaf4700cd124a407ec4dfe43a6cdbd4ff",
+  "checks": {
+    "chat": {
+      "validated_statements": 8,
+      "sources": 5,
+      "provider": "available",
+      "native_arguments_validated": true,
+      "no_profile_mutation": true
+    },
+    "temporary_history_honest": true,
+    "rejection_preserves_profile": true,
+    "exact_approval_persists": true,
+    "repeat_approval_once": true,
+    "stale_visible_no_mutation": true,
+    "settings_persist": true,
+    "mobile_navigation": true,
+    "page_errors": []
+  },
+  "model": "qwen/qwen3.8-27b",
+  "origin": "http://127.0.0.1:9111",
+  "runtime": "A isolated product database and loopback only; current-source services",
+  "evidence": {
+    "a-chat-actions.json": "2c58f5812744987da80fc559d1c6fd0b01b7801ce080dc31e5bb08fb8253e687",
+    "browser-run.log": "d1a1c89be0e212ec21127b82a7aea88488b65d58a1d24926fb3fceac79ec68ac",
+    "runner-provenance.json": "17f411ecf6ab39163e14339108c5e6c4ba7e35d8c9439423514ceae476c961d0"
+  },
+  "runner": "F committed assertions reused unchanged; only origin and artifact paths adapted inside ignored A output",
+  "remaining": [
+    "D989480f owner test repair integration",
+    "F Profile/Explore final handoff",
+    "D document service/migration6 handoff",
+    "Combined product acceptance after final slices"
+  ],
+  "deployment": false
+}
