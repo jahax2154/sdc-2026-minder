@@ -1,10 +1,10 @@
 import {api,key} from '../client.js';
-import {esc,facts,showError} from '../ui.js';
+import {esc,facts,showError,sourceAttribution} from '../ui.js';
 import {svg} from '../icons.js';
 const link=(tab,label)=>`<a href="#careers/${tab}">${label}</a>`;
 export async function careers(ctx,tab='matches'){
  const view=ctx.view;view.className='morning-explore';
- view.innerHTML=`<header class="page-heading"><p class="eyebrow">EXPLORE / YOUR DIRECTION</p><h1>Careers</h1><p>Explore directions that connect with your interests and goals.</p></header><nav class="tabs" aria-label="Careers">${[['matches','Matches'],['compare','Compare'],['outlook','Outlook']].map(([id,label])=>`<a href="#careers/${id}" class="${tab===id?'active':''}" ${tab===id?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div id="careerBody" class="view" role="region" aria-label="Career content"><p role="status">Loading careers…</p></div>`;
+ view.innerHTML=`<header class="page-heading"><p class="eyebrow">EXPLORE / YOUR DIRECTION</p><h1>Careers</h1><p>Explore directions that connect with your interests and goals.</p></header><nav class="tabs" aria-label="Careers">${[['matches','Matches'],['compare','Compare'],['outlook','Outlook']].map(([id,label])=>`<a href="#careers/${id}" class="${tab===id?'active':''}" ${tab===id?'aria-current="page"':''}>${label}</a>`).join('')}</nav><div id="careerBody" class="view" role="region" aria-label="Career content"><p role="status">Loading careers…</p></div>${sourceAttribution()}`;
  const body=view.querySelector('#careerBody');
  const read=(path,value)=>api(path,value,value===undefined?'GET':'POST',{signal:ctx.signal});
  if(tab==='outlook'){

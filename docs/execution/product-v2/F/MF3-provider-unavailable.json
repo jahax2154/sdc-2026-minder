@@ -1,0 +1,29 @@
+{
+  "actual_provider_absent": true,
+  "provider": {
+    "code": "provider_credentials_missing",
+    "invoked": false,
+    "request_id": "f426217b-54b8-49b0-9661-f8aa321fe75a",
+    "status": "unavailable"
+  },
+  "working_cleared": true,
+  "independent_mindbot_samples": [
+    {
+      "frame_ms": 8,
+      "ready_ms": 33
+    },
+    {
+      "frame_ms": 2,
+      "ready_ms": 3
+    },
+    {
+      "frame_ms": 1,
+      "ready_ms": 3
+    }
+  ],
+  "extra_turns_from_reads": 0,
+  "actual_401_masks_private_state": true,
+  "new_local_owner_has_no_prior_history": true,
+  "managed_login_claimed": false,
+  "page_errors": []
+}

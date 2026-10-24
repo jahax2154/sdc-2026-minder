@@ -20,3 +20,5 @@ export function bind(id,handler) {
   });
 }
 export const diffLabel=d=>`<div class="diff"><strong>${esc(d.path)}</strong><div><del>${esc(d.before??'Not set')}</del> → <ins>${esc(d.after??'Not set')}</ins></div></div>`;
+
+export const sourceAttribution=()=>`<details class="source occupational-attribution"><summary>Occupational reference and attribution</summary><p>O*NET 31.0 Database, U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development. <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noreferrer">Database source</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>.</p><p>Original CSV bytes remain unchanged. Minder namespaces identifiers and projects occupational ratings into evidence. U.S. occupational ratings are separate from Malaysian labour demand and individual competence. Other sources retain their own links, dates and scope.</p></details>`;

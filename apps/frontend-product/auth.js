@@ -6,7 +6,7 @@ const event=(name,detail)=>window.dispatchEvent(new CustomEvent(name,{detail}));
 export const authenticated=()=>identity!==null;
 export const authMode=()=>config?.mode;
 export const accountName=()=>clerk?.user?.fullName||clerk?.user?.firstName||'';
-export function clearIdentity(){identity=null;clearPrivateRequests();event('minder-private-clear');}
+export function clearIdentity(){identity=null;clearPrivateRequests({forgetLocal:true});event('minder-private-clear');}
 function script(src,key){return new Promise((resolve,reject)=>{const tag=document.createElement('script'),timer=setTimeout(()=>{tag.remove();reject(new Error('The sign-in service took too long to load.'));},12000);tag.src=src;tag.async=true;tag.crossOrigin='anonymous';if(key)tag.setAttribute('data-clerk-publishable-key',key);tag.onload=()=>{clearTimeout(timer);resolve();};tag.onerror=()=>{clearTimeout(timer);tag.remove();reject(new Error('The sign-in service could not be loaded.'));};document.head.append(tag);});}
 export async function initializeAuth(){
  config=await api('auth/config',undefined,'GET',{public:true});
