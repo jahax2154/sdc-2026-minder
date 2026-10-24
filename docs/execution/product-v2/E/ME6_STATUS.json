@@ -41,7 +41,17 @@
     "secret_values_disclosed": false,
     "remote_key_recheck_after_first_correction": "reported_non_ASCII_UnicodeEncodeError_before_HTTP",
     "user_confirmed_full_key_saved_in_Replit_again": true,
-    "latest_runtime_environment_key_verification": "pending_active_Replit_preview_configuration"
+    "latest_runtime_environment_key_verification": {
+      "raw_ASCII": false,
+      "AuthConfig_strip_ASCII": false,
+      "edge_whitespace": false,
+      "masked_display_marker_present": true,
+      "authenticated_instance_verified": false,
+      "source": "same_workflow_process_after_reload",
+      "values_printed": false
+    },
+    "scope_clarification": "pending_user_answer_Minder_Tools_Secrets_or_Publishing_App_Secrets_or_Shared_workspace",
+    "plaintext_launch_override_or_duplicate_name_found": false
   },
   "authorized_continuation": {
     "production_database": "normal_creation_during_first_publish_not_Agent_precreation",
@@ -87,5 +97,22 @@
     "Agent_production_writes_allowed": false,
     "source": "https://docs.replit.com/features/data-and-storage/development-and-production",
     "preview_database_is_production_proof": false
+  },
+  "preview": {
+    "context": "managed_development_not_published_production",
+    "HTTP_health": 200,
+    "source_revision": "27bc76094ae3cbdb29d12e14c001549850593d55",
+    "existing_worker_live": true,
+    "single_workflow_reloaded": true,
+    "HTTPS_URL": "https://0f48cf79-f55a-4b24-ba5c-a03d800e03bd-00-3gwq1ildzsct2.riker.replit.dev",
+    "external_unauthenticated_probe": "platform_redirect_not_established_as_public_judge_endpoint"
+  },
+  "managed_Python_upstream_handoff": {
+    "E_component_SHA": "4b53fd8d953212d009b1b928a382d9ff19ee6018",
+    "focused_checks_passed": 21,
+    "root_template_uv_resolution_packages": 51,
+    "NVIDIA_packages": 0,
+    "requires_A_root_pyproject_and_uv_lock_integration": true,
+    "revised_combined_source_pin": "not_yet_named"
   }
 }
