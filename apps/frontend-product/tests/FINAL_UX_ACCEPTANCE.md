@@ -1,0 +1,13 @@
+# Final frontend repair acceptance
+
+Use F's assigned runtime only. Default product UI/API:http://127.0.0.1:9106. Set `MINDER_PRODUCT_BASE_URL`, `MINDER_BROWSER_OUTPUT_DIR`, `MINDER_PLAYWRIGHT_MODULE` and `PLAYWRIGHT_BROWSERS_PATH` when needed. No provider SDK/key is used by these frontend tests. Synthetic owners and saved records go only to the assigned F database; never run against a shared/production database.
+
+Run `final_ux_{layout,partial,history,identity,home}.cjs` for actual HTTP/browser flows with zero model calls. History creates25synthetic metadata records to exercise20+5pagination. Partial records a Playwright trace and checks DOM object identity, slow/rapid reads, retained valid content, focus/caret and local retry. Home uses a real canonical persisted legacy-preview plan fixture; it does not claim model generation quality.
+
+`final_ux_zoom.cjs` requires full matching Playwright Chromium (`playwright install chromium --no-shell`) in temporary browser storage. It creates a temporary local extension and uses actual `chrome.tabs.setZoom(2)`, not CSS zoom or device-scale emulation. It verifies the complete Profile creation bottom-control journey and Home/Careers/My Path wheel/keyboard end access at200%.
+
+Run `final_ux_recovery.cjs` only against the existing F disposable `serve_provider_unavailable.py` fixture, with the normal F process stopped by its known session handle. It overrides only that fixture app's provider key, uses a temporary F-owned database, and tests true provider absence plus deliberate transport loss against real stored identity/versions. Restore the normal F runtime afterward. Do not kill other lane processes or run a worker.
+
+`final_ux_provider.cjs` is the authorized final real-provider journey. It invokes exactly3new model turns (original Minder question, unseen follow-up, Mindbot task completion), plus2cached receipt HTTP retries. Do not repeat it for unchanged CSS/focus refinements. Its synthetic legacy plan is created through actual contracts; the Mindbot action applies to its real canonical task and exact retry must leave the version/action count unchanged. The generated response/mode/timing report is sanitized; credentials never enter reports.
+
+Existing regression coverage retained: `morning_profile` (requires the local synthetic text-resume.pdf/scanned-cv.pdf fixtures in output), `morning_explore`, `morning_safe_content`, `morning_auth_race`, `morning_identity_client`, `morning_structured_proposals`, and provider-absent `morning_unavailable`. These demonstrate local identities/controlled expiry, not live managed Clerk acceptance.

@@ -1,3 +1,4 @@
+import {beginPanelRefresh} from '../panel-refresh.js';
 import {api,key} from '../client.js';
 import {esc,facts,showError,sourceAttribution,source} from '../ui.js';
 import {svg} from '../icons.js';
@@ -10,10 +11,8 @@ export async function careers(ctx,tab='matches'){
  view.querySelectorAll('.tabs a').forEach(a=>{const active=a.hash==='#'+ctx.page+'/'+tab;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
  const previousTab=view.dataset.panelTab;view.dataset.panelTab=tab;
  const body=view.querySelector('#careerBody');
- if(previousTab!==undefined&&previousTab!==tab){body.innerHTML='<p role="status">Loading this section…</p>';view.scrollTop=0;}
- body.setAttribute('aria-busy','true');const refreshStatus=document.createElement('span');refreshStatus.className='panel-loading';refreshStatus.role='status';refreshStatus.textContent='Updating…';body.before(refreshStatus);
- ctx.signal.addEventListener('abort',()=>refreshStatus.remove(),{once:true});
- const observer=new MutationObserver(()=>{body.setAttribute('aria-busy','false');refreshStatus.remove();observer.disconnect();});observer.observe(body,{childList:true});ctx.signal.addEventListener('abort',()=>observer.disconnect(),{once:true});
+ if(previousTab!==undefined&&previousTab!==tab){delete body.dataset.ready;body.innerHTML='<p role="status">Loading this section…</p>';view.scrollTop=0;}
+ beginPanelRefresh(ctx,body,previousTab===tab);
  const read=(path,value)=>api(path,value,value===undefined?'GET':'POST',{signal:ctx.signal});
  if(tab==='outlook'){
    const direction=ctx.selectedRole?null:(await read('product/direction')).direction;
@@ -54,7 +53,7 @@ export async function careers(ctx,tab='matches'){
   return `<section aria-label="${esc(group.label||'Career matches')}"><div class="panel match-hero"><div class="match-copy"><p class="eyebrow">${esc(group.label||'YOUR MATCHES')}</p><h2>${esc(roleLabel(first.role_id))}</h2><p class="muted">${esc(first.explanation)}</p><div class="actions"><button class="button primary" data-open-role="${esc(first.role_id)}">View career ${svg('arrow-right')}</button><details><summary>How matching works</summary><p>${esc(group.limitation)}</p><p>${Math.round(first.evidence_coverage*100)}% of skill criteria assessed. This describes evidence coverage.</p></details></div></div></div>${rest.length?`<div class="list-heading"><h3>Other directions to explore</h3>${link('compare','Compare careers')}</div><div class="panel">${rest.map(o=>`<div class="career-row"><span class="icon-disc">${svg('compass')}</span><div class="role-link"><strong>${esc(roleLabel(o.role_id))}</strong><p>${esc(o.explanation)}</p></div><button class="text-link" data-open-role="${esc(o.role_id)}">View ${svg('arrow-right')}</button></div>`).join('')}</div>`:''}</section>`;
  }).join('')+(recommendation?.targeted_questions||[]).map(q=>`<div class="callout"><div><strong>A little more context will help</strong><p>${esc(q)}</p></div><a class="button" href="#profile">Update profile</a></div>`).join('');
  }
- body.innerHTML=`<div id="careerMatches">${recommendation?matchingMarkup():empty()}</div><div class="list-heading"><h3>Explore the career catalogue</h3><small>Catalogue order</small></div><form id="careerSearch" class="actions"><label>Find a career <input name="query" type="search" maxlength="200" value="${esc(filters.query)}"></label><button class="button" type="submit">Search</button></form><div class="panel" id="careerCatalogue"></div>`;
+ body.innerHTML=`<div id="careerMatches">${recommendation?matchingMarkup():empty()}</div><div class="list-heading"><h3>Explore the career catalogue</h3><small>Catalogue order</small></div><form id="careerSearch" class="actions"><label>Find a career <input id="careerQuery" name="query" type="search" maxlength="200" value="${esc(filters.query)}"></label><button class="button" type="submit">Search</button></form><div class="panel" id="careerCatalogue"></div>`;
  function drawCatalogue(){body.querySelector('#careerCatalogue').innerHTML=roles.length?roles.map(r=>`<div class="career-row"><span class="icon-disc">${svg('compass')}</span><div class="role-link"><strong>${esc(r.label)}</strong><p>${esc(r.eligibility)}</p></div><button class="text-link" data-open-role="${esc(r.role_id)}">View career ${svg('arrow-right')}</button></div>`).join(''):'<p class="panel-pad muted">No careers found. Try a broader term.</p>';bindRoles();}
  function bindRoles(){body.querySelectorAll('[data-open-role]').forEach(b=>b.onclick=()=>{location.hash='careers/role/'+encodeURIComponent(b.dataset.openRole);});}
  body.querySelector('#careerSearch').onsubmit=async event=>{event.preventDefault();const b=event.currentTarget.querySelector('button');b.disabled=true;try{const result=await read('roles',{query:event.currentTarget.elements.query.value,limit:50});if(ctx.isCurrent()){roles=result.roles;drawCatalogue();}}catch(e){showError(e);}finally{b.disabled=false;}};

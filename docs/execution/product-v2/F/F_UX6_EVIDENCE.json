@@ -1,0 +1,387 @@
+{
+  "gate": "F-UX0\u2013F-UX6",
+  "scope": "local frontend acceptance; no deployment or live Clerk claim",
+  "provider_backend_runtime_revision": "a5000c269ad35e926b27242e4e0389ca10890e96",
+  "backend_dependency": "d734d95cf68cb4945562bd9166714798edc2fb23",
+  "approved_assets_contract_dependency": "29a6b9303a13b617a0698ea9c3a2c6fd4ebf796f",
+  "database_schema": 7,
+  "provider": {
+    "real_backend": true,
+    "real_provider": true,
+    "base": "http://127.0.0.1:9106",
+    "turns": [
+      {
+        "ms": 969,
+        "channel": "minder",
+        "status": "completed",
+        "response_mode": "generated_guidance",
+        "provider": {
+          "invoked": true,
+          "model": "qwen/qwen3.8-27b",
+          "request_id": "req_01m5pj6rdhemrakdhr3gzsceet",
+          "status": "available",
+          "tool_call": {
+            "arguments_validated": true,
+            "id": "bcddpp3ng",
+            "name": "propose_guidance"
+          },
+          "usage": {
+            "completion_tokens": 216,
+            "prompt_tokens": 2089,
+            "total_tokens": 2305
+          }
+        },
+        "action_status": "no_mutation_requested_or_executed",
+        "answer": "Hi! I can help you map out a learning path, break goals into concrete practice tasks, and review your progress. To tailor this, what role or skill are you aiming for, and roughly how many hours per week can you study?"
+      },
+      {
+        "ms": 1710,
+        "channel": "minder",
+        "status": "completed",
+        "response_mode": "generated_guidance",
+        "provider": {
+          "invoked": true,
+          "model": "qwen/qwen3.8-27b",
+          "request_id": "req_01m5pj6sg6e1ys0gyx9qy8rjz3",
+          "status": "available",
+          "tool_call": {
+            "arguments_validated": true,
+            "id": "ddmp5p7a2",
+            "name": "propose_guidance"
+          },
+          "usage": {
+            "completion_tokens": 574,
+            "prompt_tokens": 2211,
+            "total_tokens": 2785
+          }
+        },
+        "action_status": "no_mutation_requested_or_executed",
+        "answer": "Great start\u2014beginning a learning notebook is a smart move. Since you're just starting out, the first thing to write down is a clear, specific goal for what you want to learn this week, plus a short list of 2\u20133 concrete practice tasks you'll complete. This gives you a baseline to track progress against. I don't yet know which role or skill you're targeting, so I'll keep this general for now."
+      },
+      {
+        "ms": 1300,
+        "channel": "mindbot",
+        "status": "completed",
+        "response_mode": "generated_guidance",
+        "provider": {
+          "invoked": true,
+          "model": "qwen/qwen3.8-27b",
+          "request_id": "req_01m5pj6vmdev7arb3h4rbeksxc",
+          "status": "available",
+          "tool_call": {
+            "arguments_validated": true,
+            "id": "9pnywja3f",
+            "name": "propose_guidance"
+          },
+          "usage": {
+            "completion_tokens": 251,
+            "prompt_tokens": 2753,
+            "total_tokens": 3004
+          }
+        },
+        "action_status": "applied",
+        "answer": "Mark task 9edeb5a8-7394-473a-9121-84576eef1101 completed."
+      }
+    ],
+    "font": {
+      "body": "16px",
+      "font": "Inter, ui-sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Arial, sans-serif",
+      "composer": "15px",
+      "user": "16px"
+    },
+    "mindbot_open": {
+      "frame_ms": 6,
+      "ready_ms": 29
+    },
+    "stop_waiting_exact_receipt": true,
+    "followup_history_no_replay": true,
+    "message_content_search": true,
+    "mindbot_same_channel_action_exact_retry_no_replay": true,
+    "page_errors": [],
+    "model_invocations": 3,
+    "turn_requests_including_two_receipts": 5,
+    "sanitized_requests": [
+      {
+        "channel": "minder",
+        "body": {
+          "conversation_id": "<owned Minder id>",
+          "message": "How can u help me minder?",
+          "idempotency_key": "<redacted>",
+          "expected_profile_version": null
+        }
+      },
+      {
+        "channel": "minder",
+        "body": {
+          "conversation_id": "<same owned Minder id>",
+          "message": "I have no work experience yet. I want to start a notebook. What should I write down first this week?",
+          "idempotency_key": "<redacted>",
+          "expected_profile_version": null
+        }
+      },
+      {
+        "channel": "mindbot",
+        "body": {
+          "conversation_id": "<owned singleton id>",
+          "message": "Mark task <synthetic task UUID> completed.",
+          "idempotency_key": "<redacted>",
+          "expected_profile_version": "<saved partial profile version>"
+        }
+      }
+    ]
+  },
+  "real_zoom": {
+    "browser_zoom": 2,
+    "before": {
+      "width": 1280,
+      "dpr": 1
+    },
+    "after": {
+      "width": 640,
+      "dpr": 2
+    },
+    "profile_all_bottom_controls": true,
+    "rows": [
+      {
+        "route": "home",
+        "height": 300,
+        "scroll": 1331,
+        "top": 1031,
+        "overflow": "auto"
+      },
+      {
+        "route": "profile/overview",
+        "height": 300,
+        "scroll": 1015,
+        "top": 715,
+        "overflow": "auto"
+      },
+      {
+        "route": "careers/matches",
+        "height": 300,
+        "scroll": 4731,
+        "top": 4431.5,
+        "overflow": "auto"
+      },
+      {
+        "route": "careers/compare",
+        "height": 300,
+        "scroll": 1159,
+        "top": 859,
+        "overflow": "auto"
+      },
+      {
+        "route": "careers/outlook",
+        "height": 300,
+        "scroll": 567,
+        "top": 267.5,
+        "overflow": "auto"
+      },
+      {
+        "route": "my-path/skills",
+        "height": 300,
+        "scroll": 672,
+        "top": 372.5,
+        "overflow": "auto"
+      },
+      {
+        "route": "my-path/next",
+        "height": 300,
+        "scroll": 672,
+        "top": 372.5,
+        "overflow": "auto"
+      },
+      {
+        "route": "my-path/progress",
+        "height": 300,
+        "scroll": 672,
+        "top": 372.5,
+        "overflow": "auto"
+      },
+      {
+        "route": "my-path/roadmap",
+        "height": 300,
+        "scroll": 672,
+        "top": 372.5,
+        "overflow": "auto"
+      }
+    ]
+  },
+  "partial_updates": {
+    "stable_main_heading_tabs": true,
+    "slow_and_rapid_tabs": true,
+    "same_panel_refresh_retains_content": true,
+    "refresh_failure_retains_content_with_local_retry": true,
+    "filter_focus_caret_retained": true,
+    "document_navigations": 1,
+    "page_errors": []
+  },
+  "recovery": {
+    "controlled_transport_failure": true,
+    "home_profile_retry_is_local": true,
+    "other_home_sections_survive_profile_failure": true,
+    "lost_identity_save_retains_draft": true,
+    "reload_before_retry": true,
+    "explicit_reconciled_save_no_version_replay": true,
+    "global_plus_all_five_modules_no_empty_records": true,
+    "singleton_unchanged": true,
+    "long_real_history_reading_position_retained": true,
+    "provider_calls": 0,
+    "page_errors": []
+  },
+  "provider_absent": {
+    "actual_provider_absent": true,
+    "provider": {
+      "code": "provider_credentials_missing",
+      "invoked": false,
+      "request_id": "b603f175-eff3-46c5-89db-41c80324b972",
+      "status": "unavailable"
+    },
+    "working_cleared": true,
+    "independent_mindbot_samples": [
+      {
+        "frame_ms": 7,
+        "ready_ms": 31
+      },
+      {
+        "frame_ms": 2,
+        "ready_ms": 3
+      },
+      {
+        "frame_ms": 1,
+        "ready_ms": 2
+      }
+    ],
+    "extra_turns_from_reads": 0,
+    "actual_401_masks_private_state": true,
+    "new_local_owner_has_no_prior_history": true,
+    "managed_login_claimed": false,
+    "page_errors": []
+  },
+  "screenshots_and_trace_local_only": [
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux1-minder.png",
+      "bytes": 89469,
+      "sha256": "09505223136d464d7194e7e508a11669ad8c83402b200046e1b7cf870b3a7f91"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux3-mobile-collapsed.png",
+      "bytes": 55017,
+      "sha256": "1558b6a737ad72ba59dc6c81a693ade3b528c937d960153beec426a056256ce9"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux4-customize-mobile.png",
+      "bytes": 92700,
+      "sha256": "e350a35a2d534815c08124c46e2909fc6397edbeb74da8772b7eff99e340a1f9"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux5-first-visit.png",
+      "bytes": 96752,
+      "sha256": "0d141e13a5c3491ce4054de39fdfa184160ed9782a2fa31c26683bb8bac501e7"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux5-home-390.png",
+      "bytes": 41527,
+      "sha256": "ca16ec5732fd8a6caa3e43d3ec182386493974d62625cc2999364aa7a6226659"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux6-real-200pct-profile.png",
+      "bytes": 50580,
+      "sha256": "11913cc020abd6141fdef1f3bbee8b1e83c403072d29728beb2126516207ac7f"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux2-partial-trace.zip",
+      "bytes": 1027283,
+      "sha256": "1939f83d1f00484925f5943d8206d29aaf08a7395f1ae81fd12da12f55f7ea24"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/regression/ux6-minder-real-followup.png",
+      "bytes": 135715,
+      "sha256": "c30185dffb655777e261ee902dc3027742ac2594fa25e98f208cc5ed48c2c5d7"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/regression/ux6-mindbot-real-action.png",
+      "bytes": 89354,
+      "sha256": "3f18440b56613dc63ae7fc437f30e0a28e35dedebebf202ff13c867010f8e66e"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux6-restored-home-desktop.png",
+      "bytes": 96727,
+      "sha256": "0165dda72a621712f3529588acf36c38d64212a9cd0e4808ec3e607c762a9cf2"
+    }
+  ],
+  "external_release_gaps": [
+    "Live managed Clerk two-account acceptance/provisioning",
+    "Hosted Railway access/deployment acceptance (not authorized)",
+    "GPU run separately owned by B; no F completion claim"
+  ],
+  "additional_passes": [
+    "25-history pagination retained across opening older row",
+    "72px actual rail border-box and stable global row positions during Explore flyout",
+    "Profile bottom Continue visible after wheel at1440x900/1280x720/390x844/effective640x360",
+    "Hover/focus labels",
+    "Schedule panel Escape restores actual opener",
+    "Node syntax checks and git diff --check",
+    "A exact25avatar/25Home/brief hash and strict schema registry check"
+  ],
+  "final_code_sha": "f3ea83ba490f57d96de91418a35e13319a5b55e7",
+  "restored_normal_runtime": {
+    "runtime_revision": "f3ea83ba490f57d96de91418a35e13319a5b55e7",
+    "routes": 6,
+    "provider_calls": 0,
+    "page_errors": [],
+    "unexpected_network_errors": [],
+    "expected_empty_contract_responses": [
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      }
+    ]
+  }
+}

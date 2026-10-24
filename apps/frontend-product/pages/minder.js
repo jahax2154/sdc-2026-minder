@@ -7,13 +7,13 @@ import {hydrateIcons,svg} from '../icons.js';
 import {conversationSidebar} from '../conversation-sidebar.js';
 // Transcripts are read from the server on every open; this state is presentation only.
 const state={messages:[],draft:'',contextOpen:false,scrollTop:0,pending:null,previousContext:null,conversationId:null,uncertainBody:null,loading:false};
-const drafts=new Map();
+const drafts=new Map(),scrollPositions=new Map();
 let layoutText=null;
 let renderCurrent=null;
 function releaseInert(){document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);}
 window.addEventListener('hashchange',()=>{if(location.hash!=='#minder')releaseInert();});
 export async function minder(ctx,conversationId='') {
-  state.draft=drafts.get(conversationId||'')||'';state.messages=[];state.pending=null;state.conversationId=conversationId||null;state.uncertainBody=null;state.loading=!!conversationId;
+  state.draft=drafts.get(conversationId||'')||'';state.scrollTop=scrollPositions.get(conversationId||'')||0;state.messages=[];state.pending=null;state.conversationId=conversationId||null;state.uncertainBody=null;state.loading=!!conversationId;
   if(!layoutText){const controller=new AbortController(),abort=()=>controller.abort();ctx.signal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,8000);try{const response=await fetch('pages/minder.html',{signal:controller.signal});if(!response.ok)throw new Error('Chat layout unavailable.');layoutText=await response.text();}finally{clearTimeout(timer);ctx.signal?.removeEventListener('abort',abort);}}
   if(ctx.isCurrent&&!ctx.isCurrent())return;ctx.view.innerHTML=layoutText;ctx.view.className='page-main chat-page';ctx.view.dataset.frameReady='true';ctx.view.setAttribute('aria-busy','false');
   const $=s=>ctx.view.querySelector(s),input=$('#minderInput'),thread=$('#minderThread'),panel=$('#minderContext'),toggle=$('#minderContextToggle'),scroll=$('#minderScroll');
@@ -82,14 +82,14 @@ export async function minder(ctx,conversationId='') {
   bind('minderComposer',send);$('#cancelMinder').onclick=()=>state.pending?.controller.abort();
   input.maxLength=4000;input.addEventListener('input',()=>{state.draft=input.value;drafts.set(state.conversationId||'',state.draft);input.style.height='auto';input.style.height=Math.min(130,input.scrollHeight)+'px';});
   input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#minderComposer').requestSubmit();}});
-  scroll.addEventListener('scroll',()=>state.scrollTop=scroll.scrollTop);
+  scroll.addEventListener('scroll',()=>{if(!state.loading){state.scrollTop=scroll.scrollTop;scrollPositions.set(state.conversationId||'',state.scrollTop);}});
   const prompts=['Help me understand a practical preparation path using my saved profile and selected role.','Explain which requirements are supported by my evidence and which are unassessed.','Help me review my current plan and suggest realistic next steps without changing it.','Help me compare career directions using the available evidence and its limits.'];
   ctx.view.querySelectorAll('[data-prompt]').forEach((b,i)=>b.onclick=()=>{state.draft=prompts[i]||b.dataset.prompt;input.value=state.draft;input.focus();});
   toggle.onclick=()=>setContext(!state.contextOpen);$('#closeMinderContext').onclick=()=>setContext(false);
   panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();setContext(false);}else if(e.key==='Tab'&&innerWidth<=1050){const controls=[...panel.querySelectorAll('button,a[href]')];if(e.shiftKey&&document.activeElement===controls[0]){e.preventDefault();controls.at(-1).focus();}else if(!e.shiftKey&&document.activeElement===controls.at(-1)){e.preventDefault();controls[0].focus();}}});
   window.addEventListener('resize',()=>{if(mounted())contextLayout();},{signal:ctx.signal});
   $('#minderNewSmall').onclick=()=>document.querySelector('#globalNewChat').click();$('#minderAdd').onclick=()=>{location.hash='profile';};
-  update();scroll.scrollTop=state.scrollTop;await loadSaved();
+  const restoredTop=state.scrollTop;update();await loadSaved();if(mounted())scroll.scrollTop=restoredTop;
 }
 export function clearConversation({preserveDraft=false}={}){if(state.pending)return false;if(!preserveDraft)drafts.delete(state.conversationId||'');state.messages.length=0;state.draft='';state.contextOpen=false;state.scrollTop=0;state.previousContext=null;state.conversationId=null;state.uncertainBody=null;state.loading=false;releaseInert();return true;}
-export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();drafts.clear();renderCurrent=null;}
+export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();drafts.clear();scrollPositions.clear();renderCurrent=null;}

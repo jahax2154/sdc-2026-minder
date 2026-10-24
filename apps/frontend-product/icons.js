@@ -1,4 +1,6 @@
 const paths={
+ // Exact Home icon from docs/Minder_Home_Package/assets/app.js.
+ 'home':'m3 10 9-7 9 7v10H3z M9 20v-7h6v7',
  // Back/document/info shapes match the approved profile/explore SVG assets.
  'arrow-left':'m15 18-6-6 6-6 M9 12h12','file':'M6 2h8l5 5v15H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M14 2v5h5 M8 12h8 M8 16h8','info':'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0 M12 11v6 M12 7h.01',
  'plus':'M12 5v14 M5 12h14','arrow-right':'M5 12h14 M13 6l6 6-6 6','arrow-up':'M12 19V5 M5 12l7-7 7 7',
