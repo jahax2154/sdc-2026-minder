@@ -5,19 +5,20 @@ import {hydrateIcons,svg} from './icons.js';
 import {minder,clearConversation,invalidateConversation} from './pages/minder.js';
 import {mindbots} from './pages/mindbots.js';
 import {careers} from './pages/careers.js';
+import {home} from './pages/home.js';
 import {myPath} from './pages/my-path.js';
 import {initials} from './pages/profile-design.js';
 let view=document.querySelector('#view'),generation=0,routeController=null,activeContext=null,navigationPending=false;
 let selectedRole=sessionStorage.getItem('minder-product-role')||'';
 function setAccountName(name=''){document.querySelector('.account-name').textContent=name||'Your workspace';document.querySelectorAll('.initials').forEach(el=>{el.textContent=initials(name);el.title=name||'Your workspace';});}
-const labels={overview:'Overview',profile:'My profile',minder:'Minder Chat',mindbots:'MindBot','career-match':'Career Match',tasks:'Tasks',progress:'Progress',roadmap:'Roadmap & Skills',news:'News & Trends',future:'Future Explorer'};
+const labels={home:'Home',overview:'Home',profile:'My profile',minder:'Minder Chat',mindbots:'MindBot','career-match':'Career Match',tasks:'Tasks',progress:'Progress',roadmap:'Roadmap & Skills',news:'News & Trends',future:'Future Explorer'};
 async function render(){
   if(!authenticated())return showSignIn();
   if(navigationPending)return;const leaving=activeContext;if(leaving?.beforeLeave){navigationPending=true;let allowed;try{allowed=await leaving.beforeLeave();}finally{navigationPending=false;}if(leaving!==activeContext||!authenticated())return;if(!allowed){window.history.replaceState(null,'',leaving.routeHash);return;}}
   const current=++generation;routeController?.abort();routeController=new AbortController();
   document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);
-  const route=location.hash.slice(1)||'minder', [page,...segments]=route.split('/'),tab=segments.join('/');
-  const sameModule=activeContext?.page===page,stage=view;stage.setAttribute('aria-busy','true');if(!sameModule){stage.className='page-main product-page';stage.replaceChildren();stage.scrollTop=0;}
+  const route=location.hash.slice(1)||'home', [page,...segments]=route.split('/'),tab=segments.join('/');
+  const sameModule=activeContext?.page===page,stage=view;stage.setAttribute('aria-busy','true');delete stage.dataset.rendered;if(!sameModule){stage.className='page-main product-page';stage.replaceChildren();stage.scrollTop=0;}
   document.querySelector('#globalNewChat').hidden=false;document.querySelector('#pageTitle').textContent=({careers:'Careers','my-path':'My Path'}[page]||labels[page]||'Minder');document.querySelector('#error').hidden=true;
   document.querySelectorAll('.nav-link').forEach(a=>{const active=(a.hash||'').split('/')[0]==='#'+page;a.classList.toggle('active',active);a.setAttribute('aria-current',active?'page':'false');});
   if(sameModule&&leaving.tab!==tab&&['careers','my-path'].includes(page)){stage.querySelectorAll('.tabs a').forEach(a=>{const active=a.hash==='#'+page+'/'+tab;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});const body=stage.querySelector('#careerBody,#pathBody');if(body)body.innerHTML='<p role="status">Loading this section…</p>';}
@@ -30,7 +31,7 @@ async function render(){
   if(sameModule&&leaving.tab!==tab&&leaving.profileStatus==='ready'){ctx.profile=leaving.profile;ctx.profileStatus='ready';ctx.profileReady=Promise.resolve(ctx.profile);}else ctx.profileReady=ctx.refreshProfile();
   if(!sameModule)stage.innerHTML='<p role="status">Loading your workspace…</p>';
   try{
-    if(page==='minder')await minder(ctx,decodeURIComponent(tab));else if(page==='mindbots')await mindbots(ctx);
+    if(page==='home'||page==='overview')await home(ctx);else if(page==='minder')await minder(ctx,decodeURIComponent(tab));else if(page==='mindbots')await mindbots(ctx);
     else{await ctx.profileReady;if(!ctx.isCurrent())return;if(ctx.profileError)throw ctx.profileError;if(page==='careers'||page==='career-match'){await careers(ctx,tab||'matches');}else if(page==='my-path'||['roadmap','tasks','progress'].includes(page)){await myPath(ctx,tab||({roadmap:'roadmap',tasks:'next',progress:'progress'}[page])||'next');}else{const pages=await import('./pages/workspace.js');if(ctx.isCurrent())await pages.workspace(ctx,page,tab);}}
     if(ctx.isCurrent())hydrateIcons(stage);
   }catch(e){if(!ctx.isCurrent()||e.code==='request_cancelled')return;(stage.querySelector('#careerBody,#pathBody')||stage).innerHTML=card('Unable to load this view','<p>You can retry this view or open another page.</p><button id="retryView">Try again</button>');document.querySelector('#retryView').onclick=render;showError(e);}

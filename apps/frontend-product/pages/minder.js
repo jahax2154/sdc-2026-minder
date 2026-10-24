@@ -1,9 +1,10 @@
 import {api,key} from '../client.js';
-import {history,listConversations,createConversation,deleteConversation,sendTurn} from '../conversations.js';
+import {history,createConversation,sendTurn} from '../conversations.js';
 import {messageMarkup} from '../chat-renderer.js';
 import {bindDraftReviews} from '../plan-drafts.js';
 import {esc,facts,showError,bind} from '../ui.js';
 import {hydrateIcons,svg} from '../icons.js';
+import {conversationSidebar} from '../conversation-sidebar.js';
 // Transcripts are read from the server on every open; this state is presentation only.
 const state={messages:[],draft:'',contextOpen:false,scrollTop:0,pending:null,previousContext:null,conversationId:null,uncertainBody:null,loading:false};
 const drafts=new Map();
@@ -18,7 +19,8 @@ export async function minder(ctx,conversationId='') {
   const $=s=>ctx.view.querySelector(s),input=$('#minderInput'),thread=$('#minderThread'),panel=$('#minderContext'),toggle=$('#minderContextToggle'),scroll=$('#minderScroll');
   if(ctx.chatDraft){state.draft=ctx.chatDraft;delete ctx.chatDraft;}input.value=state.draft;
   const mounted=()=>ctx.isCurrent()&&ctx.view.querySelector('#minderThread')===thread;
-  const toolbar=document.createElement('div');toolbar.className='chat-history-toolbar';toolbar.innerHTML='<label for="minderConversationList">Saved conversations</label><select id="minderConversationList" aria-label="Saved Minder conversations"><option value="">New conversation</option></select><button type="button" class="button-outline" id="deleteMinderConversation" disabled>Delete</button><button type="button" class="button-outline" id="refreshMinderHistory">Refresh history</button>';ctx.view.querySelector('.content-col').prepend(toolbar);toolbar.insertAdjacentHTML('afterend','<div class="chat-history-status" id="minderHistoryStatus" role="status"></div>');
+  ctx.view.querySelector('.content-col').insertAdjacentHTML('afterbegin','<div class="chat-history-status" id="minderHistoryStatus" role="status"></div>');
+  const sidebar=conversationSidebar(ctx,{currentId:()=>state.conversationId,busy:()=>!!state.pending,onDeleted:()=>{clearConversation();if(location.hash==='#minder')ctx.render();else location.hash='minder';}});
   $('.composer-caption').textContent='Your messages save to your account. Plans and actions need explicit confirmation.';
   function contextLayout(focus=false){
     if(!mounted())return;const overlay=innerWidth<=1050&&state.contextOpen;
@@ -44,17 +46,12 @@ export async function minder(ctx,conversationId='') {
   async function loadSaved(){
     if(!mounted())return;state.loading=true;update();$('#minderHistoryStatus').textContent='Loading saved conversations…';
     try{
-      const list=await listConversations({signal:ctx.signal});if(!mounted())return;
-      $('#minderConversationList').innerHTML='<option value="">New conversation</option>'+list.map(c=>`<option value="${esc(c.conversation_id)}" ${c.conversation_id===state.conversationId?'selected':''}>${esc(c.title)}</option>`).join('');
       if(state.conversationId){const saved=await history('minder',state.conversationId,{signal:ctx.signal});if(!mounted())return;state.messages=saved.messages;$('#minderHistoryStatus').textContent=saved.pending_turns.length?'An earlier request is processing or uncertain. Refresh saved history before issuing another instruction.':'';}else $('#minderHistoryStatus').textContent='';
-      if(state.uncertainBody){$('#minderHistoryStatus').textContent='Saved history refreshed. Retrieve the exact request outcome before sending another instruction.';addExactRetry();}$('#deleteMinderConversation').disabled=!state.conversationId;
-    }catch(e){if(mounted()&&e.code!=='request_cancelled'){$('#minderHistoryStatus').textContent=e.message+' Refresh history to try again.';showError(e);}}
+      if(state.uncertainBody){$('#minderHistoryStatus').textContent='Saved history refreshed. Retrieve the exact request outcome before sending another instruction.';addExactRetry();}
+    }catch(e){if(mounted()&&e.code!=='request_cancelled'){$('#minderHistoryStatus').textContent=e.message+' ';const retry=document.createElement('button');retry.textContent='Retry saved history';retry.className='button-outline';retry.onclick=loadSaved;$('#minderHistoryStatus').append(retry);showError(e);}}
     finally{if(mounted()){if(state.uncertainBody&&!$('#retryExactMinder'))addExactRetry();state.loading=false;update();}}
   }
-  let createBody=null,deleteBody=null;
-  $('#minderConversationList').onchange=event=>{location.hash=event.target.value?'minder/'+encodeURIComponent(event.target.value):'minder';};
-  $('#refreshMinderHistory').onclick=()=>loadSaved();
-  $('#deleteMinderConversation').onclick=async event=>{if(state.pending||!state.conversationId)return;if(!confirm('Delete this saved Minder conversation?'))return;const button=event.currentTarget;button.disabled=true;deleteBody??={conversation_id:state.conversationId,idempotency_key:key()};try{await deleteConversation(deleteBody);clearConversation();location.hash='minder';if(mounted())await ctx.render();}catch(e){if(mounted()){showError(e);$('#minderHistoryStatus').textContent='Deletion is not confirmed. Refresh history before another change.';}}finally{if(button.isConnected)button.disabled=false;}};
+  let createBody=null;
   function addExactRetry(){const button=document.createElement('button');button.type='button';button.className='button-outline';button.id='retryExactMinder';button.textContent='Retry exact request';button.onclick=()=>{if(!state.pending&&state.uncertainBody)submit(state.uncertainBody.message,state.uncertainBody);};$('#minderHistoryStatus').append(' ',button);}
   async function send(){
     const message=input.value.trim();if(!message||state.pending||state.loading)return;
@@ -67,13 +64,13 @@ export async function minder(ctx,conversationId='') {
     const abort=()=>{request.invalidated=true;request.controller.abort();};ctx.signal.addEventListener('abort',abort,{once:true});
     try{
       await ctx.profileReady;if(request.invalidated)return;if(ctx.profileError)throw new Error('Saved context could not be loaded. Retry context before sending.');
-      if(!state.conversationId){createBody??={idempotency_key:key(),title:message.slice(0,120)};const created=await createConversation(createBody);if(request.invalidated)return;state.conversationId=created.conversation.conversation_id;const option=document.createElement('option');option.value=state.conversationId;option.textContent=created.conversation.title;$('#minderConversationList').append(option);$('#minderConversationList').value=state.conversationId;$('#deleteMinderConversation').disabled=false;window.history.replaceState(null,'','#minder/'+encodeURIComponent(state.conversationId));}
+      if(!state.conversationId){createBody??={idempotency_key:key(),title:message.slice(0,120)};const created=await createConversation(createBody);if(request.invalidated)return;state.conversationId=created.conversation.conversation_id;window.history.replaceState(null,'','#minder/'+encodeURIComponent(state.conversationId));}
       const body=exactBody||{conversation_id:state.conversationId,message,idempotency_key:key(),expected_profile_version:ctx.profile?.version??null};request.body=body;
       const result=await sendTurn(body,{signal:request.controller.signal});if(request.invalidated)return;
       state.uncertainBody=null;
       if(['processing','uncertain'].includes(result.turn.status)){$('#minderHistoryStatus').textContent='The server has not confirmed a final outcome. Refresh history; this instruction was not replayed.';}
       else $('#minderHistoryStatus').textContent=result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
-      const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await ctx.refreshProfile();
+      const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await sidebar.reload();await ctx.refreshProfile();
       if(result.response?.generation)window.dispatchEvent(new Event('minder-generation-available'));
     }catch(e){if(request.invalidated)return;if(e.status===409){await ctx.refreshProfile();if(request.invalidated)return;}state.draft=message;drafts.set(state.conversationId||'',message);input.value=message;
       if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;else if(e.status)state.uncertainBody=null;
