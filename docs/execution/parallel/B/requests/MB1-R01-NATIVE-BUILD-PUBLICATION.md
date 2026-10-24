@@ -1,5 +1,7 @@
 # A publication handoff — native RunPod build
 
+MB1-R02 update: publish native-build commit **`202ae8941893f7834ceba5175f12532a408d37d5`** or the cumulative commit containing `MB1-R02.json`. The dedicated endpoint now exists as **`0387furb08gke2`**, min/max0/no Pods/no builds. The earlier connection/no-endpoint statements below are historical. Endpoint-specific key permission is awaiting Junhong's narrow grant; final image/build and actual GPU job remain pending. Remote B was most recently reverified at c8eb099; no B push has been performed.
+
 B verified RunPod access, **USD25 credit**, **USD0/hour current spend**, no endpoints or Pods, and disabled automatic payment. The private key was neither printed nor committed. GitHub CLI authentication works. Remote `session/b-market` was verified at `c8eb09921f6bf583ec30bca636f549628a575d69`.
 
 **A: publish the exact B commit containing `MB1-R01.json` and this handoff to `session/b-market`, preserving history.** Capture/report its full SHA, rather than a moving tip. No shared file edits or root CI workflow are required. The native build uses repository `jahax2154/sdc-2026-minder`, branch `session/b-market`, repository-root build context, Dockerfile **`docs/execution/parallel/B/checks/GPU.native.Dockerfile`**. B does not independently race A's publication.

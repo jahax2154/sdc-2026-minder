@@ -1,5 +1,7 @@
 # Current RunPod continuation
 
+Latest MB1-R02 state: B created and re-read dedicated endpoint **`0387furb08gke2`**, with min/max workers both **0**, GPU count1, no Pods and no builds. Its actual ID is saved privately; final `RUNPOD_IMAGE` remains unset. Endpoint `/health` returns explicit403permission denial; Read/Write scope for only this ID has been requested asynchronously. Credit remainsUSD25/current spendUSD0 per hour. No build, test job or experiment has started. A must publish `202ae8941893f7834ceba5175f12532a408d37d5` or the cumulative MB1-R02 snapshot before the native Dockerfile is available remotely. Earlier no-endpoint statements below describe the preceding checkpoint.
+
 This MB1-R01 update supersedes MB1-PREP's pending-credit state and its strict provider-one-attempt requirement. The existing experiment, source/data hashes, validation/test discipline, CUDA proof checks and single client submission remain unchanged.
 
 Authenticated read checks passed: credit **USD25**, current account spend **USD0/hour**, **zero endpoints and zero Pods**, automatic payment disabled. The API key remains only in the existing mode600 ignored `.env.runpod.local`; no credential is in committed evidence. GitHub authentication also passed, and the remote B preparation commit was verified as `c8eb09921f6bf583ec30bca636f549628a575d69`.

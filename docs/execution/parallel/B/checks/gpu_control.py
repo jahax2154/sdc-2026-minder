@@ -19,7 +19,7 @@ PAYLOAD = {'input': {'experiment_id': 'minder-synthetic-gpu-20261024-once',
     'require_gpu': True}, 'policy': {'executionTimeout': 180000, 'ttl': 300000}}
 
 
-def load_secret(path=SECRET, *, require_endpoint=True):
+def load_secret(path=SECRET, *, require_endpoint=True, require_image=True):
     if path.stat().st_mode & 0o077:
         raise ValueError('private_config_must_be_mode_600')
     result = {}
@@ -38,7 +38,7 @@ def load_secret(path=SECRET, *, require_endpoint=True):
     if require_endpoint:
         if not re.fullmatch(r'[A-Za-z0-9_-]+', result.get('RUNPOD_ENDPOINT_ID', '')):
             raise ValueError('private_endpoint_not_configured')
-        if not re.fullmatch(r'[^\s]+@sha256:[a-f0-9]{64}', result.get('RUNPOD_IMAGE', '')):
+        if require_image and not re.fullmatch(r'[^\s]+@sha256:[a-f0-9]{64}', result.get('RUNPOD_IMAGE', '')):
             raise ValueError('final_image_digest_required')
     return result
 
@@ -169,7 +169,9 @@ def main():
         response = json.loads(args.response.read_text())
         digest = retrieve(response['output'], args.receipt_dir / 'artifacts')
         print(json.dumps({'artifact_sha256': digest, 'retrieved': True})); return
-    secret = load_secret()
+    # Management/cancellation must remain usable during a failed image build;
+    # only experiment submission needs the final immutable image reference.
+    secret = load_secret(require_image=args.command == 'submit')
     base = 'https://api.runpod.ai/v2/' + secret['RUNPOD_ENDPOINT_ID']
     args.receipt_dir.mkdir(parents=True, exist_ok=True)
     if args.command in ('inspect-endpoint', 'shutdown', 'delete-endpoint'):

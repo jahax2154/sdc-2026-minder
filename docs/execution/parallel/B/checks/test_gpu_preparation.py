@@ -115,6 +115,14 @@ class PreparationTests(unittest.TestCase):
             self.assertEqual(control.load_secret(path,require_endpoint=False)['RUNPOD_API_KEY'],'fictional-test-key')
             with self.assertRaisesRegex(ValueError,'endpoint'): control.load_secret(path)
 
+    def test_prebuild_cleanup_requires_endpoint_but_not_unavailable_final_image(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'.env.runpod.local'
+            path.write_text('RUNPOD_API_KEY=fictional-test-key\nRUNPOD_ENDPOINT_ID=mock-endpoint\nRUNPOD_IMAGE=\n')
+            path.chmod(0o600)
+            self.assertEqual(control.load_secret(path,require_image=False)['RUNPOD_ENDPOINT_ID'],'mock-endpoint')
+            with self.assertRaisesRegex(ValueError,'image'): control.load_secret(path)
+
     def test_artifact_roundtrip_before_ephemeral_worker_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); source=root/'source';source.mkdir()

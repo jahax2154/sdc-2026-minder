@@ -32,6 +32,22 @@
     "remote_B_SHA_verified": "c8eb09921f6bf583ec30bca636f549628a575d69",
     "single_client_submission_limit": 1
   },
+  "MB1_R02_endpoint_setup": {
+    "checked_at": "2026-10-24T08:28:25.180325+00:00",
+    "current_spend_per_hour": 0,
+    "endpoint_id": "0387furb08gke2",
+    "endpoint_scoped_API": "403permission_denied; narrowkeygrantrequested",
+    "experiment_job_submissions": 0,
+    "final_experiment_image": null,
+    "gpu_count": 1,
+    "native_builds": 0,
+    "paid_cost_usd": 0,
+    "pods": 0,
+    "remaining_credit_usd": 25,
+    "status": "zero_worker_metadata_only; nativepublication/keyscope/preflightpending",
+    "workers_max": 0,
+    "workers_min": 0
+  },
   "access_status": "authenticated_read_access_verified",
   "account_current_spend_per_hour": 0,
   "actual_session_cost_usd": 0,
