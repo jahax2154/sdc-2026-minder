@@ -20,20 +20,20 @@ The remaining setup steps apply only to missing configuration, not duplicate app
 2. In that Railway service attach the permitted persistent volume at `/data` if missing.
    Keep one replica and serverless/sleeping OFF. No independent cron service or
    second SQLite volume. E checks the actual target and attachment before deploying.
-3. In Clerk Dashboard select the intended application's PRODUCTION instance.
-   Configure an existing owned domain and complete its DNS records. The application
-   origin must match the production-domain setup; a Railway-generated subdomain
-   alone does not satisfy Clerk's owned-domain prerequisite. No domain purchase or
-   paid feature is authorized. If no existing domain is available, report it so the
-   production-access dependency can be resolved explicitly; do not silently use a
-   development realm or local auth bypass as production.
-4. Clerk / API Keys: configure the matching live publishable key, live secret key,
-   JWT PEM public key and exact HTTPS issuer in the same private file. Set
-   CLERK_AUTHORIZED_PARTIES to the actual app HTTPS origin and MINDER_JUDGE_URL to
-   that origin. Already-configured sealed server secrets can stay in Railway;
-   never export them merely to fill the local template. Leave CLERK_AUDIENCE blank unless that actual session template
-   issues it. For a multiline PEM, use a double-quoted value with literal `\n`
-   separators; the operator parses it as a string, never as shell code.
+3. In Clerk Dashboard reuse the working existing production instance if present.
+   Otherwise select a dedicated Development instance for this judge preview and
+   set MINDER_CLERK_INSTANCE_MODE=preview in the private file (production for a
+   live instance). Clerk recommends development instances for previews; the Railway
+   HTTPS origin is sufficient. No domain purchase is required. The preview has
+   Clerk development limits/security posture; it is not hardened production.
+4. Clerk / API Keys: configure matching publishable/secret keys, JWT PEM public key
+   and exact HTTPS issuer for that SAME instance in the private file or Railway
+   service / Variables. Preview uses pk_test/sk_test; production uses pk_live/sk_live.
+   Set CLERK_AUTHORIZED_PARTIES to the actual app HTTPS origin and MINDER_JUDGE_URL
+   to that origin. Already-configured sealed server secrets stay in Railway; never
+   export them merely to fill the local template. Leave CLERK_AUDIENCE blank unless
+   the actual session template issues it. For a multiline PEM use a double-quoted
+   value with literal `\n` separators; the operator never executes shell code.
 5. Clerk / Users: provision two distinct dedicated acceptance accounts. Save their
    opaque user IDs as CLERK_ACCEPTANCE_USER_A/B in the private file. Actual sign-in
    happens through maintained provider UI; passwords/email codes never go in chat.
@@ -51,8 +51,7 @@ contents, credentials, session cookies or tokens in chat, screenshots or Git.
 
 Official account setup references:
 https://docs.railway.com/integrations/api (project tokens are environment-scoped)
-https://clerk.com/docs/guides/development/deployment/production (owned domain/DNS)
-https://clerk.com/docs/guides/development/managing-environments (separate realms)
+https://clerk.com/docs/guides/development/managing-environments (preview realm support)
 
 ## Independent preparation completed
 
@@ -62,7 +61,7 @@ https://clerk.com/docs/guides/development/managing-environments (separate realms
   deployment was performed. The Railway plugin is available but not installed;
   the scoped project-token route works independently of that plugin.
 - `deploy.operator doctor` reports only missing LOCAL field names and capability state;
-  it never prints secret values. Latest run reports14 empty local fields, with remote
+  it never prints secret values. The initial run reported14 empty local fields, with remote
   configuration explicitly uninspected; this does not prove all cloud fields absent.
   Private configuration requires an owned regular0600 file, rejects symlinks,
   unknown/test-bypass fields and never executes shell syntax; values are literal data.
@@ -72,9 +71,11 @@ https://clerk.com/docs/guides/development/managing-environments (separate realms
   credentials; schema/account tests use controlled responses and claim no live access.
 - The mutation/deploy path requires an explicit A approval record, a full approved
   SHA reachable in the official published A branch, positive finite authorized
-  budget and valid live Clerk configuration. It checks public-key/issuer alignment,
+  budget and valid explicitly selected Clerk instance configuration. It checks public-key/issuer alignment,
   parses the signing PEM and preserves strict managed/private-volume runtime mode.
-  Provider-token and acceptance-user fields are never copied into app variables.
+  Provider-token, instance-selection and acceptance-user fields are never copied into app variables.
+  Preview still runs MINDER_ENV=production and managed auth, requires actual Clerk
+  signatures and active online sessions, and exposes no anonymous/test-auth route.
 - Private variables use a JSON request with skipDeploys, preserving other fields;
   existing sealed values are not overwritten or required in the local file.
   no secret command arguments/output. The CLI uploads a fresh `git archive` of
@@ -88,7 +89,7 @@ https://clerk.com/docs/guides/development/managing-environments (separate realms
 
 Nine operator/deployment tests pass in isolated Python3.12. They cover private-file
 permissions/redaction, target mismatch, missing/NaN/infinite budgets, wrong volume,
-runtime-only variable allowlists, live realm/origin mismatch and anonymous bypass
+runtime-only variable allowlists, explicit preview/production realm and origin mismatch and anonymous bypass
 rejection. No production request or actual deployment is claimed by these tests.
 
 ## Commands after private setup and A approval
@@ -117,5 +118,5 @@ test-auth server, schema bypass or manual Worker.tick may substitute for hosted
 proof. A/F's ongoing model and UI repairs are accepted separately by A.
 
 Public URL: unavailable. Deployed SHA: unavailable. Live journeys: not run, gated
-on the actual account/domain/volume setup and approved source. All original raw/
+on actual account/Clerk/volume setup and approved source. All original raw/
 derived inputs and private state remain excluded/unbacked-up by source commits.

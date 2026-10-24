@@ -27,7 +27,7 @@ FIELDS = {
     "MINDER_DEPLOY_MAX_USD", "MINDER_JUDGE_URL", "CLERK_PUBLISHABLE_KEY", "CLERK_SECRET_KEY",
     "CLERK_JWT_KEY", "CLERK_ISSUER", "CLERK_AUTHORIZED_PARTIES", "CLERK_AUDIENCE",
     "CLERK_ACCEPTANCE_USER_A", "CLERK_ACCEPTANCE_USER_B", "GROQ_API_KEY", "GROQ_MODEL",
-    "MINDER_LLM_DAILY_LIMIT",
+    "MINDER_LLM_DAILY_LIMIT", "MINDER_CLERK_INSTANCE_MODE",
 }
 
 
@@ -189,10 +189,12 @@ def service_variables(values, sha, existing=None):
         publishable = effective["CLERK_PUBLISHABLE_KEY"]
         issuer = effective["CLERK_ISSUER"]
         parties = [part.strip() for part in effective["CLERK_AUTHORIZED_PARTIES"].split(",")]
-        if not publishable.startswith("pk_live_"):
+        mode = values.get("MINDER_CLERK_INSTANCE_MODE")
+        realm = {"production": "live", "preview": "test"}.get(mode)
+        if not realm or not publishable.startswith("pk_" + realm + "_"):
             raise ValueError()
         secret = effective["CLERK_SECRET_KEY"]
-        if secret is not None and not secret.startswith("sk_live_"):
+        if secret is not None and not secret.startswith("sk_" + realm + "_"):
             raise ValueError()
         encoded = publishable.split("_", 2)[2]
         frontend_host = base64.b64decode(encoded + "=" * (-len(encoded) % 4), validate=True).decode().removesuffix("$")

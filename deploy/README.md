@@ -67,12 +67,16 @@ Validate the Linux wheels/container on the real provider before acceptance.
    qwen/qwen3.8-27b model and daily cap. No local Mac file is required. Never put
    keys in frontend, Git, public config or logs.
 6. Confirm F's CSP/login/source-attribution integration and A/D/F acceptance before
-   the requested judge publication. Clerk production requires an OWNED domain and
-   its DNS records; configure an existing domain for the app/Clerk instance. The
-   Railway-generated subdomain alone does not establish that Clerk production
-   prerequisite. Do not buy a domain/upgrade or silently substitute a development
-   instance. If no existing domain is available, report that exact dependency.
-   Official requirement: https://clerk.com/docs/guides/development/deployment/production
+   the requested judge publication. Reuse a working Clerk production instance if
+   present. Otherwise explicitly select a dedicated Clerk development instance for
+   this judge preview: Clerk recommends development instances for previews, usable
+   with the Railway HTTPS origin without purchasing a domain. Set the private
+   operator field MINDER_CLERK_INSTANCE_MODE=preview (matching pk_test/sk_test), or
+   production for an existing live instance (pk_live/sk_live). This choice never
+   changes the app's production/managed enforcement, verified tokens or online
+   session checks. Use real account sign-in, never fake test identities. The preview
+   realm has Clerk's development limits/security posture and is not a hardened
+   production rollout. https://clerk.com/docs/guides/development/managing-environments
 
 ## Data and migrations
 

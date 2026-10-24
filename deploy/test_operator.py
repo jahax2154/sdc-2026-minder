@@ -59,7 +59,7 @@ class OperatorTests(unittest.TestCase):
         public = rsa.generate_private_key(public_exponent=65537, key_size=2048).public_key().public_bytes(
             Encoding.PEM, PublicFormat.SubjectPublicKeyInfo).decode()
         publishable = "pk_live_" + base64.b64encode(b"clerk.judge.example$").decode()
-        values = dict(CLERK_PUBLISHABLE_KEY=publishable, CLERK_SECRET_KEY="sk_live_placeholder",
+        values = dict(MINDER_CLERK_INSTANCE_MODE="production", CLERK_PUBLISHABLE_KEY=publishable, CLERK_SECRET_KEY="sk_live_placeholder",
             CLERK_JWT_KEY=public, CLERK_ISSUER="https://clerk.judge.example",
             CLERK_AUTHORIZED_PARTIES="https://judge.example", MINDER_JUDGE_URL="https://judge.example",
             GROQ_API_KEY="private-groq", MINDER_LLM_DAILY_LIMIT="20", RAILWAY_TOKEN="private-provider-token",
@@ -81,6 +81,17 @@ class OperatorTests(unittest.TestCase):
         with self.assertRaises(OperatorError):
             service_variables(dict(values, CLERK_PUBLISHABLE_KEY=publishable.replace("pk_live_", "pk_test_"),
                                    CLERK_SECRET_KEY="sk_test_placeholder"), "a" * 40)
+        preview = dict(values, MINDER_CLERK_INSTANCE_MODE="preview",
+                       CLERK_PUBLISHABLE_KEY=publishable.replace("pk_live_", "pk_test_"),
+                       CLERK_SECRET_KEY="sk_test_placeholder")
+        preview_result = service_variables(preview, "a" * 40)
+        self.assertEqual(preview_result["MINDER_ENV"], "production")
+        self.assertEqual(preview_result["MINDER_AUTH_MODE"], "managed")
+        self.assertNotIn("MINDER_CLERK_INSTANCE_MODE", preview_result)
+        with self.assertRaises(OperatorError):
+            service_variables(dict(values, MINDER_CLERK_INSTANCE_MODE="preview"), "a" * 40)
+        with self.assertRaises(OperatorError):
+            service_variables(dict(values, MINDER_CLERK_INSTANCE_MODE=""), "a" * 40)
 
     def test_live_public_probe_cannot_claim_private_acceptance_and_rejects_bypass(self):
         from deploy.live_probe import check
