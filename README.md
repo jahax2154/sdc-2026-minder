@@ -454,7 +454,7 @@ Our team consists of three members working collaboratively on the design, develo
 - [ ] Frontend, backend, and ML source code are available in the final repository.
 - [X] Installation and testing instructions have been verified.
 - [X] No API keys, passwords, or other secrets are committed to GitHub.
-- [ ] Apache License 2.0 is included in the repository.
+- [X] Apache License 2.0 is included in the repository.
 
 ## License
 
