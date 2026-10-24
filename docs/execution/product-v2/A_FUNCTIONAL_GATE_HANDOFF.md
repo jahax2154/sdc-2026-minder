@@ -67,6 +67,25 @@ rank is invented. The runtime is still local9111/8111, not a hosted teammate URL
    the canonical overview adapter if their order can diverge.
 5. Finish existing F-UX3-R01 hidden Load-more and F-UX5-R01 undated-notice copy;
    reproductions remain in A_UX3_R02_FRONTEND_FINDINGS.md. No waiver.
+6. Audit the smaller display surfaces too: current Home Skills uses the first
+   evidence.subject_id/value directly, savedPlan prints selected_role_id, and
+   dailyAutomation labels plan checkboxes with selected_role_id. Hydrate sourced
+   occupational/skill labels there as well; retain explicit user text where it
+   is an actual user-defined label, without treating its value as competence.
+
+## A first fresh-browser result (backend0a39b39 / old F code)
+
+`A_FUNCTIONAL_GATE_AUDIT.md` records actual handler/API/state connections, passes,
+failures and owners. Three source anchored assessments were entered through UI,
+not a Profile fixture.910 personally assessed,5 comparable current ranks,900
+strictly personal-only;7 shortage contexts,0 exact-role shortage,907 sector
+contexts. Actual Qwen roadmap:3stages/3tasks, native provider1686.540ms, complete
+generation/save/activation2127ms. Explicit save then separate activation passed;
+completion0/3→1/3 persisted without replacing roadmap or generating again.
+Compare after a single-result search was empty; Skills raw repeated IDs failed.
+The CV attempt used an incorrect test route and is not a product failure claim;
+corrected final journey must exercise Profile→My Record→CV files. Browser
+session credentials must not be exported to a file to retain test continuity.
 
 Return exact tested commit SHA(s), handler/route changes and actual browser
 evidence. A will integrate ancestry-preservingly and run the combined fresh
