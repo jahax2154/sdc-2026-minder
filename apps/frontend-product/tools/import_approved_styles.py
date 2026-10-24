@@ -44,3 +44,7 @@ profile = ROOT/'docs/minder-approved-product-designs/profile-v2/minder-user-prof
 profile_css = re.search(r'<style>(.*?)</style>', profile.read_text(), re.S).group(1)
 out = ROOT/'apps/frontend-product/assets/approved-pages.css'
 out.write_text('/* Generated from committed approved designs; run tools/import_approved_styles.py. */\n' + scope_css(explore.read_text(), '.morning-explore') + '\n' + scope_css(profile_css, '.morning-profile') + '\n')
+
+# Home uses only scoped body components; its standalone shell never replaces F shell.
+home = ROOT/'docs/Minder_Home_Package/assets/styles.css'
+(ROOT/'apps/frontend-product/assets/approved-home.css').write_text('/* Generated from docs/Minder_Home_Package/assets/styles.css. */\n'+scope_css(home.read_text(), '.morning-home')+'\n')
