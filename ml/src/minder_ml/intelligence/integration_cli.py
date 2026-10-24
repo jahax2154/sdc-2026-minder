@@ -70,6 +70,16 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
     if not database.is_relative_to(allowed):
         raise ValueError('integration DB must be isolated under Session A artifacts' if namespace == 'session-a'
                          else 'integration DB must stay under its declared product lane artifacts')
+    store = Store(database, volume_root=allowed) if durable_root is not None else Store(database)
+    return application_for_store(store, role_ids=role_ids, provider=provider)
+
+
+def application_for_store(store, *, role_ids=None, provider=None):
+    """Trusted server composition hook. D owns all SQL/storage semantics."""
+    sys.path.insert(0, str(ROOT / 'apps/backend-api'))
+    from minder_app.api import Application
+    from .app_context import CareerServices
+    from .market_service import MarketEvidenceService
     catalogue = OccupationalCatalogue()
     roles = catalogue.roles() if role_ids is None else [catalogue.role(rid) for rid in role_ids]
     market = MarketEvidenceService(aliases={'role': role_aliases(catalogue), 'skill': {}})
@@ -83,7 +93,6 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
     services.role_reference = catalogue.reference
-    store = Store(database, volume_root=allowed) if durable_root is not None else Store(database)
     app = Application(store, services, provider if provider is not None else a_provider())
     from minder_app.public_retrieval import PublicRetrieval
     app.public_retrieval = PublicRetrieval()
