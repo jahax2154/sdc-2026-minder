@@ -156,3 +156,18 @@ class RoleFitTests(unittest.TestCase):
         self.assertEqual(self.result()['public']['policy_version'],POLICY_ID)
 
 if __name__=='__main__':unittest.main()
+
+class NecessaryInputTests(unittest.TestCase):
+    def test_global_readiness_does_not_turn_titles_or_conflicting_claims_into_skills(self):
+        service=RoleFitService()
+        empty=synthetic_profile('fresh_graduate')
+        empty['evidence']=[]
+        absent=service.input_readiness(empty)
+        self.assertFalse(absent['global_minimum_possible'])
+        self.assertEqual(absent['distinct_valid_anchored_skills'],0)
+        self.assertFalse(absent['role_coverage_assessed'])
+        p=anchored_profile(levels=(2,4,4))
+        self.assertTrue(service.input_readiness(p)['global_minimum_possible'])
+        contradiction=copy.deepcopy(p['evidence'][0]);contradiction['evidence_id']='conflicting-anchor';contradiction['value']=4
+        p['evidence'].append(contradiction)
+        self.assertFalse(service.input_readiness(p)['global_minimum_possible'])

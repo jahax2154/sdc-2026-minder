@@ -1888,6 +1888,9 @@
             },
             {
               "$ref": "#/$defs/AutomationScope"
+            },
+            {
+              "$ref": "#/$defs/Constraint"
             }
           ]
         },
@@ -1910,6 +1913,9 @@
             },
             {
               "$ref": "#/$defs/AutomationScope"
+            },
+            {
+              "$ref": "#/$defs/Constraint"
             }
           ]
         }

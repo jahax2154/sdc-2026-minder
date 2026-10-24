@@ -225,6 +225,11 @@ class ActionExecutor:
                     context.pop('goals',None)
                 else:
                     context['goals'] = change['after']
+            elif kind=='profile' and req['kind']=='update_profile' and len(parts)==3 and parts[1]=='career_context' and parts[2] in ('education','experience','goals'):
+                context=after.setdefault('career_context',{})
+                if context.get(parts[2])!=change['before']:raise AppError('diff_before_mismatch',409)
+                if change['after'] is None:context.pop(parts[2],None)
+                else:context[parts[2]]=change['after']
             elif kind == "profile" and len(parts) == 4 and parts[1] == "preferences":
                 entity_type, entity_id = parts[2:]
                 if entity_type not in ("role", "industry", "skill", "company"):
@@ -238,6 +243,22 @@ class ActionExecutor:
                 if change["after"] is not None:
                     after["preferences"].append(dict(entity_type=entity_type, entity_id=entity_id,
                         state=change["after"], authorizing_request_id="pending-authority"))
+            elif kind=='profile' and req['kind']=='update_profile' and len(parts)==3 and parts[1]=='constraints':
+                if change['after'] is None:
+                    prior=next((c for c in after['constraints'] if c['constraint_id']==parts[2]),None)
+                    if prior is None or prior!=change['before'] or prior['scope']!='weekly_hours':
+                        raise AppError('specific_user_availability_required')
+                    after['constraints'].remove(prior)
+                    continue
+                constraint=copy.deepcopy(change['after'])
+                validate('Constraint',constraint)
+                value=constraint['value']
+                if (change['before'] is not None or constraint['constraint_id']!=parts[2]
+                        or constraint['scope']!='weekly_hours' or constraint['unit']!='hours_per_week'
+                        or not constraint['hard'] or type(value) not in (int,float) or not 0<=value<=168
+                        or any(c['scope']=='weekly_hours' or c['constraint_id']==parts[2] for c in after['constraints'])):
+                    raise AppError('specific_user_availability_required')
+                after['constraints'].append(constraint)
             elif kind == "profile" and len(parts) == 4 and parts[1] == "constraints" and parts[3] == "value":
                 constraint = next((c for c in after["constraints"] if c["constraint_id"] == parts[2]), None)
                 if constraint is None or constraint["value"] != change["before"]:

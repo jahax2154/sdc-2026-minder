@@ -692,6 +692,233 @@
           "maxLength": 200
         }
       }
+    },
+    "BotAvatarId": {
+      "type": "string",
+      "enum": [
+        "frog-blue",
+        "frog-lavender",
+        "frog-lime",
+        "frog-rose",
+        "frog-yellow",
+        "heart-blue",
+        "heart-lavender",
+        "heart-lime",
+        "heart-rose",
+        "heart-yellow",
+        "nimo-blue",
+        "nimo-lavender",
+        "nimo-lime",
+        "nimo-rose",
+        "nimo-yellow",
+        "puff-blue",
+        "puff-lavender",
+        "puff-lime",
+        "puff-rose",
+        "puff-yellow",
+        "star-blue",
+        "star-lavender",
+        "star-lime",
+        "star-rose",
+        "star-yellow"
+      ]
+    },
+    "BotPreferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "display_name",
+        "avatar_id",
+        "version"
+      ],
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^(?!.*[\\u0000-\\u001f\\u007f-\\u009f])\\S(?:[\\s\\S]*\\S)?$"
+        },
+        "avatar_id": {
+          "$ref": "#/$defs/BotAvatarId"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        }
+      }
+    },
+    "BotPreferencesWrite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "display_name",
+        "avatar_id",
+        "expected_version"
+      ],
+      "properties": {
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^(?!.*[\\u0000-\\u001f\\u007f-\\u009f])\\S(?:[\\s\\S]*\\S)?$"
+        },
+        "avatar_id": {
+          "$ref": "#/$defs/BotAvatarId"
+        },
+        "expected_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        }
+      }
+    },
+    "BotPreferencesResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "configured",
+        "preferences"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "bot-preferences-v1"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "preferences": {
+          "$ref": "#/$defs/BotPreferences"
+        }
+      }
+    },
+    "ConversationSearch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query"
+      ],
+      "properties": {
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 20
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000,
+          "default": 0
+        }
+      }
+    },
+    "ConversationMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversation_id",
+        "channel",
+        "title",
+        "version",
+        "created_at",
+        "updated_at",
+        "status",
+        "last_sequence"
+      ],
+      "properties": {
+        "conversation_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "channel": {
+          "const": "minder"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "status": {
+          "const": "active"
+        },
+        "last_sequence": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "ConversationSearchResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "query",
+        "search_scope",
+        "conversations",
+        "offset",
+        "limit",
+        "has_more",
+        "next_offset"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "conversation-search-v1"
+        },
+        "query": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "search_scope": {
+          "const": "title_and_visible_messages"
+        },
+        "conversations": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "#/$defs/ConversationMetadata"
+          }
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "has_more": {
+          "type": "boolean"
+        },
+        "next_offset": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
     }
   }
 }

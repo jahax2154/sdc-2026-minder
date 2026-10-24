@@ -128,3 +128,11 @@ class UniquenessParityTests(unittest.TestCase):
         for value in arrays:
             self.assertEqual(old.is_valid(value),new.is_valid(value),value)
 
+
+    def test_identical_result_memo_never_trusts_changed_scores_or_profile_version(self):
+        result=fixture('recommendation_pending')
+        validate('Recommendation',result)
+        validate('Recommendation',copy.deepcopy(result))
+        changed=copy.deepcopy(result)
+        changed['internal']['combined_scores']=[dict(role_id=changed['public']['candidate_ids'][0],score=99)]
+        with self.assertRaises(ValueError):validate('Recommendation',changed)

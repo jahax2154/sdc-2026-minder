@@ -1,5 +1,5 @@
 {
-  "version": "product-v2-ownership-morning-r3",
+  "version": "product-v2-ownership-frontend-home-gate-v1",
   "base": "12856703ef187b09cbcb857b85923890fef331c4",
   "lanes": {
     "A": {
@@ -92,7 +92,9 @@
         "apps/backend-api/tests/test_message_orchestrator.py",
         "apps/backend-api/tests/test_identity_boundary.py",
         "docs/Minder_Morning_Completion_Runbook_2026-10-24.md",
-        "docs/minder-approved-product-designs/**"
+        "docs/minder-approved-product-designs/**",
+        "docs/Minder_Frontend_Final_Repair_and_Home_Gate.md",
+        "docs/Minder_Home_Package/**"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -126,7 +128,9 @@
         "apps/backend-api/minder_app/automation_state.py",
         "apps/backend-api/minder_app/generation_state.py",
         "apps/backend-api/tests/test_automation_state.py",
-        "apps/backend-api/tests/test_generation_state.py"
+        "apps/backend-api/tests/test_generation_state.py",
+        "apps/backend-api/minder_app/bot_preferences.py",
+        "apps/backend-api/tests/test_bot_preferences.py"
       ],
       "forbidden": [
         "api.py/product_routes.py central registration",
@@ -240,5 +244,6 @@
     "preserve": "C factual grounder/worker/actions/Store and D migrations; F exclusively owns frontend; no frontend file transfer",
     "status": "Active A bounded chat repair ownership; C original allowlist entry removed to enforce one writer"
   },
-  "morning_r3": "Current user Revision3 supersedes older deferral/no-deploy text. D sole persistence/migration writer including Store; E auth/host wrapper; A central routes/model/actions; F entire frontend. New dependencies requested to A; no other working directory edits."
+  "morning_r3": "Current user Revision3 supersedes older deferral/no-deploy text. D sole persistence/migration writer including Store; E auth/host wrapper; A central routes/model/actions; F entire frontend. New dependencies requested to A; no other working directory edits.",
+  "frontend_home_gate": "A imports approved sources and registers exact additive bot-preferences/search contracts; D alone implements persisted bot preferences/conversation search; F alone changes frontend shell/client/pages. No migration or another database required merely for display identity. Existing singleton/schedules/profile remain separate."
 }

@@ -59,39 +59,57 @@ def explicit_command(message, quote):
     polite=re.match(r"^(?:can|could|would) you (?:please )?",text,re.I)
     if polite:
         text=text[polite.end():]
-    verbs=r"mark|complete|finish|reschedule|schedule|move|set|add|create|edit|update|change|reset|remove|pause|resume|cancel"
+    verbs=r"mark|complete|finish|reschedule|schedule|move|set|add|create|edit|update|change|reset|remove|clear|pause|resume|cancel"
     framed=bool(re.match(r"^(?:please\s+)?(?:"+verbs+r")\b",text,re.I))
     framed=framed or bool(re.match(r"^I(?: am|'m) (?:not )?interested in\b",text,re.I))
+    framed=framed or bool(re.match(r"^I(?: have|['’]ve)? (?:completed|finished)\b",text,re.I))
     uncertain=re.search(r"\b(?:maybe|should|suggest|recommend|pretend|quoted|example|if)\b|don't|do not|without saving",text,re.I)
     return framed and not uncertain
+
+
+def validate_command_kind(kind,message):
+    vocabulary={
+        'complete_task':r'\b(?:done|complete|completed|finish|finished)\b',
+        'reschedule_task':r'\b(?:reschedule|move|shift|schedule)\b',
+        'schedule_task':r'\b(?:schedule|move|set)\b',
+        'create_task':r'\b(?:create|add|new)\b',
+        'edit_task':r'\b(?:edit|update|change|rename)\b',
+        'update_preference':r'\b(?:interest|interested|preference|preferences|reset|neutral|avoid|dislike)\b',
+        'change_goal':r'\b(?:goal|goals|aim|direction)\b',
+        'update_context':r'\b(?:education|experience|background|context|profile|goal|goals)\b',
+        'set_availability':r'\b(?:availability|capacity|hours|time)\b',
+        'configure_automation':r'\b(?:daily|automation|check)\b'}
+    if kind not in vocabulary or not re.search(vocabulary[kind],message,re.I):
+        raise AppError('clarify_requested_action_scope')
+
+
+def requested_clock(message):
+    values=list(re.finditer(r"\b([01]?\d|2[0-3]):([0-5]\d)(?:\s*(am|pm))?\b|\b(1[0-2]|0?[1-9])\s*(am|pm)\b",message,re.I))
+    if not values or (len(values)>1 and re.search(r"\bor\b",message,re.I)):return None
+    value=values[-1]
+    if value[1]:hour,minute,period=int(value[1]),int(value[2]),value[3]
+    else:hour,minute,period=int(value[4]),0,value[5]
+    if period:
+        if not 1<=hour<=12:return None
+        hour=hour%12+(12 if period.lower()=='pm' else 0)
+    return f"{hour:02}:{minute:02}"
 
 
 def requested_time(message, timezone):
     from datetime import datetime,timedelta
     from zoneinfo import ZoneInfo
     from .plans import instant
-    full=re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})",message)
-    if full:
-        return instant(full.group())
-    date=re.search(r"\b\d{4}-\d{2}-\d{2}\b",message)
+    target=re.split(r"\bto\b",message,flags=re.I)[-1]
+    full=list(re.finditer(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})",target))
+    if full:return instant(full[-1].group())
+    dates=list(re.finditer(r"\b\d{4}-\d{2}-\d{2}\b",target))
     local=datetime.now(ZoneInfo(timezone))
-    if date:
-        local=datetime.fromisoformat(date.group()).replace(tzinfo=local.tzinfo)
-    elif re.search(r"\btomorrow\b",message,re.I):
-        local+=timedelta(days=1)
-    elif not re.search(r"\btoday\b",message,re.I):
-        return None
-    clock=re.search(r"\b([01]?\d|2[0-3]):([0-5]\d)(?:\s*(am|pm))?\b",message,re.I)
-    short=re.search(r"\b(1[0-2]|0?[1-9])\s*(am|pm)\b",message,re.I)
-    if clock:
-        hour,minute=int(clock[1]),int(clock[2]);period=clock[3]
-    elif short:
-        hour,minute,period=int(short[1]),0,short[2]
-    else:
-        return None
-    if period:
-        if not 1<=hour<=12:return None
-        hour=hour%12+(12 if period.lower()=='pm' else 0)
+    if dates:local=datetime.fromisoformat(dates[-1].group()).replace(tzinfo=local.tzinfo)
+    elif re.search(r"\btomorrow\b",target,re.I):local+=timedelta(days=1)
+    elif not re.search(r"\btoday\b",target,re.I):return None
+    clock=requested_clock(target)
+    if not clock:return None
+    hour,minute=map(int,clock.split(':'))
     return local.replace(hour=hour,minute=minute,second=0,microsecond=0)
 
 
@@ -99,6 +117,34 @@ def operation_request(app, owner, operation, message, direct, observed_versions,
     import uuid
     from .generation import profile_for
     plans=app.store.list(owner,'plan');kind=operation['kind'];payload=operation.get('payload',{})
+    if kind in ('update_context','set_availability'):
+        profile=app.store.get(owner,'profile',owner)
+        if kind=='update_context':
+            diffs=[dict(path='/career_context/'+key,before=profile.get('career_context',{}).get(key),after=payload[key])
+                   for key in ('education','experience','goals') if key in payload]
+            if not diffs:raise AppError('specific_profile_context_required')
+        else:
+            if 'weekly_hours' not in payload:raise AppError('clarify_weekly_availability')
+            capacity=payload['weekly_hours']
+            if capacity is None and direct and not re.search(r'\b(reset|remove|clear|unknown|unspecified)\b',message,re.I):
+                raise AppError('clarify_availability_reset')
+            rows=[c for c in profile['constraints'] if c['scope']=='weekly_hours']
+            if len(rows)>1:raise AppError('clarify_conflicting_capacity_records')
+            if capacity is not None:
+                value=re.search(r'\b(\d+(?:\.\d+)?)\s*(?:hours?|hrs?)\s*(?:a|per|/)\s*week\b',message,re.I)
+                if not value or float(value[1])!=capacity:raise AppError('clarify_explicit_weekly_hours')
+            if rows and capacity is None:
+                diffs=[dict(path='/constraints/'+rows[0]['constraint_id'],before=rows[0],after=None)]
+            elif rows:
+                diffs=[dict(path='/constraints/'+rows[0]['constraint_id']+'/value',before=rows[0]['value'],after=capacity)]
+            elif capacity is None:raise AppError('availability_already_unknown')
+            else:
+                identifier='weekly-hours-'+str(uuid.uuid4())
+                constraint=dict(constraint_id=identifier,scope='weekly_hours',hard=True,value=capacity,
+                    unit='hours_per_week',evidence_id='self-reported-availability')
+                diffs=[dict(path='/constraints/'+identifier,before=None,after=constraint)]
+        return dict(kind='update_profile',target_id=owner,expected=profile['version'],diff=diffs,
+            reason='Explicit user-reported context or pathway availability; not skill competence',evidence_ids=[])
     if kind in ('update_preference','change_goal'):
         profile=app.store.get(owner,'profile',owner)
         if kind=='change_goal':
@@ -127,7 +173,23 @@ def operation_request(app, owner, operation, message, direct, observed_versions,
         changes={}
         if 'automation_state' in payload:changes['state']=payload['automation_state']
         elif 'enabled' in payload:changes['enabled']=payload['enabled']
-        if 'check_time' in payload:changes['check_time']=payload['check_time']
+        state=changes.get('state',('active' if changes['enabled'] else 'paused') if 'enabled' in changes else None)
+        if direct and state and state!=(before or {}).get('state'):
+            requested=('cancelled' if re.search(r'\b(cancel|stop)\b',message,re.I) else
+                'paused' if re.search(r'\b(pause|disable)\b',message,re.I) else
+                'active' if re.search(r'\b(resume|enable|start|create)\b',message,re.I) else None)
+            if state!=requested:raise AppError('clarify_requested_automation_state')
+        if 'check_time' in payload:
+            supplied=payload['check_time']
+            if supplied!=(before or {}).get('check_time') and requested_clock(message)!=supplied:
+                raise AppError('clarify_requested_daily_time')
+            changes['check_time']=supplied
+        if 'timezone' in payload:
+            zone=payload['timezone']
+            named=zone.casefold().replace('_',' ') in message.casefold().replace('_',' ')
+            default=zone=='Asia/Kuala_Lumpur' and before is None
+            if zone!=(before or {}).get('timezone') and not named and not default:raise AppError('clarify_requested_timezone')
+            changes['timezone']=zone
         if before is None and 'check_time' not in changes:
             raise AppError('clarify_daily_check_time')
         plan_id=operation.get('plan_id')
@@ -179,7 +241,9 @@ def operation_request(app, owner, operation, message, direct, observed_versions,
 def turn(app, owner, channel, message, history, request_id, body):
     if channel not in ('minder', 'mindbot'):
         raise AppError('invalid_conversation_channel')
-    if EMPIRICAL.search(message):
+    from .conversation import intent_for,matched_roles
+    role_reference=intent_for(message,named_role=bool(matched_roles(app.services,message)))=='role_reference'
+    if EMPIRICAL.search(message) or role_reference:
         from .chat import chat
         return chat(app.store, app.services, app.provider, owner, message,
             body.get('expected_profile_version'), request_id=request_id, app=app)
@@ -191,6 +255,7 @@ def turn(app, owner, channel, message, history, request_id, body):
     if operation['kind']=='none':return response
     direct=explicit_command(message,operation.get('instruction_quote'))
     try:
+        if direct:validate_command_kind(operation['kind'],message)
         from .generation import profile_for
         profile_for(app.store,owner,body.get('expected_profile_version'))
         scope=app.store.get(owner,'grounding',generation['draft_id'])

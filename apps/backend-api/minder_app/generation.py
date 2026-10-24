@@ -52,9 +52,14 @@ confirmation. No explicit command means advice or a proposed change, never autho
 Use configure_automation for explicit daily-check create/edit/pause/resume/cancel:
 payload automation_state active/paused/cancelled and check_time HH:MM if requested.
 Do not create a daily time if absent; ask for it. Existing omitted settings remain.
-Only choose provided plan_id for an explicitly scoped daily check, never another user.'''
+Only choose provided plan_id for an explicitly scoped daily check, never another user.
+Use update_context for explicitly requested user-reported education/experience/goals
+text (payload matching fields), never certified skill evidence. Use set_availability
+for an explicit weekly study-hours change (payload.weekly_hours; null only reset).
+A conversational time statement alone is not a request to save it: offer advice or
+reviewable proposal. Availability affects pathway feasibility only, never role fit.'''
 
-EMPIRICAL = re.compile(r'\b(market|demand|malaysian?|forecasts?|quarters?|salary|shortage|hiring|rankings?|scores?|compare|requirements|qualification|source[s]?|evidence coverage)\b', re.I)
+EMPIRICAL = re.compile(r'\b(market|demand|malaysian?|forecasts?|quarters?|salary|salaries|shortage|hiring|rank(?:s|ed|ing|ings)?|scores?|compare|requirements?|qualifications?|source[s]?|evidence coverage|role fit)\b|\bwhy\b.*\brecommend|\b(?:AI|automation)\b.*\b(?:replace|replacement|displace|displacement)\b|\b(?:replace|replacement|displace|displacement)\b.*\b(?:AI|automation)\b', re.I)
 
 
 def should_generate(message, intent):

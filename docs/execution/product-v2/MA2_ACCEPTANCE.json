@@ -1,0 +1,336 @@
+{
+  "phase": "MA2",
+  "version": "morning-r3-local-acceptance-v1",
+  "functional_runtime_revision": "425f0173ab89ad3a1a2b0cecd0d3de5745a4261d",
+  "model": "qwen/qwen3.8-27b",
+  "local_product_status": "passed_with_disclosed_provider_and_queue_limits",
+  "hosted_status": "blocked_external_access",
+  "live_managed_login": "not_verified",
+  "hosted_CV_history_restart": "not_verified",
+  "actual_GPU_fit": "not_executed",
+  "checks": [
+    {
+      "name": "combined_backend",
+      "class_": "software_and_actual_local_services",
+      "result": "151passed,0skipped,7.413s; real installed Clerk7SDK/pypdf, generated JWT/session fixtures rather than live accounts"
+    },
+    {
+      "name": "deployment_candidate",
+      "class_": "local_packaging_checks",
+      "result": "4passed,.081s; no actual Linux image build or hosting"
+    },
+    {
+      "name": "active_policy_and_contracts",
+      "class_": "deterministic_source_policy_checks",
+      "result": "45passed,3.587s; matching/reset/missingness/market ordering/changed-content validation preserved"
+    },
+    {
+      "name": "required_roadmap_and_unseen_followup",
+      "class_": "actual_Qwen_HTTP_partial_profile",
+      "revision": "37d9fcb0d0c0917e673eece958ea0aaebbe6c3b0",
+      "elapsed_ms": [
+        1769.344,
+        1987.391
+      ],
+      "result": "same conversation,4storedmessages,0plans,exact replay adds nothing; actual visible model prefix retained, no invented completion"
+    },
+    {
+      "name": "unsaved_roadmap",
+      "class_": "actual_Qwen_HTTP",
+      "elapsed_ms": 1654.629,
+      "result": "useful3stageoutline and questions, no Profile/plan writes"
+    },
+    {
+      "name": "rich_roadmap_final",
+      "class_": "actual_Qwen_HTTP_frozen_runtime",
+      "elapsed_ms": 1572.161,
+      "result": "3stages,2storedmessages,0plans,exact replay"
+    },
+    {
+      "name": "canonical_generation_journey",
+      "class_": "actual_Qwen_HTTP_browser_with_deliberate_response_loss",
+      "elapsed_ms": 1972,
+      "followup_provider_ms": 1410.751,
+      "result": "Mindbot same-route draft, explicit review, first save committed but response aborted, exact retry one canonical plan, separate activation, saved phases/refresh0generation, contextual followup leaves plan version unchanged; daily scope/timezone/create/pause/resume/cancel persist;0pageerrors",
+      "pacing": "Explicit50s acceptance gap before follow-up; no production retry"
+    },
+    {
+      "name": "matching_timeout_recheck",
+      "class_": "actual_HTTP_browser_source_services",
+      "elapsed_ms": 6572,
+      "result": "explicit single global request, no timeout, catalogue available,0fabricatedscores,Profileunchanged,0modelcalls,0automaticrecomputeonrefresh"
+    },
+    {
+      "name": "equivalent_matching_benchmark",
+      "class_": "actual_authenticated_dispatch_fixed_source_time",
+      "before_ms": 12358.368,
+      "after_ms": 6343.235,
+      "result": "full public payload exactly equal, all original validations retained"
+    },
+    {
+      "name": "approved_pages",
+      "class_": "actual_API_browser_with_canonical_plan_fixture",
+      "result": "Careers Matches/Compare/Outlook;MyPath Nextsteps/Roadmap/Skills/Progress;taskcompletion persists;72pxrail;mobile nooverflow;0pageerrors;one explicit backend pathway fixture,no model generation claimed by this check"
+    },
+    {
+      "name": "Profile_and_CV",
+      "class_": "actual_API_browser_private_local_files_and_PDF",
+      "result": "adaptive3questions,fivetabs,dirtyguard,refresh,selfreport not assessment,explicit CVpurpose,extract does not mutate Profile,review saves,actual textPDF,scanned manual entry,mobile,0pageerrors"
+    },
+    {
+      "name": "durability_and_ownership",
+      "class_": "actual_Store_files_fresh_process_software_identity_model_fixtures",
+      "schema_version": 7,
+      "engine": "SQLite",
+      "result": "13checks:anonymousnotclaimed,twoowners,CVreview,multipleMinder,concurrentMindbotsingleton,actionrefs,replay,realWorker notice,samehistory,freshprocess,privateportableDBbackup,CVbyte/draftdelete,acceptedProfilepreserved"
+    },
+    {
+      "name": "explicit_availability_action",
+      "class_": "actual_Qwen_HTTP_direct_action_frozen_runtime",
+      "elapsed_ms": 878.634,
+      "result": "same Mindbot;6hours/week actually saved;skill evidence unchanged;exact replay same provider result and one action;2storedmessages",
+      "concurrent_read_ms": [
+        1.397,
+        1.327,
+        1.258
+      ],
+      "all_reads_provider_turn_pending": true
+    },
+    {
+      "name": "four_market_measurements_and_forecast",
+      "class_": "actual_Qwen_HTTP_closed_factual_grounder",
+      "elapsed_ms": 1210.379,
+      "result": "8validatedstatements,4sources,employer/published/shortage/sector scopes preserved,nextquarter2027Q1 explicitly unavailable;no action"
+    },
+    {
+      "name": "actual_local_autonomous_timer",
+      "class_": "real_wall_clock_existing_supervisor_no_browser_no_manual_tick",
+      "due": "2026-10-24T08:00:00Z",
+      "observed": "2026-10-24T08:01:23.003331Z",
+      "lateness_seconds": 83.003,
+      "result": "one persisted result/message in same singleton;next real poll adds0;0task/action/Profilechanges;pausedaftercheck;empty-task check needed no provider",
+      "hosted_claim": false
+    },
+    {
+      "name": "retained_F_bounded_checks",
+      "class_": "mixed_actual_provider_and_explicit_fault_fixtures",
+      "source": "F/MF3-FINAL-evidence.json",
+      "result": "actualQwenbothchannels/refresh;exactcompletionretry;proposalreject/approve/outcomereconcile;CVlostreviewresponse1write;structuredTask/Scope escapes;providerabsentnavigation;controlledtwo-ownercredentialexpiry/lateidentityresponse;not live Clerk"
+    }
+  ],
+  "original_failures": [
+    {
+      "name": "initial_new_guidance_followup",
+      "result": "actual provider_rate_limited; initial draft/save/activate succeeded; failure diagnostics retained; explicit-paced new browser journey passed"
+    },
+    {
+      "name": "local_timer_initial150s_bound",
+      "result": "first acceptance timed out while older local state events drained at one per30s; no forged clock/manual tick/retry; repeated timer measured83.003s lateness"
+    },
+    {
+      "name": "E_clock_fixture",
+      "result": "2initialtestfailures used simulatedtick earlier than actualsettings creation; E1669142 corrected coherent fixture clock, runtime guard retained, final151pass"
+    },
+    {
+      "name": "supported_role_materialization",
+      "result": "actual422 from A guard expecting eligible rather than canonical supported;5827a87 fixes exact DTO+source regression; real F and A acceptance then pass"
+    },
+    {
+      "name": "incomplete_model_text",
+      "result": "real valid useful stages but cut intro/task tail;MA1-R09 validates raw facts/structure then retains complete model prefix only, safe adjustment metadata; real unseen followup passes"
+    }
+  ],
+  "section9": [
+    {
+      "steps": [
+        1
+      ],
+      "status": "blocked_live_Clerk_provisioning",
+      "evidence": "SDK/generated-identity integration passes;no actualsignups/signinaccounts"
+    },
+    {
+      "steps": [
+        2
+      ],
+      "status": "local_software_identity_pass_live_accounts_pending",
+      "evidence": "two-owner API/private-CV/conversation/tasks/proposals isolation tests; no live two-account hosted claim"
+    },
+    {
+      "steps": [
+        3,
+        4
+      ],
+      "status": "actual_Qwen_pass",
+      "evidence": "exactpartialroadmap+unseenfollowup;finalrich and generatedbrowserfollowup"
+    },
+    {
+      "steps": [
+        5
+      ],
+      "status": "local_persistence_and_singleton_pass_hosted_login_restart_pending",
+      "evidence": "actualrefresh/freshprocess/history/exactreplay andconcurrentuniqueindex;live signout/signin notverified"
+    },
+    {
+      "steps": [
+        6
+      ],
+      "status": "local_actual_private_storage_pass_hosted_pending",
+      "evidence": "actualTXT/textPDF/scannedmanual;explicitreview/download/delete;sourcebytes not inGit"
+    },
+    {
+      "steps": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "local_actual_pass_with_explicit_fixture_distinctions",
+      "evidence": "browser+realgeneration/actions+currentfactualprovider+concurrentreads;proposal/retrychecks use declared fault fixtures"
+    },
+    {
+      "steps": [
+        11
+      ],
+      "status": "actual_local_timer_pass_hosted_target_pending",
+      "evidence": "real due withbrowserclosed,one notice/samehistory; softwarepause/cancel/retry/catchup pass"
+    },
+    {
+      "steps": [
+        12
+      ],
+      "status": "blocked_hosted_volume_restart_access",
+      "evidence": "localfreshprocess and mountedguard software tests do not certifyhost"
+    },
+    {
+      "steps": [
+        13
+      ],
+      "status": "local_desktop_mobile_pass_live_login_pending",
+      "evidence": "Profile/Careers/MyPath/Context/Working/rail;unconfiguredmanagedfailsclosed"
+    },
+    {
+      "steps": [
+        14
+      ],
+      "status": "candidate_and_walkthrough_prepared_no_deployed_SHA_or_URL",
+      "evidence": "releasePR1prepared separately;notmainmerged/tagged"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "ml/artifacts/session-a/product/morning/backend-frozen.log",
+      "sha256": "5e342628e009e75fd44d9b2e234e85c60f6849e307400efa0fe2cb605c41e0f3",
+      "bytes": 99,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/baseline-roadmap.json",
+      "sha256": "5776861b49a117bc3512baf803449be867d0874175937153c194012595086c55",
+      "bytes": 5584,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/guidance-unsaved-1792824558841705000.json",
+      "sha256": "ffd059b4bc5110840a10e25d277b448127e3915eb30bcd2960c6ec7a2df7a169",
+      "bytes": 5786,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/guidance-partial-1792825879494296000.json",
+      "sha256": "f84fb197c233e0d91d746750c3fb5994c84a2e1941f1e87fcdb68660512043b6",
+      "bytes": 13017,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/guidance-rich-1792828535405798000.json",
+      "sha256": "036e95906da80971cf026494399e8279493399005a9ac6fe59eae54037c77675",
+      "bytes": 6287,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/morning_matches/matches.json",
+      "sha256": "dce09a76383c5f04e7fb96fc93018f96d26c76ea144931ea36b93cef50139899",
+      "bytes": 295,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/matching-validation-benchmark.json",
+      "sha256": "6bc7c30caa938616c8aa0cdd9c4f29540212653a1c9b94ae582f8771682a275b",
+      "bytes": 930,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/morning_generation_automation-paced/generation-automation.json",
+      "sha256": "ff40193e3dca1f6f74b2216be90a335b72b1ba7771116220bcd73a20da3eea0e",
+      "bytes": 686,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/morning_generation_automation-paced/followup-response.json",
+      "sha256": "a67ab3d4a11ca43441d3f62583476a30c515409c057718a1274cf5d0864121cb",
+      "bytes": 12345,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/generation-followup-initial-failure.json",
+      "sha256": "33e34b23854af9cd833c2a46dd1f24f783083a9176e7d52c6bba8b919108889e",
+      "bytes": 568,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/morning_explore/run.log",
+      "sha256": "06fd15e5cd38340deec7f9cba39004902db782b2e6be5a5e0af0cb4ce7a487df",
+      "bytes": 380,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/browser-profile/profile.json",
+      "sha256": "0ce65520a7fb360da72bac0fad311f5758ed183de0387d2445635f285a2b3313",
+      "bytes": 501,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/persistence.log",
+      "sha256": "8bab59269a344a542474585a18c38210941feb6bbdfe23298bd91cb85d535c5a",
+      "bytes": 659,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/persistence-adapter.json",
+      "sha256": "f35f4eb2e62f94266b60681807eba55737a1790bae2c460240fb7ed2f19b1305",
+      "bytes": 216,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/live-local-worker-initial.log",
+      "sha256": "42db1d5f32889d5c00f580b4048f748a6e380436fcc41e600e0c31b1cc1616a1",
+      "bytes": 519,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/live-local-worker.json",
+      "sha256": "b8afc19cfb520920d6786def159658c9210b3c34ad96ee8dfe898ffff85f5c72",
+      "bytes": 820,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/live-action.json",
+      "sha256": "0622e4994c676c8ff6e101145ecbf6919a9c4cbcfd322716e4e6331d23f08ec6",
+      "bytes": 1005,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/live-factual.json",
+      "sha256": "209f0bac243f5cdd40b52648cd1ebd8de02197d5d91e009391e42205247ea01e",
+      "bytes": 33471,
+      "private_local_only": true
+    },
+    {
+      "path": "ml/artifacts/session-a/product/morning/history-review.json",
+      "sha256": "65a8aecfe42ff42aa45f2bde23f332596dc83d80c0c60fd6f84b3b0e21ccfdeb",
+      "bytes": 431,
+      "private_local_only": true
+    }
+  ],
+  "retention": "Only sanitized aggregate evidence and local artifact hashes are committed. Credentials, actual DBs/uploads, raw profiles/conversations, screenshots/logs, environments and source inputs remain uncommitted. Private artifact hashes are not backups."
+}

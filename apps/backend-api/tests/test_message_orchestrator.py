@@ -239,3 +239,52 @@ class IntegratedTurnTests(AppCase):
             reason='Explicit description',evidence_ids=[]),'new-description')
         undone=self.app.actions.undo(owner,result['action']['action_id'],result['target']['state_version'],'undo-description')
         self.assertEqual(undone['target']['tasks'][0].get('description'),task.get('description'))
+
+    def test_availability_supports_feasibility_without_invented_skill_and_resets(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn
+        owner=self.save()['profile_id'];profile=self.store.get(owner,'profile',owner)
+        for key,message,capacity in [('hours','Please set my study availability to 6 hours per week',6),
+                                     ('reset-hours','Please reset my weekly availability to unknown',None)]:
+            op=dict(kind='set_availability',task_id=None,scheduled_at=None,instruction_quote=message,payload=dict(weekly_hours=capacity))
+            self.app.provider=AdviceProvider(advice(operation=op))
+            result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=profile['version'],idempotency_key=key))
+            self.assertEqual(result['action_status'],'applied')
+            saved=self.store.get(owner,'profile',owner)
+            self.assertEqual(saved['evidence'],profile['evidence'])
+            rows=[c for c in saved['constraints'] if c['scope']=='weekly_hours']
+            self.assertEqual(len(rows),0 if capacity is None else 1)
+            if rows:self.assertEqual(rows[0]['value'],6)
+            profile=saved
+
+    def test_model_cannot_change_different_daily_time_or_apply_wrong_task_kind(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn
+        owner=self.session['profile_id'];message='Please create a daily check at 09:00'
+        op=dict(kind='configure_automation',task_id=None,scheduled_at=None,instruction_quote=message,
+                payload=dict(automation_state='active',check_time='08:00'))
+        self.app.provider=AdviceProvider(advice(operation=op))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=None,idempotency_key='wrong-clock'))
+        self.assertEqual(result['action_status'],'not_applied');self.assertEqual(result['status'],'clarify_requested_daily_time')
+        self.assertFalse(self.store.list(owner,'agent_settings'))
+        plan,_=self.setup_request();owner=self.profile['profile_id'];message='Please move synthetic-task tomorrow at 6pm'
+        op=dict(kind='complete_task',task_id='synthetic-task',scheduled_at=None,instruction_quote=message)
+        self.app.provider=AdviceProvider(advice(operation=op))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='wrong-kind'))
+        self.assertEqual(result['status'],'clarify_requested_action_scope')
+        self.assertEqual(self.store.get(owner,'plan',plan['plan_id']),plan)
+
+    def test_conversation_role_definition_keeps_exact_pinned_source_renderer(self):
+        from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
+        from minder_ml.intelligence.app_context import CareerServices
+        from minder_app.message_orchestrator import turn
+        from test_conversation import NoProvider
+        catalogue=OccupationalCatalogue();role=catalogue.role('onet:15-1252.00')
+        self.app.services=CareerServices(roles=[role],mode='local_source_services')
+        self.app.services.role_reference=catalogue.reference
+        self.app.provider=NoProvider()
+        response=turn(self.app,self.session['profile_id'],'mindbot','What does a Software Developer do?',[],None,
+            dict(expected_profile_version=None,idempotency_key='role-source'))
+        self.assertEqual(response['statements'][0]['kind'],'occupation_reference')
+        self.assertEqual(response['statements'][0]['sources'][0]['geography'],'US')
+        self.assertFalse(response['diagnostics']['provider_invoked'])

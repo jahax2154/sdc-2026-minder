@@ -194,6 +194,26 @@ class RoleFitService:
     def reference(self):
         return reference()
 
+    def input_readiness(self, profile):
+        """Necessary global minimum only; never certifies any role's coverage.
+
+        Product views can request focused input without enriching/ranking the
+        entire market when no role can possibly meet the existing minimum.
+        Selected-role source/evidence reads remain independent and available.
+        """
+        validate('Profile',profile)
+        p=policy();values={}
+        for evidence in profile['evidence']:
+            if _valid_skill(evidence,self.ref):
+                values.setdefault(evidence['subject_id'],set()).add(evidence['value'])
+        count=sum(len(v)==1 for v in values.values())
+        return dict(global_minimum_possible=count>=p['minimum_assessed_skills'],
+            distinct_valid_anchored_skills=count,minimum_assessed_skills=p['minimum_assessed_skills'],
+            per_role_minimum_coverage=p['minimum_coverage'],role_coverage_assessed=False,
+            policy_version=POLICY_ID,
+            targeted_questions=[] if count>=p['minimum_assessed_skills'] else [
+                'Add supported anchored activity evidence for at least three distinct skills to request a numerical match. You can keep exploring roles and drafting a pathway now.'])
+
     def _market(self, role_id, kind, stamp):
         try:
             if self.market_service is None:

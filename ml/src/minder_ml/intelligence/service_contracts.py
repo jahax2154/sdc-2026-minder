@@ -10,6 +10,8 @@ from functools import lru_cache
 import json
 import math
 import hashlib
+import threading
+from collections import OrderedDict
 from pathlib import Path
 from typing import Dict, List, Protocol
 
@@ -81,7 +83,37 @@ def _validator(kind):
     return _DTOValidator(target, format_checker=FormatChecker())
 
 
+_RECOMMENDATION_DIGESTS = OrderedDict()
+_RECOMMENDATION_LOCK = threading.Lock()
+
+
 def validate(kind, payload):
+    """Reuse pure DTO validation only for exactly identical complete results.
+
+    This stores at most64 content digests, no user data. Authentication, current
+    DB versions, source recomputation and action/approval checks are never cached.
+    """
+    if kind != 'Recommendation':
+        return _validate_uncached(kind,payload)
+    try:
+        encoded=json.dumps(payload,sort_keys=True,allow_nan=False)
+        digest=hashlib.sha256(encoded.encode()).digest()
+    except (ValueError,TypeError):
+        return _validate_uncached(kind,payload)
+    with _RECOMMENDATION_LOCK:
+        if digest in _RECOMMENDATION_DIGESTS:
+            _RECOMMENDATION_DIGESTS.move_to_end(digest)
+            return payload
+    # Validate the frozen encoded content rather than a shared mutable reference.
+    _validate_uncached(kind,json.loads(encoded))
+    with _RECOMMENDATION_LOCK:
+        _RECOMMENDATION_DIGESTS[digest]=True
+        _RECOMMENDATION_DIGESTS.move_to_end(digest)
+        while len(_RECOMMENDATION_DIGESTS)>64:_RECOMMENDATION_DIGESTS.popitem(last=False)
+    return payload
+
+
+def _validate_uncached(kind, payload):
     """Structural and cross-field boundary checks, not evidence approval."""
     schema = _schema()
     if kind not in schema['$defs']:
