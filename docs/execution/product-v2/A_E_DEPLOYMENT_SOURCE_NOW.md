@@ -48,3 +48,15 @@ acceptance. Local anonymous/fixture-bucket tests do not waive those requirements
 Communication note: A currently has no thread-send tool exposed; this committed
 handoff and user-visible exact SHA are the available coordination channel. A did
 not edit E/F/D worktrees or claim to have sent a message through an unavailable tool.
+
+## Explicit integration disposition for E's current request
+
+A approves exact27bc76094ae3cbdb29d12e14c001549850593d55 on
+session/a-personal-integration as the reviewed source candidate for E to load and
+publish to the correct Minder Replit project under the user's existing explicit
+bounded deployment authorization. Preserve E's Replit configuration checkpoint.
+Proceed with source import now; no new A approval gate is imposed on loading the
+existing implementation. Report the remaining market-quality/provider and real
+hosted checks separately; this source disposition is not a false fully-integrated
+or hosted-acceptance claim. E retains auth/persistence/private-storage/resource
+controls and its existing publish responsibilities. Main merge is not authorized.
