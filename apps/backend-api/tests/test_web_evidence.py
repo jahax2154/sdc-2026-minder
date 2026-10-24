@@ -27,6 +27,32 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_bad_optional_sentence_does_not_discard_supported_sentence(self):
+        from minder_app.web_evidence import partial_findings
+        kept='This source identifies occupation groups without counting available jobs.'
+        removed='There are 999999 jobs available for everyone.'
+        value=dict(introduction='This is a limited public occupational reference.',
+            findings=[dict(quote_id='q1',explanation=kept+' '+removed)],limitations=[])
+        result=partial_findings(value,[SOURCE])
+        self.assertEqual(result['findings'][0]['explanation'],kept)
+        self.assertEqual(result['rejected_claims'][0]['claim']['explanation'],removed)
+        self.assertEqual(result['rejected_claims'][0]['rule'],'unsupported_web_quantity')
+
+    def test_actual_dosm_thousands_to_rounded_millions_rejection_regression(self):
+        from minder_app.web_evidence import partial_findings,quantities_supported,LFS_URL
+        passage='Month 2026-08: unemployment rate 2.9%; participation rate 71.0%; employed persons 16874.4 thousand; unemployed persons 511.6 thousand.\nMonth 2026-07: unemployment rate 3.0%; participation rate 70.9%; employed persons 16845.6 thousand; unemployed persons 520.3 thousand.'
+        source=dict(SOURCE,url=LFS_URL,text=passage,passage=passage,observation_period='2026-08')
+        claims=[
+            'Unemployment edged down to 2.9% in Aug 2026 from 3.0% in Jul, with participation at 71.0% and 16.87m employed. This is a two-month national trend, not a sector or role-level signal.',
+            'The July baseline (3.0% unemployment, 70.9% participation, 16.85m employed) shows the small month-on-month improvement, but only two months are available, so the direction is preliminary.']
+        value=dict(introduction='The latest retrieved observation is August 2026.',findings=[dict(quote_id='q'+str(i+1),explanation=c) for i,c in enumerate(claims)],limitations=[])
+        result=partial_findings(value,[source])
+        self.assertEqual(len(result['findings']),2)
+        self.assertEqual(result['rejected_claims'],[])
+        for invalid in ['16.88m employed','999999m employed','16.87 employed without a unit']:
+            self.assertFalse(quantities_supported(invalid,[source]))
+        self.assertFalse(quantities_supported('16.87m employed',[dict(source,url='https://example.invalid')]))
+
     def test_compact_public_context_retains_quote_mapping_dates_scope_without_duplicate_quotes_or_urls(self):
         from minder_app.web_evidence import model_sources,quote_index
         source=dict(SOURCE,observation_period='2026-08')

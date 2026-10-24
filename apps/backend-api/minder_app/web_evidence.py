@@ -4,13 +4,14 @@ import hashlib
 import json
 import re
 import time
+from decimal import Decimal,ROUND_HALF_UP,InvalidOperation
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
 from minder_ml.intelligence.groq_adapter import ProviderError
-from .public_retrieval import PublicRetrieval, POLICY, SEEDS
+from .public_retrieval import PublicRetrieval, POLICY, SEEDS,LFS_URL
 from .store import AppError, uid
 
-ANSWER_POLICY = 'public-web-answer-v1.2'
+ANSWER_POLICY = 'public-web-answer-v1.3'
 OPERATIONS = (('GET', '/api/product/retrieval-capabilities'),)
 
 
@@ -35,6 +36,21 @@ def citation(source):
 
 def text(value):
     return ' '.join(value.split())
+
+
+def quantities_supported(prose,sources):
+    supported=set(re.findall(r'\d+(?:[.,]\d+)*',' '.join(s['text'] for s in sources)))
+    # Exact documented DOSM units, not invented measurements or scoring math.
+    values=[Decimal(v)/1000 for s in sources if s.get('url')==LFS_URL and s.get('observation_period')
+        for v in re.findall(r'(?:unemployed|employed) persons (\d+(?:\.\d+)?) thousand',s['text'])]
+    for match in re.finditer(r'\b(\d+(?:\.\d+)?)\s*(?:million\b|m\b)',prose,re.I):
+        rendered=match[1]
+        try:
+            decimals=len(rendered.split('.')[1]) if '.' in rendered else 0
+            precision=Decimal(1).scaleb(-decimals)
+            if any(v.quantize(precision,rounding=ROUND_HALF_UP)==Decimal(rendered) for v in values):supported.add(rendered)
+        except InvalidOperation:pass
+    return set(re.findall(r'\d+(?:[.,]\d+)*',prose)).issubset(supported)
 
 
 def guard_disclaimers(prose):
@@ -102,8 +118,7 @@ def validate_findings(value, sources):
         if identity in seen:
             raise ValueError('duplicate_source_quote')
         seen.add(identity)
-        numbers = set(re.findall(r'\d+(?:[.,]\d+)*', finding['explanation']))
-        if not numbers.issubset(set(re.findall(r'\d+(?:[.,]\d+)*', source['text']))):
+        if not quantities_supported(finding['explanation'],[source]):
             raise ValueError('unsupported_web_quantity')
         findings.append(dict(**support, explanation=finding['explanation']))
     prose = ' '.join([value['introduction'], *value['limitations'], *[f['explanation'] for f in value['findings']]])
@@ -114,8 +129,7 @@ def validate_findings(value, sources):
         raise ValueError('unsupported_guarantee')
     if re.search(r'replacement probability|fit score|readiness score', guarded, re.I):
         raise ValueError('unsupported_prediction_term')
-    supported_numbers = set(re.findall(r'\d+(?:[.,]\d+)*', ' '.join(s['text'] for s in sources)))
-    if not set(re.findall(r'\d+(?:[.,]\d+)*', value['introduction'])).issubset(supported_numbers):
+    if not quantities_supported(value['introduction'],sources):
         raise ValueError('unsupported_web_intro_quantity')
     return dict(value, findings=findings)
 
@@ -130,12 +144,28 @@ def partial_findings(value,sources):
     rejected=[];accepted=[];seen=set()
     def record(field,claim,error):
         rejected.append(dict(field=field,claim=claim,rule=str(error) if isinstance(error,ValueError) else 'web_schema_or_quote_reference_mismatch'))
+    def verify(finding):
+        valid=validate_findings(dict(introduction=neutral,findings=[finding],limitations=[]),sources)['findings'][0]
+        source=next(s for s in sources if s['id']==valid['source_id'])
+        if (not (source.get('published_at') or source.get('observation_period')) and re.search(r'\b(currently|right now|growing demand|demand is (?:growing|increasing)|hiring is (?:growing|increasing))\b',finding['explanation'],re.I)):
+            raise ValueError('undated_source_cannot_establish_current_trend')
+        return valid
     for index,finding in enumerate(value['findings']):
         try:
-            valid=validate_findings(dict(introduction=neutral,findings=[finding],limitations=[]),sources)['findings'][0]
-            source=next(s for s in sources if s['id']==valid['source_id'])
-            if (not (source.get('published_at') or source.get('observation_period')) and re.search(r'\b(currently|right now|growing demand|demand is (?:growing|increasing)|hiring is (?:growing|increasing))\b',finding['explanation'],re.I)):
-                raise ValueError('undated_source_cannot_establish_current_trend')
+            valid=verify(finding)
+        except (ValueError,TypeError,KeyError,ValidationError) as error:
+            # A bad optional sentence must not erase an independently valid one.
+            # Decimal points are not sentence boundaries. Never manufacture prose.
+            sentences=re.split(r'(?<=[.!?])\s+(?=[A-Z])',finding['explanation'])
+            kept=[];omitted=[]
+            for position,sentence in enumerate(sentences):
+                try:verify(dict(finding,explanation=sentence));kept.append(sentence)
+                except (ValueError,TypeError,KeyError,ValidationError) as part_error:omitted.append((position,sentence,part_error))
+            if not kept:
+                record('findings.'+str(index),finding,error);continue
+            valid=verify(dict(finding,explanation=' '.join(kept)))
+            for position,sentence,part_error in omitted:record(f'findings.{index}.sentence.{position}',dict(quote_id=finding['quote_id'],explanation=sentence),part_error)
+        try:
             identity=(valid['source_id'],valid['quote'])
             if identity in seen:raise ValueError('duplicate_source_quote')
             accepted.append(valid);seen.add(identity)
@@ -148,8 +178,7 @@ def partial_findings(value,sources):
     for index,claim in enumerate(value['limitations']):
         try:
             validate_findings(dict(introduction=neutral,findings=[probe],limitations=[claim]),sources)
-            numbers=set(re.findall(r'\d+(?:[.,]\d+)*',claim))
-            if not numbers.issubset(set(re.findall(r'\d+(?:[.,]\d+)*',' '.join(s['text'] for s in sources)))):
+            if not quantities_supported(claim,sources):
                 raise ValueError('unsupported_web_limitation_quantity')
             limitations.append(claim)
         except (ValueError,TypeError,KeyError,ValidationError) as error:record('limitations.'+str(index),claim,error)
