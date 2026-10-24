@@ -6,7 +6,7 @@ from minder_app.store import AppError
 
 
 def upload_body(content=b"Fictional student", filename="fictional.txt", content_type="text/plain", key="upload"):
-    return dict(filename=filename, content_type=content_type,
+    return dict(filename=filename, content_type=content_type, purpose="resume",
                 content_base64=base64.b64encode(content).decode("ascii"), idempotency_key=key)
 
 

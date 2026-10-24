@@ -23,9 +23,10 @@ def digest(value):
 
 
 class Conversations:
-    def __init__(self, store):
+    def __init__(self, store, *, initialize=True):
         self.store = store
-        migrate(store)
+        if initialize:
+            migrate(store)
 
     @staticmethod
     def metadata(row):
@@ -265,3 +266,23 @@ def dispatch(app, owner, method, path, body):
     if path.endswith("/conversation-turn"):
         return service.continue_turn(owner,body,getattr(app,"conversation_turn_handler",None))
     return service.delete(owner,body) if method == "DELETE" else service.open(owner,body)
+
+
+
+def append_notice(store, owner, event_id, *, db=None):
+    """A's inline worker hook; never nests a migration in its write transaction."""
+    return Conversations(store, initialize=db is None).append_notice(owner, event_id, db=db)
+
+
+def reconcile_notices(store, limit=50):
+    """E's restart hook: append saved missing notices, never re-execute their jobs."""
+    if type(limit) is not int or not 1 <= limit <= 100:
+        raise AppError("invalid_notice_reconcile_limit")
+    service = Conversations(store)
+    with store.connect() as db:
+        pending = list(db.execute("SELECT n.owner,n.id FROM notices n LEFT JOIN conversation_notice_links l "
+            "ON l.owner=n.owner AND l.event_id=n.id WHERE l.event_id IS NULL ORDER BY n.owner,n.id LIMIT ?", (limit,)))
+    appended = 0
+    for row in pending:
+        appended += service.append_notice(row["owner"], row["id"])["status"] == "appended"
+    return dict(checked=len(pending), appended=appended)

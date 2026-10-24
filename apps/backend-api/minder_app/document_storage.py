@@ -100,3 +100,26 @@ class LocalDocumentStorage:
                     pass
         except OSError:
             raise AppError("document_storage_delete_failed", 500) from None
+
+
+class PrivateVolumeDocumentStorage(LocalDocumentStorage):
+    """Same private byte adapter, guarded by an actual mounted volume each use.
+
+    A successful mount check is not hosted restart/backup acceptance evidence.
+    """
+    mode = "private-volume"
+    durability_status = "mount_verified_restart_pending"
+
+    def __init__(self, mount_root, root):
+        from .store import Store
+        self.mount_root = Store.verify_volume(mount_root)
+        if not Path(root).is_absolute() or not Path(root).resolve().is_relative_to(self.mount_root):
+            raise AppError("document_storage_outside_verified_volume", 500)
+        super().__init__(root)
+
+    @contextmanager
+    def directory(self):
+        from .store import Store
+        Store.verify_volume(self.mount_root)
+        with super().directory() as directory:
+            yield directory

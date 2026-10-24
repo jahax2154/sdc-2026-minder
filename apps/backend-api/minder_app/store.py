@@ -37,7 +37,18 @@ class ClosingConnection(sqlite3.Connection):
 class Store:
     engine = "sqlite"
 
-    def __init__(self, path):
+    def __init__(self, path, *, volume_root=None):
+        self.volume_root = None
+        self.persistence_mode = "development"
+        self.durability_status = "local_unverified"
+        if volume_root is not None:
+            root = self.verify_volume(volume_root)
+            target = Path(path)
+            if not target.is_absolute() or not target.resolve().is_relative_to(root):
+                raise AppError("database_outside_verified_volume", 500)
+            self.volume_root = str(root)
+            self.persistence_mode = "mounted-sqlite"
+            self.durability_status = "mount_verified_restart_pending"
         self.path = str(path)
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
@@ -55,7 +66,42 @@ class Store:
               PRIMARY KEY(owner,id));
             ''')
 
+    @staticmethod
+    def verify_volume(root):
+        root = Path(root)
+        if (not root.is_absolute() or root == Path("/") or root.is_symlink()
+                or root.resolve() != root or not root.is_dir() or not os.path.ismount(root)):
+            raise AppError("persistent_volume_not_verified", 500)
+        return root
+
+    @classmethod
+    def on_volume(cls, mount_root, database=None):
+        root = cls.verify_volume(mount_root)
+        return cls(database or root / "minder/runtime.sqlite3", volume_root=root)
+
+    def backup(self, destination):
+        """SQLite online snapshot to a new private file; never overwrite a backup."""
+        destination = Path(destination)
+        if not destination.is_absolute():
+            raise AppError("database_backup_absolute_path_required", 500)
+        destination.parent.mkdir(parents=True, mode=0o700, exist_ok=True)
+        try:
+            fd = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+        except OSError:
+            raise AppError("database_backup_target_unavailable", 500) from None
+        os.close(fd)
+        try:
+            with self.connect() as source:
+                with sqlite3.connect(str(destination), factory=ClosingConnection) as target:
+                    source.backup(target)
+        except Exception:
+            destination.unlink(missing_ok=True)
+            raise AppError("database_backup_failed", 500) from None
+        return dict(status="created", engine="sqlite")
+
     def connect(self):
+        if self.volume_root:
+            self.verify_volume(self.volume_root)
         db = sqlite3.connect(self.path, timeout=5, factory=ClosingConnection)
         db.row_factory = sqlite3.Row
         db.execute("PRAGMA foreign_keys=ON")
