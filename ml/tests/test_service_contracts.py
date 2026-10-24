@@ -112,3 +112,19 @@ class ContractTests(unittest.TestCase):
             role_catalogue_version='synthetic-v1', scorer_kind='baseline')
         self.assertAlmostEqual(result.options[0].personal_fit_index, 67)
         self.assertTrue(callable(legacy_preparation_recommendation))
+
+class UniquenessParityTests(unittest.TestCase):
+    def test_optimized_unique_items_preserves_json_equality(self):
+        import random
+        from jsonschema import Draft202012Validator
+        from minder_ml.intelligence.service_contracts import _DTOValidator
+        old = Draft202012Validator({'uniqueItems': True})
+        new = _DTOValidator({'uniqueItems': True})
+        values=[None,False,True,0,1,1.0,0.0,'1','',[],{},[1],{'a':1},{'a':True},
+                {'b':2,'a':1},{'a':1.0,'b':2}]
+        arrays=[[a,b] for a in values for b in values]
+        randomizer=random.Random(11)
+        arrays += [randomizer.choices(values,k=randomizer.randint(0,30)) for _ in range(1000)]
+        for value in arrays:
+            self.assertEqual(old.is_valid(value),new.is_valid(value),value)
+
