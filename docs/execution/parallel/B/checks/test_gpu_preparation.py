@@ -123,6 +123,27 @@ class PreparationTests(unittest.TestCase):
             self.assertEqual(control.load_secret(path,require_image=False)['RUNPOD_ENDPOINT_ID'],'mock-endpoint')
             with self.assertRaisesRegex(ValueError,'image'): control.load_secret(path)
 
+    def test_bounded_retry_time_window_requires_independent_worker_timeout(self):
+        evidence=dict(self.safe_budget(),max_provider_attempts=None,retry_bound_mode='shared_job_time_window',
+            provider_job_ttl_verified=True,provider_worker_lifetime_verified=True,
+            all_retries_share_single_job_TTL=True,job_ttl_seconds=300,worker_timeout_seconds=150,
+            worker_kill_grace_seconds=5,idle_timeout_seconds=5,verified_total_billable_seconds_bound=900,
+            verified_rate_usd_per_second=.58/3600,ancillary_and_billing_rounding_usd_bound=.5)
+        self.assertLess(control.budget_check(evidence),2)
+        for change in ({'provider_worker_lifetime_verified':False},
+                       {'all_retries_share_single_job_TTL':False},
+                       {'verified_total_billable_seconds_bound':450}):
+            with self.assertRaises(ValueError): control.budget_check(dict(evidence,**change))
+
+    def test_user_pause_blocks_submission_before_preflight_or_network(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);pause=root/'ml/artifacts/session-b/gpu-live/PAUSED_BY_USER.json'
+            pause.parent.mkdir(parents=True);pause.write_text('{}')
+            with patch.object(control,'SECRET',root/'.env.runpod.local'), \
+                patch.object(control,'api') as api, patch('sys.argv',['control','submit']):
+                with self.assertRaisesRegex(ValueError,'paused_by_user'): control.main()
+                api.assert_not_called()
+
     def test_artifact_roundtrip_before_ephemeral_worker_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory); source=root/'source';source.mkdir()

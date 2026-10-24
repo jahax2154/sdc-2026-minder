@@ -53,8 +53,27 @@ def budget_check(evidence):
     if evidence.get('automatic_topup') is not False or evidence.get('billing_upgrade') is not False:
         raise ValueError('topup_or_upgrade_not_allowed')
     attempts = evidence.get('max_provider_attempts')
-    if type(attempts) is not int or attempts < 1 or evidence.get('workers_min') != 0 or evidence.get('workers_max') != 1 or evidence.get('gpu_count') != 1:
-        raise ValueError('one_worker_one_GPU_and_finite_verified_attempt_bound_required')
+    window_mode = evidence.get('retry_bound_mode') == 'shared_job_time_window'
+    if window_mode:
+        # The user permits bounded provider retries. Do not invent a retry-count
+        # setting: all retries must share the same single request's provider TTL,
+        # with the final container independently terminated server-side.
+        if (evidence.get('provider_job_ttl_verified') is not True or
+                evidence.get('provider_worker_lifetime_verified') is not True or
+                evidence.get('all_retries_share_single_job_TTL') is not True or
+                evidence.get('job_ttl_seconds') != PAYLOAD['policy']['ttl']/1000 or
+                not 0 < evidence.get('worker_timeout_seconds', 0) <= 150 or
+                not 0 < evidence.get('worker_kill_grace_seconds', 0) <= 5 or
+                not 0 < evidence.get('idle_timeout_seconds', 0) <= 5):
+            raise ValueError('verified_TTL_and_server_side_container_lifetime_required')
+        window = sum(evidence[k] for k in ('job_ttl_seconds','worker_timeout_seconds',
+                                          'worker_kill_grace_seconds','idle_timeout_seconds'))
+        if evidence['verified_total_billable_seconds_bound'] < window:
+            raise ValueError('billable_time_allowance_must_cover_TTL_and_final_worker_tail')
+    elif type(attempts) is not int or attempts < 1:
+        raise ValueError('finite_attempt_or_verified_total_time_retry_bound_required')
+    if evidence.get('workers_min') != 0 or evidence.get('workers_max') != 1 or evidence.get('gpu_count') != 1:
+        raise ValueError('one_worker_one_GPU_scale_to_zero_required')
     if evidence['balance_usd'] < 2 or evidence['existing_billable_workers'] != 0:
         raise ValueError('balance_or_existing_worker_spend_not_safe')
     rate = evidence['verified_rate_usd_per_second']
@@ -142,6 +161,9 @@ def main():
     parser.add_argument('--job-id')
     parser.add_argument('--response', type=Path)
     args = parser.parse_args()
+    pause = SECRET.parent / 'ml/artifacts/session-b/gpu-live/PAUSED_BY_USER.json'
+    if args.command == 'submit' and pause.exists():
+        raise ValueError('paid_submission_paused_by_user; inspect_remote_state_after_explicit_return')
     if args.command == 'payload':
         print(json.dumps(PAYLOAD, indent=2)); return
     if args.command == 'account':

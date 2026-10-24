@@ -1,0 +1,141 @@
+{
+  "phase_id": "MB1-R04",
+  "refines": "MB1-R03",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "checkpoint": "commit containing MB1-R04.json and RUNPOD_RESUME.v1.md",
+  "objective": "Preserve completed native build/runtime configuration and verified safe shutdown before user disconnection; actual GPU submission remains paused",
+  "source_native_build_commit": "939dcd2a819248d67476dc01a789504b4cbdfa07",
+  "source_runtime_commit": "c8eb09921f6bf583ec30bca636f549628a575d69",
+  "native_build": {
+    "id": "a0f51622-0ece-4989-9855-183a70410f5a",
+    "state": "COMPLETED",
+    "commitHash": "939dcd2a819248d67476dc01a789504b4cbdfa07",
+    "imageName": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:939dcd2a8",
+    "startedAt": "2026-10-24T09:57:33.504Z",
+    "completedAt": "2026-10-24T09:59:49.299Z",
+    "error": null
+  },
+  "endpoint_id": "0387furb08gke2",
+  "template_id": "nre3pphy75",
+  "current_image": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:939dcd2a8",
+  "exported_OCI_manifest_digest": "sha256:4198df1c4cdbe78f0ab0fa5e0549c97574a84dbf9b300de159cec8539ba40b0d",
+  "digest_caveat": "Export digest from completed build log; generic verifyImage returns registry401 for managed references. Do not claim this is a successfully pulled registry digest.",
+  "completed_work": [
+    "A publication939dcd2 verified; repository-root Dockerfile content verified before build",
+    "Native builda0f51622-0ece-4989-9855-183a70410f5a completed successfully; source manifest and CUDA-enabled XGBoost build checks executed in Docker build",
+    "Actual AMPERE_16 pool quote read:USD0.58/hour flex, no account discount",
+    "Dedicated template configured with150second GNU timeout and5second kill grace; scheduler minimumCUDA12.4, execution timeout180seconds, zero active workers",
+    "Bounded provider retries may be covered by a verified shared request TTL plus independent container lifetime; local budget regression tests added without claiming live preflight passed",
+    "Paused submission locally before any paid request; metadata/runtime state and evidence persisted"
+  ],
+  "unresolved": [
+    "Image-prefetch was unhealthy for the digest reference; the native managed tag was restored. Healthy prefetch/pull has not been verified.",
+    "Actual submission preflight is not passed. No GPU training, fitted model, predictions or metrics exist for RunPod.",
+    "Shutdown saveEndpoint reset idleTimeout to10seconds; on resume explicitly set and reverify intended5seconds before using time-window budget model.",
+    "Runtime time-window bound, host initialization behavior, image identity/access and complete cost controls must be revalidated after the user returns."
+  ],
+  "actual_job": {
+    "job_id": null,
+    "submitted": false,
+    "submission_intent_exists": false,
+    "GPU_fits": 0,
+    "jobs_in_queue": 0,
+    "jobs_in_progress": 0,
+    "model_results": null
+  },
+  "shutdown_verification": {
+    "UTC_checked": "2026-10-24T10:46:36.766910+00:00",
+    "account": {
+      "clientBalance": 25,
+      "currentSpendPerHr": 0,
+      "isAutoPayEnabled": false,
+      "endpoint": {
+        "id": "0387furb08gke2",
+        "name": "minder-b-gpu-once-20261024",
+        "workersMin": 0,
+        "workersMax": 0,
+        "gpuCount": 1,
+        "executionTimeoutMs": 180000,
+        "idleTimeout": 10,
+        "flashBootType": "OFF",
+        "pods": [],
+        "repo": {
+          "repoName": "jahax2154/sdc-2026-minder",
+          "branch": "session/b-market",
+          "dockerFilePath": "docs/execution/parallel/B/checks/GPU.native.Dockerfile"
+        },
+        "template": {
+          "id": "nre3pphy75",
+          "imageName": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:939dcd2a8",
+          "dockerArgs": "/usr/bin/timeout --signal=TERM --kill-after=5s 150s python3 -u /app/docs/execution/parallel/B/checks/gpu_worker.py"
+        },
+        "builds": [
+          {
+            "id": "a0f51622-0ece-4989-9855-183a70410f5a",
+            "state": "COMPLETED",
+            "commitHash": "939dcd2a819248d67476dc01a789504b4cbdfa07",
+            "imageName": "registry.runpod.net/jahax2154-sdc-2026-minder-session-b-market-docs-execution-parallel-b-checks-gpu-native-dockerfile:939dcd2a8",
+            "startedAt": "2026-10-24T09:57:33.504Z",
+            "completedAt": "2026-10-24T09:59:49.299Z",
+            "error": null
+          }
+        ]
+      }
+    },
+    "health": {
+      "jobs": {
+        "completed": 0,
+        "failed": 0,
+        "inProgress": 0,
+        "inQueue": 0,
+        "retried": 0
+      },
+      "workers": {
+        "idle": 0,
+        "initializing": 0,
+        "ready": 0,
+        "running": 0,
+        "throttled": 0,
+        "unhealthy": 0
+      }
+    },
+    "submission_intent_exists": false,
+    "safe_resume": "No new paid job authorised until user returns. Inspect existing remote state first; never blindly resubmit."
+  },
+  "user_pause": {
+    "in_force": true,
+    "authority": "User explicitly said no new paid job before return",
+    "local_guard": "ml/artifacts/session-b/gpu-live/PAUSED_BY_USER.json",
+    "controller_behavior": "submit rejects before preflight or network while marker exists; account/read/shutdown remain usable",
+    "resume": "Wait for user return, inspect existing remote build/jobs and local receipt first; never blindly resubmit."
+  },
+  "tests": {
+    "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src $MINDER_PYTHON docs/execution/parallel/B/checks/test_gpu_preparation.py",
+    "result": "...................\n----------------------------------------------------------------------\nRan 19 tests in 0.660s\n\nOK",
+    "log_sha256": "e31a312441ae22d8c23716b413ab92131e5e8570862f390f2e365f957cb5d3e5",
+    "class": "Local software/mock tests, not actual CUDA proof"
+  },
+  "financial_state": {
+    "verified_credit_usd": 25,
+    "current_spend_per_hour": 0,
+    "observed_session_charge_usd": 0,
+    "automatic_payments_enabled": false,
+    "authorised_total_limit_usd": 2,
+    "no_active_pods_or_workers": true,
+    "recurring_network_volume_created": false
+  },
+  "application_state": {
+    "synthetic_only": true,
+    "real_forecasts": "unavailable",
+    "observed_coverage_change": 0,
+    "runtime_promotion": false
+  },
+  "excluded_local_state": [
+    "Mode600 ignored .env.runpod.local with key and endpointID; no secret value copied into evidence",
+    "Ignored native build logs/configuration/public-client cache and metadata under gpu-live; local only",
+    "13 original readonly source inputs remain untracked; no source data or model weights staged"
+  ],
+  "publication": "Local checkpoint only; A publishes exact snapshot later. No B push or application deployment."
+}
