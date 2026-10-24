@@ -17,12 +17,12 @@ async function render(){
   const current=++generation;routeController?.abort();routeController=new AbortController();
   document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);
   const stage=document.createElement('main');stage.id='view';stage.className='page-main product-page';stage.setAttribute('aria-busy','true');view.replaceWith(stage);view=stage;
-  const route=location.hash.slice(1)||'minder', [page,...segments]=route.split('/'),tab=segments.join('/');document.querySelector('#globalNewChat').hidden=page!=='minder';document.querySelector('#pageTitle').textContent=({careers:'Careers','my-path':'My Path'}[page]||labels[page]||'Minder');document.querySelector('#error').hidden=true;
+  const route=location.hash.slice(1)||'minder', [page,...segments]=route.split('/'),tab=segments.join('/');document.querySelector('#globalNewChat').hidden=false;document.querySelector('#pageTitle').textContent=({careers:'Careers','my-path':'My Path'}[page]||labels[page]||'Minder');document.querySelector('#error').hidden=true;
   document.querySelectorAll('.nav-link').forEach(a=>{const active=(a.hash||'').split('/')[0]==='#'+page;a.classList.toggle('active',active);a.setAttribute('aria-current',active?'page':'false');});
   const ctx={routeHash:location.hash,view:stage,signal:routeController.signal,profile:null,profileStatus:'loading',profileError:null,render,isCurrent:()=>current===generation&&!ctx.authFailed};
   Object.defineProperty(ctx,'selectedRole',{get:()=>selectedRole,set:value=>{selectedRole=value;sessionStorage.setItem('minder-product-role',value);}});
   ctx.failAuth=error=>{if(current!==generation||ctx.authFailed)return;ctx.authFailed=true;invalidateConversation();ctx.profile=null;routeController.abort();setAccountName();document.querySelector('#proposalBadge').hidden=true;stage.innerHTML=card('Session unavailable','<p>Your session could not be authorized. No saved workspace information is shown.</p><button id="retryView">Reload workspace</button>');stage.setAttribute('aria-busy','false');stage.dataset.rendered=page;document.querySelector('#retryView').onclick=render;showError(error);};
-  if(['careers','my-path'].includes(page)){document.querySelector('#exploreChildren').hidden=false;document.querySelector('#exploreToggle').setAttribute('aria-expanded','true');}document.querySelector('#exploreToggle').classList.toggle('active',['careers','my-path'].includes(page));
+  document.querySelector('#exploreToggle').classList.toggle('active',['careers','my-path'].includes(page));
   activeContext=ctx;
   ctx.refreshProfile=async()=>{ctx.profileStatus='loading';ctx.profileError=null;try{const profile=await optional('profile',{signal:ctx.signal});if(!ctx.isCurrent())return null;ctx.profile=profile;ctx.profileStatus='ready';setAccountName(profile?.career_context?.display_name||accountName());return profile;}catch(e){if(!ctx.isCurrent()||e.code==='request_cancelled')return null;ctx.profileError=e;ctx.profileStatus='error';if([401,403].includes(e.status))ctx.failAuth(e);return null;}finally{if(ctx.isCurrent())ctx.onProfileLoaded?.();}};
   ctx.profileReady=ctx.refreshProfile();
@@ -48,9 +48,9 @@ for(const control of nav.querySelectorAll('.nav-link,#globalNewChat,#accountMenu
  function showLabel(){if(nav.classList.contains('mobile-open')||matchMedia('(max-width:730px)').matches)return;const rect=control.getBoundingClientRect();tooltip.textContent=label;tooltip.style.left=(rect.right+12)+'px';tooltip.style.top=Math.max(8,Math.min(innerHeight-44,rect.top+(rect.height-30)/2))+'px';tooltip.hidden=false;control.setAttribute('aria-describedby','navTooltip');}
  control.addEventListener('mouseenter',showLabel);control.addEventListener('focus',showLabel);for(const type of ['mouseleave','blur'])control.addEventListener(type,()=>{tooltip.hidden=true;control.removeAttribute('aria-describedby');});
 }
-document.querySelector('#exploreToggle').onclick=()=>{const toggle=document.querySelector('#exploreToggle'),children=document.querySelector('#exploreChildren');children.hidden=!children.hidden;toggle.setAttribute('aria-expanded',String(!children.hidden));};
+document.querySelector('#exploreToggle').onclick=()=>{const toggle=document.querySelector('#exploreToggle'),children=document.querySelector('#exploreChildren');children.hidden=!children.hidden;toggle.setAttribute('aria-expanded',String(!children.hidden));if(!children.hidden){const r=toggle.getBoundingClientRect();children.style.left=(r.right+12)+'px';children.style.top=Math.min(r.top,innerHeight-120)+'px';}};
 const search=document.querySelector('#globalSearch');search.placeholder='Find a career role…';search.onkeydown=e=>{if(e.key==='Enter'){sessionStorage.setItem('minder-product-search',search.value);if(location.hash==='#careers/matches')render();else location.hash='careers/matches';}};
-document.querySelector('#globalNewChat').onclick=()=>{if(clearConversation()===false)return;setNavigation(false);if(location.hash==='#minder')render();else location.hash='minder';};
+document.querySelector('#globalNewChat').onclick=()=>{if(clearConversation({preserveDraft:true})===false)return;setNavigation(false);if(location.hash==='#minder')render();else location.hash='minder';};
 const accountOptions=document.createElement('div');accountOptions.id='accountOptions';accountOptions.className='account-options';accountOptions.hidden=true;accountOptions.innerHTML='<a class="button-outline" href="#profile">My profile</a><button type="button" class="button-outline" id="signOut">Sign out</button>';document.body.append(accountOptions);
 document.querySelector('#accountMenu').onclick=()=>{accountOptions.hidden=!accountOptions.hidden;};
 accountOptions.querySelector('a').onclick=()=>{accountOptions.hidden=true;};
@@ -58,7 +58,9 @@ document.querySelector('#signOut').onclick=async event=>{const button=event.curr
 document.addEventListener('keydown',event=>{if(event.key==='Escape')accountOptions.hidden=true;});
 window.addEventListener('minder-refresh',render);
 window.addEventListener('minder-profile-saved',event=>setAccountName(event.detail));
-window.addEventListener('hashchange',()=>{setNavigation(false);if(authenticated())render();});
+document.addEventListener('click',e=>{if(!e.target.closest('#exploreToggle,#exploreChildren')){document.querySelector('#exploreChildren').hidden=true;document.querySelector('#exploreToggle').setAttribute('aria-expanded','false');}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.querySelector('#exploreChildren').hidden){document.querySelector('#exploreChildren').hidden=true;document.querySelector('#exploreToggle').setAttribute('aria-expanded','false');document.querySelector('#exploreToggle').focus();}});
+window.addEventListener('hashchange',()=>{document.querySelector('#exploreChildren').hidden=true;document.querySelector('#exploreToggle').setAttribute('aria-expanded','false');setNavigation(false);if(authenticated())render();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('mobile-open')){setNavigation(false);menu.focus();}});
 let toastTimer;window.addEventListener('minder-saved',event=>{const toast=document.querySelector('#appToast');toast.textContent=event.detail;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3500);});
 hydrateIcons();

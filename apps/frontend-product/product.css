@@ -30,3 +30,15 @@
 .morning-explore .outlook-observation{padding:15px 0;border-bottom:1px solid var(--line)}.morning-explore .outlook-observation h3{font-size:15px}.morning-explore .scenario-grid .outlook-observation p{margin:8px 0;font-size:13px}.morning-explore .scenario-grid>div>a{margin:18px 0 0 61px}
 .diff-columns{display:grid;grid-template-columns:1fr 1fr;gap:10px;min-width:0}.diff-columns section{padding:12px;min-width:0;border-radius:7px;overflow-wrap:anywhere}.diff-before{background:#faf3f1}.diff-after{background:#f1f6f1}.diff-columns dl{margin:9px 0}.diff-columns dt{font-size:11px;color:#64736c;margin-top:9px}.diff-columns dd{margin:2px 0 0;font-size:13px}.diff-json{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;max-height:260px;overflow:auto}.diff>strong{overflow-wrap:anywhere}@media(max-width:560px){.diff-columns{grid-template-columns:1fr}}
 .canonical-task-controls{margin-top:18px;border-top:1px solid #e5e8e6;padding-top:18px}.canonical-task-controls label{display:block;margin:12px 0}.canonical-task-controls input,.canonical-task-controls textarea{display:block;width:100%;max-width:100%;padding:9px;border:1px solid #e5e8e6;border-radius:7px}.canonical-task-controls form{margin:15px 0}.canonical-task-controls>button{margin-top:15px}
+
+/* F-UX1: the shell bounds pages; each page owns its vertical scrolling. */
+.app-shell{min-height:0}.right-screen{min-height:0}
+#view.morning-profile,#view.morning-explore,#view.morning-home{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.sidebar{flex-shrink:0}.sidebar .nav-group{flex-shrink:0}.sidebar{overflow-y:auto;scrollbar-width:thin}
+#exploreChildren{position:fixed;z-index:95;display:grid;gap:4px;width:180px;margin:0;padding:8px;background:white;border:1px solid #e5e8e6;border-radius:12px;box-shadow:0 8px 30px #1232}
+#exploreChildren[hidden]{display:none}#exploreChildren .nav-link{display:flex;width:100%;padding:0 12px;justify-content:flex-start;gap:10px}#exploreChildren .nav-link>span:nth-child(2){display:block}
+/* Body +2px (14→16 desktop, 12→14 mobile); composer 13→15. */
+.chat-page .user-message,.agent-page .user-message,.chat-page .assistant-answer,.agent-page .assistant-answer,.chat-page .answer-text,.agent-page .answer-text{font-size:16px}
+.chat-page .composer textarea,.agent-page .composer textarea{font-size:15px}
+@media(max-width:730px){.chat-page .user-message,.agent-page .user-message{font-size:14px}#exploreChildren{max-width:calc(100vw - 24px);left:12px!important;top:160px!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:0s!important;transition-duration:0s!important}}
