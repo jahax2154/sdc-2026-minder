@@ -1,3 +1,6 @@
+Latest: [Revision3 morning persistence/CV handoff](MD3_MORNING_HANDOFF.md).
+The earlier D3/D4 records below remain historical snapshots.
+
 Later extension: [D4 private document library](D4_DOCUMENT_HANDOFF.md) supersedes
 this historical D3 snapshot only for document storage/intake capabilities.
 
