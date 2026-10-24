@@ -178,7 +178,7 @@ Minder is developed and deployed using Replit. The application consists of a Rea
 
 The easiest way to access the application is through our deployed prototype:
 
-**Live Application:** https://aiversecity-career-compass.replit.app
+**Live Application:** https://aesthetic-baklava-2da854.netlify.app
 
 To run the application in the Replit development environment:
 
@@ -266,7 +266,7 @@ Replit was used to run and verify the application during development, including:
 
 Minder is deployed using Replit.
 
-**Live Prototype:** https://aiversecity-career-compass.replit.app
+**Live Prototype:** https://aesthetic-baklava-2da854.netlify.app
 
 The deployed application provides access to the career exploration platform, including the CV analysis interface, personalised career recommendations, learning pathways, AI scenarios, SDG connections, and the AI career assistant.
 
