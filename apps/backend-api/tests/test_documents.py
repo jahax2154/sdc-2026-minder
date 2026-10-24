@@ -164,7 +164,8 @@ class DocumentLibraryTests(AppCase):
         self.assertEqual(error.exception.code, "draft_not_found")
         pdf = self.call("upload", upload_body(b"%PDF-1.4\n%%EOF\n", "synthetic.pdf", "application/pdf", "pdf"))["document"]
         result = self.call("extract", dict(document_id=pdf["document_id"]))
-        self.assertEqual(result["extraction"]["reason"], "pdf_text_extraction_not_supported")
+        from minder_app.documents import pdf_available
+        self.assertEqual(result["extraction"]["reason"], "pdf_parse_failed" if pdf_available() else "pdf_text_extraction_not_supported")
         self.assertIsNone(result["draft"])
         self.assertTrue(result["extraction"]["manual_entry_available"])
 
@@ -245,3 +246,98 @@ class DocumentLibraryTests(AppCase):
             self.assertEqual(error.exception.code, "document_storage_integrity_failed")
         with self.store.connect() as db:
             self.assertEqual(db.execute("SELECT count(*) FROM drafts").fetchone()[0], 0)
+
+    def test_cv_purpose_required_and_legacy_files_are_not_reclassified(self):
+        for body in (dict(upload_body(),purpose="certificate"), {k:v for k,v in upload_body().items() if k!="purpose"}):
+            with self.assertRaises(ValidationError):
+                self.call("upload",body)
+        doc = self.call("upload",upload_body())["document"]
+        self.assertEqual(doc["purpose"],"resume")
+        self.assertEqual(doc["purpose_basis"],"user_declared_not_independently_verified")
+        # Simulate the actual pre-purpose metadata shape without importing/claiming it.
+        import json
+        with self.store.transaction() as db:
+            metadata=json.loads(db.execute("SELECT body FROM library_documents WHERE owner=? AND id=?",(self.owner,doc["document_id"])).fetchone()[0])
+            metadata.pop("purpose")
+            metadata.pop("purpose_basis")
+            db.execute("UPDATE library_documents SET body=? WHERE owner=? AND id=?",(json.dumps(metadata),self.owner,doc["document_id"]))
+        listed=self.call("documents")["documents"][0]
+        self.assertEqual(listed["purpose"],"legacy_unclassified")
+        extracted=self.call("extract",{"document_id":doc["document_id"]})
+        self.assertEqual(extracted["extraction"]["reason"],"legacy_document_purpose_unclassified")
+        self.assertIsNone(extracted["draft"])
+        self.assertEqual(self.call("download",{"document_id":doc["document_id"]})["document"]["document_id"],doc["document_id"])
+
+    def test_parse_holds_no_writer_and_delete_during_parse_cannot_resurrect_draft(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from threading import Event
+        entered,release=Event(),Event()
+        doc=self.call("upload",upload_body(b"%PDF-1.4\n%%EOF\n","fictional.pdf","application/pdf"))["document"]
+        def parse(content):
+            entered.set()
+            self.assertTrue(release.wait(3))
+            return "Fictional resume education",None
+        with patch("minder_app.documents.pdf_available",return_value=True), patch("minder_app.documents.extract_pdf",side_effect=parse):
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                future=pool.submit(self.call,"extract",{"document_id":doc["document_id"]})
+                self.assertTrue(entered.wait(2))
+                self.store.put(self.owner,"parse_check","write",{"ok":True},None)
+                self.call("delete",dict(document_id=doc["document_id"],expected_version=doc["version"],idempotency_key="delete-parsing"))
+                release.set()
+                with self.assertRaises(AppError):
+                    future.result(timeout=3)
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM drafts").fetchone()[0],0)
+
+    @unittest.skipUnless(__import__('importlib').util.find_spec("pypdf"),"pypdf dependency not installed")
+    def test_real_text_pdf_extraction_and_scanned_encrypted_limits(self):
+        import io
+        from pypdf import PdfWriter
+        from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject
+        def pdf(*, blank=False, encrypted=False, pages=1):
+            writer=PdfWriter()
+            for _ in range(pages):
+                page=writer.add_blank_page(width=612,height=792)
+                if not blank:
+                    page[NameObject("/Resources")]=DictionaryObject({NameObject("/Font"):DictionaryObject({
+                        NameObject("/F1"):DictionaryObject({NameObject("/Type"):NameObject("/Font"),
+                            NameObject("/Subtype"):NameObject("/Type1"),NameObject("/BaseFont"):NameObject("/Helvetica")})})})
+                    stream=DecodedStreamObject()
+                    stream.set_data(b"BT /F1 12 Tf 50 700 Td (Fictional Resume Education and Experience) Tj ET")
+                    page[NameObject("/Contents")]=stream
+            if encrypted:
+                writer.encrypt("fictional-password")
+            output=io.BytesIO();writer.write(output)
+            return output.getvalue()
+        doc=self.call("upload",upload_body(pdf(),"cv.pdf","application/pdf","pdf-text"))["document"]
+        extracted=self.call("extract",{"document_id":doc["document_id"]})
+        self.assertEqual(extracted["extraction"]["status"],"review_available")
+        self.assertIn("Fictional Resume",extracted["draft"]["text"])
+        self.assertEqual(extracted["draft"]["source_content_type"],"application/pdf")
+        self.assertEqual(self.call("extract",{"document_id":doc["document_id"]}),extracted)
+        self.assertEqual(self.store.list(self.owner,"profile"),[])
+        for key,content,reason in (("scan",pdf(blank=True),"pdf_no_extractable_text"),
+                                   ("encrypted",pdf(encrypted=True),"pdf_encrypted_not_supported"),
+                                   ("pages",pdf(blank=True,pages=21),"pdf_page_limit_exceeded")):
+            d=self.call("upload",upload_body(content,key+".pdf","application/pdf",key))["document"]
+            result=self.call("extract",{"document_id":d["document_id"]})
+            self.assertEqual(result["extraction"]["reason"],reason)
+            self.assertTrue(result["extraction"]["manual_entry_available"])
+            self.assertIsNone(result["draft"])
+
+    def test_lost_review_response_exact_retry_and_changed_intent_cannot_write_twice(self):
+        profile=self.app.dispatch("PUT","/api/profile",{"profile":{}},self.token)
+        doc=self.call("upload",upload_body(b"Fictional CV Education"))["document"]
+        extracted=self.call("extract",{"document_id":doc["document_id"]})
+        body=dict(draft_id=extracted["draft"]["id"],profile={"career_context":{"education":"Reviewed fictional CV"}},
+            expected_profile_version=profile["version"],idempotency_key="uncertain-review")
+        # Simulate a committed response lost in transport: client does not see it.
+        committed=self.app.dispatch("POST","/api/product/intake-correction",body,self.token)
+        replay=self.app.dispatch("POST","/api/product/intake-correction",body,self.token)
+        self.assertEqual(replay,committed)
+        with self.assertRaises(AppError) as error:
+            self.app.dispatch("POST","/api/product/intake-correction",dict(body,profile={"career_context":{"education":"Different unconfirmed intent"}}),self.token)
+        self.assertEqual(error.exception.code,"idempotency_scope_conflict")
+        self.assertEqual(self.app.dispatch("GET","/api/profile",{},self.token),committed["profile"])
+        with self.store.connect() as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM history WHERE owner=? AND kind='profile'",(self.owner,)).fetchone()[0],2)

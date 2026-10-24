@@ -46,3 +46,17 @@ class ProfileTests(AppCase):
             self.app.dispatch("PUT", "/api/profile", {"profile": {"admin": True},
                 "expected_version": result["version"]}, self.token)
         self.assertEqual(self.app.dispatch("GET", "/api/profile", {}, self.token), result)
+
+    def test_approved_onboarding_metadata_merges_without_assessed_skills(self):
+        p = self.app.dispatch("PUT", "/api/profile", {"profile": {"onboarding": {
+            "stage":"studying", "objective":"path", "institution":"Fictional institute"}}}, self.token)
+        updated = self.app.dispatch("PUT", "/api/profile", {"profile": {"onboarding": {
+            "education_level":"Fictional diploma", "interests":["Data"]}}, "expected_version":p["version"]}, self.token)
+        self.assertEqual(updated["onboarding"]["stage"],"studying")
+        self.assertEqual(updated["onboarding"]["institution"],"Fictional institute")
+        self.assertEqual(updated["evidence"],[])
+        from jsonschema.exceptions import ValidationError
+        with self.assertRaises(ValidationError):
+            self.app.dispatch("PUT", "/api/profile", {"profile": {"onboarding": {"stage":"not-approved"}},
+                "expected_version":updated["version"]}, self.token)
+        self.assertEqual(self.app.dispatch("GET", "/api/profile", {}, self.token),updated)

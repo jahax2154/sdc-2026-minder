@@ -93,3 +93,23 @@ class GenerationTests(AppCase):
         self.assertEqual(result['action_status'],'approval_required')
         self.assertEqual(self.store.get(owner,'plan',plan['plan_id']),plan)
         self.assertEqual(len(self.app.actions.history(owner)),0)
+
+    def test_guidance_minimizes_contacts_credentials_and_profile_identifiers(self):
+        from minder_app.generation import generate
+        provider=self.app.provider=AdviceProvider()
+        owner=self.session['profile_id']
+        generate(self.app,owner,'I can study six hours. Email private@example.org. Bearer gsk_software_canary',None,
+            history=[dict(role='user',content='My contact is +6012 345 6789')])
+        payload=json.dumps(provider.messages)
+        for private in ('private@example.org','gsk_software_canary','+6012 345 6789',owner):
+            self.assertNotIn(private,payload)
+        self.assertIn('six hours',payload)
+
+    def test_measured_cut_intro_and_unexpected_language_fail_without_fake_success(self):
+        for bad in [advice(answer='I can help you with a practical roadmap or a'),
+                    advice(answer='Here is a practical roadmap. 剩下的'),
+                    advice(answer='There are 9000 jobs available today.')]:
+            self.app.provider=AdviceProvider(bad)
+            result=self.app.dispatch('POST','/api/chat',dict(message='Prepare a practice roadmap'),self.token)
+            self.assertIsNone(result['generation'])
+            self.assertEqual(result['action_status'],'no_mutation_requested_or_executed')
