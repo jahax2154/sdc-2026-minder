@@ -1,3 +1,12 @@
+# Active target: Replit Python application
+
+The user selected Replit; Railway deployment is suspended. Use
+[the Replit preparation and launch guide](replit/README.md). Existing Railway
+files below are historical preparation, not the active publishing instructions.
+The private operator target disables Railway provider actions.
+
+## Historical Railway candidate — inactive
+
 # Minder Python deployment candidate — Railway only
 
 Revision3 section4 selection: Replit was inspected first. Existing shared project
