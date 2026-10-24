@@ -25,9 +25,12 @@ for method, path in (('GET', 'documents'), ('POST', 'document-upload'),
     ROUTES[(method, '/api/product/' + path)] = 'documents'
 
 for method, path in (('GET', 'conversations'), ('POST', 'conversations'),
+                     ('POST', 'conversations-search'),
                      ('GET', 'conversation'), ('POST', 'conversation'), ('DELETE', 'conversation'),
                      ('GET', 'mindbot-conversation'), ('POST', 'conversation-turn')):
     ROUTES[(method, '/api/product/' + path)] = 'conversations'
+for method in ('GET', 'PUT'):
+    ROUTES[(method, '/api/product/bot-preferences')] = 'bot_preferences'
 for method, path in (('GET', 'generations'), ('POST', 'generation'), ('POST', 'generation-accept')):
     ROUTES[(method, '/api/product/' + path)] = 'generation_state'
 
@@ -71,7 +74,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations', 'generation_state') else 'E',
+            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations', 'generation_state', 'bot_preferences') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))
