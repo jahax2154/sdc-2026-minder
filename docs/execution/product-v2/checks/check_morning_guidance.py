@@ -11,7 +11,8 @@ from minder_ml.intelligence.role_fit import reference
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--case',choices=('unsaved','partial','rich'),required=True)
     parser.add_argument('--base',default='http://127.0.0.1:9111');parser.add_argument('--followup',action='store_true')
-    args=parser.parse_args();token=None
+    parser.add_argument('--followup-delay-seconds',type=float,default=0)
+    args=parser.parse_args();assert 0<=args.followup_delay_seconds<=60;token=None
     def call(path,body=None,method=None):
         headers={'Content-Type':'application/json'}
         if token:headers['Authorization']='Bearer '+token
@@ -39,6 +40,7 @@ def main():
         return result
     first=ask(body)
     if args.followup and first.get('response',{}).get('generation'):
+        if args.followup_delay_seconds:time.sleep(args.followup_delay_seconds)
         ask(dict(body,message='I can study six hours a week. My Python notebook predicts bus delays, but I cannot tell whether it generalizes. How should the first milestone change?',idempotency_key='synthetic-unseen-followup'))
     replay=call('product/conversation-turn',body)
     assert replay.get('response')==first.get('response'),'exact replay changed'

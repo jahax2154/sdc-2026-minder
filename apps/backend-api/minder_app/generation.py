@@ -95,7 +95,7 @@ def private_context(profile, plans):
             for p in plans[:3] for t in p.get('tasks', [])[:15]])
 
 
-def validate_advice(value, facts, tasks, message=None):
+def validate_advice(value, facts, tasks, message=None, *, allow_incomplete=False):
     VALIDATOR.validate(value)
     if set(value['fact_ids']) - {f['id'] for f in facts}:
         raise ValueError('unknown_fact_reference')
@@ -111,13 +111,33 @@ def validate_advice(value, facts, tasks, message=None):
         raise ValueError('unsupported_external_or_scoring_claim')
     if re.search(r'\b\d[\d,]*(?:\.\d+)?\s+(?:jobs?|vacancies|openings|employers|ads)\b', prose, re.I):
         raise ValueError('unsupported_market_quantity')
-    if value['answer'].rstrip().rstrip('"\u201d*').endswith(('.', '!', '?', ':')) is False:
+    if not allow_incomplete and value['answer'].rstrip().rstrip('"\u201d*').endswith(('.', '!', '?', ':')) is False:
         raise ValueError('incomplete_guidance_introduction')
     if message is not None and not re.search(r'[\u4e00-\u9fff]', message) and re.search(r'[\u4e00-\u9fff]', prose):
         raise ValueError('unexpected_mixed_language')
     if operation['kind']=='none' and re.search(r"\b(?:I(?:'ve| have)?|we(?:'ve| have)?) (?:saved|updated|marked|completed|rescheduled|created)\b", prose, re.I):
         raise ValueError('unsupported_action_success_claim')
     return value
+
+
+def omit_incomplete_tails(value):
+    """Retain complete model sentences; never invent a completion or source text."""
+    value=copy.deepcopy(value);adjustments=[]
+    def prefix(text,minimum):
+        boundaries=list(re.finditer(r'[.!?](?:["\u201d*])?(?=\s|$)',text))
+        result=text[:boundaries[-1].end()].rstrip() if boundaries else text
+        return result if len(result)>=minimum else text
+    answer=value['answer']
+    if not answer.rstrip().rstrip('"\u201d*').endswith(('.', '!', '?', ':')):
+        revised=prefix(answer,30)
+        if revised!=answer:value['answer']=revised;adjustments.append('incomplete_intro_tail_omitted')
+    for stage in value['stages']:
+        for task in stage['tasks']:
+            text=task['description']
+            if len(text)>=380 and not text.rstrip().endswith(('.', '!', '?')):
+                revised=prefix(text,20)
+                if revised!=text:task['description']=revised;adjustments.append('incomplete_task_tail_omitted')
+    return value,sorted(set(adjustments))
 
 
 def generate(app, owner, message, expected_profile_version, *, history=(), request_id=None):
@@ -178,16 +198,24 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     generated = None
     try:
         result = BudgetedProvider(app.store, owner, provider).complete_tool(messages, tool)
-        generated = validate_advice(json.loads(result['text']), facts, context['saved_tasks'], message)
+        raw=validate_advice(json.loads(result['text']), facts, context['saved_tasks'], message,allow_incomplete=True)
+        candidate,adjustments=omit_incomplete_tails(raw)
+        generated = validate_advice(candidate, facts, context['saved_tasks'], message)
         provider_result = {k: v for k, v in result.items() if k != 'text'}
         provider_result['invoked'] = True
+        if adjustments:provider_result['visible_text_adjustments']=adjustments
     except ProviderError as error:
         provider_result = error.public()
         provider_result['invoked'] = error.code not in ('provider_credentials_missing',
             'provider_model_not_configured', 'provider_context_budget_exceeded',
             'provider_concurrency_limit', 'provider_daily_budget_exceeded')
-    except (ValueError, TypeError, KeyError, ValidationError):
-        provider_result = dict(status='unavailable', code='generated_guidance_validation_failed', invoked=True)
+    except (ValueError, TypeError, KeyError, ValidationError) as error:
+        allowed_codes={'unknown_fact_reference','unknown_task_reference','unsupported_external_or_scoring_claim',
+            'unsupported_market_quantity','incomplete_guidance_introduction','unexpected_mixed_language',
+            'unsupported_action_success_claim'}
+        validation_code=str(error) if isinstance(error,ValueError) and str(error) in allowed_codes else 'guidance_schema_or_shape_mismatch'
+        provider_result = dict(status='unavailable', code='generated_guidance_validation_failed',
+                              validation_code=validation_code, invoked=True)
     provider_ms = round((time.perf_counter()-provider_started)*1000, 3)
     identifier = uid()
     if generated is None:

@@ -113,3 +113,15 @@ class GenerationTests(AppCase):
             result=self.app.dispatch('POST','/api/chat',dict(message='Prepare a practice roadmap'),self.token)
             self.assertIsNone(result['generation'])
             self.assertEqual(result['action_status'],'no_mutation_requested_or_executed')
+
+    def test_cut_trailing_fragment_is_omitted_without_inventing_completion(self):
+        first='Use your existing notebook to test generalization.'
+        value=advice(answer=first+' Compare a baseline before adding more features. If that does not work, the')
+        self.app.provider=AdviceProvider(value)
+        response=self.app.dispatch('POST','/api/chat',dict(message='Refine my draft practice milestone'),self.token)
+        self.assertEqual(response['response_mode'],'generated_guidance')
+        actual=response['generation']['advice']['answer']
+        self.assertEqual(actual,first+' Compare a baseline before adding more features.')
+        self.assertTrue(value['answer'].startswith(actual))
+        self.assertEqual(response['provider']['visible_text_adjustments'],['incomplete_intro_tail_omitted'])
+        self.assertFalse(self.store.list(self.session['profile_id'],'plan'))
