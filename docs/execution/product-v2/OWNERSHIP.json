@@ -108,7 +108,9 @@
         "apps/backend-api/tests/test_web_evidence.py",
         "apps/backend-api/tests/test_handoffs.py",
         "apps/backend-api/tests/test_model_gateway.py",
-        "apps/backend-api/tests/test_replit_factory.py"
+        "apps/backend-api/tests/test_replit_factory.py",
+        ".replit",
+        "replit.nix"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -146,7 +148,8 @@
         "apps/backend-api/minder_app/bot_preferences.py",
         "apps/backend-api/tests/test_bot_preferences.py",
         "apps/backend-api/minder_app/replit_document_storage.py",
-        "apps/backend-api/tests/test_replit_document_storage.py"
+        "apps/backend-api/tests/test_replit_document_storage.py",
+        "apps/backend-api/tests/test_replit_storage.py"
       ],
       "forbidden": [
         "api.py/product_routes.py central registration",
