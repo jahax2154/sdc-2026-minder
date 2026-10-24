@@ -1,5 +1,7 @@
 Session B contract handoff — B1.1
 
+Revision-3 morning continuation: integrate the commit containing `MB1-PREP.json` / `GPU_PRIVATE_SETUP.v1.md`. It preserves d9ffd4f3cc7625c736ea081c52da3c1122b21c08 and its hashed CPU experiment, adds an isolated GPU adapter/handler, image/context, local checks and one-submit/artifact/cost/cleanup controls. No shared contract or normal-market application change. MB1 local engineering is prepared; MB1 live account/image/control checks and compulsory MB2 actual GPU proof are pending. B has created no account resources or paid jobs. Give the preparation snapshot's full SHA to the coordinated publisher; a later actual-run evidence commit will be distinct.
+
 Latest synthetic closure: `SYNTHETIC_HANDOFF.v1.md`. SY1 `3dcc8e08fcfafc0c358aaf140063e929c2a752f7`, SY2 `e2561ff2430eb317ae8cbe547c6c913246c0cd32`, SY2-R01 `f62770b67eb3bd241e0a3947578064be72f609d7`, followed by the commit containing SY3. A coordinates the specifically captured full snapshot SHA under closure-pack file 06. No shared contract or scoring change is requested. Keep all fictional scenarios/models outside normal evidence/forecasts; counts and real forecast availability are unchanged. Measured outcomes, labelled submission paragraph, exact replay, dependency pins and runnable bounded RunPod specification are committed. Paid execution remains separate; no job or spend occurred.
 
 No shared-file mutation requested yet. B preserves minder-parallel-v1.

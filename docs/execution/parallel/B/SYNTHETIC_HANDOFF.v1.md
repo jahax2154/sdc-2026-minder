@@ -1,5 +1,7 @@
 # B synthetic experiment handoff to A
 
+Morning continuation: `GPU_PRIVATE_SETUP.v1.md` and `MB1-PREP.json` implement revision-3 GPU preparation. The original SY3 CPU preparation below is preserved. Actual MB2 GPU execution is compulsory and remains pending credit/key confirmation and verified live controls; the earlier bounded-stop instruction is superseded for this new task.
+
 A coordinates publication under `06_CHECKPOINT_PUSH_AND_ACCEPTANCE.md` of the closure pack supplied in the main checkout. B does not independently push A/B/C branches. Initial B snapshot was `020bbcf8511aa89064b7f232723afa01cf99a427`. Publish tested task snapshots by full SHA, retaining meaningful history; do not force-push, deploy or infer paid permission.
 
 | Phase | Status | Full local SHA | Output |

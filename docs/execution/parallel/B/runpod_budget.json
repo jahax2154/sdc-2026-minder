@@ -35,6 +35,23 @@
     "remaining_credits_usd": null,
     "session_actual_cost_usd": 0
   },
+  "morning_revision3_GPU": {
+    "actual_GPU_fits": 0,
+    "actual_GPU_jobs": 0,
+    "actual_paid_cost_usd": 0,
+    "automatic_topup": false,
+    "billing_upgrade": false,
+    "checked_at": "2026-10-24T06:22:50.160382+00:00",
+    "conditional_one_run_cap_usd": 2,
+    "credits_redeemed_and_balance_verified": false,
+    "existing_A002_cap_unchanged_usd": 0,
+    "mandatory_submission_work": true,
+    "phase": "MB1-PREP",
+    "remaining_credits_usd": null,
+    "separate_actual_run_commit_required": true,
+    "status": "local_preparation_ready; live_access/image/retry/cost_controls_pending",
+    "user_credit_key_confirmation_received": false
+  },
   "operator": "Session B only",
   "prior_account_consumption_usd": null,
   "prior_account_jobs_verified": false,
