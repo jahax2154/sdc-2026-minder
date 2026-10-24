@@ -262,5 +262,8 @@ def state(store, owner):
     with store.connect() as db:
         events = [dict(id=r["id"], kind=r["kind"], status=r["status"], attempts=r["attempts"])
                   for r in db.execute("SELECT * FROM agent_events WHERE owner=?", (owner,))]
-        notices = [json.loads(r[0]) for r in db.execute("SELECT body FROM notices WHERE owner=?", (owner,))]
+        # Home consumes the first saved update. Compare instants (including offsets),
+        # keep unknown dates last and never infer recency from an opaque event ID.
+        notices = [json.loads(r[0]) for r in db.execute("SELECT body FROM notices WHERE owner=? "
+            "ORDER BY julianday(json_extract(body,'$.created_at')) DESC,id DESC", (owner,))]
     return dict(events=events, notices=notices, deployment_scheduler_verified=False)
