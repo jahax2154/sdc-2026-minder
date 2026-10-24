@@ -129,5 +129,87 @@
     "active_next_screenshot": "/private/tmp/minder-f-functional/journey/functional-active-next.png",
     "journey_trace": "/private/tmp/minder-f-functional/journey/functional-journey-trace.zip",
     "partial_trace": "/private/tmp/minder-f-functional/partial/ux2-partial-trace.zip"
-  }
+  },
+  "preferences_and_small_labels": {
+    "backend_revision": "0a39b392b1f2b594abb8b23a4f0a8f73a4bec0c4",
+    "real_preferences_interested_not_interested_reset": true,
+    "same_state_noop": true,
+    "refresh_persists": true,
+    "lost_response_exact_retry_no_duplicate": true,
+    "reload_does_not_guess_receipt": true,
+    "evidence_and_direction_preserved": true,
+    "home_skill_sourced_label": true,
+    "daily_plan_career_label": true,
+    "real_schedule_create_scope_pause_resume_cancel": true,
+    "synthetic_profile_and_legacy_plan_fixture": true,
+    "one_ui_entered_self_report": true,
+    "model_calls": 0,
+    "page_errors": []
+  },
+  "profile_cv_regression": {
+    "real_backend": true,
+    "adaptive_question_preserves_answer": true,
+    "onboarding_saved": true,
+    "five_tabs": true,
+    "dirty_stay_preserves_input": true,
+    "inline_save_survives_refresh": true,
+    "self_report_not_numerical_assessment": true,
+    "resume_purpose_saved": true,
+    "extraction_does_not_mutate_profile": true,
+    "explicit_review_saved": true,
+    "actual_pdf_text_extraction": true,
+    "scanned_pdf_truthful_manual_entry": true,
+    "mobile_no_document_overflow": true,
+    "page_errors": []
+  },
+  "mindbot_action_regression": {
+    "actual_backend_create_task_proposals": true,
+    "concrete_before_after_fields": true,
+    "complete_escaped_json": true,
+    "mobile_no_document_overflow": true,
+    "no_state_effect_until_decision": true,
+    "rejection_preserves_version": true,
+    "exact_approval_creates_one_task": true,
+    "unsupported_create_task_undo_hidden": true,
+    "canonical_task_edit_schedule_cancel_stays_in_mindbot": true,
+    "actual_scope_proposal_review": true,
+    "scope_has_no_effect_before_approval": true,
+    "approved_scope_reflected_in_daily_ui": true,
+    "unsupported_automation_undo_hidden": true,
+    "malicious_title_inert": true,
+    "page_errors": []
+  },
+  "a_action_audit_dependency": "cd6cea3",
+  "screenshots": [
+    {
+      "path": "/private/tmp/minder-f-functional/functional-compare.png",
+      "bytes": 149754,
+      "sha256": "0526dcaf37dd9c17e090effb40b02ccf17815c74ab6e30073142b911d8083954"
+    },
+    {
+      "path": "/private/tmp/minder-f-functional/journey/functional-matching.png",
+      "bytes": 97665,
+      "sha256": "1247819c1c6a43651d616ab1baa4ea3cd98551b2b90f9b94fa24bc754ea96117"
+    },
+    {
+      "path": "/private/tmp/minder-f-functional/journey/functional-active-next.png",
+      "bytes": 103591,
+      "sha256": "794cf08cf842fbc849ed7011133c218fde3980a71b86dca5a1cf1f72fa7687b1"
+    },
+    {
+      "path": "/private/tmp/minder-f-functional/preferences/role-preferences.png",
+      "bytes": 14499,
+      "sha256": "7b6fda46a2cd48316100dfcc11b98694d323ef900929fe1ff2f866ba2091ad6f"
+    },
+    {
+      "path": "/private/tmp/minder-f-functional/preferences/home-skill-label.png",
+      "bytes": 21516,
+      "sha256": "cda1b85f0da2c4ad94ece4c2580e2c74a7c8581ee12227ff412526c82a706251"
+    },
+    {
+      "path": "/private/tmp/minder-f-functional/preferences/schedule-source-label.png",
+      "bytes": 29763,
+      "sha256": "ed210d840be37cf64cf44ba6d018b392874021b50907f79827251fe280bcc1ab"
+    }
+  ]
 }
