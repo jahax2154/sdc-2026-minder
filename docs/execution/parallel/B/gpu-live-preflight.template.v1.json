@@ -1,0 +1,23 @@
+{
+  "user_confirmed_credits_and_key": false,
+  "balance_verified": false,
+  "image_pull_verified": false,
+  "endpoint_settings_verified": false,
+  "provider_attempt_bound_verified": false,
+  "provider_hard_stop_verified": false,
+  "artifact_roundtrip_verified": false,
+  "automatic_topup": false,
+  "billing_upgrade": false,
+  "max_provider_attempts": 1,
+  "workers_min": 0,
+  "workers_max": 1,
+  "gpu_count": 1,
+  "balance_usd": null,
+  "existing_billable_workers": null,
+  "verified_rate_usd_per_second": null,
+  "verified_total_billable_seconds_bound": null,
+  "ancillary_and_billing_rounding_usd_bound": null,
+  "verified_endpoint_id": null,
+  "verified_image_digest": null,
+  "verification_notes": "Template only. B fills from actual live evidence after user confirmation; do not change booleans just to pass checks."
+}
