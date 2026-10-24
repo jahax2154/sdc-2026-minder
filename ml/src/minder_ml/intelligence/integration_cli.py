@@ -39,9 +39,9 @@ def a_provider_config():
 def a_provider():
     """Use only A's verified model metadata; no inherited sibling artifact path."""
     from minder_app.provider_access import selected_model
-    from .groq_adapter import GroqAdapter
+    from minder_app.model_gateway import CoordinatedGroq
     config = a_provider_config()
-    provider = GroqAdapter(key=config.api_key, model=config.model or selected_model(
+    provider = CoordinatedGroq(key=config.api_key, model=config.model or selected_model(
         ROOT / 'ml/artifacts/session-a/runtime/groq-model-selection.json'))
     provider.daily_limit = config.daily_limit
     return provider
@@ -84,7 +84,10 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
                               mode='local_source_services')
     services.role_reference = catalogue.reference
     store = Store(database, volume_root=allowed) if durable_root is not None else Store(database)
-    return Application(store, services, provider if provider is not None else a_provider()), catalogue
+    app = Application(store, services, provider if provider is not None else a_provider())
+    from minder_app.public_retrieval import PublicRetrieval
+    app.public_retrieval = PublicRetrieval()
+    return app, catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):

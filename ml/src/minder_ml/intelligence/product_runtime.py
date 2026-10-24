@@ -78,7 +78,8 @@ def build(lane, *, database=None, role_ids=None):
         config = load_provider_config()
         if config.model and config.model != MODEL:
             raise ValueError('preserve_verified_Qwen_product_configuration')
-        provider = GroqAdapter(key=config.api_key, model=MODEL)
+        from minder_app.model_gateway import CoordinatedGroq
+        provider = CoordinatedGroq(key=config.api_key, model=MODEL)
         provider.daily_limit = config.daily_limit
     app, catalogue = application(target, namespace=namespace, provider=provider, role_ids=role_ids)
     app.runtime_revision=revision()
@@ -102,7 +103,8 @@ def build_hosted(database):
     config = load_provider_config()
     if config.model and config.model != MODEL:
         raise ValueError('preserve_verified_Qwen_product_configuration')
-    provider = GroqAdapter(key=config.api_key, model=MODEL)
+    from minder_app.model_gateway import CoordinatedGroq
+    provider = CoordinatedGroq(key=config.api_key, model=MODEL)
     provider.daily_limit = config.daily_limit
     root = os.environ.get('MINDER_DATA_ROOT')
     if not root:

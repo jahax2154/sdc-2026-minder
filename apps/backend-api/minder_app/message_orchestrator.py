@@ -241,6 +241,15 @@ def operation_request(app, owner, operation, message, direct, observed_versions,
 def turn(app, owner, channel, message, history, request_id, body):
     if channel not in ('minder', 'mindbot'):
         raise AppError('invalid_conversation_channel')
+    if channel=='minder':
+        from .handoffs import wanted, prepare
+        if wanted(message):
+            response = generate(app, owner, message, body.get('expected_profile_version'),
+                history=history, request_id=request_id)
+            return prepare(app,owner,request_id,body,response,history,message)
+    from .web_evidence import current_question, answer
+    if current_question(message) and getattr(app, 'public_retrieval', None) is not None:
+        return answer(app, owner, message, body.get('expected_profile_version'), request_id=request_id)
     from .conversation import intent_for,matched_roles
     role_reference=intent_for(message,named_role=bool(matched_roles(app.services,message)))=='role_reference'
     if EMPIRICAL.search(message) or role_reference:
@@ -253,6 +262,10 @@ def turn(app, owner, channel, message, history, request_id, body):
     if not generation:return response
     operation = generation['advice']['operation']
     if operation['kind']=='none':return response
+    if channel=='minder':
+        # A question/model suggestion is not authority to mint a change request.
+        response.setdefault('diagnostics',{})['action_suppressed']='no_explicit_handoff_request'
+        return response
     direct=explicit_command(message,operation.get('instruction_quote'))
     try:
         if direct:validate_command_kind(operation['kind'],message)

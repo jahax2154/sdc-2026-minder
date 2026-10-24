@@ -15,6 +15,10 @@ def chat(store, services, provider, owner, message, expected_profile_version,
     timings = dict(context_ms=0., ledger_ms=0., provider_ms=0.)
     if not isinstance(message, str) or not message.strip() or len(message) > 4000:
         raise AppError("chat_message_required_or_too_large")
+    if app is not None:
+        from .web_evidence import current_question, answer
+        if current_question(message) and getattr(app, 'public_retrieval', None) is not None:
+            return answer(app, owner, message, expected_profile_version, request_id=request_id)
     from .conversation import POLICY_ID as CONVERSATION_POLICY, intent_for, selections, matched_roles, guidance, role_quote
     try:
         profile = store.get(owner, "profile", owner)

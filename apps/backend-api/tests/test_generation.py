@@ -24,11 +24,36 @@ class AdviceProvider:
         self.value = value or advice()
     def complete_tool(self, messages, tool):
         self.messages, self.tool = messages, tool
-        return dict(status='available', text=json.dumps(self.value), model=self.model,
+        value = {k:self.value[k] for k in ('answer','questions')} if tool['function']['name']=='reply_concisely' else self.value
+        if tool['function']['name']=='propose_schedule':value={k:self.value[k] for k in ('answer','operation')}
+        return dict(status='available', text=json.dumps(value), model=self.model,
                     request_id='software-only', tool_call={'arguments_validated': True})
 
 
 class GenerationTests(AppCase):
+    def test_saved_normal_onboarding_notes_are_reused_without_skill_assessment(self):
+        from minder_app.generation import private_context
+        note='Basic Python practice; no paid experience yet.'
+        context=private_context(dict(onboarding=dict(optional_enrichment=note)),[])
+        self.assertEqual(context['onboarding']['optional_enrichment'],note)
+        self.assertEqual(context['reported_skill_inputs'],[])
+
+    def test_compact_turn_excludes_full_plan_and_retains_exact_rejected_claim_rule(self):
+        self.make_plan()
+        claim='There are 9000 jobs waiting for you.'
+        provider=self.app.provider=AdviceProvider(advice(answer=claim))
+        result=self.app.dispatch('POST','/api/chat',dict(message='How should I practise debugging?',
+            expected_profile_version=self.profile['version']),self.token)
+        self.assertEqual(provider.tool['function']['name'],'reply_concisely')
+        payload=json.loads(provider.messages[-1]['content'])
+        self.assertNotIn('saved_tasks',payload['user_context'])
+        self.assertLess(len(json.dumps(provider.messages)),6500)
+        self.assertEqual(result['provider']['validation_code'],'unsupported_market_quantity')
+        ledger=self.store.get(self.profile['profile_id'],'grounding',result['context_version'])
+        self.assertEqual(ledger['validation_failure']['rule'],'unsupported_market_quantity')
+        self.assertEqual(ledger['validation_failure']['rejected_visible_claims']['answer'],claim)
+        self.assertEqual(len(self.store.list(self.profile['profile_id'],'plan')),1)
+
     def test_rate_limited_own_channel_action_is_saved_without_mutation_or_action_retry(self):
         from unittest.mock import Mock
         from minder_ml.intelligence.groq_adapter import ProviderError

@@ -1,0 +1,50 @@
+{
+  "scope": "real Qwen + trusted owned canonical services on original isolated short-intake state; not browser/auth proof",
+  "elapsed_ms": 1078.614,
+  "provider": {
+    "coordination_policy": "groq-shared-quota-v1",
+    "generation_protocol": "bounded-schedule-proposal-v1",
+    "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+    "invoked": true,
+    "model": "qwen/qwen3.8-27b",
+    "queue_ms": 0.133,
+    "quota_header_scope": {
+      "requests": "requests_per_day",
+      "tokens": "tokens_per_minute"
+    },
+    "quota_headers": {
+      "x-ratelimit-limit-requests": "1000",
+      "x-ratelimit-limit-tokens": "8000",
+      "x-ratelimit-remaining-requests": "975",
+      "x-ratelimit-remaining-tokens": "7048",
+      "x-ratelimit-reset-requests": "36m0s",
+      "x-ratelimit-reset-tokens": "7.14s"
+    },
+    "status": "available",
+    "tool_call": {
+      "arguments_validated": true,
+      "id": "qe5jx2591",
+      "name": "propose_schedule"
+    },
+    "transport_attempts": 1,
+    "usage": {
+      "completion_tokens": 214,
+      "prompt_tokens": 751,
+      "total_tokens": 965
+    }
+  },
+  "origin_message_saved": true,
+  "profile_evidence_count": 0,
+  "plans_before": 1,
+  "status": "passed",
+  "one_new_notice": true,
+  "turn_replay_no_model_call": true,
+  "canonical_action_delta": 1,
+  "approval_replay_same_saved_result": true,
+  "restart_persisted": true,
+  "saved_state": "scheduled",
+  "saved_scheduled_at": "2026-12-02T15:00:00+08:00",
+  "target_changed": true,
+  "accepted_plan_preserved": true,
+  "artifact_sha256": "548772df067705cc06ec3ec1bf5dc092d0527c43f76ac6507c3fd1e12569afee"
+}

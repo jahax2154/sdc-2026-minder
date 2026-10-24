@@ -271,7 +271,10 @@ class IntegratedTurnTests(AppCase):
         op=dict(kind='complete_task',task_id='synthetic-task',scheduled_at=None,instruction_quote=message)
         self.app.provider=AdviceProvider(advice(operation=op))
         result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='wrong-kind'))
-        self.assertEqual(result['status'],'clarify_requested_action_scope')
+        # The bounded scheduling protocol rejects an unrelated completion kind
+        # at schema validation, before it can reach action scope validation.
+        self.assertEqual(result['provider']['code'],'generated_guidance_validation_failed')
+        self.assertEqual(result['action_status'],'no_mutation_requested_or_executed')
         self.assertEqual(self.store.get(owner,'plan',plan['plan_id']),plan)
 
     def test_conversation_role_definition_keeps_exact_pinned_source_renderer(self):
