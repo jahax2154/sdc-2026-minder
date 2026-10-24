@@ -157,5 +157,24 @@
     "remaining_credits_usd": null,
     "synthetic_training_location": "local_cpu"
   },
-  "version": "single-operator-runpod-ledger-v1"
+  "version": "single-operator-runpod-ledger-v1",
+  "latest_actual_GPU_execution": {
+    "phase": "MB2",
+    "job_id": "d7731076-6f21-47a0-a217-04eb0769ac96-e1",
+    "status": "completed; cleanup verified; billing settlement pending",
+    "actual_GPU_fits": 5,
+    "client_submissions": 1,
+    "provider_retries": 0,
+    "preflight_upper_usd": 0.645,
+    "authorised_limit_usd": 2,
+    "posted_billing_usd": 0,
+    "final_settled_cost_usd": null,
+    "remaining_credits_last_read_usd": 25,
+    "workers_min": 0,
+    "workers_max": 0,
+    "active_workers": 0,
+    "current_spend_per_hour": 0,
+    "billing_evidence": "MB2.json",
+    "note": "Prior historical blocked/unconfigured records above are superseded for this execution by MB2; retained for provenance."
+  }
 }
