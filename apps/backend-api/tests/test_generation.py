@@ -29,6 +29,26 @@ class AdviceProvider:
 
 
 class GenerationTests(AppCase):
+    def test_rate_limited_own_channel_action_is_saved_without_mutation_or_action_retry(self):
+        from unittest.mock import Mock
+        from minder_ml.intelligence.groq_adapter import ProviderError
+        provider = self.app.provider = AdviceProvider()
+        provider.complete_tool = Mock(side_effect=ProviderError('provider_rate_limited', 'software-only'))
+        profile = self.save()
+        conversation = self.app.dispatch('GET', '/api/product/mindbot-conversation', {}, self.token)
+        body = dict(conversation_id=conversation['conversation']['conversation_id'],
+            message='Please set my study availability to 6 hours per week.',
+            expected_profile_version=profile['version'], idempotency_key='limited-action')
+        first = self.app.dispatch('POST', '/api/product/conversation-turn', body, self.token)
+        self.assertEqual(first['response']['provider']['code'], 'provider_rate_limited')
+        self.assertIn('temporarily busy', first['response']['answer'])
+        self.assertEqual(first['response']['action_status'], 'no_mutation_requested_or_executed')
+        self.assertEqual(self.app.dispatch('POST', '/api/product/conversation-turn', body, self.token), first)
+        self.assertEqual(provider.complete_tool.call_count, 1)
+        self.assertEqual(self.store.get(profile['profile_id'], 'profile', profile['profile_id']), profile)
+        self.assertEqual(self.app.actions.history(profile['profile_id']), [])
+        self.assertEqual(self.store.list(profile['profile_id'], 'plan'), [])
+
     def test_incomplete_profile_generates_without_assessment_or_implicit_save(self):
         provider = self.app.provider = AdviceProvider()
         def forbidden(*args, **kwargs):

@@ -3,6 +3,48 @@
 This supersedes baseline failure statuses in A_FUNCTIONAL_GATE_AUDIT.md without
 erasing the original observations. It is a local product gate, not hosted proof.
 
+## A-FG5 / A-FG4-R01 — latest combined run, two upstream limits
+
+Exact final F **62fb94ffa8d2ad51f1415fa8b55cc9b70509a501** was normally integrated
+at A **91d961996f7dde407785c5bf55703e2b24eaf3cc**, including only missing history.
+A backend explanation repair is **14cc2c9**. A restarted its isolated runtime at
+91d9619 with F62fb94f; same URL/DB/provider. Actual combined18-step fresh UI run
+passed16steps: full onboarding/missing-input/three anchored assessments, ordinary
+confidence/project notes staying unassessed, actual matching, private CV upload/
+extract/explicit review/download/delete, deliberately lost review response and
+exact same-version retry, not-interested/reset/no-op, career choice, real Qwen
+roadmap save/separate activation, Compare sourced labels/measures, four distinct
+same-plan tabs, completion0/3→1/3/refresh, Home sourced skill/next/progress, cross-
+view selection/refresh and schedule create/pause/resume/cancel/refresh. Daily
+test automation ends cancelled. No page errors, no roadmap regeneration.
+
+Two steps failed **actual upstream `provider_rate_limited`**, not rendering,
+schema or action wiring: unseen Minder follow-up and Mindbot explicit availability
+action. Both stored a limited response, performed no mutation and retained their
+own histories. Roadmap provider1710.578ms; first Minder1597.256ms; failed follow-up
+1412.931ms; failed Mindbot1430.827ms. Four logical application model invocations;
+the transport has its existing bounded retry, so this is not a claim of four
+individual HTTP attempts. No quota increase, model switch, credential rotation,
+automatic action retry or approval bypass. Private original combined report and
+read-only synthetic-owner provider outcomes remain under `morning/functional-combined/`.
+
+Linked **A-FG4-R01** explains rate/concurrency/daily-limit failures in normal
+language, preserving bounded status codes, cached response and no-action safety.
+One new declared-mock regression proves a rate-limited Mindbot action creates no
+action/plan/Profile change, and exact receipt replay invokes the provider once.
+27generation/orchestration tests pass0.936s. Other grounded explanation/scorer
+checks retain their passing evidence below. This is a response-copy repair, not
+a claim to have removed the provider's external rate limit.
+
+The combined harness now accepts explicit acceptance-only call spacing through
+`MINDER_ACCEPTANCE_MODEL_GAP_MS`. A paced final run is pending. Gaps are reported
+separately from service timings and do not alter production behavior, quotas or
+request retry rules. The initial unpaced failure is never overwritten as passing.
+Frontend actions previously marked pending below are now implemented and verified
+by the actual combined16passing steps; final real-provider follow-up/action
+acceptance and targeted final F regressions remain open. E still has no approved
+hosted candidate until those checks and actual access requirements are addressed.
+
 ## Completed implementation and measured evidence
 
 - A-FG1 **0a39b392b1f2b594abb8b23a4f0a8f73a4bec0c4**: sourced role display,

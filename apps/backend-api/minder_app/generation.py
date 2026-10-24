@@ -253,7 +253,12 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     provider_ms = round((time.perf_counter()-provider_started)*1000, 3)
     identifier = uid()
     if generated is None:
-        answer = 'The language service could not prepare guidance. Your saved state is unchanged. You can retry this message.'
+        answer = {
+            'provider_rate_limited': 'The language service is temporarily busy. Wait before sending a new request. Your saved state is unchanged.',
+            'provider_daily_budget_exceeded': 'Your daily guidance request limit has been reached. You can still review your saved plans and messages. Your saved state is unchanged.',
+            'provider_concurrency_limit': 'The language service is handling other requests. Wait before sending a new request. Your saved state is unchanged.',
+        }.get(provider_result['code'],
+            'The language service could not prepare guidance. Your saved state is unchanged. You can send a new request when it is available.')
     else:
         answer = generated['answer']
         if generated['assumptions']:
