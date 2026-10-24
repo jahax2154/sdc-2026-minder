@@ -25,23 +25,8 @@ def emit(db, owner, event_id, kind, payload):
 
 
 def configure(store, owner, settings, expected):
-    if set(settings) != {"enabled", "check_time"} or not isinstance(settings["enabled"], bool):
-        raise AppError("invalid_schedule_settings")
-    if not re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d", settings["check_time"]):
-        raise AppError("invalid_local_check_time")
-    with store.transaction() as db:
-        db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, uid(), json.dumps(dict(
-            kind="explicit_agent_schedule_settings", settings=settings, expected=expected)), now()))
-        saved = store.put(owner, "agent_settings", owner, settings, expected, db=db)
-        # Pausing prevents queued daily work as well as future enqueue. Other
-        # event triggers retain their independent scope. No action is retried.
-        if not settings['enabled']:
-            db.execute("UPDATE agent_events SET status='paused' WHERE owner=? AND kind='daily_check' "
-                       "AND status IN ('pending','retry')", (owner,))
-        else:
-            db.execute("UPDATE agent_events SET status='pending' WHERE owner=? AND kind='daily_check' "
-                       "AND status='paused'", (owner,))
-        return saved
+    from .automation_state import save_automation_settings
+    return save_automation_settings(store, owner, settings, expected)
 
 
 def market_event(store, owner, evidence_id, entity_ids, sources):
@@ -74,24 +59,39 @@ class Worker:
         self.conversations = Conversations(store)
 
     def daily(self, at=None, *, owner=None):
+        import hashlib
         at = at or datetime.now(timezone.utc)
         with self.store.transaction() as db:
-            settings_rows = db.execute("SELECT owner,body FROM documents WHERE kind='agent_settings'" +
-                (" AND owner=?" if owner else ""), (owner,) if owner else ()).fetchall()
-            for row in settings_rows:
-                settings = json.loads(row["body"])
-                if not settings["enabled"]:
-                    continue
-                profile = self.store.get(row["owner"], "profile", row["owner"], db=db)
-                local = at.astimezone(ZoneInfo(profile["timezone"]))
-                # A restart catches up today once, rather than replaying an
-                # unbounded backlog of daily summaries for missed dates.
-                db.execute("UPDATE agent_events SET status='superseded' WHERE owner=? AND kind='daily_check' "
-                           "AND status IN ('pending','retry','paused') AND id!=?",
-                           (row['owner'], 'daily:' + local.date().isoformat()))
-                if local.strftime("%H:%M") >= settings["check_time"]:
-                    emit(db, row["owner"], "daily:" + local.date().isoformat(), "daily_check",
-                         dict(local_date=local.date().isoformat(), timezone=profile["timezone"]))
+            rows=db.execute("SELECT owner,body FROM documents WHERE kind='agent_settings'"+
+                (" AND owner=?" if owner else ""),(owner,) if owner else ()).fetchall()
+            for row in rows:
+                settings=json.loads(row['body'])
+                if not settings['enabled']:continue
+                if settings.get('next_run'):
+                    from .plans import instant
+                    if instant(settings['next_run'])>at:continue
+                try:profile=self.store.get(row['owner'],'profile',row['owner'],db=db)
+                except AppError as error:
+                    if error.status!=404:raise
+                    profile={'timezone':'Asia/Kuala_Lumpur'}
+                zone=settings.get('timezone',profile['timezone'])
+                local=at.astimezone(ZoneInfo(zone));date=local.date().isoformat()
+                if local.strftime('%H:%M')<settings['check_time']:continue
+                scope=settings.get('scope',{'plan_ids':[]})
+                signature=hashlib.sha256(json.dumps([zone,settings['check_time'],scope],sort_keys=True).encode()).hexdigest()[:16]
+                event_id='daily:'+date+':'+signature
+                pending=db.execute("SELECT id,payload FROM agent_events WHERE owner=? AND kind='daily_check' "
+                    "AND status IN ('pending','retry','paused')",(row['owner'],)).fetchall()
+                for old in pending:
+                    if old['id']!=event_id:
+                        db.execute("UPDATE agent_events SET status='superseded',lease_until=NULL WHERE owner=? AND id=?",
+                                   (row['owner'],old['id']))
+                # Do not rerun a completed same-day legacy check on code upgrade.
+                legacy=db.execute("SELECT status FROM agent_events WHERE owner=? AND id=?",
+                                  (row['owner'],'daily:'+date)).fetchone()
+                if legacy and legacy[0]=='processed':continue
+                emit(db,row['owner'],event_id,'daily_check',dict(local_date=date,timezone=zone,scope=scope,
+                    schedule_fingerprint=signature))
 
     def tick(self, at=None, *, owner=None):
         at = at or datetime.now(timezone.utc)
@@ -116,7 +116,10 @@ class Worker:
                 current = db.execute("SELECT status,lease_until FROM agent_events WHERE owner=? AND id=?",
                                      (event["owner"], event["id"])).fetchone()
                 if current[0] != "processing" or current[1] != event["lease"]:
-                    raise AppError("event_claim_lost", 409)
+                    if event['kind']=='daily_check' and current[0] in ('paused','cancelled'):
+                        from .automation_state import record_automation_result
+                        record_automation_result(self.store,event['owner'],event['id'],db=db,at=at)
+                    return dict(status=current[0],target_changed=False)
                 if event['kind'] == 'daily_check':
                     settings = self.store.get(event['owner'], 'agent_settings', event['owner'], db=db)
                     if not settings['enabled']:
@@ -138,6 +141,9 @@ class Worker:
                 self.conversations.append_notice(event['owner'], event['id'], db=db)
                 db.execute("UPDATE agent_events SET status='processed',result=?,lease_until=NULL WHERE owner=? AND id=?",
                     (json.dumps(notice), event["owner"], event["id"]))
+                if event['kind']=='daily_check':
+                    from .automation_state import record_automation_result
+                    record_automation_result(self.store,event['owner'],event['id'],db=db,at=at)
             return dict(status="processed", event_id=event["id"], target_changed=False)
         except Exception:
             # Safe code only; no exception strings containing private source text.
@@ -149,8 +155,15 @@ class Worker:
 
     def analyse(self, event, at):
         owner = event["owner"]
-        profile = self.store.get(owner, "profile", owner)
+        try:
+            profile = self.store.get(owner, "profile", owner)
+        except AppError as error:
+            if error.status!=404:raise
+            profile=dict(profile_id=owner,version=None,timezone='Asia/Kuala_Lumpur',preferences=[],evidence=[])
         plans = self.store.list(owner, "plan")
+        if event['kind']=='daily_check':
+            scope=json.loads(event['payload']).get('scope',{}).get('plan_ids',[])
+            if scope:plans=[p for p in plans if p['plan_id'] in scope]
         tasks = [t for p in plans for t in p["tasks"]]
         completed = sum(t["activity_completion"] for t in tasks)
         candidates = []
@@ -187,7 +200,7 @@ class Worker:
             provider_status="not_called_no_feasible_candidate", proposal_only=True,
             sources=json.loads(event["payload"]).get("sources", []))
         facts = []
-        if self.services is not None:
+        if self.services is not None and profile.get('version') is not None:
             from .grounding import build_bundle, verify_bundle, resolve_claim, provider_facts
             # Canonical selected plan roles/interests only; never accept evidence
             # passages or instruction authority from the queued event payload.
@@ -195,8 +208,9 @@ class Worker:
             selected_roles = list(dict.fromkeys([p["selected_role_id"] for p in plans] +
                 [p["entity_id"] for p in profile["preferences"] if p["state"] == "interested"]))
             selected_roles = [rid for rid in selected_roles if rid in registered][:3]
-            context = self.services.career_context(profile, expected_profile_version=profile["version"],
-                selected_role_ids=selected_roles)
+            context = (self.services.career_context(profile, expected_profile_version=profile["version"],
+                selected_role_ids=selected_roles) if selected_roles else
+                dict(profile_version=profile['version'],recommendation=None,sources=[],market=[]))
             bundle = verify_bundle(build_bundle(context, self.services, plans, profile["version"]), self.services)
             result["statements"] = [resolve_claim(c, bundle) for c in bundle["claims"]]
             facts = provider_facts(bundle)

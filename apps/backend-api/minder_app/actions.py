@@ -33,7 +33,8 @@ def migrate(store):
 
 
 def action_request(kind, target_id, expected, diff, reason, evidence_ids=()):
-    if kind not in ("complete_task", "reschedule_task", "update_profile", "change_goal", "replace_plan"):
+    if kind not in ("complete_task", "reschedule_task", "update_profile", "change_goal", "replace_plan",
+                    "create_task", "edit_task", "schedule_task"):
         raise AppError("unsupported_action")
     if not expected or not target_id or not diff:
         raise AppError("specific_action_scope_required")
@@ -133,30 +134,46 @@ class ActionExecutor:
         after = copy.deepcopy(before)
         for change in req["diff"]:
             parts = change["path"].split("/")
-            if kind == "plan" and len(parts) == 4 and parts[1] == "tasks":
+            if kind == 'plan' and req['kind'] == 'create_task' and len(parts) == 3 and parts[1] == 'tasks':
+                task = copy.deepcopy(change['after'])
+                validate('Task', task)
+                if (change['before'] is not None or task['task_id'] != parts[2]
+                        or task['task_id'] in after['task_ids'] or task['state'] != 'proposed'
+                        or task['scheduled_at'] is not None or task['mastery_verified'] or task['activity_completion']
+                        or task['locked'] or task['evidence_ids'] or task.get('skill_ids') or task.get('resource_id')):
+                    raise AppError('generated_task_scope_invalid')
+                after['tasks'].append(task); after['task_ids'].append(task['task_id'])
+            elif kind == "plan" and len(parts) == 4 and parts[1] == "tasks":
                 task = next((t for t in after["tasks"] if t["task_id"] == parts[2]), None)
                 if task is None:
                     raise AppError("task_not_found", 404)
                 field = parts[3]
                 allowed = {"complete_task": {"state"}, "reschedule_task": {"scheduled_at"},
-                           "replace_plan": {"scheduled_at", "estimated_hours"}}[req["kind"]]
+                           "replace_plan": {"scheduled_at", "estimated_hours"},
+                           "edit_task": {"title", "description", "estimated_hours"},
+                           "schedule_task": {"state", "scheduled_at"}}.get(req["kind"], set())
                 if field not in allowed:
                     raise AppError("action_scope_field_mismatch")
                 if task["locked"] or task["state"] == "completed":
                     raise AppError("completed_or_locked_task_preserved", 409)
-                if task[field] != change["before"]:
+                if task.get(field) != change["before"]:
                     raise AppError("diff_before_mismatch", 409)
-                if field == "state" and change["after"] != "completed":
+                if field == "state" and change["after"] != ('scheduled' if req['kind']=='schedule_task' else 'completed'):
                     raise AppError("completion_scope_invalid")
                 if field == "scheduled_at":
                     instant(change["after"])
-                    if task["state"] != "scheduled":
+                    if task["state"] != "scheduled" and req['kind'] != 'schedule_task':
                         raise AppError("reschedule_requires_scheduled_task", 409)
                     if task["estimated_hours"] is None:
                         raise AppError("effort_unknown_requires_clarification", 409)
                 task[field] = change["after"]
-                if field == "state":
+                if field == "state" and req['kind'] == 'complete_task':
                     task["activity_completion"] = True
+            elif kind == 'profile' and req['kind']=='change_goal' and change['path']=='/career_context/goals':
+                context = after.setdefault('career_context', {})
+                if context.get('goals') != change['before']:
+                    raise AppError('diff_before_mismatch',409)
+                context['goals'] = change['after']
             elif kind == "profile" and len(parts) == 4 and parts[1] == "preferences":
                 entity_type, entity_id = parts[2:]
                 if entity_type not in ("role", "industry", "skill", "company"):
@@ -181,7 +198,7 @@ class ActionExecutor:
             from .plans import check_plan
             profile = self.store.get(owner, "profile", owner, db=db)
             feasibility = check_plan(after, profile, before)
-            if req["kind"] != "complete_task" and feasibility["status"] != "checked":
+            if req["kind"] in ('reschedule_task','replace_plan','schedule_task') and feasibility["status"] != "checked":
                 raise AppError("capacity_or_effort_unknown_requires_clarification", 409)
         else:
             validate("Profile", after)
@@ -227,7 +244,7 @@ class ActionExecutor:
         from .agents import emit
         trigger = "task_completion" if req["kind"] == "complete_task" else (
             "constraints_changed" if any("/constraints/" in c["path"] for c in req["diff"]) else "preferences_changed")
-        if kind == "profile" or req["kind"] == "complete_task":
+        if (kind == "profile" and any(c['path'].startswith(('/preferences/','/constraints/')) for c in req['diff'])) or req["kind"] == "complete_task":
             emit(db, owner, "action:" + aid, trigger, dict(action_id=aid, resulting_version=version))
         return result
 
@@ -242,6 +259,8 @@ class ActionExecutor:
         action = audit["result"]["action"]
         if action["kind"] == "complete_task":
             raise AppError("completion_history_preserved", 409)
+        if action['kind'] in ('create_task','schedule_task'):
+            raise AppError('use_explicit_task_controls_to_reverse_creation_or_scheduling',409)
         req = dict(kind=action["kind"], target_id=audit["target_id"], expected=expected,
                    diff=[dict(path=c["path"], before=c["after"], after=c["before"]) for c in action["diff"]],
                    reason="Explicit undo of " + action_id, evidence_ids=action["evidence_ids"])

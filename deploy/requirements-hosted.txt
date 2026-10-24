@@ -1,0 +1,2 @@
+-r ../ml/requirements-foundation.txt
+clerk-backend-api==7.0.0

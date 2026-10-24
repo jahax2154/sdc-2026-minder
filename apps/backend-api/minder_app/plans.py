@@ -153,27 +153,29 @@ def complete_task(store, owner, plan_id, task_id, expected, request_id, *, db=No
     return save_plan(store, owner, plan, expected, db=db)
 
 
-def create_plan(store, owner, plan, idempotency_key, design=None):
+def create_plan(store, owner, plan, idempotency_key, design=None, *, db=None):
     """Direct structured UI request. Retries cannot duplicate plan creation."""
     if not idempotency_key or len(idempotency_key) > 200:
         raise AppError("idempotency_key_required")
-    with store.transaction() as db:
-        db.execute("CREATE TABLE IF NOT EXISTS plan_creations(owner TEXT, key TEXT, body TEXT, "
-                   "result TEXT, PRIMARY KEY(owner,key))")
-        encoded = json.dumps(dict(plan=plan, design=design), sort_keys=True)
-        old = db.execute("SELECT body,result FROM plan_creations WHERE owner=? AND key=?",
-                         (owner, idempotency_key)).fetchone()
-        if old:
-            if old["body"] != encoded:
-                raise AppError("idempotency_scope_conflict", 409)
-            return json.loads(old["result"])
-        plan = copy.deepcopy(plan)
-        plan.update(plan_id=uid(), profile_id=owner, state_version=uid(), previous_version=None)
-        db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, uid(),
-            json.dumps(dict(kind="explicit_plan_create", idempotency_key=idempotency_key, plan=plan), sort_keys=True), now()))
-        result = save_plan(store, owner, plan, db=db)
-        if design is not None:
-            store.put(owner, "plan_design", plan["plan_id"], dict(design=design, plan_id=plan["plan_id"]), None, db=db)
-        db.execute("INSERT INTO plan_creations VALUES(?,?,?,?)", (
-            owner, idempotency_key, encoded, json.dumps(result)))
-        return result
+    if db is None:
+        with store.transaction() as conn:
+            return create_plan(store, owner, plan, idempotency_key, design, db=conn)
+    db.execute("CREATE TABLE IF NOT EXISTS plan_creations(owner TEXT, key TEXT, body TEXT, "
+               "result TEXT, PRIMARY KEY(owner,key))")
+    encoded = json.dumps(dict(plan=plan, design=design), sort_keys=True)
+    old = db.execute("SELECT body,result FROM plan_creations WHERE owner=? AND key=?",
+                     (owner, idempotency_key)).fetchone()
+    if old:
+        if old["body"] != encoded:
+            raise AppError("idempotency_scope_conflict", 409)
+        return json.loads(old["result"])
+    plan = copy.deepcopy(plan)
+    plan.update(plan_id=uid(), profile_id=owner, state_version=uid(), previous_version=None)
+    db.execute("INSERT INTO authorities VALUES(?,?,?,?)", (owner, uid(),
+        json.dumps(dict(kind="explicit_plan_create", idempotency_key=idempotency_key, plan=plan), sort_keys=True), now()))
+    result = save_plan(store, owner, plan, db=db)
+    if design is not None:
+        store.put(owner, "plan_design", plan["plan_id"], dict(design=design, plan_id=plan["plan_id"]), None, db=db)
+    db.execute("INSERT INTO plan_creations VALUES(?,?,?,?)", (
+        owner, idempotency_key, encoded, json.dumps(result)))
+    return result

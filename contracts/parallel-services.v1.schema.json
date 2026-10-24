@@ -1885,11 +1885,18 @@
           ]
         },
         "after": {
-          "type": [
-            "string",
-            "number",
-            "boolean",
-            "null"
+          "anyOf": [
+            {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            },
+            {
+              "$ref": "#/$defs/Task"
+            }
           ]
         }
       },
@@ -1913,7 +1920,10 @@
             "update_profile",
             "replace_plan",
             "complete_task",
-            "change_goal"
+            "change_goal",
+            "create_task",
+            "edit_task",
+            "schedule_task"
           ]
         },
         "origin": {

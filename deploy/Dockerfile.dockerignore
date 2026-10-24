@@ -1,0 +1,10 @@
+**/.env*
+**/__pycache__
+**/*.pyc
+**/*.sqlite*
+**/node_modules
+**/uploads
+ml/artifacts
+ml/minder_ml_starter/raw
+ml/minder_ml_starter/derived
+.git
