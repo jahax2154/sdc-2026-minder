@@ -6,12 +6,13 @@ import {esc,facts,showError,bind} from '../ui.js';
 import {hydrateIcons,svg} from '../icons.js';
 // Transcripts are read from the server on every open; this state is presentation only.
 const state={messages:[],draft:'',contextOpen:false,scrollTop:0,pending:null,previousContext:null,conversationId:null,uncertainBody:null,loading:false};
+const drafts=new Map();
 let layoutText=null;
 let renderCurrent=null;
 function releaseInert(){document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);}
 window.addEventListener('hashchange',()=>{if(location.hash!=='#minder')releaseInert();});
 export async function minder(ctx,conversationId='') {
-  state.messages=[];state.pending=null;state.conversationId=conversationId||null;state.uncertainBody=null;state.loading=!!conversationId;
+  state.draft=drafts.get(conversationId||'')||'';state.messages=[];state.pending=null;state.conversationId=conversationId||null;state.uncertainBody=null;state.loading=!!conversationId;
   if(!layoutText){const controller=new AbortController(),abort=()=>controller.abort();ctx.signal?.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,8000);try{const response=await fetch('pages/minder.html',{signal:controller.signal});if(!response.ok)throw new Error('Chat layout unavailable.');layoutText=await response.text();}finally{clearTimeout(timer);ctx.signal?.removeEventListener('abort',abort);}}
   if(ctx.isCurrent&&!ctx.isCurrent())return;ctx.view.innerHTML=layoutText;ctx.view.className='page-main chat-page';ctx.view.dataset.frameReady='true';ctx.view.setAttribute('aria-busy','false');
   const $=s=>ctx.view.querySelector(s),input=$('#minderInput'),thread=$('#minderThread'),panel=$('#minderContext'),toggle=$('#minderContextToggle'),scroll=$('#minderScroll');
@@ -62,7 +63,7 @@ export async function minder(ctx,conversationId='') {
     await submit(message);
   }
   async function submit(message,exactBody=null){
-    const request={controller:new AbortController(),message,receiptRetry:!!exactBody};state.pending=request;state.draft='';input.value='';update(true);
+    const request={controller:new AbortController(),message,receiptRetry:!!exactBody};state.pending=request;state.draft='';drafts.delete(state.conversationId||'');input.value='';update(true);
     const abort=()=>{request.invalidated=true;request.controller.abort();};ctx.signal.addEventListener('abort',abort,{once:true});
     try{
       await ctx.profileReady;if(request.invalidated)return;if(ctx.profileError)throw new Error('Saved context could not be loaded. Retry context before sending.');
@@ -74,14 +75,14 @@ export async function minder(ctx,conversationId='') {
       else $('#minderHistoryStatus').textContent=result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
       const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await ctx.refreshProfile();
       if(result.response?.generation)window.dispatchEvent(new Event('minder-generation-available'));
-    }catch(e){if(request.invalidated)return;if(e.status===409){await ctx.refreshProfile();if(request.invalidated)return;}state.draft=message;input.value=message;
+    }catch(e){if(request.invalidated)return;if(e.status===409){await ctx.refreshProfile();if(request.invalidated)return;}state.draft=message;drafts.set(state.conversationId||'',message);input.value=message;
       if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;else if(e.status)state.uncertainBody=null;
       $('#minderHistoryStatus').innerHTML=`${esc(e.message)} Your request was not automatically retried. ${state.uncertainBody?'<button type="button" class="button-outline" id="retryExactMinder">Retry exact request</button>':''}`;
       if($('#retryExactMinder'))$('#retryExactMinder').onclick=()=>{if(!state.pending)submit(state.uncertainBody.message,state.uncertainBody);};
     }finally{ctx.signal.removeEventListener('abort',abort);if(state.pending===request){state.pending=null;if(mounted())update(true);}}
   }
   bind('minderComposer',send);$('#cancelMinder').onclick=()=>state.pending?.controller.abort();
-  input.maxLength=4000;input.addEventListener('input',()=>{state.draft=input.value;input.style.height='auto';input.style.height=Math.min(130,input.scrollHeight)+'px';});
+  input.maxLength=4000;input.addEventListener('input',()=>{state.draft=input.value;drafts.set(state.conversationId||'',state.draft);input.style.height='auto';input.style.height=Math.min(130,input.scrollHeight)+'px';});
   input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#minderComposer').requestSubmit();}});
   scroll.addEventListener('scroll',()=>state.scrollTop=scroll.scrollTop);
   const prompts=['Help me understand a practical preparation path using my saved profile and selected role.','Explain which requirements are supported by my evidence and which are unassessed.','Help me review my current plan and suggest realistic next steps without changing it.','Help me compare career directions using the available evidence and its limits.'];
@@ -89,8 +90,8 @@ export async function minder(ctx,conversationId='') {
   toggle.onclick=()=>setContext(!state.contextOpen);$('#closeMinderContext').onclick=()=>setContext(false);
   panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();setContext(false);}else if(e.key==='Tab'&&innerWidth<=1050){const controls=[...panel.querySelectorAll('button,a[href]')];if(e.shiftKey&&document.activeElement===controls[0]){e.preventDefault();controls.at(-1).focus();}else if(!e.shiftKey&&document.activeElement===controls.at(-1)){e.preventDefault();controls[0].focus();}}});
   window.addEventListener('resize',()=>{if(mounted())contextLayout();},{signal:ctx.signal});
-  $('#minderNewSmall').onclick=()=>{if(clearConversation()){location.hash='minder';ctx.render();}};$('#minderAdd').onclick=()=>{location.hash='profile';};
+  $('#minderNewSmall').onclick=()=>document.querySelector('#globalNewChat').click();$('#minderAdd').onclick=()=>{location.hash='profile';};
   update();scroll.scrollTop=state.scrollTop;await loadSaved();
 }
-export function clearConversation(){if(state.pending)return false;state.messages.length=0;state.draft='';state.contextOpen=false;state.scrollTop=0;state.previousContext=null;state.conversationId=null;state.uncertainBody=null;state.loading=false;releaseInert();return true;}
-export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();renderCurrent=null;}
+export function clearConversation({preserveDraft=false}={}){if(state.pending)return false;if(!preserveDraft)drafts.delete(state.conversationId||'');state.messages.length=0;state.draft='';state.contextOpen=false;state.scrollTop=0;state.previousContext=null;state.conversationId=null;state.uncertainBody=null;state.loading=false;releaseInert();return true;}
+export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();drafts.clear();renderCurrent=null;}

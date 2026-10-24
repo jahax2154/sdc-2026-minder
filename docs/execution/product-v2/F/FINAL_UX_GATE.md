@@ -1,6 +1,6 @@
 # Final frontend repair gate — F-UX0 inventory
 
-Preserved base: `3c7d105d34e32c291bc7440764390f55a8fb515f` on `session/f-product-frontend`; no history rewrite. Existing F local runtime health reports that revision at http://127.0.0.1:9106; UI http://127.0.0.1:8106. Qwen configuration unchanged. No deployment.
+Preserved base: `3c7d105d34e32c291bc7440764390f55a8fb515f` on `session/f-product-frontend`; no history rewrite. Existing F local runtime health reports that revision at http://127.0.0.1:9106; UI http://127.0.0.1:9106. Qwen configuration unchanged. No deployment.
 
 Read the full final repair brief in the original checkout, including section 10. Actual approved Home source inspected at `docs/Minder_Home_Package/` in that checkout: HTML, CSS, reference controller, DESIGN_CONTEXT, FRONTEND_LOGIC, reference screens. A is importing that exact shared package; no substitute design. Existing frontend approved avatar assets include nimo PNG and frog/puff/star/heart SVG colour variants. Reference controller contains fictional profile/tasks/localStorage and will not be used as application state.
 
@@ -15,3 +15,15 @@ A central registration/shared approved asset import; D persisted versioned bot p
 ## Scope and exclusions
 
 F alone owns shell, routes, clients, global styles, frontend assembly. Existing untracked raw/derived ML source inputs remain untouched and excluded; not backed up by these commits. Screenshots/traces contain only local synthetic demonstration state. Later F-UX phases remain incomplete until implemented and verified.
+
+## F-UX1 implementation
+
+Restored bounded flex/min-height/overflow on the actual Profile and Explore roots; fixed shrinking right-screen and small-height shell. Explore is an anchored flyout, leaving all rail rows in place. Global New Minder chat remains available in every authenticated module, keeps unsent drafts in account-cleared memory and creates no record until first send. Context and independent Mindbot scrolling are retained. Desktop assistant/user body CSS14→16px, mobile user12→14px, both composers13→15px; original font family retained.
+
+Real browser 20 viewport/route combinations:1440×900,1280×720,390×844,640×360; wheel scroll reaches formerly clipped content; no horizontal document overflow; global plus visibility and unsent draft retention passed. JSON and screenshot at `/private/tmp/minder-f-ux/ux1-layout.json` and `ux1-minder.png`. 640×360 exercises the effective layout of1280×720 at200%; it is not claimed as actual browser zoom. Final full browser zoom/last-control acceptance still required in F-UX6. Provider calls:0.
+
+## F-UX2 implementation
+
+One mounted main; Careers/My Path headings and tab nodes persist across internal changes. New tabs immediately clear obsolete panel content and update selected state; same-panel reads retain valid content. Read abort/generation checks reject obsolete requests. Profile data is reused only across sibling panels; explicit refresh re-reads canonical data. Career query, comparison selection and match results survive panel visits in identity-cleared memory; profile-version keys invalidate match presentation. No private browser-storage cache added. Compare retains selected-control focus while refreshing. Reduced motion respected.
+
+Actual browser trace `/private/tmp/minder-f-ux/ux2-partial-trace.zip` proves main/header/tab object identity across both modules, 700ms delayed reads and rapid switches, retained search draft, one initial document navigation, no page errors. No provider call. A asset/schema base29a6b9303a13b617a0698ea9c3a2c6fd4ebf796f integrated by normal merge; D routes await implementation.
