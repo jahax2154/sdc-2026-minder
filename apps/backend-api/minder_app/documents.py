@@ -123,6 +123,12 @@ class DocumentLibrary:
                 raise AppError("document_storage_requires_verified_database_volume", 500)
             root = Path(env.get("MINDER_DOCUMENT_STORAGE_ROOT", str(Path(store.path).parent / "documents")))
             storage = PrivateVolumeDocumentStorage(store.volume_root, root)
+        elif mode == "replit-app-storage":
+            from .document_storage import ReplitAppStorage
+            if getattr(store, "engine", None) != "postgresql":
+                raise AppError("replit_document_storage_requires_postgresql", 503)
+            storage = ReplitAppStorage.from_environment(env)
+            storage.probe() # Fail explicitly when configured bucket read access is unavailable.
         elif mode != "disabled":
             raise AppError("document_storage_backend_not_configured", 500)
         return cls(store, storage, limits)

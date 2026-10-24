@@ -123,3 +123,91 @@ class PrivateVolumeDocumentStorage(LocalDocumentStorage):
         Store.verify_volume(self.mount_root)
         with super().directory() as directory:
             yield directory
+
+
+class ReplitAppStorage:
+    """Private server SDK access; explicit bucket, opaque keys, no public URLs.
+
+    The SDK returns whole bytes. Own uploads are limited before this boundary;
+    reads check the returned length, rather than claiming a streaming limit.
+    A configured client is not proof of published restart/backup acceptance.
+    """
+    mode = "replit-app-storage"
+    durable_hosting_verified = False
+    durability_status = "configured_host_acceptance_pending"
+
+    def __init__(self, bucket_id, prefix="minder/private/", *, client=None):
+        if not isinstance(bucket_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,200}", bucket_id):
+            raise AppError("document_storage_bucket_id_required", 503)
+        if (not isinstance(prefix, str) or not re.fullmatch(r"[a-zA-Z0-9_/-]{1,160}/", prefix)
+                or prefix.startswith('/') or any(part in ('', '.', '..') for part in prefix[:-1].split('/'))):
+            raise AppError("document_storage_prefix_invalid", 503)
+        try:
+            from replit.object_storage import Client
+            from replit.object_storage.errors import ObjectNotFoundError
+            self._missing = ObjectNotFoundError
+            self._client = client if client is not None else Client(bucket_id=bucket_id)
+        except Exception:
+            raise AppError("document_storage_sdk_unavailable", 503) from None
+        self._prefix = prefix
+
+    @classmethod
+    def from_environment(cls, environ=None):
+        env = os.environ if environ is None else environ
+        return cls(env.get("MINDER_DOCUMENT_STORAGE_BUCKET_ID"),
+                   env.get("MINDER_DOCUMENT_STORAGE_PREFIX", "minder/private/"))
+
+    def _name(self, key):
+        LocalDocumentStorage.check_key(key)
+        return self._prefix + key
+
+    def _read(self, name):
+        try:
+            return self._client.download_as_bytes(name)
+        except self._missing:
+            return None
+        except Exception:
+            raise AppError("document_storage_read_failed", 503) from None
+
+    def probe(self):
+        """Explicit operator read-access check; no object contents are returned."""
+        try:
+            self._client.list(prefix=self._prefix, max_results=1)
+        except Exception:
+            raise AppError("document_storage_access_unavailable", 503) from None
+        return dict(mode=self.mode, read_access="verified", durable_hosting_verified=False)
+
+    def put(self, key, content):
+        name = self._name(key)
+        existing = self._read(name)
+        if existing is not None:
+            if existing != content:
+                raise AppError("document_storage_key_conflict", 500)
+            return
+        try:
+            self._client.upload_from_bytes(name, content)
+        except Exception:
+            # The remote write may have committed. Keep the pending reservation;
+            # exact retry reads identical bytes before writing again.
+            raise AppError("document_storage_write_outcome_unconfirmed", 503) from None
+        if self._read(name) != content:
+            raise AppError("document_storage_integrity_failed", 503)
+
+    def get(self, key, max_bytes):
+        content = self._read(self._name(key))
+        if content is None:
+            raise AppError("document_storage_read_failed", 503)
+        if len(content) > max_bytes:
+            raise AppError("document_storage_integrity_failed", 500)
+        return content
+
+    def delete(self, key):
+        name = self._name(key)
+        try:
+            self._client.delete(name, ignore_not_found=True)
+        except self._missing:
+            pass
+        except Exception:
+            raise AppError("document_storage_delete_outcome_unconfirmed", 503) from None
+        if self._read(name) is not None:
+            raise AppError("document_storage_delete_outcome_unconfirmed", 503)
