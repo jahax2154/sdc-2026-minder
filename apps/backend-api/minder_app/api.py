@@ -52,10 +52,12 @@ class Application:
             personal = self.services.personal
             if personal is None or not hasattr(personal, "evidence_for"):
                 raise AppError("evidence_service_unavailable", 404)
-            role = next((r for r in self.services.roles if r["role_id"] == body["role_id"]), None)
-            if role is None:
-                raise AppError("role_not_found", 404)
+            from .role_display import resolve_role
+            role, selection = resolve_role(self, owner, body)
             result = personal.evidence_for(role)
+            result = dict(result, role_selection=selection)
+            from .role_display import forecast_view
+            result.update(forecast_view(self, role))
             if body.get("trace_id"):
                 profile = self.store.get(owner, "profile", owner)
                 if body.get("expected_profile_version") != profile["version"]:
@@ -114,10 +116,10 @@ class Application:
                        for r in selected[offset:offset + limit]],
                 applied_query=query, can_clear_filter=True)
         if path == "/api/role-requirements" and method == "POST":
-            role = next((r for r in self.services.roles if r["role_id"] == body["role_id"]), None)
-            if role is None:
-                raise AppError("role_not_found", 404)
-            return dict(role=role, limitation="Occupational ratings are not personal competence thresholds.")
+            from .role_display import resolve_role, presentation
+            role, selection = resolve_role(self, owner, body)
+            return dict(role=role, role_selection=selection, display=presentation(self, owner, role),
+                limitation="Occupational reference ratings describe the work; they do not establish your competence.")
         if path == "/api/profile":
             if method == "GET":
                 return self.store.get(owner, "profile", owner)

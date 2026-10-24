@@ -94,7 +94,9 @@
         "docs/Minder_Morning_Completion_Runbook_2026-10-24.md",
         "docs/minder-approved-product-designs/**",
         "docs/Minder_Frontend_Final_Repair_and_Home_Gate.md",
-        "docs/Minder_Home_Package/**"
+        "docs/Minder_Home_Package/**",
+        "apps/backend-api/minder_app/role_display.py",
+        "apps/backend-api/tests/test_role_display.py"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
