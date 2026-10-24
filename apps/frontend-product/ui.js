@@ -16,7 +16,7 @@ export function bind(id,handler) {
     e.preventDefault();if(el.dataset.pending)return;el.dataset.pending='true';
     const controls=[...el.querySelectorAll('button,input,select,textarea'),...(el.matches('button')?[el]:[])].map(n=>[n,n.disabled]);controls.forEach(([n])=>n.disabled=true);
     document.querySelector('#error').hidden=true;
-    try{await handler(e);}catch(err){showError(err);}finally{delete el.dataset.pending;controls.forEach(([n,d])=>{if(n.isConnected)n.disabled=d;});}
+    try{await handler(e);}catch(err){if(err.code!=='request_cancelled')showError(err);}finally{delete el.dataset.pending;controls.forEach(([n,d])=>{if(n.isConnected)n.disabled=d;});}
   });
 }
 export const diffLabel=d=>`<div class="diff"><strong>${esc(d.path)}</strong><div><del>${esc(d.before??'Not set')}</del> → <ins>${esc(d.after??'Not set')}</ins></div></div>`;
