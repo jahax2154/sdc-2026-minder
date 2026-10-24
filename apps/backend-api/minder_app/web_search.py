@@ -18,7 +18,7 @@ from urllib.request import Request,build_opener,HTTPRedirectHandler
 from .model_gateway import coordination_directory
 from .public_retrieval import PublicRetrieval,SEEDS,TOPICS,RetrievalError,LFS_URL
 
-POLICY='public-page-discovery-v1.2'
+POLICY='public-page-discovery-v1.3'
 ENDPOINT='https://api.mwmbl.org/api/v2/search/'
 PROFESSIONAL=('talentcorp.com.my','mynsr.talentcorp.com.my','mdec.my','hays.com.my','randstad.com.my',
     'michaelpage.com.my','jobstreet.com.my','mycen.com.my','coursera.org','dataquest.io','github.blog',
@@ -46,7 +46,7 @@ def market_question(question):
     return bool(re.search(r'\b(market|trends?|demand|hiring|grow\w*|increas\w*|shortage|vacanc\w*|sought)\b',question,re.I))
 
 def detail_seeds(question):
-    if software_question(question):return [DETAILS[1],DETAILS[0]] if market_question(question) else [DETAILS[3],DETAILS[4]]
+    if software_question(question):return [DETAILS[1]] if market_question(question) else [DETAILS[3],DETAILS[4]]
     if market_question(question):
         if any(re.search(pattern,question,re.I) for pattern,topic in ROLE_TERMS):return [DETAILS[5]]
         return [DETAILS[5],DETAILS[0]]
@@ -63,6 +63,11 @@ def select_passage(record,question):
             +(5 if software_question(question) and 'software engineer' in low else 0)
             -(8 if any(t in low for t in ('sign up','subscribe','cookie','salary expectations')) else 0))
     lines=[line for line in record['text'].splitlines() if len(line.split())>=6]
+    if technical and record['url'].startswith('https://www.onetonline.org/link/summary/15-1252.00'):
+        # Actual tasks/programming skill detail is more useful than a long role
+        # introduction. Never translate occupational importance into competence.
+        focused=[line for line in lines if re.match(r'^(?:Analyze user needs|Develop or direct software system testing|Programming\s*[—-])',line)]
+        if focused:lines=focused
     lines.sort(key=lambda line:-score(line))
     return '\n'.join(line[:600] for line in lines[:4])[:2200]
 ROLE_TERMS=((r'\b(data analyst|data analytics)\b','data analyst skills'),

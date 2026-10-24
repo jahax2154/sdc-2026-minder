@@ -35,8 +35,16 @@ class SearchTests(unittest.TestCase):
         self.assertTrue(any('mozilla' in s[1] for s in detail_seeds(questions[2])))
         self.assertIn('job market',public_queries(questions[1])[0])
         self.assertIn('curriculum',public_queries(questions[2])[1])
-        record=dict(text='The registry describes a national programme for occupational groups.\nSoftware engineers develop systems and test software against user requirements.\nSubscribe for our latest email marketing information and cookie policies.')
+        record=dict(url='https://example.invalid/',text='The registry describes a national programme for occupational groups.\nSoftware engineers develop systems and test software against user requirements.\nSubscribe for our latest email marketing information and cookie policies.')
         self.assertTrue(select_passage(record,questions[2]).startswith('Software engineers'))
+
+    def test_software_uses_occupational_details_without_irrelevant_national_fetch(self):
+        self.assertEqual(len(detail_seeds('How is the software engineering job market now?')),1)
+        page=dict(url='https://www.onetonline.org/link/summary/15-1252.00',text='Research design develop software and systems in a very long general introduction.\nAnalyze user needs and software requirements to determine feasibility of design.\nDevelop or direct software system testing or validation procedures, programming, or documentation.')
+        passage=select_passage(page,"What's the most relevant skills now to become a software engineer?")
+        self.assertNotIn('long general introduction',passage)
+        self.assertIn('testing',passage)
+        self.assertIn('requirements',passage)
 
     def test_documented_v2_query_and_cached_results_never_send_private_question(self):
         sent=[]
