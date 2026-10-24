@@ -64,12 +64,12 @@
   "publication": {
     "public_URL": null,
     "deployed_SHA": null,
-    "last_verified_publish_status": "first_Reserved_VM_publication_failed",
+    "last_verified_publish_status": "second_Reserved_VM_publication_failed_same_UPM_parser",
     "hosted_login_two_account_restart_scheduler_acceptance": "not_run",
     "automatic_approval_review": "initial_default_Autoscale_rejected_first_actual_VM_UI_submission_permitted_later_connector_retry_rejected",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
     "bypass_or_indirect_publication": "none_final_UI_review_permitted_actual_Reserved_VM_submission",
-    "safe_continuation": "existing_Reserved_VM_UI_republish_after_verified_root_repair_then_hosted_acceptance",
+    "safe_continuation": "load_A_exact_group_repair_check_actual_UPM_list_full_manifest_and_frozen_runtime_then_UI_retry",
     "prospective_domain": "https://minder-junhongphuah.replit.app",
     "actual_UI": {
       "Reserved_VM_selected": true,
@@ -107,7 +107,22 @@
       "Autoscale_present": false
     },
     "latest_connector_retry_review": "rejected_cannot_guarantee_VM_retention_after_failed_first_build_use_verified_UI",
-    "retry_state": "user_requested_only_to_click_Republish_then_confirmation_in_existing_UI_no_settings_changes"
+    "retry_state": "actual_UI_retry_ran_and_failed_no_further_retry_until_full_manifest_UPM_check",
+    "latest_actual_build_id": "9dd5d9fd-4065-4ffe-a1c9-4ebaf61c0e96",
+    "packager_disable_effective": false,
+    "UPM_reproducer": {
+      "version": "0.0.0-0ffdf7d",
+      "command": "upm -l python list -f json",
+      "isolated_temporary_directories": true,
+      "credential_environment": "PATH_only",
+      "plain_pinned_pair_exit": 0,
+      "marked_pinned_pair_exit": 2,
+      "marked_pair_panic": "python.go848_makePythonUvBackend.func1_nil_pointer_SIGSEGV",
+      "plain_control_exit": 0,
+      "marked_pair_in_default_runtime_group_exit": 0,
+      "runtime_install_or_publish_proof": false
+    },
+    "pending_repair": "A_owned_root_platform_marked_XGBoost_entries_in_default_uv_runtime_group_versions_and_markers_preserved_E_template_mirrored"
   },
   "operator_fix_checks": {
     "passed": 16,
