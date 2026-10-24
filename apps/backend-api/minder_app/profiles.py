@@ -11,7 +11,7 @@ def save_profile(store, owner, body, expected, *, db=None):
     if not isinstance(body, dict):
         raise AppError("profile_object_required")
     allowed = {"profile_id", "profile_group_id", "version", "synthetic", "evidence",
-               "preferences", "current_fields", "constraints", "timezone", "career_context"}
+               "preferences", "current_fields", "constraints", "timezone", "career_context", "onboarding"}
     if set(body) - allowed:
         raise AppError("unknown_profile_field")
     # A partial update merges against the exact expected revision inside the write
@@ -30,11 +30,12 @@ def save_profile(store, owner, body, expected, *, db=None):
     value = copy.deepcopy(previous) if previous else dict(
         synthetic=False, evidence=[], preferences=[], current_fields=[],
         constraints=[], timezone="Asia/Kuala_Lumpur")
-    context = dict(value.get("career_context", {}))
+    merged = {key: dict(value.get(key, {})) for key in ("career_context", "onboarding")}
     value.update(copy.deepcopy(body))
-    if "career_context" in body and isinstance(body["career_context"], dict):
-        context.update(body["career_context"])
-        value["career_context"] = context
+    for key, metadata in merged.items():
+        if key in body and isinstance(body[key], dict):
+            metadata.update(body[key])
+            value[key] = metadata
     value.update(profile_id=owner, profile_group_id=owner, version=uid())
     validate("Profile", value)
     if any(len(value[k]) > 500 for k in ("evidence", "preferences", "current_fields", "constraints")):

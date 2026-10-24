@@ -117,3 +117,15 @@ class ConversationStoreTests(AppCase):
         self.assertEqual(messages[0]["response"]["diagnostics"]["event_id"],"daily:fictional")
         with self.assertRaises(AppError):
             self.service.append_notice(self.store.session()["profile_id"],"daily:fictional")
+
+    def test_inline_notice_hook_and_restart_reconciliation_never_rerun_jobs(self):
+        from minder_app.conversations import append_notice, reconcile_notices
+        with self.store.transaction() as db:
+            for event in ("first","second"):
+                db.execute("INSERT INTO notices VALUES(?,?,?)",(self.owner,event,json.dumps({"summary":"Fictional daily result"})))
+            # This uses the same active transaction without attempting nested migration.
+            append_notice(self.store,self.owner,"first",db=db)
+        reconciled = reconcile_notices(Store(self.store.path),limit=50)
+        self.assertEqual(reconciled,{"checked":1,"appended":1})
+        self.assertEqual(reconcile_notices(self.store),{"checked":0,"appended":0})
+        self.assertEqual(len(self.service.mindbot(self.owner)["messages"]),2)

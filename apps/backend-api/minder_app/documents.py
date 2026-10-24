@@ -5,6 +5,10 @@ from dataclasses import asdict, dataclass
 import hashlib
 import json
 import os
+import importlib.util
+import subprocess
+import sys
+import threading
 from pathlib import Path
 import re
 import uuid
@@ -113,6 +117,12 @@ class DocumentLibrary:
             if not root.is_absolute() or not root.resolve().is_relative_to(uploads.resolve()):
                 raise AppError("document_storage_root_outside_lane_uploads", 500)
             storage = LocalDocumentStorage(root)
+        elif mode == "private-volume":
+            from .document_storage import PrivateVolumeDocumentStorage
+            if not getattr(store, "volume_root", None):
+                raise AppError("document_storage_requires_verified_database_volume", 500)
+            root = Path(env.get("MINDER_DOCUMENT_STORAGE_ROOT", str(Path(store.path).parent / "documents")))
+            storage = PrivateVolumeDocumentStorage(store.volume_root, root)
         elif mode != "disabled":
             raise AppError("document_storage_backend_not_configured", 500)
         return cls(store, storage, limits)
@@ -124,7 +134,10 @@ class DocumentLibrary:
 
     @staticmethod
     def public(row):
-        return {key: value for key, value in json.loads(row["body"]).items() if not key.startswith("_")}
+        metadata = {key: value for key, value in json.loads(row["body"]).items() if not key.startswith("_")}
+        if metadata.get("status") != "deleted":
+            metadata.setdefault("purpose", "legacy_unclassified")
+        return metadata
 
     def owned(self, db, owner, document_id, *, active=False):
         row = db.execute("SELECT * FROM library_documents WHERE owner=? AND id=?",
@@ -148,10 +161,13 @@ class DocumentLibrary:
         return dict(contract_version=CONTRACT_VERSION, documents=[self.public(row) for row in rows],
             limits=dict(asdict(self.limits), upload_request_bytes=self.limits.upload_request_bytes),
             storage=dict(status="available" if self.storage else "unavailable",
-                mode=getattr(self.storage, "mode", "disabled"), durable_hosting_verified=False),
+                mode=getattr(self.storage, "mode", "disabled"), durable_hosting_verified=False,
+                durability_status=getattr(self.storage, "durability_status", "local_unverified" if self.storage else "unavailable")),
             usage=dict(file_count=len(rows), stored_or_reserved_bytes=sum(row["byte_size"] for row in rows)),
-            extraction=dict(supported_types=["text/plain"], max_text_bytes=65536,
-                            pdf_status="unavailable", automatic_profile_apply=False))
+            extraction=dict(supported_types=["text/plain"] + (["application/pdf"] if pdf_available() else []),
+                            max_text_bytes=65536, max_pdf_pages=20,
+                            pdf_status="supported_text_only" if pdf_available() else "unavailable",
+                            automatic_profile_apply=False, purpose="user_declared_cv_or_resume"))
 
     def upload(self, owner, body):
         content = validate_upload(body, self.limits)
@@ -175,9 +191,11 @@ class DocumentLibrary:
                     raise AppError("document_owner_limit_exceeded", 413)
                 document_id, version = uid(), uid()
                 metadata = dict(document_id=document_id, version=version, filename=body["filename"],
-                    content_type=body["content_type"], size_bytes=len(content), sha256=hashlib.sha256(content).hexdigest(),
+                    content_type=body["content_type"], purpose=body["purpose"],
+                    purpose_basis="user_declared_not_independently_verified", size_bytes=len(content), sha256=hashlib.sha256(content).hexdigest(),
                     created_at=now(), status="uploading",
-                    extraction_status="not_requested" if body["content_type"] == "text/plain" and len(content) <= 65536 else "unavailable",
+                    extraction_status="not_requested" if (body["content_type"] == "text/plain" and len(content) <= 65536)
+                        or (body["content_type"] == "application/pdf" and pdf_available()) else "unavailable",
                     _storage_key=uuid.uuid4().hex)
                 db.execute("INSERT INTO library_documents VALUES(?,?,?,?,?,?,?)", (owner, document_id,
                     version, "uploading", encoded(metadata), len(content), metadata["created_at"]))
@@ -255,32 +273,55 @@ class DocumentLibrary:
 
     def extract(self, owner, body):
         Draft202012Validator(SCHEMAS["extract"]).validate(body)
+        with self.store.connect() as db:
+            row = self.owned(db, owner, body["document_id"], active=True)
+            metadata = json.loads(row["body"])
+            link = db.execute("SELECT draft_id FROM library_drafts WHERE owner=? AND document_id=?",
+                              (owner, body["document_id"])).fetchone()
+            if link:
+                draft_row = db.execute("SELECT body FROM drafts WHERE owner=? AND id=?", (owner, link["draft_id"])).fetchone()
+                if draft_row is None:
+                    raise AppError("document_intake_record_missing", 409)
+                return dict(document=self.public(row), extraction=dict(status="review_available", manual_entry_available=True),
+                            draft=json.loads(draft_row["body"]))
+            content = None
+            reason = None
+            if metadata.get("purpose") not in ("cv", "resume"):
+                reason = "legacy_document_purpose_unclassified"
+            elif metadata["content_type"] == "text/plain" and metadata["size_bytes"] > 65536:
+                reason = "text_exceeds_reviewed_intake_limit"
+            elif metadata["content_type"] == "application/pdf" and not pdf_available():
+                reason = "pdf_text_extraction_not_supported"
+            else:
+                content = self.checked_content(row)
+        # Parsing can be slow/untrusted. No DB transaction or server secrets cross
+        # into its bounded child process; it cannot block profile/worker writes.
+        text = None
+        if content is not None:
+            if metadata["content_type"] == "application/pdf":
+                text, reason = extract_pdf(content)
+            else:
+                text = content.decode("utf-8-sig")
         with self.store.transaction() as db:
             row = self.owned(db, owner, body["document_id"], active=True)
             metadata = json.loads(row["body"])
             draft = None
-            reason = None
-            if metadata["content_type"] != "text/plain":
-                reason = "pdf_text_extraction_not_supported"
-            elif metadata["size_bytes"] > 65536:
-                reason = "text_exceeds_reviewed_intake_limit"
-            if reason:
-                status = "unavailable"
-            else:
+            if text is not None:
                 link = db.execute("SELECT draft_id FROM library_drafts WHERE owner=? AND document_id=?",
                                   (owner, body["document_id"])).fetchone()
                 if link:
-                    draft_row = db.execute("SELECT body FROM drafts WHERE owner=? AND id=?", (owner, link["draft_id"])).fetchone()
-                    if draft_row is None:
-                        raise AppError("document_intake_record_missing", 409)
-                    draft = json.loads(draft_row["body"])
+                    draft = json.loads(db.execute("SELECT body FROM drafts WHERE owner=? AND id=?", (owner, link["draft_id"])).fetchone()[0])
                 else:
                     from .profiles import _intake_draft
-                    content = self.checked_content(row)
-                    draft = _intake_draft(db, owner, text=content.decode("utf-8-sig"),
-                        filename=metadata["filename"], channel="document-library")
+                    draft = _intake_draft(db, owner, text=text,
+                        filename=Path(metadata["filename"]).stem+".txt", channel="cv-resume-library")
+                    draft.update(source_document_id=metadata["document_id"], source_content_type=metadata["content_type"],
+                                 source_sha256=metadata["sha256"])
+                    db.execute("UPDATE drafts SET body=? WHERE owner=? AND id=?", (encoded(draft),owner,draft["id"]))
                     db.execute("INSERT INTO library_drafts VALUES(?,?,?)", (owner, body["document_id"], draft["id"]))
                 status = "review_available"
+            else:
+                status = "unavailable"
             if metadata["extraction_status"] != status:
                 metadata.update(extraction_status=status, version=uid())
                 db.execute("UPDATE library_documents SET body=?,version=? WHERE owner=? AND id=?",
@@ -306,3 +347,74 @@ def dispatch(app, owner, method, path, body):
         return library.list(owner)
     operation = path.rsplit("-", 1)[-1]
     return getattr(library, operation)(owner, body)
+
+
+
+def pdf_available():
+    return importlib.util.find_spec("pypdf") is not None
+
+
+_PDF_SLOTS = threading.BoundedSemaphore(2)
+
+
+def extract_pdf(content):
+    if not _PDF_SLOTS.acquire(blocking=False):
+        return None, "pdf_extraction_busy"
+    child_env = {key: os.environ[key] for key in ("PATH", "PYTHONPATH", "LANG") if key in os.environ}
+    child_env["PYTHONDONTWRITEBYTECODE"] = "1"
+    try:
+        result = subprocess.run([sys.executable, "-B", "-m", "minder_app.documents", "--extract-pdf"],
+            input=content, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=12, env=child_env)
+        if result.returncode != 0 or len(result.stdout) > 131072:
+            return None, "pdf_extraction_budget_or_parse_failed"
+        parsed = json.loads(result.stdout)
+        text = parsed.get("text")
+        if text is not None and (not isinstance(text,str) or len(text.encode("utf-8")) > 65536):
+            return None, "pdf_extracted_text_too_large"
+        return text, parsed.get("reason")
+    except (subprocess.TimeoutExpired, OSError, ValueError, TypeError):
+        return None, "pdf_extraction_unavailable"
+    finally:
+        _PDF_SLOTS.release()
+
+
+def _pdf_worker():
+    import io
+    import logging
+    logging.disable(logging.CRITICAL)
+    try:
+        import resource
+        resource.setrlimit(resource.RLIMIT_CPU, (5,5))
+        if sys.platform.startswith("linux"):
+            resource.setrlimit(resource.RLIMIT_AS, (384*1024*1024,384*1024*1024))
+        from pypdf import PdfReader
+        raw = sys.stdin.buffer.read(1048577)
+        if len(raw) > 1048576:
+            raise ValueError()
+        reader = PdfReader(io.BytesIO(raw), strict=True)
+        if reader.is_encrypted:
+            output = dict(reason="pdf_encrypted_not_supported")
+        elif len(reader.pages) > 20:
+            output = dict(reason="pdf_page_limit_exceeded")
+        else:
+            parts, size = [],0
+            for page in reader.pages:
+                stream = page.get_contents()
+                if stream is not None and len(stream.get_data()) > 2*1024*1024:
+                    raise ValueError()
+                text = page.extract_text() or ""
+                text = "".join(c for c in text if ord(c)>=32 or c in "\n\r\t")
+                size += len(text.encode("utf-8"))+1
+                if size > 65536:
+                    print(json.dumps(dict(reason="pdf_extracted_text_too_large")))
+                    return
+                parts.append(text)
+            text = "\n".join(parts).strip()
+            output = dict(text=text) if text else dict(reason="pdf_no_extractable_text")
+    except Exception:
+        output = dict(reason="pdf_parse_failed")
+    print(json.dumps(output, ensure_ascii=False))
+
+
+if __name__ == "__main__" and sys.argv[1:] == ["--extract-pdf"]:
+    _pdf_worker()
