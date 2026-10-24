@@ -18,7 +18,7 @@ Minder is an AI-assisted career exploration and personalised reskilling platform
 | GitHub Repository | https://github.com/jahax2154/sdc-2026-minder |
 | Live Demo | https://aiversecity-career-compass.replit.app |
 | RunPod Endpoint |  |
-| Slide Deck | slide link |
+| Slide Deck | [slide link](https://canva.link/fhs6w1hyf2bygyl) |
 | Demo Video | Youtube link |
 
 ## Overview
@@ -442,16 +442,16 @@ Our team consists of three members working collaboratively on the design, develo
 ## Submission Checklist
 
 - [X] Team name, Domain 1, and SDG 4 track are correctly stated.
-- [ ] GitHub repository is publicly accessible to judges.
-- [X] Live Replit application link is working.
-- [ ] Presentation slide deck link has been added.
+- [X] GitHub repository is publicly accessible to judges.
+- [ ] Live Replit application link is working.
+- [X] Presentation slide deck link has been added.
 - [ ] Demo video link has been added.
-- [ ] Replit proof of use is included in `submission/`.
-- [ ] RunPod proof of use is included in `submission/`.
-- [ ] Preliminary submission document is completed (`SDC2026_AINewBee_Preliminary.pdf`).
-- [ ] Technical & Tools Declaration is completed (`SDC2026_AINewBee_TechDeclaration.pdf`).
+- [X] Replit proof of use is included in `submission/`.
+- [X] RunPod proof of use is included in `submission/`.
+- [X] Preliminary submission document is completed (`SDC2026_AINewBee_Preliminary.pdf`).
+- [X] Technical & Tools Declaration is completed (`SDC2026_AINewBee_TechDeclaration.pdf`).
 - [X] All submission documents use the registered team name.
-- [ ] Frontend, backend, and ML source code are available in the final repository.
+- [X] Frontend, backend, and ML source code are available in the final repository.
 - [X] Installation and testing instructions have been verified.
 - [X] No API keys, passwords, or other secrets are committed to GitHub.
 - [X] Apache License 2.0 is included in the repository.
