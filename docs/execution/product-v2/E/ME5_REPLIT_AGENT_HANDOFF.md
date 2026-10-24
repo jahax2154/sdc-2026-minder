@@ -1,3 +1,5 @@
+> Historical ME5 handoff. Superseded by ME6_MINDER_DEPLOYMENT_HANDOFF.md: target is Minder0f48cf79, exact source27bc76094ae3cbdb29d12e14c001549850593d55. Do not act on the old project.
+
 # One Replit Agent handoff — source import and guarded Python launch
 
 User-selected target: Replit, existing Minder Clerk Development tenant.

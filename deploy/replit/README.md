@@ -5,31 +5,29 @@ application, existing vanilla frontend and Python backend, PostgreSQL plus priva
 App Storage. One Reserved VM web process with the existing cohosted persisted
 worker, conditional on verified existing allowance; no automatic upgrade.
 
-A explicitly identified porting base42062878914c168752ae058cd4d4f09a37f9b26c,
-then published factory contract7d4073f0c8ce06faafff0bd97cfd94eb0444d93d. Later A
-factory/portability and committed D/E/F handoffs must be integrated before A names
-an accepted publish candidate. A porting base is not final release approval.
+A's current exact implementation pin is
+`27bc76094ae3cbdb29d12e14c001549850593d55`, deployment branch
+`session/a-personal-integration` in the official existing team repository.
+A's committed `docs/execution/product-v2/A_E_DEPLOYMENT_SOURCE_NOW.md` names this
+source, its integrated D/E/F dependencies and actual remaining acceptance limits.
+The earlier4206287 porting base is superseded for this deployment.
 
-## Actual target inspection
+## Correct target and current load
 
-Connected editable Replit project d8e6ee62-0e31-4863-bf19-b457893d558c:
-https://replit.com/@yicheng070612/Aiversecity-Career-Compass . Read-only Agent
-inspection found old React/Node source main4df6c08372e70ec0f60c844ccfc8bca19f119f1a,
-no official team remote/Python Minder/Clerk, development PostgreSQL16.10 only,
-no production DB/private bucket. Existing Autoscale URL is the older application,
-not a Minder login deliverable. An initial GitHub import-access query timed out. A subsequent history-preserving
-import preparation request was accepted but Agent verified it was blocked before
-any import: Replit proxy requires a GitHub account connection. No source was
-imported or revision verified; existing project/live deployment remain unchanged.
-User action: Git pane / Connect to a Git provider / GitHub, authorize the account
-with access to jahax2154/sdc-2026-minder (or https://replit.com/import). No credentials
-in chat. No remote source/config/database/bucket/publish mutation was performed.
+Minder only: https://replit.com/@JunhongPhuah/Minder,
+Replit ID `0f48cf79-f55a-4b24-ba5c-a03d800e03bd`.
+The user reports imported main `f0298a3b2c360f9db56ec9c672ca35583659bee7`
+is scaffold only. Preserve its existing Replit configuration checkpoint before
+loading the exact implementation pin. The former Career Compass project is not
+the target and must not be modified.
 
-Account plan, remaining credits and actual Reserved VM quote are inaccessible to
-these tools. User must inspect Publish (upper-right in project editor) / Adjust
-settings / deployment type, or report that unavailable. Do not press purchase,
-change plan or republish the old app to resolve this. Current official docs:
-https://docs.replit.com/features/publishing/deployment-types
+The correct project was resolved through the connector and has never been
+published. An authorized update request was accepted to preserve configuration,
+fetch/load the exact implementation, configure the existing Python app and return
+actual checkout/startup results. That acknowledgement is not proof of a successful
+checkout or deployment. Earlier read-only restrictions applied only to inspection;
+the user explicitly authorizes actual deployment within the existing allowance.
+No repeated deployment permission or Railway account is required.
 
 ## Prepared commands and source contract
 

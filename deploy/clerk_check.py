@@ -10,6 +10,9 @@ def check(values):
             or not values.get("CLERK_PUBLISHABLE_KEY", "").startswith("pk_test_")
             or not values.get("CLERK_SECRET_KEY", "").startswith("sk_test_")):
         raise OperatorError("matching_Minder_Development_keys_required_for_server_session_checks")
+    secret = values["CLERK_SECRET_KEY"]
+    if not secret.isascii() or any(character.isspace() for character in secret):
+        raise OperatorError("CLERK_SECRET_KEY_requires_full_unmasked_ASCII_value_in_private_configuration")
     try:
         from cryptography.hazmat.primitives.serialization import load_pem_public_key
         from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
