@@ -4,67 +4,75 @@ Target: https://replit.com/@JunhongPhuah/Minder
 Project: 0f48cf79-f55a-4b24-ba5c-a03d800e03bd
 Official repository: https://github.com/jahax2154/sdc-2026-minder.git
 Approved branch: session/a-personal-integration
-Approved application pin: 74b9688e124f0e6d5f2eb57943fd2671614dab9a
-Approval: ../A_N12_CLERK_PROTECT_CSP_HANDOFF.md
+Approved source: 1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9
+A handoff: ../A_N13_R01_UPM_MARKER_COMPATIBILITY.md
+Actual Replit configuration HEAD: 7cc7f2d9a5a3943ba20c31a4c1845359514b0979
 
-This replaces the earlier 27bc760 candidate. It includes A's managed Python
-integration and Clerk Protect CSP repair, D's native PostgreSQL/private storage,
-E's existing worker launcher and F's accepted frontend. Replit reports application,
-deployment and dependency manifests identical to this pin. Provider configuration
-HEAD is a5552048b57d22b9d26d70662acdd89d1585009d. Original configuration checkpoint
-4528209dd303a7de1b2961cda0f0331048fe3dbd and Git history are preserved.
+The actual existing implementation includes the accepted A/D/E/F application,
+Clerk Protect repair, managed PostgreSQL, private App Storage and existing hosted
+worker. Git history and original provider checkpoint4528209dd303a7de1b2961cda0f0331048fe3dbd
+are preserved. Career Compass and official main were not modified.
 
-## Current evidence
+## Verified current preparation
 
-Replit reports a successful frozen Linux build, health HTTP200 at the approved
-source pin and exactly one existing worker. Managed development PostgreSQL migrations
-and a real private bucket put/get/delete round trip passed; anonymous download403.
-The disposable storage probe was removed. These are preview checks, not production
-restart or end-user acceptance.
+Full actual Replit root manifest: installed UPM0.0.0-0ffdf7d command
+upm -l python list -f json exits0, lists47dependencies, no panic. The frozen Linux
+build passes with48installed distributions, dependency consistency, verified inputs
+and CPU XGBoost3.4.1 import. Preview health200 reports approved1df0593 source,
+one launcher and its existing cohosted worker. These are actual provider preview
+checks, not public user/restart/delivery acceptance.
 
-After the user replaced the abbreviated secret, both the local private-file check
-and the actual Replit process authenticated to Clerk and matched the public signing
-key. Replit injects the running key through its process environment. No dotenv
-startup override or duplicate inline launch entry was found. Project-local versus
-shared/inherited Secret cannot be distinguished by the connector. No published
-runtime or separately verified published secret source exists yet. No key values,
-fragments, tokens, private user data or provider exception payloads were printed.
+Corrected full Clerk key passes authenticated signing-key matching locally and in
+the same Replit workflow process. Credential source is Replit-injected environment;
+no dotenv startup override or duplicate inline launch entry was found. Local versus
+shared Secret scope is not distinguishable through the connector. Public auth
+configuration contains no secret fields; frontend sign-in/up redirects use the current
+origin. Preview Clerk renders without CSP violations. Missing-token and spoofed-owner
+private reads/writes and anonymous session creation return401. Real end-user login,
+expiry/logout and two-account isolation remain unverified on a published runtime.
 
-Two fresh preview sessions rendered Clerk without CSP violations after A's repair.
-Both documented Protect host and connection-port wildcards were verified present.
-Actual end-user signup/signin remains unverified; service-key verification does not
-substitute for user-session authentication or two-account isolation. The private
-local file remains ignored, untracked and owner-only.
+Development PostgreSQL migration and actual private bucket put/get/delete passed;
+anonymous object download403. Disposable probe removed. Bucket/configuration retained.
+Production database creation/schema initialization were selected in Publishing;
+actual production runtime binding and restart durability remain unverified.
 
-## Publication and remaining acceptance
+## Actual publication failure and repair
 
-No public deployment exists. The preview replit.dev URL is not the judge endpoint.
-The intended configuration is Reserved VM with one replica and the existing cohosted
-worker; actual Publishing UI shows Shared0.5vCPU/2GiB, quoted USD15/month or
-USD0.0208/hour. Remaining allowance is not visible; user confirmation is pending.
-Replit also requests phone account verification through WhatsApp. No phone number
-or code was read or entered by this agent. The public primaryDomain is
-https://minder-junhongphuah.replit.app (prospective, not published). Both production
-database creation and schema/data initialization checkboxes are selected. The connector's first-publish operation defaults to Autoscale and must
-not be used for this task. Production PostgreSQL is normally created during first
-publication; do not copy the development database DSN as a substitute.
+Two actual Reserved VM builds failed before application startup:
+0e8d3024-91c8-4af3-b0dd-e0315866a8fb and9dd5d9fd-4065-4ffe-a1c9-4ebaf61c0e96.
+UPM crashes with nil-pointer SIGSEGV at python.go848. enabledForHosting=false did not
+skip that stage. ME7_UPM_REPRODUCER.md records the installed binary's controlled
+reproduction: valid PEP508 platform markers in project.dependencies cause the crash;
+the marked pair in a default uv runtime group avoids it. A approved that metadata
+repair preserving all version pins, artifact hashes and OS selection. The FULL actual
+root now passes UPM listing and frozen build, as recorded above.
 
-An earlier automatic review rejected publication because startup, the old invalid
-key, database/HTTPS/VM configuration and the connector's Autoscale default were
-unverified. No bypass publication occurred. Startup/key/CSP are now repaired; the
-remaining deployment settings need evidence before a safe fresh publication attempt.
+Current public endpoint https://minder-junhongphuah.replit.app is prospective and
+returns404; no successful deployed SHA exists. Do not label preview health as public
+acceptance or an intended URL as a working login URL.
 
-Outstanding: Reserved VM allowance/quote, production database binding, final HTTPS
-origin and authorized parties, published-secret verification, real two-user login,
-profile/chat/CV journeys, logout/refresh/expiry, actual restart/redeployment durability
-and one due hosted event with browsers closed plus pause/cancel/retry checks.
-26 focused local identity/deployment/operator checks passed at the approved pin.
-No hosted acceptance result is inferred from those tests.
+## Authorization and remaining gate
 
-Excluded local raw/derived inputs and private configuration remain uncommitted;
-this checkpoint does not claim they are backed up. Career Compass was not modified.
+User confirmed Replit phone verification complete and USD15.88 remaining credits,
+explicitly authorizing the quoted existing Reserved VM Shared0.5vCPU/2GiB,
+USD15/month or0.0208/hour, existing credits only. No upgrades, purchases or top-ups.
+Provider metadata confirms typeVM, machinee2-small and no Autoscale deployment.
+Canonical public origin and explicit public/current-preview authorized parties are
+prepared. No additional account, key, tenant or billing setup is requested.
 
-Actual managed preview probes return401 for missing-token and spoofed-owner-header
-private reads/writes and anonymous session creation. No test-auth bypass is exposed.
-Provider-only public origin/explicit authorized-parties preparation is in progress;
-no app source changes or publication were requested.
+An earlier automatic review rejected default Autoscale publication; the actual VM UI
+submission was permitted. A later connector retry was rejected because retaining VM
+after a failed first build cannot be guaranteed. Do not bypass it through Agent or
+another connector call. Existing VM UI Republish and its confirmation are the safe
+retry path. Browser automation across macOS full-screen Spaces has been unreliable.
+
+After the verified repair is actually published, verify public revision/auth config,
+two managed users, profile/chat/CV flows, logout/relogin/refresh/expiry and cross-user
+denials, actual restart/redeployment durability and one due existing worker delivery
+with browser contexts closed, including safe pause/cancel/retry behavior. Only real
+completed checks may be reported as passed. No production SQL writes or local test-auth
+bypasses are authorized as a substitute for those public user journeys.
+
+Private .env.deploy.local remains ignored/untracked/owner0600. Credential values,
+fragments, tokens and personal records were not printed or committed. Raw/derived
+local inputs remain excluded and untouched; no backup claim is made for them.

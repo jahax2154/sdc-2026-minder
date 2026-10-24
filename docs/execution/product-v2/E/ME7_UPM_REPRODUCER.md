@@ -47,3 +47,19 @@ UPM listing against the full actual manifest, then the existing frozen build/sta
 Clerk match and worker checks. Preserve provider configuration and user Secrets.
 Only the existing VM UI path is authorized for retry; connector retry review rejected
 uncertain VM retention after a failed first publish. No indirect bypass occurred.
+
+## Approved full-application verification
+
+A approved source1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9; handoff is
+../A_N13_R01_UPM_MARKER_COMPATIBILITY.md. Replit loaded it preserving configuration
+at actual Git HEAD7cc7f2d9a5a3943ba20c31a4c1845359514b0979.
+
+Actual FULL ROOT native UPM listing exits0,47dependencies,no panic. Frozen Linux
+build passes with48installed distributions and dependency checks. CPU XGBoost3.4.1
+imports; non-Linux distribution is absent. Preview health200 reports the exact new
+source pin, same-process live Clerk match is true, one launcher and its existing
+cohosted worker run. E template parses identically to approved root semantics.
+
+These prepublication checks now pass against the actual imported implementation.
+A further public VM build and hosted user/restart/delivery acceptance are still
+required; no successful deployment SHA is claimed here.

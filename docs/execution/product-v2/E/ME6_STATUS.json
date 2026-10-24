@@ -7,15 +7,15 @@
   },
   "source": {
     "official_branch": "session/a-personal-integration",
-    "A_explicit_implementation_pin": "5689d46f3884cc69a441d551450075862d4ad292",
-    "A_committed_handoff": "docs/execution/product-v2/A_N13_HOSTING_PACKAGER_REPAIR.md",
-    "reported_loaded_SHA": "5689d46f3884cc69a441d551450075862d4ad292",
+    "A_explicit_implementation_pin": "1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9",
+    "A_committed_handoff": "docs/execution/product-v2/A_N13_R01_UPM_MARKER_COMPATIBILITY.md",
+    "reported_loaded_SHA": "1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9",
     "Replit_local_branch": "reported_previous_branch_minder_managed_20c65eb_current_branch_not_rechecked",
     "preserved_configuration_checkpoint": "4528209dd303a7de1b2961cda0f0331048fe3dbd",
     "preserved_configuration_branch": "minder-pre-integration-4528209",
     "application_frontend_source_changes": false,
     "provider_launcher_configuration_diff": "application_deploy_sources_and_dependency_manifests_reported_identical_to_approved_pin",
-    "Replit_local_configuration_HEAD_last_reported": "86c75b3d1879df04fb9a525d0a533a87fabf300f"
+    "Replit_local_configuration_HEAD_last_reported": "7cc7f2d9a5a3943ba20c31a4c1845359514b0979"
   },
   "actual_Replit_execution_report": {
     "evidence": "Replit Agent update result on the correct project",
@@ -69,7 +69,7 @@
     "automatic_approval_review": "initial_default_Autoscale_rejected_first_actual_VM_UI_submission_permitted_later_connector_retry_rejected",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
     "bypass_or_indirect_publication": "none_final_UI_review_permitted_actual_Reserved_VM_submission",
-    "safe_continuation": "load_A_exact_group_repair_check_actual_UPM_list_full_manifest_and_frozen_runtime_then_UI_retry",
+    "safe_continuation": "controlled_existing_VM_UI_retry_then_hosted_acceptance",
     "prospective_domain": "https://minder-junhongphuah.replit.app",
     "actual_UI": {
       "Reserved_VM_selected": true,
@@ -95,7 +95,13 @@
       "frozen_build_passed": true,
       "startup_passed": true,
       "preview_health_HTTP": 200,
-      "authenticated_Clerk_instance_match": true
+      "authenticated_Clerk_instance_match": true,
+      "full_actual_root_UPM_exit": 0,
+      "full_actual_root_UPM_dependency_count": 47,
+      "UPM_panic": false,
+      "frozen_Linux_distributions": 48,
+      "CPU_XGBoost_import": "3.4.1_passed",
+      "runtime_pin": "1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9"
     },
     "existing_provider_metadata": {
       "isDeployed": true,
@@ -122,7 +128,7 @@
       "marked_pair_in_default_runtime_group_exit": 0,
       "runtime_install_or_publish_proof": false
     },
-    "pending_repair": "A_owned_root_platform_marked_XGBoost_entries_in_default_uv_runtime_group_versions_and_markers_preserved_E_template_mirrored"
+    "pending_repair": "approved_group_repair_loaded_and_full_native_UPM_frozen_build_start_auth_verified"
   },
   "operator_fix_checks": {
     "passed": 16,
@@ -155,7 +161,7 @@
   "preview": {
     "context": "managed_development_not_published_production",
     "HTTP_health": 200,
-    "source_revision": "5689d46f3884cc69a441d551450075862d4ad292",
+    "source_revision": "1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9",
     "existing_worker_live": true,
     "single_workflow_reloaded": true,
     "HTTPS_URL": "https://0f48cf79-f55a-4b24-ba5c-a03d800e03bd-00-3gwq1ildzsct2.riker.replit.dev",
@@ -172,6 +178,6 @@
     "root_template_uv_resolution_packages": 51,
     "NVIDIA_packages": 0,
     "requires_A_root_pyproject_and_uv_lock_integration": false,
-    "revised_combined_source_pin": "5689d46f3884cc69a441d551450075862d4ad292"
+    "revised_combined_source_pin": "1df0593d31a6e1e3c97eda5ff94ff4fb37af9ee9"
   }
 }
