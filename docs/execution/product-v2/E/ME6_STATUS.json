@@ -64,24 +64,31 @@
   "publication": {
     "public_URL": null,
     "deployed_SHA": null,
-    "last_verified_publish_status": "never_published",
+    "last_verified_publish_status": "first_Reserved_VM_publication_failed",
     "hosted_login_two_account_restart_scheduler_acceptance": "not_run",
-    "automatic_approval_review": "rejected_before_provider_publication",
+    "automatic_approval_review": "earlier_Autoscale_attempt_rejected_later_guarded_Reserved_VM_final_UI_action_permitted",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
-    "bypass_or_indirect_publication": "not_attempted",
-    "safe_continuation": "verify_managed_preview_startup_authentication_and_VM_origin_settings_before_any_further_publish_attempt",
+    "bypass_or_indirect_publication": "none_final_UI_review_permitted_actual_Reserved_VM_submission",
+    "safe_continuation": "load_A_approved_packager_only_repair_then_retry_same_VM_no_upgrades_topups_or_Autoscale",
     "prospective_domain": "https://minder-junhongphuah.replit.app",
     "actual_UI": {
       "Reserved_VM_selected": true,
       "machine": "Shared 0.5 vCPU / 2 GiB RAM",
       "quoted_monthly_USD": 15,
       "quoted_hourly_USD": 0.0208,
-      "remaining_allowance": "not_visible_user_confirmation_pending",
+      "remaining_allowance": "user_confirmed_USD15.88_existing_credits_only",
       "Create_production_database_checked": true,
       "initialize_with_development_schema_data_checked": true,
-      "Replit_account_phone_verification": "UI_requests_phone_and_WhatsApp_code_user_action_pending",
-      "submitted": false
-    }
+      "Replit_account_phone_verification": "user_confirmed_completed",
+      "submitted": true
+    },
+    "first_deployment_id": "f2e97f0f-a92b-44eb-aa1f-69199e77c391",
+    "hosted_health_HTTP": 404,
+    "failure_cause": "automatic_Replit_UPM_python_uv_backend_nil_pointer_SIGSEGV_python_go_848_before_explicit_build",
+    "repair": "A_owned_root_packager_features_enabledForHosting_false_existing_frozen_uv_build_retained",
+    "production_origin_prepared": true,
+    "public_auth_config_secret_fields_absent": true,
+    "sign_in_up_redirects_current_origin": true
   },
   "operator_fix_checks": {
     "passed": 16,

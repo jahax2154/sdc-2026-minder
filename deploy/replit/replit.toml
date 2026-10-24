@@ -4,6 +4,10 @@ modules = ["python-3.12"]
 entrypoint = "deploy/replit_runtime.py"
 run = ["bash", "deploy/replit/start.sh"]
 
+# The explicit frozen build installs dependencies; avoid a second UPM install.
+[packager.features]
+enabledForHosting = false
+
 [deployment]
 deploymentTarget = "vm"
 build = ["bash", "deploy/replit/build.sh"]
