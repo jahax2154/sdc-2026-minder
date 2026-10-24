@@ -176,6 +176,7 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
             result = BudgetedProvider(app.store, owner, app.provider).complete_tool([
                 dict(role='system', content='Answer the actual career/skills question directly in English using the fetched detail passages. '
                     'Lead with the useful answer, not a description of the source programme. Use one or two short findings. '
+                    'Keep introduction under120characters, each finding under220, one limitation under160 and optional advice under180. '
                     'For market questions explain the observed direction, period and kind of evidence. Do not treat an outlook as a realized trend. '
                     'For skills questions explain concrete foundational skills and a useful practice suggestion; this is not a popularity ranking. '
                     'Explain findings and their geographic, measurement and date limits. Choose supplied exact quote IDs; distinct passages may support different findings. '
@@ -205,6 +206,13 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
         except ProviderError as error:
             provider = dict(error.public(), invoked=error.code not in ('provider_credentials_missing', 'provider_daily_budget_exceeded', 'provider_concurrency_limit'))
             if 'transport_attempts' in provider:provider['invoked']=provider['transport_attempts']>0
+            if getattr(error,'http_diagnostics',None):provider['http_diagnostics']=error.http_diagnostics
+            candidate=getattr(error,'rejected_web_candidate',None)
+            if candidate is not None:
+                # A native rejected tool call remains a failure; its visible
+                # candidate is owner-scoped evidence, never silently accepted.
+                rejected=[dict(field='native_tool_candidate',claim=candidate,
+                    rule='provider_rejected_'+provider.get('http_diagnostics',{}).get('native_code','tool_response'))]
         except (ValueError, TypeError, KeyError, ValidationError) as error:
             code = str(error) if str(error) in ('duplicate_source_quote','unsupported_web_quantity','unexpected_web_url','unsupported_guarantee','unsupported_prediction_term','unsupported_web_intro_quantity') else 'web_schema_or_quote_reference_mismatch'
             provider = dict(provider, status='unavailable', code='public_web_explanation_not_verified', validation_code=code, invoked=True)

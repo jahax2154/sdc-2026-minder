@@ -23,6 +23,23 @@ def response():
 
 
 class GatewayTests(unittest.TestCase):
+    def test_native_tool_rejection_keeps_only_private_web_candidate_and_typed_diagnostics(self):
+        candidate=dict(introduction='An actual visible public explanation.',findings=[],limitations=[])
+        def invalid(*args,**kw):
+            raise HTTPError('https://api.groq.com/openai/v1/chat/completions',400,'bad request',{},
+                io.BytesIO(json.dumps(dict(error=dict(code='tool_use_failed',message='upstream-private-sentinel',
+                    failed_generation=json.dumps(candidate)))).encode()))
+        with tempfile.TemporaryDirectory() as root:
+            p=CoordinatedGroq(key='declared-secret-sentinel',model='declared-model',coordination_dir=root,opener=invalid)
+            tool=dict(type='function',function=dict(name='explain_public_sources',parameters=dict(type='object')))
+            with self.assertRaises(Exception) as caught:p.complete_tool([],tool)
+            error=caught.exception
+            self.assertEqual(error.http_diagnostics,dict(http_status=400,native_code='tool_use_failed'))
+            self.assertEqual(error.rejected_web_candidate,candidate)
+            self.assertNotIn('upstream-private-sentinel',json.dumps(error.public()))
+            self.assertNotIn('declared-secret-sentinel',p.state_path.read_text())
+            self.assertNotIn('visible public explanation',p.state_path.read_text())
+
     def test_linux_uses_writable_temp_and_macos_preserves_existing_group(self):
         from unittest.mock import patch
         with patch.dict('os.environ',{},clear=True),patch('os.getuid',return_value=123):

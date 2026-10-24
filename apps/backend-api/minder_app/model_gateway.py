@@ -74,6 +74,8 @@ class CoordinatedGroq(GroqAdapter):
         self.last_headers={}
         self.last_status=None
         self.limit_details=None
+        self.http_diagnostics=None
+        self.rejected_web_candidate=None
 
     def _open(self, request, timeout):
         try:
@@ -82,6 +84,28 @@ class CoordinatedGroq(GroqAdapter):
             return response
         except HTTPError as error:
             self._observe(error.code,error.headers)
+            if error.code==400:
+                # Retain only typed diagnostics and visible public-web tool args.
+                # Never retain/log upstream messages, request bodies or headers.
+                try:
+                    payload=json.loads(error.read(16384)).get('error',{})
+                    code=payload.get('code','unknown')
+                    self.http_diagnostics=dict(http_status=400,native_code=code if isinstance(code,str) and re.fullmatch(r'[a-z_]{1,60}',code) else 'unknown')
+                    request_value=json.loads(request.data or b'{}')
+                    tools=request_value.get('tools',[])
+                    if len(tools)==1 and tools[0].get('function',{}).get('name')=='explain_public_sources':
+                        generated=payload.get('failed_generation','')
+                        if isinstance(generated,str):
+                            candidate=generated.strip()
+                            match=re.search(r'<function=explain_public_sources>\s*(\{.*\})\s*</function>',candidate,re.S)
+                            if match:candidate=match[1]
+                            parsed=json.loads(candidate)
+                            if isinstance(parsed,dict):
+                                if parsed.get('name')=='explain_public_sources':parsed=parsed.get('parameters',parsed.get('arguments'))
+                                if isinstance(parsed,str):parsed=json.loads(parsed)
+                                if isinstance(parsed,dict) and 'introduction' in parsed:
+                                    self.rejected_web_candidate={k:v for k,v in parsed.items() if k in ('introduction','findings','limitations','advice')}
+                except (ValueError,TypeError,AttributeError,KeyError):pass
             if error.code==429:
                 # Extract only typed quota numbers. Never log/persist the body,
                 # organization ID, raw error message or any credential.
@@ -160,10 +184,13 @@ class CoordinatedGroq(GroqAdapter):
         if not self.key or not self.model:
             return super().complete_tool(messages,tool,max_tokens=max_tokens) if tool else super().complete(messages,max_tokens=max_tokens)
         self.last_headers={};self.last_status=None;self.limit_details=None
+        self.http_diagnostics=None;self.rejected_web_candidate=None
         with self.flight(len(payload)//3+max_tokens,max_tokens) as queue_ms:
             try:
                 result=super().complete_tool(messages,tool,max_tokens=max_tokens) if tool else super().complete(messages,max_tokens=max_tokens)
             except ProviderError as error:
+                if self.http_diagnostics:error.http_diagnostics=dict(self.http_diagnostics)
+                if self.rejected_web_candidate is not None:error.rejected_web_candidate=self.rejected_web_candidate
                 if error.code=='provider_rate_limited':
                     state=self._state()
                     retry=max(0,state.get('retry_at',0)-time.time())
