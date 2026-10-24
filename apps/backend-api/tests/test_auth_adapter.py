@@ -94,3 +94,39 @@ class ClerkVerificationTests(unittest.TestCase):
             self.assertEqual(result["status"], "configured")
             self.assertNotIn("sk_test_hidden", str(result))
             self.assertNotIn(self.config.jwt_key, str(result))
+
+    def test_sdk_identity_drives_actual_wsgi_owner_isolation_expiry_and_logout(self):
+        import tempfile
+        from pathlib import Path
+        from minder_app.api import Application
+        from minder_app.store import Store
+        from minder_ml.intelligence.integration_cli import wsgi_request
+        def session_lookup(*, session_id, **kwargs):
+            name = session_id[5:]
+            return SimpleNamespace(id=session_id, user_id="user_" + name, status="active")
+        self.sessions.get.side_effect = session_lookup
+        env = dict(MINDER_ENV="production", MINDER_AUTH_PROVIDER="clerk", CLERK_ISSUER=self.config.issuer,
+                   CLERK_AUTHORIZED_PARTIES="https://minder.example", CLERK_PUBLISHABLE_KEY="pk_test_example",
+                   CLERK_SECRET_KEY="sk_test_hidden", CLERK_JWT_KEY=self.config.jwt_key, CLERK_AUDIENCE="minder-test")
+        with tempfile.TemporaryDirectory() as directory, patch.dict("os.environ", env, clear=True), \
+                patch("minder_app.auth_adapter._verifier", return_value=self.verifier):
+            app = Application(Store(Path(directory) / "test.sqlite3"))
+            alice = self.token()
+            bob = self.token(sub="user_bob", sid="sess_bob")
+            def request(method, path, body=None, token=alice):
+                return wsgi_request(app, method, path, body, token)
+            self.assertEqual(request("POST", "/api/session", {})[0], 401)
+            code, profile = request("PUT", "/api/profile", {"profile": {"synthetic": True}})
+            self.assertEqual(code, 200)
+            self.assertEqual(request("GET", "/api/profile", token=bob)[0], 404)
+            code, conversation = request("GET", "/api/product/mindbot-conversation")
+            self.assertEqual(code, 200)
+            conversation_id = conversation["conversation"]["conversation_id"]
+            self.assertEqual(request("GET", "/api/product/conversation", {"conversation_id": conversation_id}, bob)[0], 404)
+            # New Application/Store still maps the same provider pair to the same owner.
+            app = Application(Store(Path(directory) / "test.sqlite3"))
+            self.assertEqual(request("GET", "/api/profile")[1]["profile_id"], profile["profile_id"])
+            self.assertEqual(request("GET", "/api/profile", token=self.token(exp=int(time.time()) - 1))[0], 401)
+            self.sessions.get.side_effect = None
+            self.session(status="revoked")
+            self.assertEqual(request("GET", "/api/profile")[0], 401)
