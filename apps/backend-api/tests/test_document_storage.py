@@ -91,6 +91,10 @@ class DocumentStorageTests(unittest.TestCase):
         backup = Path(self.tmp.name)/"backups/snapshot.sqlite3"
         self.assertEqual(store.backup(backup)["status"],"created")
         self.assertEqual(backup.stat().st_mode & 0o777,0o600)
+        import sqlite3
+        with sqlite3.connect(backup.resolve().as_uri()+"?mode=ro",uri=True) as readonly:
+            self.assertEqual(readonly.execute("PRAGMA journal_mode").fetchone()[0],"delete")
+            self.assertEqual(readonly.execute("SELECT count(*) FROM documents").fetchone()[0],1)
         restored = Store(backup)
         self.assertEqual(restored.get("fictional-owner","profile","fictional-owner"),saved)
         with self.assertRaises(AppError):
