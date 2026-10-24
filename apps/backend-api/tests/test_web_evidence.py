@@ -33,9 +33,26 @@ class WebTests(AppCase):
             failures=[],tool='search_then_fetch_public_pages',mode='search_and_fetch',
             discovery=[dict(status='available',provider='declared',query='public query')],limitation='Declared discovery fixture'))
         result=self.app.dispatch('POST','/api/chat',dict(message='What do Malaysian job shortage sources say?'),self.token)
-        self.assertIn('This explanation cites predefined detail/reference pages',result['answer'])
+        self.assertNotIn('This explanation cites predefined detail/reference pages',result['answer'])
+        self.assertTrue(any('This explanation cites predefined detail/reference pages' in note for note in result['statements'][0]['limitations']))
         self.assertFalse(result['diagnostics']['retrieval']['answer_uses_search_discovered_pages'])
         self.assertEqual(result['diagnostics']['retrieval']['answer_source_origins'],['predefined_detail'])
+
+    def test_routine_diagnostics_are_source_context_and_citations_match_claims(self):
+        from unittest.mock import Mock
+        self.app.public_retrieval.retrieve=Mock(return_value=dict(sources=[dict(SOURCE,origin='predefined_detail')],
+            failures=[],tool='search_then_fetch_public_pages',mode='predefined_fetch_after_search',
+            discovery=[dict(status='available',provider='declared',query='public query')],limitation='Declared fixture'))
+        result=self.app.dispatch('POST','/api/chat',dict(message='What do Malaysian job shortage sources say?'),self.token)
+        self.assertNotIn('Source method:',result['answer'])
+        self.assertNotIn('Explanation checks:',result['answer'])
+        self.assertIn('[1]',result['answer'])
+        self.assertTrue(result['statements'][0]['sources'][0]['title'].startswith('[1] '))
+        notes=result['statements'][0]['limitations']
+        self.assertTrue(any(n.startswith('Source method:') for n in notes))
+        self.assertTrue(any(n.startswith('Explanation checks:') for n in notes))
+        stored=self.store.get(self.session['profile_id'],'public_web_evidence',result['context_version'])
+        self.assertEqual(stored['visible_model_output']['introduction'],'I checked a public Malaysian occupation reference.')
 
     def test_quota_failure_is_not_misrepresented_as_rejected_evidence(self):
         from minder_app.model_gateway import QuotaError
