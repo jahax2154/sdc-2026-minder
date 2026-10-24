@@ -24,11 +24,11 @@ class BootstrapTests(unittest.TestCase):
     def test_import_exception_never_discloses_its_payload(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            (root / ".pythonlibs/lib/python3.12/site-packages").mkdir(parents=True)
+            (root / boot.DEPENDENCY_DIRECTORY).mkdir(parents=True)
             (root / "uv.lock").write_text('[[package]]\nname="pyjwt"\nversion="2.15.1"\n')
             with patch.object(boot.importlib, "import_module", side_effect=RuntimeError("private-sentinel")):
                 with self.assertRaises(boot.StartupFailure) as error:
-                    boot.verify(root)
+                    boot.verify(root, require_bundle=False)
             self.assertEqual(str(error.exception), "required_import_or_pin_failed:jwt")
             self.assertNotIn("private-sentinel", str(error.exception))
 

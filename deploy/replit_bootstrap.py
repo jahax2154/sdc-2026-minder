@@ -5,6 +5,7 @@ during --check. Failure output uses fixed codes and source-controlled module nam
 """
 import importlib
 import importlib.metadata
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -12,6 +13,7 @@ import runpy
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+DEPENDENCY_DIRECTORY = "deploy/replit/runtime_packages"
 REQUIRED = {
     "jwt": "PyJWT", "clerk_backend_api": "clerk-backend-api",
     "psycopg": "psycopg", "replit.object_storage": "replit.object-storage",
@@ -25,12 +27,20 @@ class StartupFailure(Exception):
     pass
 
 
-def verify(root=ROOT):
+def verify(root=ROOT, *, dependency_directory=None, require_bundle=True):
     if sys.version_info[:2] != (3, 12):
         raise StartupFailure("python_module_version_requires_3_12")
-    site = root / ".pythonlibs/lib/python3.12/site-packages"
+    site = Path(dependency_directory) if dependency_directory is not None else root / DEPENDENCY_DIRECTORY
     if not site.is_dir():
         raise StartupFailure("built_dependency_directory_missing")
+    if require_bundle:
+        try:
+            manifest = json.loads((site / "minder-build.json").read_text())
+            if (manifest["format"] != "minder-locked-python-libraries-v1"
+                    or manifest["lock_sha256"] != hashlib.sha256((root / "uv.lock").read_bytes()).hexdigest()):
+                raise ValueError()
+        except Exception:
+            raise StartupFailure("runtime_dependency_bundle_manifest_invalid") from None
     try:
         import tomllib
         packages = tomllib.loads((root / "uv.lock").read_text())["package"]
@@ -73,7 +83,11 @@ def main():
         raise SystemExit(2)
     print(json.dumps(dict(event="minder_python_runtime_probe", python=sys.version.split()[0],
                           executable=sys.executable, base_prefix=sys.base_prefix,
-                          cwd=str(Path.cwd()), check_only=sys.argv[1:] == ["--check"])), flush=True)
+                          cwd=str(Path.cwd()), dependency_directory=str(ROOT / DEPENDENCY_DIRECTORY),
+                          dependency_directory_exists=(ROOT / DEPENDENCY_DIRECTORY).is_dir(),
+                          frontend_entrypoint_exists=(ROOT / "apps/frontend-product/index.html").is_file(),
+                          runtime_source_manifest_exists=(ROOT / "ml/minder_ml_starter/sources_manifest.json").is_file(),
+                          check_only=sys.argv[1:] == ["--check"])), flush=True)
     try:
         result = verify()
     except StartupFailure as error:
