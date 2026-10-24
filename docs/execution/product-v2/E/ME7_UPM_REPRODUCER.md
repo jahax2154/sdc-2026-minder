@@ -63,3 +63,43 @@ cohosted worker run. E template parses identically to approved root semantics.
 These prepublication checks now pass against the actual imported implementation.
 A further public VM build and hosted user/restart/delivery acceptance are still
 required; no successful deployment SHA is claimed here.
+
+## Third actual publication outcome
+
+The user confirmed a further Republish at approved1df0593. Connector status progressed
+building, running, promoting, then failed. Public root, health and auth/config still
+return404. The earlier native UPM/frozen preview checks remain valid preparation;
+no successful public runtime, login or durability result follows from them.
+
+A new read-only query for the latest build ID and first promotion/startup error timed
+out at the MCP boundary. Neither a missing environment variable nor a wrong listener
+port nor a DB/auth cause has been established. The third actual build ID remains
+unretrieved; do not reuse the second build9dd5d9fd's error as the third error.
+
+Requested one diagnostic only: first sanitized error sentence from the latest Minder
+Publishing Logs. No keys, environment values or full logs requested. No further
+publication or app changes were attempted after this final-stage failure.
+
+## Final read-only diagnosis before recommended pause
+
+Third actual build ID is e5f0e25b-56f4-40bf-8391-3e77a25ff6b8. Its build logs contain
+the final CPU-compatible XGBoost import marker: the explicit build completed.
+The verified provider failure is deployment crash looping at promotion/startup.
+No more specific application exception or fixed startup-guard failure was retrieved.
+
+Published run/build command and port mapping are not exposed by available read-only
+metadata. Do not substitute root .replit or preview workflow as proof of those actual
+published settings. No listener bind is verified. Neither fixed Python startup marker
+was found in58untruncated stdout entries, but that API cannot scope entries to the
+known deployment ID, so absence is inconclusive. No shell command-not-found,
+permission-denied or exec-format error was found. No auth/DB cause is established.
+
+The user reports Replit requesting phone verification again and asks whether to stop.
+E recommends pausing, preserving this checkpoint. No further publication, billing
+change, account-verification request or speculative app repair is authorized by that
+recommendation. Hosted signup, isolation, chat/CV persistence, restart and scheduled
+delivery remain unverified. The public URL remains404; no successful deployed SHA.
+
+When work resumes, retrieve the actual published run command/port and first process
+exit error, then make one bounded repair through existing ownership before retrying.
+Existing secrets, provider checkpoints and excluded local data remain preserved.

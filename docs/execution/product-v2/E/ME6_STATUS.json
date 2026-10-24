@@ -64,12 +64,12 @@
   "publication": {
     "public_URL": null,
     "deployed_SHA": null,
-    "last_verified_publish_status": "second_Reserved_VM_publication_failed_same_UPM_parser",
+    "last_verified_publish_status": "third_UI_retry_failed_after_building_running_promoting",
     "hosted_login_two_account_restart_scheduler_acceptance": "not_run",
     "automatic_approval_review": "initial_default_Autoscale_rejected_first_actual_VM_UI_submission_permitted_later_connector_retry_rejected",
     "review_reason": "unverified_startup_invalid_Clerk_key_no_production_database_unverified_HTTPS_VM_and_connector_default_Autoscale",
     "bypass_or_indirect_publication": "none_final_UI_review_permitted_actual_Reserved_VM_submission",
-    "safe_continuation": "controlled_existing_VM_UI_retry_then_hosted_acceptance",
+    "safe_continuation": "when_resumed_obtain_actual_start_command_port_and_first_process_exit_error_then_bounded_fix_before_retry",
     "prospective_domain": "https://minder-junhongphuah.replit.app",
     "actual_UI": {
       "Reserved_VM_selected": true,
@@ -113,8 +113,8 @@
       "Autoscale_present": false
     },
     "latest_connector_retry_review": "rejected_cannot_guarantee_VM_retention_after_failed_first_build_use_verified_UI",
-    "retry_state": "actual_UI_retry_ran_and_failed_no_further_retry_until_full_manifest_UPM_check",
-    "latest_actual_build_id": "9dd5d9fd-4065-4ffe-a1c9-4ebaf61c0e96",
+    "retry_state": "user_confirmed_UI_click_third_attempt_observed_no_further_publication",
+    "latest_actual_build_id": "e5f0e25b-56f4-40bf-8391-3e77a25ff6b8",
     "packager_disable_effective": false,
     "UPM_reproducer": {
       "version": "0.0.0-0ffdf7d",
@@ -128,7 +128,21 @@
       "marked_pair_in_default_runtime_group_exit": 0,
       "runtime_install_or_publish_proof": false
     },
-    "pending_repair": "approved_group_repair_loaded_and_full_native_UPM_frozen_build_start_auth_verified"
+    "pending_repair": "approved_group_repair_loaded_and_full_native_UPM_frozen_build_start_auth_verified",
+    "latest_observed_phase_sequence": [
+      "building",
+      "running",
+      "promoting",
+      "failed"
+    ],
+    "latest_failure_cause": "provider_reports_deployment_crash_loop_no_specific_application_error_retrieved",
+    "provider_log_access": "fresh_project_log_query_MCP_timed_out",
+    "required_diagnostic": "actual_published_run_command_port_and_first_process_exit_error_before_any_new_retry",
+    "latest_build_final_CPU_import_marker_present": true,
+    "actual_published_run_build_commands_and_listener_port": "not_exposed_by_readonly_metadata_unverified",
+    "runtime_diagnostic_markers": "neither_auth_preflight_nor_fixed_failure_found_in_58_entries_but_entries_not_bound_to_deploymentID",
+    "phone_verification": "user_reports_requested_again_after_prior_confirmation",
+    "continuation_state": "user_asked_whether_to_stop_E_recommends_pausing_after_evidence_checkpoint_no_new_publication"
   },
   "operator_fix_checks": {
     "passed": 16,

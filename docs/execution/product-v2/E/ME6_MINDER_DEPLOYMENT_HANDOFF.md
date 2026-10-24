@@ -76,3 +76,15 @@ bypasses are authorized as a substitute for those public user journeys.
 Private .env.deploy.local remains ignored/untracked/owner0600. Credential values,
 fragments, tokens and personal records were not printed or committed. Raw/derived
 local inputs remain excluded and untouched; no backup claim is made for them.
+
+## Latest outcome and resume point
+
+The user clicked Republish after the full native check. Third build
+ e5f0e25b-56f4-40bf-8391-3e77a25ff6b8 completed the explicit build (final CPU import
+marker verified), reached promoting, then failed with provider-reported crash looping.
+Public endpoint404. Exact published run command/port and first process exit error
+remain unavailable; no DB/auth cause established. See ME7 for API evidence limits.
+The user reports repeated Replit phone verification and asks whether to stop; E
+recommends pausing after saving this evidence. No further publication was initiated.
+Resume by obtaining the actual published launch command, port and first exit error;
+retain approved source1df0593 and correct VM. No successful hosted journey is claimed.
