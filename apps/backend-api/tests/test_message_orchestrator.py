@@ -57,3 +57,19 @@ class IntegratedTurnTests(AppCase):
         restarted=Worker(self.store,self.app.actions)
         self.assertEqual(restarted.tick(at,owner=owner)['status'],'idle')
         self.assertEqual(len(Conversations(self.store).mindbot(owner)['messages']),1)
+
+    def test_materializer_is_stable_draft_and_preserves_unknown_competence(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import materialize
+        from minder_app.generation_schemas import POLICY_ID
+        from minder_ml.intelligence.app_context import CareerServices
+        profile=self.save();owner=profile['profile_id']
+        self.app.services=CareerServices(roles=[dict(role_id='test-supported',eligibility='eligible')])
+        generation=dict(policy_version=POLICY_ID,draft_id='synthetic-generation',status='unsaved_draft',
+            profile_version=profile['version'],advice=advice())
+        first=materialize(self.app,owner,generation,'test-supported')
+        second=materialize(self.app,owner,generation,'test-supported')
+        self.assertEqual(first,second)
+        self.assertTrue(all(t['state']=='proposed' and not t['mastery_verified'] and not t['activity_completion']
+                            and not t['evidence_ids'] and t['scheduled_at'] is None for t in first['tasks']))
+        self.assertFalse(self.store.list(owner,'plan'))

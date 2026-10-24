@@ -30,14 +30,14 @@ class Application:
             return {"status": "ok", "integration_mode": self.services.mode}
         from .identity_boundary import authenticated_owner, managed, public_configuration
         if path == '/api/auth/config' and method == 'GET':
-            return public_configuration()
+            return public_configuration(self)
         if path == "/api/session" and method == "POST":
-            if managed():
+            if managed(self):
                 raise AppError('managed_sign_in_required', 401)
             return self.store.session()
         owner = authenticated_owner(self, token, request_context)
         if path == '/api/auth/session' and method == 'GET':
-            return dict(authenticated=True, user=dict(id=owner), mode='managed' if managed() else 'local')
+            return dict(authenticated=True, user=dict(id=owner), mode='managed' if managed(self) else 'local')
         if path.startswith('/api/product/'):
             from .product_routes import dispatch
             return dispatch(self, owner, method, path, body)

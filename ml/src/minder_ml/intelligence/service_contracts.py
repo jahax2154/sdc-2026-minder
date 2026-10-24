@@ -13,7 +13,8 @@ import hashlib
 from pathlib import Path
 from typing import Dict, List, Protocol
 
-from jsonschema import Draft202012Validator, FormatChecker
+from jsonschema import Draft202012Validator, FormatChecker, validators
+from jsonschema.exceptions import ValidationError
 
 CONTRACT_VERSION = 'minder-parallel-v1'
 ROOT = Path(__file__).resolve().parents[4]
@@ -37,14 +38,55 @@ def next_calendar_quarter(issued_at):
             'end': date(year, end_month, calendar.monthrange(year, end_month)[1]).isoformat()}
 
 
+def _json_identity(value):
+    """Hashable JSON equality, including distinct booleans and equal 1/1.0."""
+    if value is None:
+        return ('null',)
+    if isinstance(value, bool):
+        return ('boolean', value)
+    if isinstance(value, (int, float)) and math.isfinite(value):
+        return ('number', value)
+    if isinstance(value, str):
+        return ('string', value)
+    if isinstance(value, list):
+        return ('array', tuple(_json_identity(v) for v in value))
+    if isinstance(value, dict) and all(isinstance(k, str) for k in value):
+        return ('object', tuple(sorted((k, _json_identity(v)) for k,v in value.items())))
+    raise TypeError('not_finite_json')
+
+
+def _linear_unique(validator, unique, instance, schema):
+    if not unique or not validator.is_type(instance, 'array'):
+        return
+    try:
+        seen = set()
+        for value in instance:
+            key = _json_identity(value)
+            if key in seen:
+                yield ValidationError('Array has non-unique elements')
+                return
+            seen.add(key)
+    except (TypeError, ValueError, OverflowError):
+        # Preserve stock behavior for non-JSON Python values at internal callers.
+        yield from Draft202012Validator.VALIDATORS['uniqueItems'](validator, unique, instance, schema)
+
+
+_DTOValidator = validators.extend(Draft202012Validator, {'uniqueItems': _linear_unique})
+
+
+@lru_cache(maxsize=128)
+def _validator(kind):
+    target = dict(_schema(), **{'$ref': '#/$defs/' + kind})
+    target.pop('oneOf', None)
+    return _DTOValidator(target, format_checker=FormatChecker())
+
+
 def validate(kind, payload):
     """Structural and cross-field boundary checks, not evidence approval."""
     schema = _schema()
     if kind not in schema['$defs']:
         raise ValueError('unknown contract kind')
-    target = dict(schema, **{'$ref': '#/$defs/' + kind})
-    target.pop('oneOf', None)
-    Draft202012Validator(target, format_checker=FormatChecker()).validate(payload)
+    _validator(kind).validate(payload)
     if kind == 'Evidence':
         if (payload['state'] == 'unknown') != (payload['value'] is None):
             raise ValueError('unknown differs from known zero')

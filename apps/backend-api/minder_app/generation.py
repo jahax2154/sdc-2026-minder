@@ -26,6 +26,9 @@ User-reported experience is not certified mastery. Use supplied verified facts o
 for external factual claims, by fact_ids; don't paraphrase their quantities. Do not
 ask again for saved goals or answers. Missing numerical assessment never blocks advice.
 For eML engineer, assume machine-learning engineer if supported, state that assumption,
+but don't assert that a title is standard or nonstandard. Keep answer to two short
+introductory sentences; do not enumerate the stages again or expose O*NET IDs/rubrics.
+Reported skill input is self-report unless its explicit assessment kind says otherwise.
 and offer a short provisional outline. Ask at most two focused missing questions
 (Python/project experience, study capacity), never an assessment rubric. For follow-up,
 adapt the actual prior plan using the new details. Avoid repeated policy boilerplate.
@@ -72,14 +75,15 @@ def private_context(profile, plans):
                 if k in ('stage','objective','context','education_level','interests','work_areas')},
         constraints=[{k: c[k] for k in ('scope', 'value', 'unit', 'hard') if k in c}
                      for c in profile.get('constraints', [])[:15]],
-        demonstrated_evidence=[{k: e[k] for k in ('subject_id', 'evidence_type', 'level') if k in e}
+        reported_skill_inputs=[dict(subject_id=e.get('subject_id'),
+            assessment_kind=e.get('assessment', {}).get('kind', 'unclassified_claim'))
                               for e in profile.get('evidence', [])[:20]],
         saved_tasks=[dict(plan_id=p['plan_id'], task_id=t['task_id'], title=t.get('title', ''),
             state=t['state'], scheduled_at=t['scheduled_at'], estimated_hours=t['estimated_hours'])
             for p in plans[:3] for t in p.get('tasks', [])[:15]])
 
 
-def validate_advice(value, facts, tasks):
+def validate_advice(value, facts, tasks, message=None):
     VALIDATOR.validate(value)
     if set(value['fact_ids']) - {f['id'] for f in facts}:
         raise ValueError('unknown_fact_reference')
@@ -93,6 +97,12 @@ def validate_advice(value, facts, tasks):
         [t['description'] for s in value['stages'] for t in s['tasks']])
     if re.search(r'https?://|\b(?:RM|MYR)\s*\d|\d\s*%|\b(?:fit|readiness|replacement|demand)\s*(?:score|probability)\b', prose, re.I):
         raise ValueError('unsupported_external_or_scoring_claim')
+    if re.search(r'\b\d[\d,]*(?:\.\d+)?\s+(?:jobs?|vacancies|openings|employers|ads)\b', prose, re.I):
+        raise ValueError('unsupported_market_quantity')
+    if value['answer'].rstrip().rstrip('"\u201d*').endswith(('.', '!', '?', ':')) is False:
+        raise ValueError('incomplete_guidance_introduction')
+    if message is not None and not re.search(r'[\u4e00-\u9fff]', message) and re.search(r'[\u4e00-\u9fff]', prose):
+        raise ValueError('unexpected_mixed_language')
     return value
 
 
@@ -121,6 +131,18 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     messages = [{'role': 'system', 'content': SYSTEM},
         {'role': 'user', 'content': json.dumps({'user_context': context, 'verified_facts': facts,
             'recent_visible_messages': recent, 'current_user_message': message}, ensure_ascii=False)}]
+    # Same documented best-effort contact/credential minimizer as factual chat,
+    # applied recursively to user-supplied context and visible history too.
+    from .grounding import minimise_question
+    def minimise(value):
+        if isinstance(value, str):
+            return minimise_question(value)
+        if isinstance(value, list):
+            return [minimise(v) for v in value]
+        if isinstance(value, dict):
+            return {k: minimise(v) for k,v in value.items()}
+        return value
+    messages[-1]['content'] = json.dumps(minimise(json.loads(messages[-1]['content'])), ensure_ascii=False)
     provider = app.provider or GroqAdapter()
     context_ms = round((time.perf_counter()-started)*1000, 3)
     provider_started = time.perf_counter()
@@ -128,7 +150,7 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
     generated = None
     try:
         result = BudgetedProvider(app.store, owner, provider).complete_tool(messages, tool)
-        generated = validate_advice(json.loads(result['text']), facts, context['saved_tasks'])
+        generated = validate_advice(json.loads(result['text']), facts, context['saved_tasks'], message)
         provider_result = {k: v for k, v in result.items() if k != 'text'}
         provider_result['invoked'] = True
     except ProviderError as error:

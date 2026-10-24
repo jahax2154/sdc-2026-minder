@@ -353,8 +353,12 @@
           "enum": [
             "cv",
             "resume",
-            "unclassified"
+            "unclassified",
+            "legacy_unclassified"
           ]
+        },
+        "purpose_basis": {
+          "const": "user_declared_not_independently_verified"
         }
       },
       "required": [
@@ -447,7 +451,16 @@
             "reason": {
               "enum": [
                 "pdf_text_extraction_not_supported",
-                "text_exceeds_reviewed_intake_limit"
+                "text_exceeds_reviewed_intake_limit",
+                "legacy_document_purpose_unclassified",
+                "pdf_extraction_busy",
+                "pdf_extraction_budget_or_parse_failed",
+                "pdf_extracted_text_too_large",
+                "pdf_extraction_unavailable",
+                "pdf_encrypted_not_supported",
+                "pdf_page_limit_exceeded",
+                "pdf_no_extractable_text",
+                "pdf_parse_failed"
               ]
             }
           },
@@ -527,11 +540,19 @@
             "mode": {
               "enum": [
                 "disabled",
-                "local-development"
+                "local-development",
+                "private-volume"
               ]
             },
             "durable_hosting_verified": {
               "const": false
+            },
+            "durability_status": {
+              "enum": [
+                "mount_verified_restart_pending",
+                "local_unverified",
+                "unavailable"
+              ]
             }
           },
           "required": [
@@ -563,18 +584,33 @@
           "additionalProperties": false,
           "properties": {
             "supported_types": {
-              "const": [
-                "text/plain"
-              ]
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "enum": [
+                  "text/plain",
+                  "application/pdf"
+                ]
+              }
             },
             "max_text_bytes": {
               "const": 65536
             },
             "pdf_status": {
-              "const": "unavailable"
+              "enum": [
+                "unavailable",
+                "supported_text_only"
+              ]
             },
             "automatic_profile_apply": {
               "const": false
+            },
+            "max_pdf_pages": {
+              "const": 20
+            },
+            "purpose": {
+              "const": "user_declared_cv_or_resume"
             }
           },
           "required": [

@@ -3,18 +3,18 @@ import os
 from .store import AppError
 
 
-def managed():
-    return os.environ.get('MINDER_ENV') == 'production' or os.environ.get('MINDER_AUTH_PROVIDER') == 'clerk'
+def managed(app=None):
+    return bool(getattr(app, 'managed_identity_required', False)) or os.environ.get('MINDER_ENV') == 'production' or os.environ.get('MINDER_AUTH_PROVIDER') == 'clerk'
 
 
-def public_configuration():
+def public_configuration(app=None):
     from .auth_adapter import public_config
-    return dict(public_config(), mode='managed' if managed() else 'local',
-                anonymous_session_allowed=not managed())
+    return dict(public_config(), mode='managed' if managed(app) else 'local',
+                anonymous_session_allowed=not managed(app))
 
 
 def authenticated_owner(app, token, request_context=None):
-    if not managed():
+    if not managed(app):
         return app.store.authenticate(token)
     from .auth_adapter import verify_identity
     identity = verify_identity(token, request_context)
