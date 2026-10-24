@@ -1,0 +1,312 @@
+{
+  "scope": "actual public discovery/fetch, no LLM/browser claim",
+  "artifact_sha256": "9c164be41d9172a8f95794d6c0d30abe3cbcc001b7352e58ec4503cf320d7b9f",
+  "cases": [
+    {
+      "question": "What is happening in the Malaysian labour market now?",
+      "elapsed_ms": 1923.115,
+      "mode": "predefined_fetch_after_search",
+      "status": "available",
+      "discovery": [
+        {
+          "provider": "mwmbl",
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "query": "Malaysia labour market",
+          "searched_at": "2026-10-24T15:57:04.516181+00:00",
+          "results": [
+            {
+              "url": "https://github.com/petrbouchal/ispv"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Ministry_of_Human_Resources_(Malaysia)"
+            },
+            {
+              "url": "https://bankunderground.co.uk/tag/labour-market/"
+            },
+            {
+              "url": "http://libcom.org/library/3-labour-market"
+            },
+            {
+              "url": "http://www.ssb.no/en/arbeid-og-lonn"
+            },
+            {
+              "url": "http://www.ncbi.nlm.nih.gov/pubmed/23814273"
+            },
+            {
+              "url": "https://pubmed.ncbi.nlm.nih.gov/38390117/"
+            },
+            {
+              "url": "https://www.abc.net.au/news/topic/labour-market"
+            },
+            {
+              "url": "https://www.ceicdata.com/en/indicator/malaysia/labour-productivity-growth"
+            },
+            {
+              "url": "https://www.nber.org/papers/w9576"
+            }
+          ],
+          "status": "available",
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "result_count": 43,
+          "provider_monthly_usage": null,
+          "provider_monthly_limit": null,
+          "elapsed_ms": 1333.692
+        }
+      ],
+      "fetched_pages": [
+        {
+          "url": "https://www.talentcorp.com.my/mycol/",
+          "title": "Critical Jobs for Malaysians | High Demand Occupations Malaysia",
+          "retrieved_at": "2026-10-24T15:57:06.437040+00:00",
+          "cache_status": "live_fetched",
+          "origin": "predefined_official",
+          "fetch_elapsed_ms": 581.294,
+          "http_status": 200
+        }
+      ],
+      "failures": []
+    },
+    {
+      "question": "Which skills should a data analyst learn for Malaysian jobs?",
+      "elapsed_ms": 3499.471,
+      "mode": "search_and_fetch",
+      "status": "available",
+      "discovery": [
+        {
+          "provider": "mwmbl",
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "query": "Malaysia data analyst",
+          "searched_at": "2026-10-24T15:57:06.439743+00:00",
+          "results": [
+            {
+              "url": "https://acleddata.com/2020/08/07/malaysia-data-update-2018-2020/"
+            },
+            {
+              "url": "https://github.com/gutaors/dand"
+            },
+            {
+              "url": "https://www.hostinger.com/blog/malaysia-data-center/"
+            },
+            {
+              "url": "https://techwireasia.com/2022/08/its-just-another-day-for-data-breaches-in-malaysia/"
+            },
+            {
+              "url": "https://www.knightfrank.com/research/report-library/malaysia-data-centre-research-report-2023-10072.aspx"
+            },
+            {
+              "url": "https://www.dataquest.io/blog/data-analyst-skills/"
+            },
+            {
+              "url": "https://www.researchandmarkets.com/reports/5646766/malaysia-data-center-market-investment-analysis"
+            },
+            {
+              "url": "https://roadmap.sh/data-analyst"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Malaysia_Airlines_Flight_370"
+            },
+            {
+              "url": "http://builtin.com/job/data-analyst/3992883"
+            }
+          ],
+          "status": "available",
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "result_count": 55,
+          "provider_monthly_usage": null,
+          "provider_monthly_limit": null,
+          "elapsed_ms": 797.873
+        },
+        {
+          "provider": "mwmbl",
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "query": "data analyst skills",
+          "searched_at": "2026-10-24T15:57:07.237678+00:00",
+          "results": [
+            {
+              "url": "https://towardsdatascience.com/data-analyst-skills-you-need-for-your-next-promotion-479275b80bad"
+            },
+            {
+              "url": "https://www.dataquest.io/blog/data-analyst-skills/"
+            },
+            {
+              "url": "https://www.scaler.com/blog/tag/data-analyst-skills/"
+            },
+            {
+              "url": "https://intellipaat.com/blog/business-analyst-skills/"
+            },
+            {
+              "url": "https://github.com/gutaors/dand"
+            },
+            {
+              "url": "https://climbtheladder.com/procurement-analyst-skills/"
+            },
+            {
+              "url": "http://techgeekbuzz.com/blog/data-analyst-skills/"
+            },
+            {
+              "url": "https://www.thinkful.com/blog/data-analyst-skills/"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Business_analyst"
+            },
+            {
+              "url": "https://careerkarma.com/blog/business-analyst-skills/"
+            }
+          ],
+          "status": "available",
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "result_count": 75,
+          "provider_monthly_usage": null,
+          "provider_monthly_limit": null,
+          "elapsed_ms": 1131.065
+        }
+      ],
+      "fetched_pages": [
+        {
+          "url": "https://mynsr.talentcorp.com.my/faqs/",
+          "title": "FAQs",
+          "retrieved_at": "2026-10-24T15:57:08.573226+00:00",
+          "cache_status": "live_fetched",
+          "origin": "predefined_official",
+          "fetch_elapsed_ms": 183.375,
+          "http_status": 200
+        },
+        {
+          "url": "https://www.dataquest.io/blog/data-analyst-skills/",
+          "title": "12 Data Analyst Skills That Will Get You Hired in 2026",
+          "retrieved_at": "2026-10-24T15:57:09.936654+00:00",
+          "cache_status": "live_fetched",
+          "origin": "search_discovered",
+          "fetch_elapsed_ms": 1547.631,
+          "http_status": 200
+        },
+        {
+          "url": "https://roadmap.sh/data-analyst",
+          "title": "Data Analyst Roadmap",
+          "retrieved_at": "2026-10-24T15:57:08.642782+00:00",
+          "cache_status": "live_fetched",
+          "origin": "search_discovered",
+          "fetch_elapsed_ms": 253.569,
+          "http_status": 200
+        },
+        {
+          "url": "https://towardsdatascience.com/data-analyst-skills-you-need-for-your-next-promotion-479275b80bad/",
+          "title": "Data Analyst Skills You Need for Your Next Promotion",
+          "retrieved_at": "2026-10-24T15:57:09.156259+00:00",
+          "cache_status": "live_fetched",
+          "origin": "search_discovered",
+          "fetch_elapsed_ms": 767.185,
+          "http_status": 200
+        }
+      ],
+      "failures": []
+    },
+    {
+      "question": "Are cybersecurity skills sought after in Malaysia?",
+      "elapsed_ms": 2251.688,
+      "mode": "predefined_fetch_after_search",
+      "status": "available",
+      "discovery": [
+        {
+          "provider": "mwmbl",
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "query": "Malaysia cybersecurity",
+          "searched_at": "2026-10-24T15:57:09.940234+00:00",
+          "results": [
+            {
+              "url": "https://en.wikipedia.org/wiki/Ministry_of_Communications_(Malaysia)"
+            },
+            {
+              "url": "https://www.rawsec.com/"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/List_of_federal_ministries_and_agencies_in_Malaysia"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/OIC_Computer_Emergency_Response_Team"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Mohd_Noor_Amin"
+            }
+          ],
+          "status": "available",
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "result_count": 5,
+          "provider_monthly_usage": null,
+          "provider_monthly_limit": null,
+          "elapsed_ms": 964.185
+        },
+        {
+          "provider": "mwmbl",
+          "endpoint": "https://api.mwmbl.org/api/v2/search/",
+          "query": "cybersecurity skills",
+          "searched_at": "2026-10-24T15:57:10.904436+00:00",
+          "results": [
+            {
+              "url": "https://www.hextree.io"
+            },
+            {
+              "url": "http://timreview.ca/article/861"
+            },
+            {
+              "url": "https://community.spiceworks.com/t/497459"
+            },
+            {
+              "url": "https://www.intechopen.com/chapters/75922"
+            },
+            {
+              "url": "https://www.nist.gov/itl/applied-cybersecurity/nice/resources/cybersecurity-skills-competitions"
+            },
+            {
+              "url": "https://en.wikipedia.org/wiki/Capture_the_flag_(cybersecurity)"
+            },
+            {
+              "url": "https://github.com/mattdufeu/TryHackMe"
+            },
+            {
+              "url": "https://www.tripwire.com/services/managed"
+            },
+            {
+              "url": "https://news.sophos.com/add/?ep=1"
+            },
+            {
+              "url": "http://www.sans.org/ecsf-framework"
+            }
+          ],
+          "status": "available",
+          "cache_status": "live_search",
+          "credentials_required": false,
+          "result_count": 28,
+          "provider_monthly_usage": null,
+          "provider_monthly_limit": null,
+          "elapsed_ms": 1174.559
+        }
+      ],
+      "fetched_pages": [
+        {
+          "url": "https://www.talentcorp.com.my/mycol/",
+          "title": "Critical Jobs for Malaysians | High Demand Occupations Malaysia",
+          "retrieved_at": "2026-10-24T15:57:06.437040+00:00",
+          "cache_status": "recent_cache",
+          "origin": "predefined_official",
+          "fetch_elapsed_ms": 1.746,
+          "http_status": 200
+        }
+      ],
+      "failures": [
+        {
+          "source_url": "https://www.rawsec.com/",
+          "origin": "search_discovered",
+          "status": "unavailable",
+          "http_status": null,
+          "code": "public_source_url_not_allowed",
+          "fetch_elapsed_ms": 104.52
+        }
+      ]
+    }
+  ]
+}

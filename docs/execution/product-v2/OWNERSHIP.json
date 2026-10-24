@@ -110,7 +110,9 @@
         "apps/backend-api/tests/test_model_gateway.py",
         "apps/backend-api/tests/test_replit_factory.py",
         ".replit",
-        "replit.nix"
+        "replit.nix",
+        "apps/backend-api/minder_app/web_search.py",
+        "apps/backend-api/tests/test_web_search.py"
       ],
       "forbidden": [
         "other lanes active files except committed integration",

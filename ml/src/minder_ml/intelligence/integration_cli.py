@@ -94,8 +94,8 @@ def application_for_store(store, *, role_ids=None, provider=None):
                               mode='local_source_services')
     services.role_reference = catalogue.reference
     app = Application(store, services, provider if provider is not None else a_provider())
-    from minder_app.public_retrieval import PublicRetrieval
-    app.public_retrieval = PublicRetrieval()
+    from minder_app.web_search import SearchRetrieval
+    app.public_retrieval = SearchRetrieval()
     return app, catalogue
 
 

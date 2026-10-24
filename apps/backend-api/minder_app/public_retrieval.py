@@ -31,9 +31,9 @@ class RetrievalError(Exception):
     pass
 
 
-def checked_url(url, *, resolve=True):
+def checked_url(url, *, resolve=True, allowed_hosts=HOSTS):
     parsed = urlsplit(url)
-    if (parsed.scheme != 'https' or parsed.hostname not in HOSTS or parsed.username or parsed.password
+    if (parsed.scheme != 'https' or parsed.hostname not in allowed_hosts or parsed.username or parsed.password
             or parsed.port not in (None, 443) or len(url) > 1500):
         raise RetrievalError('public_source_url_not_allowed')
     if resolve:
@@ -48,8 +48,10 @@ def checked_url(url, *, resolve=True):
 
 class Redirects(HTTPRedirectHandler):
     max_redirections = 3
+    def __init__(self,allowed_hosts=HOSTS,resolve=True):
+        super().__init__();self.allowed_hosts,self.resolve=allowed_hosts,resolve
     def redirect_request(self, req, fp, code, msg, headers, newurl):
-        checked_url(newurl)
+        checked_url(newurl,resolve=self.resolve,allowed_hosts=self.allowed_hosts)
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
@@ -119,14 +121,15 @@ def plain(raw, content_type):
 
 
 class PublicRetrieval:
-    def __init__(self, *, opener=None, clock=time.monotonic, resolve=True):
-        self.open = opener or build_opener(Redirects()).open
+    def __init__(self, *, opener=None, clock=time.monotonic, resolve=True,allowed_hosts=HOSTS,timeout=8):
+        self.allowed_hosts,self.timeout=allowed_hosts,max(1,min(8,timeout))
+        self.open = opener or build_opener(Redirects(allowed_hosts,resolve)).open
         self.clock, self.resolve = clock, resolve
         self.cache, self.failures, self.lock = {}, {}, threading.Lock()
 
     def fetch(self, seed):
         source_id, url, fallback_title, geography, scope = seed
-        checked_url(url, resolve=self.resolve)
+        checked_url(url, resolve=self.resolve,allowed_hosts=self.allowed_hosts)
         with self.lock:
             failed = self.failures.get(url)
             if failed and self.clock() - failed < 60:
@@ -136,9 +139,10 @@ class PublicRetrieval:
                 return dict(old[1], cache_status='recent_cache')
         request = Request(url, headers={'User-Agent': 'MinderPrototype/1.0 PublicCareerEvidence',
             'Accept': 'text/html,application/pdf,text/plain', 'Accept-Encoding': 'identity'})
-        with self.open(request, timeout=8) as response:
+        with self.open(request, timeout=self.timeout) as response:
+            http_status=getattr(response,'status',200)
             final_url = response.geturl()
-            checked_url(final_url, resolve=self.resolve)
+            checked_url(final_url, resolve=self.resolve,allowed_hosts=self.allowed_hosts)
             raw = response.read(786433)
             if len(raw) > 786432:
                 raise RetrievalError('public_source_too_large')
@@ -148,9 +152,9 @@ class PublicRetrieval:
             raise RetrievalError('public_source_has_no_verified_page_text')
         stamp = datetime.now(timezone.utc).isoformat()
         record = dict(id=source_id + ':' + hashlib.sha256(raw).hexdigest()[:16], url=final_url,
-            title=title or fallback_title, published_at=published(meta, text), retrieved_at=stamp,
+            title=(title or fallback_title)[:400], published_at=published(meta, text), retrieved_at=stamp,
             geography=geography, scope=scope, sha256=hashlib.sha256(raw).hexdigest(),
-            text=text, cache_status='live_fetched', content_type=content_type)
+            text=text, cache_status='live_fetched', content_type=content_type,http_status=http_status)
         # Only allowlisted actual page links can supply a PDF. No user URL/query.
         record['document_links'] = [urljoin(final_url, link) for link in links
             if '.pdf' in link.casefold() and urlsplit(urljoin(final_url, link)).hostname in HOSTS][:8]

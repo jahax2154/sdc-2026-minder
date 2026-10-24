@@ -27,6 +27,39 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_distinct_passages_from_one_source_are_not_consolidated_as_duplicates(self):
+        page=dict(SOURCE,text=SOURCE['text']+' A skills taxonomy identifies work activities without certifying personal proficiency.',
+            passage=SOURCE['passage']+'\nA skills taxonomy identifies work activities without certifying personal proficiency.')
+        value=dict(introduction='This source provides two different types of context.',findings=[
+            dict(quote_id='q1',explanation='The first passage describes occupation-level shortages, rather than individual competence.'),
+            dict(quote_id='q2',explanation='The second describes work activities, rather than an assessment of your proficiency.')],limitations=[])
+        self.assertEqual(len(validate_findings(value,[page])['findings']),2)
+
+    def test_optional_unsupported_claim_is_omitted_without_losing_supported_explanation(self):
+        from unittest.mock import Mock
+        second=dict(SOURCE,id='second-public-fixture',text='A public skills reference describes analytical work without measuring hiring demand.',
+            passage='A public skills reference describes analytical work without measuring hiring demand.')
+        self.app.public_retrieval.retrieve=Mock(return_value=dict(sources=[SOURCE,second],failures=[],
+            tool='search_then_fetch_public_pages',limitation='Declared fixture',mode='search_and_fetch'))
+        rejected='There are 999999 jobs available for everyone.'
+        candidate=dict(introduction='These public references describe different evidence scopes.',
+            findings=[dict(quote_id='q1',explanation='The source identifies shortage occupation groups, without proving a vacancy count.'),
+                      dict(quote_id='q2',explanation=rejected)],limitations=[],
+            advice='Compare the stated skills with a small set of current job descriptions before choosing practice activities.')
+        self.app.provider.complete_tool=Mock(return_value=dict(status='available',text=json.dumps(candidate),model='declared'))
+        result=self.app.dispatch('POST','/api/chat',dict(message='What do Malaysian job shortage sources say?'),self.token)
+        self.assertEqual(result['provider']['status'],'available')
+        self.assertEqual(result['provider']['validation_status'],'partial')
+        self.assertEqual(len(result['statements']),1)
+        self.assertIn('shortage occupation groups',result['answer'])
+        self.assertIn('Practical advice',result['answer'])
+        self.assertNotIn('999999',result['answer'])
+        ledger=self.store.get(self.session['profile_id'],'public_web_evidence',result['context_version'])
+        self.assertEqual(ledger['rejected_claims'][0]['claim']['explanation'],rejected)
+        self.assertEqual(ledger['rejected_claims'][0]['rule'],'unsupported_web_quantity')
+        self.assertEqual(self.store.list(self.session['profile_id'],'plan'),[])
+        self.assertEqual(self.store.list(self.session['profile_id'],'profile'),[])
+
     def setUp(self):
         super().setUp()
         self.app.public_retrieval = Retriever()

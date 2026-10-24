@@ -41,6 +41,12 @@
             "document-claim",
             "synthetic-fixture"
           ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400,
+          "description": "Optional source-backed display title; does not replace the stable source_id."
         }
       },
       "required": [
