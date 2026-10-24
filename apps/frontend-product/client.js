@@ -1,5 +1,11 @@
 // Same-origin only. The private session credential never enters URLs or logs.
 let token = sessionStorage.getItem('minder-product-token');
+let credentialProvider=null,identityEpoch=0;
+const activeRequests=new Set();
+export function clearPrivateRequests({forgetLocal=false}={}){identityEpoch++;for(const controller of activeRequests)controller.abort();activeRequests.clear();if(forgetLocal){token=null;sessionStorage.removeItem('minder-product-token');}}
+export function setCredentialProvider(provider){clearPrivateRequests({forgetLocal:true});credentialProvider=provider;}
+export function endLocalSession(){clearPrivateRequests({forgetLocal:true});}
+
 export class ApiError extends Error {
   constructor(status, value) {
     super(status === 409 ? 'This saved state changed. Refresh and review before trying again.' :
@@ -15,24 +21,33 @@ export class RequestError extends Error {
   constructor(code){super(code==='request_cancelled'?'Stopped waiting. Server processing may still finish.':code==='request_timeout'?'The request took too long. Review saved state before retrying.':'Connection interrupted. Review saved state before retrying.');this.code=code;}
 }
 export async function api(path, body, method=body===undefined?'GET':'POST', options={}) {
-  const controller=new AbortController();let timedOut=false;
+  const controller=new AbortController(),epoch=identityEpoch;let timedOut=false;const privateRequest=!options.public;if(privateRequest)activeRequests.add(controller);
   const abort=()=>controller.abort();
   if(options.signal?.aborted)abort();else options.signal?.addEventListener('abort',abort,{once:true});
-  const timeoutMs=options.timeoutMs??(path==='chat'?REQUEST_TIMEOUTS.chat:method==='GET'?REQUEST_TIMEOUTS.read:REQUEST_TIMEOUTS.write);
+  const timeoutMs=options.timeoutMs??(['chat','product/conversation-turn'].includes(path)?REQUEST_TIMEOUTS.chat:method==='GET'?REQUEST_TIMEOUTS.read:REQUEST_TIMEOUTS.write);
   const timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
   try {
-    const response=await fetch('/api/'+path,{method,signal:controller.signal,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
+    if(controller.signal.aborted)throw new RequestError('request_cancelled');
+    let credential=options.public?null:token;
+    if(privateRequest&&credentialProvider){
+      let stop;const cancelled=new Promise((_,reject)=>{stop=()=>reject(new RequestError('request_cancelled'));controller.signal.addEventListener('abort',stop,{once:true});});
+      try{credential=await Promise.race([credentialProvider(),cancelled]);}finally{controller.signal.removeEventListener('abort',stop);}
+      if(!credential)throw new ApiError(401,{code:'sign_in_required'});
+    }
+    if(privateRequest&&epoch!==identityEpoch)throw new RequestError('request_cancelled');
+    const response=await fetch('/api/'+path,{method,signal:controller.signal,headers:{'Content-Type':'application/json',...(credential?{Authorization:'Bearer '+credential}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
     let value;try{value=await response.json();}catch(e){if(controller.signal.aborted)throw e;throw new Error('The server returned an unreadable response.');}
+    if(privateRequest&&epoch!==identityEpoch)throw new RequestError('request_cancelled');
     if(!response.ok){const error=new ApiError(response.status,value);if([401,403].includes(response.status))window.dispatchEvent(new CustomEvent('minder-auth-lost',{detail:error}));throw error;}
     if(!value||typeof value!=='object')throw new Error('The server returned an invalid response.');
     const writes=['direct-action','proposal-decision','undo','plans','agent-settings','product/direction','product/tasks','product/task-action','product/resource-state','product/resource-to-plan','product/intake-correction','product/document-upload','product/document-delete'];
     if(method==='PUT'||(method==='POST'&&writes.includes(path)))window.dispatchEvent(new CustomEvent('minder-saved',{detail:path==='product/document-delete'?'File deleted.':value.status==='rejected'?'Proposal rejected.':'Changes saved.'}));
     return value;
   }catch(e){if(controller.signal.aborted)throw new RequestError(timedOut?'request_timeout':'request_cancelled');if(e instanceof TypeError)throw new RequestError('connection_interrupted');throw e;}
-  finally{clearTimeout(timer);options.signal?.removeEventListener('abort',abort);}
+  finally{activeRequests.delete(controller);clearTimeout(timer);options.signal?.removeEventListener('abort',abort);}
 }
 export async function session() {
-  if(!token) {const result=await api('session',{}); if(typeof result.token!=='string') throw new Error('Session unavailable.'); token=result.token;sessionStorage.setItem('minder-product-token',token);}
+  if(!token) {const result=await api('session',{},'POST',{public:true}); if(typeof result.token!=='string') throw new Error('Session unavailable.'); token=result.token;sessionStorage.setItem('minder-product-token',token);}
 }
 export async function optional(path,options={}) {try{return await api(path,undefined,'GET',options);}catch(e){if(e.status===404)return null;throw e;}}
 export const key=()=>crypto.randomUUID();

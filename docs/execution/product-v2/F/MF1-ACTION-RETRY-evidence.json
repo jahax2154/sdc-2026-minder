@@ -1,0 +1,11 @@
+{
+  "real_backend": true,
+  "real_provider": true,
+  "deliberate_response_loss": true,
+  "action_status": "applied",
+  "provider": "available",
+  "identical_retry_body": true,
+  "canonical_version_unchanged": true,
+  "action_history_records": 1,
+  "refresh_added_turns": 0
+}
