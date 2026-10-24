@@ -10,6 +10,22 @@ from deploy.operator import (OperatorError, approved_release, confirmed_budget, 
 
 
 class OperatorTests(unittest.TestCase):
+    def test_selected_replit_target_never_requires_or_calls_Railway(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        from deploy.operator import main
+        report = doctor({"MINDER_HOSTING_TARGET": "replit"})
+        self.assertEqual(report["hosting_target"], "replit")
+        self.assertFalse(any(name.startswith("RAILWAY_") for name in report["missing_local_fields"]))
+        for operation in ("inspect", "prepare-service", "deploy"):
+            output = StringIO()
+            with patch("sys.argv", ["operator", operation]), patch("deploy.operator.private_config",
+                    return_value={"MINDER_HOSTING_TARGET": "replit"}), patch("deploy.operator.railway") as provider, \
+                    redirect_stdout(output), self.assertRaises(SystemExit):
+                main()
+            self.assertEqual(json.loads(output.getvalue())["code"], "Railway_actions_disabled_for_selected_Replit_target")
+            provider.assert_not_called()
+
     def test_preview_discovery_needs_no_secret_and_preserves_existing_file_values(self):
         import base64
         from cryptography.hazmat.primitives.asymmetric import rsa

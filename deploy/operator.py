@@ -27,7 +27,7 @@ FIELDS = {
     "MINDER_DEPLOY_MAX_USD", "MINDER_JUDGE_URL", "CLERK_PUBLISHABLE_KEY", "CLERK_SECRET_KEY",
     "CLERK_JWT_KEY", "CLERK_ISSUER", "CLERK_AUTHORIZED_PARTIES", "CLERK_AUDIENCE",
     "CLERK_ACCEPTANCE_USER_A", "CLERK_ACCEPTANCE_USER_B", "GROQ_API_KEY", "GROQ_MODEL",
-    "MINDER_LLM_DAILY_LIMIT", "MINDER_CLERK_INSTANCE_MODE",
+    "MINDER_LLM_DAILY_LIMIT", "MINDER_CLERK_INSTANCE_MODE", "MINDER_HOSTING_TARGET",
 }
 
 
@@ -74,6 +74,12 @@ def doctor(values):
     needed = FIELDS - {"CLERK_AUDIENCE", "CLERK_ACCEPTANCE_USER_A", "CLERK_ACCEPTANCE_USER_B",
                        "CLERK_ISSUER", "CLERK_JWT_KEY", "CLERK_AUTHORIZED_PARTIES"}
     access = ("RAILWAY_TOKEN", "RAILWAY_PROJECT_ID", "RAILWAY_ENVIRONMENT_ID", "RAILWAY_SERVICE_ID")
+    if values.get("MINDER_HOSTING_TARGET") == "replit":
+        needed -= set(access)
+        return dict(status="Replit_private_configuration_pending" if any(not values.get(k) for k in needed)
+                    else "Replit_local_configuration_present_provider_verification_pending",
+                    hosting_target="replit", missing_local_fields=sorted(k for k in needed if not values.get(k)),
+                    provider_configuration="not_yet_verified", secrets_disclosed=False)
     return dict(status="ready_for_provider_inspection" if all(values.get(k) for k in access) else "account_access_pending",
                 missing_local_fields=sorted(k for k in needed if not values.get(k)),
                 provider_configuration="not_yet_inspected",
@@ -379,6 +385,8 @@ def main():
     args = parser.parse_args()
     try:
         values = private_config(args.config)
+        if values.get("MINDER_HOSTING_TARGET") == "replit" and args.operation in ("inspect", "prepare-service", "deploy"):
+            raise OperatorError("Railway_actions_disabled_for_selected_Replit_target")
         if args.operation == "doctor":
             result = doctor(values)
         elif args.operation == "derive-clerk":
