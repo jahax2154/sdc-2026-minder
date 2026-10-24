@@ -367,6 +367,7 @@ wheels = [
 name = "minder-replit-runtime"
 version = "0.1.0"
 source = { virtual = "." }
+default-groups = ["runtime"]
 dependencies = [
     { name = "annotated-types" },
     { name = "anyio" },
@@ -415,6 +416,10 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspection" },
     { name = "urllib3" },
+]
+
+[package.dev-dependencies]
+runtime = [
     { name = "xgboost", marker = "sys_platform != 'linux'" },
     { name = "xgboost-cpu", marker = "sys_platform == 'linux'" },
 ]
@@ -468,6 +473,10 @@ requires-dist = [
     { name = "typing-extensions", specifier = "==4.16.0" },
     { name = "typing-inspection", specifier = "==0.4.4" },
     { name = "urllib3", specifier = "==2.8.0" },
+]
+
+[package.metadata.requires-dev]
+runtime = [
     { name = "xgboost", marker = "sys_platform != 'linux'", specifier = "==3.4.1" },
     { name = "xgboost-cpu", marker = "sys_platform == 'linux'", specifier = "==3.4.1" },
 ]
