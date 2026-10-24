@@ -303,6 +303,11 @@
       "path": "/private/tmp/minder-f-ux/regression/ux6-mindbot-real-action.png",
       "bytes": 89354,
       "sha256": "3f18440b56613dc63ae7fc437f30e0a28e35dedebebf202ff13c867010f8e66e"
+    },
+    {
+      "path": "/private/tmp/minder-f-ux/final/ux6-restored-home-desktop.png",
+      "bytes": 96727,
+      "sha256": "0165dda72a621712f3529588acf36c38d64212a9cd0e4808ec3e607c762a9cf2"
     }
   ],
   "external_release_gaps": [
@@ -318,5 +323,65 @@
     "Schedule panel Escape restores actual opener",
     "Node syntax checks and git diff --check",
     "A exact25avatar/25Home/brief hash and strict schema registry check"
-  ]
+  ],
+  "final_code_sha": "f3ea83ba490f57d96de91418a35e13319a5b55e7",
+  "restored_normal_runtime": {
+    "runtime_revision": "f3ea83ba490f57d96de91418a35e13319a5b55e7",
+    "routes": 6,
+    "provider_calls": 0,
+    "page_errors": [],
+    "unexpected_network_errors": [],
+    "expected_empty_contract_responses": [
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/agent-settings",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      },
+      {
+        "path": "/api/profile",
+        "status": 404,
+        "meaning": "canonical optional record not created"
+      }
+    ]
+  }
 }
