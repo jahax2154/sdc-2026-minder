@@ -3,12 +3,60 @@ import os
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from deploy.operator import (OperatorError, approved_release, confirmed_budget, doctor,
-                             private_config, service_variables, verify_target, verify_volume)
+                             private_config, service_variables, verify_target, verify_volume,
+                             derive_clerk_public, save_derived_public)
 
 
 class OperatorTests(unittest.TestCase):
+    def test_preview_discovery_needs_no_secret_and_preserves_existing_file_values(self):
+        import base64
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+        public = rsa.generate_private_key(public_exponent=65537, key_size=2048).public_key()
+        numbers = public.public_numbers()
+        def encoded(number):
+            return base64.urlsafe_b64encode(number.to_bytes((number.bit_length()+7)//8, "big")).decode().rstrip("=")
+        jwk = dict(kty="RSA", alg="RS256", use="sig", n=encoded(numbers.n), e=encoded(numbers.e))
+        values = dict(MINDER_CLERK_INSTANCE_MODE="preview", MINDER_JUDGE_URL="https://judge.up.railway.app",
+            CLERK_PUBLISHABLE_KEY="pk_test_"+base64.b64encode(b"minder.clerk.accounts.dev$").decode())
+        response = MagicMock()
+        response.__enter__.return_value.read.return_value = json.dumps({"keys": [jwk]}).encode()
+        opener = MagicMock()
+        opener.open.return_value = response
+        with patch("deploy.operator.build_opener", return_value=opener):
+            updates = derive_clerk_public(values)
+        request = opener.open.call_args.args[0]
+        self.assertEqual(request.full_url, "https://minder.clerk.accounts.dev/.well-known/jwks.json")
+        self.assertIsNone(request.get_header("Authorization"))
+        self.assertEqual(updates["CLERK_JWT_KEY"], public.public_bytes(Encoding.PEM, PublicFormat.SubjectPublicKeyInfo).decode())
+        self.assertEqual(updates["CLERK_ISSUER"], "https://minder.clerk.accounts.dev")
+        self.assertEqual(updates["CLERK_AUTHORIZED_PARTIES"], values["MINDER_JUDGE_URL"])
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/"config"
+            text = "# Preserve this comment\nRAILWAY_TOKEN=do-not-change\nCLERK_ISSUER=\nCLERK_JWT_KEY=\n"
+            path.write_text(text)
+            path.chmod(0o600)
+            original = private_config(path)
+            save_derived_public(path, original, updates)
+            saved = private_config(path)
+            self.assertEqual(saved["RAILWAY_TOKEN"], original["RAILWAY_TOKEN"])
+            self.assertEqual(saved["CLERK_JWT_KEY"], updates["CLERK_JWT_KEY"])
+            self.assertTrue(path.read_text().startswith("# Preserve this comment\n"))
+            with self.assertRaises(OperatorError):
+                save_derived_public(path, original, updates)
+        with patch("deploy.operator.build_opener") as network:
+            self.assertEqual(derive_clerk_public(dict(values, **updates)), {})
+            for host in ("localhost", "127.0.0.1", "evil.example", "minder.clerk.accounts.dev/other"):
+                bad = "pk_test_" + base64.b64encode((host+"$").encode()).decode()
+                with self.assertRaises(OperatorError):
+                    derive_clerk_public(dict(values, CLERK_PUBLISHABLE_KEY=bad))
+            network.assert_not_called()
+        response.__enter__.return_value.read.return_value = json.dumps({"keys": [jwk, jwk]}).encode()
+        with patch("deploy.operator.build_opener", return_value=opener), self.assertRaises(OperatorError):
+            derive_clerk_public(values)
+
     def test_private_configuration_redaction_permissions_and_no_bypass_fields(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / ".env.deploy.local"

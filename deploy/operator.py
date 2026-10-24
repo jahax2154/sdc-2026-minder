@@ -71,7 +71,8 @@ def private_config(path=DEFAULT_CONFIG):
 
 
 def doctor(values):
-    needed = FIELDS - {"CLERK_AUDIENCE"}
+    needed = FIELDS - {"CLERK_AUDIENCE", "CLERK_ACCEPTANCE_USER_A", "CLERK_ACCEPTANCE_USER_B",
+                       "CLERK_ISSUER", "CLERK_JWT_KEY", "CLERK_AUTHORIZED_PARTIES"}
     access = ("RAILWAY_TOKEN", "RAILWAY_PROJECT_ID", "RAILWAY_ENVIRONMENT_ID", "RAILWAY_SERVICE_ID")
     return dict(status="ready_for_provider_inspection" if all(values.get(k) for k in access) else "account_access_pending",
                 missing_local_fields=sorted(k for k in needed if not values.get(k)),
@@ -82,6 +83,101 @@ def doctor(values):
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         raise OperatorError("provider_redirect_rejected")
+
+
+def derive_clerk_public(values):
+    """Derive only public preview configuration; never use a server secret."""
+    if values.get("MINDER_CLERK_INSTANCE_MODE") != "preview":
+        raise OperatorError("public_discovery_requires_explicit_preview_instance")
+    try:
+        key = values.get("CLERK_PUBLISHABLE_KEY", "")
+        if not key.startswith("pk_test_"):
+            raise ValueError()
+        encoded = key.split("_", 2)[2]
+        host = base64.b64decode(encoded + "=" * (-len(encoded) % 4), validate=True).decode()
+        if not host.endswith("$"):
+            raise ValueError()
+        host = host[:-1]
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*(?:\.[a-z0-9]+(?:-[a-z0-9]+)*)+", host):
+            raise ValueError()
+        if not host.endswith(".clerk.accounts.dev"):
+            raise ValueError()
+        issuer = "https://" + host
+        if values.get("CLERK_ISSUER") and values["CLERK_ISSUER"].rstrip("/") != issuer:
+            raise ValueError()
+    except (ValueError, UnicodeError, IndexError):
+        raise OperatorError("Clerk_preview_publishable_key_or_issuer_invalid") from None
+    updates = {}
+    if not values.get("CLERK_ISSUER"):
+        updates["CLERK_ISSUER"] = issuer
+    if not values.get("CLERK_JWT_KEY"):
+        try:
+            # Public Frontend API JWKS endpoint: no Authorization/cookies/secret.
+            request = Request(issuer + "/.well-known/jwks.json", headers={"Accept": "application/json"})
+            with build_opener(NoRedirect()).open(request, timeout=15) as response:
+                raw = response.read(65537)
+            if len(raw) > 65536:
+                raise ValueError()
+            keys = json.loads(raw)["keys"]
+            if not isinstance(keys, list) or len(keys) != 1:
+                raise OperatorError("Clerk_JWKS_rotation_requires_dashboard_PEM_selection")
+            jwk = keys[0]
+            if (jwk.get("kty") != "RSA" or jwk.get("alg", "RS256") != "RS256"
+                    or jwk.get("use", "sig") != "sig" or "d" in jwk):
+                raise ValueError()
+            from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicNumbers
+            from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+            def integer(name):
+                value = jwk[name]
+                return int.from_bytes(base64.urlsafe_b64decode(value + "=" * (-len(value) % 4)), "big")
+            public = RSAPublicNumbers(integer("e"), integer("n")).public_key()
+            if public.key_size < 2048:
+                raise ValueError()
+            updates["CLERK_JWT_KEY"] = public.public_bytes(Encoding.PEM, PublicFormat.SubjectPublicKeyInfo).decode()
+        except OperatorError:
+            raise
+        except (HTTPError, URLError, TimeoutError, ValueError, KeyError, TypeError):
+            raise OperatorError("Clerk_public_JWKS_discovery_failed_no_private_details_disclosed") from None
+    if not values.get("CLERK_AUTHORIZED_PARTIES") and values.get("MINDER_JUDGE_URL"):
+        site = urlsplit(values["MINDER_JUDGE_URL"])
+        if (site.scheme != "https" or not site.hostname or site.username or site.password
+                or site.path not in ("", "/") or site.query or site.fragment or site.port not in (None, 443)):
+            raise OperatorError("verified_https_judge_origin_required")
+        updates["CLERK_AUTHORIZED_PARTIES"] = site.scheme + "://" + site.netloc
+    return updates
+
+
+def save_derived_public(path, values, updates):
+    """Fill only blank public fields, preserving current private values/comments."""
+    if not set(updates).issubset({"CLERK_ISSUER", "CLERK_JWT_KEY", "CLERK_AUTHORIZED_PARTIES"}):
+        raise OperatorError("only_public_derived_fields_may_be_saved")
+    if private_config(path) != values:
+        raise OperatorError("private_config_changed_retry_after_editor_save")
+    with os.fdopen(os.open(path, os.O_RDWR | os.O_NOFOLLOW | os.O_NONBLOCK), "r+") as handle:
+        info = os.fstat(handle.fileno())
+        if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid()
+                or stat.S_IMODE(info.st_mode) != 0o600 or info.st_size > 32768):
+            raise OperatorError("private_config_requires_owner_only_regular_file")
+        lines = handle.read().splitlines(keepends=True)
+        if private_config(path) != values:
+            raise OperatorError("private_config_changed_retry_after_editor_save")
+        remaining = dict(updates)
+        for index, line in enumerate(lines):
+            name = line.strip().partition("=")[0].strip()
+            if name in remaining:
+                if values.get(name):
+                    raise OperatorError("existing_private_configuration_preserved")
+                lines[index] = name + "=" + json.dumps(remaining.pop(name)) + "\n"
+        for name, value in remaining.items():
+            lines.append("\n" + name + "=" + json.dumps(value) + "\n")
+        current = os.fstat(handle.fileno())
+        if current.st_mtime_ns != info.st_mtime_ns or os.stat(path, follow_symlinks=False).st_ino != info.st_ino:
+            raise OperatorError("private_config_changed_retry_after_editor_save")
+        handle.seek(0)
+        handle.writelines(lines)
+        handle.truncate()
+        handle.flush()
+        os.fsync(handle.fileno())
 
 
 def railway(values, query, variables=None):
@@ -277,7 +373,7 @@ def deploy(values, sha, cli=DEFAULT_CLI):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("operation", choices=("doctor", "inspect", "prepare-service", "deploy"))
+    parser.add_argument("operation", choices=("doctor", "derive-clerk", "inspect", "prepare-service", "deploy"))
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--approval", type=Path, default=ROOT / "deploy/RELEASE_APPROVAL.json")
     args = parser.parse_args()
@@ -285,6 +381,11 @@ def main():
         values = private_config(args.config)
         if args.operation == "doctor":
             result = doctor(values)
+        elif args.operation == "derive-clerk":
+            updates = derive_clerk_public(values)
+            save_derived_public(args.config, values, updates)
+            result = dict(status="public_Clerk_configuration_derived", saved_field_names=sorted(updates),
+                          secret_key_used=False, existing_values_preserved=True)
         elif args.operation == "inspect":
             verify_target(values)
             verify_volume(values)
