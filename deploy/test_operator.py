@@ -70,6 +70,10 @@ class OperatorTests(unittest.TestCase):
         self.assertEqual(result["MINDER_ENV"], "production")
         self.assertEqual(result["MINDER_RELEASE_SHA"], "a" * 40)
         self.assertEqual(result["MINDER_DOCUMENT_STORAGE"], "private-volume")
+        local_public = {key: value for key, value in values.items() if key not in ("CLERK_SECRET_KEY", "GROQ_API_KEY")}
+        preserved = service_variables(local_public, "a" * 40, {"CLERK_SECRET_KEY": None, "GROQ_API_KEY": None})
+        self.assertNotIn("CLERK_SECRET_KEY", preserved)
+        self.assertNotIn("GROQ_API_KEY", preserved)
         with self.assertRaises(OperatorError):
             service_variables(dict(values, MINDER_JUDGE_URL="http://127.0.0.1"), "a" * 40)
         with self.assertRaises(OperatorError):

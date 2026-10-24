@@ -72,8 +72,10 @@ def private_config(path=DEFAULT_CONFIG):
 
 def doctor(values):
     needed = FIELDS - {"CLERK_AUDIENCE"}
-    return dict(status="ready_for_account_checks" if all(values.get(k) for k in needed) else "account_setup_pending",
-                missing_fields=sorted(k for k in needed if not values.get(k)),
+    access = ("RAILWAY_TOKEN", "RAILWAY_PROJECT_ID", "RAILWAY_ENVIRONMENT_ID", "RAILWAY_SERVICE_ID")
+    return dict(status="ready_for_provider_inspection" if all(values.get(k) for k in access) else "account_access_pending",
+                missing_local_fields=sorted(k for k in needed if not values.get(k)),
+                provider_configuration="not_yet_inspected",
                 cli_installed=DEFAULT_CLI.is_file(), secrets_disclosed=False)
 
 
@@ -155,38 +157,56 @@ def approved_release(path):
     return sha
 
 
-def service_variables(values, sha):
+def existing_variables(values):
+    data = railway(values, "query($projectId:String!,$environmentId:String!,$serviceId:String!){"
+        "variables(projectId:$projectId,environmentId:$environmentId,serviceId:$serviceId)}",
+        dict(projectId=values["RAILWAY_PROJECT_ID"], environmentId=values["RAILWAY_ENVIRONMENT_ID"],
+             serviceId=values["RAILWAY_SERVICE_ID"]))
+    if not isinstance(data.get("variables"), dict):
+        raise OperatorError("provider_variable_metadata_unavailable")
+    return data["variables"]  # Values remain in process memory; never print this mapping.
+
+
+def service_variables(values, sha, existing=None):
+    existing = existing or {}
     result = dict(MINDER_ENV="production", MINDER_AUTH_MODE="managed", MINDER_AUTH_PROVIDER="clerk",
                   MINDER_DATA_ROOT="/data", MINDER_DB_PATH="/data/minder/runtime.sqlite3",
                   MINDER_DOCUMENT_STORAGE="private-volume", MINDER_DOCUMENT_STORAGE_ROOT="/data/minder/documents",
                   MINDER_RELEASE_SHA=sha, GROQ_MODEL="qwen/qwen3.8-27b")
     for name in ("CLERK_PUBLISHABLE_KEY", "CLERK_SECRET_KEY", "CLERK_JWT_KEY", "CLERK_ISSUER",
                  "CLERK_AUTHORIZED_PARTIES", "GROQ_API_KEY", "MINDER_LLM_DAILY_LIMIT"):
-        if not values.get(name):
+        if values.get(name):
+            result[name] = values[name]
+        elif name not in existing or existing[name] == "":
             raise OperatorError("runtime_private_configuration_incomplete")
-        result[name] = values[name]
+        # Existing values, including sealed/null secrets, are preserved, not overwritten.
     if values.get("CLERK_AUDIENCE"):
         result["CLERK_AUDIENCE"] = values["CLERK_AUDIENCE"]
-    if values.get("GROQ_MODEL", "qwen/qwen3.8-27b") != result["GROQ_MODEL"]:
+    if (values.get("GROQ_MODEL") or existing.get("GROQ_MODEL") or result["GROQ_MODEL"]) != result["GROQ_MODEL"]:
         raise OperatorError("preserve_verified_Qwen_model")
-    from minder_app.auth_adapter import AuthConfig
+    effective = dict(existing, **result)
     try:
-        auth = AuthConfig.from_env(result)
-        if not auth.publishable_key.startswith("pk_live_") or not auth.secret_key.startswith("sk_live_"):
+        publishable = effective["CLERK_PUBLISHABLE_KEY"]
+        issuer = effective["CLERK_ISSUER"]
+        parties = [part.strip() for part in effective["CLERK_AUTHORIZED_PARTIES"].split(",")]
+        if not publishable.startswith("pk_live_"):
             raise ValueError()
-        encoded = auth.publishable_key.split("_", 2)[2]
+        secret = effective["CLERK_SECRET_KEY"]
+        if secret is not None and not secret.startswith("sk_live_"):
+            raise ValueError()
+        encoded = publishable.split("_", 2)[2]
         frontend_host = base64.b64decode(encoded + "=" * (-len(encoded) % 4), validate=True).decode().removesuffix("$")
-        if "https://" + frontend_host != auth.issuer.rstrip("/"):
+        if "https://" + frontend_host != issuer.rstrip("/"):
             raise ValueError()
         from cryptography.hazmat.primitives.serialization import load_pem_public_key
         from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey
-        if not isinstance(load_pem_public_key(auth.jwt_key.encode()), RSAPublicKey):
+        if not isinstance(load_pem_public_key(effective["CLERK_JWT_KEY"].replace("\\n", "\n").encode()), RSAPublicKey):
             raise ValueError()
         site = urlsplit(values.get("MINDER_JUDGE_URL", ""))
         if (site.scheme != "https" or site.username or site.password or site.query or site.fragment
                 or site.path not in ("", "/") or site.port not in (None, 443)
                 or not site.hostname or site.hostname in ("localhost", "127.0.0.1")
-                or (site.scheme + "://" + site.netloc) not in auth.authorized_parties):
+                or (site.scheme + "://" + site.netloc) not in parties):
             raise ValueError()
     except Exception:
         raise OperatorError("managed_auth_configuration_invalid") from None
@@ -214,7 +234,7 @@ def prepare_service(values, sha):
         raise OperatorError("railway_current_config_schema_requires_review")
     # Values are private JSON request data, never arguments/logs; preserve other variables.
     variables = dict(projectId=values["RAILWAY_PROJECT_ID"], environmentId=values["RAILWAY_ENVIRONMENT_ID"],
-                     serviceId=values["RAILWAY_SERVICE_ID"], variables=service_variables(values, sha), skipDeploys=True)
+                     serviceId=values["RAILWAY_SERVICE_ID"], variables=service_variables(values, sha, existing_variables(values)), skipDeploys=True)
     railway(values, "mutation($input:VariableCollectionUpsertInput!){variableCollectionUpsert(input:$input)}",
             {"input": variables})
     railway(values, "mutation($serviceId:String!,$environmentId:String!,$input:ServiceInstanceUpdateInput!){"
@@ -225,9 +245,14 @@ def prepare_service(values, sha):
 
 def deploy(values, sha, cli=DEFAULT_CLI):
     confirmed_budget(values)
-    service_variables(values, sha)
     verify_target(values)
     verify_volume(values)
+    effective = existing_variables(values)
+    service_variables(values, sha, effective)
+    if any(effective.get(key) != expected for key, expected in {
+            "MINDER_RELEASE_SHA": sha, "MINDER_ENV": "production", "MINDER_AUTH_MODE": "managed",
+            "MINDER_AUTH_PROVIDER": "clerk", "MINDER_DOCUMENT_STORAGE": "private-volume"}.items()):
+        raise OperatorError("prepared_provider_revision_or_security_mode_mismatch")
     if not cli.is_file():
         raise OperatorError("railway_cli_missing")
     # Upload exactly A's approved committed tree, never this active checkout/private files.
@@ -261,7 +286,10 @@ def main():
         elif args.operation == "inspect":
             verify_target(values)
             verify_volume(values)
-            result = dict(status="existing_project_environment_service_and_volume_verified", secrets_disclosed=False)
+            existing = existing_variables(values)
+            names = {key for key, value in existing.items() if value is None or bool(value)}
+            result = dict(status="existing_project_environment_service_and_volume_verified",
+                          configured_runtime_fields=sorted(names.intersection(FIELDS)), secrets_disclosed=False)
         else:
             sha = approved_release(args.approval)
             result = prepare_service(values, sha) if args.operation == "prepare-service" else deploy(values, sha)

@@ -7,13 +7,17 @@ record or deployment has been invented from an older accepted snapshot.
 
 ## Exact user account actions
 
+Start with Railway access/IDs. If the provider already has working configuration,
+leave it there: E inspects field presence after access and preserves sealed values.
+The remaining setup steps apply only to missing configuration, not duplicate apps.
+
 1. Open the intended EXISTING Railway project. In project Settings / Tokens create
    a project token scoped to its deployment environment. Put it in the ignored
    owner-only private file below as RAILWAY_TOKEN. Use the project command palette
    to copy project/environment/service IDs into the corresponding fields. Confirm
    existing credits and the available limit in MINDER_DEPLOY_MAX_USD; no upgrade,
    top-up or new plan. If no existing project/resources exist, report that fact.
-2. In that Railway service attach the permitted persistent volume at `/data`.
+2. In that Railway service attach the permitted persistent volume at `/data` if missing.
    Keep one replica and serverless/sleeping OFF. No independent cron service or
    second SQLite volume. E checks the actual target and attachment before deploying.
 3. In Clerk Dashboard select the intended application's PRODUCTION instance.
@@ -23,10 +27,11 @@ record or deployment has been invented from an older accepted snapshot.
    paid feature is authorized. If no existing domain is available, report it so the
    production-access dependency can be resolved explicitly; do not silently use a
    development realm or local auth bypass as production.
-4. Clerk / API Keys: save the matching live publishable key, live secret key,
+4. Clerk / API Keys: configure the matching live publishable key, live secret key,
    JWT PEM public key and exact HTTPS issuer in the same private file. Set
    CLERK_AUTHORIZED_PARTIES to the actual app HTTPS origin and MINDER_JUDGE_URL to
-   that origin. Leave CLERK_AUDIENCE blank unless that actual session template
+   that origin. Already-configured sealed server secrets can stay in Railway;
+   never export them merely to fill the local template. Leave CLERK_AUDIENCE blank unless that actual session template
    issues it. For a multiline PEM, use a double-quoted value with literal `\n`
    separators; the operator parses it as a string, never as shell code.
 5. Clerk / Users: provision two distinct dedicated acceptance accounts. Save their
@@ -56,8 +61,9 @@ https://clerk.com/docs/guides/development/managing-environments (separate realms
   No global install, account signup, service/volume creation, variable change or
   deployment was performed. The Railway plugin is available but not installed;
   the scoped project-token route works independently of that plugin.
-- `deploy.operator doctor` reports only missing field names and capability state;
-  it never prints secret values. Latest run still reports14 missing setup fields.
+- `deploy.operator doctor` reports only missing LOCAL field names and capability state;
+  it never prints secret values. Latest run reports14 empty local fields, with remote
+  configuration explicitly uninspected; this does not prove all cloud fields absent.
   Private configuration requires an owned regular0600 file, rejects symlinks,
   unknown/test-bypass fields and never executes shell syntax; values are literal data.
 - Operator inspect verifies the token's exact existing project/environment/service
@@ -70,6 +76,7 @@ https://clerk.com/docs/guides/development/managing-environments (separate realms
   parses the signing PEM and preserves strict managed/private-volume runtime mode.
   Provider-token and acceptance-user fields are never copied into app variables.
 - Private variables use a JSON request with skipDeploys, preserving other fields;
+  existing sealed values are not overwritten or required in the local file.
   no secret command arguments/output. The CLI uploads a fresh `git archive` of
   EXACTLY the approved commit, never the active checkout/private/untracked files.
   Explicit existing IDs, token verification, CI mode, closed stdin and no --new /
