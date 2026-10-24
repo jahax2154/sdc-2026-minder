@@ -17,7 +17,7 @@ import pgserver
 from minder_app.postgres_store import PostgresStore
 
 MODULES = ('test_profiles','test_plans','test_actions','test_agents','test_provider_budget',
-    'test_product_state','test_product_concurrency','test_generation_state','test_automation_state',
+    'test_product_migrations','test_product_state','test_product_concurrency','test_generation_state','test_automation_state',
     'test_identity_store','test_conversations','test_bot_preferences','test_documents','test_document_storage','test_replit_storage')
 
 
