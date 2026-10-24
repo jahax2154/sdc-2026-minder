@@ -92,6 +92,16 @@ class WebTests(AppCase):
             self.assertFalse(quantities_supported(invalid,[source]))
         self.assertFalse(quantities_supported('16.87m employed',[dict(source,url='https://example.invalid')]))
 
+    def test_actual_grouped_official_quantity_keeps_supported_finding_without_inventing_numbers(self):
+        from minder_app.web_evidence import quantities_supported,LFS_URL
+        source=dict(SOURCE,url=LFS_URL,observation_period='2026-08',
+            text='Employed persons 16845.6 thousand in July and 16874.4 thousand in August.')
+        claim='Employed persons increased from 16,845.6 thousand to 16,874.4 thousand.'
+        self.assertTrue(quantities_supported(claim,[source]))
+        for invalid in ('16,875.4 thousand','168,74.4 thousand','999,999 thousand'):
+            self.assertFalse(quantities_supported(invalid,[source]))
+        self.assertFalse(quantities_supported(claim,[dict(source,url='https://example.invalid')]))
+
     def test_compact_public_context_retains_quote_mapping_dates_scope_without_duplicate_quotes_or_urls(self):
         from minder_app.web_evidence import model_sources,quote_index
         source=dict(SOURCE,observation_period='2026-08')

@@ -40,6 +40,8 @@ def text(value):
 
 def quantities_supported(prose,sources):
     supported=set(re.findall(r'\d+(?:[.,]\d+)*',' '.join(s['text'] for s in sources)))
+    typed_numbers={v for s in sources if s.get('url')==LFS_URL and s.get('observation_period')
+        for v in re.findall(r'\d+(?:[.,]\d+)*',s['text'])}
     # Exact documented DOSM units, not invented measurements or scoring math.
     values=[Decimal(v)/1000 for s in sources if s.get('url')==LFS_URL and s.get('observation_period')
         for v in re.findall(r'(?:unemployed|employed) persons (\d+(?:\.\d+)?) thousand',s['text'])]
@@ -50,7 +52,13 @@ def quantities_supported(prose,sources):
             precision=Decimal(1).scaleb(-decimals)
             if any(v.quantize(precision,rounding=ROUND_HALF_UP)==Decimal(rendered) for v in values):supported.add(rendered)
         except InvalidOperation:pass
-    return set(re.findall(r'\d+(?:[.,]\d+)*',prose)).issubset(supported)
+    for number in re.findall(r'\d+(?:[.,]\d+)*',prose):
+        if number in supported:continue
+        # Grouping punctuation changes presentation, not the underlying value.
+        # Only this typed official source can establish the equivalent number.
+        if re.fullmatch(r'\d{1,3}(?:,\d{3})+(?:\.\d+)?',number) and number.replace(',','') in typed_numbers:continue
+        return False
+    return True
 
 
 def guard_disclaimers(prose):
