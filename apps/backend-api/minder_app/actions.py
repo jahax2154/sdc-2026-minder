@@ -211,14 +211,20 @@ class ActionExecutor:
                         raise AppError("reschedule_requires_scheduled_task", 409)
                     if task["estimated_hours"] is None:
                         raise AppError("effort_unknown_requires_clarification", 409)
-                task[field] = change["after"]
+                if field in ('title','description') and change['after'] is None:
+                    task.pop(field,None)  # exact undo of a previously absent optional text field
+                else:
+                    task[field] = change["after"]
                 if field == "state" and req['kind'] == 'complete_task':
                     task["activity_completion"] = True
             elif kind == 'profile' and req['kind']=='change_goal' and change['path']=='/career_context/goals':
                 context = after.setdefault('career_context', {})
                 if context.get('goals') != change['before']:
                     raise AppError('diff_before_mismatch',409)
-                context['goals'] = change['after']
+                if change['after'] is None:
+                    context.pop('goals',None)
+                else:
+                    context['goals'] = change['after']
             elif kind == "profile" and len(parts) == 4 and parts[1] == "preferences":
                 entity_type, entity_id = parts[2:]
                 if entity_type not in ("role", "industry", "skill", "company"):
@@ -308,7 +314,7 @@ class ActionExecutor:
         action = audit["result"]["action"]
         if action["kind"] == "complete_task":
             raise AppError("completion_history_preserved", 409)
-        if action['kind'] in ('create_task','schedule_task'):
+        if action['kind'] in ('create_task','schedule_task','configure_automation'):
             raise AppError('use_explicit_task_controls_to_reverse_creation_or_scheduling',409)
         req = dict(kind=action["kind"], target_id=audit["target_id"], expected=expected,
                    diff=[dict(path=c["path"], before=c["after"], after=c["before"]) for c in action["diff"]],

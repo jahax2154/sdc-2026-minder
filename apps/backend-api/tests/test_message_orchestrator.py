@@ -225,3 +225,17 @@ class IntegratedTurnTests(AppCase):
         self.assertEqual(saved['tasks'][0]['state'],'scheduled')
         self.assertEqual(saved['tasks'][0]['title'],'A concurrent real edit')
         self.assertFalse(self.app.actions.history(owner))
+
+    def test_exact_undo_removes_previously_missing_goal_and_task_text(self):
+        plan,_=self.setup_request();owner=self.profile['profile_id']
+        p=self.store.get(owner,'profile',owner)
+        result=self.app.actions.direct(owner,dict(kind='change_goal',target_id=owner,expected=p['version'],
+            diff=[dict(path='/career_context/goals',before=None,after='A reviewed new goal')],reason='Explicit goal',evidence_ids=[]),'new-goal')
+        undone=self.app.actions.undo(owner,result['action']['action_id'],result['target']['version'],'undo-goal')
+        self.assertNotIn('goals',undone['target'].get('career_context',{}))
+        before=self.store.get(owner,'plan',plan['plan_id']);task=before['tasks'][0]
+        result=self.app.actions.direct(owner,dict(kind='edit_task',target_id=plan['plan_id'],expected=before['state_version'],
+            diff=[dict(path='/tasks/'+task['task_id']+'/description',before=task.get('description'),after='A reviewed description.')],
+            reason='Explicit description',evidence_ids=[]),'new-description')
+        undone=self.app.actions.undo(owner,result['action']['action_id'],result['target']['state_version'],'undo-description')
+        self.assertEqual(undone['target']['tasks'][0].get('description'),task.get('description'))
