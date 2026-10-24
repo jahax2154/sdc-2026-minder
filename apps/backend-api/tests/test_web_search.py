@@ -10,6 +10,19 @@ class Response(io.BytesIO):
     status=200
 
 class SearchTests(unittest.TestCase):
+    def test_role_specific_discovery_precedes_national_aggregate_fallback(self):
+        class Search:
+            def search(self,query):return dict(query=query,status='available',provider='declared',results=[
+                dict(url='https://www.dataquest.io/blog/data-analyst-skills/',title='Data analyst skills')])
+        class Page:
+            def fetch(self,seed):return dict(id=seed[0],url=seed[1],title=seed[2],geography=seed[3],scope=seed[4],
+                text='A data analyst learns analysis and statistical methods; this is not a national hiring measurement.',
+                published_at=None,retrieved_at='2026-10-24T00:00:00Z',sha256='0'*64,cache_status='live_fetched')
+        result=SearchRetrieval(search=Search(),fetcher_factory=lambda **kw:Page(),predefined=Page()).retrieve('Are data analyst jobs growing in Malaysia?')
+        self.assertEqual(result['sources'][0]['origin'],'search_discovered')
+        self.assertIn('dataquest',result['sources'][0]['url'])
+        self.assertTrue(any(s['origin']=='predefined_detail' for s in result['sources']))
+
     def test_exact_ui_regressions_get_details_instead_of_registry_introductions(self):
         questions=['What are the market trends right now?', 'How is the software engineering job market now?',
             "What's the most relevant skills now to become a software engineer?"]

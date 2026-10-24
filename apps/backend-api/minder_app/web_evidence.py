@@ -270,7 +270,10 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
                 answer_text='I retrieved public pages, but the language service could not complete an explanation. The source links remain available below; your saved work is unchanged.'
     if retrieved.get('discovery'):
         if retrieved.get('mode')=='search_and_fetch':
-            answer_text+='\n\nSource method: Mwmbl web search discovered pages that were fetched separately; predefined official context is labelled in the source details.'
+            if any(s.get('origin')=='search_discovered' for s in sources):
+                answer_text+='\n\nSource method: Mwmbl web search discovered cited pages that were fetched separately; predefined context is labelled in the source details.'
+            else:
+                answer_text+='\n\nSource method: web search found additional pages. This explanation cites predefined detail/reference pages fetched separately, not search snippets.'
         elif any(d['status']=='available' for d in retrieved['discovery']):
             answer_text+='\n\nSource method: web search ran, but no usable discovered page was fetched. These links are predefined detail/reference pages fetched live or from the labelled recent cache.'
         else:
@@ -310,6 +313,8 @@ def answer(app, owner, message, expected_profile_version=None, *, request_id=Non
                 failure_code=provider.get('validation_code') or provider.get('code')),
             retrieval=dict(policy_version=retrieved.get('policy_version',POLICY), answer_policy=ANSWER_POLICY, tool=retrieved['tool'],
                 mode=retrieved.get('mode','predefined_fetch'),discovery=retrieved.get('discovery',[]),model_source_ids=[s['id'] for s in sources],
+                answer_source_origins=[s.get('origin','predefined_official') for s in sources],
+                answer_uses_search_discovered_pages=any(s.get('origin')=='search_discovered' for s in sources),
                 fetched_pages=retrieved.get('fetched_pages',[]),stored_dataset_used=False,
                 sources=[citation(s) for s in sources], failures=retrieved['failures'], limitation=retrieved['limitation'])))
 

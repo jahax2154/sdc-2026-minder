@@ -27,6 +27,16 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_discovered_but_uncited_page_does_not_relabel_predefined_answer_sources(self):
+        from unittest.mock import Mock
+        self.app.public_retrieval.retrieve=Mock(return_value=dict(sources=[dict(SOURCE,origin='predefined_detail')],
+            failures=[],tool='search_then_fetch_public_pages',mode='search_and_fetch',
+            discovery=[dict(status='available',provider='declared',query='public query')],limitation='Declared discovery fixture'))
+        result=self.app.dispatch('POST','/api/chat',dict(message='What do Malaysian job shortage sources say?'),self.token)
+        self.assertIn('This explanation cites predefined detail/reference pages',result['answer'])
+        self.assertFalse(result['diagnostics']['retrieval']['answer_uses_search_discovered_pages'])
+        self.assertEqual(result['diagnostics']['retrieval']['answer_source_origins'],['predefined_detail'])
+
     def test_quota_failure_is_not_misrepresented_as_rejected_evidence(self):
         from minder_app.model_gateway import QuotaError
         from unittest.mock import Mock

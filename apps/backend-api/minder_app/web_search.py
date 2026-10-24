@@ -18,7 +18,7 @@ from urllib.request import Request,build_opener,HTTPRedirectHandler
 from .model_gateway import coordination_directory
 from .public_retrieval import PublicRetrieval,SEEDS,TOPICS,RetrievalError,LFS_URL
 
-POLICY='public-page-discovery-v1.1'
+POLICY='public-page-discovery-v1.2'
 ENDPOINT='https://api.mwmbl.org/api/v2/search/'
 PROFESSIONAL=('talentcorp.com.my','mynsr.talentcorp.com.my','mdec.my','hays.com.my','randstad.com.my',
     'michaelpage.com.my','jobstreet.com.my','mycen.com.my','coursera.org','dataquest.io','github.blog',
@@ -47,7 +47,9 @@ def market_question(question):
 
 def detail_seeds(question):
     if software_question(question):return [DETAILS[1],DETAILS[0]] if market_question(question) else [DETAILS[3],DETAILS[4]]
-    if market_question(question):return [DETAILS[5],DETAILS[0]]
+    if market_question(question):
+        if any(re.search(pattern,question,re.I) for pattern,topic in ROLE_TERMS):return [DETAILS[5]]
+        return [DETAILS[5],DETAILS[0]]
     return []
 
 def select_passage(record,question):
@@ -236,7 +238,11 @@ class SearchRetrieval:
             record['passage']=select_passage(record,question)
         # Limit model context; retain the complete discovered-page fetch ledger.
         detail_order={seed[0]:index for index,seed in enumerate(detailed)}
-        records.sort(key=lambda r:(0 if r['origin']=='predefined_detail' else 1 if relevant(r['title'],r['url']) else 2,
+        specific=any(re.search(pattern,question,re.I) for pattern,topic in ROLE_TERMS)
+        def priority(record):
+            if specific and not software_question(question) and record['origin']=='search_discovered' and relevant(record['title'],record['url']):return -1
+            return 0 if record['origin']=='predefined_detail' else 1 if relevant(record['title'],record['url']) else 2
+        records.sort(key=lambda r:(priority(r),
             next((index for key,index in detail_order.items() if r['id'].startswith(key)),9)))
         selected=records[:3]
         found=any(r['origin']=='search_discovered' for r in selected)
