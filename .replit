@@ -6,6 +6,10 @@ run = ["bash", "deploy/replit/start.sh"]
 [nix]
 channel = "stable-25_05"
 
+[packager.features]
+# The explicit frozen uv build below owns dependency installation.
+enabledForHosting = false
+
 [deployment]
 deploymentTarget = "vm"
 build = ["bash", "deploy/replit/build.sh"]
