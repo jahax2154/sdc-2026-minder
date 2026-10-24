@@ -88,7 +88,10 @@
       "type": "string"
     },
     "behaviour_policy_version": {
-      "const": "minder-grounding-privacy-v1"
+      "enum": [
+        "minder-grounding-privacy-v1",
+        "minder-typed-guidance-v1"
+      ]
     },
     "action_status": {
       "const": "no_mutation_requested_or_executed"

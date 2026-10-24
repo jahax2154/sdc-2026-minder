@@ -9,7 +9,8 @@ TASK = {'type': 'object', 'additionalProperties': False, 'properties': {
     'required': ['title', 'description', 'estimated_hours']}
 SCHEMA = {'type': 'object', 'additionalProperties': False, 'properties': {
     'kind': {'enum': ['guidance', 'roadmap', 'tasks', 'clarification']},
-    'answer': dict(TEXT, maxLength=2000),
+    'answer': dict(TEXT, minLength=30, maxLength=2000,
+        description='A useful conversational introduction addressing the actual request, never just a role label.'),
     'assumptions': {'type': 'array', 'maxItems': 3, 'items': dict(TEXT, maxLength=240)},
     'questions': {'type': 'array', 'maxItems': 2, 'items': dict(TEXT, maxLength=240)},
     'stages': {'type': 'array', 'maxItems': 4, 'items': {'type': 'object', 'additionalProperties': False,
