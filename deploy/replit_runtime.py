@@ -5,6 +5,7 @@ published-filesystem fallback is provided. Deployment settings still need actual
 provider verification; environment declarations alone do not prove durability.
 """
 import importlib
+import json
 import os
 import re
 import signal
@@ -98,6 +99,8 @@ def serve(app, port):
         worker = threading.Thread(target=worker_main, name="minder-existing-worker", daemon=True)
         app.local_worker_thread = worker  # A's existing health liveness field.
         worker.start()
+        print(json.dumps(dict(event="minder_http_bound", host="0.0.0.0", port=port,
+                              existing_worker_running=worker.is_alive())), flush=True)
         def stop(signum, frame):
             stopping.set()
             threading.Thread(target=server.shutdown, daemon=True).start()
