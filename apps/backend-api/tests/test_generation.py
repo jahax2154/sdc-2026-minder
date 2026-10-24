@@ -80,8 +80,10 @@ class GenerationTests(AppCase):
         description='Pick a public tabular dataset, split it into training (80%) and test (20%) sets.'
         value['stages'][0]['tasks'][0]['description']=description
         self.assertEqual(validate_advice(value,[],[])['stages'][0]['tasks'][0]['description'],description)
+        value=advice(answer='For a proposed experiment, split the data into training (80%) and test (20%) sets.')
+        self.assertEqual(validate_advice(value,[],[])['answer'],value['answer'])
 
-    def test_percentage_exception_cannot_escape_task_recipe_or_cover_claims(self):
+    def test_percentage_exception_cannot_cover_unrelated_claims(self):
         for text in ['Split the data into train (80%) and test (30%) sets.',
                      'Split it into train (80%) and test (20%) sets.',
                      'Split the data into train (100%) and test (0%) sets.',
@@ -91,7 +93,7 @@ class GenerationTests(AppCase):
             value=advice();value['stages'][0]['tasks'][0]['description']=text
             with self.assertRaises(ValueError):validate_advice(value,[],[])
         for field in ('answer','stage_title','task_title'):
-            value=advice();text='Split the data into train (80%) and test (20%) sets.'
+            value=advice();text='This is a guaranteed 99% fit score for your career.'
             if field=='answer':value['answer']=text
             elif field=='stage_title':value['stages'][0]['title']='Guaranteed 99% fit'
             else:value['stages'][0]['tasks'][0]['title']='Guaranteed 99% fit'

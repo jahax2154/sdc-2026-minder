@@ -59,12 +59,15 @@ text (payload matching fields), never certified skill evidence. Use set_availabi
 for an explicit weekly study-hours change (payload.weekly_hours; null only reset).
 A conversational time statement alone is not a request to save it: offer advice or
 reviewable proposal. Availability affects pathway feasibility only, never role fit.
-For a proposed experiment only, use this exact practice-task format: 'Split the data
+For a proposed experiment only, use this exact format: 'Split the data
 into training (X%) and test (Y%) sets', with positive parts totaling100. Prefer a
 qualitative held-out portion when an allocation is unnecessary. These are
-suggested data allocations, not model accuracy, personal assessment or market facts.'''
+suggested data allocations, not model accuracy, personal assessment or market facts.
+For an English user message, write entirely in English. Keep answer to at most two
+short introductory sentences (prefer under240characters); put detailed steps in
+stages/tasks. Do not mix languages or repeat the whole roadmap in the introduction.'''
 
-PRACTICE_GUARD_POLICY = 'proposed-data-partition-guard-v1.1'
+PRACTICE_GUARD_POLICY = 'proposed-data-partition-guard-v1.2'
 DATA_PARTITION = re.compile(
     r'\b(?:split|partition)\s+(?P<data>(?:[\w\s\-]{0,80})\bdata(?:sets?)?|it|them)\s+into\s+'
     r'train(?:ing)?\s*\((?P<train>\d+(?:\.\d+)?)\s*%\)\s+and\s+'
@@ -132,10 +135,11 @@ def validate_advice(value, facts, tasks, message=None, *, allow_incomplete=False
         raise ValueError('unknown_task_reference')
     # Schema excludes numerical rankings. Reject obvious external quantitative
     # assertions and URLs; general advice remains model content, not source-certified.
-    prose = ' '.join([value['answer']] + value['assumptions'] + value['questions'] +
+    prose = ' '.join(guard_practice_description(text) for text in
+        [value['answer']] + value['assumptions'] + value['questions'] +
         [text for s in value['stages'] for text in (s['title'], s['outcome'])] +
         [text for s in value['stages'] for t in s['tasks']
-         for text in (t['title'], guard_practice_description(t['description']))])
+         for text in (t['title'], t['description'])])
     if re.search(r'https?://|\b(?:RM|MYR)\s*\d|\d\s*%|\b(?:fit|readiness|replacement|demand)\s*(?:score|probability)\b', prose, re.I):
         raise ValueError('unsupported_external_or_scoring_claim')
     if re.search(r'\b\d[\d,]*(?:\.\d+)?\s+(?:jobs?|vacancies|openings|employers|ads)\b', prose, re.I):
@@ -245,6 +249,7 @@ def generate(app, owner, message, expected_profile_version, *, history=(), reque
         validation_code=str(error) if isinstance(error,ValueError) and str(error) in allowed_codes else 'guidance_schema_or_shape_mismatch'
         provider_result = dict(status='unavailable', code='generated_guidance_validation_failed',
                               validation_code=validation_code, invoked=True)
+    provider_result['guidance_validation_policy'] = PRACTICE_GUARD_POLICY
     provider_ms = round((time.perf_counter()-provider_started)*1000, 3)
     identifier = uid()
     if generated is None:
