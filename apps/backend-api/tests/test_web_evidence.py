@@ -27,6 +27,19 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_compact_public_context_retains_quote_mapping_dates_scope_without_duplicate_quotes_or_urls(self):
+        from minder_app.web_evidence import model_sources,quote_index
+        source=dict(SOURCE,observation_period='2026-08')
+        compact=model_sources([source])
+        self.assertEqual(list(compact[0]['passages']),list(quote_index([source])))
+        self.assertEqual(compact[0]['passages']['q1'],SOURCE['passage'])
+        self.assertEqual(compact[0]['observation_period'],'2026-08')
+        self.assertEqual(compact[0]['scope'],SOURCE['scope'])
+        self.assertNotIn(SOURCE['url'],json.dumps(compact))
+        self.assertNotIn(SOURCE['id'],json.dumps(compact))
+        short_first=dict(source,passage='Skills\n'+SOURCE['passage'])
+        self.assertEqual(model_sources([short_first])[0]['passages']['q1'],SOURCE['passage'])
+
     def test_undated_description_cannot_become_current_trend_but_dated_observation_can(self):
         from minder_app.web_evidence import partial_findings
         candidate=dict(introduction='Here is what the retrieved evidence establishes.',findings=[
