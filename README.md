@@ -18,7 +18,7 @@ Minder is an AI-assisted career exploration and personalised reskilling platform
 | GitHub Repository | https://github.com/jahax2154/sdc-2026-minder |
 | Live Demo | https://aesthetic-baklava-2da854.netlify.app |
 | RunPod Endpoint | https://console.runpod.io/serverless/user/endpoint/0387furb08gke2 |
-| Slide Deck | [slide link](https://canva.link/fhs6w1hyf2bygyl) |
+| Slide Deck | https://canva.link/67te6g9azdjgt61 |
 | Demo Video | https://youtu.be/l9xjHBjcycM |
 
 ## Overview
