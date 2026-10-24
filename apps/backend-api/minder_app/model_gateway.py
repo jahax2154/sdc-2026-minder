@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import re
+import tempfile
 import time
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -26,6 +27,15 @@ COMPLETION_LIMIT = 950
 HEADERS = ('retry-after','x-ratelimit-limit-requests','x-ratelimit-limit-tokens',
     'x-ratelimit-remaining-requests','x-ratelimit-remaining-tokens',
     'x-ratelimit-reset-requests','x-ratelimit-reset-tokens')
+
+
+def coordination_directory():
+    explicit=os.environ.get('MINDER_PROVIDER_COORDINATION_DIR')
+    if explicit:return Path(explicit)
+    # Preserve the existing macOS lane group; Linux/Replit uses its real writable
+    # temp directory rather than attempting to create a privileged /private root.
+    root=Path('/private/tmp') if os.path.isdir('/private/tmp') else Path(tempfile.gettempdir())
+    return root/('minder-provider-coordination-'+str(os.getuid()))
 
 
 def duration(value):
@@ -54,8 +64,7 @@ class CoordinatedGroq(GroqAdapter):
         self.transport=opener
         self.opener=self._open
         self.max_wait=max(0,min(20,max_wait))
-        root=Path(coordination_dir or os.environ.get('MINDER_PROVIDER_COORDINATION_DIR',
-            '/private/tmp/minder-provider-coordination-'+str(os.getuid())))
+        root=Path(coordination_dir) if coordination_dir is not None else coordination_directory()
         root.mkdir(parents=True,exist_ok=True,mode=0o700)
         # Same team/model quota group, independent of key spelling. No key hash
         # or credential is written. Operators can separate unrelated accounts.

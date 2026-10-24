@@ -8,7 +8,7 @@ import time
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 from urllib.error import HTTPError
-from minder_app.model_gateway import CoordinatedGroq, QuotaError, duration
+from minder_app.model_gateway import CoordinatedGroq, QuotaError, duration, coordination_directory
 
 
 class Response(io.BytesIO):
@@ -23,6 +23,14 @@ def response():
 
 
 class GatewayTests(unittest.TestCase):
+    def test_linux_uses_writable_temp_and_macos_preserves_existing_group(self):
+        from unittest.mock import patch
+        with patch.dict('os.environ',{},clear=True),patch('os.getuid',return_value=123):
+            with patch('os.path.isdir',return_value=False),patch('tempfile.gettempdir',return_value='/tmp'):
+                self.assertEqual(str(coordination_directory()),'/tmp/minder-provider-coordination-123')
+            with patch('os.path.isdir',return_value=True):
+                self.assertEqual(str(coordination_directory()),'/private/tmp/minder-provider-coordination-123')
+
     def test_local_completion_reservation_queues_before_any_outbound_call(self):
         calls=[]
         with tempfile.TemporaryDirectory() as root:
