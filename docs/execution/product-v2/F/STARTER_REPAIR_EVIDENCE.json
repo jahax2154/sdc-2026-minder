@@ -1,0 +1,229 @@
+{
+  "repair": "F-STARTER-R01",
+  "backend_dependency": "42062878914c168752ae058cd4d4f09a37f9b26c",
+  "ancestry": "normal fast-forward preserves62fb94f and all prior F history",
+  "journey": {
+    "fresh_real_browser": true,
+    "normal_onboarding_only": true,
+    "no_seeded_competency_evidence": true,
+    "no_mock_recommendations": true,
+    "no_manual_database_edits": true,
+    "base": "http://127.0.0.1:9106",
+    "backend_revision": "42062878914c168752ae058cd4d4f09a37f9b26c",
+    "onboarding": {
+      "profile_version": "1a997db2-5831-4c99-a0c8-3ee0c2be3bc1",
+      "evidence_count": 0,
+      "CV_uploaded": false,
+      "stage": "studying",
+      "context": "Computer science student",
+      "experience_state": "none_yet",
+      "weekly_hours": 3
+    },
+    "starter_request": {
+      "path": "/api/product/starter-recommendations",
+      "method": "POST",
+      "body": {
+        "limit": 5
+      }
+    },
+    "starter": {
+      "status": "provisional",
+      "policy": "starter-exploration-v1",
+      "profile_version": "1a997db2-5831-4c99-a0c8-3ee0c2be3bc1",
+      "coverage": {
+        "supported_considered": 910,
+        "after_explicit_restrictions": 910,
+        "returned": 5,
+        "assessed_personal_scores": 0,
+        "returned_with_supported_market_comparison": 0
+      },
+      "rendered_cards": [
+        "Software Developers",
+        "Network and Computer Systems Administrators",
+        "Software Quality Assurance Analysts and Testers",
+        "Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors",
+        "Computer Programmers"
+      ],
+      "personal_assessment": null
+    },
+    "selected": {
+      "role_id": "onet:15-1252.00",
+      "label": "Software Developers",
+      "direction_version": "34fddbd3-23de-4fce-9d07-7b6cc185e564"
+    },
+    "provider_status_before_call": {
+      "configured": true,
+      "coordinated": true,
+      "observed_status": 200,
+      "retry_after_seconds": 0
+    },
+    "generation": {
+      "elapsed_ms": 1525,
+      "status": "completed",
+      "mode": "generated_guidance",
+      "provider": {
+        "coordination_policy": "groq-shared-quota-v1",
+        "generation_protocol": "minder-typed-guidance-v1",
+        "guidance_validation_policy": "proposed-data-partition-guard-v1.2",
+        "invoked": true,
+        "model": "qwen/qwen3.8-27b",
+        "queue_ms": 0.293,
+        "quota_header_scope": {
+          "requests": "requests_per_day",
+          "tokens": "tokens_per_minute"
+        },
+        "quota_headers": {
+          "x-ratelimit-limit-requests": "1000",
+          "x-ratelimit-limit-tokens": "8000",
+          "x-ratelimit-remaining-requests": "997",
+          "x-ratelimit-remaining-tokens": "5750",
+          "x-ratelimit-reset-requests": "4m19.2s",
+          "x-ratelimit-reset-tokens": "16.875s"
+        },
+        "request_id": "req_01m5q7nm7bee8vyy8m9xbmxdwk",
+        "status": "available",
+        "tool_call": {
+          "arguments_validated": true,
+          "id": "5fd6sgk9j",
+          "name": "propose_guidance"
+        },
+        "transport_attempts": 1,
+        "usage": {
+          "completion_tokens": 382,
+          "prompt_tokens": 2014,
+          "total_tokens": 2396
+        }
+      },
+      "stages": 2
+    },
+    "accepted_plan": {
+      "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9",
+      "selected_role_id": "onet:15-1252.00",
+      "task_ids": [
+        "86f4023e-6df3-54da-ae4d-2c74998b5218",
+        "c36f4bb9-bb9b-5faa-8cc3-711183fb1b10"
+      ],
+      "explicit_save_and_separate_activation": true
+    },
+    "views": [
+      {
+        "tab": "skills",
+        "heading": "Skills for Software Developers",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9"
+      },
+      {
+        "tab": "next",
+        "heading": "Make your next step count",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9"
+      },
+      {
+        "tab": "roadmap",
+        "heading": "Your path to Software Developers",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9"
+      },
+      {
+        "tab": "progress",
+        "heading": "See what your work adds up to",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9"
+      }
+    ],
+    "completion": {
+      "endpoint": "/api/product/task-action",
+      "request": {
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9",
+        "task_id": "86f4023e-6df3-54da-ae4d-2c74998b5218",
+        "operation": "complete",
+        "expected_state_version": "0e6c1985-6d16-4d8b-8b7d-b0c064cd9b88",
+        "idempotency_key": "5e3190da-2a00-48dc-b87c-68430189ff86"
+      },
+      "before": {
+        "status": "available",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9",
+        "state_version": "0e6c1985-6d16-4d8b-8b7d-b0c064cd9b88",
+        "completed_count": 0,
+        "eligible_count": 2,
+        "cancelled_count": 0,
+        "fraction": 0,
+        "observed_at": "2026-10-24T15:15:06.476882Z",
+        "denominator": "All non-cancelled tasks in the explicitly selected active plan, each task once. Prerequisite links are dependencies, not parent/child rollups. Activity only, not skill readiness."
+      },
+      "after": {
+        "status": "available",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9",
+        "state_version": "a7d13242-b6d4-45ae-9199-e19feb232ef8",
+        "completed_count": 1,
+        "eligible_count": 2,
+        "cancelled_count": 0,
+        "fraction": 0.5,
+        "observed_at": "2026-10-24T15:15:06.625832Z",
+        "denominator": "All non-cancelled tasks in the explicitly selected active plan, each task once. Prerequisite links are dependencies, not parent/child rollups. Activity only, not skill readiness."
+      },
+      "after_refresh": {
+        "status": "available",
+        "plan_id": "b949a39e-488e-4e11-b834-6b66a2daf8e9",
+        "state_version": "a7d13242-b6d4-45ae-9199-e19feb232ef8",
+        "completed_count": 1,
+        "eligible_count": 2,
+        "cancelled_count": 0,
+        "fraction": 0.5,
+        "observed_at": "2026-10-24T15:15:06.709115Z",
+        "denominator": "All non-cancelled tasks in the explicitly selected active plan, each task once. Prerequisite links are dependencies, not parent/child rollups. Activity only, not skill readiness."
+      }
+    },
+    "provider_calls": 1,
+    "assessed_matching_calls": 0,
+    "no_evidence_created": true,
+    "page_errors": []
+  },
+  "transport_recovery": {
+    "real_normal_ui_intake": true,
+    "evidence_count": 0,
+    "actual_recommendations_not_mocked": true,
+    "controlled_network_failures": true,
+    "optional_market_context_failure_preserves_5_starter_cards": true,
+    "choice_persists_despite_optional_context_failure": true,
+    "independent_my_path_read_and_generation_control": true,
+    "starter_failure_has_explicit_local_retry": true,
+    "catalogue_failure_does_not_hide_cards": true,
+    "model_calls": 0,
+    "page_errors": []
+  },
+  "artifacts_local_only": [
+    {
+      "path": "/private/tmp/minder-f-starter/starter-journey.json",
+      "bytes": 16279,
+      "sha256": "037eeb5674efb8527e7c9f39857a4b3b033d89e91e5b9fc29a34dba772efaaef"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/actual-starter-response.json",
+      "bytes": 191629,
+      "sha256": "67c17a4f7a55b893d58ef98cbd126dbe1bf46e2898699f0f8a2116797212f299"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/actual-accepted-plan.json",
+      "bytes": 1720,
+      "sha256": "c448a4aa9a2223656e79061a89dc4921bca4f457b29eca3445bfde1534371297"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/starter-cards.png",
+      "bytes": 121457,
+      "sha256": "ce887a9f3281c00b098a154fd95088dc6d424346648d2f9bb26c2f0d75600afd"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/starter-plan-progress.png",
+      "bytes": 81735,
+      "sha256": "1e60fc54c2aaf842a9cfa0e7574bda7f657430305f1730b8451dc877c022d425"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/recovery/starter-recovery.json",
+      "bytes": 472,
+      "sha256": "c9d478638af99d8a730d592b146149b34942ce0cfb8130ddf6595db8e5685605"
+    },
+    {
+      "path": "/private/tmp/minder-f-starter/recovery/starter-recovery.png",
+      "bytes": 75652,
+      "sha256": "7628ae8872a299750818b7a3c1cc61c8882dcaba09c63f59c70d39b03c129f09"
+    }
+  ],
+  "scope": "starter recommendation integration; not hosted Clerk/deployment or complete cross-chat/live-web acceptance"
+}
