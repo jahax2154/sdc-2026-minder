@@ -12,6 +12,20 @@ ENV=dict(MINDER_ENV='production',MINDER_AUTH_MODE='managed',MINDER_AUTH_PROVIDER
 
 
 class ReplitFactoryTests(unittest.TestCase):
+    def test_d_environment_export_and_managed_marker_are_supported(self):
+        from unittest.mock import Mock
+        with tempfile.TemporaryDirectory() as root:
+            store=Store(Path(root)/'declared-environment-fixture.sqlite3')
+            store.engine='postgresql';store.persistence_mode='managed-postgresql'
+            configured=Mock(return_value=store)
+            module=SimpleNamespace(PostgresStore=SimpleNamespace(from_environment=configured))
+            library=SimpleNamespace(store=store,backend=lambda:SimpleNamespace(mode='replit-app-storage'))
+            with patch.dict('os.environ',ENV,clear=True),patch.dict('sys.modules',{'minder_app.postgres_store':module}),\
+                    patch('minder_app.config.load_provider_config',return_value=SimpleNamespace(api_key='',model=MODEL,daily_limit=20)):
+                app=build_replit(document_library=library)
+            configured.assert_called_once_with()
+            self.assertIs(app.store,store)
+
     def test_d_export_receives_server_url_and_schema_without_path_conversion(self):
         with tempfile.TemporaryDirectory() as root:
             store=Store(Path(root)/'declared-constructor-fixture.sqlite3')

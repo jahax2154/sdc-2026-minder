@@ -97,3 +97,13 @@ production DB/bucket/Clerk origin/access, resource budget and imported source SH
 A integrates ONLY exact committed D/E/F handoffs and performs the new fresh-account
 browser journey. Final publish-candidate approval/deployed URL follows those results;
 4206287 is a porting base and does not waive the missing frontend/durable-state gate.
+
+## A-N6.1-R01 compatibility refinement
+
+E subsequently reports D's from_environment()/managed-postgresql form. The actual
+A hook prefers PostgresStore.from_environment() when callable and otherwise uses
+the explicit DATABASE_URL/schema constructor documented above. Both explicit
+persistence markers postgresql and managed-postgresql are accepted, always with
+engine postgresql and the private same-store document backend. See
+A_N6_1_R01_D_EXPORT_COMPATIBILITY.md. This resolves the early engineering interface
+variation and does not substitute metadata for native PostgreSQL evidence.

@@ -141,12 +141,16 @@ def build_replit(*, store=None, document_library=None):
         except ModuleNotFoundError as error:
             if error.name != 'minder_app.postgres_store':raise
             raise RuntimeError('D_postgresql_store_handoff_not_integrated') from None
-        database_url = os.environ.get('DATABASE_URL')
-        if not database_url:
-            raise ValueError('replit_database_url_required')
-        store = PostgresStore(database_url,schema=os.environ.get('MINDER_DB_SCHEMA','minder'))
+        configured = getattr(PostgresStore,'from_environment',None)
+        if callable(configured):
+            store = configured()
+        else:
+            database_url = os.environ.get('DATABASE_URL')
+            if not database_url:
+                raise ValueError('replit_database_url_required')
+            store = PostgresStore(database_url,schema=os.environ.get('MINDER_DB_SCHEMA','minder'))
     if (getattr(store,'engine',None) != 'postgresql'
-            or getattr(store,'persistence_mode',None) != 'postgresql'):
+            or getattr(store,'persistence_mode',None) not in ('postgresql','managed-postgresql')):
         raise ValueError('D_managed_postgresql_store_required')
     from minder_app.config import load_provider_config
     config = load_provider_config()
