@@ -24,6 +24,11 @@ def settings(environ=None):
     database = Path(env.get("MINDER_DB_PATH", str(root / "minder/runtime.sqlite3"))).resolve()
     if not database.is_relative_to(root) or database == root:
         raise ValueError("hosted_database_must_be_inside_persistent_volume")
+    if env.get("MINDER_DOCUMENT_STORAGE") != "private-volume":
+        raise ValueError("hosted_private_document_volume_required")
+    documents = Path(env.get("MINDER_DOCUMENT_STORAGE_ROOT", str(database.parent / "documents"))).resolve()
+    if not documents.is_relative_to(root) or documents in (root, database):
+        raise ValueError("hosted_documents_must_be_inside_private_volume")
     if env.get("MINDER_AUTH_MODE") != "managed" or env.get("MINDER_AUTH_PROVIDER") != "clerk":
         raise ValueError("hosted_managed_identity_required")
     if env.get("GROQ_MODEL") != "qwen/qwen3.8-27b" or not env.get("GROQ_API_KEY"):

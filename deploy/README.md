@@ -130,11 +130,12 @@ Worker failure shuts down the service so the configured bounded provider restart
 policy can recover; logs contain status/code only. SIGTERM stops the polling loop
 and allows30seconds for the current bounded operation. No browser timer or Mac cron.
 
-Local actual worker checks pass: due daily notice without browser, persistent
+Local actual worker checks cover due daily notice without browser, persistent
 singleton message after Store reopen, duplicate tick no repeat, paused pending
-event suppressed, three failed attempts then terminal failure. Cancel/next-run/
-scope/catch-up depend on D's next automation contract and A orchestration; do not
-advertise those final semantics until committed and tested. A final hosted test must
+event suppression and bounded retries. D's canonical automation contract and A's
+worker integration also implement explicit cancel, saved schedule timezone,
+owned-plan scope, next_run/last_result and today-only catch-up. E's ME2-R01 record
+names the exact final integration checks and any remaining gaps. A hosted test must
 close all browsers, wait for one due check, reopen, see one result in the SAME
 conversation, pause/cancel another due check, retry/restart, and verify no action
 replay. No hosted daily automation evidence exists yet.

@@ -32,6 +32,7 @@ class CandidateTests(unittest.TestCase):
             settings({})
         env = dict(RAILWAY_VOLUME_MOUNT_PATH="/data", MINDER_DB_PATH="/data/minder/runtime.sqlite3",
                    MINDER_DATA_ROOT="/data", MINDER_ENV="production",
+                   MINDER_DOCUMENT_STORAGE="private-volume",
                    MINDER_AUTH_MODE="managed", MINDER_AUTH_PROVIDER="clerk", PORT="8080",
                    GROQ_MODEL="qwen/qwen3.8-27b", GROQ_API_KEY="test-only")
         with patch.object(Path, "is_mount", return_value=True):
@@ -40,6 +41,10 @@ class CandidateTests(unittest.TestCase):
                 settings(dict(env, MINDER_DB_PATH="/tmp/runtime.sqlite3"))
             with self.assertRaises(ValueError):
                 settings(dict(env, MINDER_AUTH_MODE="anonymous"))
+            with self.assertRaises(ValueError):
+                settings(dict(env, MINDER_DOCUMENT_STORAGE="disabled"))
+            with self.assertRaises(ValueError):
+                settings(dict(env, MINDER_DOCUMENT_STORAGE_ROOT="/tmp/public"))
         with patch.object(Path, "is_mount", return_value=False):
             with self.assertRaises(ValueError):
                 settings(env)
