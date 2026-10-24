@@ -11,7 +11,7 @@ let selectedRole=sessionStorage.getItem('minder-product-role')||'';
 const labels={overview:'Overview',profile:'My profile',minder:'Minder Chat',mindbots:'MindBot','career-match':'Career Match',tasks:'Tasks',progress:'Progress',roadmap:'Roadmap & Skills',news:'News & Trends',future:'Future Explorer'};
 async function render(){
   if(!authenticated())return showSignIn();
-  if(navigationPending)return;const leaving=activeContext;if(leaving?.beforeLeave){navigationPending=true;let allowed;try{allowed=await leaving.beforeLeave();}finally{navigationPending=false;}if(!allowed){window.history.replaceState(null,'',leaving.routeHash);return;}}
+  if(navigationPending)return;const leaving=activeContext;if(leaving?.beforeLeave){navigationPending=true;let allowed;try{allowed=await leaving.beforeLeave();}finally{navigationPending=false;}if(leaving!==activeContext||!authenticated())return;if(!allowed){window.history.replaceState(null,'',leaving.routeHash);return;}}
   const current=++generation;routeController?.abort();routeController=new AbortController();
   document.querySelectorAll('.sidebar,.topbar,.chat-page .content-col').forEach(n=>n.inert=false);
   const stage=document.createElement('main');stage.id='view';stage.className='page-main product-page';stage.setAttribute('aria-busy','true');view.replaceWith(stage);view=stage;
@@ -33,7 +33,7 @@ async function render(){
   finally{if(ctx.isCurrent()){stage.setAttribute('aria-busy','false');stage.dataset.rendered=page;}}
 }
 window.addEventListener('minder-auth-lost',event=>{activeContext?.failAuth(event.detail);clearIdentity();showSignIn('Your session is no longer authorized. Sign in again to continue.');});
-window.addEventListener('minder-private-clear',()=>{generation++;routeController?.abort();invalidateConversation();activeContext=null;selectedRole='';window.history.replaceState(null,'','#minder');document.querySelector('#globalNewChat').hidden=true;for(const name of ['minder-product-role','minder-product-search','minder-product-document-deletes'])sessionStorage.removeItem(name);document.querySelector('#proposalBadge').hidden=true;document.querySelector('.account-name').textContent='Your workspace';document.querySelector('#accountOptions')?.setAttribute('hidden','');document.querySelector('#error').hidden=true;document.querySelector('#appToast').classList.remove('show');view.innerHTML='';});
+window.addEventListener('minder-private-clear',()=>{generation++;routeController?.abort();invalidateConversation();activeContext=null;navigationPending=false;selectedRole='';window.history.replaceState(null,'','#minder');document.querySelector('#globalNewChat').hidden=true;for(const name of ['minder-product-role','minder-product-search','minder-product-document-deletes'])sessionStorage.removeItem(name);document.querySelector('#proposalBadge').hidden=true;document.querySelector('.account-name').textContent='Your workspace';document.querySelector('#accountOptions')?.setAttribute('hidden','');document.querySelector('#error').hidden=true;document.querySelector('#appToast').classList.remove('show');view.innerHTML='';});
 window.addEventListener('minder-auth-changed',()=>start());
 window.addEventListener('minder-signed-out',()=>showSignIn('You have signed out.'));
 const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.setAttribute('aria-controls','workspaceNav');menu.setAttribute('aria-expanded','false');menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);

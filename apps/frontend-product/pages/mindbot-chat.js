@@ -2,6 +2,7 @@ import {key} from '../client.js';
 import {history,sendTurn} from '../conversations.js';
 import {messageMarkup} from '../chat-renderer.js';
 import {esc} from '../ui.js';
+import {bindDraftReviews} from '../plan-drafts.js';
 export async function mindbotChat(ctx){
  const root=ctx.view,form=root.querySelector('#botComposer'),input=root.querySelector('#botInput'),welcome=root.querySelector('#botWelcome'),scroll=root.querySelector('#botScroll');
  welcome.insertAdjacentHTML('beforebegin','<div class="chat-history-status" id="botConversationStatus" role="status"></div><div class="chat-thread" id="botThread" aria-live="polite"></div>');
@@ -9,7 +10,7 @@ export async function mindbotChat(ctx){
  const thread=root.querySelector('#botThread'),status=root.querySelector('#botConversationStatus'),stop=root.querySelector('#stopBotWaiting');
  let conversation=null,messages=[],pending=null,uncertain=null,loading=true;
  const valid=()=>ctx.isCurrent();
- function paint(){if(!valid())return;thread.innerHTML=messageMarkup(messages)+(pending?'<div class="thinking-row" role="status"><span class="spinner"></span><span>Working…</span></div>':'');welcome.classList.toggle('hide',messages.length>0);input.disabled=loading||!!pending;form.querySelector('[type=submit]').disabled=loading||!!pending;stop.classList.toggle('hide',!pending);scroll.scrollTop=scroll.scrollHeight;}
+ function paint(){if(!valid())return;thread.innerHTML=messageMarkup(messages)+(pending?'<div class="thinking-row" role="status"><span class="spinner"></span><span>Working…</span></div>':'');bindDraftReviews(ctx,thread);welcome.classList.toggle('hide',messages.length>0);input.disabled=loading||!!pending;form.querySelector('[type=submit]').disabled=loading||!!pending;stop.classList.toggle('hide',!pending);scroll.scrollTop=scroll.scrollHeight;}
  async function reload(){loading=true;paint();status.textContent='Loading your Mindbot history…';try{const saved=await history('mindbot',null,{signal:ctx.signal});if(!valid())return;conversation=saved.conversation;messages=saved.messages;status.textContent=saved.pending_turns.length?'An earlier request is processing or uncertain. Refresh history before another instruction.':'';if(uncertain&&messages.some((m,i)=>m.role==='user'&&m.content===uncertain.message&&messages[i+1]?.role==='assistant'))uncertain=null;}catch(e){if(!valid()||e.code==='request_cancelled')return;status.innerHTML=`${esc(e.message)} <button class="button-outline" id="retryBotConversation">Retry history</button>`;status.querySelector('#retryBotConversation').onclick=reload;}finally{if(valid()){loading=false;paint();}}}
  async function send(message,exact=null){
   if(pending||loading||!message.trim())return;
@@ -24,7 +25,7 @@ export async function mindbotChat(ctx){
    const result=await sendTurn(body,{signal:request.controller.signal});if(!valid())return;uncertain=null;
    const saved=await history('mindbot',null,{signal:request.controller.signal});if(!valid())return;messages=saved.messages;
    status.textContent=['processing','uncertain'].includes(result.turn.status)?'The server has not confirmed a final outcome. Refresh history; this instruction was not replayed.':result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
-   window.dispatchEvent(new Event('minder-mindbot-result'));
+   await ctx.refreshProfile();await ctx.onBotResult?.();
   }catch(e){if(!valid())return;input.value=message;status.textContent=e.message+' The request was not automatically retried.';if(body&&(!e.status||e.status>=500)){uncertain=body;addRetry();}}
   finally{ctx.signal.removeEventListener('abort',abort);if(pending===request)pending=null;paint();}
  }

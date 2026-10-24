@@ -65,11 +65,13 @@ class IntegratedTurnTests(AppCase):
         from minder_app.generation_schemas import POLICY_ID
         from minder_ml.intelligence.app_context import CareerServices
         profile=self.save();owner=profile['profile_id']
-        self.app.services=CareerServices(roles=[dict(role_id='test-supported',eligibility='eligible')])
+        from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
+        role=OccupationalCatalogue().role('onet:15-1252.00')
+        self.app.services=CareerServices(roles=[role])
         generation=dict(policy_version=POLICY_ID,draft_id='synthetic-generation',status='unsaved_draft',
             profile_version=profile['version'],advice=advice())
-        first=materialize(self.app,owner,generation,'test-supported')
-        second=materialize(self.app,owner,generation,'test-supported')
+        first=materialize(self.app,owner,generation,role['role_id'])
+        second=materialize(self.app,owner,generation,role['role_id'])
         self.assertEqual(first,second)
         self.assertTrue(all(t['state']=='proposed' and not t['mastery_verified'] and not t['activity_completion']
                             and not t['evidence_ids'] and t['scheduled_at'] is None for t in first['tasks']))
@@ -158,3 +160,68 @@ class IntegratedTurnTests(AppCase):
         worker.analyse=cancel_during
         self.assertEqual(worker.tick(at,owner=owner)['status'],'cancelled')
         self.assertFalse(Conversations(self.store).mindbot(owner)['messages'])
+
+    def test_daily_automation_direct_and_proposed_share_validated_executor(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn
+        owner=self.session['profile_id']
+        message='Please create a daily check at 09:00'
+        op=dict(kind='configure_automation',task_id=None,scheduled_at=None,instruction_quote=message,
+            payload=dict(automation_state='active',check_time='09:00'))
+        self.app.provider=AdviceProvider(advice(operation=op))
+        created=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=None,idempotency_key='daily-create'))
+        self.assertEqual(created['action_status'],'applied')
+        saved=self.store.get(owner,'agent_settings',owner)
+        self.assertEqual(saved['check_time'],'09:00');self.assertEqual(saved['state'],'active')
+        message='It might be better to pause this daily check.'
+        op=dict(kind='configure_automation',task_id=None,scheduled_at=None,instruction_quote=None,
+            payload=dict(automation_state='paused'))
+        self.app.provider=AdviceProvider(advice(operation=op))
+        suggested=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=None,idempotency_key='daily-suggest'))
+        self.assertEqual(suggested['action_status'],'approval_required')
+        self.assertEqual(self.store.get(owner,'agent_settings',owner),saved)
+        self.assertEqual(len(self.app.actions.history(owner)),1)
+        preview=suggested['actions'][0]
+        approved=self.app.actions.decide(owner,preview['preview']['proposal_id'],'approve',preview['preview_hash'],saved['version'])
+        self.assertEqual(approved['target']['state'],'paused')
+        for name in ('active','cancelled'):
+            message='Please '+('resume' if name=='active' else 'cancel')+' this daily check'
+            op=dict(kind='configure_automation',task_id=None,scheduled_at=None,instruction_quote=message,payload=dict(automation_state=name))
+            self.app.provider=AdviceProvider(advice(operation=op))
+            result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=None,idempotency_key='daily-'+name))
+            self.assertEqual(result['action_status'],'applied')
+            self.assertEqual(self.store.get(owner,'agent_settings',owner)['state'],name)
+
+    def test_failed_daily_run_updates_real_last_result(self):
+        from minder_app.automation_state import save_automation_settings
+        owner=self.save()['profile_id'];at=datetime(2026,10,26,1,tzinfo=timezone.utc)
+        save_automation_settings(self.store,owner,dict(check_time='09:00',state='active'),None,at=at-timedelta(minutes=2))
+        worker=Worker(self.store,self.app.actions)
+        def failure(*args):raise RuntimeError('software failure, never print private content')
+        worker.analyse=failure
+        for expected in ('retry','retry','failed'):
+            self.assertEqual(worker.tick(at,owner=owner)['status'],expected)
+            self.assertEqual(self.store.get(owner,'agent_settings',owner)['last_result']['status'],expected)
+        self.assertFalse(Conversations(self.store).mindbot(owner)['messages'])
+
+    def test_profile_and_plan_edits_during_provider_do_not_widen_authority(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn
+        from minder_app.plans import save_plan
+        plan,_=self.setup_request();owner=self.profile['profile_id']
+        op=dict(kind='complete_task',task_id='synthetic-task',scheduled_at=None,instruction_quote='Please mark synthetic-task done')
+        outer=self
+        class RacingProvider(AdviceProvider):
+            def complete_tool(self,messages,tool):
+                current=outer.store.get(owner,'plan',plan['plan_id'])
+                current['tasks'][0]['title']='A concurrent real edit'
+                save_plan(outer.store,owner,current,current['state_version'])
+                return super().complete_tool(messages,tool)
+        self.app.provider=RacingProvider(advice(operation=op))
+        result=turn(self.app,owner,'mindbot','Please mark synthetic-task done',[],None,
+            dict(expected_profile_version=self.profile['version'],idempotency_key='race'))
+        self.assertEqual(result['action_status'],'not_applied');self.assertEqual(result['status'],'stale_state_version')
+        saved=self.store.get(owner,'plan',plan['plan_id'])
+        self.assertEqual(saved['tasks'][0]['state'],'scheduled')
+        self.assertEqual(saved['tasks'][0]['title'],'A concurrent real edit')
+        self.assertFalse(self.app.actions.history(owner))

@@ -149,8 +149,15 @@ class Worker:
             # Safe code only; no exception strings containing private source text.
             with self.store.transaction() as db:
                 status = "failed" if event["attempts"] + 1 >= 3 else "retry"
-                db.execute("UPDATE agent_events SET status=?,lease_until=NULL,result=? WHERE owner=? AND id=? AND lease_until=?",
+                updated=db.execute("UPDATE agent_events SET status=?,lease_until=NULL,result=? WHERE owner=? AND id=? AND lease_until=?",
                     (status, json.dumps({"code": "agent_analysis_failed"}), event["owner"], event["id"], event["lease"]))
+                if updated.rowcount and event['kind']=='daily_check':
+                    from .automation_state import record_automation_result
+                    record_automation_result(self.store,event['owner'],event['id'],db=db,at=at)
+                elif not updated.rowcount:
+                    current=db.execute('SELECT status FROM agent_events WHERE owner=? AND id=?',
+                                       (event['owner'],event['id'])).fetchone()
+                    return dict(status=current[0] if current else 'event_not_found')
             return dict(status=status, code="agent_analysis_failed")
 
     def analyse(self, event, at):

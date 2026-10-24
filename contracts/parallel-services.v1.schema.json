@@ -1877,14 +1877,6 @@
           "minLength": 1
         },
         "before": {
-          "type": [
-            "string",
-            "number",
-            "boolean",
-            "null"
-          ]
-        },
-        "after": {
           "anyOf": [
             {
               "type": [
@@ -1895,7 +1887,29 @@
               ]
             },
             {
-              "$ref": "#/$defs/Task"
+              "$ref": "#/$defs/AutomationScope"
+            }
+          ]
+        },
+        "after": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/Task"
+                }
+              ]
+            },
+            {
+              "$ref": "#/$defs/AutomationScope"
             }
           ]
         }
@@ -1923,7 +1937,8 @@
             "change_goal",
             "create_task",
             "edit_task",
-            "schedule_task"
+            "schedule_task",
+            "configure_automation"
           ]
         },
         "origin": {
@@ -2544,6 +2559,24 @@
         "passage_sha256",
         "source_record_refs"
       ]
+    },
+    "AutomationScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_ids"
+      ],
+      "properties": {
+        "plan_ids": {
+          "type": "array",
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     }
   },
   "oneOf": [
