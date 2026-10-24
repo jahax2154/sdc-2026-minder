@@ -65,11 +65,13 @@ class IntegratedTurnTests(AppCase):
         from minder_app.generation_schemas import POLICY_ID
         from minder_ml.intelligence.app_context import CareerServices
         profile=self.save();owner=profile['profile_id']
-        self.app.services=CareerServices(roles=[dict(role_id='test-supported',eligibility='eligible')])
+        from minder_ml.intelligence.catalogue_service import OccupationalCatalogue
+        role=OccupationalCatalogue().role('onet:15-1252.00')
+        self.app.services=CareerServices(roles=[role])
         generation=dict(policy_version=POLICY_ID,draft_id='synthetic-generation',status='unsaved_draft',
             profile_version=profile['version'],advice=advice())
-        first=materialize(self.app,owner,generation,'test-supported')
-        second=materialize(self.app,owner,generation,'test-supported')
+        first=materialize(self.app,owner,generation,role['role_id'])
+        second=materialize(self.app,owner,generation,role['role_id'])
         self.assertEqual(first,second)
         self.assertTrue(all(t['state']=='proposed' and not t['mastery_verified'] and not t['activity_completion']
                             and not t['evidence_ids'] and t['scheduled_at'] is None for t in first['tasks']))

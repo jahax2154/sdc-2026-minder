@@ -26,7 +26,7 @@ def materialize(app, owner, generation, role_id):
     if profile['version'] is None:
         raise AppError('save_partial_profile_before_accepting_plan')
     role = next((r for r in app.services.roles if r['role_id'] == role_id), None)
-    if role is None or role.get('eligibility') != 'eligible':
+    if role is None or role.get('eligibility') != 'supported':
         raise AppError('supported_selected_role_required')
     advice = validate_advice(generation['advice'], [], [])
     if advice['operation']['kind'] != 'none' or not advice['stages']:
