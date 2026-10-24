@@ -34,12 +34,14 @@ class ConversationTests(AppCase):
             Draft202012Validator(schema).validate(result)
 
     def test_partial_profile_and_followup_scope_owner_isolation(self):
-        self.app.provider = NoProvider()
+        from test_generation import AdviceProvider
+        self.app.provider = AdviceProvider()
         p = self.save()
         first = self.ask('I am a fresh graduate. Where should I start?', expected_profile_version=p['version'])
         follow = self.ask('What do you mean by that?', expected_profile_version=p['version'],
                           previous_context_id=first['conversation_context_id'])
-        self.assertIn('personally', follow['answer'])
+        self.assertEqual(follow['response_mode'], 'generated_guidance')
+        self.assertIn('held-out', follow['answer'])
         self.assertEqual(self.app.dispatch('GET', '/api/profile', {}, self.token), p)
         other = self.store.session()['token']
         with self.assertRaises(AppError) as error:

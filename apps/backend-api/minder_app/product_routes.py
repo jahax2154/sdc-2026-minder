@@ -24,6 +24,11 @@ for method, path in (('GET', 'documents'), ('POST', 'document-upload'),
                      ('POST', 'document-extract')):
     ROUTES[(method, '/api/product/' + path)] = 'documents'
 
+for method, path in (('GET', 'conversations'), ('POST', 'conversations'),
+                     ('GET', 'conversation'), ('POST', 'conversation'), ('DELETE', 'conversation'),
+                     ('GET', 'mindbot-conversation'), ('POST', 'conversation-turn')):
+    ROUTES[(method, '/api/product/' + path)] = 'conversations'
+
 DEFAULT_BODY_LIMIT = 131072
 MAX_DOCUMENT_BYTES = 1048576
 MAX_UPLOAD_BODY_LIMIT = 4 * ((MAX_DOCUMENT_BYTES + 2) // 3) + 4096
@@ -64,7 +69,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents') else 'E',
+            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))
