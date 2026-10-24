@@ -14,7 +14,9 @@ global.__minderCrossChat=async({page,browser,evidence,api})=>{
  const active=(await api(page,'product/direction')).direction,initial=(await api(page,'plans')).plans.find(p=>p.plan_id===active.plan_id);
  const task=initial.tasks.find(t=>t.state==='proposed');assert(task);
  const botBefore=await api(page,'product/mindbot-conversation');
- for(const [index,decision] of [[0,'reject'],[1,'approve']]){
+ const decisions=process.env.MINDER_APPROVAL_ONLY==='1'?[[0,'approve']]:[[0,'reject'],[1,'approve']];
+ if(process.env.MINDER_APPROVAL_ONLY==='1')trace.reused_rejection_checkpoint='A_N9_0_BROWSER_CORE_EVIDENCE.json';
+ for(const [index,decision] of decisions){
   await route(page,'minder');const before=await api(page,'plans'),audits=(await api(page,'action-history')).history.length;
   const message=`Please reschedule ${task.title} to 2026-12-03T15:00:00+08:00.`;
   const sent=await send(page,message),response=sent.value.response;
@@ -45,7 +47,7 @@ global.__minderCrossChat=async({page,browser,evidence,api})=>{
 global.__minderMarketAndRestart=async({browser,page,evidence,api})=>{
  trace.backend_revision??=evidence.backend_revision;trace.frontend_revision='0c74362344cc9a85044072b0b59085309f9744cf';
  const market=await browser.newPage({viewport:{width:1440,height:1000}});market.setDefaultTimeout(20000);
- const cases=['What are the market trends right now?', 'How is the software engineering job market now?', "What's the most relevant skills now to become a software engineer?"];const chosen=Number(process.env.MINDER_MARKET_CASE||0);const questions=chosen?cases.slice(chosen-1,chosen):cases;
+ const cases=['What are the market trends right now?', 'How is the software engineering job market now?', "What's the most relevant skills now to become a software engineer?"];const chosen=Number(process.env.MINDER_MARKET_CASE||0);const questions=process.env.MINDER_CORE_ONLY==='1'?[]:chosen?cases.slice(chosen-1,chosen):cases;
  try{
   await market.goto(base+'/#minder');await market.waitForFunction(()=>document.querySelector('#minderInput')&&!document.querySelector('#minderInput').disabled);
   assert.equal((await api(market,'plans')).plans.length,0);
@@ -83,11 +85,11 @@ global.__minderMarketAndRestart=async({browser,page,evidence,api})=>{
    assert(fs.existsSync(path.join(output,'restart-done.json')),'A-only restart was not signalled');
    await route(page,'my-path/progress');await page.reload();await page.waitForSelector('#pathBody');const progress=await api(page,'product/progress');assert.equal(progress.plan_id,trace.primary.plan_id);assert.equal(progress.completed_count,trace.primary.progress.completed_count);
    assert.equal((await api(page,'product/mindbot-conversation')).conversation.conversation_id,trace.primary.bot_conversation_id);assert.equal((await api(page,'product/mindbot-conversation')).messages.length,trace.primary.mindbot_messages);
-   const events=(await api(page,'product/minder-handoffs')).events;assert(events.some(e=>e.status==='approved'));assert(events.some(e=>e.status==='rejected'));
+   const events=(await api(page,'product/minder-handoffs')).events;assert(events.some(e=>e.status==='approved'));if(process.env.MINDER_APPROVAL_ONLY!=='1')assert(events.some(e=>e.status==='rejected'));
    await market.reload();await market.waitForFunction(()=>document.querySelector('#minderInput')&&!document.querySelector('#minderInput').disabled);assert.equal(await market.locator('#minderThread .assistant-answer').count(),questions.length);
-   trace.persistence={status:'passed',backend_revision:(await api(page,'health')).runtime_revision,same_plan:true,same_progress:true,same_singleton_and_notice_count:true,approved_rejected_proposals_retained:true,unprofiled_market_history_retained:true};
+   trace.persistence={status:'passed',backend_revision:(await api(page,'health')).runtime_revision,same_plan:true,same_progress:true,same_singleton_and_notice_count:true,approved_proposal_retained:true,rejected_case:process.env.MINDER_APPROVAL_ONLY==='1'?'reused actual prior checkpoint':'passed in this run',unprofiled_market_history_retained:true};
   }
- }catch(error){trace.additional_failure=error.message;}finally{trace.market_answer_gate=trace.market.length===questions.length&&trace.market.every(r=>r.status==='answered'&&r.direct_question_relevance_assertions_passed)&&!trace.additional_failure?'passed':'failed';write();await market.close();}
+ }catch(error){trace.additional_failure=error.message;}finally{trace.market_answer_gate=questions.length===0?'not_run_reused_separate_real_provider_evidence':trace.market.length===questions.length&&trace.market.every(r=>r.status==='answered'&&r.direct_question_relevance_assertions_passed)&&!trace.additional_failure?'passed':'failed';write();await market.close();}
 };
 
 const filename=path.join(root,'apps/frontend-product/tests/starter_journey.cjs');let source=fs.readFileSync(filename,'utf8');
@@ -105,4 +107,9 @@ if(process.env.MINDER_MARKET_ONLY==='1'){
   const until=Date.now()+Math.ceil(seconds*1000)+150;while(Date.now()<until)await page.waitForTimeout(Math.min(1000,until-Date.now()));
  }
  await global.__minderMarketAndRestart({browser,page,evidence:{backend_revision:health.runtime_revision},api});}finally{await browser.close();if(trace.market_answer_gate!=='passed')process.exitCode=2;}})().catch(error=>{trace.failure=error.message;write();process.exitCode=1;});
-}else{const compiled=new Module(filename,module);compiled.filename=filename;compiled.paths=Module._nodeModulePaths(path.dirname(filename));compiled._compile(source,filename);}
+}else{if(process.env.MINDER_ACCEPTANCE_START_AT){
+ const marker='(async()=>{const browser=await chromium.launch()';assert(source.includes(marker));
+ global.__minderAcceptanceWindow=async()=>{const target=Date.parse(process.env.MINDER_ACCEPTANCE_START_AT);assert(Number.isFinite(target));assert(target-Date.now()<=600000);trace.pre_journey_window={requested_at:process.env.MINDER_ACCEPTANCE_START_AT,scope:'Wait before starting the fresh-user journey; no artificial inter-turn pauses'};write();while(Date.now()<target)await new Promise(resolve=>setTimeout(resolve,Math.min(1000,target-Date.now())));};
+ source=source.replace(marker,'(async()=>{await global.__minderAcceptanceWindow();const browser=await chromium.launch()');
+ }
+ const compiled=new Module(filename,module);compiled.filename=filename;compiled.paths=Module._nodeModulePaths(path.dirname(filename));compiled._compile(source,filename);}
