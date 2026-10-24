@@ -23,16 +23,23 @@ Minder, touch Career Compass, merge/push main, introduce auth tenants or upgrade
 ## Actual progress
 
 Connector search resolved the exact supplied Minder project. Publish status found
-no deployment. Replit update request accepted the exact source-loading task; actual
-checkout/startup/storage/deployment results have not yet been returned.
+no deployment. Replit confirmed actual checkout on minder-integration-27bc760 at the exact
+implementation pin. Preserved config checkpoint4528209dd303a7de1b2961cda0f0331048fe3dbd
+on minder-pre-integration-4528209. Actual Python3.12 build,48dependencies,4data inputs
+and CPU XGBoost3.4.1 import passed. Three runtime guards and seven factory checks
+passed (factory harness required native-module preloading). App/frontend unchanged;
+bounded provider launcher diff still needs upstream review. Startup/publication
+not successful yet; production database/private bucket/VM setup is now explicitly
+requested within the already authorized existing allowance.
 
 Private local file remains ignored/untracked/owned0600. Both Clerk fields are
 present; public signing metadata was fetched and matches saved PEM. Authenticated
 key-pair preflight cannot send the current server key: UnicodeEncodeError, and
 safe inspection confirms CLERK_SECRET_KEY contains non-ASCII characters. No raw
-key, token, provider exception or private data was printed. User was given the
-single-field correction through private configuration, and deployment work proceeds
-independently. Existing remote Secrets may differ; inspect presence, never values.
+key, token, provider exception or private data was printed. User confirmed a corrected key saved; local recheck still finds non-ASCII and
+rejects before any provider request. Replit may hold a newer value; direct remote
+verification is pending the active storage operation. Deployment work continues
+independently; no repeated general preparation checklist is required. Existing remote Secrets may differ; inspect presence, never values.
 
 Bounded preflight refinement rejects non-ASCII/whitespace secrets before provider
 requests with a safe field-specific code.16 focused operator/runtime/Clerk checks
