@@ -112,3 +112,22 @@ class RoleDisplayTests(AppCase):
             self.assertIsNone(failed['forecast'])
             self.assertEqual(failed['forecast_error'], 'forecast_read_failed')
             self.assertNotIn('private error detail', str(failed))
+
+    def test_career_explanations_use_source_labels_without_changing_calculations(self):
+        profile = self.app.dispatch('PUT', '/api/profile', {'profile': {
+            'career_context': {'goals': 'Fictional software exploration'}}}, self.token)
+        context = self.services.career_context(profile, expected_profile_version=profile['version'],
+            selected_role_ids=[ROLE])
+        before = copy.deepcopy(context)
+        public = self.services.public_context(context)
+        self.assertEqual(context, before)
+        self.assertEqual(public['presentation_version'], 'career-explanations-v1')
+        text = ' '.join(s['text'] for s in public['statements'])
+        self.assertIn('Software Developers', text)
+        for internal in ['Integration mode:', 'local_source_services', ROLE]:
+            self.assertNotIn(internal, text)
+        forecasts = [s for s in public['statements'] if s.get('kind') == 'forecast']
+        self.assertEqual(len(forecasts), 1)
+        self.assertEqual(forecasts[0]['status'], 'unavailable')
+        self.assertEqual(forecasts[0]['period'], context['market'][1]['target_period'])
+        self.assertIn('not verified competence', text)

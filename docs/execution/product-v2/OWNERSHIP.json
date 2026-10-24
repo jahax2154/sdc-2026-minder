@@ -96,7 +96,8 @@
         "docs/Minder_Frontend_Final_Repair_and_Home_Gate.md",
         "docs/Minder_Home_Package/**",
         "apps/backend-api/minder_app/role_display.py",
-        "apps/backend-api/tests/test_role_display.py"
+        "apps/backend-api/tests/test_role_display.py",
+        "ml/src/minder_ml/intelligence/app_context.py"
       ],
       "forbidden": [
         "other lanes active files except committed integration",
@@ -247,5 +248,6 @@
     "status": "Active A bounded chat repair ownership; C original allowlist entry removed to enforce one writer"
   },
   "morning_r3": "Current user Revision3 supersedes older deferral/no-deploy text. D sole persistence/migration writer including Store; E auth/host wrapper; A central routes/model/actions; F entire frontend. New dependencies requested to A; no other working directory edits.",
-  "frontend_home_gate": "A imports approved sources and registers exact additive bot-preferences/search contracts; D alone implements persisted bot preferences/conversation search; F alone changes frontend shell/client/pages. No migration or another database required merely for display identity. Existing singleton/schedules/profile remain separate."
+  "frontend_home_gate": "A imports approved sources and registers exact additive bot-preferences/search contracts; D alone implements persisted bot preferences/conversation search; F alone changes frontend shell/client/pages. No migration or another database required merely for display identity. Existing singleton/schedules/profile remain separate.",
+  "career_explanations": "A integration transfer N01-R1 already reserves app_context.py in parallel ownership. Current bounded presentation-only repair retains C source grounder/provider and all numerical policies."
 }

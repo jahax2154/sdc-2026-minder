@@ -4,6 +4,8 @@ from urllib.parse import urlsplit
 from .service_contracts import public_recommendation, validate
 from .role_fit import POLICY_ID, MARKET_POLICY
 
+PRESENTATION_VERSION = 'career-explanations-v1'
+
 
 class CareerServices:
     def __init__(self, personal=None, market=None, roles=(), sources=(), *, mode="unavailable", skill_entity_ids=()):
@@ -47,13 +49,16 @@ class CareerServices:
                     market.append(item)
         elif result:
             market = result["internal"]["current_market"] + result["internal"]["forecast_market"]
-        return {"integration_mode": self.mode, "recommendation": result, "market": market,
+        labels = {'role': {r['role_id']: r['label'] for r in self.roles if r.get('label')},
+                  'skill': {key: value['label'] for key, value in
+                      getattr(self.personal, 'ref', {}).get('skill_rubrics', {}).items() if value.get('label')}}
+        return {"integration_mode": self.mode, "recommendation": result, "market": market, 'entity_labels': labels,
                 "selected_role_ids": selected_role_ids, "selected_skill_ids": selected_skill_ids,
                 "limitations": [] if result else ["Personal service not connected; assessment unavailable."],
                 "sources": self.sources}
 
     def public_context(self, context):
-        return dict(integration_mode=context["integration_mode"],
+        return dict(integration_mode=context["integration_mode"], presentation_version=PRESENTATION_VERSION,
                     recommendation=public_recommendation(context["recommendation"])
                     if context["recommendation"] else None,
                     assessment_details=[a for a in context['recommendation']['internal']['personal_assessments']
@@ -74,11 +79,13 @@ def grounded_statements(context):
     def add(text, ids=(), **metadata):
         statements.append(dict(id="fact-" + str(len(statements)), text=text,
             sources=[sources[x] for x in ids if x in sources], **metadata))
-    add("Provisional evidence-fit policy v3 uses anchored skill evidence and separate optional preferences. "
-        "Comparable current Malaysian observations affect backend ordering; forecasts are separate. "
-        "This is not verified competence or career accuracy.")
+    add("Recommendations use your described skill activities and separate optional interests. "
+        "Comparable current Malaysian observations also influence the order; future forecasts are separate. "
+        "This is a provisional assessment, not verified competence or a proven career prediction.")
     if context["integration_mode"] != "live":
-        add("Integration mode: " + context["integration_mode"] + "; these results are not live ML acceptance evidence.")
+        add("These results use recorded source observations with their original dates and scope. "
+            "Predictive accuracy has not been established." if context['integration_mode'] == 'local_source_services' else
+            "Some assessment services are unavailable. Only the evidence returned below can be considered.")
     result = context["recommendation"]
     if result:
         public = public_recommendation(result)
@@ -93,23 +100,25 @@ def grounded_statements(context):
         if selected is None:
             for group in public.get('ranking_groups', []):
                 explain_ids.update(group['role_ids'][:3])
-                add(group['group_id'] + ': ' + group['limitation'])
+                add(group.get('label', 'Career comparison group') + ': ' + group['limitation'])
             for question in public.get('targeted_questions', []):
                 add(question)
         for option in [o for o in public['options'] if o['role_id'] in explain_ids]:
-            add(option["role_id"] + ": " + option["explanation"], option["source_ids"],
+            add(context.get('entity_labels', {}).get('role', {}).get(option['role_id'], 'This career')
+                + ": " + option["explanation"], option["source_ids"],
                 kind="personal_assessment", score_status=option["score_status"],
                 personal_score=option["personal_score"], unknowns=option["unknowns"])
     else:
-        add("Personal assessment unavailable: the personal service is not connected.")
+        add("A personal assessment is not available. You can still explore careers and add supporting skill evidence.")
     for item in context.get("market", []):
         validate("MarketResult", item)
         prefix = ("Current observation" if item["kind"] == "current" else "Next-quarter forecast")
         period = item["observation_period"] if item["kind"] == "current" else item["target_period"]
-        label = prefix + " for " + item["entity_type"] + " " + item["entity_id"]
+        name = context.get('entity_labels', {}).get(item['entity_type'], {}).get(item['entity_id'])
+        label = prefix + (" for " + name if name else " for this " + item['entity_type'])
         if item["status"] == "unavailable" or any(x not in sources for x in item["source_ids"]):
-            add(label + " unavailable: " + ("; ".join(item["missing_reasons"]) or
-                "supporting source registry unavailable"), kind=item["kind"], status="unavailable",
+            add(label + " unavailable. " + (item.get('explanation') if item['status'] == 'unavailable'
+                and item.get('explanation') else 'A supporting source could not be verified.'), kind=item["kind"], status="unavailable",
                 period=period, issued_at=item["issued_at"])
         else:
             add(label + ": " + str(item["value"]) + " " + item["unit"] + ". "
@@ -119,7 +128,7 @@ def grounded_statements(context):
                 issued_at=item["issued_at"], source_universe_id=item["source_universe_id"],
                 model_version=item["model_version"], uncertainty=item["uncertainty"])
     if not context.get("market"):
-        add("Current market evidence not loaded for this view; select supported roles or typed skills.", kind="current", status="unavailable")
-        add("Next-quarter role and skill forecasts not loaded for this view; no forecast is inferred.",
+        add("Choose a career to review its available current market observations and their scope.", kind="current", status="unavailable")
+        add("No next-quarter forecast is available in this view. Current observations do not establish a future trend.",
             kind="forecast", status="unavailable")
     return statements
