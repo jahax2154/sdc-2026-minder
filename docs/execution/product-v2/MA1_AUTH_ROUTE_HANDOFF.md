@@ -31,3 +31,19 @@ backups, worker shared-volume access and restart survival; directory existence i
 NOT durability proof. Same provider/model/services/migrations/common auth boundary.
 Use existing ProductServer+web_app; no second framework/anonymous backend. Hosted
 credential server-only environment/secure loader, no local-file requirement.
+
+CSP refinement: configured exact CLERK_ISSUER origin permits ClerkJS6/UI1 scripts,
+API and frames; Cloudflare Turnstile exact script/frame origin and img.clerk.com
+images allowed only when configured. No wildcard/unsafe-eval/inline script. Optional
+MINDER_CLERK_ADDITIONAL_ORIGINS permits exact observed tenant Protect/telemetry HTTPS
+hosts only; no wildcard or arbitrary domain. Real hosted login must identify any
+remaining required origins from observed requests; do not falsely pass unavailable
+accounts. Official references checked24Oct2026:
+https://clerk.com/docs/js-frontend/getting-started/quickstart and
+https://clerk.com/docs/guides/secure/best-practices/csp-headers .
+
+Mounted factory refinement consumes D c24c100: Store(database,volume_root=durable_root)
+verifies actual mount on every connection. Hosted app.managed_identity_required=True
+is enforced independently of later environment drift. E app wrapper/worker uses that
+same app/store; local development capability cannot bypass it. This is fail-closed
+code and software evidence, not a claim of any Railway volume/account being available.

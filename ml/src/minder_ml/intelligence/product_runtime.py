@@ -110,6 +110,45 @@ class QuietHandler(WSGIRequestHandler):
         pass
 
 
+def content_security_policy():
+    """Exact configured identity origin; no wildcard or executable inline code."""
+    from minder_app.auth_adapter import AuthConfig
+    from minder_app.store import AppError
+    import os
+    from urllib.parse import urlsplit
+    scripts = ["'self'"]
+    connections = ["'self'"]
+    images = ["'self'", 'data:']
+    frames = ["'self'"]
+    try:
+        config = AuthConfig.from_env()
+    except AppError:
+        config = None
+    if config is not None:
+        origin = config.issuer.rstrip('/')
+        scripts += [origin, 'https://challenges.cloudflare.com']
+        connections += [origin, 'https://clerk-telemetry.com', 'https://img.clerk.com']
+        images += [origin, 'https://img.clerk.com']
+        frames += [origin, 'https://challenges.cloudflare.com']
+        # Clerk Protect can require instance-specific subdomains. Provision exact
+        # observed hosts only, rather than opening *.protect.clerk.com or all HTTPS.
+        for value in os.environ.get('MINDER_CLERK_ADDITIONAL_ORIGINS', '').split(','):
+            value = value.strip()
+            if not value:
+                continue
+            parsed = urlsplit(value)
+            if (parsed.scheme != 'https' or not parsed.hostname or parsed.path or parsed.query
+                    or parsed.fragment or parsed.username or parsed.password or parsed.port
+                    or '*' in value or not (parsed.hostname.endswith('.protect.clerk.com')
+                    or parsed.hostname.endswith('.clerk-telemetry.com'))):
+                raise ValueError('invalid_exact_clerk_origin')
+            scripts.append(value); connections.append(value); frames.append(value)
+    return ('default-src \'self\'; script-src ' + ' '.join(scripts) +
+        "; style-src 'self' 'unsafe-inline'; img-src " + ' '.join(images) +
+        '; connect-src ' + ' '.join(connections) + '; frame-src ' + ' '.join(frames) +
+        "; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")
+
+
 def web_app(app):
     frontend = (ROOT / 'apps/frontend-product').resolve()
     allowed = {'.html', '.js', '.css', '.svg', '.png', '.webp', '.jpg', '.jpeg', '.ico', '.woff', '.woff2'}
@@ -128,7 +167,7 @@ def web_app(app):
         raw = target.read_bytes()
         start_response('200 OK', [('Content-Type', mimetypes.guess_type(str(target))[0] or 'application/octet-stream'),
             ('Content-Length', str(len(raw))), ('Cache-Control', 'no-store'), ('X-Content-Type-Options', 'nosniff'),
-            ('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")])
+            ('Content-Security-Policy', content_security_policy())])
         return [raw]
     return serve
 

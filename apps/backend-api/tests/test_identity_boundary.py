@@ -22,3 +22,16 @@ class BoundaryTests(AppCase):
             self.assertEqual(e.exception.status,401)
             with self.assertRaises(AppError) as e:self.app.dispatch('GET','/api/profile',{},self.token)
             self.assertEqual(e.exception.status,503)
+
+    def test_csp_exact_identity_hosts_and_no_wildcard(self):
+        from types import SimpleNamespace
+        from minder_ml.intelligence.product_runtime import content_security_policy
+        with patch('minder_app.auth_adapter.AuthConfig.from_env',return_value=SimpleNamespace(issuer='https://synthetic.clerk.accounts.dev')):
+            with patch.dict(os.environ,{'MINDER_CLERK_ADDITIONAL_ORIGINS':'https://tenant.protect.clerk.com'}):
+                policy=content_security_policy()
+                self.assertIn('https://synthetic.clerk.accounts.dev',policy)
+                self.assertIn('https://tenant.protect.clerk.com',policy)
+                self.assertNotIn('*',policy)
+                self.assertNotIn('unsafe-eval',policy)
+            with patch.dict(os.environ,{'MINDER_CLERK_ADDITIONAL_ORIGINS':'https://*.protect.clerk.com'}):
+                with self.assertRaises(ValueError):content_security_policy()
