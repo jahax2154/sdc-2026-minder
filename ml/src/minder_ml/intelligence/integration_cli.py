@@ -83,7 +83,8 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
                               skill_entity_ids=[s['source_skill_id'] for s in market.mapping['skills']],
                               mode='local_source_services')
     services.role_reference = catalogue.reference
-    return Application(Store(database), services, provider if provider is not None else a_provider()), catalogue
+    store = Store(database, volume_root=allowed) if durable_root is not None else Store(database)
+    return Application(store, services, provider if provider is not None else a_provider()), catalogue
 
 
 def wsgi_request(app, method, path, body=None, token=''):
