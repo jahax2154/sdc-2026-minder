@@ -1,6 +1,7 @@
 import {api,key} from '../client.js';
 import {history,listConversations,createConversation,deleteConversation,sendTurn} from '../conversations.js';
 import {messageMarkup} from '../chat-renderer.js';
+import {bindDraftReviews} from '../plan-drafts.js';
 import {esc,facts,showError,bind} from '../ui.js';
 import {hydrateIcons,svg} from '../icons.js';
 // Transcripts are read from the server on every open; this state is presentation only.
@@ -34,7 +35,7 @@ export async function minder(ctx,conversationId='') {
     $('#minderWelcome').classList.toggle('hide',active);$('#minderActive').classList.toggle('hide',!active);
     thread.innerHTML=messageMarkup(state.messages)+(state.pending&&state.messages.at(-1)?.content!==state.pending.message?`<div class="user-message">${esc(state.pending.message)}</div>`:'')+(state.pending?'<div class="thinking-row" role="status"><span class="spinner"></span><span>Working…</span></div>':'');
     $('#minderComposer button[type=submit]').disabled=!!state.pending||state.loading;input.disabled=!!state.pending||state.loading;$('#minderNewSmall').disabled=!!state.pending||state.loading;
-    $('#cancelMinder').classList.toggle('hide',!state.pending);contextLayout();hydrateIcons(ctx.view);
+    $('#cancelMinder').classList.toggle('hide',!state.pending);bindDraftReviews(ctx,thread);contextLayout();hydrateIcons(ctx.view);
     ctx.view.querySelectorAll('[data-review-question]').forEach(b=>b.onclick=()=>{state.draft=state.messages[Number(b.dataset.reviewQuestion)].question;input.value=state.draft;input.focus();});
     scroll.scrollTop=toEnd?scroll.scrollHeight:oldTop;
   }
@@ -70,7 +71,7 @@ export async function minder(ctx,conversationId='') {
       state.uncertainBody=null;
       if(['processing','uncertain'].includes(result.turn.status)){$('#minderHistoryStatus').textContent='The server has not confirmed a final outcome. Refresh history; this instruction was not replayed.';}
       else $('#minderHistoryStatus').textContent=result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
-      const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;
+      const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await ctx.refreshProfile();
       if(result.response?.generation)window.dispatchEvent(new Event('minder-generation-available'));
     }catch(e){if(request.invalidated)return;state.draft=message;input.value=message;
       if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;
