@@ -7,19 +7,19 @@
   },
   "source": {
     "official_branch": "session/a-personal-integration",
-    "A_explicit_implementation_pin": "27bc76094ae3cbdb29d12e14c001549850593d55",
-    "A_committed_handoff": "docs/execution/product-v2/A_E_DEPLOYMENT_SOURCE_NOW.md",
-    "reported_loaded_SHA": "27bc76094ae3cbdb29d12e14c001549850593d55",
-    "Replit_local_branch": "minder-integration-27bc760",
+    "A_explicit_implementation_pin": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
+    "A_committed_handoff": "docs/execution/product-v2/A_N12_CLERK_PROTECT_CSP_HANDOFF.md",
+    "reported_loaded_SHA": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
+    "Replit_local_branch": "reported_previous_branch_minder_managed_20c65eb_current_branch_not_rechecked",
     "preserved_configuration_checkpoint": "4528209dd303a7de1b2961cda0f0331048fe3dbd",
     "preserved_configuration_branch": "minder-pre-integration-4528209",
     "application_frontend_source_changes": false,
-    "provider_launcher_configuration_diff": "reported_bounded_changes_exact_diff_pending_upstream_review",
-    "Replit_local_configuration_HEAD_last_reported": "9acfcd022963e2ccfa08057326c223b4080254d4"
+    "provider_launcher_configuration_diff": "application_deploy_sources_and_dependency_manifests_reported_identical_to_approved_pin",
+    "Replit_local_configuration_HEAD_last_reported": "a5552048b57d22b9d26d70662acdd89d1585009d"
   },
   "actual_Replit_execution_report": {
     "evidence": "Replit Agent update result on the correct project",
-    "Python": "3.12",
+    "Python": "3.12.12",
     "dependency_packages": 48,
     "dependency_consistency": "passed",
     "verified_existing_data_inputs": 4,
@@ -27,7 +27,7 @@
     "runtime_guard_tests": 3,
     "factory_tests": 7,
     "factory_test_caveat": "passed_after_preloading_native_modules_to_avoid_test_harness_reload_issue",
-    "startup": "not_successful_yet"
+    "startup": "passed_existing_workflow_frozen_Linux_build_health_200"
   },
   "private_configuration": {
     "local_file": "ignored_untracked_owned_0600",
@@ -35,30 +35,31 @@
     "initial_Clerk_server_check": "UnicodeEncodeError_before_HTTP_result",
     "initial_server_key_ASCII": false,
     "user_confirmed_corrected_key_saved": true,
-    "local_recheck_after_confirmation": "still_rejected_non_ASCII_without_provider_request",
-    "Replit_secret_may_be_newer": "direct_recheck_pending_current_storage_operation",
+    "local_recheck_after_confirmation": "replacement_key_live_authenticated_JWKS_match_passed",
+    "Replit_secret_may_be_newer": "local_and_remote_replacement_checks_both_passed",
     "remote_Clerk_and_Groq_key_presence": "reported_present_without_values",
     "secret_values_disclosed": false,
     "remote_key_recheck_after_first_correction": "reported_non_ASCII_UnicodeEncodeError_before_HTTP",
     "user_confirmed_full_key_saved_in_Replit_again": true,
     "latest_runtime_environment_key_verification": {
-      "raw_ASCII": false,
-      "AuthConfig_strip_ASCII": false,
-      "edge_whitespace": false,
-      "masked_display_marker_present": true,
-      "authenticated_instance_verified": false,
-      "source": "same_workflow_process_after_reload",
+      "raw_ASCII": true,
+      "masked_display_marker_present": false,
+      "authenticated_instance_verified": true,
+      "server_key_matches_public_signing_key": true,
+      "source": "Replit_injected_process_environment_same_workflow_after_reload",
       "values_printed": false
     },
-    "scope_clarification": "pending_user_answer_Minder_Tools_Secrets_or_Publishing_App_Secrets_or_Shared_workspace",
-    "plaintext_launch_override_or_duplicate_name_found": false
+    "scope_clarification": "injected_process_environment_project_vs_inherited_secret_not_distinguishable",
+    "plaintext_launch_override_or_duplicate_name_found": false,
+    "dotenv_override_in_startup_found": false,
+    "published_secret_override": "no_published_runtime_exists"
   },
   "authorized_continuation": {
     "production_database": "normal_creation_during_first_publish_not_Agent_precreation",
     "private_CV_bucket": "existing_user_bucket_bound_private_probe_passed",
     "existing_worker": "one_cohosted_worker_no_duplicate_scheduler",
     "Reserved_VM": "target_vm_configured_actual_size_and_launch_not_done",
-    "state": "safe_prepublication_preview_configuration_and_upstream_provider_diff_capture_requested"
+    "state": "preview_build_key_CSP_storage_verified_actual_VM_quote_and_publication_pending"
   },
   "publication": {
     "public_URL": null,
@@ -72,14 +73,14 @@
   },
   "operator_fix_checks": {
     "passed": 16,
-    "hosted_acceptance_claimed": false
+    "hosted_acceptance_claimed": false,
+    "latest_combined_focused_checks_passed": 26
   },
   "remaining_unknowns": [
-    "current_Replit_Clerk_server_key_validity",
-    "actual_production_database_and_private_bucket_setup_result",
-    "actual_permitted_VM_and_final_HTTPS_origin",
-    "exact_provider_configuration_diff_and_accepted_combined_deploy_revision",
-    "real_signup_signin_two_user_isolation_restart_and_due_worker_event"
+    "actual_Reserved_VM_size_quote_allowance_and_first_publication",
+    "production_database_creation_and_binding_during_first_publish",
+    "real_signup_signin_two_user_isolation_restart_and_due_worker_event",
+    "final_HTTPS_origin_and_published_secret_validation"
   ],
   "private_CV_storage": {
     "user_supplied_existing_bucket": true,
@@ -101,18 +102,20 @@
   "preview": {
     "context": "managed_development_not_published_production",
     "HTTP_health": 200,
-    "source_revision": "27bc76094ae3cbdb29d12e14c001549850593d55",
+    "source_revision": "74b9688e124f0e6d5f2eb57943fd2671614dab9a",
     "existing_worker_live": true,
     "single_workflow_reloaded": true,
     "HTTPS_URL": "https://0f48cf79-f55a-4b24-ba5c-a03d800e03bd-00-3gwq1ildzsct2.riker.replit.dev",
-    "external_unauthenticated_probe": "platform_redirect_not_established_as_public_judge_endpoint"
+    "external_unauthenticated_probe": "platform_redirect_not_established_as_public_judge_endpoint",
+    "fresh_Clerk_UI": "two_fresh_sessions_rendered_zero_CSP_violations_real_account_signin_not_completed",
+    "Protect_connect_host_and_port_wildcards_verified": true
   },
   "managed_Python_upstream_handoff": {
     "E_component_SHA": "4b53fd8d953212d009b1b928a382d9ff19ee6018",
     "focused_checks_passed": 21,
     "root_template_uv_resolution_packages": 51,
     "NVIDIA_packages": 0,
-    "requires_A_root_pyproject_and_uv_lock_integration": true,
-    "revised_combined_source_pin": "not_yet_named"
+    "requires_A_root_pyproject_and_uv_lock_integration": false,
+    "revised_combined_source_pin": "74b9688e124f0e6d5f2eb57943fd2671614dab9a"
   }
 }
