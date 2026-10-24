@@ -1,0 +1,32 @@
+{
+  "range": "c9c5f8539d2b0315d710e23a1c9dd036a6b2fdd7..425f0173",
+  "commits": 275,
+  "unique_changed_blobs": 1265,
+  "findings": [],
+  "restricted_artifact_paths": [],
+  "scope": "Full PR reachable commit content including intermediate versions; matched values never printed. Path and ownership review remains necessary; not a universal privacy proof.",
+  "phase": "MA4",
+  "status": "release_PR_prepared_required_hosted_and_GPU_gates_open",
+  "functional_revision": "425f0173ab89ad3a1a2b0cecd0d3de5745a4261d",
+  "acceptance_checkpoint": "a2e58066acb490fa8d739438d4f6b5377207e8c1",
+  "existing_PR": "https://github.com/jahax2154/sdc-2026-minder/pull/1",
+  "source_branch": "session/a-personal-integration",
+  "base_branch": "main",
+  "base_SHA": "c9c5f8539d2b0315d710e23a1c9dd036a6b2fdd7",
+  "main_merge_authorized": false,
+  "submission_tag_proposal": "prototype-submission-v1",
+  "submission_tag_created": false,
+  "deployed": false,
+  "deployed_SHA": null,
+  "judge_URL": null,
+  "history_review": "275commits/1265unique blobs at functional425f; no high-confidence key/private-key patterns or restricted database/key/weight artifacts. New MA2/check/README/ledger content separately reviewed; pattern scan is not universal secret detection.",
+  "required_ancestor_index": "MORNING_CHECKPOINTS.json",
+  "runtime_app_code_unchanged_since_functional_acceptance": true,
+  "external_dependencies": [
+    "Railwayexistingproject/service/credits/volumeaccess",
+    "Clerkinstanceprivateconfigurationand2liveaccounts",
+    "ActualLinuximagebuildandhostedpersistentsection9acceptance",
+    "Bconfirmedredeemedcredit/key/pinnedimageandactualGPUfitevidence"
+  ],
+  "private_state": "No credential or local DB/upload/environment/browser artifact included. Thirteen raw/derived inputs remain read-only/untracked, without a new backup claim."
+}

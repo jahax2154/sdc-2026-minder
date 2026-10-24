@@ -1,0 +1,626 @@
+{
+  "version": "morning-r3-checkpoints-v1",
+  "functional_acceptance_revision": "425f0173ab89ad3a1a2b0cecd0d3de5745a4261d",
+  "base_main": "c9c5f8539d2b0315d710e23a1c9dd036a6b2fdd7",
+  "required_ancestors": {
+    "bootstrap": "70dc99e96c51e2da3cacc0b84cdc729b2be33fd9",
+    "reused_chat_repair": "12856703ef187b09cbcb857b85923890fef331c4",
+    "reused_F_repair": "8446ca801de8d8a0163c390f76d2aa609a5fec16",
+    "M0": "719c8731ff54c73065f675267556e04d14c17a96",
+    "B_preflight": "c8eb09921f6bf583ec30bca636f549628a575d69",
+    "C": "362316351ebe90b31c533eb75cff46a851808314",
+    "D_final": "53e154459cf53eb9c2472658d381b85b4ad3302a",
+    "E_final": "1669142ade6ac1e8f9790633e3b9e125c97a7aa1",
+    "F_final": "3c7d105d34e32c291bc7440764390f55a8fb515f",
+    "MA2_acceptance": "a2e58066acb490fa8d739438d4f6b5377207e8c1"
+  },
+  "all_required_ancestors_verified": true,
+  "history_preserved": true,
+  "morning_commits": [
+    {
+      "sha": "f49e1205b9e6fcd7fad9d4e2d2a2d740a3b6400c",
+      "parents": [
+        "9f1f2eeabb8d5d8247fcc1b0353a8777d690d71e"
+      ],
+      "subject": "docs(MD0): reconcile preserved storage and morning persistence boundaries"
+    },
+    {
+      "sha": "719c8731ff54c73065f675267556e04d14c17a96",
+      "parents": [
+        "12856703ef187b09cbcb857b85923890fef331c4"
+      ],
+      "subject": "M0: release revision 3 contracts ownership and approved designs"
+    },
+    {
+      "sha": "f4166065efbe93c2f15d7352dff391a9ca53a738",
+      "parents": [
+        "8446ca801de8d8a0163c390f76d2aa609a5fec16",
+        "719c8731ff54c73065f675267556e04d14c17a96"
+      ],
+      "subject": "merge(MF0): consume revision 3 ownership contracts and approved design sources"
+    },
+    {
+      "sha": "fa0c36b108a26599be76def967cf1a8626d2b33f",
+      "parents": [
+        "f49e1205b9e6fcd7fad9d4e2d2a2d740a3b6400c",
+        "719c8731ff54c73065f675267556e04d14c17a96"
+      ],
+      "subject": "merge(MD0): consume Revision3 ownership and integrated base"
+    },
+    {
+      "sha": "57edea4abc9b77645d285c6122dfb2df89e6a3a3",
+      "parents": [
+        "f4166065efbe93c2f15d7352dff391a9ca53a738"
+      ],
+      "subject": "fix(MF1-R01): preserve exact CV review intent after uncertain save response"
+    },
+    {
+      "sha": "3c32027b60b01320e4c6d4e90d12da0b66128407",
+      "parents": [
+        "719c8731ff54c73065f675267556e04d14c17a96"
+      ],
+      "subject": "feat(ME1): export maintained Clerk identity verification boundary"
+    },
+    {
+      "sha": "576330d3109cbbe4b81c2695a39048045bbfacf7",
+      "parents": [
+        "719c8731ff54c73065f675267556e04d14c17a96"
+      ],
+      "subject": "MA1-C01: export typed advice and onboarding CV contracts"
+    },
+    {
+      "sha": "3f9de4818bf1c2ef2d85dd4eeed3fb8f8c9af746",
+      "parents": [
+        "fa0c36b108a26599be76def967cf1a8626d2b33f",
+        "3c32027b60b01320e4c6d4e90d12da0b66128407"
+      ],
+      "subject": "merge(MD1): consume verified identity type from E"
+    },
+    {
+      "sha": "762d3285b7bd234d8df12c1a9d6a5c5daabe8335",
+      "parents": [
+        "576330d3109cbbe4b81c2695a39048045bbfacf7"
+      ],
+      "subject": "MA1-C01-R01: validate useful advice introductions and envelope metadata"
+    },
+    {
+      "sha": "88696a2c8567458475436e724ec4da6d14b5ce04",
+      "parents": [
+        "762d3285b7bd234d8df12c1a9d6a5c5daabe8335"
+      ],
+      "subject": "MA1: implement typed Qwen guidance and scoped conversation callback"
+    },
+    {
+      "sha": "ebb2bf0621f7d3134130b8daf55757ff7b89b429",
+      "parents": [
+        "88696a2c8567458475436e724ec4da6d14b5ce04",
+        "3c32027b60b01320e4c6d4e90d12da0b66128407"
+      ],
+      "subject": "Merge commit '3c32027b60b01320e4c6d4e90d12da0b66128407' into session/a-personal-integration"
+    },
+    {
+      "sha": "3e6dd28a2b1cafaf1cec729069f9954081a1390b",
+      "parents": [
+        "ebb2bf0621f7d3134130b8daf55757ff7b89b429",
+        "57edea4abc9b77645d285c6122dfb2df89e6a3a3"
+      ],
+      "subject": "Merge commit '57edea4' into session/a-personal-integration"
+    },
+    {
+      "sha": "51e18485fd7802349aeb84b1b0776d2f983e4328",
+      "parents": [
+        "3e6dd28a2b1cafaf1cec729069f9954081a1390b"
+      ],
+      "subject": "MA1-R01: wire fail-closed auth routes and mounted runtime factory"
+    },
+    {
+      "sha": "bbe4e1b1e248fd41a1cc621ac9b30d1860622941",
+      "parents": [
+        "3f9de4818bf1c2ef2d85dd4eeed3fb8f8c9af746"
+      ],
+      "subject": "feat(MD1.1): persist verified owners and channel-scoped conversations"
+    },
+    {
+      "sha": "4b9e53c31bde8bd58e0abe1e0137dcdaed88dfa4",
+      "parents": [
+        "51e18485fd7802349aeb84b1b0776d2f983e4328",
+        "bbe4e1b1e248fd41a1cc621ac9b30d1860622941"
+      ],
+      "subject": "Merge commit 'bbe4e1b1e248fd41a1cc621ac9b30d1860622941' into session/a-personal-integration"
+    },
+    {
+      "sha": "a384d35bd07739e7658e6456ef5c2926d2590047",
+      "parents": [
+        "3c32027b60b01320e4c6d4e90d12da0b66128407",
+        "bbe4e1b1e248fd41a1cc621ac9b30d1860622941"
+      ],
+      "subject": "merge(ME2): consume D verified identity and conversation persistence"
+    },
+    {
+      "sha": "fa1130a86337e13a27d74e28da0200570a2331dd",
+      "parents": [
+        "4b9e53c31bde8bd58e0abe1e0137dcdaed88dfa4"
+      ],
+      "subject": "MA1-R02: bind durable conversations actions and singleton worker results"
+    },
+    {
+      "sha": "02d5b83c31c671626b514054ff7d477f70d93678",
+      "parents": [
+        "57edea4abc9b77645d285c6122dfb2df89e6a3a3"
+      ],
+      "subject": "feat(MF2-PAGES-01): bind approved Careers and My Path layouts to persisted state"
+    },
+    {
+      "sha": "ab245976613c368c5402a1e70d30fd64f7d46afe",
+      "parents": [
+        "02d5b83c31c671626b514054ff7d477f70d93678",
+        "fa1130a86337e13a27d74e28da0200570a2331dd"
+      ],
+      "subject": "Merge commit 'fa1130a86337e13a27d74e28da0200570a2331dd' into session/f-product-frontend"
+    },
+    {
+      "sha": "4923e8c4033516eee12d9693753c318c1c22ffa2",
+      "parents": [
+        "a384d35bd07739e7658e6456ef5c2926d2590047",
+        "fa1130a86337e13a27d74e28da0200570a2331dd"
+      ],
+      "subject": "merge(ME2): consume A managed runtime and persisted Mindbot worker hook"
+    },
+    {
+      "sha": "9718dfde6f63903e5bb4781615cf93033fd0acf1",
+      "parents": [
+        "bbe4e1b1e248fd41a1cc621ac9b30d1860622941",
+        "fa1130a86337e13a27d74e28da0200570a2331dd"
+      ],
+      "subject": "merge(MD1): integrate A conversation orchestration and worker hooks"
+    },
+    {
+      "sha": "c24c100353275dd010ea100910ea3c0a0cb07f7d",
+      "parents": [
+        "9718dfde6f63903e5bb4781615cf93033fd0acf1"
+      ],
+      "subject": "feat(MD1.2): guard mounted SQLite storage and reconcile saved notices"
+    },
+    {
+      "sha": "c4e73b12fc0565c70a333dc8328808307a6a1516",
+      "parents": [
+        "4923e8c4033516eee12d9693753c318c1c22ffa2",
+        "c24c100353275dd010ea100910ea3c0a0cb07f7d"
+      ],
+      "subject": "merge(ME2): consume D mount guard backup and notice recovery"
+    },
+    {
+      "sha": "c8eb09921f6bf583ec30bca636f549628a575d69",
+      "parents": [
+        "d9ffd4f3cc7625c736ea081c52da3c1122b21c08"
+      ],
+      "subject": "feat(MB1-PREP): prepare bounded RunPod GPU adapter and private setup controls"
+    },
+    {
+      "sha": "3c4628ac7ecb8ce6e5bd77b8d1a1b0fa7c7dbc27",
+      "parents": [
+        "fa1130a86337e13a27d74e28da0200570a2331dd"
+      ],
+      "subject": "MA-PITCH-01: export active scoring trace and bound DTO uniqueness cost"
+    },
+    {
+      "sha": "9fd947804e9aa7eebb8a391308cd89e9f78536ab",
+      "parents": [
+        "3c4628ac7ecb8ce6e5bd77b8d1a1b0fa7c7dbc27",
+        "c24c100353275dd010ea100910ea3c0a0cb07f7d"
+      ],
+      "subject": "Merge commit 'c24c100353275dd010ea100910ea3c0a0cb07f7d' into session/a-personal-integration"
+    },
+    {
+      "sha": "c7ba8c9e0e7d3cdb34a0e003a8a48ee6d7e88c9c",
+      "parents": [
+        "9fd947804e9aa7eebb8a391308cd89e9f78536ab",
+        "02d5b83c31c671626b514054ff7d477f70d93678"
+      ],
+      "subject": "Merge commit '02d5b83' into session/a-personal-integration"
+    },
+    {
+      "sha": "c7a7ab9cee9c63710584580c2cb7fb0f87047137",
+      "parents": [
+        "c7ba8c9e0e7d3cdb34a0e003a8a48ee6d7e88c9c"
+      ],
+      "subject": "MA1-R03: enforce mounted Store and exact managed-login CSP origins"
+    },
+    {
+      "sha": "b90ea211ba9298937671d5e165a3a25ebdce8e5c",
+      "parents": [
+        "c4e73b12fc0565c70a333dc8328808307a6a1516",
+        "c7a7ab9cee9c63710584580c2cb7fb0f87047137"
+      ],
+      "subject": "merge(ME2): consume A mounted-store factory and managed CSP"
+    },
+    {
+      "sha": "ab0a8f852171553074c990e80e6722e6b75af656",
+      "parents": [
+        "c24c100353275dd010ea100910ea3c0a0cb07f7d"
+      ],
+      "subject": "feat(MD2): complete reviewed CV extraction and onboarding persistence"
+    },
+    {
+      "sha": "397b4105505c7255b87ab742a0ca567add1b2d7c",
+      "parents": [
+        "ab245976613c368c5402a1e70d30fd64f7d46afe"
+      ],
+      "subject": "feat(MF1): persist Minder and singleton Mindbot journeys with exact turn retries"
+    },
+    {
+      "sha": "7563ce181493c752b62435e433da8edc3b366b4d",
+      "parents": [
+        "397b4105505c7255b87ab742a0ca567add1b2d7c",
+        "ab0a8f852171553074c990e80e6722e6b75af656"
+      ],
+      "subject": "Merge commit 'ab0a8f852171553074c990e80e6722e6b75af656' into session/f-product-frontend"
+    },
+    {
+      "sha": "f16a508ec3c47ac1f7ab69d34be7f23d7a6930b0",
+      "parents": [
+        "c7a7ab9cee9c63710584580c2cb7fb0f87047137"
+      ],
+      "subject": "MA1-R04: constrain generated intros and minimize private prompt context"
+    },
+    {
+      "sha": "798b2a87437e1fd93e27cccaf9d22fa3635858e8",
+      "parents": [
+        "f16a508ec3c47ac1f7ab69d34be7f23d7a6930b0",
+        "ab0a8f852171553074c990e80e6722e6b75af656"
+      ],
+      "subject": "Merge commit 'ab0a8f852171553074c990e80e6722e6b75af656' into session/a-personal-integration"
+    },
+    {
+      "sha": "702ede532fb14d69584e11620315c9a596370335",
+      "parents": [
+        "b90ea211ba9298937671d5e165a3a25ebdce8e5c",
+        "798b2a87437e1fd93e27cccaf9d22fa3635858e8"
+      ],
+      "subject": "merge(ME2): consume committed CV extraction and generated guidance repair"
+    },
+    {
+      "sha": "db7c6627ceefa6959046e2204105ef0db45dee37",
+      "parents": [
+        "798b2a87437e1fd93e27cccaf9d22fa3635858e8"
+      ],
+      "subject": "MA1-C01-R02: align CV exports with integrated parser and volume scopes"
+    },
+    {
+      "sha": "04e16e94be18b2eda14a01d43c8eb085dd5e93b8",
+      "parents": [
+        "db7c6627ceefa6959046e2204105ef0db45dee37"
+      ],
+      "subject": "MA1-R05: export stable explicit-acceptance roadmap materializer"
+    },
+    {
+      "sha": "81243923b268d8849142fb824bf150d97f3f56e7",
+      "parents": [
+        "04e16e94be18b2eda14a01d43c8eb085dd5e93b8",
+        "397b4105505c7255b87ab742a0ca567add1b2d7c"
+      ],
+      "subject": "Merge commit '397b410' into session/a-personal-integration"
+    },
+    {
+      "sha": "dc2d644c7cafb36e7e9d8f821013c59493549a2f",
+      "parents": [
+        "702ede532fb14d69584e11620315c9a596370335"
+      ],
+      "subject": "feat(ME2): prepare single-volume Python deploy and persisted worker candidate"
+    },
+    {
+      "sha": "631be6a5415a1c7da172941df36664df5e2f3c26",
+      "parents": [
+        "7563ce181493c752b62435e433da8edc3b366b4d"
+      ],
+      "subject": "feat(MF2): implement approved adaptive Profile and reviewed CV resume flow"
+    },
+    {
+      "sha": "1a3c35f9e97a0a0799b285ff6f99f12704e87065",
+      "parents": [
+        "631be6a5415a1c7da172941df36664df5e2f3c26",
+        "81243923b268d8849142fb824bf150d97f3f56e7"
+      ],
+      "subject": "Merge commit '8124392' into session/f-product-frontend"
+    },
+    {
+      "sha": "3299176066dcee3e2f5244986e04affc19994c8f",
+      "parents": [
+        "ab0a8f852171553074c990e80e6722e6b75af656"
+      ],
+      "subject": "feat(MD1.3): version generated plans and persist canonical automation state"
+    },
+    {
+      "sha": "a9abe27af48376b5514b50c40daad51b944e080c",
+      "parents": [
+        "81243923b268d8849142fb824bf150d97f3f56e7"
+      ],
+      "subject": "MA1-R06: interpret scoped task goal and preference commands"
+    },
+    {
+      "sha": "274ccb1eaccf9b56501905167db26132a1494168",
+      "parents": [
+        "a9abe27af48376b5514b50c40daad51b944e080c",
+        "dc2d644c7cafb36e7e9d8f821013c59493549a2f"
+      ],
+      "subject": "Merge commit 'dc2d644c7cafb36e7e9d8f821013c59493549a2f' into session/a-personal-integration"
+    },
+    {
+      "sha": "e17477e574ad8dbb92568cfaef52947ef3a1f22c",
+      "parents": [
+        "274ccb1eaccf9b56501905167db26132a1494168",
+        "631be6a5415a1c7da172941df36664df5e2f3c26"
+      ],
+      "subject": "Merge commit '631be6a' into session/a-personal-integration"
+    },
+    {
+      "sha": "29db8a07ae83a094802331fc77028a1fd172e411",
+      "parents": [
+        "dc2d644c7cafb36e7e9d8f821013c59493549a2f",
+        "3299176066dcee3e2f5244986e04affc19994c8f"
+      ],
+      "subject": "merge(ME2-R01): consume D canonical automation state contract"
+    },
+    {
+      "sha": "45be4df58e1ae702cb780de317fd7effffef1380",
+      "parents": [
+        "1a3c35f9e97a0a0799b285ff6f99f12704e87065"
+      ],
+      "subject": "fix(MF3): clear identity boundaries and verify unavailable workspace states"
+    },
+    {
+      "sha": "f90f4435855acf2636e2bc9d3c08bf3ba819faa5",
+      "parents": [
+        "e17477e574ad8dbb92568cfaef52947ef3a1f22c",
+        "3299176066dcee3e2f5244986e04affc19994c8f"
+      ],
+      "subject": "Merge commit '3299176066dcee3e2f5244986e04affc19994c8f' into session/a-personal-integration"
+    },
+    {
+      "sha": "e3404103182c58898de5b6519d9dcdd72cc25527",
+      "parents": [
+        "f90f4435855acf2636e2bc9d3c08bf3ba819faa5"
+      ],
+      "subject": "MA1-R07: register persisted drafts and canonical scoped daily execution"
+    },
+    {
+      "sha": "9ddbdf7eb6a27d507402391c3df15a5b412f5ba1",
+      "parents": [
+        "45be4df58e1ae702cb780de317fd7effffef1380",
+        "e3404103182c58898de5b6519d9dcdd72cc25527"
+      ],
+      "subject": "Merge commit 'e340410' into session/f-product-frontend"
+    },
+    {
+      "sha": "7fc2872872ab1990fe5dd56255591b0e85cc9656",
+      "parents": [
+        "29db8a07ae83a094802331fc77028a1fd172e411",
+        "e3404103182c58898de5b6519d9dcdd72cc25527"
+      ],
+      "subject": "merge(ME2-R01): consume A canonical scoped daily execution"
+    },
+    {
+      "sha": "24f0061cf4413a5fafc8a583ffe9bf9208cfdee0",
+      "parents": [
+        "e3404103182c58898de5b6519d9dcdd72cc25527"
+      ],
+      "subject": "fix(MD1.2-R01): make SQLite backup readable without WAL sidecars"
+    },
+    {
+      "sha": "5827a8707492d779bca93a161800dbfada33c216",
+      "parents": [
+        "e3404103182c58898de5b6519d9dcdd72cc25527"
+      ],
+      "subject": "MA1-R05-R01: accept canonical supported role DTOs for reviewed roadmaps"
+    },
+    {
+      "sha": "09a653d31268662ab76749f669d3f628439fac4a",
+      "parents": [
+        "9ddbdf7eb6a27d507402391c3df15a5b412f5ba1"
+      ],
+      "subject": "feat(MF1): wire canonical scoped daily automation lifecycle controls"
+    },
+    {
+      "sha": "a9b593cd956ad171f9d76bb53295cf52d6de9e0c",
+      "parents": [
+        "09a653d31268662ab76749f669d3f628439fac4a",
+        "5827a8707492d779bca93a161800dbfada33c216"
+      ],
+      "subject": "Merge commit '5827a87' into session/f-product-frontend"
+    },
+    {
+      "sha": "09a9be7c11ce113e8ececd292c4d6e1ca1f2ee50",
+      "parents": [
+        "7fc2872872ab1990fe5dd56255591b0e85cc9656",
+        "24f0061cf4413a5fafc8a583ffe9bf9208cfdee0"
+      ],
+      "subject": "merge(ME2-R01): consume D portable SQLite backup repair"
+    },
+    {
+      "sha": "9a69058b1a7bb7e7c13f2902b8ed0ee34eee3038",
+      "parents": [
+        "5827a8707492d779bca93a161800dbfada33c216"
+      ],
+      "subject": "MA1-R08: audit typed automation commands and persist failed run results"
+    },
+    {
+      "sha": "b0e0361d036533037ba83e3d8efacc32d27aeed1",
+      "parents": [
+        "9a69058b1a7bb7e7c13f2902b8ed0ee34eee3038",
+        "24f0061cf4413a5fafc8a583ffe9bf9208cfdee0"
+      ],
+      "subject": "Merge commit '24f0061cf4413a5fafc8a583ffe9bf9208cfdee0' into session/a-personal-integration"
+    },
+    {
+      "sha": "f8675bde816c33130d420a80f6a9093294c1a257",
+      "parents": [
+        "b0e0361d036533037ba83e3d8efacc32d27aeed1",
+        "09a653d31268662ab76749f669d3f628439fac4a"
+      ],
+      "subject": "Merge commit '09a653d' into session/a-personal-integration"
+    },
+    {
+      "sha": "178a7a8cccdd7b65a1a4fec068aa9d43570f65b1",
+      "parents": [
+        "a9b593cd956ad171f9d76bb53295cf52d6de9e0c"
+      ],
+      "subject": "feat(MF2): review real Mindbot drafts into one persisted canonical roadmap"
+    },
+    {
+      "sha": "133c3c5983ca12266c13b5a67c8e56ef0ebf1fcb",
+      "parents": [
+        "f8675bde816c33130d420a80f6a9093294c1a257"
+      ],
+      "subject": "MA2: record combined runtime checks and precise owner clock refinement"
+    },
+    {
+      "sha": "7ccdd6b6163998464349733284716d7504524893",
+      "parents": [
+        "133c3c5983ca12266c13b5a67c8e56ef0ebf1fcb",
+        "178a7a8cccdd7b65a1a4fec068aa9d43570f65b1"
+      ],
+      "subject": "Merge commit '178a7a8' into session/a-personal-integration"
+    },
+    {
+      "sha": "843ad894e82a82e41057170d704b76a3a8d5cd45",
+      "parents": [
+        "09a9be7c11ce113e8ececd292c4d6e1ca1f2ee50",
+        "7ccdd6b6163998464349733284716d7504524893"
+      ],
+      "subject": "merge(ME2-R01): consume audited automation failure results and latest UI acceptance"
+    },
+    {
+      "sha": "1669142ade6ac1e8f9790633e3b9e125c97a7aa1",
+      "parents": [
+        "843ad894e82a82e41057170d704b76a3a8d5cd45"
+      ],
+      "subject": "test(ME2-R01): verify canonical daily cancellation catch-up and failure recovery"
+    },
+    {
+      "sha": "6c1fe2d7a183493264d85a2207288e7d960932c8",
+      "parents": [
+        "7ccdd6b6163998464349733284716d7504524893",
+        "c8eb09921f6bf583ec30bca636f549628a575d69"
+      ],
+      "subject": "Merge commit 'c8eb09921f6bf583ec30bca636f549628a575d69' into session/a-personal-integration"
+    },
+    {
+      "sha": "a71c1870e4d2de4c8c1c8ead69c2219521529141",
+      "parents": [
+        "6c1fe2d7a183493264d85a2207288e7d960932c8",
+        "1669142ade6ac1e8f9790633e3b9e125c97a7aa1"
+      ],
+      "subject": "Merge commit '1669142ade6ac1e8f9790633e3b9e125c97a7aa1' into session/a-personal-integration"
+    },
+    {
+      "sha": "53e154459cf53eb9c2472658d381b85b4ad3302a",
+      "parents": [
+        "1669142ade6ac1e8f9790633e3b9e125c97a7aa1"
+      ],
+      "subject": "docs(MD3): hand off verified local persistence and hosted dependencies"
+    },
+    {
+      "sha": "5c61b43211a17d59553fa4264c888619e27513b8",
+      "parents": [
+        "a71c1870e4d2de4c8c1c8ead69c2219521529141"
+      ],
+      "subject": "MA1-R09: preserve complete model guidance and expose safe validation reasons"
+    },
+    {
+      "sha": "4dfc172ecaa833e341816d33034529c5dff9e035",
+      "parents": [
+        "5c61b43211a17d59553fa4264c888619e27513b8",
+        "53e154459cf53eb9c2472658d381b85b4ad3302a"
+      ],
+      "subject": "Merge commit '53e154459cf53eb9c2472658d381b85b4ad3302a' into session/a-personal-integration"
+    },
+    {
+      "sha": "449531c05855299e3509d5c5f7ccc1dd1f6ef346",
+      "parents": [
+        "4dfc172ecaa833e341816d33034529c5dff9e035"
+      ],
+      "subject": "MA2-R01: request exact structured proposal review from frontend owner"
+    },
+    {
+      "sha": "ceb578fc8c85cdfdd0f99ee80299da6000a01be9",
+      "parents": [
+        "449531c05855299e3509d5c5f7ccc1dd1f6ef346"
+      ],
+      "subject": "MA1-R06-R01: reverse optional text edits without invalid null fields"
+    },
+    {
+      "sha": "37d9fcb0d0c0917e673eece958ea0aaebbe6c3b0",
+      "parents": [
+        "ceb578fc8c85cdfdd0f99ee80299da6000a01be9"
+      ],
+      "subject": "MA2-R02: expose runtime revision and explicitly supervise local daily worker"
+    },
+    {
+      "sha": "e8f70d26d3589c98a90a5f252813f83b74541fb1",
+      "parents": [
+        "37d9fcb0d0c0917e673eece958ea0aaebbe6c3b0"
+      ],
+      "subject": "fix(MF3-R01): make exact structured proposals reviewable before approval"
+    },
+    {
+      "sha": "fd81e75c6052a0ce88d48e0804ab53051e64777e",
+      "parents": [
+        "37d9fcb0d0c0917e673eece958ea0aaebbe6c3b0"
+      ],
+      "subject": "MA2-R03: export necessary evidence readiness for fast unassessed views"
+    },
+    {
+      "sha": "73dbff3df4d18bddd7a49e41f106c5508f042ae3",
+      "parents": [
+        "fd81e75c6052a0ce88d48e0804ab53051e64777e"
+      ],
+      "subject": "MA1-R10: save explicit pathway availability and validate command scope"
+    },
+    {
+      "sha": "b169bc93a1135b049841aeb6c6085bed2785e5bc",
+      "parents": [
+        "73dbff3df4d18bddd7a49e41f106c5508f042ae3",
+        "e8f70d26d3589c98a90a5f252813f83b74541fb1"
+      ],
+      "subject": "Merge commit 'e8f70d26d3589c98a90a5f252813f83b74541fb1' into session/a-personal-integration"
+    },
+    {
+      "sha": "f5de70a61956a55fa6fe23c7e5282bdc0d8c0708",
+      "parents": [
+        "e8f70d26d3589c98a90a5f252813f83b74541fb1"
+      ],
+      "subject": "fix(MF3): reconcile uncertain turns and guard account lifecycle transitions"
+    },
+    {
+      "sha": "3c7d105d34e32c291bc7440764390f55a8fb515f",
+      "parents": [
+        "f5de70a61956a55fa6fe23c7e5282bdc0d8c0708"
+      ],
+      "subject": "fix(MF2): retain approved back document and information icon shapes"
+    },
+    {
+      "sha": "84e74a8f521a96643343d82779b694ed69a52f8b",
+      "parents": [
+        "b169bc93a1135b049841aeb6c6085bed2785e5bc"
+      ],
+      "subject": "MA-PITCH-01-R01: reuse exact validated results to fix global match latency"
+    },
+    {
+      "sha": "425f0173ab89ad3a1a2b0cecd0d3de5745a4261d",
+      "parents": [
+        "84e74a8f521a96643343d82779b694ed69a52f8b",
+        "3c7d105d34e32c291bc7440764390f55a8fb515f"
+      ],
+      "subject": "Merge commit '3c7d105d34e32c291bc7440764390f55a8fb515f' into session/a-personal-integration"
+    },
+    {
+      "sha": "a2e58066acb490fa8d739438d4f6b5377207e8c1",
+      "parents": [
+        "425f0173ab89ad3a1a2b0cecd0d3de5745a4261d"
+      ],
+      "subject": "MA2: record integrated real-provider browser and local scheduler acceptance"
+    }
+  ],
+  "publication": "Normal branch pushes verified. The containing release-handoff commit is additional documentation/check evidence only; no main merge or tag authorized.",
+  "acceptance_checkpoint": "a2e58066acb490fa8d739438d4f6b5377207e8c1"
+}
