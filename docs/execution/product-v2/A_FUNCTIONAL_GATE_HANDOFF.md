@@ -72,6 +72,20 @@ rank is invented. The runtime is still local9111/8111, not a hosted teammate URL
    dailyAutomation labels plan checkboxes with selected_role_id. Hydrate sourced
    occupational/skill labels there as well; retain explicit user text where it
    is an actual user-defined label, without treating its value as competence.
+7. The old `pages/career.js` has Interested/Not interested/Reset controls, but
+   `app.js` now routes Careers and its legacy alias into `pages/careers.js`,
+   which currently has none. Restore these optional explicit role preferences
+   in the active role detail. Reuse the existing direct-action contract, not
+   a new score or requirement to rate roles: POST `/api/direct-action`, body
+   `{request:{kind:'update_profile',target_id:profile.profile_id,
+   expected:profile.version,diff:[{path:'/preferences/role/'+roleId,
+   before:oldStateOrNull,after:'interested'|'not_interested'|null}],
+   reason:'Explicit role preference edit'},idempotency_key}`.
+   Null resets/removes this effect. Same-state clicks should be a no-op; hold an
+   exact body for uncertain receipt recovery, no automatic action retry. Refresh
+   Profile and invalidate match cache after a confirmed preference edit. Preserve
+   skill evidence and saved direction. The existing `career.js` implementation
+   documents this supported backend boundary; do not route users back to old UI.
 
 ## A first fresh-browser result (backend0a39b39 / old F code)
 
