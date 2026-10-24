@@ -1,0 +1,17 @@
+{
+  "actual_backend_create_task_proposals": true,
+  "concrete_before_after_fields": true,
+  "complete_escaped_json": true,
+  "mobile_no_document_overflow": true,
+  "no_state_effect_until_decision": true,
+  "rejection_preserves_version": true,
+  "exact_approval_creates_one_task": true,
+  "unsupported_create_task_undo_hidden": true,
+  "canonical_task_edit_schedule_cancel_stays_in_mindbot": true,
+  "actual_scope_proposal_review": true,
+  "scope_has_no_effect_before_approval": true,
+  "approved_scope_reflected_in_daily_ui": true,
+  "unsupported_automation_undo_hidden": true,
+  "malicious_title_inert": true,
+  "page_errors": []
+}

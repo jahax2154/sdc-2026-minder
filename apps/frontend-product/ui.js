@@ -19,6 +19,18 @@ export function bind(id,handler) {
     try{await handler(e);}catch(err){if(err.code!=='request_cancelled')showError(err);}finally{delete el.dataset.pending;controls.forEach(([n,d])=>{if(n.isConnected)n.disabled=d;});}
   });
 }
-export const diffLabel=d=>`<div class="diff"><strong>${esc(d.path)}</strong><div><del>${esc(d.before??'Not set')}</del> → <ins>${esc(d.after??'Not set')}</ins></div></div>`;
+function diffValue(value){
+ if(value===null||value===undefined)return '<p>Not set</p>';
+ if(typeof value!=='object')return `<p>${esc(value)}</p>`;
+ let friendly='';
+ if(!Array.isArray(value)&&typeof value.task_id==='string'){
+  const fields=[['Task',value.title||value.task_id],['Description',value.description||'Not supplied'],['Status',value.state||'Not supplied'],['Schedule',value.scheduled_at||'Unscheduled'],['Estimated effort',value.estimated_hours==null?'Unknown':value.estimated_hours+' hours'],['Prerequisites',(value.prerequisite_task_ids||[]).join(', ')||'None']];
+  friendly=`<dl>${fields.map(([label,text])=>`<dt>${label}</dt><dd>${esc(text)}</dd>`).join('')}</dl>`;
+ }else if(!Array.isArray(value)&&Array.isArray(value.plan_ids)){
+  friendly=value.plan_ids.length?`<p>Only these saved plans:</p><ul>${value.plan_ids.map(id=>`<li>${esc(id)}</li>`).join('')}</ul>`:'<p>All saved plans in your workspace.</p>';
+ }else if(Array.isArray(value)){friendly=value.length?`<ul>${value.map(item=>`<li>${esc(typeof item==='object'?JSON.stringify(item):item)}</li>`).join('')}</ul>`:'<p>Empty list</p>';}
+ return friendly+`<details><summary>Complete value</summary><pre class="diff-json">${esc(JSON.stringify(value,null,2))}</pre></details>`;
+}
+export const diffLabel=d=>`<div class="diff"><strong>${esc(d.path)}</strong><div class="diff-columns"><section class="diff-before"><small>Before</small>${diffValue(d.before)}</section><section class="diff-after"><small>After</small>${diffValue(d.after)}</section></div></div>`;
 
 export const sourceAttribution=()=>`<details class="source occupational-attribution"><summary>Occupational reference and attribution</summary><p>O*NET 31.0 Database, U.S. Department of Labor, Employment and Training Administration / National Center for O*NET Development. <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noreferrer">Database source</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>.</p><p>Original CSV bytes remain unchanged. Minder namespaces identifiers and projects occupational ratings into evidence. U.S. occupational ratings are separate from Malaysian labour demand and individual competence. Other sources retain their own links, dates and scope.</p></details>`;
