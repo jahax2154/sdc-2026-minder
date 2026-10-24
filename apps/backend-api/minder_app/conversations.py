@@ -94,6 +94,33 @@ class Conversations:
         query = body["query"].strip()
         limit, offset = body.get("limit", 20), body.get("offset", 0)
         term = query.casefold()
+        if getattr(self.store, "engine", "sqlite") == "postgresql":
+            # PostgreSQL lower() is not Python Unicode casefold (e.g. Straße).
+            # Read only owner-scoped visible text in one snapshot; never tools,
+            # private source records or hidden provider output.
+            with self.store.connect() as db:
+                db.execute("BEGIN")
+                rows = db.execute("SELECT * FROM conversations WHERE owner=? AND channel='minder' "
+                    "AND status='active' ORDER BY updated_at DESC,id", (owner,)).fetchall()
+                matches = {row["id"] for row in rows if term in row["title"].casefold()}
+                if term:
+                    visible = db.execute("SELECT m.conversation_id,m.role,m.body::jsonb->>'text' AS text, "
+                        "m.body::jsonb->>'answer' AS answer,m.body::jsonb->'statements' AS statements "
+                        "FROM conversation_messages m JOIN conversations c ON c.owner=m.owner AND c.id=m.conversation_id "
+                        "WHERE c.owner=? AND c.channel='minder' AND c.status='active'", (owner,))
+                    for message in visible:
+                        texts = [message["text"] if message["role"] == "user" else message["answer"]]
+                        if message["role"] == "assistant" and isinstance(message["statements"], list):
+                            texts.extend(item.get("text") for item in message["statements"] if isinstance(item, dict))
+                        if any(term in text.casefold() for text in texts if isinstance(text, str)):
+                            matches.add(message["conversation_id"])
+                selected = [row for row in rows if row["id"] in matches]
+                page = selected[offset:offset+limit]
+                more = offset+len(page) < len(selected)
+                return validate_search_result(dict(contract_version="conversation-search-v1",
+                    search_scope="title_and_visible_messages", conversations=[self.metadata(row) for row in page],
+                    query=query, offset=offset, limit=limit, has_more=more,
+                    next_offset=offset+len(page) if more else None))
         clause = """FROM conversations c WHERE c.owner=? AND c.channel='minder' AND c.status='active'
             AND (?='' OR instr(minder_casefold(c.title),?)>0 OR EXISTS(
                 SELECT 1 FROM conversation_messages m WHERE m.owner=c.owner AND m.conversation_id=c.id

@@ -52,3 +52,7 @@ def migrate(store):
         db.execute("CREATE TABLE IF NOT EXISTS conversation_notice_links(owner TEXT NOT NULL, event_id TEXT NOT NULL, "
                    "conversation_id TEXT NOT NULL, message_id TEXT NOT NULL, PRIMARY KEY(owner,event_id))")
         db.execute("INSERT OR IGNORE INTO migrations VALUES(7)")
+        if getattr(store, "engine", "sqlite") == "postgresql":
+            # Native PostgreSQL layout: text JSON + durable internal event order.
+            # Existing SQLite stays at v7; no anonymous data is imported.
+            db.execute("INSERT OR IGNORE INTO migrations VALUES(8)")
