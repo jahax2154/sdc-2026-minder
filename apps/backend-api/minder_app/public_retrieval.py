@@ -1,10 +1,12 @@
 """Bounded, credential-free PUBLIC retrieval. No user text enters HTTP queries."""
 import concurrent.futures
+import csv
 from datetime import datetime, timezone
 import hashlib
 from html.parser import HTMLParser
 import ipaddress
 import json
+import io
 import re
 import socket
 import threading
@@ -25,6 +27,22 @@ SEEDS = (
 )
 HOSTS = frozenset(urlsplit(s[1]).hostname for s in SEEDS)
 TOPICS = frozenset('malaysia malaysian jobs job employment vacancies vacancy demand hiring market skills skill software developer data digital cyber cybersecurity engineering engineer finance accounting healthcare nursing shortage occupation talent technology artificial intelligence communications multimedia current latest'.split())
+LFS_URL='https://storage.dosm.gov.my/labour/lfs_month.csv'
+
+def labour_rows(raw):
+    """Render actual official CSV cells with documented units; never infer jobs."""
+    rows=list(csv.DictReader(io.StringIO(raw.decode('utf-8-sig'))))
+    fields={'date','lf_employed','lf_unemployed','u_rate','p_rate'}
+    if not rows or len(rows)>1000 or not fields.issubset(rows[0]):raise RetrievalError('official_labour_csv_schema_invalid')
+    rows.sort(key=lambda r:r['date'])
+    for row in rows:
+        try:
+            date=datetime.strptime(row['date'],'%Y-%m-%d').date()
+            if date>datetime.now(timezone.utc).date():raise ValueError()
+            if not all(0<=float(row[f])<100000 for f in fields-{'date'}):raise ValueError()
+        except (ValueError,TypeError):raise RetrievalError('official_labour_csv_value_invalid') from None
+    lines=[f"Month {r['date'][:7]}: unemployment rate {r['u_rate']}%; participation rate {r['p_rate']}%; employed persons {r['lf_employed']} thousand; unemployed persons {r['lf_unemployed']} thousand." for r in reversed(rows[-3:])]
+    return '\n'.join(lines),rows[-1]['date'][:7]
 
 
 class RetrievalError(Exception):
@@ -59,9 +77,12 @@ class PageText(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.skip, self.title, self.parts, self.meta, self.links, self.in_title = [], [], [], {}, [], False
+        self.structured = None
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
+        if tag == 'script' and attrs.get('type','').casefold() == 'application/ld+json':
+            self.structured = []
         if tag == 'meta':
             key = attrs.get('property', attrs.get('name', '')).casefold()
             if key in ('article:published_time', 'datepublished', 'date', 'og:title'):
@@ -76,6 +97,19 @@ class PageText(HTMLParser):
             self.parts.append('\n')
 
     def handle_endtag(self, tag):
+        if tag == 'script' and self.structured is not None:
+            try:
+                value=json.loads(''.join(self.structured))
+                def dates(node,depth=0):
+                    if depth>8:return
+                    if isinstance(node,dict):
+                        if isinstance(node.get('datePublished'),str):self.meta.setdefault('datepublished',node['datePublished'])
+                        for child in node.values():dates(child,depth+1)
+                    elif isinstance(node,list):
+                        for child in node[:30]:dates(child,depth+1)
+                dates(value)
+            except (ValueError,TypeError):pass
+            self.structured=None
         if self.skip and tag == self.skip[-1]:
             self.skip.pop()
         if tag == 'title':
@@ -84,6 +118,7 @@ class PageText(HTMLParser):
             self.parts.append('\n')
 
     def handle_data(self, data):
+        if self.structured is not None:self.structured.append(data[:30000])
         if self.in_title:
             self.title.append(data)
         elif not self.skip:
@@ -95,6 +130,10 @@ def published(meta, text):
     match = re.search(r'\b(20\d\d-\d\d-\d\d)\b', value)
     if match:
         return match[1]
+    # Source-owned JSON-LD sometimes uses RFC-like US date formatting.
+    for fmt in ('%a, %m/%d/%Y - %H:%M','%Y-%m-%dT%H:%M:%S%z'):
+        try:return datetime.strptime(value,fmt).date().isoformat()
+        except ValueError:pass
     match = re.search(r'(?:Latest Release\s*:?|Released by.{0,100}?|KUALA LUMPUR[, ]+)\s*(\d{1,2}\s+[A-Za-z]+\s+20\d\d)', text, re.I | re.S)
     if match:
         try:
@@ -147,7 +186,11 @@ class PublicRetrieval:
             if len(raw) > 786432:
                 raise RetrievalError('public_source_too_large')
             content_type = response.headers.get('Content-Type', '').split(';')[0].casefold()
-        text, title, meta, links = plain(raw, content_type)
+        observation_period=None
+        if url == LFS_URL:
+            text,observation_period=labour_rows(raw)
+            title,meta,links='DOSM Monthly Principal Labour Force Statistics',{},[]
+        else:text, title, meta, links = plain(raw, content_type)
         if len(text.strip()) < 100:
             raise RetrievalError('public_source_has_no_verified_page_text')
         stamp = datetime.now(timezone.utc).isoformat()
@@ -155,6 +198,7 @@ class PublicRetrieval:
             title=(title or fallback_title)[:400], published_at=published(meta, text), retrieved_at=stamp,
             geography=geography, scope=scope, sha256=hashlib.sha256(raw).hexdigest(),
             text=text, cache_status='live_fetched', content_type=content_type,http_status=http_status)
+        if observation_period:record['observation_period']=observation_period
         # Only allowlisted actual page links can supply a PDF. No user URL/query.
         record['document_links'] = [urljoin(final_url, link) for link in links
             if '.pdf' in link.casefold() and urlsplit(urljoin(final_url, link)).hostname in HOSTS][:8]

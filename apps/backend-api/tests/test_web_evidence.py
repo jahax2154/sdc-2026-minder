@@ -27,6 +27,18 @@ class Provider:
 
 
 class WebTests(AppCase):
+    def test_undated_description_cannot_become_current_trend_but_dated_observation_can(self):
+        from minder_app.web_evidence import partial_findings
+        candidate=dict(introduction='Here is what the retrieved evidence establishes.',findings=[
+            dict(quote_id='q1',explanation='Hiring is growing right now across these occupations.')],limitations=[])
+        result=partial_findings(candidate,[SOURCE])
+        self.assertEqual(result['findings'],[])
+        self.assertEqual(result['rejected_claims'][0]['rule'],'undated_source_cannot_establish_current_trend')
+        # Observation months and article publication dates remain separate fields.
+        observed=dict(SOURCE,observation_period='2026-08')
+        dated=dict(candidate,findings=[dict(quote_id='q1',explanation='The cited observation is a dated context, not a role-level hiring forecast.')])
+        self.assertEqual(len(partial_findings(dated,[observed])['findings']),1)
+
     def test_distinct_passages_from_one_source_are_not_consolidated_as_duplicates(self):
         page=dict(SOURCE,text=SOURCE['text']+' A skills taxonomy identifies work activities without certifying personal proficiency.',
             passage=SOURCE['passage']+'\nA skills taxonomy identifies work activities without certifying personal proficiency.')

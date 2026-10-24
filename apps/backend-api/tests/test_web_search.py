@@ -3,13 +3,28 @@ import io
 import json
 import tempfile
 import unittest
-from minder_app.web_search import MwmblSearch,SearchRetrieval,public_queries,candidate_url
+from minder_app.web_search import MwmblSearch,SearchRetrieval,public_queries,candidate_url,detail_seeds,select_passage
 from minder_app.web_evidence import current_question
 
 class Response(io.BytesIO):
     status=200
 
 class SearchTests(unittest.TestCase):
+    def test_exact_ui_regressions_get_details_instead_of_registry_introductions(self):
+        questions=['What are the market trends right now?', 'How is the software engineering job market now?',
+            "What's the most relevant skills now to become a software engineer?"]
+        for question in questions:
+            self.assertTrue(current_question(question))
+            self.assertTrue(detail_seeds(question))
+            self.assertFalse(any('/faqs' in s[1] or '/mycol/' in s[1] for s in detail_seeds(question)))
+        self.assertIn('technology',detail_seeds(questions[1])[0][1])
+        self.assertTrue(any('onetonline' in s[1] for s in detail_seeds(questions[2])))
+        self.assertTrue(any('mozilla' in s[1] for s in detail_seeds(questions[2])))
+        self.assertIn('job market',public_queries(questions[1])[0])
+        self.assertIn('curriculum',public_queries(questions[2])[1])
+        record=dict(text='The registry describes a national programme for occupational groups.\nSoftware engineers develop systems and test software against user requirements.\nSubscribe for our latest email marketing information and cookie policies.')
+        self.assertTrue(select_passage(record,questions[2]).startswith('Software engineers'))
+
     def test_documented_v2_query_and_cached_results_never_send_private_question(self):
         sent=[]
         def open_request(request,timeout):

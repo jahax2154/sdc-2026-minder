@@ -16,13 +16,53 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode,urlsplit,urlunsplit
 from urllib.request import Request,build_opener,HTTPRedirectHandler
 from .model_gateway import coordination_directory
-from .public_retrieval import PublicRetrieval,SEEDS,TOPICS,RetrievalError
+from .public_retrieval import PublicRetrieval,SEEDS,TOPICS,RetrievalError,LFS_URL
 
-POLICY='public-page-discovery-v1'
+POLICY='public-page-discovery-v1.1'
 ENDPOINT='https://api.mwmbl.org/api/v2/search/'
 PROFESSIONAL=('talentcorp.com.my','mynsr.talentcorp.com.my','mdec.my','hays.com.my','randstad.com.my',
     'michaelpage.com.my','jobstreet.com.my','mycen.com.my','coursera.org','dataquest.io','github.blog',
-    'roadmap.sh','techwireasia.com','rawsec.com','knightfrank.com','roberthalf.com','towardsdatascience.com')
+    'roadmap.sh','techwireasia.com','rawsec.com','knightfrank.com','roberthalf.com','towardsdatascience.com',
+    'developer.mozilla.org','onetonline.org','toptal.com')
+DETAILS=(
+    ('dosm-lmr-detail','https://www.dosm.gov.my/portal-main/release-content/labour-market-review-lmr-q22026',
+     'Labour Market Review Q2 2026','MY','DOSM Q2 2026 national labour survey/establishment aggregates. Not software-role demand or a future forecast.'),
+    ('randstad-tech-detail','https://www.randstad.com.my/most-in-demand-jobs-malaysia-emerging-technology/',
+     'Malaysia technology career guide','MY','Recruitment firm observations and 2026 guide; employer context, not a national vacancy census or measured role growth rate.'),
+    ('randstad-market-detail','https://www.randstad.com.my/hr-trends/workforce-trends/malaysia-job-market-outlook-salary-trends-2026/',
+     'Malaysia 2026 job market outlook','MY','Recruitment firm 2026 market observations/outlook, not realized national employment statistics or independently verified forecasts.'),
+    ('onet-software-detail','https://www.onetonline.org/link/summary/15-1252.00',
+     'Software Developers occupational requirements','US','US occupational tasks/skills reference. Not Malaysian hiring popularity, personal competence or a current Malaysian trend.'),
+    ('mdn-curriculum-detail','https://developer.mozilla.org/en-US/curriculum/about-curriculum/',
+     'MDN curriculum: foundational web skills','global','Primary technical curriculum for front-end web development, one software specialism. Foundational advice, not a Malaysian popularity ranking.'),
+    ('dosm-monthly-live',LFS_URL,'DOSM monthly labour force statistics','MY',
+     'Live official DOSM Labour Force Survey CSV, last three months rendered with documented units. National persons/rates, not role vacancies. Observation month is not publication/retrieval time. Source metadata: https://data.gov.my/data-catalogue/lfs_month. Population basis changes in 2025; these comparisons stay within the same basis.'),
+)
+
+def software_question(question):
+    return bool(re.search(r'\b(software|programmer|coding|python)\b',question,re.I))
+
+def market_question(question):
+    return bool(re.search(r'\b(market|trends?|demand|hiring|grow\w*|increas\w*|shortage|vacanc\w*|sought)\b',question,re.I))
+
+def detail_seeds(question):
+    if software_question(question):return [DETAILS[1],DETAILS[0]] if market_question(question) else [DETAILS[3],DETAILS[4]]
+    if market_question(question):return [DETAILS[5],DETAILS[0]]
+    return []
+
+def select_passage(record,question):
+    """Choose question-bearing details, not generic programme introductions."""
+    terms=set(re.findall(r'[a-z]+',question.casefold()))-set('what are the is how now most relevant to become a an in for of right'.split())
+    technical=software_question(question) and not market_question(question)
+    details=('programming','testing','validation','requirements','design','version control','javascript','html','css','git','software','debug','database') if technical else ('jobs','vacancies','unemployment','hiring','demand','grew','growth','increased','declined','software engineer')
+    def score(line):
+        low=line.casefold()
+        return (sum(3 for term in details if term in low)+sum(1 for term in terms if term in low)
+            +(5 if software_question(question) and 'software engineer' in low else 0)
+            -(8 if any(t in low for t in ('sign up','subscribe','cookie','salary expectations')) else 0))
+    lines=[line for line in record['text'].splitlines() if len(line.split())>=6]
+    lines.sort(key=lambda line:-score(line))
+    return '\n'.join(line[:600] for line in lines[:4])[:2200]
 ROLE_TERMS=((r'\b(data analyst|data analytics)\b','data analyst skills'),
     (r'\b(data scien\w*|machine learning)\b','data science skills'),
     (r'\b(software|programmer|coding|python)\b','software developer skills'),
@@ -34,6 +74,8 @@ ROLE_TERMS=((r'\b(data analyst|data analytics)\b','data analyst skills'),
 
 def public_queries(question):
     # A fixed public vocabulary, not an excerpt of the user message/profile/CV.
+    if software_question(question):
+        return ['Malaysia software engineer job market','Malaysia technology hiring'] if market_question(question) else ['software engineer skills','software development curriculum']
     for pattern,topic in ROLE_TERMS:
         if re.search(pattern,question,re.I):return ['Malaysia '+topic.replace(' skills',''),topic]
     if re.search(r'\b(skills?|qualifications?)\b',question,re.I):return ['Malaysia skills demand']
@@ -160,8 +202,13 @@ class SearchRetrieval:
         # Available live official context survives a failed/irrelevant discovery.
         topics=set(re.findall(r'[a-z]+',question.casefold()))
         demand=bool(re.search(r'\b(demand|hiring|market|grow\w*|increas\w*|shortage|vacanc\w*|sought)\b',question,re.I))
-        seed=SEEDS[2] if not demand and topics.intersection({'skill','skills','qualification','qualifications'}) else SEEDS[1]
-        if seed[1] not in seen:jobs.append((self.predefined,seed,'predefined_official'))
+        detailed=detail_seeds(question)
+        for seed in detailed:
+            if seed[1] not in seen:
+                jobs.append((self.fetcher(urlsplit(seed[1]).hostname),seed,'predefined_detail'));seen.add(seed[1])
+        if not detailed:
+            seed=SEEDS[2] if not demand and topics.intersection({'skill','skills','qualification','qualifications'}) else SEEDS[1]
+            if seed[1] not in seen:jobs.append((self.predefined,seed,'predefined_official'))
         records=[];failures=[]
         def fetch(job):
             engine,seed,origin=job;started=time.perf_counter()
@@ -185,14 +232,12 @@ class SearchRetrieval:
                     if record:records.append(record)
                     if failure:failures.append(failure)
                 except Exception:failures.append(dict(source_url=job[1][1],origin=job[2],status='unavailable',code='public_source_fetch_unavailable'))
-        terms=set(re.findall(r'[a-z]+',' '.join(queries))).intersection(TOPICS|{'analyst','analysts','cybersecurity','python','sql','labour','skills'})
         for record in records:
-            lines=[line for line in record['text'].splitlines() if len(line.split())>=6]
-            lines.sort(key=lambda line:-sum(t in line.casefold() for t in terms))
-            record['passage']='\n'.join(line[:600] for line in lines[:4])[:2200]
+            record['passage']=select_passage(record,question)
         # Limit model context; retain the complete discovered-page fetch ledger.
-        records.sort(key=lambda r:(0 if urlsplit(r['url']).hostname.endswith('.gov.my') else 1 if r['origin']=='predefined_official' else 2,
-            0 if relevant(r['title'],r['url']) else 1))
+        detail_order={seed[0]:index for index,seed in enumerate(detailed)}
+        records.sort(key=lambda r:(0 if r['origin']=='predefined_detail' else 1 if relevant(r['title'],r['url']) else 2,
+            next((index for key,index in detail_order.items() if r['id'].startswith(key)),9)))
         selected=records[:3]
         found=any(r['origin']=='search_discovered' for r in selected)
         return dict(policy_version=POLICY,tool='search_then_fetch_public_pages',
