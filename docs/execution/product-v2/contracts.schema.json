@@ -225,7 +225,8 @@
         "filename",
         "content_type",
         "content_base64",
-        "idempotency_key"
+        "idempotency_key",
+        "purpose"
       ],
       "properties": {
         "filename": {
@@ -248,6 +249,12 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 200
+        },
+        "purpose": {
+          "enum": [
+            "cv",
+            "resume"
+          ]
         }
       }
     },
@@ -340,6 +347,13 @@
             "not_requested",
             "review_available",
             "unavailable"
+          ]
+        },
+        "purpose": {
+          "enum": [
+            "cv",
+            "resume",
+            "unclassified"
           ]
         }
       },

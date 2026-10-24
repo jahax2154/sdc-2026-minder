@@ -101,11 +101,15 @@
       "enum": [
         "application_guidance",
         "grounded_evidence",
-        "limited_fallback"
+        "limited_fallback",
+        "generated_guidance"
       ]
     },
     "conversation_policy_version": {
-      "const": "minder-conversation-routing-v1"
+      "enum": [
+        "minder-conversation-routing-v1",
+        "minder-typed-guidance-v1"
+      ]
     },
     "conversation_context_id": {
       "type": "string",
@@ -126,6 +130,18 @@
         "provider_invoked",
         "model"
       ]
+    },
+    "generation": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "action_result": {
+      "type": "object"
+    },
+    "action_error": {
+      "type": "object"
     }
   }
 }
