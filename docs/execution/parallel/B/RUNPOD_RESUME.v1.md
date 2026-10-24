@@ -32,3 +32,7 @@ When the user returns:
 6. Retrieve model/predictions/metrics/config/device/artifacts and actual billing; scale to zero/clean up and verify. Commit actual GPU evidence separately as MB2 and give A its full SHA. No real forecast activation or observed-coverage increase.
 
 The key remains only in the mode600 ignored `.env.runpod.local`. No credentials or model weights are in this checkpoint. New artifacts/logs remain local without a new external backup; committed metadata and code preserve the reproducible state. A coordinates publication of the containing checkpoint; B has not pushed.
+
+## Explicit return — MB1-R05 supersedes the pause above
+
+The user explicitly resumed on24October2026. The private pause marker is archived, no prior submission exists, and supported native worker logs establish a successful pull/startup (worker92ff41nk2xxwjq, digest `sha256:a7bc4356f2634105c183faa4d2356310b549be258205ce25574a4185d6e427cc`). RunPod automatically completed descendant build `d443b1c9-aa7f-493d-b420-180c2cd5fa9d` from `4668be8196215d7aa8fe73e47c8756c4b81f7092` before startup observation; the experiment runtime remains manifest-pinned to c8eb099. No B rebuild or push was issued. Capacity returned to0/0, idle timeout5, balanceUSD25 and spendUSD0/hour verified. Proceed through final live preflight and the exclusive submission receipt; actual run remains a separate MB2 checkpoint. See MB1-R05.json for precise verifier/pull distinctions.
