@@ -169,12 +169,14 @@
     "authorised_limit_usd": 2,
     "posted_billing_usd": 0,
     "final_settled_cost_usd": null,
-    "remaining_credits_last_read_usd": 25,
+    "remaining_credits_last_read_usd": 24.9970109056,
     "workers_min": 0,
     "workers_max": 0,
     "active_workers": 0,
     "current_spend_per_hour": 0,
     "billing_evidence": "MB2.json",
-    "note": "Prior historical blocked/unconfigured records above are superseded for this execution by MB2; retained for provenance."
+    "note": "Prior historical blocked/unconfigured records above are superseded for this execution by MB2; retained for provenance.",
+    "observed_account_credit_decrease_usd": "0.0029890944",
+    "billing_reconciliation": "MB2-R01.json; account debit visible, endpoint itemization pending"
   }
 }

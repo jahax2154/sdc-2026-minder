@@ -24,3 +24,7 @@ USD2 remains the total authority. The conservative preflight upper estimate wasU
 Final cleanup checks show endpoint min/max0/0, no Pods/workers, every worker health counter0, queue/in-progress0 and completed1. Current spend isUSD0/hour. Endpoint/template/image metadata are retained, with no persistent volume. Billing API HTTP200 returned no posted records as of2026-10-24T13:30:21Z; balance still readsUSD25. **Final settled cost is unknown**, not confirmed zero. The only follow-up is a read-only billing reconciliation for this endpoint/job, followed by a focused evidence refinement. No new submission, retry campaign or model promotion is authorised. The fixed submission-intent receipt must remain intact.
 
 Resume instructions are superseded by the MB2 completion note in `RUNPOD_RESUME.v1.md`: inspect the existing job/billing state and never resubmit this experiment.
+
+## MB2-R01 credit reconciliation
+
+At2026-10-24T14:12:34Z, the account API reports USD24.9970109056 remaining: an observed decrease of **USD0.0029890944** from USD25 (about0.3 US cents). A rounded display may still show USD25. Endpoint billing history still returns HTTP200 with no records, so final itemized attribution remains pending. Current spend isUSD0/hour; min/max0/0, no Pods, every worker counter0, completed1 and retries0 are verified. This supersedes the earlier unchanged-balance observation; it does not authorise another experiment.
