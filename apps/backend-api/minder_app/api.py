@@ -22,6 +22,8 @@ class Application:
         self.actions = ActionExecutor(store)
         from .agents import migrate
         migrate(store)
+        from .message_orchestrator import bind
+        bind(self)
 
     def dispatch(self, method, path, body, token, *, request_id=None):
         if path == "/api/health" and method == "GET":
