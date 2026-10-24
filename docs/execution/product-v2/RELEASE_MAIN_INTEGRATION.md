@@ -15,7 +15,7 @@ reported after GitHub merges and the remote ref is independently fetched/verifie
 | D — session/d-profile-state | d070a796d1cb4b1ae1e5ceb1ee5b9e21c642c450 | Canonical persistence, native PostgreSQL/private document adapter and tests |
 | E — session/e-explore-resources | 2b9dd856b5ed66de6d1bc6da75b3e28d9bef118d | Views/resources/auth/worker adapters and completed safe startup diagnostics; hosted acceptance pending |
 | F — session/f-product-frontend | a902a3afb25a3c65441474af2063a8c9985ab6e7 | Full frontend through0c743623 plus separate read-only Netlify export |
-| Teammate main | 54a1f49a414df0e091a0e8aaee458f3b6e0b4760 | Latest README team/slide/video/preview links, Apache licence and uploaded submission files |
+| Teammate main | 755c295a813c26f8299529b8f147e0dd24bde1ec | Latest README team/slide/video/preview links, Apache licence and uploaded submission files |
 
 All six handoffs were checked as ancestors after integrating only missing B/F
 commits. B's three new evidence checkpoints and F's export were merged with their
@@ -24,6 +24,9 @@ The later merge of fetched main encountered only a README conflict; no applicati
 source conflict occurred. The README retains team attribution and latest submitted
 links while replacing stale React/Express/pending-source/public-backend claims with
 the actual Python/ES-module implementation and explicit preview/hosting limits.
+The final fetch caught main755c295 after the initial54a1f49 merge. Its only change,
+the updated slide URL https://canva.link/67te6g9azdjgt61, is retained in a further
+history-preserving README merge. No application code changed in either resolution.
 
 All four uploaded submission files, LICENSE and submission-placeholders.md were
 verified byte-for-byte against the fetched main snapshot. Earlier renamed/deleted
@@ -62,7 +65,9 @@ promotion, schema migration or production-data modification is performed here.
 -66 exported file hashes match F's manifest. Existing backend/ML/contracts/frontend
   bytes were compared directly to their verified revisions before reusing prior
   actual Qwen and PostgreSQL journey evidence.
-- Secret/artifact review:1800 outgoing historical blobs plus1202 tracked paths and
+- Secret/artifact review: initial1800 outgoing historical blobs plus1202 tracked paths;
+  the post-resolution scan covered1803 blobs and1204 paths, including new release
+  notes/evidence, with no candidates. Review also covered
   submission PDF text/DOCX XML scanned. No credential-pattern candidates or unexpected
   env/DB/weights/dependency-cache files found; values were not printed. Intentional
   approved design assets, public evidence and static-preview export are retained.

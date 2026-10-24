@@ -19,7 +19,7 @@ Minder is an AI-assisted career exploration and personalised reskilling prototyp
 | --- | --- |
 | GitHub repository | https://github.com/jahax2154/sdc-2026-minder |
 | Public **static interface preview** | https://aesthetic-baklava-2da854.netlify.app |
-| Slide deck | https://canva.link/fhs6w1hyf2bygyl |
+| Slide deck | https://canva.link/67te6g9azdjgt61 |
 | Demo video | https://youtu.be/l9xjHBjcycM |
 | Submission document | [Uploaded submission template](submission/AI%20Newbee_Submission_Template.docx) |
 | Technical and tools declaration | [Uploaded declaration](submission/AI%20Newbee_Technical_Tools_Declaration_Review-2.docx) |
