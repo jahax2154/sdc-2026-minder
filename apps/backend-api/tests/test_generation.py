@@ -76,9 +76,14 @@ class GenerationTests(AppCase):
             self.assertEqual(response['response_mode'],'generated_guidance')
             self.assertEqual(response['generation']['advice']['stages'][0]['tasks'][0]['description'],description)
             self.assertFalse(self.store.list(self.session['profile_id'],'plan'))
+        value=advice()
+        description='Pick a public tabular dataset, split it into training (80%) and test (20%) sets.'
+        value['stages'][0]['tasks'][0]['description']=description
+        self.assertEqual(validate_advice(value,[],[])['stages'][0]['tasks'][0]['description'],description)
 
     def test_percentage_exception_cannot_escape_task_recipe_or_cover_claims(self):
         for text in ['Split the data into train (80%) and test (30%) sets.',
+                     'Split it into train (80%) and test (20%) sets.',
                      'Split the data into train (100%) and test (0%) sets.',
                      'Split the data into train (80%) and test (20%) sets. Your fit is 99%.',
                      'Split the data into train (80%) and test (20%) sets. Expected accuracy is 95%.',

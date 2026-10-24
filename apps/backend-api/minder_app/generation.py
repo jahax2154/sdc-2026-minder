@@ -59,13 +59,14 @@ text (payload matching fields), never certified skill evidence. Use set_availabi
 for an explicit weekly study-hours change (payload.weekly_hours; null only reset).
 A conversational time statement alone is not a request to save it: offer advice or
 reviewable proposal. Availability affects pathway feasibility only, never role fit.
-For a proposed experiment only, a practice-task description may say 'Split the data
-into training (X%) and test (Y%) sets', with positive parts totaling100. These are
+For a proposed experiment only, use this exact practice-task format: 'Split the data
+into training (X%) and test (Y%) sets', with positive parts totaling100. Prefer a
+qualitative held-out portion when an allocation is unnecessary. These are
 suggested data allocations, not model accuracy, personal assessment or market facts.'''
 
-PRACTICE_GUARD_POLICY = 'proposed-data-partition-guard-v1'
+PRACTICE_GUARD_POLICY = 'proposed-data-partition-guard-v1.1'
 DATA_PARTITION = re.compile(
-    r'\b(?:split|partition)\s+(?:[\w\s\-]{0,80})\bdata(?:sets?)?\s+into\s+'
+    r'\b(?:split|partition)\s+(?P<data>(?:[\w\s\-]{0,80})\bdata(?:sets?)?|it|them)\s+into\s+'
     r'train(?:ing)?\s*\((?P<train>\d+(?:\.\d+)?)\s*%\)\s+and\s+'
     r'(?:test(?:ing)?|validation)\s*\((?P<test>\d+(?:\.\d+)?)\s*%\)', re.I)
 
@@ -73,6 +74,8 @@ DATA_PARTITION = re.compile(
 def guard_practice_description(text):
     """Mask only proposed partition tokens for inspection; visible advice is unchanged."""
     def inspect(match):
+        if match['data'].lower() in ('it', 'them') and not re.search(r'\bdata(?:sets?)?\b', text[:match.start()], re.I):
+            return match.group()
         train, test = Fraction(match['train']), Fraction(match['test'])
         if 0 < train < 100 and 0 < test < 100 and train + test == 100:
             return re.sub(r'\d+(?:\.\d+)?\s*%', 'proposed data allocation', match.group())
