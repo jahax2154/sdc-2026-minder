@@ -10,6 +10,8 @@ VERSION = 'product-v2-bootstrap-v1'
 ROUTES = {}
 ROUTES[('POST', '/api/product/starter-recommendations')] = 'starter'
 ROUTES[('GET', '/api/product/retrieval-capabilities')] = 'web_evidence'
+ROUTES[('GET', '/api/product/minder-handoffs')] = 'handoffs'
+ROUTES[('POST', '/api/product/handoff-decision')] = 'handoffs'
 for method, path in (
     ('GET', 'direction'), ('PUT', 'direction'), ('POST', 'tasks'),
     ('POST', 'task-action'), ('GET', 'progress'), ('GET', 'resource-state'),
