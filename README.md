@@ -170,4 +170,74 @@ Aiversecity Career Compass follows a modular full-stack architecture that connec
 7. **Result Presentation:** The dashboard presents recommendations and supporting explanations to help users make informed career-development decisions.
 
 
+## How to Run
+
+Aiversecity Career Compass is developed and deployed using Replit. The application consists of a React frontend, an Express backend, and an integrated machine-learning service hosted on RunPod.
+
+### Option 1 — Run on Replit (Recommended)
+
+The easiest way to access the application is through our deployed prototype:
+
+**Live Application:** https://aiversecity-career-compass.replit.app
+
+To run the application in the Replit development environment:
+
+1. Open the Aiversecity Career Compass project in Replit.
+2. Ensure the required environment variables are configured securely using Replit Secrets.
+3. Start the project's existing development workflow using the **Run** button.
+4. Open the **Preview** panel to access the application.
+5. Test the CV upload, career recommendations, skill-gap analysis, learning pathways, and AI career assistant.
+
+
+### Option 2 — Run Locally
+
+The application uses a Node.js and TypeScript workspace managed with pnpm.
+
+**Prerequisites:**
+- Node.js
+- pnpm
+- Git
+
+After the frontend and backend development branch has been merged into `main`, the local setup can be completed using the following workflow.
+
+```bash
+# 1. Clone the GitHub repository
+git clone <https://github.com/jahax2154/sdc-2026-minder>
+
+# 2. Enter the project folder
+cd sdc-2026-minder
+
+# 3. Install dependencies
+pnpm install
+
+# 4. Run the application
+# Confirm the correct workspace command after the branch merge
+```
+
+**Pending verification:** The final application startup commands, required Node.js and pnpm versions, and environment-variable names will be confirmed after the development branch is merged.
+
+Do not commit API keys, model credentials, or private configuration files to GitHub.
+
+### Run Tests
+
+The Replit application includes frontend tests, API integration checks, and TypeScript validation.
+
+The following commands apply to the previously exported Replit workspace and must be verified against the final merged GitHub repository:
+
+```bash
+# Frontend tests
+pnpm --filter @workspace/career-compass run test
+
+# AI integration tests
+pnpm --filter @workspace/api-server run test:ai
+
+# TypeScript checks
+pnpm run typecheck
+
+# Frontend production build
+pnpm --filter @workspace/career-compass run build
+```
+
+
+
 
