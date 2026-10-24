@@ -67,7 +67,8 @@ def verify(root=ROOT, *, dependency_directory=None, require_bundle=True):
         if not (root / name).is_file():
             raise StartupFailure("frontend_asset_missing:" + name)
     try:
-        from deploy.artifacts import inventory
+        from deploy.artifacts import inventory, runtime_evidence
+        print(json.dumps(runtime_evidence(root=root)), flush=True)
         inventory(root=root, verify=True)
     except Exception:
         raise StartupFailure("runtime_data_verification_failed") from None

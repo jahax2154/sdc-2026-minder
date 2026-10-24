@@ -41,6 +41,29 @@ def inventory(*, root=ROOT, verify=False):
     return dict(attribution=ATTRIBUTION, sources=selected)
 
 
+def runtime_evidence(*, root=ROOT):
+    """Selected public artifact facts only; never emit bytes or exception text."""
+    data = inventory(root=root)
+    base = root / "ml/minder_ml_starter"
+    facts = []
+    for item in data["sources"]:
+        path = base / item["relative_path"]
+        safe = not path.is_symlink() and path.resolve().is_relative_to(base.resolve())
+        regular = safe and path.is_file()
+        matches = False
+        readable = False
+        if regular:
+            try:
+                matches = hashlib.sha256(path.read_bytes()).hexdigest() == item["sha256"]
+                readable = True
+            except OSError:
+                pass
+        facts.append(dict(source_id=item["id"], relative_path=item["relative_path"],
+                          safe_path=safe, regular_file=regular, readable=readable,
+                          sha256_matches=matches))
+    return dict(event="minder_runtime_data_probe", sources=facts)
+
+
 def checked_url(url):
     part = urlsplit(url)
     if (part.scheme != "https" or part.hostname not in ("www.onetcenter.org", "onetcenter.org")
