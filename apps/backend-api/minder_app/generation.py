@@ -7,6 +7,7 @@ import json
 import copy
 import re
 import time
+from fractions import Fraction
 from jsonschema.exceptions import ValidationError
 from minder_ml.intelligence.groq_adapter import GroqAdapter, ProviderError
 from .generation_schemas import POLICY_ID, SCHEMA, VALIDATOR
@@ -20,7 +21,7 @@ identity, credentials or hidden reasoning. You may propose practice activities,
 learning sequences, experiments and reflection without pretending they are sourced
 occupation requirements. Explain what to DO and what outcome to inspect. A request
 to discuss/recommend does NOT authorize saving or changing anything.
-No invented proficiency, assessment, scores, percentages, rankings, salary, demand,
+No invented proficiency, assessment, scores, personal/market percentages, rankings, salary, demand,
 forecast, hiring prediction, job availability, employers, links or resource claims.
 User-reported experience is not certified mastery. Use supplied verified facts only
 for external factual claims, by fact_ids; don't paraphrase their quantities. Do not
@@ -57,7 +58,26 @@ Use update_context for explicitly requested user-reported education/experience/g
 text (payload matching fields), never certified skill evidence. Use set_availability
 for an explicit weekly study-hours change (payload.weekly_hours; null only reset).
 A conversational time statement alone is not a request to save it: offer advice or
-reviewable proposal. Availability affects pathway feasibility only, never role fit.'''
+reviewable proposal. Availability affects pathway feasibility only, never role fit.
+For a proposed experiment only, a practice-task description may say 'Split the data
+into training (X%) and test (Y%) sets', with positive parts totaling100. These are
+suggested data allocations, not model accuracy, personal assessment or market facts.'''
+
+PRACTICE_GUARD_POLICY = 'proposed-data-partition-guard-v1'
+DATA_PARTITION = re.compile(
+    r'\b(?:split|partition)\s+(?:[\w\s\-]{0,80})\bdata(?:sets?)?\s+into\s+'
+    r'train(?:ing)?\s*\((?P<train>\d+(?:\.\d+)?)\s*%\)\s+and\s+'
+    r'(?:test(?:ing)?|validation)\s*\((?P<test>\d+(?:\.\d+)?)\s*%\)', re.I)
+
+
+def guard_practice_description(text):
+    """Mask only proposed partition tokens for inspection; visible advice is unchanged."""
+    def inspect(match):
+        train, test = Fraction(match['train']), Fraction(match['test'])
+        if 0 < train < 100 and 0 < test < 100 and train + test == 100:
+            return re.sub(r'\d+(?:\.\d+)?\s*%', 'proposed data allocation', match.group())
+        return match.group()
+    return DATA_PARTITION.sub(inspect, text)
 
 EMPIRICAL = re.compile(r'\b(market|demand|malaysian?|forecasts?|quarters?|salary|salaries|shortage|hiring|rank(?:s|ed|ing|ings)?|scores?|compare|requirements?|qualifications?|source[s]?|evidence coverage|role fit)\b|\bwhy\b.*\brecommend|\b(?:AI|automation)\b.*\b(?:replace|replacement|displace|displacement)\b|\b(?:replace|replacement|displace|displacement)\b.*\b(?:AI|automation)\b', re.I)
 
@@ -110,8 +130,9 @@ def validate_advice(value, facts, tasks, message=None, *, allow_incomplete=False
     # Schema excludes numerical rankings. Reject obvious external quantitative
     # assertions and URLs; general advice remains model content, not source-certified.
     prose = ' '.join([value['answer']] + value['assumptions'] + value['questions'] +
-        [s['outcome'] for s in value['stages']] +
-        [t['description'] for s in value['stages'] for t in s['tasks']])
+        [text for s in value['stages'] for text in (s['title'], s['outcome'])] +
+        [text for s in value['stages'] for t in s['tasks']
+         for text in (t['title'], guard_practice_description(t['description']))])
     if re.search(r'https?://|\b(?:RM|MYR)\s*\d|\d\s*%|\b(?:fit|readiness|replacement|demand)\s*(?:score|probability)\b', prose, re.I):
         raise ValueError('unsupported_external_or_scoring_claim')
     if re.search(r'\b\d[\d,]*(?:\.\d+)?\s+(?:jobs?|vacancies|openings|employers|ads)\b', prose, re.I):

@@ -66,6 +66,32 @@ class GenerationTests(AppCase):
             self.assertIsNone(result['generation']);self.assertEqual(result['response_mode'],'limited_fallback')
             self.assertNotIn('98%',result['answer'])
 
+    def test_proposed_data_partition_is_not_an_assessment_percentage(self):
+        for train, test in [('80','20'), ('70','30'), ('99.5','0.5')]:
+            value=advice()
+            description=f'Split the bus-delay data into training ({train}%) and test ({test}%) sets. Inspect held-out errors.'
+            value['stages'][0]['tasks'][0]['description']=description
+            self.app.provider=AdviceProvider(value)
+            response=self.app.dispatch('POST','/api/chat',dict(message='Plan a machine learning roadmap for my bus-delay notebook'),self.token)
+            self.assertEqual(response['response_mode'],'generated_guidance')
+            self.assertEqual(response['generation']['advice']['stages'][0]['tasks'][0]['description'],description)
+            self.assertFalse(self.store.list(self.session['profile_id'],'plan'))
+
+    def test_percentage_exception_cannot_escape_task_recipe_or_cover_claims(self):
+        for text in ['Split the data into train (80%) and test (30%) sets.',
+                     'Split the data into train (100%) and test (0%) sets.',
+                     'Split the data into train (80%) and test (20%) sets. Your fit is 99%.',
+                     'Split the data into train (80%) and test (20%) sets. Expected accuracy is 95%.',
+                     'Use a 90% readiness score.', 'Read https://invented.example']:
+            value=advice();value['stages'][0]['tasks'][0]['description']=text
+            with self.assertRaises(ValueError):validate_advice(value,[],[])
+        for field in ('answer','stage_title','task_title'):
+            value=advice();text='Split the data into train (80%) and test (20%) sets.'
+            if field=='answer':value['answer']=text
+            elif field=='stage_title':value['stages'][0]['title']='Guaranteed 99% fit'
+            else:value['stages'][0]['tasks'][0]['title']='Guaranteed 99% fit'
+            with self.assertRaises(ValueError):validate_advice(value,[],[])
+
     def test_provider_missing_has_no_fabricated_draft(self):
         from minder_ml.intelligence.groq_adapter import GroqAdapter
         self.app.provider=GroqAdapter(key='',model='qwen/qwen3.8-27b')
