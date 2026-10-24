@@ -35,6 +35,8 @@ class ClosingConnection(sqlite3.Connection):
 
 
 class Store:
+    engine = "sqlite"
+
     def __init__(self, path):
         self.path = str(path)
         Path(path).parent.mkdir(parents=True, exist_ok=True)
@@ -56,6 +58,7 @@ class Store:
     def connect(self):
         db = sqlite3.connect(self.path, timeout=5, factory=ClosingConnection)
         db.row_factory = sqlite3.Row
+        db.execute("PRAGMA foreign_keys=ON")
         # Local personal state is plaintext; restrict owned DB/WAL/SHM files,
         # without deleting/rewriting records or claiming encryption/expiry.
         try:

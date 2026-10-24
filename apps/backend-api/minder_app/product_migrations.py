@@ -24,3 +24,31 @@ def migrate(store):
                    "owner TEXT NOT NULL, document_id TEXT NOT NULL, draft_id TEXT NOT NULL, "
                    "PRIMARY KEY(owner,document_id), UNIQUE(owner,draft_id))")
         db.execute("INSERT OR IGNORE INTO migrations VALUES(6)")
+        db.execute("CREATE TABLE IF NOT EXISTS app_users(id TEXT PRIMARY KEY, created_at TEXT NOT NULL)")
+        db.execute("CREATE TABLE IF NOT EXISTS external_identities(issuer TEXT NOT NULL, subject TEXT NOT NULL, "
+                   "owner TEXT NOT NULL REFERENCES app_users(id), PRIMARY KEY(issuer,subject))")
+        db.execute("CREATE TABLE IF NOT EXISTS conversations(owner TEXT NOT NULL, id TEXT NOT NULL, "
+                   "channel TEXT NOT NULL CHECK(channel IN ('minder','mindbot')), title TEXT NOT NULL, "
+                   "version TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, "
+                   "next_sequence INTEGER NOT NULL, status TEXT NOT NULL CHECK(status IN ('active','deleted')), "
+                   "PRIMARY KEY(owner,id))")
+        db.execute("CREATE UNIQUE INDEX IF NOT EXISTS single_mindbot ON conversations(owner) WHERE channel='mindbot'")
+        db.execute("CREATE TABLE IF NOT EXISTS conversation_requests(owner TEXT NOT NULL, key TEXT NOT NULL, "
+                   "operation TEXT NOT NULL, scope_hash TEXT NOT NULL, conversation_id TEXT NOT NULL, "
+                   "PRIMARY KEY(owner,key))")
+        db.execute("CREATE TABLE IF NOT EXISTS conversation_messages(owner TEXT NOT NULL, conversation_id TEXT NOT NULL, "
+                   "id TEXT NOT NULL, sequence INTEGER NOT NULL, role TEXT NOT NULL CHECK(role IN ('user','assistant')), "
+                   "body TEXT NOT NULL, created_at TEXT NOT NULL, request_id TEXT NOT NULL, status TEXT NOT NULL, "
+                   "PRIMARY KEY(owner,id), UNIQUE(owner,conversation_id,sequence), "
+                   "FOREIGN KEY(owner,conversation_id) REFERENCES conversations(owner,id))")
+        db.execute("CREATE TABLE IF NOT EXISTS conversation_turns(owner TEXT NOT NULL, conversation_id TEXT NOT NULL, "
+                   "key TEXT NOT NULL, request_id TEXT NOT NULL, scope_hash TEXT NOT NULL, "
+                   "status TEXT NOT NULL CHECK(status IN ('processing','completed','failed','uncertain')), "
+                   "user_message_id TEXT NOT NULL, assistant_message_id TEXT, created_at TEXT NOT NULL, "
+                   "finished_at TEXT, error_code TEXT, PRIMARY KEY(owner,conversation_id,key), "
+                   "UNIQUE(owner,request_id), FOREIGN KEY(owner,conversation_id) REFERENCES conversations(owner,id))")
+        db.execute("CREATE UNIQUE INDEX IF NOT EXISTS conversation_inflight ON conversation_turns(owner,conversation_id) "
+                   "WHERE status='processing'")
+        db.execute("CREATE TABLE IF NOT EXISTS conversation_notice_links(owner TEXT NOT NULL, event_id TEXT NOT NULL, "
+                   "conversation_id TEXT NOT NULL, message_id TEXT NOT NULL, PRIMARY KEY(owner,event_id))")
+        db.execute("INSERT OR IGNORE INTO migrations VALUES(7)")

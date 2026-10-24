@@ -122,7 +122,11 @@
         "apps/backend-api/minder_app/postgres_store.py",
         "apps/backend-api/tests/test_conversations.py",
         "apps/backend-api/tests/test_identity_store.py",
-        "apps/backend-api/tests/test_postgres_store.py"
+        "apps/backend-api/tests/test_postgres_store.py",
+        "apps/backend-api/minder_app/automation_state.py",
+        "apps/backend-api/minder_app/generation_state.py",
+        "apps/backend-api/tests/test_automation_state.py",
+        "apps/backend-api/tests/test_generation_state.py"
       ],
       "forbidden": [
         "api.py/product_routes.py central registration",
