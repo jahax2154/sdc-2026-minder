@@ -1,5 +1,7 @@
 # Current RunPod continuation
 
+MB1-R03 update: Junhong granted endpoint-scoped Read/Write and B reverified `/health` **HTTP200**, with all job and worker counters0. Credit remainsUSD25/current spendUSD0/hour; endpoint min/max0, no Pods/builds. No further account step is requested. The current gate is A publication: remote B stillc8eb099, while native packaging requires fa0f4d7ec03bd4d30be18424923370df1cd10bb3 or a cumulative successor. Actual GPU execution remains pending, with no job or charge. Earlier403statements below are historical.
+
 Latest MB1-R02 state: B created and re-read dedicated endpoint **`0387furb08gke2`**, with min/max workers both **0**, GPU count1, no Pods and no builds. Its actual ID is saved privately; final `RUNPOD_IMAGE` remains unset. Endpoint `/health` returns explicit403permission denial; Read/Write scope for only this ID has been requested asynchronously. Credit remainsUSD25/current spendUSD0 per hour. No build, test job or experiment has started. A must publish `202ae8941893f7834ceba5175f12532a408d37d5` or the cumulative MB1-R02 snapshot before the native Dockerfile is available remotely. Earlier no-endpoint statements below describe the preceding checkpoint.
 
 This MB1-R01 update supersedes MB1-PREP's pending-credit state and its strict provider-one-attempt requirement. The existing experiment, source/data hashes, validation/test discipline, CUDA proof checks and single client submission remain unchanged.

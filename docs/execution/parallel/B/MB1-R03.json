@@ -1,0 +1,109 @@
+{
+  "phase_id": "MB1-R03",
+  "refines": "MB1-R02",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "base_sha": "fa0f4d7ec03bd4d30be18424923370df1cd10bb3",
+  "checkpoint": "commit containing MB1-R03.json",
+  "checked_at": "2026-10-24T08:57:57.645939+00:00",
+  "objective": "Verify the user-granted dedicated endpoint scope without submitting a test job or exposing credentials; enforce the coordinated-publication gate",
+  "actual_live_read": {
+    "UTC_checked": "2026-10-24T08:55:34.167122+00:00",
+    "endpoint_id": "0387furb08gke2",
+    "endpoint_health_HTTP_status": 200,
+    "health": {
+      "jobs": {
+        "completed": 0,
+        "failed": 0,
+        "inProgress": 0,
+        "inQueue": 0,
+        "retried": 0
+      },
+      "workers": {
+        "idle": 0,
+        "initializing": 0,
+        "ready": 0,
+        "running": 0,
+        "throttled": 0,
+        "unhealthy": 0
+      }
+    },
+    "balance_usd": 25,
+    "current_spend_per_hour": 0,
+    "automatic_payments_enabled": false,
+    "endpoint": {
+      "id": "0387furb08gke2",
+      "name": "minder-b-gpu-once-20261024",
+      "workersMin": 0,
+      "workersMax": 0,
+      "gpuCount": 1,
+      "executionTimeoutMs": 180000,
+      "idleTimeout": 5,
+      "flashBootType": "OFF",
+      "pods": [],
+      "repo": null,
+      "builds": []
+    },
+    "job_submission_performed": false,
+    "credentials_printed": false
+  },
+  "endpoint_access": {
+    "prior_HTTP_status": 403,
+    "current_HTTP_status": 200,
+    "endpoint_id": "0387furb08gke2",
+    "user_confirmed_grant": "Read/Write for this endpoint only",
+    "empirically_verified": "Authenticated health/read access; no paid write/submission attempted"
+  },
+  "publication_check": {
+    "command": "gh api repos/jahax2154/sdc-2026-minder/git/ref/heads/session/b-market --jq .object.sha",
+    "actual_remote_SHA": "c8eb09921f6bf583ec30bca636f549628a575d69",
+    "required_cumulative_SHA": "fa0f4d7ec03bd4d30be18424923370df1cd10bb3",
+    "required_native_packaging_ancestor": "202ae8941893f7834ceba5175f12532a408d37d5",
+    "result": "not_yet_published; native Dockerfile absent from verified remote snapshot",
+    "publisher": "A; B does not independently push",
+    "required_commit_object_lookup": {
+      "command": "gh api repos/jahax2154/sdc-2026-minder/commits/fa0f4d7ec03bd4d30be18424923370df1cd10bb3 --jq .sha",
+      "actual_HTTP_status": 422,
+      "result": "No commit found for SHA; publication through another branch was not verified either"
+    }
+  },
+  "current_blocker": {
+    "capability": "Coordinated GitHub publication",
+    "responsible_owner": "A",
+    "smallest_resolution": "Publish fa0f4d7ec03bd4d30be18424923370df1cd10bb3 or this cumulative checkpoint to session/b-market, preserving history. B then verifies exact remote source before native build.",
+    "further_user_account_action_needed_now": false
+  },
+  "remaining_B_work_after_publication": [
+    "Native build configuration and final image/build-source verification",
+    "Provider initialization/test-job/retry/idle/storage/cleanup quote and total-billing bound withinUSD2",
+    "Single experiment submission, actual CUDA XGBoost proof, artifacts/model/predictions/metrics, billing and shutdown evidence in distinct MB2 commit"
+  ],
+  "execution": {
+    "native_builds_started": 0,
+    "experiment_jobs_submitted": 0,
+    "actual_GPU_fits": 0,
+    "paid_cost_usd": 0,
+    "verified_credit_usd": 25,
+    "current_spend_usd_per_hour": 0,
+    "active_workers": 0,
+    "maximum_workers_current": 0,
+    "gpu_count_configured": 1,
+    "actual_running_workers": 0,
+    "actual_job_id": null,
+    "final_image": null
+  },
+  "controls_preserved": {
+    "authorised_total_usd": 2,
+    "no_topup_or_billing_upgrade": true,
+    "single_client_submission": true,
+    "verified_bounded_provider_retries_required": true,
+    "no_automatic_model_promotion": true,
+    "real_market_forecasts": "unavailable",
+    "observed_coverage_increase": 0
+  },
+  "verification_scope": "Actual authenticated read, not mocked GPU fitting; no numerical experiment or completed local tests repeated. No credentials printed, copied into evidence or staged.",
+  "tests": "Read-only HTTP200 health counters and authenticated endpoint/account state; JSON/diff review for evidence-only changes",
+  "publication": "Local checkpoint for A publication; not itself a remote push",
+  "next_eligible": "A publishes the exact snapshot. B verifies publication and resumes native-build/live-budget preflight before any paid action."
+}

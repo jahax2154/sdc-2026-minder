@@ -48,6 +48,23 @@
     "workers_max": 0,
     "workers_min": 0
   },
+  "MB1_R03_endpoint_scope_verification": {
+    "actual_GPU_fits": 0,
+    "actual_paid_cost_usd": 0,
+    "builds": 0,
+    "checked_at": "2026-10-24T08:55:34.167122+00:00",
+    "credit_usd": 25,
+    "current_spend_usd_per_hour": 0,
+    "endpoint_id": "0387furb08gke2",
+    "further_account_setup_request_pending": false,
+    "grant_user_confirmed": "endpoint-scoped Read/Write",
+    "health_HTTP_status": 200,
+    "pods": 0,
+    "publication_gate": "remoteB remainsc8eb099; A publication of fa0f4d7 or cumulative successor required",
+    "submitted_jobs": 0,
+    "workers_max": 0,
+    "workers_min": 0
+  },
   "access_status": "authenticated_read_access_verified",
   "account_current_spend_per_hour": 0,
   "actual_session_cost_usd": 0,
