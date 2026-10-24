@@ -1,2 +1,13 @@
--r ../ml/requirements-foundation.txt
+-c ../ml/requirements-foundation.txt
+numpy
+scipy
+scikit-learn
+joblib
+threadpoolctl
+jsonschema
+pypdf
+xgboost==3.4.1; platform_system != "Linux"
+xgboost-cpu==3.4.1; platform_system == "Linux"
 clerk-backend-api==7.0.0
+psycopg[binary]==3.3.6
+replit-object-storage==1.0.2

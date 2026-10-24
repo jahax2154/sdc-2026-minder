@@ -1,0 +1,14 @@
+# Install as .replit in the actual imported release root, preserving existing
+# project history/config before replacement. This is a template, not a deploy.
+modules = ["python-3.12"]
+entrypoint = "deploy/replit_runtime.py"
+run = ["bash", "deploy/replit/start.sh"]
+
+[deployment]
+build = ["bash", "deploy/replit/build.sh"]
+run = ["bash", "deploy/replit/start.sh"]
+ignorePorts = false
+
+[[ports]]
+localPort = 8080
+externalPort = 80
