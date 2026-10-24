@@ -7,6 +7,16 @@ from deploy.operator import OperatorError
 
 
 class ClerkPreflightTests(unittest.TestCase):
+    def test_masked_or_non_header_secret_is_rejected_before_provider_request(self):
+        values = dict(MINDER_CLERK_INSTANCE_MODE="preview", CLERK_PUBLISHABLE_KEY="pk_test_example")
+        for secret in ("sk_test_masked\u2026", "sk_test_not a full key"):
+            with self.subTest(case="invalid_private_header"), patch("clerk_backend_api.Clerk") as provider, \
+                    self.assertRaises(OperatorError) as error:
+                check(dict(values, CLERK_SECRET_KEY=secret))
+            self.assertNotIn(secret, str(error.exception))
+            self.assertIn("CLERK_SECRET_KEY_requires_full_unmasked_ASCII_value", str(error.exception))
+            provider.assert_not_called()
+
     def test_backend_instance_must_match_public_key_without_claiming_login(self):
         from cryptography.hazmat.primitives.asymmetric.rsa import generate_private_key
         from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
