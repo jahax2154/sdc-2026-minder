@@ -67,7 +67,12 @@ Validate the Linux wheels/container on the real provider before acceptance.
    qwen/qwen3.8-27b model and daily cap. No local Mac file is required. Never put
    keys in frontend, Git, public config or logs.
 6. Confirm F's CSP/login/source-attribution integration and A/D/F acceptance before
-   the requested judge publication. Use provider subdomain; no custom domain needed.
+   the requested judge publication. Clerk production requires an OWNED domain and
+   its DNS records; configure an existing domain for the app/Clerk instance. The
+   Railway-generated subdomain alone does not establish that Clerk production
+   prerequisite. Do not buy a domain/upgrade or silently substitute a development
+   instance. If no existing domain is available, report that exact dependency.
+   Official requirement: https://clerk.com/docs/guides/development/deployment/production
 
 ## Data and migrations
 
