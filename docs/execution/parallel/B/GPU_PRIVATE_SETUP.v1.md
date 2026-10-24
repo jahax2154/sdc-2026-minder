@@ -1,5 +1,7 @@
 # MB1 preparation — private setup and one bounded GPU experiment
 
+Current continuation: `GPU_NATIVE_BUILD_STATUS.v1.md` / `MB1-R01.json`. Credits/key are now verified; native GitHub build replaces local Docker/registry setup. The latest user instruction permits bounded provider retries within USD2, superseding this historical guide's one-provider-attempt constraint. One client submission remains mandatory.
+
 Revision-3 morning runbook governs this continuation. Reuse SY1–SY3 and `SYNTHETIC_HANDOFF.v1.md`; no source investigation or experiment redesign is needed. **Local preparation is ready; container build, account preflight and actual GPU proof remain pending.** MB2 is compulsory submission work and is not completed by this preparation checkpoint.
 
 ## Private credentials

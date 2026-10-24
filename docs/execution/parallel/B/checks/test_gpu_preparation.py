@@ -7,6 +7,9 @@ import io
 import json
 from pathlib import Path
 import tempfile
+import shlex
+import shutil
+import subprocess
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -25,6 +28,7 @@ class PreparationTests(unittest.TestCase):
             image_pull_verified=True, endpoint_settings_verified=True,
             provider_attempt_bound_verified=True, provider_hard_stop_verified=True,
             artifact_roundtrip_verified=True, automatic_topup=False, billing_upgrade=False,
+            billable_bound_includes_initialization_test_retries_cleanup=True,
             max_provider_attempts=1, workers_min=0, workers_max=1, gpu_count=1,
             balance_usd=25, existing_billable_workers=0,
             verified_rate_usd_per_second=.001, verified_total_billable_seconds_bound=365,
@@ -96,10 +100,28 @@ class PreparationTests(unittest.TestCase):
 
     def test_budget_requires_live_evidence_and_USD2_total(self):
         self.assertAlmostEqual(control.budget_check(self.safe_budget()),.465)
-        for change in ({'provider_attempt_bound_verified':False},{'max_provider_attempts':2},
+        self.assertAlmostEqual(control.budget_check(dict(self.safe_budget(),max_provider_attempts=3)),.465)
+        for change in ({'provider_attempt_bound_verified':False},{'max_provider_attempts':0},
             {'workers_max':2},{'balance_usd':1},{'automatic_topup':True},
-            {'verified_rate_usd_per_second':1},{'existing_billable_workers':1}):
+            {'verified_rate_usd_per_second':1},{'existing_billable_workers':1},
+            {'billable_bound_includes_initialization_test_retries_cleanup':False}):
             with self.assertRaises(ValueError): control.budget_check(dict(self.safe_budget(),**change))
+
+    def test_key_only_read_access_does_not_require_endpoint_or_image(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'.env.runpod.local'
+            path.write_text('RUNPOD_API_KEY="fictional-test-key"\nRUNPOD_ENDPOINT_ID=\nRUNPOD_IMAGE=\n')
+            path.chmod(0o600)
+            self.assertEqual(control.load_secret(path,require_endpoint=False)['RUNPOD_API_KEY'],'fictional-test-key')
+            with self.assertRaisesRegex(ValueError,'endpoint'): control.load_secret(path)
+
+    def test_prebuild_cleanup_requires_endpoint_but_not_unavailable_final_image(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'.env.runpod.local'
+            path.write_text('RUNPOD_API_KEY=fictional-test-key\nRUNPOD_ENDPOINT_ID=mock-endpoint\nRUNPOD_IMAGE=\n')
+            path.chmod(0o600)
+            self.assertEqual(control.load_secret(path,require_image=False)['RUNPOD_ENDPOINT_ID'],'mock-endpoint')
+            with self.assertRaisesRegex(ValueError,'image'): control.load_secret(path)
 
     def test_artifact_roundtrip_before_ephemeral_worker_cleanup(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -172,6 +194,30 @@ class PreparationTests(unittest.TestCase):
                 self.assertEqual(api.call_count,1)
                 receipt=(root/'ml/artifacts/session-b/gpu-live/submission-intent.json').read_text()
                 self.assertNotIn('fictional-test-key',receipt)
+
+    def test_native_GitHub_Docker_COPY_layout_matches_frozen_runtime(self):
+        tracked=subprocess.check_output(['git','ls-files'],cwd=ROOT,text=True).splitlines()
+        dockerfile=ROOT/'docs/execution/parallel/B/checks/GPU.native.Dockerfile'
+        with tempfile.TemporaryDirectory() as directory:
+            target=Path(directory)
+            for line in dockerfile.read_text().splitlines():
+                if not line.startswith('COPY '): continue
+                tokens=shlex.split(line)[1:];sources,destination=tokens[:-1],tokens[-1]
+                base=target/destination.removeprefix('/app/')
+                for source in sources:
+                    if source.endswith('/'):
+                        for name in tracked:
+                            if name.startswith(source):
+                                path=base/Path(name).relative_to(source)
+                                path.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/name,path)
+                    else:
+                        path=base/Path(source).name if destination.endswith('/') else base
+                        path.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/source,path)
+            manifest=worker.verify_manifest(target)
+            self.assertEqual(manifest['source_commit'],'c8eb09921f6bf583ec30bca636f549628a575d69')
+            self.assertEqual(len(manifest['files']),66)
+            self.assertFalse((target/'.env.runpod.local').exists())
+            self.assertFalse((target/'ml/minder_ml_starter/raw').exists())
 
 
 if __name__=='__main__': unittest.main()

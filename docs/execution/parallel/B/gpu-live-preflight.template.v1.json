@@ -8,7 +8,7 @@
   "artifact_roundtrip_verified": false,
   "automatic_topup": false,
   "billing_upgrade": false,
-  "max_provider_attempts": 1,
+  "max_provider_attempts": null,
   "workers_min": 0,
   "workers_max": 1,
   "gpu_count": 1,
@@ -19,5 +19,6 @@
   "ancillary_and_billing_rounding_usd_bound": null,
   "verified_endpoint_id": null,
   "verified_image_digest": null,
-  "verification_notes": "Template only. B fills from actual live evidence after user confirmation; do not change booleans just to pass checks."
+  "verification_notes": "B records actual finite provider attempts and a TOTAL billable time bound including native-build tests, initialization, retries, execution, idle and cleanup; no claim that max workers is a dollar cap.",
+  "billable_bound_includes_initialization_test_retries_cleanup": false
 }

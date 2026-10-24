@@ -1,0 +1,100 @@
+{
+  "phase_id": "MB1-R01",
+  "refines": "MB1-PREP",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "base_sha": "c8eb09921f6bf583ec30bca636f549628a575d69",
+  "checkpoint": "commit containing MB1-R01.json and native-build publication handoff",
+  "checked_at": "2026-10-24T08:12:21.254979+00:00",
+  "objective": "Continue authenticated RunPod preflight, resolve the absent local Docker route with native GitHub packaging, and apply bounded-provider-retry clarification",
+  "user_confirmation_received": true,
+  "account_access_verified": {
+    "balance_usd": 25,
+    "current_spend_per_hour": 0,
+    "github_connected": true,
+    "automatic_payment_enabled": false,
+    "endpoint_count": 0,
+    "pod_count": 0,
+    "dedicated_endpoints": []
+  },
+  "changes": [
+    "Key-only read preflight without disclosing credentials; optional endpoint/image checks deferred until actual values exist",
+    "Positive finite provider retries accepted with explicit total initialization/test/retry/idle/cleanup billable bound; single-client submission guard unchanged",
+    "Repository-root native GitHub Dockerfile plus immutable66-file source manifest matching c8eb099",
+    "A coordinated-publication request with exact branch/Dockerfile/source requirements",
+    "Only missing browser consent requested from Junhong; no manual dataset, Docker Hub or endpoint research delegated",
+    "Authenticated GraphQL Bearer header verified; production management URLs no longer carry API keys."
+  ],
+  "verification": [
+    {
+      "command": "Authenticated RunPod GraphQL read of balance/current resources/GitHub connection/automatic payment",
+      "result": {
+        "balance_usd": 25,
+        "current_spend_per_hour": 0,
+        "github_connected": true,
+        "automatic_payment_enabled": false,
+        "endpoint_count": 0,
+        "pod_count": 0,
+        "dedicated_endpoints": []
+      },
+      "evidence_class": "actual live read; no resource mutation"
+    },
+    {
+      "command": "gh auth status (token redacted) and gh api repository B branch reference",
+      "result": "GitHub access verified; remote B c8eb09921f6bf583ec30bca636f549628a575d69"
+    },
+    {
+      "command": "PYTHONWARNINGS=error::RuntimeWarning PYTHONPATH=ml/src $MINDER_PYTHON docs/execution/parallel/B/checks/test_gpu_preparation.py",
+      "result": "................\n----------------------------------------------------------------------\nRan 16 tests in 0.618s\n\nOK",
+      "log_sha256": "3a42a312aac61897911a3d14c8d36c7d1c9a02b890d95fa0ffddced5926fcd86",
+      "evidence_class": "local software/packaging/mock checks; no actual GPU fit"
+    },
+    {
+      "check": "Native Docker COPY layout emulated against repository paths and verified with live-worker image manifest check",
+      "result": "66 runtime hashes match; original source/data/runner unchanged; no private key/raw inputs included"
+    },
+    {
+      "check": "Authenticated API schema introspection attempts",
+      "result": "HTTP400/failed introspection; no mutations. Public official API/native-build documentation used instead."
+    }
+  ],
+  "exact_current_blocker": {
+    "capability": "Native image build publication/configuration",
+    "verified_state": "User browser consent completed and reverified via API. Native Dockerfile is local; A must publish the containing exact B commit before the native builder can select it.",
+    "smallest_resolution": "A publishes containing commit to session/b-market; B configures native build/dedicated endpoint and verifies billable build-testing bounds.",
+    "B_responsibility_after_resolution": "Provide actual endpoint ID, populate verified image/endpoint privately, verify total bound and execute once"
+  },
+  "publication_dependency": "A publishes exact containing commit to session/b-market before native builder selects the new Dockerfile; no root workflow edit needed",
+  "not_yet_claimed": [
+    "Final container built/pulled or native build Testing bounded",
+    "Dedicated endpoint or final image identifier",
+    "Provider startup/retry/storage/cleanup billable upper bound or actual GPU rate",
+    "Successful CUDA fit, job/model/prediction metrics, paid cost reconciliation or final shutdown"
+  ],
+  "execution": {
+    "account_resources_created": 0,
+    "native_builds_started": 0,
+    "client_experiment_submissions": 0,
+    "actual_GPU_fits": 0,
+    "paid_cost_usd": 0,
+    "remaining_credit_verified_usd": 25,
+    "job_id": null,
+    "endpoint_id": null,
+    "image_id": null
+  },
+  "scope_preserved": {
+    "synthetic_only": true,
+    "normal_serving_eligible": false,
+    "real_forecasts": "unavailable",
+    "observed_coverage_increase": 0,
+    "training_experiment_redesigned": false
+  },
+  "handoff": "requests/MB1-R01-NATIVE-BUILD-PUBLICATION.md",
+  "phase_states": {
+    "MB1": "limited; authenticated read ready, native connection/image/control preflight pending",
+    "MB2": "deferred_dependency; compulsory live GPU proof not completed"
+  },
+  "publication": "B has not pushed; A coordinates exact SHA",
+  "next_eligible": "A publishes containing native-build commit; B proceeds with connected-account image/endpoint and billing-bound preflight, followed by a single GPU experiment and separate actual execution evidence commit."
+}

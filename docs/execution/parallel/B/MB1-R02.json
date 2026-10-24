@@ -1,0 +1,125 @@
+{
+  "phase_id": "MB1-R02",
+  "refines": "MB1-R01",
+  "owner": "B",
+  "branch": "session/b-market",
+  "status": "limited",
+  "objective": "Create and verify only the dedicated zero-worker endpoint, save its actual ID privately, and verify connected-repository access before native build",
+  "base_sha": "202ae8941893f7834ceba5175f12532a408d37d5",
+  "checkpoint": "commit containing MB1-R02.json",
+  "checked_at": "2026-10-24T08:28:25.179532+00:00",
+  "source_runtime_commit": "c8eb09921f6bf583ec30bca636f549628a575d69",
+  "source_native_build_packaging_commit": "202ae8941893f7834ceba5175f12532a408d37d5",
+  "actual_endpoint": {
+    "id": "0387furb08gke2",
+    "name": "minder-b-gpu-once-20261024",
+    "workersMin": 0,
+    "workersMax": 0,
+    "gpuCount": 1,
+    "executionTimeoutMs": 180000,
+    "idleTimeout": 5,
+    "flashBootType": "OFF",
+    "pods": [],
+    "repo": null,
+    "builds": []
+  },
+  "live_account": {
+    "balance_usd": 25,
+    "current_spend_per_hour": 0,
+    "github_connection_verified": true,
+    "selected_repository": "jahax2154/sdc-2026-minder",
+    "B_branch_remote_SHA_verified": "c8eb09921f6bf583ec30bca636f549628a575d69"
+  },
+  "operations": [
+    {
+      "operation": "saveEndpoint",
+      "authority": "User requested creation/configuration of only the dedicated experiment endpoint",
+      "result": "Created exactly one endpoint with an inline staging template and workersMin=workersMax=0; GPU count1 but no GPU worker allocated",
+      "GPU_worker_started": false,
+      "billable_test_job_started": false
+    },
+    {
+      "operation": "subsequent authenticated endpoint read",
+      "result": "Verified zero worker counts, no Pods, no repo build attached, no builds; execution timeout180000ms, idle5s, FlashBootOFF"
+    },
+    {
+      "operation": "private local configuration update",
+      "result": "RUNPOD_ENDPOINT_ID privately set to0387furb08gke2, existing key preserved and file mode600. RUNPOD_IMAGE intentionally left unset until the actual experiment image exists."
+    },
+    {
+      "operation": "endpoint-scoped API health check",
+      "result": {
+        "http_status": 403,
+        "response": {
+          "status": 403,
+          "title": "Forbidden",
+          "detail": "you do not have permission to perform this action"
+        }
+      },
+      "interpretation": "Explicit provider permission denial; endpoint-scoped Read/Write requested asynchronously for this exact endpoint only."
+    },
+    {
+      "operation": "native GitHub repository/branch query",
+      "result": "Connected RunPod account can see only the selected target repository and B branch; published branch stillc8eb099 and new Dockerfile requires A publication."
+    }
+  ],
+  "staging_image": {
+    "purpose": "Non-running placeholder only; never used for experiment execution",
+    "reference": "nvidia/cuda@sha256:cff3a0d82d2c2b47bab252d67fa9b34a20ef4c50781d98501b5c7367ea9afd10",
+    "final_experiment_image": null,
+    "image_pull_or_GPU_compatibility_claimed": false
+  },
+  "API_primary_source": {
+    "URL": "https://console.runpod.io/serverless",
+    "method": "Read publicly served client GraphQL/native-build configuration documents; did not execute third-party JavaScript",
+    "configuration_fields": "saveEndpoint EndpointInput repo/template/workersMin/workersMax/gpuCount/executionTimeoutMs",
+    "raw_client_sources": "ignored local console-api-review cache; no credentials or user data exported"
+  },
+  "pending_user_account_step": {
+    "action": "Edit existing API key: endpoint-scoped Read/Write only for0387furb08gke2; confirm",
+    "reason": "GET /health returns403 you do not have permission to perform this action",
+    "request": "Already sent asynchronously; no request for an unrestricted key"
+  },
+  "pending_A_step": "Publish exact B native-build snapshot containing202ae8941893f7834ceba5175f12532a408d37d5, or this cumulative checkpoint; B is not independently pushing.",
+  "remaining_B_preflight": [
+    "After A publication, configure native repo build and verify selected commit/image identifiers",
+    "Verify native build Testing/startup/provider attempts/idle/storage/cleanup total charge bound<=USD2 before any billable worker/test action",
+    "Set maximum workers at most1 only after preflight; active workers remain0",
+    "Submit existing synthetic task once; retrieve returned job ID/artifacts and prove CUDA fits; no CPU fallback or blind retry"
+  ],
+  "execution": {
+    "dedicated_endpoints_created": 1,
+    "GPU_workers_started": 0,
+    "builds_started": 0,
+    "jobs_submitted": 0,
+    "actual_GPU_fits": 0,
+    "actual_paid_cost_usd": 0,
+    "balance_after_operations_usd": 25,
+    "experiment_job_id": null,
+    "fitted_model_or_metric_results": null,
+    "worker_shutdown_state": "No worker ever started; current endpoint retained deliberately with min/max0 while awaiting build/access."
+  },
+  "limits": {
+    "total_authorised_usd": 2,
+    "maximum_active_workers": 0,
+    "maximum_workers_live_ceiling": 1,
+    "gpus_per_worker": 1,
+    "actual_max_workers_current": 0,
+    "no_topup_or_billing_upgrade": true,
+    "bounded_provider_retries_required": true,
+    "maximum_workers_is_not_a_dollar_cap": true
+  },
+  "normal_application": {
+    "real_market_forecasts": "unavailable",
+    "observed_coverage_increase": 0,
+    "automatic_model_promotion": false
+  },
+  "next_eligible": "Recheck endpoint-scoped access on confirmation and coordinated remote publication; then native build/control preflight. Actual GPU execution evidence remains a distinct MB2 commit.",
+  "control_refinement": {
+    "defect": "Setup management/cleanup inherited submission-only final-image requirement, so a failed or pending image build could block inspection/cancellation/shutdown.",
+    "fix": "Require final image only for experiment submission; endpoint management still requires verified endpoint/key.",
+    "regression": ".................\n----------------------------------------------------------------------\nRan 17 tests in 0.639s\n\nOK",
+    "log_sha256": "2a586de8e6c270eace0587f9654cb5b59103061f5d7c93312a38e674ec34d814",
+    "actual_read_check": "gpu_control.py inspect-endpoint succeeded against0387furb08gke2 with final image unset; no mutation performed."
+  }
+}

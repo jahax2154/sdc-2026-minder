@@ -11,7 +11,6 @@ import stat
 import zipfile
 from datetime import datetime, timezone
 from urllib.request import Request, urlopen
-from urllib.parse import quote
 
 SECRET = Path(__file__).resolve().parents[5] / '.env.runpod.local'
 ENDPOINT_NAME = 'minder-b-gpu-once-20261024'
@@ -20,7 +19,7 @@ PAYLOAD = {'input': {'experiment_id': 'minder-synthetic-gpu-20261024-once',
     'require_gpu': True}, 'policy': {'executionTimeout': 180000, 'ttl': 300000}}
 
 
-def load_secret(path=SECRET):
+def load_secret(path=SECRET, *, require_endpoint=True, require_image=True):
     if path.stat().st_mode & 0o077:
         raise ValueError('private_config_must_be_mode_600')
     result = {}
@@ -30,24 +29,32 @@ def load_secret(path=SECRET):
         key, value = line.split('=', 1)
         if key not in ('RUNPOD_API_KEY', 'RUNPOD_ENDPOINT_ID', 'RUNPOD_IMAGE'):
             raise ValueError('unexpected_private_config_key')
-        result[key] = value.strip()
-    if not result.get('RUNPOD_API_KEY') or not re.fullmatch(r'[A-Za-z0-9_-]+', result.get('RUNPOD_ENDPOINT_ID', '')):
-        raise ValueError('private_key_and_endpoint_not_configured')
-    if not re.fullmatch(r'[^\s]+@sha256:[a-f0-9]{64}', result.get('RUNPOD_IMAGE', '')):
-        raise ValueError('final_image_digest_required')
+        value = value.strip()
+        if len(value)>=2 and value[0]==value[-1] and value[0] in ('\"', "'"):
+            value = value[1:-1]
+        result[key] = value
+    if not result.get('RUNPOD_API_KEY'):
+        raise ValueError('private_key_not_configured')
+    if require_endpoint:
+        if not re.fullmatch(r'[A-Za-z0-9_-]+', result.get('RUNPOD_ENDPOINT_ID', '')):
+            raise ValueError('private_endpoint_not_configured')
+        if require_image and not re.fullmatch(r'[^\s]+@sha256:[a-f0-9]{64}', result.get('RUNPOD_IMAGE', '')):
+            raise ValueError('final_image_digest_required')
     return result
 
 
 def budget_check(evidence):
     required = ('user_confirmed_credits_and_key', 'balance_verified', 'image_pull_verified',
                 'endpoint_settings_verified', 'provider_attempt_bound_verified',
-                'provider_hard_stop_verified', 'artifact_roundtrip_verified')
+                'provider_hard_stop_verified', 'artifact_roundtrip_verified',
+                'billable_bound_includes_initialization_test_retries_cleanup')
     if not all(evidence.get(k) is True for k in required):
         raise ValueError('live_preflight_incomplete; no_submission')
     if evidence.get('automatic_topup') is not False or evidence.get('billing_upgrade') is not False:
         raise ValueError('topup_or_upgrade_not_allowed')
-    if evidence.get('max_provider_attempts') != 1 or evidence.get('workers_min') != 0 or evidence.get('workers_max') != 1 or evidence.get('gpu_count') != 1:
-        raise ValueError('one_worker_one_GPU_one_attempt_required')
+    attempts = evidence.get('max_provider_attempts')
+    if type(attempts) is not int or attempts < 1 or evidence.get('workers_min') != 0 or evidence.get('workers_max') != 1 or evidence.get('gpu_count') != 1:
+        raise ValueError('one_worker_one_GPU_and_finite_verified_attempt_bound_required')
     if evidence['balance_usd'] < 2 or evidence['existing_billable_workers'] != 0:
         raise ValueError('balance_or_existing_worker_spend_not_safe')
     rate = evidence['verified_rate_usd_per_second']
@@ -87,14 +94,13 @@ def api(method, url, secret, payload=None):
     request = Request(url, data=body, method=method,
                       headers={'Authorization': 'Bearer '+secret['RUNPOD_API_KEY'], 'Content-Type': 'application/json'})
     # No HTTP submission retry; a timeout after POST is ambiguous and must not
-    # cause another paid submission. Serverless auth uses the header; management
-    # query-key URLs stay inside this process and are never logged.
+    # cause another paid submission. Both Serverless and verified GraphQL
+    # authentication use the header; no production URL contains the key.
     try:
         with urlopen(request, timeout=30) as response:
             data = response.read(8*1024*1024 + 1)
     except Exception as exc:
-        # In particular, GraphQL's documented query-key authentication URL must
-        # never appear in an HTTPError traceback or operator log.
+        # Never echo provider error bodies or private authentication material.
         raise RuntimeError('provider_request_failed:' + type(exc).__name__) from None
     if len(data)>8*1024*1024:
         raise ValueError('API_response_bound_exceeded')
@@ -103,7 +109,7 @@ def api(method, url, secret, payload=None):
 
 def management(command, secret):
     endpoint = secret['RUNPOD_ENDPOINT_ID']
-    listed = api('POST', 'https://api.runpod.io/graphql?api_key='+quote(secret['RUNPOD_API_KEY'],safe=''),
+    listed = api('POST', 'https://api.runpod.io/graphql',
         secret, {'query':'query { myself { endpoints { id name gpuIds templateId workersMin workersMax idleTimeout pods { desiredStatus } } } }'})
     if listed.get('errors'):
         raise RuntimeError('management_access_not_verified')
@@ -121,7 +127,7 @@ def management(command, secret):
         if own['workersMin']!=0 or own['workersMax']!=0 or own['pods']:
             raise ValueError('zero_worker_counts_and_no_pods_required_before_delete')
         query = 'mutation { deleteEndpoint(id: '+json.dumps(endpoint)+') }'
-    result = api('POST', 'https://api.runpod.io/graphql?api_key='+quote(secret['RUNPOD_API_KEY'],safe=''), secret, {'query':query})
+    result = api('POST', 'https://api.runpod.io/graphql', secret, {'query':query})
     if result.get('errors'):
         raise RuntimeError('management_mutation_failed; verify_cleanup_manually')
     return result
@@ -129,7 +135,7 @@ def management(command, secret):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=['payload', 'budget', 'submit', 'status', 'cancel', 'retrieve',
+    parser.add_argument('command', choices=['account', 'payload', 'budget', 'submit', 'status', 'cancel', 'retrieve',
                                           'inspect-endpoint', 'shutdown', 'delete-endpoint'])
     parser.add_argument('--preflight', type=Path)
     parser.add_argument('--receipt-dir', type=Path, default=Path('ml/artifacts/session-b/gpu-live'))
@@ -138,6 +144,20 @@ def main():
     args = parser.parse_args()
     if args.command == 'payload':
         print(json.dumps(PAYLOAD, indent=2)); return
+    if args.command == 'account':
+        secret = load_secret(require_endpoint=False)
+        response = api('POST', 'https://api.runpod.io/graphql', secret, {'query':
+            'query { myself { clientBalance currentSpendPerHr githubAccountInfo { username } isAutoPayEnabled stripeAutoReloadAmount endpoints { id name workersMin workersMax pods { desiredStatus } } pods { desiredStatus } } }'})
+        if response.get('errors'):
+            raise RuntimeError('account_access_or_schema_check_failed')
+        own = response['data']['myself']
+        args.receipt_dir.mkdir(parents=True,exist_ok=True)
+        safe = {'balance_usd':own['clientBalance'], 'current_spend_per_hour':own['currentSpendPerHr'],
+                'github_connected':bool(own['githubAccountInfo']), 'automatic_payment_enabled':own['isAutoPayEnabled'],
+                'endpoint_count':len(own['endpoints']), 'pod_count':len(own['pods']),
+                'dedicated_endpoints':[e for e in own['endpoints'] if e['name']==ENDPOINT_NAME]}
+        (args.receipt_dir/'account-sanitized.json').write_text(json.dumps(safe,indent=2)+'\n')
+        print(json.dumps(safe)); return
     if args.command in ('budget', 'submit'):
         if not args.preflight:
             parser.error('live verified preflight file required')
@@ -149,7 +169,9 @@ def main():
         response = json.loads(args.response.read_text())
         digest = retrieve(response['output'], args.receipt_dir / 'artifacts')
         print(json.dumps({'artifact_sha256': digest, 'retrieved': True})); return
-    secret = load_secret()
+    # Management/cancellation must remain usable during a failed image build;
+    # only experiment submission needs the final immutable image reference.
+    secret = load_secret(require_image=args.command == 'submit')
     base = 'https://api.runpod.ai/v2/' + secret['RUNPOD_ENDPOINT_ID']
     args.receipt_dir.mkdir(parents=True, exist_ok=True)
     if args.command in ('inspect-endpoint', 'shutdown', 'delete-endpoint'):
