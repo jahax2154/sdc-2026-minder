@@ -52,7 +52,8 @@ export async function minder(ctx,conversationId='') {
     finally{if(mounted()){if(state.uncertainBody&&!$('#retryExactMinder'))addExactRetry();state.loading=false;update();}}
   }
   let createBody=null;
-  function addExactRetry(){const button=document.createElement('button');button.type='button';button.className='button-outline';button.id='retryExactMinder';button.textContent='Retry exact request';button.onclick=()=>{if(!state.pending&&state.uncertainBody)submit(state.uncertainBody.message,state.uncertainBody);};$('#minderHistoryStatus').append(' ',button);}
+  function addExactRetry(){let button=$('#retryExactMinder');if(!button){button=document.createElement('button');button.type='button';button.className='button-outline';button.id='retryExactMinder';button.textContent='Retry exact request';$('#minderHistoryStatus').append(' ',button);}button.onclick=()=>{if(!state.pending&&state.uncertainBody)submit(state.uncertainBody.message,state.uncertainBody);};if(!$('#refreshMinderHistory')){const reload=document.createElement('button');reload.type='button';reload.className='button-outline';reload.id='refreshMinderHistory';reload.textContent='Reload saved history';reload.onclick=loadSaved;$('#minderHistoryStatus').append(' ',reload);}}
+
   async function send(){
     const message=input.value.trim();if(!message||state.pending||state.loading)return;
     if(state.uncertainBody){$('#minderHistoryStatus').textContent='The earlier request outcome is uncertain. Retrieve its exact saved outcome before sending another instruction.';addExactRetry();return;}
@@ -67,15 +68,15 @@ export async function minder(ctx,conversationId='') {
       if(!state.conversationId){createBody??={idempotency_key:key(),title:message.slice(0,120)};const created=await createConversation(createBody);if(request.invalidated)return;state.conversationId=created.conversation.conversation_id;window.history.replaceState(null,'','#minder/'+encodeURIComponent(state.conversationId));}
       const body=exactBody||{conversation_id:state.conversationId,message,idempotency_key:key(),expected_profile_version:ctx.profile?.version??null};request.body=body;
       const result=await sendTurn(body,{signal:request.controller.signal});if(request.invalidated)return;
-      state.uncertainBody=null;
-      if(['processing','uncertain'].includes(result.turn.status)){$('#minderHistoryStatus').textContent='The server has not confirmed a final outcome. Refresh history; this instruction was not replayed.';}
+      state.uncertainBody=['processing','uncertain'].includes(result.turn.status)?body:null;
+      if(['processing','uncertain'].includes(result.turn.status)){$('#minderHistoryStatus').textContent='The server has not confirmed a final outcome. Reload saved history; this instruction was not replayed.';addExactRetry();}
       else $('#minderHistoryStatus').textContent=result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
       const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await sidebar.reload();await ctx.refreshProfile();
       if(result.response?.generation)window.dispatchEvent(new Event('minder-generation-available'));
     }catch(e){if(request.invalidated)return;if(e.status===409){await ctx.refreshProfile();if(request.invalidated)return;}state.draft=message;drafts.set(state.conversationId||'',message);input.value=message;
       if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;else if(e.status)state.uncertainBody=null;
       $('#minderHistoryStatus').innerHTML=`${esc(e.message)} Your request was not automatically retried. ${state.uncertainBody?'<button type="button" class="button-outline" id="retryExactMinder">Retry exact request</button>':''}`;
-      if($('#retryExactMinder'))$('#retryExactMinder').onclick=()=>{if(!state.pending)submit(state.uncertainBody.message,state.uncertainBody);};
+      if(state.uncertainBody)addExactRetry();
     }finally{ctx.signal.removeEventListener('abort',abort);if(state.pending===request){state.pending=null;if(mounted())update(true);}}
   }
   bind('minderComposer',send);$('#cancelMinder').onclick=()=>state.pending?.controller.abort();
