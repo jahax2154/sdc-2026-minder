@@ -11,13 +11,34 @@
     "reason": "No compatible quarterly role/skill target series after actual source investigation; no empty-data paid job launched",
     "status": "deferred_dependency"
   },
-  "access_status": "blocked_external_no_credentials",
-  "account_current_spend_per_hour": null,
+  "MB1_R01_account_verification": {
+    "GitHub_CLI_authentication": "verified without token disclosure",
+    "account": {
+      "automatic_payment_enabled": false,
+      "balance_usd": 25,
+      "current_spend_per_hour": 0,
+      "dedicated_endpoints": [],
+      "endpoint_count": 0,
+      "github_connected": true,
+      "pod_count": 0
+    },
+    "actual_GPU_fits": 0,
+    "actual_GPU_job_id": null,
+    "actual_endpoint_created": false,
+    "actual_image_build_started": false,
+    "actual_paid_cost_usd": 0,
+    "checked_at": "2026-10-24T08:12:21.254610+00:00",
+    "provider_retries": "finite verified ceiling allowed; total bound includes native build tests/initialization/retries/idle/cleanup",
+    "remote_B_SHA_verified": "c8eb09921f6bf583ec30bca636f549628a575d69",
+    "single_client_submission_limit": 1
+  },
+  "access_status": "authenticated_read_access_verified",
+  "account_current_spend_per_hour": 0,
   "actual_session_cost_usd": 0,
   "actual_session_paid_jobs": 0,
   "additional_budget_authorised": false,
-  "balance_verified": false,
-  "checked_at": "2026-10-23T06:50:07.182254+00:00",
+  "balance_verified": true,
+  "checked_at": "2026-10-24T08:12:21.254299+00:00",
   "credential_checks": {
     "RUNPOD_API_KEY": "not_configured",
     "RUNPOD_TOKEN": "not_configured",
@@ -43,14 +64,14 @@
     "billing_upgrade": false,
     "checked_at": "2026-10-24T06:22:50.160382+00:00",
     "conditional_one_run_cap_usd": 2,
-    "credits_redeemed_and_balance_verified": false,
+    "credits_redeemed_and_balance_verified": true,
     "existing_A002_cap_unchanged_usd": 0,
     "mandatory_submission_work": true,
     "phase": "MB1-PREP",
-    "remaining_credits_usd": null,
+    "remaining_credits_usd": 25,
     "separate_actual_run_commit_required": true,
-    "status": "local_preparation_ready; live_access/image/retry/cost_controls_pending",
-    "user_credit_key_confirmation_received": false
+    "status": "GitHub_connected; native_build_publication_and_live_controls_pending",
+    "user_credit_key_confirmation_received": true
   },
   "operator": "Session B only",
   "prior_account_consumption_usd": null,
@@ -63,7 +84,7 @@
     "status": "not_exercised; must verify account rate, balance, external stop and immutable runnable request before launch",
     "top_up": false
   },
-  "remaining_credits_usd": null,
+  "remaining_credits_usd": 25,
   "reported_account_allowance_usd": 25,
   "safety": "No account API requests or resource changes possible without credentials; no claim that all reported USD25 remains.",
   "synthetic_closure_recheck": {

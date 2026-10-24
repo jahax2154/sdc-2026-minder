@@ -1,0 +1,13 @@
+# A publication handoff — native RunPod build
+
+B verified RunPod access, **USD25 credit**, **USD0/hour current spend**, no endpoints or Pods, and disabled automatic payment. The private key was neither printed nor committed. GitHub CLI authentication works. Remote `session/b-market` was verified at `c8eb09921f6bf583ec30bca636f549628a575d69`.
+
+**A: publish the exact B commit containing `MB1-R01.json` and this handoff to `session/b-market`, preserving history.** Capture/report its full SHA, rather than a moving tip. No shared file edits or root CI workflow are required. The native build uses repository `jahax2154/sdc-2026-minder`, branch `session/b-market`, repository-root build context, Dockerfile **`docs/execution/parallel/B/checks/GPU.native.Dockerfile`**. B does not independently race A's publication.
+
+The numerical experiment's 66 runtime files remain pinned to c8eb099; `gpu-runtime-source-manifest.v1.json` verifies them inside the image. The subsequent native-build commit only adds packaging, key-only preflight, and the user's clarified finite-retry budget logic. Record BOTH the frozen runtime source commit and the native build's actual GitHub commit/image digest. The source-manifest path contains no credentials or raw inputs.
+
+RunPod's native builder performs container build and registry storage, removing the local Docker/registry prerequisite. The original browser-consent blocker is resolved: Junhong connected the repository and B reverified `github_connected=true`. The repository-only connection was completed after the asynchronous request. B cannot complete that user consent using the API key. No endpoint ID exists yet; B will return its actual ID once created, so endpoint-scoped key access can then be granted if required. Never substitute a placeholder endpoint/image value.
+
+B will configure only `minder-b-gpu-once-20261024`, keeping active workers zero and maximum workers zero during setup, then maximum one/one GPU only when preflight permits. Native build Testing, cold start, provider retries, execution, idle, storage/rounding and cleanup all count against USD2. Verify provider bounds/quote before any billable testing or worker startup. A max-worker count is concurrency control, not a dollar cap.
+
+The new user clarification permits finite verified provider retries within the total cost bound; it does not permit a second client submission. The exclusive submission receipt and no-blind-retry logic remain. Actual GPU fitting, job/image/device/model/metric/cost/cleanup evidence remains a distinct MB2 checkpoint, with real forecasts unavailable and no runtime promotion. No paid work has occurred in this refinement.

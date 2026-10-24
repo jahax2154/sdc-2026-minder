@@ -35,11 +35,14 @@
     "final_custom_image": null,
     "built_image_pull_verified": false,
     "Dockerfile": "checks/GPU.Dockerfile",
-    "credential_free_context_builder": "checks/build_gpu_context.py"
+    "credential_free_context_builder": "checks/build_gpu_context.py",
+    "native_Dockerfile": "checks/GPU.native.Dockerfile",
+    "runtime_source_manifest": "gpu-runtime-source-manifest.v1.json",
+    "build_route": "RunPod native GitHub build and registry after account repository consent"
   },
   "endpoint": {
     "name": "minder-b-gpu-once-20261024",
-    "type": "QB candidate; automatic provider retries unresolved",
+    "type": "QB candidate; finite provider retries permitted only within verified total cost/time bounds",
     "active_workers": 0,
     "maximum_workers": 1,
     "gpus_per_worker": 1,
@@ -48,9 +51,10 @@
     "job_ttl_ms": 300000,
     "flashboot": "disable for bounded one-shot; exact live setting pending",
     "persistent_volume": false,
-    "provider_attempt_ceiling_required": 1,
+    "provider_attempt_ceiling_required": null,
     "provider_attempt_ceiling_verified": false,
-    "provider_billing_hard_bound_verified": false
+    "provider_billing_hard_bound_verified": false,
+    "provider_attempt_policy": "positive finite actual ceiling verified at live preflight, with all retries included in total billable duration"
   },
   "worker": {
     "entry_command": "python3 -u docs/execution/parallel/B/checks/gpu_worker.py",
@@ -81,13 +85,24 @@
     "submission_limit": 1,
     "receipt": "fixed ignored gpu-live/submission-intent.json created exclusively before network I/O; unknown POST outcome blocks repeats",
     "quote_or_actual_cost_usd": null,
-    "live_gate": "Every requested bound must be verified before submit; not a sleeping-Mac watchdog"
+    "live_gate": "Every requested bound must be verified before submit; not a sleeping-Mac watchdog",
+    "initialization_test_jobs_and_provider_retries_included": true
   },
   "pending": [
-    "User confirms credits visible and API key privately saved",
-    "Docker-capable image builder and registry destination; final image build/pull/digest",
-    "Authenticated endpoint/access/balance/prior jobs and quote",
-    "Provider retry ceiling and server-side startup/idle/total cost hard-stop proof; queue defaults do not establish zero retries",
-    "Live GPU fit, artifacts, final billing and shutdown verification"
-  ]
+    "A publishes exact native-build refinement SHA",
+    "Verify native build Testing cost/control and final built image identifier",
+    "Configure dedicated zero-active endpoint; obtain actual endpoint ID and scoped key grant if needed",
+    "Verify rate, total-time/retry/startup/storage/cleanup charge bound withinUSD2",
+    "Submit once, prove CUDA fit, retrieve evidence and reconcile actual cost/shutdown"
+  ],
+  "continuation": "MB1-R01; confirmed credits/key; native GitHub build",
+  "account_verified": {
+    "balance_usd": 25,
+    "current_spend_per_hour": 0,
+    "github_connected": true,
+    "automatic_payment_enabled": false,
+    "endpoint_count": 0,
+    "pod_count": 0,
+    "dedicated_endpoints": []
+  }
 }
