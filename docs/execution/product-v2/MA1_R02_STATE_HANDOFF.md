@@ -52,3 +52,14 @@ no need to await full release. New broader operation tools/automation and genera
 acceptance remain pending, not advertised as completed. Draft request alone saves
 no plan. Current completed operation subset is task completion/reschedule with exact
 user authority or reviewed proposal; no model weights/ranking policy replacement.
+
+Materializer is now installed: app.generation_materializer(owner,generation,role_id)
+returns canonical PlanProgress draft only, no DB write. D can implement acceptance
+against this callback now. It requires current source Profile version, partial saved
+Profile, supported eligible explicit role and validated guidance draft with stages.
+Server creates deterministic opaque task IDs from owner/draft/role/positions for
+stable retries; no fabricated skill/evidence/resource IDs. Tasks are proposed,
+unscheduled, uncompleted, no mastery, with each stage depending on the previous
+stage's tasks. Generated effort stays a proposed estimate. Existing create_plan
+assigns actual canonical plan ID/version; D retains provenance/acceptance reference.
+No implicit active direction change. Save/activate are separate explicit scopes.

@@ -1,0 +1,56 @@
+{
+  "real_backend": true,
+  "real_provider_requested": true,
+  "base": "http://127.0.0.1:9106",
+  "minder": {
+    "request": {
+      "message": "How can u help me minder?",
+      "expected_profile_version": null,
+      "channel_from_server": "minder"
+    },
+    "ms": 1046,
+    "response_mode": "generated_guidance",
+    "provider": {
+      "invoked": true,
+      "model": "qwen/qwen3.8-27b",
+      "request_id": "req_01m5p9cmxde4mrt64mxm2rzbsb",
+      "status": "available",
+      "tool_call": {
+        "arguments_validated": true,
+        "id": "7h2nbfnnn",
+        "name": "propose_guidance"
+      },
+      "usage": {
+        "completion_tokens": 294,
+        "prompt_tokens": 1346,
+        "total_tokens": 1640
+      }
+    },
+    "answer": "Hi! I'm Minder, your career learning assistant. I can help you in a few practical ways: 1) **Build a learning roadmap** for a specific role or skill (e.g., ML engineer, data analyst, web dev) with concrete stages and tasks. 2) **Design practice activities** — small projects, experiments, or reflection prompts to reinforce what you're studying. 3) **Break down a goal** into a short, actionable plan you can start today. 4) **Review and adapt** a plan you already have, based on new details or a"
+  },
+  "mindbot": {
+    "ms": 1299,
+    "response_mode": "generated_guidance",
+    "provider": {
+      "invoked": true,
+      "model": "qwen/qwen3.8-27b",
+      "request_id": "req_01m5p9cp47e0y88vf7aqxwd6n2",
+      "status": "available",
+      "tool_call": {
+        "arguments_validated": true,
+        "id": "dtwrxvq9y",
+        "name": "propose_guidance"
+      },
+      "usage": {
+        "completion_tokens": 419,
+        "prompt_tokens": 1360,
+        "total_tokens": 1779
+      }
+    },
+    "answer": "Build a small, end-to-end project that solves a problem you actually care about, and document it in a public repository. For example, if you're interested in data, scrape a public dataset, clean it, and build a simple dashboard or analysis notebook. The goal isn't to build something perfect—it's to demonstrate that you can take a vague idea, break it into steps, and ship something that works. This week, spend 2–3 hours defining the scope (one clear input, one clear output), then spend the剩下的"
+  },
+  "refresh_no_replay": true,
+  "singleton_survives_minder_delete": true,
+  "logout_clears_private_state": true,
+  "page_errors": []
+}

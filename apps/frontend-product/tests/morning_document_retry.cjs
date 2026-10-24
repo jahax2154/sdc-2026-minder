@@ -16,8 +16,7 @@ const {chromium}=require(process.env.MINDER_PLAYWRIGHT_MODULE||'/private/tmp/min
  const settled=()=>page.waitForFunction(()=>!document.querySelector('[data-pending=true]')&&document.querySelector('#view').getAttribute('aria-busy')==='false');
  let committedThenResponseLost=false;
  try{
-  await page.goto(base+'/#profile');await page.locator('#save-profile').waitFor();
-  await page.locator('#display-name').fill('Fictional uncertain review');await page.locator('#save-profile').click();await page.locator('#documentFile').waitFor();await settled();
+  await page.goto(base+'/#minder');await page.locator('#minderInput').waitFor();await api('profile',{profile:{synthetic:true,career_context:{display_name:'Fictional uncertain review'}},expected_version:null},'PUT');await page.goto(base+'/#profile/record');await page.locator('[data-record=files]').click();await page.locator('#documentFile').waitFor();await settled();
   assert.equal((await api('product/documents')).storage.status,'available');
   await page.locator('#documentFile').setInputFiles({name:'fictional-retry.txt',mimeType:'text/plain',buffer:Buffer.from('Fictional unreviewed source. No skill assessment.')});
   await page.locator('#uploadDocument').click();await settled();await page.locator('[id^="extractDocument-"]').click();await page.locator('#documentExperience').waitFor();

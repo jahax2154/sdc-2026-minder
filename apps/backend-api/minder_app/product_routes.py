@@ -28,6 +28,8 @@ for method, path in (('GET', 'conversations'), ('POST', 'conversations'),
                      ('GET', 'conversation'), ('POST', 'conversation'), ('DELETE', 'conversation'),
                      ('GET', 'mindbot-conversation'), ('POST', 'conversation-turn')):
     ROUTES[(method, '/api/product/' + path)] = 'conversations'
+for method, path in (('GET', 'generations'), ('POST', 'generation'), ('POST', 'generation-accept')):
+    ROUTES[(method, '/api/product/' + path)] = 'generation_state'
 
 DEFAULT_BODY_LIMIT = 131072
 MAX_DOCUMENT_BYTES = 1048576
@@ -69,7 +71,7 @@ def dispatch(app, owner, method, path, body):
         for (verb, route), name in sorted(ROUTES.items()):
             module = module_for(name)
             ready = module is not None and (verb, route) in getattr(module, 'OPERATIONS', ())
-            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations') else 'E',
+            operations.append(dict(method=verb, path=route, owner='D' if name in ('product_state', 'documents', 'conversations', 'generation_state') else 'E',
                                    status='implemented' if ready else 'unavailable', module=name))
         return dict(contract_version=VERSION, operations=operations)
     name = ROUTES.get((method, path))

@@ -1,0 +1,16 @@
+{
+  "real_backend": true,
+  "adaptive_question_preserves_answer": true,
+  "onboarding_saved": true,
+  "five_tabs": true,
+  "dirty_stay_preserves_input": true,
+  "inline_save_survives_refresh": true,
+  "self_report_not_numerical_assessment": true,
+  "resume_purpose_saved": true,
+  "extraction_does_not_mutate_profile": true,
+  "explicit_review_saved": true,
+  "actual_pdf_text_extraction": true,
+  "scanned_pdf_truthful_manual_entry": true,
+  "mobile_no_document_overflow": true,
+  "page_errors": []
+}
