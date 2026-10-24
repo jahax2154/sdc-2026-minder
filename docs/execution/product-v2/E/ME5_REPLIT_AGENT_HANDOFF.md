@@ -5,8 +5,11 @@ This is preparation; no published Minder URL or deployed source SHA exists yet.
 
 Read-only inspection identified editable project d8e6ee62-0e31-4863-bf19-b457893d558c,
 currently old React/Node main4df6c08372e70ec0f60c844ccfc8bca19f119f1a. Do not publish
-that source as Minder or change its history. The GitHub access check timed out;
-connection success/failure remains unverified. Preserve the existing project while
+that source as Minder or change its history. The initial GitHub access check timed out; the later import preparation request
+confirmed a Replit proxy requires GitHub connection, so no import was started.
+User action: project Git pane / Connect to a Git provider / GitHub; authorize the
+account with access to jahax2154/sdc-2026-minder, or use https://replit.com/import.
+No credentials in chat. Existing project and public deployment are unchanged. Preserve the existing project while
 importing actual official code. No new React/Express scaffold or auth tenant.
 
 A's explicit porting base is42062878914c168752ae058cd4d4f09a37f9b26c. Its factory

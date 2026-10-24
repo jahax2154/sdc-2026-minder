@@ -17,9 +17,13 @@ https://replit.com/@yicheng070612/Aiversecity-Career-Compass . Read-only Agent
 inspection found old React/Node source main4df6c08372e70ec0f60c844ccfc8bca19f119f1a,
 no official team remote/Python Minder/Clerk, development PostgreSQL16.10 only,
 no production DB/private bucket. Existing Autoscale URL is the older application,
-not a Minder login deliverable. A second read-only GitHub import-access query timed
-out; no result has established whether official repository access works there.
-No remote source/config/database/bucket/publish mutation was made by E.
+not a Minder login deliverable. An initial GitHub import-access query timed out. A subsequent history-preserving
+import preparation request was accepted but Agent verified it was blocked before
+any import: Replit proxy requires a GitHub account connection. No source was
+imported or revision verified; existing project/live deployment remain unchanged.
+User action: Git pane / Connect to a Git provider / GitHub, authorize the account
+with access to jahax2154/sdc-2026-minder (or https://replit.com/import). No credentials
+in chat. No remote source/config/database/bucket/publish mutation was performed.
 
 Account plan, remaining credits and actual Reserved VM quote are inaccessible to
 these tools. User must inspect Publish (upper-right in project editor) / Adjust
@@ -98,7 +102,7 @@ product migrations apply through native schema8. SQLite remains schema7 and is
 not automatically imported/reassigned. Existing local state remains intact; no
 other lane database/profile/CV is exported. D preserves current JSON, versions,
 history, owner mapping, action idempotency and scheduler leases. See
-../../docs/execution/product-v2/D/REPLIT_PERSISTENCE_HANDOFF.md from repo root.
+[D’s persistence handoff](../../docs/execution/product-v2/D/REPLIT_PERSISTENCE_HANDOFF.md).
 Run migrations as part of guarded application startup against the selected
 production DB, never build against an accidental development/shared DB.
 

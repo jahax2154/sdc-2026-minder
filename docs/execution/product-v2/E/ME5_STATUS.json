@@ -1,0 +1,48 @@
+{
+  "checkpoint": "ME5 Replit preparation; not deployed",
+  "source": {
+    "A_explicit_porting_base": "42062878914c168752ae058cd4d4f09a37f9b26c",
+    "A_factory_and_CPU_approval_integrated_through": "c3c7a06",
+    "D_native_database_and_storage": "d070a796d1cb4b1ae1e5ceb1ee5b9e21c642c450",
+    "E_wrapper_source": "f1daf8c3fb5864510c57dec984353c29850a8144",
+    "combined_E_preparation_remote_verified": "71e81500e96ac2339011639d17a2c8fe145505e1",
+    "A_final_publish_approved_SHA": null
+  },
+  "local_checks": {
+    "integrated_backend": {"passed": 209, "skipped": 0, "seconds": 29.229},
+    "deployment_operator_auth_preparation": {"passed": 15},
+    "dependency_consistency": "passed_in_isolated_Python_3.12",
+    "Linux_CPU_wheel_resolution": {"packages": 48, "NVIDIA_packages": 0, "actual_Linux_execution": false},
+    "shell_syntax_and_TOML": "passed"
+  },
+  "Replit": {
+    "project_id": "d8e6ee62-0e31-4863-bf19-b457893d558c",
+    "editor_url": "https://replit.com/replid/d8e6ee62-0e31-4863-bf19-b457893d558c",
+    "existing_source": "old_Career_Compass_React_Node_not_Minder",
+    "existing_legacy_SHA": "4df6c08372e70ec0f60c844ccfc8bca19f119f1a",
+    "import": "blocked_before_start_by_Replit_GitHub_connection_requirement",
+    "required_account_action": "Git pane / Connect to a Git provider / GitHub; authorize official repository access",
+    "imported_SHA": null,
+    "source_or_live_deployment_changed": false,
+    "production_database_and_private_bucket": "not_provisioned_or_verified",
+    "Reserved_VM_allowance_and_quote": "not_visible_to_connector_not_confirmed_by_user",
+    "Minder_public_URL": null,
+    "Minder_deployed_SHA": null
+  },
+  "Clerk": {
+    "application": "existing_Minder_Development_no_new_tenant",
+    "private_file": "preserved_ignored_untracked_owner_only_0600_opened_in_editor",
+    "saved_key_confirmation": "user_still_entering_keys",
+    "live_configuration_check": "not_run_before_user_confirmation",
+    "required_remote_private_fields": ["CLERK_PUBLISHABLE_KEY", "CLERK_SECRET_KEY", "GROQ_API_KEY"],
+    "secret_transport_through_Agent_or_chat": false
+  },
+  "hosted_acceptance": {
+    "signup_signin_signout_refresh": "not_run",
+    "two_account_isolation_and_expiry": "not_run",
+    "profile_chat_CV_review": "not_run",
+    "restart_and_redeployment_persistence": "not_run",
+    "due_worker_result_browser_closed": "not_run"
+  },
+  "preserved_excluded_state": "raw and derived inputs remain untracked and unexported; no local profiles, CVs, databases, model weights or credentials in commits"
+}
