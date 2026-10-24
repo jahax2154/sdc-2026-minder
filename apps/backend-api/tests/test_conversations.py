@@ -129,3 +129,61 @@ class ConversationStoreTests(AppCase):
         self.assertEqual(reconciled,{"checked":1,"appended":1})
         self.assertEqual(reconcile_notices(self.store),{"checked":0,"appended":0})
         self.assertEqual(len(self.service.mindbot(self.owner)["messages"]),2)
+
+    def test_server_search_titles_messages_unicode_and_stable_pagination(self):
+        first=self.service.create(self.owner,{"idempotency_key":"search-title","title":"Résumé planning"})["conversation"]
+        second=self.service.create(self.owner,{"idempotency_key":"search-message","title":"Other chat"})["conversation"]
+        handler=Mock(return_value={"answer":"The Straße practice route is a fictional response.","statements":[]})
+        self.service.continue_turn(self.owner,self.body(first,"search1","A resume discussion"),handler)
+        self.service.continue_turn(self.owner,self.body(second,"search2","Another resume discussion"),handler)
+        self.assertEqual(self.service.search(self.owner,{"query":"RÉSUMÉ"})["conversations"][0]["conversation_id"],first["conversation_id"])
+        found=self.service.search(self.owner,{"query":"STRASSE","limit":1})
+        self.assertEqual(len(found["conversations"]),1);self.assertTrue(found["has_more"])
+        self.assertEqual(found["next_offset"],1)
+        page2=self.service.search(self.owner,{"query":"strasse","limit":1,"offset":1})
+        self.assertNotEqual(page2["conversations"][0]["conversation_id"],found["conversations"][0]["conversation_id"])
+        self.assertFalse(page2["has_more"])
+        self.assertEqual(len(self.service.search(self.owner,{"query":"  resume  "})["conversations"]),2)
+        self.assertEqual(handler.call_count,2) # Searching has no callback/action replay.
+
+    def test_search_is_owner_scoped_minder_only_and_hides_deleted_and_internal_data(self):
+        first=self.create()
+        bot=self.service.mindbot(self.owner)["conversation"]
+        handler=lambda *args:{"answer":"visible needle","statements":[],"status":"internal-only-value"}
+        self.service.continue_turn(self.owner,self.body(first,"minder-needle","Find needle"),handler)
+        self.service.continue_turn(self.owner,self.body(bot,"bot-needle","Find needle"),handler)
+        other=self.store.session()["profile_id"]
+        self.assertEqual(self.service.search(other,{"query":"needle"})["conversations"],[])
+        self.assertEqual(len(self.service.search(self.owner,{"query":"needle"})["conversations"]),1)
+        self.assertEqual(self.service.search(self.owner,{"query":"internal-only-value"})["conversations"],[])
+        self.service.delete(self.owner,{"conversation_id":first["conversation_id"],"idempotency_key":"delete-search"})
+        self.assertEqual(self.service.search(self.owner,{"query":"needle"})["conversations"],[])
+
+    def test_search_literal_wildcards_clear_and_invalid_query(self):
+        from jsonschema.exceptions import ValidationError
+        self.service.create(self.owner,{"idempotency_key":"literal","title":"100%_literal"})
+        self.assertEqual(len(self.service.search(self.owner,{"query":"%_"})["conversations"]),1)
+        self.assertEqual(self.service.search(self.owner,{"query":"%' OR 1=1 --"})["conversations"],[])
+        self.assertEqual(len(self.service.search(self.owner,{"query":" "})["conversations"]),1)
+        for body in ({"query":"x"*201},{"query":"x","owner":"other"},{"query":"x","limit":0},{"query":"x","offset":-1}):
+            with self.assertRaises(ValidationError):
+                self.service.search(self.owner,body)
+
+    def test_registered_search_finds_visible_statements_and_old_messages_beyond_open_page(self):
+        conversation=self.create()
+        # Search the actual persisted older message, not only the current history page.
+        with self.store.transaction() as db:
+            for index in range(105):
+                self.service._append(db,self.owner,conversation["conversation_id"],"user",
+                    {"text":"olderneedle" if index==0 else "Later visible text"},"fixture-"+str(index),"accepted")
+            self.service._append(db,self.owner,conversation["conversation_id"],"assistant",
+                {"answer":"Visible answer","statements":[{"text":"A visible citationneedle quotation"}]},"source-fixture","completed")
+        opened=self.service.open(self.owner,{"conversation_id":conversation["conversation_id"],"after_sequence":5})
+        self.assertNotIn("olderneedle",str(opened["messages"]))
+        for query in ("olderneedle","citationneedle"):
+            result=self.app.dispatch("POST","/api/product/conversations-search",{"query":query},self.token)
+            self.assertEqual([row["conversation_id"] for row in result["conversations"]],[conversation["conversation_id"]])
+            self.assertEqual(result["contract_version"],"conversation-search-v1")
+            self.assertEqual(result["search_scope"],"title_and_visible_messages")
+            self.assertNotIn("messages",result)
+            self.assertIsNone(result["next_offset"])
