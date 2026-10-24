@@ -1,0 +1,10 @@
+{
+  "real_backend": true,
+  "create_edit_pause_resume_cancel": true,
+  "explicit_owned_plan_scope": true,
+  "automation_timezone_separate_from_profile": true,
+  "next_run_server_derived": true,
+  "refresh_preserves_cancelled": true,
+  "actual_run_claimed": false,
+  "page_errors": []
+}
