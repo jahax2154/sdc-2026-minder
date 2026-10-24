@@ -32,7 +32,7 @@ export async function api(path, body, method=body===undefined?'GET':'POST', opti
     if(privateRequest&&credentialProvider){
       let stop;const cancelled=new Promise((_,reject)=>{stop=()=>reject(new RequestError('request_cancelled'));controller.signal.addEventListener('abort',stop,{once:true});});
       try{credential=await Promise.race([credentialProvider(),cancelled]);}finally{controller.signal.removeEventListener('abort',stop);}
-      if(!credential)throw new ApiError(401,{code:'sign_in_required'});
+      if(!credential){const error=new ApiError(401,{code:'sign_in_required'});window.dispatchEvent(new CustomEvent('minder-auth-lost',{detail:error}));throw error;}
     }
     if(privateRequest&&epoch!==identityEpoch)throw new RequestError('request_cancelled');
     const response=await fetch('/api/'+path,{method,signal:controller.signal,headers:{'Content-Type':'application/json',...(credential?{Authorization:'Bearer '+credential}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
@@ -47,7 +47,7 @@ export async function api(path, body, method=body===undefined?'GET':'POST', opti
   finally{activeRequests.delete(controller);clearTimeout(timer);options.signal?.removeEventListener('abort',abort);}
 }
 export async function session() {
-  if(!token) {const result=await api('session',{},'POST',{public:true}); if(typeof result.token!=='string') throw new Error('Session unavailable.'); token=result.token;sessionStorage.setItem('minder-product-token',token);}
+  if(!token) {const epoch=identityEpoch,result=await api('session',{},'POST',{public:true});if(epoch!==identityEpoch)throw new RequestError('request_cancelled'); if(typeof result.token!=='string') throw new Error('Session unavailable.'); token=result.token;sessionStorage.setItem('minder-product-token',token);}
 }
 export async function optional(path,options={}) {try{return await api(path,undefined,'GET',options);}catch(e){if(e.status===404)return null;throw e;}}
 export const key=()=>crypto.randomUUID();

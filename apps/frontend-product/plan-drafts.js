@@ -52,7 +52,7 @@ export function generateDraftButton(ctx,root,roleId,roleLabel){
    const generation=turn.response?.generation;
    if(!generation?.draft_id||!generation.advice?.stages?.length){status.textContent=turn.response?.answer||'No valid roadmap draft was returned. Your plan remains unchanged.';root.querySelector('[data-generated-review]').innerHTML=assistant(turn.response);exact=null;button.textContent='Request a new draft';return;}
    status.textContent='Draft generated. Review it before saving. This request is also in your Mindbot history.';button.textContent='Request a new draft';exact=null;await reviewDraft(ctx,root.querySelector('[data-generated-review]'),generation.draft_id,roleId);
-  }catch(e){if(!ctx.isCurrent())return;status.textContent=e.message+' The request was not automatically retried.';button.textContent=exact?'Retry exact draft request':'Try again';if(e.status&&e.status<500&&e.status!==409)exact=null;}
+  }catch(e){if(!ctx.isCurrent())return;status.textContent=e.message+' The request was not automatically retried.';button.textContent=exact?'Retry exact draft request':'Try again';if(e.status&&e.status<500){exact=null;button.textContent='Review and request a new draft';if(e.status===409)await ctx.refreshProfile();}}
   finally{pending=false;if(ctx.isCurrent())button.disabled=false;}
  };
 }

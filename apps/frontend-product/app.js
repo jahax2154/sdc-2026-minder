@@ -6,8 +6,10 @@ import {minder,clearConversation,invalidateConversation} from './pages/minder.js
 import {mindbots} from './pages/mindbots.js';
 import {careers} from './pages/careers.js';
 import {myPath} from './pages/my-path.js';
+import {initials} from './pages/profile-design.js';
 let view=document.querySelector('#view'),generation=0,routeController=null,activeContext=null,navigationPending=false;
 let selectedRole=sessionStorage.getItem('minder-product-role')||'';
+function setAccountName(name=''){document.querySelector('.account-name').textContent=name||'Your workspace';document.querySelectorAll('.initials').forEach(el=>{el.textContent=initials(name);el.title=name||'Your workspace';});}
 const labels={overview:'Overview',profile:'My profile',minder:'Minder Chat',mindbots:'MindBot','career-match':'Career Match',tasks:'Tasks',progress:'Progress',roadmap:'Roadmap & Skills',news:'News & Trends',future:'Future Explorer'};
 async function render(){
   if(!authenticated())return showSignIn();
@@ -19,10 +21,10 @@ async function render(){
   document.querySelectorAll('.nav-link').forEach(a=>{const active=(a.hash||'').split('/')[0]==='#'+page;a.classList.toggle('active',active);a.setAttribute('aria-current',active?'page':'false');});
   const ctx={routeHash:location.hash,view:stage,signal:routeController.signal,profile:null,profileStatus:'loading',profileError:null,render,isCurrent:()=>current===generation&&!ctx.authFailed};
   Object.defineProperty(ctx,'selectedRole',{get:()=>selectedRole,set:value=>{selectedRole=value;sessionStorage.setItem('minder-product-role',value);}});
-  ctx.failAuth=error=>{if(current!==generation||ctx.authFailed)return;ctx.authFailed=true;invalidateConversation();ctx.profile=null;routeController.abort();document.querySelector('.account-name').textContent='Your workspace';document.querySelector('#proposalBadge').hidden=true;stage.innerHTML=card('Session unavailable','<p>Your session could not be authorized. No saved workspace information is shown.</p><button id="retryView">Reload workspace</button>');stage.setAttribute('aria-busy','false');stage.dataset.rendered=page;document.querySelector('#retryView').onclick=render;showError(error);};
+  ctx.failAuth=error=>{if(current!==generation||ctx.authFailed)return;ctx.authFailed=true;invalidateConversation();ctx.profile=null;routeController.abort();setAccountName();document.querySelector('#proposalBadge').hidden=true;stage.innerHTML=card('Session unavailable','<p>Your session could not be authorized. No saved workspace information is shown.</p><button id="retryView">Reload workspace</button>');stage.setAttribute('aria-busy','false');stage.dataset.rendered=page;document.querySelector('#retryView').onclick=render;showError(error);};
   if(['careers','my-path'].includes(page)){document.querySelector('#exploreChildren').hidden=false;document.querySelector('#exploreToggle').setAttribute('aria-expanded','true');}document.querySelector('#exploreToggle').classList.toggle('active',['careers','my-path'].includes(page));
   activeContext=ctx;
-  ctx.refreshProfile=async()=>{ctx.profileStatus='loading';ctx.profileError=null;try{const profile=await optional('profile',{signal:ctx.signal});if(!ctx.isCurrent())return null;ctx.profile=profile;ctx.profileStatus='ready';document.querySelector('.account-name').textContent=profile?.career_context?.display_name||accountName()||'Your workspace';return profile;}catch(e){if(!ctx.isCurrent()||e.code==='request_cancelled')return null;ctx.profileError=e;ctx.profileStatus='error';if([401,403].includes(e.status))ctx.failAuth(e);return null;}finally{if(ctx.isCurrent())ctx.onProfileLoaded?.();}};
+  ctx.refreshProfile=async()=>{ctx.profileStatus='loading';ctx.profileError=null;try{const profile=await optional('profile',{signal:ctx.signal});if(!ctx.isCurrent())return null;ctx.profile=profile;ctx.profileStatus='ready';setAccountName(profile?.career_context?.display_name||accountName());return profile;}catch(e){if(!ctx.isCurrent()||e.code==='request_cancelled')return null;ctx.profileError=e;ctx.profileStatus='error';if([401,403].includes(e.status))ctx.failAuth(e);return null;}finally{if(ctx.isCurrent())ctx.onProfileLoaded?.();}};
   ctx.profileReady=ctx.refreshProfile();
   stage.innerHTML='<p role="status">Loading your workspace…</p>';
   try{
@@ -33,7 +35,7 @@ async function render(){
   finally{if(ctx.isCurrent()){stage.setAttribute('aria-busy','false');stage.dataset.rendered=page;}}
 }
 window.addEventListener('minder-auth-lost',event=>{activeContext?.failAuth(event.detail);clearIdentity();showSignIn('Your session is no longer authorized. Sign in again to continue.');});
-window.addEventListener('minder-private-clear',()=>{generation++;routeController?.abort();invalidateConversation();activeContext=null;navigationPending=false;selectedRole='';window.history.replaceState(null,'','#minder');document.querySelector('#globalNewChat').hidden=true;for(const name of ['minder-product-role','minder-product-search','minder-product-document-deletes'])sessionStorage.removeItem(name);document.querySelector('#proposalBadge').hidden=true;document.querySelector('.account-name').textContent='Your workspace';document.querySelector('#accountOptions')?.setAttribute('hidden','');document.querySelector('#error').hidden=true;document.querySelector('#appToast').classList.remove('show');view.innerHTML='';});
+window.addEventListener('minder-private-clear',event=>{generation++;routeController?.abort();invalidateConversation();activeContext=null;navigationPending=false;selectedRole='';if(!event.detail?.preserveRoute)window.history.replaceState(null,'','#minder');document.querySelector('#globalNewChat').hidden=true;for(const name of ['minder-product-role','minder-product-search','minder-product-document-deletes'])sessionStorage.removeItem(name);document.querySelector('#proposalBadge').hidden=true;setAccountName();document.querySelector('#accountOptions')?.setAttribute('hidden','');document.querySelector('#error').hidden=true;document.querySelector('#appToast').classList.remove('show');view.innerHTML='';});
 window.addEventListener('minder-auth-changed',()=>start());
 window.addEventListener('minder-signed-out',()=>showSignIn('You have signed out.'));
 const menu=document.createElement('button');menu.className='icon-button mobile-menu';menu.ariaLabel='Open navigation';menu.setAttribute('aria-controls','workspaceNav');menu.setAttribute('aria-expanded','false');menu.innerHTML=svg('grid');document.querySelector('.breadcrumb').prepend(menu);
@@ -55,19 +57,20 @@ accountOptions.querySelector('a').onclick=()=>{accountOptions.hidden=true;};
 document.querySelector('#signOut').onclick=async event=>{const button=event.currentTarget;button.disabled=true;try{await signOut();}catch(e){showSignIn('Your private workspace is cleared. The sign-out service could not confirm logout; retry sign-out.');showError(e);}finally{button.disabled=false;}};
 document.addEventListener('keydown',event=>{if(event.key==='Escape')accountOptions.hidden=true;});
 window.addEventListener('minder-refresh',render);
+window.addEventListener('minder-profile-saved',event=>setAccountName(event.detail));
 window.addEventListener('hashchange',()=>{setNavigation(false);if(authenticated())render();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('mobile-open')){setNavigation(false);menu.focus();}});
 let toastTimer;window.addEventListener('minder-saved',event=>{const toast=document.querySelector('#appToast');toast.textContent=event.detail;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3500);});
 hydrateIcons();
-let authStarting=false;
+let authStarting=false,authQueued=false;
 function showSignIn(message='Sign in to your private Minder workspace.'){
  view.innerHTML=`<section class="auth-gate"><h1>Welcome to Minder</h1><p>${esc(message)}</p><div id="managedSignIn"></div><button type="button" class="button-outline" id="retrySignIn">${authMode()==='local'?'Open local demonstration':'Retry sign-in service'}</button></section>`;
  document.querySelector('#retrySignIn').onclick=start;
  if(authMode()==='managed'){try{mountSignIn(document.querySelector('#managedSignIn'));}catch(e){document.querySelector('#managedSignIn').textContent=e.message;}}
 }
 async function start(){
- if(authStarting)return;authStarting=true;view.innerHTML=card('Opening your workspace','<p role="status">Connecting…</p>');
+ if(authStarting){authQueued=true;return;}authStarting=true;setAccountName();view.innerHTML=card('Opening your workspace','<p role="status">Connecting…</p>');
  try{const ready=await initializeAuth();if(!ready){showSignIn();return;}document.querySelector('.account-sub').textContent=authMode()==='local'?'Local demonstration':'Private account';await render();}
- catch(e){showSignIn(e.message);showError(e);}finally{authStarting=false;}
+ catch(e){if(e.code!=='request_cancelled'){showSignIn(e.message);showError(e);}}finally{authStarting=false;if(authQueued){authQueued=false;queueMicrotask(start);}}
 }
 await start();

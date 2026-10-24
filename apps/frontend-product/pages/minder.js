@@ -18,7 +18,7 @@ export async function minder(ctx,conversationId='') {
   if(ctx.chatDraft){state.draft=ctx.chatDraft;delete ctx.chatDraft;}input.value=state.draft;
   const mounted=()=>ctx.isCurrent()&&ctx.view.querySelector('#minderThread')===thread;
   const toolbar=document.createElement('div');toolbar.className='chat-history-toolbar';toolbar.innerHTML='<label for="minderConversationList">Saved conversations</label><select id="minderConversationList" aria-label="Saved Minder conversations"><option value="">New conversation</option></select><button type="button" class="button-outline" id="deleteMinderConversation" disabled>Delete</button><button type="button" class="button-outline" id="refreshMinderHistory">Refresh history</button>';ctx.view.querySelector('.content-col').prepend(toolbar);toolbar.insertAdjacentHTML('afterend','<div class="chat-history-status" id="minderHistoryStatus" role="status"></div>');
-  $('.composer-caption').textContent='Private conversation saved to your account. Plans and actions need explicit confirmation.';
+  $('.composer-caption').textContent='Your messages save to your account. Plans and actions need explicit confirmation.';
   function contextLayout(focus=false){
     if(!mounted())return;const overlay=innerWidth<=1050&&state.contextOpen;
     panel.classList.toggle('hide',!state.contextOpen);toggle.setAttribute('aria-expanded',String(state.contextOpen));
@@ -33,8 +33,8 @@ export async function minder(ctx,conversationId='') {
   function update(toEnd=false){
     if(!mounted())return;const oldTop=scroll.scrollTop,active=state.messages.length>0||state.loading||!!state.pending;
     $('#minderWelcome').classList.toggle('hide',active);$('#minderActive').classList.toggle('hide',!active);
-    thread.innerHTML=messageMarkup(state.messages)+(state.pending&&state.messages.at(-1)?.content!==state.pending.message?`<div class="user-message">${esc(state.pending.message)}</div>`:'')+(state.pending?'<div class="thinking-row" role="status"><span class="spinner"></span><span>Working…</span></div>':'');
-    $('#minderComposer button[type=submit]').disabled=!!state.pending||state.loading;input.disabled=!!state.pending||state.loading;$('#minderNewSmall').disabled=!!state.pending||state.loading;
+    thread.innerHTML=messageMarkup(state.messages)+(state.pending&&!state.pending.receiptRetry&&state.messages.at(-1)?.content!==state.pending.message?`<div class="user-message">${esc(state.pending.message)}</div>`:'')+(state.pending?'<div class="thinking-row" role="status"><span class="spinner"></span><span>Working…</span></div>':'');
+    $('#minderComposer button[type=submit]').disabled=!!state.pending||state.loading;input.disabled=!!state.pending||state.loading;input.readOnly=!!state.uncertainBody;ctx.view.querySelectorAll('[data-prompt]').forEach(b=>b.disabled=!!state.pending||!!state.uncertainBody||state.loading);$('#minderNewSmall').disabled=!!state.pending||state.loading;
     $('#cancelMinder').classList.toggle('hide',!state.pending);bindDraftReviews(ctx,thread);contextLayout();hydrateIcons(ctx.view);
     ctx.view.querySelectorAll('[data-review-question]').forEach(b=>b.onclick=()=>{state.draft=state.messages[Number(b.dataset.reviewQuestion)].question;input.value=state.draft;input.focus();});
     scroll.scrollTop=toEnd?scroll.scrollHeight:oldTop;
@@ -45,23 +45,24 @@ export async function minder(ctx,conversationId='') {
     try{
       const list=await listConversations({signal:ctx.signal});if(!mounted())return;
       $('#minderConversationList').innerHTML='<option value="">New conversation</option>'+list.map(c=>`<option value="${esc(c.conversation_id)}" ${c.conversation_id===state.conversationId?'selected':''}>${esc(c.title)}</option>`).join('');
-      if(state.conversationId){const saved=await history('minder',state.conversationId,{signal:ctx.signal});if(!mounted())return;state.messages=saved.messages;if(state.uncertainBody&&saved.messages.some((m,i)=>m.role==='user'&&m.content===state.uncertainBody.message&&saved.messages[i+1]?.role==='assistant'))state.uncertainBody=null;$('#minderHistoryStatus').textContent=saved.pending_turns.length?'An earlier request is processing or uncertain. Refresh saved history before issuing another instruction.':'';}else $('#minderHistoryStatus').textContent='';
-      $('#deleteMinderConversation').disabled=!state.conversationId;
+      if(state.conversationId){const saved=await history('minder',state.conversationId,{signal:ctx.signal});if(!mounted())return;state.messages=saved.messages;$('#minderHistoryStatus').textContent=saved.pending_turns.length?'An earlier request is processing or uncertain. Refresh saved history before issuing another instruction.':'';}else $('#minderHistoryStatus').textContent='';
+      if(state.uncertainBody){$('#minderHistoryStatus').textContent='Saved history refreshed. Retrieve the exact request outcome before sending another instruction.';addExactRetry();}$('#deleteMinderConversation').disabled=!state.conversationId;
     }catch(e){if(mounted()&&e.code!=='request_cancelled'){$('#minderHistoryStatus').textContent=e.message+' Refresh history to try again.';showError(e);}}
-    finally{if(mounted()){state.loading=false;update();}}
+    finally{if(mounted()){if(state.uncertainBody&&!$('#retryExactMinder'))addExactRetry();state.loading=false;update();}}
   }
   let createBody=null,deleteBody=null;
   $('#minderConversationList').onchange=event=>{location.hash=event.target.value?'minder/'+encodeURIComponent(event.target.value):'minder';};
   $('#refreshMinderHistory').onclick=()=>loadSaved();
   $('#deleteMinderConversation').onclick=async event=>{if(state.pending||!state.conversationId)return;if(!confirm('Delete this saved Minder conversation?'))return;const button=event.currentTarget;button.disabled=true;deleteBody??={conversation_id:state.conversationId,idempotency_key:key()};try{await deleteConversation(deleteBody);clearConversation();location.hash='minder';if(mounted())await ctx.render();}catch(e){if(mounted()){showError(e);$('#minderHistoryStatus').textContent='Deletion is not confirmed. Refresh history before another change.';}}finally{if(button.isConnected)button.disabled=false;}};
+  function addExactRetry(){const button=document.createElement('button');button.type='button';button.className='button-outline';button.id='retryExactMinder';button.textContent='Retry exact request';button.onclick=()=>{if(!state.pending&&state.uncertainBody)submit(state.uncertainBody.message,state.uncertainBody);};$('#minderHistoryStatus').append(' ',button);}
   async function send(){
     const message=input.value.trim();if(!message||state.pending||state.loading)return;
-    if(state.uncertainBody){$('#minderHistoryStatus').textContent='The earlier request outcome is uncertain. Refresh saved history or use Retry exact request below.';return;}
+    if(state.uncertainBody){$('#minderHistoryStatus').textContent='The earlier request outcome is uncertain. Retrieve its exact saved outcome before sending another instruction.';addExactRetry();return;}
     if(message.length>4000)throw new Error('Please keep your question within 4,000 characters.');
     await submit(message);
   }
   async function submit(message,exactBody=null){
-    const request={controller:new AbortController(),message};state.pending=request;state.draft='';input.value='';update(true);
+    const request={controller:new AbortController(),message,receiptRetry:!!exactBody};state.pending=request;state.draft='';input.value='';update(true);
     const abort=()=>{request.invalidated=true;request.controller.abort();};ctx.signal.addEventListener('abort',abort,{once:true});
     try{
       await ctx.profileReady;if(request.invalidated)return;if(ctx.profileError)throw new Error('Saved context could not be loaded. Retry context before sending.');
@@ -73,8 +74,8 @@ export async function minder(ctx,conversationId='') {
       else $('#minderHistoryStatus').textContent=result.turn.status==='failed'?'This request failed. Review its saved result before sending a new question.':'';
       const saved=await history('minder',state.conversationId,{signal:request.controller.signal});if(request.invalidated)return;state.messages=saved.messages;await ctx.refreshProfile();
       if(result.response?.generation)window.dispatchEvent(new Event('minder-generation-available'));
-    }catch(e){if(request.invalidated)return;state.draft=message;input.value=message;
-      if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;
+    }catch(e){if(request.invalidated)return;if(e.status===409){await ctx.refreshProfile();if(request.invalidated)return;}state.draft=message;input.value=message;
+      if(request.body&&(!e.status||e.status>=500))state.uncertainBody=request.body;else if(e.status)state.uncertainBody=null;
       $('#minderHistoryStatus').innerHTML=`${esc(e.message)} Your request was not automatically retried. ${state.uncertainBody?'<button type="button" class="button-outline" id="retryExactMinder">Retry exact request</button>':''}`;
       if($('#retryExactMinder'))$('#retryExactMinder').onclick=()=>{if(!state.pending)submit(state.uncertainBody.message,state.uncertainBody);};
     }finally{ctx.signal.removeEventListener('abort',abort);if(state.pending===request){state.pending=null;if(mounted())update(true);}}
@@ -92,4 +93,4 @@ export async function minder(ctx,conversationId='') {
   update();scroll.scrollTop=state.scrollTop;await loadSaved();
 }
 export function clearConversation(){if(state.pending)return false;state.messages.length=0;state.draft='';state.contextOpen=false;state.scrollTop=0;state.previousContext=null;state.conversationId=null;state.uncertainBody=null;state.loading=false;releaseInert();return true;}
-export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();}
+export function invalidateConversation(){if(state.pending){state.pending.invalidated=true;state.pending.controller.abort();state.pending=null;}clearConversation();renderCurrent=null;}
