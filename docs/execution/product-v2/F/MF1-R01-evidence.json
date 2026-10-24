@@ -1,0 +1,11 @@
+{
+  "fault_injection": true,
+  "provider_calls": 0,
+  "real_first_commit": true,
+  "editor_and_submit_allowed_changed_text": false,
+  "correction_requests": 2,
+  "exact_retry_same_body_and_key": true,
+  "stale_review_replayed": false,
+  "original_profile_version_preserved": true,
+  "no_mastery_inference": true
+}

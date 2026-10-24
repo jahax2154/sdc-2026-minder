@@ -88,7 +88,10 @@
       "type": "string"
     },
     "behaviour_policy_version": {
-      "const": "minder-grounding-privacy-v1"
+      "enum": [
+        "minder-grounding-privacy-v1",
+        "minder-typed-guidance-v1"
+      ]
     },
     "action_status": {
       "const": "no_mutation_requested_or_executed"
@@ -101,11 +104,15 @@
       "enum": [
         "application_guidance",
         "grounded_evidence",
-        "limited_fallback"
+        "limited_fallback",
+        "generated_guidance"
       ]
     },
     "conversation_policy_version": {
-      "const": "minder-conversation-routing-v1"
+      "enum": [
+        "minder-conversation-routing-v1",
+        "minder-typed-guidance-v1"
+      ]
     },
     "conversation_context_id": {
       "type": "string",
@@ -126,6 +133,36 @@
         "provider_invoked",
         "model"
       ]
+    },
+    "generation": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "action_result": {
+      "type": "object"
+    },
+    "action_error": {
+      "type": "object"
+    },
+    "actions": {
+      "type": "array"
+    },
+    "action_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposal_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
     }
   }
 }

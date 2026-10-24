@@ -47,7 +47,7 @@ def a_provider():
     return provider
 
 
-def application(database, *, role_ids=None, namespace='session-a', provider=None):
+def application(database, *, role_ids=None, namespace='session-a', provider=None, durable_root=None):
     # C's stdlib package lives in its owned app path in THIS worktree.
     sys.path.insert(0, str(ROOT / 'apps/backend-api'))
     from minder_app.api import Application
@@ -57,7 +57,17 @@ def application(database, *, role_ids=None, namespace='session-a', provider=None
     database = Path(database).resolve()
     if namespace not in ('session-a', 'session-d', 'session-e', 'session-f'):
         raise ValueError('unknown integration namespace')
-    if not database.is_relative_to((ROOT / 'ml/artifacts' / namespace).resolve()):
+    allowed = (ROOT / 'ml/artifacts' / namespace).resolve()
+    if durable_root is not None:
+        # Hosting uses an explicitly configured mounted root, never HTTP input.
+        configured = os.environ.get('MINDER_DATA_ROOT')
+        selected = Path(durable_root).resolve()
+        if (os.environ.get('MINDER_ENV') != 'production' or not configured
+                or selected != Path(configured).resolve() or not selected.is_dir()
+                or selected == Path('/') or selected.is_relative_to(ROOT.resolve())):
+            raise ValueError('explicit_production_durable_root_required')
+        allowed = selected
+    if not database.is_relative_to(allowed):
         raise ValueError('integration DB must be isolated under Session A artifacts' if namespace == 'session-a'
                          else 'integration DB must stay under its declared product lane artifacts')
     catalogue = OccupationalCatalogue()

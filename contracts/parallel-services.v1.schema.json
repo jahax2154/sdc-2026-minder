@@ -313,6 +313,66 @@
             }
           },
           "description": "Optional explicitly user-reported context, not competence or scoring evidence; does not select direction or mutate plans."
+        },
+        "onboarding": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Explicit user-reported onboarding metadata; no competence certification or numerical scoring effect.",
+          "properties": {
+            "stage": {
+              "enum": [
+                "studying",
+                "entering",
+                "working",
+                "changing",
+                "between",
+                "other"
+              ]
+            },
+            "objective": {
+              "enum": [
+                "fit",
+                "internship",
+                "path",
+                "future",
+                "unsure"
+              ]
+            },
+            "context": {
+              "type": "string",
+              "maxLength": 4000
+            },
+            "education_level": {
+              "type": "string",
+              "maxLength": 120
+            },
+            "institution": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "interests": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "work_areas": {
+              "type": "array",
+              "maxItems": 20,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "optional_enrichment": {
+              "type": "string",
+              "maxLength": 4000
+            }
+          }
         }
       },
       "required": [

@@ -22,13 +22,22 @@ class Application:
         self.actions = ActionExecutor(store)
         from .agents import migrate
         migrate(store)
+        from .message_orchestrator import bind
+        bind(self)
 
-    def dispatch(self, method, path, body, token, *, request_id=None):
+    def dispatch(self, method, path, body, token, *, request_id=None, request_context=None):
         if path == "/api/health" and method == "GET":
             return {"status": "ok", "integration_mode": self.services.mode}
+        from .identity_boundary import authenticated_owner, managed, public_configuration
+        if path == '/api/auth/config' and method == 'GET':
+            return public_configuration()
         if path == "/api/session" and method == "POST":
+            if managed():
+                raise AppError('managed_sign_in_required', 401)
             return self.store.session()
-        owner = self.store.authenticate(token)
+        owner = authenticated_owner(self, token, request_context)
+        if path == '/api/auth/session' and method == 'GET':
+            return dict(authenticated=True, user=dict(id=owner), mode='managed' if managed() else 'local')
         if path.startswith('/api/product/'):
             from .product_routes import dispatch
             return dispatch(self, owner, method, path, body)
@@ -159,7 +168,8 @@ class Application:
                 raise AppError("object_body_required")
             auth = environ.get("HTTP_AUTHORIZATION", "")
             token = auth[7:] if auth.startswith("Bearer ") else ""
-            result = self.dispatch(environ["REQUEST_METHOD"], environ["PATH_INFO"], body, token, request_id=rid)
+            result = self.dispatch(environ["REQUEST_METHOD"], environ["PATH_INFO"], body, token, request_id=rid,
+                request_context={'origin': environ.get('HTTP_ORIGIN')})
         except AppError as exc:
             status, result = exc.status, {"code": exc.code, "request_id": rid}
         except (ValueError, KeyError, TypeError, ValidationError):
@@ -168,7 +178,7 @@ class Application:
             status, result = 500, {"code": "internal_error", "request_id": rid}
         raw = json.dumps(result, allow_nan=False).encode()
         start_response(str(status) + " " + {200: "OK", 401: "Unauthorized", 404: "Not Found",
-            409: "Conflict", 413: "Too Large", 415: "Unsupported", 422: "Invalid", 500: "Error"}.get(status, "Error"),
+            409: "Conflict", 413: "Too Large", 415: "Unsupported", 422: "Invalid", 500: "Error", 503: "Unavailable"}.get(status, "Error"),
             [("Content-Type", "application/json"), ("Cache-Control", "no-store"),
              ("Content-Length", str(len(raw))), ("X-Content-Type-Options", "nosniff"),
              ("X-Request-ID", rid), ("Server-Timing", "application;dur=%.3f" % ((time.perf_counter()-started)*1000))])

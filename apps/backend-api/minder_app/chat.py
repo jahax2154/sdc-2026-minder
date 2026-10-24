@@ -37,6 +37,19 @@ def chat(store, services, provider, owner, message, expected_profile_version,
         selected_role_ids = named_roles or previous.get('role_ids') or None
     selections(services, selected_role_ids, selected_skill_ids)
     intent = intent_for(message, previous, named_role=bool(named_roles))
+    if app is not None:
+        from .generation import should_generate, generate, EMPIRICAL
+        generate_advice = should_generate(message, intent)
+        if selected_role_ids and message.strip().casefold().rstrip('.') in ('explain', 'explain this'):
+            generate_advice = False  # selected saved evidence explanation remains factual
+        if generate_advice:
+            history = []
+            if previous_context_id:
+                prior = store.get(owner, 'grounding', previous_context_id)
+                if prior.get('visible_answer'):
+                    history = [dict(role='assistant', content=prior['visible_answer'])]
+            return generate(app, owner, message, None if profile['version'] == 'unsaved' else profile['version'],
+                            history=history, request_id=request_id)
     scope = dict(intent=intent, role_ids=selected_role_ids or [], question_id=previous.get('question_id'))
     ledger_id = uid()
     def finish(snapshot, answer, statements, provider_result, mode, reasons):
