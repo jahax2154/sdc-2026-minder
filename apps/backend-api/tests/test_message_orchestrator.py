@@ -73,3 +73,55 @@ class IntegratedTurnTests(AppCase):
         self.assertTrue(all(t['state']=='proposed' and not t['mastery_verified'] and not t['activity_completion']
                             and not t['evidence_ids'] and t['scheduled_at'] is None for t in first['tasks']))
         self.assertFalse(self.store.list(owner,'plan'))
+
+    def test_typed_create_edit_and_reset_use_canonical_state(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn
+        from minder_ml.intelligence.app_context import CareerServices
+        plan,_=self.setup_request();owner=self.profile['profile_id']
+        self.app.services=CareerServices(roles=[dict(role_id=plan['selected_role_id'],label='Synthetic supported role',eligibility='eligible')])
+        message='Please create a task to inspect bus-delay prediction errors'
+        operation=dict(kind='create_task',task_id=None,scheduled_at=None,instruction_quote=message,
+            plan_id=plan['plan_id'],payload=dict(title='Inspect bus-delay errors',description='Inspect held-out errors.',estimated_hours=2))
+        self.app.provider=AdviceProvider(advice(operation=operation))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='create'))
+        self.assertEqual(result['action_status'],'applied')
+        saved=self.store.get(owner,'plan',plan['plan_id']);task=saved['tasks'][-1]
+        self.assertEqual(task['state'],'proposed');self.assertFalse(task['mastery_verified'])
+        message='Please edit Inspect bus-delay errors title'
+        operation=dict(kind='edit_task',task_id=task['task_id'],scheduled_at=None,instruction_quote=message,payload=dict(title='Inspect chronological errors'))
+        self.app.provider=AdviceProvider(advice(operation=operation))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='edit'))
+        self.assertEqual(result['action_status'],'applied')
+        before_evidence=self.profile['evidence']
+        for key,state in [('not-interested','not_interested'),('reset',None)]:
+            message='Please '+('reset this role preference' if state is None else 'set this role to not interested')
+            operation=dict(kind='update_preference',task_id=None,scheduled_at=None,instruction_quote=message,
+                payload=dict(entity_type='role',entity_id=plan['selected_role_id'],preference_state=state))
+            self.app.provider=AdviceProvider(advice(operation=operation))
+            result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key=key))
+            self.assertEqual(result['action_status'],'applied')
+            self.profile=self.store.get(owner,'profile',owner)
+        self.assertEqual(self.profile['evidence'],before_evidence)
+        self.assertFalse(any(p['entity_id']==plan['selected_role_id'] for p in self.profile['preferences']))
+
+    def test_goal_and_ambiguous_schedule_do_not_invent_capacity(self):
+        from test_generation import advice
+        from minder_app.message_orchestrator import turn,requested_time
+        plan,_=self.setup_request();owner=self.profile['profile_id']
+        message='Please change my goal to build reliable evaluation pipelines'
+        operation=dict(kind='change_goal',task_id=None,scheduled_at=None,instruction_quote=message,
+            payload=dict(goals='Build reliable evaluation pipelines'))
+        self.app.provider=AdviceProvider(advice(operation=operation))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='goal'))
+        self.assertEqual(result['action_status'],'applied')
+        self.profile=self.store.get(owner,'profile',owner)
+        self.assertEqual(self.profile['career_context']['goals'],'Build reliable evaluation pipelines')
+        message='Please reschedule synthetic-task tomorrow'
+        operation=dict(kind='reschedule_task',task_id='synthetic-task',scheduled_at=None,instruction_quote=message)
+        self.app.provider=AdviceProvider(advice(operation=operation))
+        result=turn(self.app,owner,'mindbot',message,[],None,dict(expected_profile_version=self.profile['version'],idempotency_key='unknown-time'))
+        self.assertEqual(result['action_status'],'not_applied');self.assertEqual(result['status'],'clarify_exact_date_time')
+        self.assertEqual(self.store.get(owner,'plan',plan['plan_id']),plan)
+        self.assertEqual(requested_time('tomorrow at 6pm','Asia/Kuala_Lumpur').hour,18)
+        self.assertIsNone(requested_time('tomorrow evening','Asia/Kuala_Lumpur'))
