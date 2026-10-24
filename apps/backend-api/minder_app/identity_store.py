@@ -26,3 +26,7 @@ def owner_for_identity(store, identity):
         db.execute("INSERT INTO app_users VALUES(?,?)", (owner, now()))
         db.execute("INSERT INTO external_identities VALUES(?,?,?)", (issuer, subject, owner))
         return owner
+
+
+# Compatibility with A's committed common identity boundary.
+resolve_owner = owner_for_identity

@@ -113,6 +113,12 @@ class DocumentLibrary:
             if not root.is_absolute() or not root.resolve().is_relative_to(uploads.resolve()):
                 raise AppError("document_storage_root_outside_lane_uploads", 500)
             storage = LocalDocumentStorage(root)
+        elif mode == "private-volume":
+            from .document_storage import PrivateVolumeDocumentStorage
+            if not getattr(store, "volume_root", None):
+                raise AppError("document_storage_requires_verified_database_volume", 500)
+            root = Path(env.get("MINDER_DOCUMENT_STORAGE_ROOT", str(Path(store.path).parent / "documents")))
+            storage = PrivateVolumeDocumentStorage(store.volume_root, root)
         elif mode != "disabled":
             raise AppError("document_storage_backend_not_configured", 500)
         return cls(store, storage, limits)
@@ -148,7 +154,8 @@ class DocumentLibrary:
         return dict(contract_version=CONTRACT_VERSION, documents=[self.public(row) for row in rows],
             limits=dict(asdict(self.limits), upload_request_bytes=self.limits.upload_request_bytes),
             storage=dict(status="available" if self.storage else "unavailable",
-                mode=getattr(self.storage, "mode", "disabled"), durable_hosting_verified=False),
+                mode=getattr(self.storage, "mode", "disabled"), durable_hosting_verified=False,
+                durability_status=getattr(self.storage, "durability_status", "local_unverified" if self.storage else "unavailable")),
             usage=dict(file_count=len(rows), stored_or_reserved_bytes=sum(row["byte_size"] for row in rows)),
             extraction=dict(supported_types=["text/plain"], max_text_bytes=65536,
                             pdf_status="unavailable", automatic_profile_apply=False))
